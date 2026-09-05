@@ -1,0 +1,485 @@
+# AP Mesh Core — Scientific Implementation Roadmap
+
+Status: ACTIVE / AUTHORITATIVE
+Last updated: 2026-09-04
+Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
+
+> This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
+
+## 1. Purpose
+
+The goal is not to refactor the legacy AP Mesh incrementally. The goal is to reconstruct the scientifically defensible technique as a clean, modern, deterministic C++23 library, with explicit contracts, reproducible experiments, numerical evidence, generated figures, and a posteriori certification.
+
+The legacy repository remains a historical/reference implementation and a source of fixtures, published behavior, previous experiments, and candidate algorithms. It is never an oracle: a disagreement with legacy behavior must be resolved against mathematics, literature, controlled experiments, and declared contracts.
+
+The implementation strategy is incremental. A later scientific stage MUST NOT be treated as qualified while a prerequisite stage remains unqualified.
+
+## 2. Permanent project rules
+
+### 2.1 Three-level decomposition rule
+
+Work is decomposed into at most three levels:
+
+1. **Scientific Stage** — a coherent scientific capability.
+2. **Investigation Problem** — one precise question inside that capability.
+3. **Executable Work Unit** — one reviewable implementation/verification action.
+
+If an executable work unit is still too large, the parent investigation problem must be split. A fourth hierarchy level is forbidden.
+
+### 2.2 Descriptive naming rule
+
+Identifiers such as `F1`, `AV2`, or `P3` are never sufficient names. A short code may exist only for ordering, but every stage, problem, artifact, branch, issue, experiment, and commit must use a descriptive action-oriented name.
+
+Examples:
+
+- `Foundation — Architecture and Scientific Reproducibility`
+- `Geometry Primitives — Certify Point and Vector Semantics`
+- `Curve Geometry — Verify Cubic Bezier Derivatives`
+- `Boundary Discretization — Enforce Parameterization-Invariant Metric Length`
+
+### 2.3 Evidence-before-closure rule
+
+A work unit may close only when its declared evidence exists. Depending on the unit, evidence may include:
+
+- mathematical reference or derivation;
+- unit tests;
+- analytic verification case;
+- numerical error table;
+- deterministic experiment manifest;
+- generated figures;
+- comparison against an independent implementation or literature result;
+- negative/adversarial test;
+- machine-readable certificate;
+- human-readable decision record.
+
+`build succeeds`, `program exits with zero`, and visual inspection alone are never sufficient scientific closure criteria.
+
+### 2.4 Mandatory end-of-stage regression rule
+
+Every Scientific Stage MUST end with a dedicated regression campaign before it can become `QUALIFIED`.
+
+The regression campaign must:
+
+- rerun all qualified evidence from the current stage;
+- rerun all relevant qualified evidence from every prerequisite stage;
+- include declared adversarial/negative fixtures;
+- compare machine-readable certificates against accepted expectations;
+- regenerate required plots/tables/images from clean inputs;
+- verify deterministic repeated execution;
+- record compiler/toolchain/platform and input hashes;
+- classify every difference as `expected`, `regression`, or `investigation_required`;
+- produce a regression report and immutable evidence manifest.
+
+A stage cannot close if its end-of-stage regression contains an unresolved regression. If a newly discovered issue invalidates a previously qualified prerequisite, that prerequisite stage is reopened and the roadmap status must reflect this.
+
+### 2.5 Literature-first rule
+
+Before implementing or changing a scientific mechanism, perform a focused literature and best-practice review. The review must identify, where applicable:
+
+- mathematical definition and assumptions;
+- accepted algorithms in geometric computing / mesh generation;
+- known failure modes and robustness requirements;
+- established error or quality metrics;
+- verification/validation methodology;
+- modern C++/software engineering guidance relevant to the implementation.
+
+References used to justify design decisions are recorded in `docs/research/REFERENCE_REGISTER.md` and linked from the corresponding stage decision document.
+
+### 2.6 Roadmap synchronization rule
+
+Every meaningful change must update at least one status entry in this roadmap. A stage-closing change must also update:
+
+- the roadmap status;
+- the stage decision/closure document;
+- the experiment/evidence index;
+- the end-of-stage regression report;
+- retained limitations/blockers.
+
+This is intended to make the repository self-sufficient for continuation in a new work session without relying on historical discussion.
+
+## 3. Technology baseline
+
+The greenfield core is defined as follows unless changed by a reviewed architecture decision:
+
+- Language: **C++23**.
+- Build system: modern target-based **CMake**.
+- Initial runtime dependencies: **C++ standard library only**.
+- Third-party libraries: avoided by default; admitted only through an explicit decision demonstrating material scientific or engineering advantage over the added dependency and coupling.
+- Initial execution model: deterministic single-threaded reference implementation.
+- Parallelism: introduced only after serial behavior is certified, followed by equivalence testing.
+- Mutable global scientific state: forbidden.
+- Scientific failures: explicit typed results, preferentially `std::expected`.
+- Geometry/topology identity: explicit typed IDs; never inferred from coordinates.
+- Scientific model after validation: immutable.
+- Core algorithms: no file I/O, logging side effects, GUI, or implicit environment dependence.
+- Numeric tolerances: explicit and contextual; no universal global epsilon.
+- Every stage ends with a mandatory regression gate.
+
+### Local bootstrap toolchain qualification
+
+Status: `QUALIFIED` for the language/standard-library probe and clean
+GCC/Clang project bootstraps. The Architecture Contract gate remains pending.
+
+- Primary local reference: WSL Ubuntu 24.04, GCC 13.3.0, libstdc++.
+- Secondary local qualification: WSL Ubuntu 24.04, Clang 18.1.3, libc++
+  18.1.3.
+- Available build tools: CMake 3.28.3 and Ninja 1.11.1.
+- Both compilers compile and execute the declared C++23 `std::expected` probe
+  under `-Wall -Wextra -Wpedantic -Werror`.
+- GCC 13.3.0 cleanly configures and builds the initial `apmesh::core` target
+  and passes the CTest `apmesh_core.bootstrap_smoke`.
+- Clang 18.1.3 with libc++ 18.1.3 cleanly configures and builds the same target
+  and passes the same CTest smoke test.
+
+The bounded verification package is implemented. Focused development checks
+pass for GCC 13/libstdc++ and Clang 18/libc++ in Debug, including the three
+bootstrap CTest contracts and standalone external-consumer builds. The formal
+four-cell regression remains pending and has not been launched.
+
+The evidence and limitations are recorded in
+`docs/decisions/FOUNDATION_TOOLCHAIN_BASELINE_QUALIFICATION.md`.
+The qualifications above cover local Debug smoke execution. The pre-registered
+architecture regression adds active Release checks, target isolation, external
+consumption, and repeated structured evidence. Native Windows remains NOT QUALIFIED.
+
+## 4. Repository strategy
+
+The greenfield core now has a dedicated local `apmesh-core` repository/library.
+Bootstrap contracts were migrated from the
+`research/apmesh-core-bootstrap` branch of `adaptive-patch-meshing` with source
+commit provenance.
+
+No production legacy algorithm is to be modified as part of the greenfield bootstrap unless a separate explicitly authorized legacy-maintenance task requires it.
+
+The migrated documents retain immutable source references in
+`docs/BOOTSTRAP_PROVENANCE.md`. The new local repository currently has no HEAD
+commit or remote; formal candidate qualification requires a committed clean
+revision. Remote publication is independent of local qualification.
+
+## 5. Status vocabulary
+
+- `NOT STARTED`
+- `IN INVESTIGATION`
+- `IMPLEMENTED / UNQUALIFIED`
+- `REGRESSION PENDING`
+- `QUALIFIED`
+- `BLOCKED`
+- `REOPENED`
+- `SUPERSEDED`
+
+Scientific closure and algorithmic qualification are distinct. A negative investigation result may scientifically close a question while leaving the implementation `BLOCKED` or `UNQUALIFIED`.
+
+## 6. Scientific implementation stages
+
+### Foundation — Architecture, Numerics, and Reproducibility
+
+Status: `IN INVESTIGATION`
+
+Goal: establish the project contracts required to trust subsequent scientific work.
+
+#### Architecture Contract
+
+Status: `REGRESSION PENDING` (decisions recorded; implementation incomplete)
+
+- **Define project/module boundaries** — SPECIFIED. Public/private header layout,
+  one target, package identity, consumer scope, and dependency policy are fixed
+  in the Architecture Contract. Installed distribution remains deferred.
+- **Qualify compiler and build-system baseline** — language/standard-library
+  probe and clean CMake/CTest bootstraps QUALIFIED on GCC 13.3 and Clang
+  18.1/libc++.
+- **Define data model and ownership** — SPECIFIED at architectural level: builder-owned
+  typed IDs, immutable model, explicit incidence, value/RAII lifetime, deterministic
+  allocation and serialization. Scientific types and their tests remain in their
+  later stages; no topology implementation is implied.
+- **Define API and error semantics** — SPECIFIED. Infallible operations return values;
+  real domain failures use explicit results. Bootstrap error vocabulary moves to
+  the test specimen. Numeric classification remains with Numeric Contract.
+- **Verify the bounded architecture bootstrap** — PRE-REGISTERED / NOT EXECUTED in
+  `docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`. Four compiler/build
+  configurations, twelve certificate processes, four separate consumers, all eight
+  original requirements. Implement the evidence package before running it on a
+  committed clean candidate. No additional scientific stage is introduced.
+
+#### Numeric Contract
+
+Status: `NOT STARTED`
+
+- **Define physical scale and units policy** — characteristic length, absolute/relative quantities, dimensional interpretation.
+- **Define floating-point comparison and geometric predicates policy** — equality versus proximity versus topological identity; robust predicate strategy.
+- **Define degeneracy and conditioning policy** — regularity thresholds, singular/near-singular classification, failure semantics, diagnostics.
+
+#### Reproducible Experiment Contract
+
+Status: `NOT STARTED`
+
+- **Define experiment manifest** — source revision, compiler, build flags, platform, input hashes, parameters, seeds where applicable.
+- **Define metrics and certificates** — machine-readable results, expected values, tolerances, pass/fail rules, retained limitations.
+- **Define figure/result reproducibility** — scripted tables/figures, result directory contract, clean-environment replay procedure.
+
+#### Foundation End-to-End Regression
+
+Status: `NOT STARTED`
+
+- Rebuild from a clean checkout using the declared C++23 toolchain.
+- Execute the minimal deterministic smoke experiment repeatedly.
+- Regenerate its certificate, table, and figure.
+- Verify byte-stable or semantically canonical evidence where declared.
+- Verify that no undeclared third-party runtime dependency is introduced.
+
+Stage exit gate: all three contracts reviewed; minimal C++23 library builds from a clean checkout; one deterministic smoke experiment is fully reproducible from manifest to certificate and figure; Foundation End-to-End Regression passes.
+
+### Geometry Primitives — Exact Semantics Before Curves
+
+Status: `NOT STARTED`
+
+Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
+
+#### Point and Vector Semantics
+
+- Implement and verify `Point2`, `Point3`, `Vector2`, `Vector3` semantic separation.
+- Verify arithmetic, dot product, cross product, norm, normalization, finite-value handling.
+- Add analytic tests and adversarial scale tests.
+
+#### Small Linear Algebra
+
+- Implement only operations justified by current scientific need (`Mat2`, `Mat3`, small eigensystems if needed later).
+- Verify against analytic matrices and conditioning cases.
+- Reassess whether a third-party library becomes materially advantageous before expanding scope.
+
+#### Transformations and Coordinate Frames
+
+- Define transformations required by later curve/surface verification.
+- Verify invariance/equivariance properties under translation, rotation, and scale where mathematically appropriate.
+- Produce transformation regression certificates.
+
+#### Geometry Primitives Regression
+
+- Rerun all primitive analytic tests across the declared scale envelope.
+- Rerun Foundation regression.
+- Regenerate numeric error summaries and transformation figures.
+- Verify deterministic results and no change in accepted semantics.
+
+Stage exit gate: primitive operations are analytically verified across the declared scale envelope, have no topology semantics, and Geometry Primitives Regression passes.
+
+### Topological Model — Explicit Identity and Incidence
+
+Status: `NOT STARTED`
+
+Goal: represent the patch complex without inferring topology from geometry.
+
+#### Vertex and Edge Identity
+
+- Define strong `VertexId`, `EdgeId`, `CurveId`, `PatchId`, `SurfaceId` types.
+- Establish that coincident coordinates do not imply shared identity.
+- Add adversarial coincident-but-disconnected tests.
+
+#### Edge Use and Orientation
+
+- Define explicit edge uses/coedges and forward/reverse orientation.
+- Verify manifold seams, reversed seams, and non-manifold fans.
+- Reject contradictory or incomplete incidence before model construction.
+
+#### Immutable Validated Model
+
+- Implement mutable `ModelBuilder` followed by validation/finalization into immutable `Model`.
+- Define complete side-coverage and incidence consistency rules.
+- Produce canonical deterministic topology serialization/hash for experiments.
+
+#### Topological Model Regression
+
+- Rerun all topology fixtures including coincident-disconnected, reversed seam, manifold seam, and non-manifold fan.
+- Rerun Foundation and Geometry Primitives regressions.
+- Regenerate topology/incidence figures and canonical certificates.
+- Verify that no coordinate proximity changes topological identity.
+
+Stage exit gate: canonical synthetic models reproduce declared topology exactly without coordinate-based welding, and Topological Model Regression passes.
+
+### Curve Representation — Continuous Geometry Before Discretization
+
+Status: `NOT STARTED`
+
+Goal: certify continuous curve representation independent of meshing.
+
+#### Cubic Bezier Evaluation
+
+- Implement cubic Bezier evaluation from the mathematical definition.
+- Verify endpoint, affine-invariance, reversal, and analytic fixture properties.
+- Compare against independent high-precision/reference evaluation.
+
+#### Curve Derivatives and Regularity
+
+- Implement first and second derivatives.
+- Define and detect regularity/zero-speed conditions.
+- Verify line, near-line, inflection, localized-curvature, and degenerate cases.
+
+#### Arc Length and Parameter Mapping
+
+- Select an error-controlled integration strategy after literature review.
+- Return value plus convergence/error diagnostics rather than a naked scalar.
+- Verify against line and analytic arc references and under reparameterization stress.
+
+#### Continuous Curve Geometry Regression
+
+- Rerun all curve analytic/reference fixtures.
+- Rerun all prerequisite regressions.
+- Regenerate curve, derivative, speed, and arc-length error figures.
+- Verify reversal and admitted reparameterization invariants.
+
+Stage exit gate: continuous curve geometry is qualified before any adaptive sampling is introduced, and Continuous Curve Geometry Regression passes.
+
+### Curve Differential Geometry — Curvature, Regularity, and Features
+
+Status: `NOT STARTED`
+
+Goal: certify intrinsic curve differential quantities used by boundary discretization.
+
+Investigation problems will cover curvature definition/evaluation, regularity, feature classification, and scale robustness. Detailed executable work units will be defined only after Continuous Curve Geometry is qualified.
+
+Mandatory stage regression: rerun all curve-differential fixtures plus every prerequisite regression and regenerate curvature/reference figures before qualification.
+
+### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
+
+Status: `NOT STARTED`
+
+Goal: generate a canonical shared physical trace satisfying declared geometric and metric error criteria.
+
+Investigation problems will cover physical approximation error, adaptive sampling/integration, metric-length control, gradation, shared trace identity, orientation, and parameterization invariance.
+
+Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization cases, shared-orientation cases, and every prerequisite regression; regenerate trace and error figures before qualification.
+
+### Surface Representation — Continuous Patch Geometry
+
+Status: `NOT STARTED`
+
+Goal: certify continuous patch/surface evaluation before differential geometry or meshing.
+
+Investigation problems will cover Bezier/Coons representation, boundary consistency, derivatives, mapping, admissibility, and parameterization behavior.
+
+Mandatory stage regression: rerun analytic surface fixtures, boundary consistency cases, parameterization cases, and every prerequisite regression; regenerate surface/boundary figures before qualification.
+
+### Surface Differential Geometry — Metric, Normals, and Curvatures
+
+Status: `NOT STARTED`
+
+Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
+
+Mandatory stage regression: rerun plane/cylinder/sphere/paraboloid/saddle and near-degenerate admissibility fixtures, together with every prerequisite regression; regenerate field visualizations before qualification.
+
+### Physical Sizing Field — Error-Driven Isotropic Baseline
+
+Status: `NOT STARTED`
+
+Goal: derive and verify scalar physical sizing from a declared approximation-error objective rather than an unqualified curvature heuristic.
+
+Mandatory stage regression: rerun analytic error-vs-size fixtures, scale tests, localized-curvature cases, parameterization cases, and every prerequisite regression; regenerate sizing/error fields before qualification.
+
+### Shared Boundary Certification — Patch Compatibility
+
+Status: `NOT STARTED`
+
+Goal: certify topology, orientation, physical realization, trace identity, global mesh identity, and boundary-side quality across every shared edge/fan.
+
+Mandatory stage regression: rerun manifold, reversed, periodic, crease/smooth, and non-manifold fan fixtures plus every prerequisite regression; regenerate boundary compatibility figures before qualification.
+
+### Patch Interior Meshing — Constrained Triangular Baseline
+
+Status: `NOT STARTED`
+
+Goal: generate a robust deterministic triangular interior that exactly preserves certified boundaries and satisfies declared physical sizing and quality criteria.
+
+Mandatory stage regression: rerun analytic patches and all declared mesh-quality/adversarial fixtures plus every prerequisite regression; regenerate mesh, quality, and error figures before qualification.
+
+### Mesh Optimization and Projection — Preserve Certified Invariants
+
+Status: `NOT STARTED`
+
+Goal: improve mesh quality without breaking geometry, topology, boundary, sizing, or deterministic invariants.
+
+Mandatory stage regression: compare pre/post optimization certificates on all qualified fixtures and rerun every prerequisite regression before qualification.
+
+### Adaptive Meshing Loop — Error, Decision, Refinement, Acceptance
+
+Status: `NOT STARTED`
+
+Goal: connect certified geometry, sizing, meshing, error estimation, and refinement into a monotone, deterministic, diagnosable adaptive process.
+
+Mandatory stage regression: rerun convergence, non-convergence, localized-error, transition, and stop-policy fixtures plus every prerequisite regression; regenerate convergence histories before qualification.
+
+### Global Certification — Admissible Input to Certified Mesh
+
+Status: `NOT STARTED`
+
+Goal: define the end-to-end contract: for every input in the declared admissible class, return either a mesh satisfying the certificate or an explicit classified failure.
+
+Mandatory stage regression: execute the full certified fixture hierarchy, selected literature/benchmark models, deterministic repeats, scale/reparameterization variants, and all prior regression gates. This is the doctoral triangular-baseline release gate.
+
+### Parallel Equivalence — Optimize Only After Serial Certification
+
+Status: `NOT STARTED`
+
+Goal: introduce parallel execution without changing certified scientific semantics.
+
+Mandatory stage regression: serial/parallel certificate equivalence, repeated-run determinism, race/sanitizer checks, and full prerequisite regression.
+
+### Quad-Dominant Extension — Compatibility-Preserving Quadrilateral Research
+
+Status: `NOT STARTED`
+
+Goal: begin only after the triangular certified baseline is released. Detailed decomposition will be created from literature and experimental evidence at that time.
+
+### Tensor/Anisotropic Extension — Compatibility-Aware Metric Meshing
+
+Status: `NOT STARTED`
+
+Goal: begin only after the required isotropic and compatibility foundations are certified. Detailed decomposition will be created from literature and experimental evidence at that time.
+
+## 7. Evidence and documentation structure
+
+The greenfield repository should converge to this structure:
+
+```text
+docs/
+  APMESH_CORE_ROADMAP.md
+  contracts/
+  decisions/
+  research/
+    REFERENCE_REGISTER.md
+  stages/
+experiments/
+  manifests/
+  expected/
+  scripts/
+results/                 # generated / normally ignored
+  <stage>/<experiment>/
+    certificate.json
+    metrics.csv
+    figures/
+    report.md
+```
+
+Each qualified stage must have a human-readable decision document recording:
+
+- question;
+- scope and assumptions;
+- literature basis;
+- implementation revision;
+- fixtures;
+- expected and measured quantities;
+- figures;
+- regression result;
+- retained limitations;
+- decision and next admissible action.
+
+## 8. Current action
+
+Current branch: `main`.
+
+Current active investigation:
+
+**Foundation — Architecture, Numerics, and Reproducibility / Architecture Contract / Implement bounded bootstrap verification**
+
+Architecture choices and regression protocol are recorded. The next action is
+the minimal bootstrap verification/evidence implementation with focused development
+checks, followed by review and a clean committed candidate for the formal regression.
+The protocol has not run; Architecture remains REGRESSION PENDING and Foundation
+remains IN INVESTIGATION. No greenfield scientific algorithm is implemented.

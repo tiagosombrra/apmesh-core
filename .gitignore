@@ -1,0 +1,7 @@
+/build/
+/out/
+/CMakeCache.txt
+/CMakeFiles/
+__pycache__/
+/results/
+/.cache/

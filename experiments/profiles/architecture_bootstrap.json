@@ -1,0 +1,18 @@
+{
+  "protocol_version": 1,
+  "certificate_processes_per_configuration": 3,
+  "consumer_validations_per_configuration": 1,
+  "configurations": [
+    { "name": "gcc-debug", "preset": "gcc-debug", "compiler": "GCC 13", "build_type": "Debug", "standard_library": "libstdc++" },
+    { "name": "gcc-release", "preset": "gcc-release", "compiler": "GCC 13", "build_type": "Release", "standard_library": "libstdc++" },
+    { "name": "clang-debug", "preset": "clang-debug", "compiler": "Clang 18", "build_type": "Debug", "standard_library": "libc++" },
+    { "name": "clang-release", "preset": "clang-release", "compiler": "Clang 18", "build_type": "Release", "standard_library": "libc++" }
+  ],
+  "negative_fixtures": [
+    "missing_certificate",
+    "malformed_json",
+    "unsupported_schema_version",
+    "changed_component",
+    "changed_source_hash"
+  ]
+}
