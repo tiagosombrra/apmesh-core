@@ -117,8 +117,8 @@ The greenfield core is defined as follows unless changed by a reviewed architect
 
 ### Local bootstrap toolchain qualification
 
-Status: `QUALIFIED` for the language/standard-library probe and clean
-GCC/Clang project bootstraps. The Architecture Contract gate remains pending.
+Status: `QUALIFIED` for the language/standard-library probe, clean GCC/Clang
+project bootstraps, and the bounded Architecture Contract gate.
 
 - Primary local reference: WSL Ubuntu 24.04, GCC 13.3.0, libstdc++.
 - Secondary local qualification: WSL Ubuntu 24.04, Clang 18.1.3, libc++
@@ -131,16 +131,16 @@ GCC/Clang project bootstraps. The Architecture Contract gate remains pending.
 - Clang 18.1.3 with libc++ 18.1.3 cleanly configures and builds the same target
   and passes the same CTest smoke test.
 
-The bounded verification package is implemented. Focused development checks
-pass for GCC 13/libstdc++ and Clang 18/libc++ in Debug, including the three
-bootstrap CTest contracts and standalone external-consumer builds. The formal
-four-cell regression remains pending and has not been launched.
+The bounded Architecture Contract regression passed in GCC 13/libstdc++ and
+Clang 18/libc++, Debug and Release. Its final audit qualified all eight declared
+requirements, including clean scratch-directory behavior and unambiguous
+cell/repetition evidence identity.
 
 The evidence and limitations are recorded in
 `docs/decisions/FOUNDATION_TOOLCHAIN_BASELINE_QUALIFICATION.md`.
-The qualifications above cover local Debug smoke execution. The pre-registered
-architecture regression adds active Release checks, target isolation, external
-consumption, and repeated structured evidence. Native Windows remains NOT QUALIFIED.
+The qualification includes Release checks, target isolation, external
+consumption, and repeated structured evidence. Native Windows remains NOT
+QUALIFIED.
 
 ## 4. Repository strategy
 
@@ -152,9 +152,8 @@ commit provenance.
 No production legacy algorithm is to be modified as part of the greenfield bootstrap unless a separate explicitly authorized legacy-maintenance task requires it.
 
 The migrated documents retain immutable source references in
-`docs/BOOTSTRAP_PROVENANCE.md`. The new local repository currently has no HEAD
-commit or remote; formal candidate qualification requires a committed clean
-revision. Remote publication is independent of local qualification.
+`docs/BOOTSTRAP_PROVENANCE.md`. The dedicated private remote is configured, and
+formal candidates still require committed clean revisions.
 
 ## 5. Status vocabulary
 
@@ -179,7 +178,7 @@ Goal: establish the project contracts required to trust subsequent scientific wo
 
 #### Architecture Contract
 
-Status: `REGRESSION PENDING` (corrected final evidence run required)
+Status: `QUALIFIED` on WSL Ubuntu 24.04
 
 - **Define project/module boundaries** — SPECIFIED. Public/private header layout,
   one target, package identity, consumer scope, and dependency policy are fixed
@@ -194,20 +193,29 @@ Status: `REGRESSION PENDING` (corrected final evidence run required)
 - **Define API and error semantics** — SPECIFIED. Infallible operations return values;
   real domain failures use explicit results. Bootstrap error vocabulary moves to
   the test specimen. Numeric classification remains with Numeric Contract.
-- **Verify the bounded architecture bootstrap** — one four-cell execution completed
-  operationally, then audit found two evidence gaps: scratch-directory preservation
-  and report identity by cell/repetition. The corrected evidence package has focused
-  contracts; rerun the same four compiler/build configurations once on its committed
-  clean candidate before Architecture Contract closure. No additional scientific stage
-  is introduced.
+- **Verify the bounded architecture bootstrap** — QUALIFIED. The corrected
+  four-cell regression passed all eight requirements with three repetitions per
+  cell; the audited evidence is retained in
+  `docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`.
 
 #### Numeric Contract
 
-Status: `NOT STARTED`
+Status: `SPECIFIED / QUALIFICATION PENDING`
 
-- **Define physical scale and units policy** — characteristic length, absolute/relative quantities, dimensional interpretation.
-- **Define floating-point comparison and geometric predicates policy** — equality versus proximity versus topological identity; robust predicate strategy.
-- **Define degeneracy and conditioning policy** — regularity thresholds, singular/near-singular classification, failure semantics, diagnostics.
+- **Define physical scale and units policy** — SPECIFIED. Every dimensional
+  decision requires an explicit positive finite scale and operation-owned
+  absolute/relative allowances; no universal epsilon is admitted.
+- **Define floating-point comparison and geometric predicates policy** —
+  SPECIFIED. Identity, equality, proximity, predicate sign, and scientific
+  acceptance are separate relations. Robust predicate implementation remains a
+  later bounded work unit.
+- **Define degeneracy and conditioning policy** — SPECIFIED. Invalid numeric,
+  invalid policy, degenerate, ill-conditioned, and indeterminate outcomes have
+  distinct semantics.
+- **Qualify the bounded numeric primitives** — PENDING. Implement only floating
+  classification, policy validation, and scalar scale-aware proximity, then run
+  gates N0–N7 from
+  `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`.
 
 #### Reproducible Experiment Contract
 
@@ -473,14 +481,13 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current branch: `foundation/architecture-contract-regression`.
+Current branch: `foundation/numeric-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Define the bounded numeric work unit**
+**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Implement the bounded numeric primitives**
 
-Architecture choices and regression protocol are recorded, and the Architecture
-Contract is qualified on the declared WSL envelope at `238dba4`. Foundation
-remains IN INVESTIGATION at 25%; Numeric, Reproducible Experiment, and
-Foundation End-to-End contracts remain open. No greenfield scientific algorithm
-is implemented.
+The Numeric Contract and its N0–N7 qualification protocol are specified but not
+implemented or executed. Foundation remains IN INVESTIGATION at 25%; Numeric,
+Reproducible Experiment, and Foundation End-to-End gates remain open. No
+greenfield geometry or meshing algorithm is implemented.

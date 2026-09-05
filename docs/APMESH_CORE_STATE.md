@@ -1,9 +1,9 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-04
+Last updated: 2026-09-05
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: `main`
+Working branch: `foundation/numeric-contract`
 
 ## Purpose
 
@@ -46,30 +46,29 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 Current active investigation problem:
 
-**Architecture Contract**
+**Numeric Contract**
 
 Current executable work unit:
 
-**Record the qualified Architecture Contract and open the Numeric Contract**
+**Implement the bounded numeric primitives and focused analytical contracts**
 
 No greenfield meshing algorithm has been implemented yet.
 
-Architecture decisions are recorded; the Architecture Contract is QUALIFIED
-for WSL Ubuntu 24.04 at the final audited candidate.
-The three open questions (header/package layout, certificate/report boundary,
-ID allocation/canonical order) are resolved at specification level in
-`docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`.
+The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
+into `main` at `4927383`. All eight requirements passed the final audited
+four-cell protocol.
 
-The executable specification is
-`docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`, protocol 1:
-GCC/Clang x Debug/Release, three certificate processes per cell, four separate
-consumer validations, and all eight original architecture requirements. The
-first four-cell execution passed operationally, but the audit retained two
-evidence gaps: scratch-directory preservation and report identity by
-cell/repetition. The corrected launcher and comparer now have focused passing
-contracts; a single final four-cell regression remains to be prepared and run
-on their committed clean candidate. No architecture closure percentage is
-earned until that final evidence is audited.
+The Numeric Contract is now SPECIFIED with qualification pending. It separates
+topological identity, exact equality, numeric proximity, certified predicate
+sign, and scientific acceptance. It fixes explicit physical scale, contextual
+absolute/relative allowances, finite-value handling, and distinct degeneracy,
+conditioning, and indeterminate outcomes. It does not select a robust predicate
+implementation or claim geometry capability.
+
+The pre-registered N0–N7 protocol permits one small implementation slice:
+floating classification, policy validation, and scalar scale-aware proximity.
+No code or formal numeric regression has been executed yet. Foundation remains
+at 25% until that gate is implemented, executed, and audited.
 
 ## Bootstrap repository and toolchain
 
@@ -97,11 +96,10 @@ The minimal `apmesh::core` library skeleton is qualified on the GCC reference:
 - CTest discovery of one `bootstrap`-labelled test;
 - one passing `apmesh_core.bootstrap_smoke` execution.
 
-The same clean project bootstrap is qualified on Clang 18.1.3 with libc++
-18.1.3. These Debug smoke qualifications do not establish strict language mode
-on the test target, Release checking, or repeated certificate evidence. The
-the remaining Foundation contracts remain open. Native Windows remains
-NOT QUALIFIED; WSL execution does not qualify it.
+The same project bootstrap and bounded Architecture Contract regression are
+qualified on Clang 18.1.3 with libc++ 18.1.3, including Debug and Release.
+Numeric and later Foundation contracts remain open. Native Windows remains NOT
+QUALIFIED; WSL execution does not qualify it.
 
 ## Architecture direction already agreed
 
@@ -127,17 +125,19 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
-3. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-4. `docs/research/REFERENCE_REGISTER.md`
-5. `docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`.
+3. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+4. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
+5. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+6. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-1. Record and publish the audited Architecture Contract qualification.
-2. Define the bounded Numeric Contract work unit; do not claim geometry or
-   meshing capability from the Architecture evidence.
-3. Only after the Numeric Contract is specified, implement its first focused
-   value types and analytical checks.
+1. Implement only the minimal numeric vocabulary for floating classification,
+   scale/tolerance validation, and scale-aware scalar proximity.
+2. Add focused analytical and negative contracts for N0–N5; do not implement
+   geometry or robust predicates.
+3. After focused checks pass on a committed clean candidate, prepare one formal
+   N0–N7 regression without launching it implicitly.
 
 Decision progress: 3/3 previously open questions resolved. Qualification progress:
 8/8 Architecture Contract requirements qualified by the final protocol.
