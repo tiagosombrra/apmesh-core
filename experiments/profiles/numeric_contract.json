@@ -1,0 +1,11 @@
+{
+  "protocol_version": 1,
+  "repetitions_per_configuration": 3,
+  "configurations": [
+    { "name": "gcc-debug", "preset": "gcc-debug", "compiler": "GCC 13", "build_type": "Debug", "standard_library": "libstdc++" },
+    { "name": "gcc-release", "preset": "gcc-release", "compiler": "GCC 13", "build_type": "Release", "standard_library": "libstdc++" },
+    { "name": "clang-debug", "preset": "clang-debug", "compiler": "Clang 18", "build_type": "Debug", "standard_library": "libc++" },
+    { "name": "clang-release", "preset": "clang-release", "compiler": "Clang 18", "build_type": "Release", "standard_library": "libc++" }
+  ],
+  "gates": ["N0", "N1", "N2", "N3", "N4", "N5", "N6", "N7"]
+}

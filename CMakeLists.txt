@@ -44,6 +44,12 @@ add_executable(apmesh_core_bootstrap_export
 target_link_libraries(apmesh_core_bootstrap_export PRIVATE apmesh::core)
 apmesh_apply_target_defaults(apmesh_core_bootstrap_export)
 
+add_executable(apmesh_core_numeric_contract_export
+    experiments/numeric_contract_export.cpp
+)
+target_link_libraries(apmesh_core_numeric_contract_export PRIVATE apmesh::core)
+apmesh_apply_target_defaults(apmesh_core_numeric_contract_export)
+
 include(CTest)
 if(BUILD_TESTING)
     find_package(Python3 3.8 COMPONENTS Interpreter REQUIRED)
@@ -62,6 +68,16 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core_numeric_contract)
 
     add_test(NAME apmesh_core.numeric_contract COMMAND apmesh_core_numeric_contract)
+    add_test(
+        NAME apmesh_core.numeric_contract_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/numeric_contract_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_numeric_contract_export>
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/numeric_contract_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/numeric_contract.json
+            --compile-commands ${CMAKE_BINARY_DIR}/compile_commands.json
+    )
     add_test(
         NAME apmesh_core.bootstrap_export
         COMMAND
@@ -100,6 +116,7 @@ if(BUILD_TESTING)
     )
     set_tests_properties(
         apmesh_core.numeric_contract
+        apmesh_core.numeric_contract_evidence
         PROPERTIES LABELS "numeric;contract"
     )
 endif()

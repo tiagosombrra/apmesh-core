@@ -1,6 +1,6 @@
 # Foundation Numeric Contract — Bounded Qualification Protocol
 
-Status: IMPLEMENTED / FORMAL REGRESSION PENDING
+Status: EVIDENCE TOOLING IMPLEMENTED / FORMAL REGRESSION PENDING
 Last updated: 2026-09-05
 Contract: `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
 
@@ -89,7 +89,10 @@ The bounded package contains:
 
 No figure is required. A compact table and machine-readable certificate are
 sufficient for this non-spatial claim. Focused GCC 13 and Clang 18 Debug
-contracts pass; the four-cell formal regression has not been prepared or run.
+contracts pass. The report-only certificate exporter, N1 environment probe,
+profile, and semantic comparer are versioned and covered by focused contracts.
+The four-cell formal runner and its clean candidate manifest have not been
+prepared or run.
 
 ## PASS/BLOCKED decision
 

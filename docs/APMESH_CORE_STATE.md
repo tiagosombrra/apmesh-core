@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Review the focused numeric implementation before formal qualification preparation**
+**Prepare the deterministic formal N0–N7 runner without starting the regression**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -58,7 +58,7 @@ The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
 into `main` at `4927383`. All eight requirements passed the final audited
 four-cell protocol.
 
-The Numeric Contract is now SPECIFIED with qualification pending. It separates
+The Numeric Contract is now IMPLEMENTED with qualification pending. It separates
 topological identity, exact equality, numeric proximity, certified predicate
 sign, and scientific acceptance. It fixes explicit physical scale, contextual
 absolute/relative allowances, finite-value handling, and distinct degeneracy,
@@ -67,9 +67,11 @@ implementation or claim geometry capability.
 
 The pre-registered N0–N7 protocol's small implementation slice is complete:
 floating classification, policy validation, and scalar scale-aware proximity.
-Focused GCC 13 and Clang 18 Debug contracts pass. The formal four-cell N0–N7
-regression has not been prepared or executed. Foundation remains at 25% until
-that gate is executed and audited.
+Focused GCC 13 and Clang 18 Debug contracts pass. A report-only certificate
+exporter, N1 environment probe, profile, and semantic comparer are now
+available. The formal four-cell N0–N7 runner and its clean candidate manifest
+have not been prepared or executed. Foundation remains at 25% until that gate
+is executed and audited.
 
 ## Bootstrap repository and toolchain
 
@@ -133,9 +135,9 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Review and commit the minimal numeric vocabulary and focused contracts.
-2. On the committed clean candidate, prepare one formal N0–N7 regression
-   without launching it implicitly.
+1. Review and commit the report-only numeric evidence package.
+2. On the committed clean candidate, prepare a deterministic N0–N7 runner and
+   manifest without launching it implicitly.
 3. Do not implement geometry or robust predicates before the Numeric Contract
    is qualified.
 
