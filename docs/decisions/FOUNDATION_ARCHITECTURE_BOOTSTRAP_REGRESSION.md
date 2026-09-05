@@ -20,10 +20,11 @@ Numeric, Reproducible Experiment, and Foundation end-to-end gates remain open.
 
 ## Observed starting point
 
-The local repository is on `main`, has no HEAD commit and no configured remote.
-All intended source and documentation files are untracked. Earlier GCC and
-Clang Debug results are retained as local toolchain evidence, not evidence for
-this new protocol. No build or test was started to prepare this record.
+The pre-registration began before the first local commit. The formal candidate
+is now `b468676411745e13e530b08e3b44b2cb2656d661` on `main`, with a clean
+working tree and no configured remote. Earlier GCC and Clang Debug results are
+retained as local toolchain evidence, not evidence for this protocol. The
+formal four-cell regression remains unexecuted.
 
 | Evidence inspected | Observation | Consequence |
 | --- | --- | --- |
@@ -149,7 +150,9 @@ remain owned by the Reproducible Experiment Contract.
 
 Formal qualification requires a committed candidate, the committed protocol and
 expected file, a clean working tree, and recorded source/tool hashes before and
-after execution. The current unborn repository does not meet that entry gate.
+after execution. The committed candidate now meets the revision/clean-tree
+entry conditions; the launcher preflight must still record its tool and input
+hashes before execution.
 Local development checks may precede the commit but cannot close this protocol.
 Do not use the legacy bootstrap-document commit as the new core's source revision.
 No remote publication is necessary to run the local qualification.
@@ -186,16 +189,14 @@ topology, and scientific correctness remain explicitly unqualified; they are not
 represented as passed checks. Changes to this protocol require a versioned
 amendment before another run; failed evidence remains available.
 
-## Next bounded implementation
+## Versioned entrypoint
 
-Implement bootstrap verification and the minimal evidence path as one cohesive
-package: direct-value bootstrap return, test-local expected/error probe, active
-smoke checks, target-scoped settings, a separate consumer fixture,
-fixed-schema exporter, expected record, and a single standard-library experiment
-script for validation/comparison/reporting. Preserve the existing scientific
-surface. Run focused development checks after that implementation; do not start
-the formal four-cell regression automatically. Commit/publication remain separate
-actions under the current authorization.
+`tools/run_architecture_bootstrap_regression.py` is the single entrypoint for
+this protocol. Without `--execute`, it requires a clean committed candidate and
+creates only a unique external manifest and command plan. `--execute` is the
+only mode that may configure, build, or run a cell. It must be explicitly
+authorized after the launcher itself is committed. Preparing a plan never
+qualifies a requirement.
 
 ## Sources and limits
 

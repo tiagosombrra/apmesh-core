@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Review the bounded architecture bootstrap verification package before formal regression**
+**Review and commit the versioned Architecture Contract launcher before formal regression**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -72,7 +72,10 @@ of a direct value and keeps `std::expected` verification in a local test specime
 The bounded verification package is implemented and its focused development
 checks pass for GCC 13/libstdc++ and Clang 18/libc++ in Debug: three bootstrap
 CTest contracts per compiler and standalone GCC/Clang consumer builds. The
-formal four-cell regression remains pending and has not been launched. Earlier
+formal four-cell regression remains pending and has not been launched. The
+versioned launcher prepares a clean-candidate manifest and plan by default;
+its `--execute` mode remains blocked pending focused contract validation and a
+separate authorization. Earlier
 local Debug results remain limited toolchain evidence until that protocol runs
 on a committed clean candidate.
 
@@ -138,7 +141,7 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Review and commit the completed package; no geometry, ID classes, or formal
+1. Review and commit the versioned launcher; no geometry, ID classes, or formal
    regression launch.
 2. Execute protocol 1 on the clean
    candidate and decide Architecture Contract qualification from all eight checks.

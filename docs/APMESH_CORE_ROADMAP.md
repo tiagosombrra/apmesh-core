@@ -476,10 +476,12 @@ Current branch: `main`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Architecture Contract / Implement bounded bootstrap verification**
+**Foundation — Architecture, Numerics, and Reproducibility / Architecture Contract / Review and commit the versioned formal launcher**
 
-Architecture choices and regression protocol are recorded. The next action is
-the minimal bootstrap verification/evidence implementation with focused development
-checks, followed by review and a clean committed candidate for the formal regression.
+Architecture choices and regression protocol are recorded. The bootstrap
+verification package and focused Debug checks are complete. The versioned
+formal launcher is implemented but uncommitted; its focused contracts must pass
+before a clean candidate can be prepared and the four-cell regression can be
+explicitly authorized.
 The protocol has not run; Architecture remains REGRESSION PENDING and Foundation
 remains IN INVESTIGATION. No greenfield scientific algorithm is implemented.

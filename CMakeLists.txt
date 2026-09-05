@@ -72,10 +72,22 @@ if(BUILD_TESTING)
             --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/architecture_bootstrap.json
             --data-dir ${CMAKE_CURRENT_SOURCE_DIR}/tests/data/bootstrap_regression
     )
+    add_test(
+        NAME apmesh_core.architecture_bootstrap_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/architecture_bootstrap_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_architecture_bootstrap_regression.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/architecture_bootstrap.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md
+            --expected ${CMAKE_CURRENT_SOURCE_DIR}/experiments/expected/bootstrap_certificate.json
+            --comparer ${CMAKE_CURRENT_SOURCE_DIR}/tools/bootstrap_regression.py
+    )
     set_tests_properties(
         apmesh_core.bootstrap_smoke
         apmesh_core.bootstrap_export
         apmesh_core.bootstrap_tool
+        apmesh_core.architecture_bootstrap_runner
         PROPERTIES LABELS "bootstrap;contract"
     )
 endif()
