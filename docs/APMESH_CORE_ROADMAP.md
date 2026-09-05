@@ -486,11 +486,13 @@ Current branch: `foundation/numeric-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Prepare the deterministic formal N0–N7 runner**
+**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Prepare a clean revision-bound N0–N7 manifest**
 
 The Numeric Contract implementation, report-only certificate exporter, N1
-environment probe, profile, and semantic comparer have focused passing GCC/Clang
-Debug contracts. Its four-cell N0–N7 qualification regression has not been
-prepared or run. Foundation remains IN INVESTIGATION at 25%; Numeric,
+environment probe, profile, semantic comparer, and revision-bound formal runner
+have focused passing GCC/Clang Debug contracts. The runner writes only a
+`PREPARED` manifest by default and may execute only with an explicit `--execute`
+against that unchanged manifest. Its four-cell N0–N7 qualification regression
+has not been prepared or run. Foundation remains IN INVESTIGATION at 25%; Numeric,
 Reproducible Experiment, and Foundation End-to-End gates remain open. No
 greenfield geometry or meshing algorithm is implemented.

@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Prepare the deterministic formal N0–N7 runner without starting the regression**
+**Prepare a clean revision-bound N0–N7 manifest without starting the regression**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -68,10 +68,11 @@ implementation or claim geometry capability.
 The pre-registered N0–N7 protocol's small implementation slice is complete:
 floating classification, policy validation, and scalar scale-aware proximity.
 Focused GCC 13 and Clang 18 Debug contracts pass. A report-only certificate
-exporter, N1 environment probe, profile, and semantic comparer are now
-available. The formal four-cell N0–N7 runner and its clean candidate manifest
-have not been prepared or executed. Foundation remains at 25% until that gate
-is executed and audited.
+exporter, N1 environment probe, profile, semantic comparer, and formal runner
+are now available. The runner writes a revision-bound `PREPARED` manifest by
+default and cannot execute a changed candidate. The clean candidate manifest
+has not been prepared or executed. Foundation remains at 25% until that gate is
+executed and audited.
 
 ## Bootstrap repository and toolchain
 
@@ -135,9 +136,8 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Review and commit the report-only numeric evidence package.
-2. On the committed clean candidate, prepare a deterministic N0–N7 runner and
-   manifest without launching it implicitly.
+1. On the committed clean candidate, prepare a deterministic N0–N7 manifest
+   without launching it implicitly.
 3. Do not implement geometry or robust predicates before the Numeric Contract
    is qualified.
 

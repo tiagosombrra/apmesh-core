@@ -79,6 +79,17 @@ if(BUILD_TESTING)
             --compile-commands ${CMAKE_BINARY_DIR}/compile_commands.json
     )
     add_test(
+        NAME apmesh_core.numeric_contract_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/numeric_contract_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_numeric_contract_regression.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/numeric_contract.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/numeric_contract_evidence.py
+            --architecture-evidence ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md
+    )
+    add_test(
         NAME apmesh_core.bootstrap_export
         COMMAND
             ${Python3_EXECUTABLE}
@@ -117,6 +128,7 @@ if(BUILD_TESTING)
     set_tests_properties(
         apmesh_core.numeric_contract
         apmesh_core.numeric_contract_evidence
+        apmesh_core.numeric_contract_runner
         PROPERTIES LABELS "numeric;contract"
     )
 endif()

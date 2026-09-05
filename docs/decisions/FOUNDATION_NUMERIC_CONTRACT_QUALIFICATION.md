@@ -91,8 +91,10 @@ No figure is required. A compact table and machine-readable certificate are
 sufficient for this non-spatial claim. Focused GCC 13 and Clang 18 Debug
 contracts pass. The report-only certificate exporter, N1 environment probe,
 profile, and semantic comparer are versioned and covered by focused contracts.
-The four-cell formal runner and its clean candidate manifest have not been
-prepared or run.
+The versioned formal runner is covered by a focused no-execution contract. It
+writes a revision-bound `PREPARED` manifest by default and only consumes an
+unchanged clean candidate when explicitly called with `--execute`. Its clean
+candidate manifest has not been prepared or run.
 
 ## PASS/BLOCKED decision
 
