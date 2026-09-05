@@ -50,11 +50,12 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Prepare the corrected final Architecture Contract regression**
+**Record the qualified Architecture Contract and open the Numeric Contract**
 
 No greenfield meshing algorithm has been implemented yet.
 
-Architecture decisions are recorded; qualification is REGRESSION PENDING.
+Architecture decisions are recorded; the Architecture Contract is QUALIFIED
+for WSL Ubuntu 24.04 at the final audited candidate.
 The three open questions (header/package layout, certificate/report boundary,
 ID allocation/canonical order) are resolved at specification level in
 `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`.
@@ -99,7 +100,7 @@ The minimal `apmesh::core` library skeleton is qualified on the GCC reference:
 The same clean project bootstrap is qualified on Clang 18.1.3 with libc++
 18.1.3. These Debug smoke qualifications do not establish strict language mode
 on the test target, Release checking, or repeated certificate evidence. The
-remaining Architecture Contract gate remains pending. Native Windows remains
+the remaining Foundation contracts remain open. Native Windows remains
 NOT QUALIFIED; WSL execution does not qualify it.
 
 ## Architecture direction already agreed
@@ -132,15 +133,17 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Review and commit the versioned launcher; no geometry, ID classes, or formal
-   regression launch.
-2. Execute protocol 1 on the clean
-   candidate and decide Architecture Contract qualification from all eight checks.
-3. Only after Architecture Contract closure, start the Numeric Contract.
+1. Record and publish the audited Architecture Contract qualification.
+2. Define the bounded Numeric Contract work unit; do not claim geometry or
+   meshing capability from the Architecture evidence.
+3. Only after the Numeric Contract is specified, implement its first focused
+   value types and analytical checks.
 
 Decision progress: 3/3 previously open questions resolved. Qualification progress:
-0/8 requirements qualified by the new protocol (NOT RUN). Foundation remains
-IN INVESTIGATION; this documentation update closes no scientific stage.
+8/8 Architecture Contract requirements qualified by the final protocol.
+Foundation remains IN INVESTIGATION at 25% (Architecture Contract is the first
+of four Foundation gates); Numeric, Reproducible Experiment, and Foundation
+End-to-End work remain unqualified.
 
 ## Stage closure protocol
 

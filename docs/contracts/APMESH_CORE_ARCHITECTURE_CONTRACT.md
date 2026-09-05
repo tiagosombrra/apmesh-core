@@ -1,7 +1,7 @@
 # AP Mesh Core — Architecture Contract
 
-Status: DECISIONS RECORDED / REGRESSION PENDING
-Last updated: 2026-09-04
+Status: QUALIFIED / WSL UBUNTU 24.04
+Last updated: 2026-09-05
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## 1. Objective
@@ -36,7 +36,8 @@ Both compilers compiled and executed a C++23 `std::expected` probe with
 `-Wall -Wextra -Wpedantic -Werror`. Both also cleanly configure, build, and run
 the CTest smoke test for the initial `apmesh::core` target. This establishes the
 language/library and project-bootstrap paths. Public-header policy is now
-specified below; the remaining Architecture Contract gate is not yet qualified.
+specified below; the Architecture Contract regression is qualified for the
+declared WSL Ubuntu 24.04 envelope.
 
 Qualification is currently limited to WSL Ubuntu 24.04. Native Windows remains
 NOT QUALIFIED and requires a separate portability work unit before claiming
@@ -479,8 +480,9 @@ Before this Architecture Contract can close, an architecture bootstrap regressio
 7. generated result/figure can be reproduced by the experiment layer from structured core output;
 8. public headers do not depend on legacy AP Mesh headers.
 
-The contract moves from `REGRESSION PENDING` to `QUALIFIED` only after all eight
-requirements pass on a committed candidate with clean source and a closure
+The contract moved from `REGRESSION PENDING` to `QUALIFIED` after all eight
+requirements passed on committed candidate
+`238dba4c95f90406dfe30aedfc1f9cb74bc03158` with clean source and an audited closure
 record. The bounded protocol, fixed four-configuration matrix, evidence rules,
 and PASS/BLOCKED criteria are pre-registered in
 `docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`.

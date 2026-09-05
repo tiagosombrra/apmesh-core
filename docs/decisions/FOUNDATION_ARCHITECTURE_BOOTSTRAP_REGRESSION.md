@@ -1,7 +1,7 @@
 # Architecture Decisions and Bounded Bootstrap Regression
 
-Status: PRE-REGISTERED / NOT EXECUTED
-Date: 2026-09-04 (America/Fortaleza)
+Status: QUALIFIED / AUDITED
+Date: 2026-09-05 (America/Fortaleza)
 Protocol version: 1
 Authority: `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
 Current status: `docs/APMESH_CORE_STATE.md`
@@ -24,7 +24,23 @@ The pre-registration began before the first local commit. The formal candidate
 is now `b468676411745e13e530b08e3b44b2cb2656d661` on `main`, with a clean
 working tree and no configured remote. Earlier GCC and Clang Debug results are
 retained as local toolchain evidence, not evidence for this protocol. The
-formal four-cell regression remains unexecuted.
+formal four-cell regression was subsequently executed on the final committed
+candidate; this opening record remains the immutable pre-registration context.
+
+## Final qualification evidence
+
+The final candidate is `238dba4c95f90406dfe30aedfc1f9cb74bc03158` on
+`foundation/architecture-contract-regression`. The external manifest
+`apmesh-core-architecture-contract-final-20260905-110722/manifest.json` has
+SHA-256 `110babf560e9a3ffd2bf720b3f42ad330a4409c348e0209a2ea6361529867f8a`.
+All four cells passed configure, build, CTest, consumer, and certificate checks;
+all twelve certificates were byte-identical, both reports matched, five
+negative fixtures were rejected, and all twelve scratch checks recorded
+unchanged directories. The eight requirements are qualified for WSL Ubuntu
+24.04.
+
+This qualification does not cover native Windows, numeric correctness,
+geometry, topology, meshing, or the remaining Foundation contracts.
 
 | Evidence inspected | Observation | Consequence |
 | --- | --- | --- |

@@ -477,11 +477,10 @@ Current branch: `foundation/architecture-contract-regression`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Architecture Contract / Prepare the corrected final regression**
+**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Define the bounded numeric work unit**
 
-Architecture choices and regression protocol are recorded. One four-cell run
-passed operationally, but its audit retained two bounded evidence gaps. The
-corrected launcher and comparer have focused passing contracts. Commit the
-correction, prepare one clean candidate, and run the same four-cell regression
-once before Architecture Contract closure. Foundation remains IN INVESTIGATION.
-No greenfield scientific algorithm is implemented.
+Architecture choices and regression protocol are recorded, and the Architecture
+Contract is qualified on the declared WSL envelope at `238dba4`. Foundation
+remains IN INVESTIGATION at 25%; Numeric, Reproducible Experiment, and
+Foundation End-to-End contracts remain open. No greenfield scientific algorithm
+is implemented.
