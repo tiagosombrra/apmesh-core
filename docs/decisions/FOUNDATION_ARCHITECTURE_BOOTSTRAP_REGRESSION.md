@@ -1,7 +1,7 @@
 # Architecture Decisions and Bounded Bootstrap Regression
 
-Status: PRE-REGISTERED / NOT EXECUTED
-Date: 2026-09-04 (America/Fortaleza)
+Status: QUALIFIED / AUDITED
+Date: 2026-09-05 (America/Fortaleza)
 Protocol version: 1
 Authority: `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
 Current status: `docs/APMESH_CORE_STATE.md`
@@ -24,7 +24,23 @@ The pre-registration began before the first local commit. The formal candidate
 is now `b468676411745e13e530b08e3b44b2cb2656d661` on `main`, with a clean
 working tree and no configured remote. Earlier GCC and Clang Debug results are
 retained as local toolchain evidence, not evidence for this protocol. The
-formal four-cell regression remains unexecuted.
+formal four-cell regression was subsequently executed on the final committed
+candidate; this opening record remains the immutable pre-registration context.
+
+## Final qualification evidence
+
+The final candidate is `238dba4c95f90406dfe30aedfc1f9cb74bc03158` on
+`foundation/architecture-contract-regression`. The external manifest
+`apmesh-core-architecture-contract-final-20260905-110722/manifest.json` has
+SHA-256 `110babf560e9a3ffd2bf720b3f42ad330a4409c348e0209a2ea6361529867f8a`.
+All four cells passed configure, build, CTest, consumer, and certificate checks;
+all twelve certificates were byte-identical, both reports matched, five
+negative fixtures were rejected, and all twelve scratch checks recorded
+unchanged directories. The eight requirements are qualified for WSL Ubuntu
+24.04.
+
+This qualification does not cover native Windows, numeric correctness,
+geometry, topology, meshing, or the remaining Foundation contracts.
 
 | Evidence inspected | Observation | Consequence |
 | --- | --- | --- |
@@ -116,7 +132,9 @@ with constants by the exporter. Schema version belongs to the experiment layer.
 Store a reviewed expected file under `experiments/expected/`; do not generate
 the expected result from the candidate during execution. Check parsed field
 types/values and exact bytes of all twelve outputs against that file and each
-other. There are no floating-point comparisons in this protocol.
+other. Certificate report rows identify the configuration and repetition, and
+the two reports are generated in distinct initially empty report directories.
+There are no floating-point comparisons in this protocol.
 
 The comparer must reject five deterministic negative fixtures: a missing
 certificate, malformed JSON, an unsupported schema version, a changed component
@@ -137,8 +155,8 @@ roadmap phases. Before execution every row is NOT RUN.
 | 3. Declared dependencies | Inspect source includes, link commands, and runtime dependency lists; only declared compiler/C++ ABI/unwind/C/OS runtimes are present, all paths/versions recorded; no legacy, geometry kernel, or other library dependency |
 | 4. No mutable scientific globals | Focused source review of all core files and static-storage sites finds no mutable global state; record files inspected, not merely a keyword-search PASS |
 | 5. Repeated certificate | All twelve certificates match the independent expected file and each other exactly; checker negative fixtures are correctly rejected; no observed compiler/configuration effect on this fixed record |
-| 6. No core filesystem I/O | Source review covers the entire current three-file surface; core contains no I/O, logging, environment or random lookup. Smoke/consumer captures are empty on success and isolated scratch directories remain unchanged. Exporter I/O is confined to experiment layer |
-| 7. Reproducible result from core | Experiment layer regenerates a Markdown table from saved, validated certificates twice into fresh directories; tables match exactly and reflect all four cells/three repetitions. This is the generated result required by section 18; a scientific figure is not applicable to two categorical strings |
+| 6. No core filesystem I/O | Source review covers the entire current three-file surface; core contains no I/O, logging, environment or random lookup. A direct smoke process and both consumer processes execute against an initially empty scratch directory; its before/after hashes must match. Exporter I/O is confined to experiment layer |
+| 7. Reproducible result from core | Experiment layer regenerates a Markdown table from saved, validated certificates twice into fresh report directories; tables match exactly and identify all four cells/three repetitions. This is the generated result required by section 18; a scientific figure is not applicable to two categorical strings |
 | 8. Public header isolation | Header compiles as first include in each consumer; build dependency/include graph contains only declared public and standard headers; no private or legacy header path |
 
 Requirement 7 selects the existing contract's generated-result alternative.
@@ -193,10 +211,11 @@ amendment before another run; failed evidence remains available.
 
 `tools/run_architecture_bootstrap_regression.py` is the single entrypoint for
 this protocol. Without `--execute`, it requires a clean committed candidate and
-creates only a unique external manifest and command plan. `--execute` is the
-only mode that may configure, build, or run a cell. It must be explicitly
-authorized after the launcher itself is committed. Preparing a plan never
-qualifies a requirement.
+creates only a unique external manifest and command plan. `--execute` consumes
+only that existing `PREPARED` manifest after rechecking the candidate commit,
+clean tree, complete source inventory, and every input hash. It is the only mode
+that may configure, build, or run a cell. It must be explicitly authorized after
+the launcher itself is committed. Preparing a plan never qualifies a requirement.
 
 ## Sources and limits
 

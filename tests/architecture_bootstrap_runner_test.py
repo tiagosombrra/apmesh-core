@@ -72,6 +72,30 @@ def main() -> int:
             raise RuntimeError("prepare mode attempted execution")
         if manifest["candidate"]["tree_clean"] is not True or len(manifest["plan"]) != 4:
             raise RuntimeError("prepared manifest lacks candidate or cell evidence")
+        prepared_arguments = __import__("argparse").Namespace(
+            source_root=str(source), profile=arguments.profile, protocol=arguments.protocol,
+            expected=arguments.expected, comparer=arguments.comparer, output_root=str(prepared),
+        )
+        loaded_root, loaded_manifest = runner.load_prepared(prepared_arguments)
+        if loaded_root != prepared.resolve() or loaded_manifest != manifest:
+            raise RuntimeError("prepared manifest cannot be consumed unchanged")
+        scratch = temporary_root / "scratch"
+        scratch.mkdir()
+        clean_record = runner.command_result_with_scratch_check(
+            [sys.executable, "-c", "pass"], cwd=scratch, timeout=5, root=temporary_root,
+            name="scratch-clean", scratch=scratch,
+        )
+        if not clean_record["scratch"]["unchanged"]:
+            raise RuntimeError("unchanged scratch was not recorded")
+        try:
+            runner.command_result_with_scratch_check(
+                [sys.executable, "-c", "from pathlib import Path; Path('unexpected.txt').write_text('x')"],
+                cwd=scratch, timeout=5, root=temporary_root, name="scratch-mutating", scratch=scratch,
+            )
+        except runner.EvidenceError:
+            pass
+        else:
+            raise RuntimeError("scratch mutation was accepted")
     return 0
 
 

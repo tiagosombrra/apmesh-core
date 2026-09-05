@@ -139,11 +139,11 @@ def command_compare(arguments: argparse.Namespace) -> int:
     for certificate in arguments.certificate:
         path = pathlib.Path(certificate)
         raw = validate_certificate(expected_path, path)
-        rows.append((path.name, hashlib.sha256(raw).hexdigest()))
+        rows.append((f"{path.parent.name}/{path.name}", hashlib.sha256(raw).hexdigest()))
     lines = [
         "# Architecture Bootstrap Certificate Report",
         "",
-        "| Certificate | SHA-256 | Result |",
+        "| Cell / certificate | SHA-256 | Result |",
         "| --- | --- | --- |",
     ]
     lines.extend(f"| {name} | `{digest}` | PASS |" for name, digest in rows)
