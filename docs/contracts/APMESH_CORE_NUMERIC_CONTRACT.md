@@ -1,6 +1,6 @@
 # AP Mesh Core — Numeric Contract
 
-Status: SPECIFIED / QUALIFICATION PENDING
+Status: IMPLEMENTED / QUALIFICATION PENDING
 Last updated: 2026-09-05
 Scope: Foundation numeric policy before geometry implementation
 
@@ -159,13 +159,13 @@ an operation-specific error analysis.
 
 ## 9. API and state obligations
 
-The first implementation may introduce only the smallest vocabulary needed for:
+The first implementation introduces only the smallest vocabulary needed for:
 
 - floating classification;
 - validation of scale and proximity policy;
 - scale-aware scalar proximity with structured failure.
 
-It must use value semantics, immutable inputs, and explicit results. It must not
+It uses value semantics, immutable inputs, and explicit results. It does not
 introduce mutable global numeric state, geometry types, predicate algorithms,
 I/O, logging, environment lookup, or fixture-specific constants.
 
@@ -204,8 +204,10 @@ The regression produces a manifest, machine-readable certificate, and compact
 table. No spatial figure is required because this gate makes no spatial claim.
 Unexpected differences are `INVESTIGATION_REQUIRED`, not automatically accepted.
 
-Passing N0–N7 advances Foundation from 25% to 50%. Merely writing this contract,
-implementing code, or passing focused development tests does not.
+Focused GCC/Clang Debug development checks cover the minimal implementation but
+are not N0–N7 qualification evidence. Passing N0–N7 advances Foundation from
+25% to 50%. Merely writing this contract, implementing code, or passing focused
+development tests does not.
 
 ## 12. Retained limitations
 

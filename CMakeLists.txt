@@ -17,6 +17,7 @@ endfunction()
 
 add_library(apmesh_core STATIC
     src/core/bootstrap.cpp
+    src/core/numeric.cpp
 )
 add_library(apmesh::core ALIAS apmesh_core)
 
@@ -54,6 +55,13 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core_bootstrap_smoke)
 
     add_test(NAME apmesh_core.bootstrap_smoke COMMAND apmesh_core_bootstrap_smoke)
+    add_executable(apmesh_core_numeric_contract
+        tests/numeric_contract.cpp
+    )
+    target_link_libraries(apmesh_core_numeric_contract PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core_numeric_contract)
+
+    add_test(NAME apmesh_core.numeric_contract COMMAND apmesh_core_numeric_contract)
     add_test(
         NAME apmesh_core.bootstrap_export
         COMMAND
@@ -89,5 +97,9 @@ if(BUILD_TESTING)
         apmesh_core.bootstrap_tool
         apmesh_core.architecture_bootstrap_runner
         PROPERTIES LABELS "bootstrap;contract"
+    )
+    set_tests_properties(
+        apmesh_core.numeric_contract
+        PROPERTIES LABELS "numeric;contract"
     )
 endif()

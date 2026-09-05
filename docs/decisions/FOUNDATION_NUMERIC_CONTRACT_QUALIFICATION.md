@@ -1,6 +1,6 @@
 # Foundation Numeric Contract — Bounded Qualification Protocol
 
-Status: PRE-REGISTERED / NOT EXECUTED
+Status: IMPLEMENTED / FORMAL REGRESSION PENDING
 Last updated: 2026-09-05
 Contract: `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
 
@@ -12,7 +12,7 @@ geometry or weakening the Architecture Contract?
 
 ## Fixed scope
 
-The candidate may implement only:
+The candidate implements only:
 
 - floating classification;
 - explicit scale/tolerance validation;
@@ -88,7 +88,8 @@ The bounded package contains:
 - retained limitations.
 
 No figure is required. A compact table and machine-readable certificate are
-sufficient for this non-spatial claim.
+sufficient for this non-spatial claim. Focused GCC 13 and Clang 18 Debug
+contracts pass; the four-cell formal regression has not been prepared or run.
 
 ## PASS/BLOCKED decision
 

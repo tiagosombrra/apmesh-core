@@ -200,7 +200,7 @@ Status: `QUALIFIED` on WSL Ubuntu 24.04
 
 #### Numeric Contract
 
-Status: `SPECIFIED / QUALIFICATION PENDING`
+Status: `IMPLEMENTED / QUALIFICATION PENDING`
 
 - **Define physical scale and units policy** — SPECIFIED. Every dimensional
   decision requires an explicit positive finite scale and operation-owned
@@ -212,9 +212,10 @@ Status: `SPECIFIED / QUALIFICATION PENDING`
 - **Define degeneracy and conditioning policy** — SPECIFIED. Invalid numeric,
   invalid policy, degenerate, ill-conditioned, and indeterminate outcomes have
   distinct semantics.
-- **Qualify the bounded numeric primitives** — PENDING. Implement only floating
-  classification, policy validation, and scalar scale-aware proximity, then run
-  gates N0–N7 from
+- **Qualify the bounded numeric primitives** — IMPLEMENTED / PENDING. Floating
+  classification, policy validation, and scalar scale-aware proximity have
+  focused passing contracts in GCC 13 and Clang 18 Debug. Run the formal N0–N7
+  gate from
   `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`.
 
 #### Reproducible Experiment Contract
@@ -485,9 +486,10 @@ Current branch: `foundation/numeric-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Implement the bounded numeric primitives**
+**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Review the focused implementation before formal qualification preparation**
 
-The Numeric Contract and its N0–N7 qualification protocol are specified but not
-implemented or executed. Foundation remains IN INVESTIGATION at 25%; Numeric,
-Reproducible Experiment, and Foundation End-to-End gates remain open. No
-greenfield geometry or meshing algorithm is implemented.
+The Numeric Contract implementation and focused GCC/Clang Debug contracts pass,
+but its four-cell N0–N7 qualification regression has not been prepared or run.
+Foundation remains IN INVESTIGATION at 25%; Numeric, Reproducible Experiment,
+and Foundation End-to-End gates remain open. No greenfield geometry or meshing
+algorithm is implemented.

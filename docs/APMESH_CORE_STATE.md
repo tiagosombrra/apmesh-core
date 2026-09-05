@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Implement the bounded numeric primitives and focused analytical contracts**
+**Review the focused numeric implementation before formal qualification preparation**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -65,10 +65,11 @@ absolute/relative allowances, finite-value handling, and distinct degeneracy,
 conditioning, and indeterminate outcomes. It does not select a robust predicate
 implementation or claim geometry capability.
 
-The pre-registered N0–N7 protocol permits one small implementation slice:
+The pre-registered N0–N7 protocol's small implementation slice is complete:
 floating classification, policy validation, and scalar scale-aware proximity.
-No code or formal numeric regression has been executed yet. Foundation remains
-at 25% until that gate is implemented, executed, and audited.
+Focused GCC 13 and Clang 18 Debug contracts pass. The formal four-cell N0–N7
+regression has not been prepared or executed. Foundation remains at 25% until
+that gate is executed and audited.
 
 ## Bootstrap repository and toolchain
 
@@ -132,12 +133,11 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Implement only the minimal numeric vocabulary for floating classification,
-   scale/tolerance validation, and scale-aware scalar proximity.
-2. Add focused analytical and negative contracts for N0–N5; do not implement
-   geometry or robust predicates.
-3. After focused checks pass on a committed clean candidate, prepare one formal
-   N0–N7 regression without launching it implicitly.
+1. Review and commit the minimal numeric vocabulary and focused contracts.
+2. On the committed clean candidate, prepare one formal N0–N7 regression
+   without launching it implicitly.
+3. Do not implement geometry or robust predicates before the Numeric Contract
+   is qualified.
 
 Decision progress: 3/3 previously open questions resolved. Qualification progress:
 8/8 Architecture Contract requirements qualified by the final protocol.
