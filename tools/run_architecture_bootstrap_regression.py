@@ -147,10 +147,47 @@ def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]
                         "clang": tool_version("clang++-18"), "pid": os.getpid(), "working_directory": str(pathlib.Path.cwd())},
         "limits_seconds": {"build": BUILD_TIMEOUT_SECONDS, "process": PROCESS_TIMEOUT_SECONDS, "overall": OVERALL_TIMEOUT_SECONDS},
         "plan": plan, "negative_fixtures": profile["negative_fixtures"], "prepared_utc": utc_now(),
-        "execution_requested": bool(arguments.execute),
+        "execution_requested": False,
     }
     write_json(output_root / "manifest.json", manifest)
     write_json(output_root / "plan.json", {"protocol_version": profile["protocol_version"], "cells": plan})
+    return output_root, manifest
+
+
+def load_prepared(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]]:
+    output_root = pathlib.Path(arguments.output_root).resolve()
+    manifest_path = output_root / "manifest.json"
+    if not manifest_path.is_file():
+        raise EvidenceError(f"prepared manifest is absent: {manifest_path}")
+    try:
+        manifest = json.loads(read_bytes(manifest_path).decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise EvidenceError(f"prepared manifest is invalid: {manifest_path}") from error
+    if not isinstance(manifest, dict) or manifest.get("state") != "PREPARED":
+        raise EvidenceError("manifest is not in PREPARED state")
+    if manifest.get("execution_requested") is not False:
+        raise EvidenceError("prepared manifest has an invalid execution request")
+    source_root = pathlib.Path(arguments.source_root).resolve()
+    revision, inventory = require_clean_candidate(source_root)
+    candidate = manifest.get("candidate")
+    if not isinstance(candidate, dict) or candidate.get("commit") != revision:
+        raise EvidenceError("prepared manifest candidate commit differs")
+    if candidate.get("source_root") != str(source_root) or candidate.get("source_inventory") != inventory:
+        raise EvidenceError("prepared manifest candidate inventory differs")
+    expected_inputs = {
+        "profile": pathlib.Path(arguments.profile).resolve(),
+        "protocol": pathlib.Path(arguments.protocol).resolve(),
+        "expected_certificate": pathlib.Path(arguments.expected).resolve(),
+        "comparer": pathlib.Path(arguments.comparer).resolve(),
+        "launcher": pathlib.Path(__file__).resolve(),
+    }
+    inputs = manifest.get("inputs")
+    if not isinstance(inputs, dict):
+        raise EvidenceError("prepared manifest inputs are absent")
+    for key, path in expected_inputs.items():
+        entry = inputs.get(key)
+        if not isinstance(entry, dict) or entry.get("path") != str(path) or entry.get("sha256") != sha256(path):
+            raise EvidenceError(f"prepared manifest input differs: {key}")
     return output_root, manifest
 
 
@@ -249,8 +286,11 @@ def parse_arguments() -> argparse.Namespace:
 def main() -> int:
     arguments = parse_arguments()
     try:
-        output_root, manifest = prepare(arguments)
-        return execute(output_root, manifest) if arguments.execute else 0
+        if arguments.execute:
+            output_root, manifest = load_prepared(arguments)
+            return execute(output_root, manifest)
+        prepare(arguments)
+        return 0
     except EvidenceError as error:
         print(error, file=sys.stderr)
         return 1

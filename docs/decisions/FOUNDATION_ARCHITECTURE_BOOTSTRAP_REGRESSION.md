@@ -193,10 +193,11 @@ amendment before another run; failed evidence remains available.
 
 `tools/run_architecture_bootstrap_regression.py` is the single entrypoint for
 this protocol. Without `--execute`, it requires a clean committed candidate and
-creates only a unique external manifest and command plan. `--execute` is the
-only mode that may configure, build, or run a cell. It must be explicitly
-authorized after the launcher itself is committed. Preparing a plan never
-qualifies a requirement.
+creates only a unique external manifest and command plan. `--execute` consumes
+only that existing `PREPARED` manifest after rechecking the candidate commit,
+clean tree, complete source inventory, and every input hash. It is the only mode
+that may configure, build, or run a cell. It must be explicitly authorized after
+the launcher itself is committed. Preparing a plan never qualifies a requirement.
 
 ## Sources and limits
 

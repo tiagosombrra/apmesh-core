@@ -74,8 +74,8 @@ checks pass for GCC 13/libstdc++ and Clang 18/libc++ in Debug: three bootstrap
 CTest contracts per compiler and standalone GCC/Clang consumer builds. The
 formal four-cell regression remains pending and has not been launched. The
 versioned launcher prepares a clean-candidate manifest and plan by default;
-its `--execute` mode remains blocked pending focused contract validation and a
-separate authorization. Earlier
+its `--execute` mode consumes only a validated `PREPARED` manifest and remains
+blocked pending focused contract validation and a separate authorization. Earlier
 local Debug results remain limited toolchain evidence until that protocol runs
 on a committed clean candidate.
 
