@@ -117,6 +117,32 @@ def command_result(command: list[str], *, cwd: pathlib.Path, timeout: int, root:
     return run(command, cwd=cwd, timeout=timeout, stdout=root / f"{name}.stdout.log", stderr=root / f"{name}.stderr.log")
 
 
+def directory_snapshot(root: pathlib.Path) -> list[dict[str, str]]:
+    if not root.is_dir():
+        raise EvidenceError(f"scratch directory is absent: {root}")
+    entries: list[dict[str, str]] = []
+    for path in sorted(root.rglob("*")):
+        if path.is_symlink() or not path.is_file():
+            raise EvidenceError(f"scratch contains an unsupported entry: {path}")
+        entries.append({"path": str(path.relative_to(root)), "sha256": sha256(path)})
+    return entries
+
+
+def command_result_with_scratch_check(command: list[str], *, cwd: pathlib.Path, timeout: int,
+                                      root: pathlib.Path, name: str, scratch: pathlib.Path) -> dict[str, Any]:
+    before = directory_snapshot(scratch)
+    record = command_result(command, cwd=cwd, timeout=timeout, root=root, name=name)
+    after = directory_snapshot(scratch)
+    record["scratch"] = {
+        "before_sha256": hashlib.sha256(canonical_bytes(before)).hexdigest(),
+        "after_sha256": hashlib.sha256(canonical_bytes(after)).hexdigest(),
+        "unchanged": before == after,
+    }
+    if before != after:
+        raise EvidenceError(f"{name} modified the scratch directory")
+    return record
+
+
 def require_success(record: dict[str, Any], context: str) -> None:
     if record["exit_code"] != 0:
         raise EvidenceError(f"{context} failed")
@@ -213,6 +239,14 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
                 require_success(record, f"{cell['name']} {stage_name}")
             build_root = cell_root / "build"
             export_path = build_root / "apmesh_core_bootstrap_export"
+            scratch_root = cell_root / "scratch"
+            scratch_root.mkdir()
+            record = command_result_with_scratch_check(
+                [str(build_root / "apmesh_core_bootstrap_smoke")], cwd=scratch_root,
+                timeout=PROCESS_TIMEOUT_SECONDS, root=cell_root, name="scratch-smoke", scratch=scratch_root,
+            )
+            cell_records.append(record)
+            require_success(record, f"{cell['name']} scratch smoke")
             certificates: list[str] = []
             for repeat in range(cell["certificate_processes"]):
                 certificate = cell_root / f"certificate-{repeat + 1}.json"
@@ -227,7 +261,14 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
             consumer_root = cell_root / "consumer"
             consumer_configure = ["cmake", "-S", str(source_root / "tests" / "consumer"), "-B", str(consumer_root), "-G", "Ninja", f"-DCMAKE_CXX_COMPILER={configuration.compiler}", f"-DAPMESH_CORE_SOURCE_DIR={source_root}", "-DBUILD_TESTING=OFF", f"-DAPMESH_USE_LIBCXX={'ON' if configuration.libcxx else 'OFF'}"]
             for stage_name, command in (("consumer-configure", consumer_configure), ("consumer-build", ["cmake", "--build", str(consumer_root), "--target", "apmesh_core_external_consumer", "apmesh_core_unrelated_target"]), ("consumer", [str(consumer_root / "apmesh_core_external_consumer")]), ("unrelated", [str(consumer_root / "apmesh_core_unrelated_target")])):
-                record = command_result(command, cwd=cell_root, timeout=BUILD_TIMEOUT_SECONDS if "build" in stage_name or "configure" in stage_name else PROCESS_TIMEOUT_SECONDS, root=cell_root, name=stage_name)
+                timeout = BUILD_TIMEOUT_SECONDS if "build" in stage_name or "configure" in stage_name else PROCESS_TIMEOUT_SECONDS
+                if stage_name in ("consumer", "unrelated"):
+                    record = command_result_with_scratch_check(
+                        command, cwd=scratch_root, timeout=timeout, root=cell_root,
+                        name=stage_name, scratch=scratch_root,
+                    )
+                else:
+                    record = command_result(command, cwd=cell_root, timeout=timeout, root=cell_root, name=stage_name)
                 cell_records.append(record)
                 require_success(record, f"{cell['name']} {stage_name}")
             compile_commands = build_root / "compile_commands.json"
@@ -237,8 +278,8 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
             records.append({"cell": cell["name"], "state": "PASS", "certificates": certificates, "records": cell_records})
 
         all_certificates = [certificate for record in records for certificate in record["certificates"]]
-        report_one = output_root / "certificate-report-one.md"
-        report_two = output_root / "certificate-report-two.md"
+        report_one = output_root / "reports" / "one" / "certificate-report.md"
+        report_two = output_root / "reports" / "two" / "certificate-report.md"
         for name, report in (("compare-one", report_one), ("compare-two", report_two)):
             record = command_result([sys.executable, comparer, "compare", "--expected", expected, *sum((["--certificate", certificate] for certificate in all_certificates), []), "--report", str(report)], cwd=output_root, timeout=PROCESS_TIMEOUT_SECONDS, root=output_root, name=name)
             require_success(record, name)

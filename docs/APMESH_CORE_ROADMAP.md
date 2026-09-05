@@ -179,7 +179,7 @@ Goal: establish the project contracts required to trust subsequent scientific wo
 
 #### Architecture Contract
 
-Status: `REGRESSION PENDING` (decisions recorded; implementation incomplete)
+Status: `REGRESSION PENDING` (corrected final evidence run required)
 
 - **Define project/module boundaries** — SPECIFIED. Public/private header layout,
   one target, package identity, consumer scope, and dependency policy are fixed
@@ -194,11 +194,12 @@ Status: `REGRESSION PENDING` (decisions recorded; implementation incomplete)
 - **Define API and error semantics** — SPECIFIED. Infallible operations return values;
   real domain failures use explicit results. Bootstrap error vocabulary moves to
   the test specimen. Numeric classification remains with Numeric Contract.
-- **Verify the bounded architecture bootstrap** — PRE-REGISTERED / NOT EXECUTED in
-  `docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`. Four compiler/build
-  configurations, twelve certificate processes, four separate consumers, all eight
-  original requirements. Implement the evidence package before running it on a
-  committed clean candidate. No additional scientific stage is introduced.
+- **Verify the bounded architecture bootstrap** — one four-cell execution completed
+  operationally, then audit found two evidence gaps: scratch-directory preservation
+  and report identity by cell/repetition. The corrected evidence package has focused
+  contracts; rerun the same four compiler/build configurations once on its committed
+  clean candidate before Architecture Contract closure. No additional scientific stage
+  is introduced.
 
 #### Numeric Contract
 
@@ -472,16 +473,15 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current branch: `main`.
+Current branch: `foundation/architecture-contract-regression`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Architecture Contract / Review and commit the versioned formal launcher**
+**Foundation — Architecture, Numerics, and Reproducibility / Architecture Contract / Prepare the corrected final regression**
 
-Architecture choices and regression protocol are recorded. The bootstrap
-verification package and focused Debug checks are complete. The versioned
-formal launcher is implemented but uncommitted; its focused contracts must pass
-before a clean candidate can be prepared and the four-cell regression can be
-explicitly authorized.
-The protocol has not run; Architecture remains REGRESSION PENDING and Foundation
-remains IN INVESTIGATION. No greenfield scientific algorithm is implemented.
+Architecture choices and regression protocol are recorded. One four-cell run
+passed operationally, but its audit retained two bounded evidence gaps. The
+corrected launcher and comparer have focused passing contracts. Commit the
+correction, prepare one clean candidate, and run the same four-cell regression
+once before Architecture Contract closure. Foundation remains IN INVESTIGATION.
+No greenfield scientific algorithm is implemented.

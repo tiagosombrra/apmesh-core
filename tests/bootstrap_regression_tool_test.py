@@ -29,8 +29,12 @@ def main() -> int:
     data_directory = pathlib.Path(arguments.data_dir)
     with tempfile.TemporaryDirectory() as temporary_directory:
         root = pathlib.Path(temporary_directory)
-        actual = root / "actual.json"
+        actual = root / "cells" / "gcc-debug" / "certificate-1.json"
+        actual.parent.mkdir(parents=True)
         shutil.copyfile(expected, actual)
+        second_actual = root / "cells" / "clang-release" / "certificate-3.json"
+        second_actual.parent.mkdir(parents=True)
+        shutil.copyfile(expected, second_actual)
 
         run([sys.executable, str(tool), "validate", "--expected", str(expected), "--actual", str(actual)], 0)
         run([sys.executable, str(tool), "validate", "--expected", str(expected), "--actual", str(root / "missing.json")], 1)
@@ -106,7 +110,7 @@ def main() -> int:
                     "--certificate",
                     str(actual),
                     "--certificate",
-                    str(actual),
+                    str(second_actual),
                     "--report",
                     str(report),
                 ],
@@ -114,6 +118,9 @@ def main() -> int:
             )
         if first_report.read_bytes() != second_report.read_bytes():
             raise RuntimeError("report bytes are not deterministic")
+        report = first_report.read_text(encoding="utf-8")
+        if "gcc-debug/certificate-1.json" not in report or "clang-release/certificate-3.json" not in report:
+            raise RuntimeError("report lacks cell and repetition identity")
     return 0
 
 

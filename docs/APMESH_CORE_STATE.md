@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Review and commit the versioned Architecture Contract launcher before formal regression**
+**Prepare the corrected final Architecture Contract regression**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -62,22 +62,13 @@ ID allocation/canonical order) are resolved at specification level in
 The executable specification is
 `docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`, protocol 1:
 GCC/Clang x Debug/Release, three certificate processes per cell, four separate
-consumer validations, and all eight original architecture requirements. None
-of this new regression has run; no architecture closure percentage is earned.
-
-Current implementation gaps are active Release checks, strict language and
-target library requirements, a separate consumer, and the small certificate/report
-path. The next package also removes the unreachable bootstrap error API in favor
-of a direct value and keeps `std::expected` verification in a local test specimen.
-The bounded verification package is implemented and its focused development
-checks pass for GCC 13/libstdc++ and Clang 18/libc++ in Debug: three bootstrap
-CTest contracts per compiler and standalone GCC/Clang consumer builds. The
-formal four-cell regression remains pending and has not been launched. The
-versioned launcher prepares a clean-candidate manifest and plan by default;
-its `--execute` mode consumes only a validated `PREPARED` manifest and remains
-blocked pending focused contract validation and a separate authorization. Earlier
-local Debug results remain limited toolchain evidence until that protocol runs
-on a committed clean candidate.
+consumer validations, and all eight original architecture requirements. The
+first four-cell execution passed operationally, but the audit retained two
+evidence gaps: scratch-directory preservation and report identity by
+cell/repetition. The corrected launcher and comparer now have focused passing
+contracts; a single final four-cell regression remains to be prepared and run
+on their committed clean candidate. No architecture closure percentage is
+earned until that final evidence is audited.
 
 ## Bootstrap repository and toolchain
 

@@ -116,7 +116,9 @@ with constants by the exporter. Schema version belongs to the experiment layer.
 Store a reviewed expected file under `experiments/expected/`; do not generate
 the expected result from the candidate during execution. Check parsed field
 types/values and exact bytes of all twelve outputs against that file and each
-other. There are no floating-point comparisons in this protocol.
+other. Certificate report rows identify the configuration and repetition, and
+the two reports are generated in distinct initially empty report directories.
+There are no floating-point comparisons in this protocol.
 
 The comparer must reject five deterministic negative fixtures: a missing
 certificate, malformed JSON, an unsupported schema version, a changed component
@@ -137,8 +139,8 @@ roadmap phases. Before execution every row is NOT RUN.
 | 3. Declared dependencies | Inspect source includes, link commands, and runtime dependency lists; only declared compiler/C++ ABI/unwind/C/OS runtimes are present, all paths/versions recorded; no legacy, geometry kernel, or other library dependency |
 | 4. No mutable scientific globals | Focused source review of all core files and static-storage sites finds no mutable global state; record files inspected, not merely a keyword-search PASS |
 | 5. Repeated certificate | All twelve certificates match the independent expected file and each other exactly; checker negative fixtures are correctly rejected; no observed compiler/configuration effect on this fixed record |
-| 6. No core filesystem I/O | Source review covers the entire current three-file surface; core contains no I/O, logging, environment or random lookup. Smoke/consumer captures are empty on success and isolated scratch directories remain unchanged. Exporter I/O is confined to experiment layer |
-| 7. Reproducible result from core | Experiment layer regenerates a Markdown table from saved, validated certificates twice into fresh directories; tables match exactly and reflect all four cells/three repetitions. This is the generated result required by section 18; a scientific figure is not applicable to two categorical strings |
+| 6. No core filesystem I/O | Source review covers the entire current three-file surface; core contains no I/O, logging, environment or random lookup. A direct smoke process and both consumer processes execute against an initially empty scratch directory; its before/after hashes must match. Exporter I/O is confined to experiment layer |
+| 7. Reproducible result from core | Experiment layer regenerates a Markdown table from saved, validated certificates twice into fresh report directories; tables match exactly and identify all four cells/three repetitions. This is the generated result required by section 18; a scientific figure is not applicable to two categorical strings |
 | 8. Public header isolation | Header compiles as first include in each consumer; build dependency/include graph contains only declared public and standard headers; no private or legacy header path |
 
 Requirement 7 selects the existing contract's generated-result alternative.

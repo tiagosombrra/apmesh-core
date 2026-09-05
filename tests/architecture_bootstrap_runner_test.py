@@ -79,6 +79,23 @@ def main() -> int:
         loaded_root, loaded_manifest = runner.load_prepared(prepared_arguments)
         if loaded_root != prepared.resolve() or loaded_manifest != manifest:
             raise RuntimeError("prepared manifest cannot be consumed unchanged")
+        scratch = temporary_root / "scratch"
+        scratch.mkdir()
+        clean_record = runner.command_result_with_scratch_check(
+            [sys.executable, "-c", "pass"], cwd=scratch, timeout=5, root=temporary_root,
+            name="scratch-clean", scratch=scratch,
+        )
+        if not clean_record["scratch"]["unchanged"]:
+            raise RuntimeError("unchanged scratch was not recorded")
+        try:
+            runner.command_result_with_scratch_check(
+                [sys.executable, "-c", "from pathlib import Path; Path('unexpected.txt').write_text('x')"],
+                cwd=scratch, timeout=5, root=temporary_root, name="scratch-mutating", scratch=scratch,
+            )
+        except runner.EvidenceError:
+            pass
+        else:
+            raise RuntimeError("scratch mutation was accepted")
     return 0
 
 
