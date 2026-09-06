@@ -110,12 +110,27 @@ def required_inputs(arguments: argparse.Namespace) -> dict[str, pathlib.Path]:
         "protocol": pathlib.Path(arguments.protocol).resolve(),
         "validator": pathlib.Path(arguments.validator).resolve(),
         "architecture_evidence": pathlib.Path(arguments.architecture_evidence).resolve(),
+        "architecture_runner": pathlib.Path(arguments.architecture_runner).resolve(),
+        "architecture_profile": pathlib.Path(arguments.architecture_profile).resolve(),
+        "architecture_expected": pathlib.Path(arguments.architecture_expected).resolve(),
+        "architecture_comparer": pathlib.Path(arguments.architecture_comparer).resolve(),
         "launcher": pathlib.Path(__file__).resolve(),
     }
     for path in paths.values():
         if not path.is_file():
             raise EvidenceError(f"required input is absent: {path}")
     return paths
+
+
+def architecture_regression_commands(arguments: argparse.Namespace, output_root: pathlib.Path) -> tuple[list[str], list[str]]:
+    common = [sys.executable, str(pathlib.Path(arguments.architecture_runner).resolve()),
+              "--source-root", str(pathlib.Path(arguments.source_root).resolve()),
+              "--profile", str(pathlib.Path(arguments.architecture_profile).resolve()),
+              "--protocol", str(pathlib.Path(arguments.architecture_evidence).resolve()),
+              "--expected", str(pathlib.Path(arguments.architecture_expected).resolve()),
+              "--comparer", str(pathlib.Path(arguments.architecture_comparer).resolve()),
+              "--output-root", str(output_root / "architecture")]
+    return common, [*common, "--execute"]
 
 
 def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]]:
@@ -126,6 +141,7 @@ def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]
     inputs = required_inputs(arguments)
     profile = validate_profile(inputs["profile"])
     output_root.mkdir(parents=True)
+    architecture_prepare, architecture_execute = architecture_regression_commands(arguments, output_root)
     manifest = {
         "schema_version": 1, "protocol_version": profile["protocol_version"], "state": "PREPARED", "execution_requested": False,
         "candidate": {"commit": revision, "tree_clean": True, "source_root": str(source_root), "source_inventory": inventory},
@@ -133,7 +149,9 @@ def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]
         "environment": {"python": sys.version.splitlines()[0], "cmake": tool_version("cmake"), "ninja": tool_version("ninja"),
                         "gcc": tool_version("g++-13"), "clang": tool_version("clang++-18")},
         "limits_seconds": {"build": BUILD_TIMEOUT_SECONDS, "process": PROCESS_TIMEOUT_SECONDS, "overall": OVERALL_TIMEOUT_SECONDS},
-        "plan": command_plan(profile, source_root), "prepared_utc": utc_now(),
+        "plan": command_plan(profile, source_root),
+        "architecture_preservation_plan": {"prepare": architecture_prepare, "execute": architecture_execute},
+        "prepared_utc": utc_now(),
     }
     write_json(output_root / "manifest.json", manifest)
     write_json(output_root / "plan.json", {"protocol_version": profile["protocol_version"], "cells": manifest["plan"]})
@@ -168,11 +186,16 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
             cell_root = output_root / "cells" / cell["name"]
             cell_root.mkdir(parents=True)
             cell_records: list[dict[str, Any]] = []
-            for stage in ("configure", "build", "ctest"):
+            for stage in ("configure", "build"):
                 command = [part.replace("@OUTPUT_ROOT@", str(output_root)) for part in cell[stage]]
-                record = execute_command(command, output_root, BUILD_TIMEOUT_SECONDS if stage != "ctest" else PROCESS_TIMEOUT_SECONDS, cell_root, stage)
+                record = execute_command(command, output_root, BUILD_TIMEOUT_SECONDS, cell_root, stage)
                 cell_records.append(record)
                 require_success(record, f"{cell['name']} {stage}")
+            ctest_command = [part.replace("@OUTPUT_ROOT@", str(output_root)) for part in cell["ctest"]]
+            for repeat in range(cell["repetitions"]):
+                record = execute_command(ctest_command, output_root, PROCESS_TIMEOUT_SECONDS, cell_root, f"ctest-{repeat + 1}")
+                cell_records.append(record)
+                require_success(record, f"{cell['name']} ctest repetition {repeat + 1}")
             build_root, exporter = cell_root / "build", cell_root / "build" / "apmesh_core_numeric_contract_export"
             certificates, environments = [], []
             for repeat in range(cell["repetitions"]):
@@ -191,8 +214,24 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
         command = [sys.executable, manifest["inputs"]["validator"]["path"], "compare", *sum((["--certificate", path] for path in certificates), []), *sum((["--environment", path] for path in environments), []), "--report", str(report)]
         comparison = execute_command(command, output_root, PROCESS_TIMEOUT_SECONDS, output_root, "compare")
         require_success(comparison, "cross-cell comparison")
+        prepared_architecture, execute_architecture = architecture_regression_commands(
+            argparse.Namespace(
+                source_root=manifest["candidate"]["source_root"],
+                architecture_runner=manifest["inputs"]["architecture_runner"]["path"],
+                architecture_profile=manifest["inputs"]["architecture_profile"]["path"],
+                architecture_evidence=manifest["inputs"]["architecture_evidence"]["path"],
+                architecture_expected=manifest["inputs"]["architecture_expected"]["path"],
+                architecture_comparer=manifest["inputs"]["architecture_comparer"]["path"],
+            ), output_root)
+        architecture_prepare = execute_command(prepared_architecture, output_root, PROCESS_TIMEOUT_SECONDS, output_root, "architecture-prepare")
+        require_success(architecture_prepare, "architecture regression preparation")
+        architecture_execute = execute_command(execute_architecture, output_root, OVERALL_TIMEOUT_SECONDS, output_root, "architecture-execute")
+        require_success(architecture_execute, "architecture preservation regression")
         manifest["state"] = "EXECUTED_PENDING_AUDIT"
-        manifest["execution"] = {"started_utc": started.isoformat(timespec="seconds"), "ended_utc": utc_now(), "records": records, "comparison": comparison, "report_sha256": sha256(report)}
+        manifest["execution"] = {"started_utc": started.isoformat(timespec="seconds"), "ended_utc": utc_now(), "records": records, "comparison": comparison,
+                                 "architecture_preservation": {"prepare": architecture_prepare, "execute": architecture_execute,
+                                                                 "manifest": str(output_root / "architecture" / "manifest.json")},
+                                 "report_sha256": sha256(report)}
         manifest["gates"] = {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in ("N0", "N1", "N2", "N3", "N4", "N5", "N6", "N7")}
         write_json(output_root / "manifest.json", manifest)
         return 0
@@ -205,7 +244,7 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    for name in ("source-root", "profile", "protocol", "validator", "architecture-evidence", "output-root"):
+    for name in ("source-root", "profile", "protocol", "validator", "architecture-evidence", "architecture-runner", "architecture-profile", "architecture-expected", "architecture-comparer", "output-root"):
         parser.add_argument(f"--{name}", required=True)
     parser.add_argument("--execute", action="store_true")
     return parser.parse_args()

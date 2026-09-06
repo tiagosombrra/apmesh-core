@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <limits>
 #include <string_view>
+#include <type_traits>
 
 namespace {
 
@@ -37,6 +38,10 @@ int main() {
     using apmesh::core::ProximityPolicy;
     using apmesh::core::ProximityResult;
 
+    static_assert(!std::is_convertible_v<ProximityResult, bool>);
+    static_assert(!std::is_convertible_v<apmesh::core::ProximityEvidence, bool>);
+    static_assert(!std::is_convertible_v<apmesh::core::ProximityEvidence, double>);
+
     constexpr ProximityPolicy absolute_policy{
         .absolute_tolerance = 0.25,
         .relative_tolerance = 0.0,
@@ -67,9 +72,18 @@ int main() {
     passed = require(apmesh::core::classify_floating(1.0) == FloatingCategory::normal,
                      "finite normal was not classified as normal") &&
              passed;
+    passed = require(apmesh::core::classify_floating(-1.0) == FloatingCategory::normal &&
+                         apmesh::core::classify_floating(-std::numeric_limits<double>::denorm_min()) == FloatingCategory::subnormal &&
+                         apmesh::core::classify_floating(std::numeric_limits<double>::max()) == FloatingCategory::normal,
+                     "finite signed or extreme values were not classified") &&
+             passed;
     passed = require(apmesh::core::classify_floating(std::numeric_limits<double>::infinity()) ==
                          FloatingCategory::infinite,
                      "infinity was not classified as infinite") &&
+             passed;
+    passed = require(apmesh::core::classify_floating(-std::numeric_limits<double>::infinity()) ==
+                         FloatingCategory::infinite,
+                     "negative infinity was not classified as infinite") &&
              passed;
     passed = require(apmesh::core::classify_floating(std::numeric_limits<double>::quiet_NaN()) ==
                          FloatingCategory::not_a_number,
@@ -118,6 +132,20 @@ int main() {
                  NumericError::non_finite_policy,
                  "infinite reference scale was accepted") &&
              passed;
+    for (const auto invalid : {std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity()}) {
+        passed = require_error(
+                     apmesh::core::validate_proximity_policy(ProximityPolicy{.absolute_tolerance = invalid, .relative_tolerance = 0.0, .reference_scale = 1.0}),
+                     NumericError::non_finite_policy, "non-finite absolute tolerance was accepted") && passed;
+        passed = require_error(
+                     apmesh::core::validate_proximity_policy(ProximityPolicy{.absolute_tolerance = 0.0, .relative_tolerance = invalid, .reference_scale = 1.0}),
+                     NumericError::non_finite_policy, "non-finite relative tolerance was accepted") && passed;
+    }
+    passed = require_error(
+                 apmesh::core::validate_proximity_policy(ProximityPolicy{.absolute_tolerance = 0.0, .relative_tolerance = 0.0, .reference_scale = -1.0}),
+                 NumericError::non_positive_reference_scale, "negative reference scale was accepted") && passed;
+    passed = require_error(
+                 apmesh::core::validate_proximity_policy(ProximityPolicy{.absolute_tolerance = 0.0, .relative_tolerance = 0.0, .reference_scale = std::numeric_limits<double>::quiet_NaN()}),
+                 NumericError::non_finite_policy, "NaN reference scale was accepted") && passed;
 
     const auto exact_boundary = apmesh::core::compare_proximity(1.0, 1.25, absolute_policy);
     passed = require(exact_boundary.has_value() &&
@@ -129,6 +157,11 @@ int main() {
     passed = require(absolute_outside.has_value() && absolute_outside->result == ProximityResult::outside,
                      "absolute outside value was accepted") &&
              passed;
+    const auto adjacent_inside = apmesh::core::compare_proximity(1.0, std::nextafter(1.25, 1.0), absolute_policy);
+    const auto adjacent_outside = apmesh::core::compare_proximity(1.0, std::nextafter(1.25, 2.0), absolute_policy);
+    passed = require(adjacent_inside.has_value() && adjacent_inside->result == ProximityResult::within &&
+                         adjacent_outside.has_value() && adjacent_outside->result == ProximityResult::outside,
+                     "adjacent boundary classification differs") && passed;
     const auto relative_boundary = apmesh::core::compare_proximity(4.0, 5.0, relative_policy);
     passed = require(relative_boundary.has_value() &&
                          relative_boundary->result == ProximityResult::within &&
@@ -147,6 +180,9 @@ int main() {
                          forward->residual == reverse->residual && forward->limit == reverse->limit,
                      "proximity comparison is not symmetric") &&
              passed;
+    const auto reflexive = apmesh::core::compare_proximity(3.0, 3.0, absolute_policy);
+    passed = require(reflexive.has_value() && reflexive->result == ProximityResult::within && reflexive->residual == 0.0,
+                     "finite reflexivity was not accepted") && passed;
     const auto near_zero = apmesh::core::compare_proximity(
         0.0,
         std::numeric_limits<double>::denorm_min(),
@@ -169,6 +205,12 @@ int main() {
     passed = require(large_equal.has_value() && large_equal->result == ProximityResult::within,
                      "large finite equality was not accepted") &&
              passed;
+    const auto large_scale = apmesh::core::compare_proximity(
+        0x1p+600, 0x1.8p+600,
+        ProximityPolicy{.absolute_tolerance = 0.0, .relative_tolerance = 0.5, .reference_scale = 0x1p+600});
+    passed = require(large_scale.has_value() && large_scale->result == ProximityResult::within &&
+                         std::isfinite(large_scale->residual) && std::isfinite(large_scale->limit),
+                     "large-scale finite comparison was not accepted") && passed;
 
     const auto base_scale = apmesh::core::compare_proximity(
         3.0,
@@ -205,6 +247,11 @@ int main() {
                  NumericError::non_finite_intermediate,
                  "overflowing residual was accepted") &&
              passed;
+    passed = require_error(
+                 apmesh::core::compare_proximity(0.0, 0.0,
+                     ProximityPolicy{.absolute_tolerance = std::numeric_limits<double>::max(), .relative_tolerance = 1.0,
+                                     .reference_scale = std::numeric_limits<double>::max()}),
+                 NumericError::non_finite_intermediate, "overflowing limit was accepted") && passed;
 
     return passed ? 0 : 1;
 }

@@ -32,8 +32,9 @@ def main() -> int:
         run([sys.executable, arguments.tool, "validate-certificate", "--certificate", str(certificate)], 0)
         run([sys.executable, arguments.tool, "validate-environment", "--environment", str(environment), "--compile-commands", arguments.compile_commands], 0)
         run([sys.executable, arguments.tool, "compare", "--certificate", str(certificate), "--environment", str(environment), "--report", str(report)], 0)
-        if "Overall: PASS" not in report.read_text(encoding="utf-8"):
-            raise RuntimeError("comparison report lacks PASS")
+        report_text = report.read_text(encoding="utf-8")
+        if "Evidence comparison: PASS" not in report_text or "Qualification: PENDING SCIENTIFIC AUDIT" not in report_text:
+            raise RuntimeError("comparison report confuses evidence with qualification")
 
         changed_certificate = json.loads(certificate.read_text(encoding="utf-8"))
         changed_certificate["classification"][0]["category"] = "normal"

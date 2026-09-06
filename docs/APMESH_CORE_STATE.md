@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Diagnose the audited N2–N7 qualification blockers without changing the Numeric Contract**
+**Execute the pre-registered NQ-R1 formal regression on a clean candidate**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -58,11 +58,15 @@ The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
 into `main` at `4927383`. All eight requirements passed the final audited
 four-cell protocol.
 
-Implementation status: the bounded Numeric Contract slice remains implemented
-at revision `7827a9633e97aadcc2b2777648b02ffa7a308b8e`; this record makes no
-implementation change. It separates topological identity, exact equality,
-numeric proximity, certified predicate sign, and scientific acceptance. It does
-not select a robust predicate implementation or claim geometry capability.
+Implementation status: NQ-R1 has completed the bounded evidence-completeness
+implementation: expanded N2/N3 cases, independent N4 residual/limit oracles,
+explicit N5 separation checks, three future CTest repetitions per cell, and an
+N7 Architecture Contract preservation invocation. `numeric.cpp` and the Numeric
+Contract semantics remain unchanged. Focused GCC Debug validation passed; this
+is not formal qualification evidence. The contract still separates topological
+identity, exact equality, numeric proximity, certified predicate sign, and
+scientific acceptance. It does not select a robust predicate implementation or
+claim geometry capability.
 
 Evidence status: the revision-bound manifest at
 `C:\Users\tiago\AppData\Local\Temp\apmesh-core-numeric-contract-prepared-20260905-181000-1939d248\manifest.json`
@@ -136,8 +140,8 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Diagnose the audited N2–N7 blockers in one bounded work unit, preserving the
-   failed evidence and requiring a new clean candidate for any correction.
+1. Prepare and execute one clean, revision-bound NQ-R1 formal regression; audit
+   N0–N7 only from retained evidence.
 2. Do not implement geometry or robust predicates before the Numeric Contract
    is qualified.
 

@@ -221,6 +221,10 @@ Status: `IMPLEMENTED / QUALIFICATION BLOCKED`
   `ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`.
   This blocks scientific qualification without changing the implementation or
   claiming a numeric capability.
+- **NQ-R1 evidence-completeness recovery** — IMPLEMENTED / FORMAL REGRESSION
+  PENDING. The bounded package completes the missing test/evidence matrix for
+  N2–N5, repeats CTest for N6, and prepares N7 preservation execution. It does
+  not change `numeric.cpp`, qualify the contract, or advance Foundation.
 
 #### Reproducible Experiment Contract
 
@@ -490,11 +494,11 @@ Current branch: `foundation/numeric-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Diagnose audited N2–N7 blockers**
+**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Execute NQ-R1 formal regression**
 
-Implementation status: the Numeric Contract slice is unchanged at candidate
-`7827a9633e97aadcc2b2777648b02ffa7a308b8e`. Evidence status: the
-revision-bound manifest audited at SHA-256
+Implementation status: the original Numeric Contract behavior remains unchanged;
+NQ-R1 completes the missing evidence and future-preservation execution paths.
+Evidence status: the revision-bound manifest audited at SHA-256
 `ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`
 classified N0/N1 `PASS` and N2–N7 `BLOCKED`. Scientific qualification status:
 the Numeric Contract is `BLOCKED`, so Foundation remains IN INVESTIGATION at

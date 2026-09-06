@@ -30,6 +30,10 @@ def main() -> int:
     parser.add_argument("--protocol", required=True)
     parser.add_argument("--validator", required=True)
     parser.add_argument("--architecture-evidence", required=True)
+    parser.add_argument("--architecture-runner", required=True)
+    parser.add_argument("--architecture-profile", required=True)
+    parser.add_argument("--architecture-expected", required=True)
+    parser.add_argument("--architecture-comparer", required=True)
     arguments = parser.parse_args()
     runner_path = pathlib.Path(arguments.runner)
     runner = load_runner(runner_path)
@@ -37,7 +41,7 @@ def main() -> int:
     plan = runner.command_plan(profile, pathlib.Path("/source"))
     if [cell["name"] for cell in plan] != ["gcc-debug", "gcc-release", "clang-debug", "clang-release"]:
         raise RuntimeError("numeric configuration plan differs")
-    if any(cell["repetitions"] != 3 or "@OUTPUT_ROOT@" not in " ".join(cell["configure"]) for cell in plan):
+    if any(cell["repetitions"] != 3 or "@OUTPUT_ROOT@" not in " ".join(cell["configure"]) or "-L" not in cell["ctest"] for cell in plan):
         raise RuntimeError("numeric plan repetition or isolation differs")
     with tempfile.TemporaryDirectory() as temporary_directory:
         root = pathlib.Path(temporary_directory)
@@ -49,7 +53,9 @@ def main() -> int:
                         ["git", "commit", "-m", "candidate"]):
             subprocess.run(command, cwd=candidate, check=True, capture_output=True)
         common = ["--source-root", str(candidate), "--profile", arguments.profile, "--protocol", arguments.protocol,
-                  "--validator", arguments.validator, "--architecture-evidence", arguments.architecture_evidence]
+                  "--validator", arguments.validator, "--architecture-evidence", arguments.architecture_evidence,
+                  "--architecture-runner", arguments.architecture_runner, "--architecture-profile", arguments.architecture_profile,
+                  "--architecture-expected", arguments.architecture_expected, "--architecture-comparer", arguments.architecture_comparer]
         occupied = root / "occupied"
         occupied.mkdir()
         rejected = subprocess.run([sys.executable, str(runner_path), *common, "--output-root", str(occupied)], check=False, capture_output=True)
@@ -64,6 +70,8 @@ def main() -> int:
             raise RuntimeError("preparation attempted execution or lacks cells")
         parsed = argparse.Namespace(source_root=str(candidate), profile=arguments.profile, protocol=arguments.protocol,
                                     validator=arguments.validator, architecture_evidence=arguments.architecture_evidence,
+                                    architecture_runner=arguments.architecture_runner, architecture_profile=arguments.architecture_profile,
+                                    architecture_expected=arguments.architecture_expected, architecture_comparer=arguments.architecture_comparer,
                                     output_root=str(prepared))
         loaded_root, loaded_manifest = runner.load_prepared(parsed)
         if loaded_root != prepared.resolve() or loaded_manifest != manifest:

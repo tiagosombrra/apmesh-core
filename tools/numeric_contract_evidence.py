@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import pathlib
 import sys
 from typing import Any
@@ -18,30 +19,64 @@ EXPECTED_CLASSIFICATION = {
     "positive_zero": "zero",
     "negative_zero": "zero",
     "denorm_min": "subnormal",
+    "negative_denorm_min": "subnormal",
     "one": "normal",
+    "negative_one": "normal",
+    "max_finite": "normal",
     "positive_infinity": "infinite",
+    "negative_infinity": "infinite",
     "quiet_nan": "not_a_number",
 }
 EXPECTED_POLICY = {
+    "zero_valid": ("valid", None),
     "absolute_valid": ("valid", None),
+    "relative_valid": ("valid", None),
+    "mixed_valid": ("valid", None),
     "negative_absolute": ("error", "negative_absolute_tolerance"),
     "negative_relative": ("error", "negative_relative_tolerance"),
     "zero_scale": ("error", "non_positive_reference_scale"),
     "infinite_scale": ("error", "non_finite_policy"),
+    "negative_scale": ("error", "non_positive_reference_scale"),
+    "nan_absolute": ("error", "non_finite_policy"),
+    "infinite_absolute": ("error", "non_finite_policy"),
+    "nan_relative": ("error", "non_finite_policy"),
+    "infinite_relative": ("error", "non_finite_policy"),
+    "nan_scale": ("error", "non_finite_policy"),
 }
 EXPECTED_PROXIMITY = {
     "absolute_boundary": ("within", None),
     "absolute_outside": ("outside", None),
+    "adjacent_inside": ("within", None),
+    "adjacent_outside": ("outside", None),
     "relative_boundary": ("within", None),
     "mixed_boundary": ("within", None),
     "symmetric_forward": ("within", None),
     "symmetric_reverse": ("within", None),
+    "reflexive": ("within", None),
     "near_zero": ("within", None),
     "large_equal": ("within", None),
+    "large_scale": ("within", None),
     "power_two_base": ("within", None),
     "power_two_scaled": ("within", None),
     "nan_input": ("error", "non_finite_input"),
     "overflowing_residual": ("error", "non_finite_intermediate"),
+    "overflowing_limit": ("error", "non_finite_intermediate"),
+}
+EXPECTED_PROXIMITY_VALUES = {
+    "absolute_boundary": (0.25, 0.25),
+    "absolute_outside": (0.5, 0.25),
+    "adjacent_inside": (math.nextafter(1.25, 1.0) - 1.0, 0.25),
+    "adjacent_outside": (math.nextafter(1.25, 2.0) - 1.0, 0.25),
+    "relative_boundary": (1.0, 1.0),
+    "mixed_boundary": (1.5, 1.5),
+    "symmetric_forward": (0.25, 0.25),
+    "symmetric_reverse": (0.25, 0.25),
+    "reflexive": (0.0, 0.25),
+    "near_zero": (float.fromhex("0x0.0000000000001p-1022"), float.fromhex("0x0.0000000000001p-1022")),
+    "large_equal": (0.0, 0.0),
+    "large_scale": (float.fromhex("0x1p+599"), float.fromhex("0x1p+599")),
+    "power_two_base": (0.25, 0.5),
+    "power_two_scaled": (2.0, 4.0),
 }
 UNSAFE_FLOATING_FLAGS = (
     "-ffast-math",
@@ -83,7 +118,7 @@ def require_exact_keys(value: dict[str, Any], keys: set[str], context: str) -> N
 
 def validate_certificate(path: pathlib.Path) -> dict[str, Any]:
     value = read_json(path)
-    require_exact_keys(value, {"schema_version", "kind", "classification", "policy", "proximity"}, "certificate")
+    require_exact_keys(value, {"schema_version", "kind", "classification", "policy", "proximity", "separation"}, "certificate")
     if value["schema_version"] != 1 or value["kind"] != "numeric-contract-certificate":
         raise EvidenceError("certificate identity differs")
     for field in ("classification", "policy", "proximity"):
@@ -107,6 +142,15 @@ def validate_certificate(path: pathlib.Path) -> dict[str, Any]:
                 raise EvidenceError("failed proximity row has numeric evidence")
         elif not isinstance(entry["residual_hex"], str) or not isinstance(entry["limit_hex"], str):
             raise EvidenceError("successful proximity row lacks numeric evidence")
+        else:
+            expected = EXPECTED_PROXIMITY_VALUES.get(entry["case"])
+            if expected is None:
+                raise EvidenceError("successful proximity row lacks an independent oracle")
+            if float.fromhex(entry["residual_hex"]) != expected[0] or float.fromhex(entry["limit_hex"]) != expected[1]:
+                raise EvidenceError("certificate proximity numeric oracle differs")
+    if value["separation"] != {"proximity_result_values": ["within", "outside"],
+                               "identity_conversion": False, "predicate_sign": False}:
+        raise EvidenceError("certificate separation evidence differs")
     return value
 
 
@@ -182,7 +226,7 @@ def compare(certificates: list[pathlib.Path], environments: list[pathlib.Path], 
     ]
     for certificate, environment in zip(certificates, environments, strict=True):
         lines.append(f"| {certificate.parent.name}/{certificate.name} | valid | equivalent | PASS |")
-    lines.extend(["", "Overall: PASS", ""])
+    lines.extend(["", "Evidence comparison: PASS", "Qualification: PENDING SCIENTIFIC AUDIT", ""])
     report.parent.mkdir(parents=True, exist_ok=True)
     report.write_bytes("\n".join(lines).encode("utf-8"))
 
