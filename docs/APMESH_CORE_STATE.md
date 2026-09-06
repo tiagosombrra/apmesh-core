@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Prepare a clean revision-bound N0–N7 manifest without starting the regression**
+**Diagnose the audited N2–N7 qualification blockers without changing the Numeric Contract**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -58,21 +58,21 @@ The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
 into `main` at `4927383`. All eight requirements passed the final audited
 four-cell protocol.
 
-The Numeric Contract is now IMPLEMENTED with qualification pending. It separates
-topological identity, exact equality, numeric proximity, certified predicate
-sign, and scientific acceptance. It fixes explicit physical scale, contextual
-absolute/relative allowances, finite-value handling, and distinct degeneracy,
-conditioning, and indeterminate outcomes. It does not select a robust predicate
-implementation or claim geometry capability.
+Implementation status: the bounded Numeric Contract slice remains implemented
+at revision `7827a9633e97aadcc2b2777648b02ffa7a308b8e`; this record makes no
+implementation change. It separates topological identity, exact equality,
+numeric proximity, certified predicate sign, and scientific acceptance. It does
+not select a robust predicate implementation or claim geometry capability.
 
-The pre-registered N0–N7 protocol's small implementation slice is complete:
-floating classification, policy validation, and scalar scale-aware proximity.
-Focused GCC 13 and Clang 18 Debug contracts pass. A report-only certificate
-exporter, N1 environment probe, profile, semantic comparer, and formal runner
-are now available. The runner writes a revision-bound `PREPARED` manifest by
-default and cannot execute a changed candidate. The clean candidate manifest
-has not been prepared or executed. Foundation remains at 25% until that gate is
-executed and audited.
+Evidence status: the revision-bound manifest at
+`C:\Users\tiago\AppData\Local\Temp\apmesh-core-numeric-contract-prepared-20260905-181000-1939d248\manifest.json`
+with SHA-256
+`ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5` was
+audited as N0/N1 `PASS` and N2–N7 `BLOCKED`.
+
+Scientific qualification: the formal Numeric Contract decision is `BLOCKED`.
+It is not `QUALIFIED`; Foundation remains IN INVESTIGATION at 25%. The decision
+does not diagnose the blocked gates or add a scientific capability claim.
 
 ## Bootstrap repository and toolchain
 
@@ -136,16 +136,16 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. On the committed clean candidate, prepare a deterministic N0–N7 manifest
-   without launching it implicitly.
-3. Do not implement geometry or robust predicates before the Numeric Contract
+1. Diagnose the audited N2–N7 blockers in one bounded work unit, preserving the
+   failed evidence and requiring a new clean candidate for any correction.
+2. Do not implement geometry or robust predicates before the Numeric Contract
    is qualified.
 
 Decision progress: 3/3 previously open questions resolved. Qualification progress:
 8/8 Architecture Contract requirements qualified by the final protocol.
 Foundation remains IN INVESTIGATION at 25% (Architecture Contract is the first
-of four Foundation gates); Numeric, Reproducible Experiment, and Foundation
-End-to-End work remain unqualified.
+of four Foundation gates); the Numeric Contract is BLOCKED, and Reproducible
+Experiment and Foundation End-to-End work remain unqualified.
 
 ## Stage closure protocol
 

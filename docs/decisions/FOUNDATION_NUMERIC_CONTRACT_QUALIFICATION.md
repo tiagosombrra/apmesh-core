@@ -1,6 +1,6 @@
-# Foundation Numeric Contract — Bounded Qualification Protocol
+# Foundation Numeric Contract — Bounded Qualification Decision
 
-Status: EVIDENCE TOOLING IMPLEMENTED / FORMAL REGRESSION PENDING
+Status: BLOCKED
 Last updated: 2026-09-05
 Contract: `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
 
@@ -93,8 +93,7 @@ contracts pass. The report-only certificate exporter, N1 environment probe,
 profile, and semantic comparer are versioned and covered by focused contracts.
 The versioned formal runner is covered by a focused no-execution contract. It
 writes a revision-bound `PREPARED` manifest by default and only consumes an
-unchanged clean candidate when explicitly called with `--execute`. Its clean
-candidate manifest has not been prepared or run.
+unchanged clean candidate when explicitly called with `--execute`.
 
 ## PASS/BLOCKED decision
 
@@ -126,8 +125,43 @@ evidence is preserved.
 - Preparation, documentation, tooling, or focused tests alone do not change
   scientific progress.
 
-## Immediate next implementation slice
+## Formal audited decision
 
-Implement the smallest numeric vocabulary and focused analytical contracts for
-classification, policy validation, and scale-aware proximity. Do not launch the
-four-cell formal regression in that implementation task.
+### Implementation status
+
+The bounded implementation slice exists at candidate revision
+`7827a9633e97aadcc2b2777648b02ffa7a308b8e`. This decision record does not
+modify or requalify C++, tests, tooling, thresholds, or the Numeric Contract.
+
+### Evidence status
+
+The revision-bound Numeric Contract manifest is:
+
+- path: `C:\Users\tiago\AppData\Local\Temp\apmesh-core-numeric-contract-prepared-20260905-181000-1939d248\manifest.json`;
+- SHA-256: `ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`;
+- audited dependency decision: `BLOCKED`.
+
+The verified audit supplies the following formal gate classification. This
+record makes no additional diagnosis of the blocked gates.
+
+| Gate | Audited result |
+| --- | --- |
+| N0 — scope | PASS |
+| N1 — environment | PASS |
+| N2 — classification | BLOCKED |
+| N3 — policy | BLOCKED |
+| N4 — proximity | BLOCKED |
+| N5 — separation | BLOCKED |
+| N6 — reproducibility | BLOCKED |
+| N7 — preservation | BLOCKED |
+
+### Scientific qualification
+
+**Decision: BLOCKED.** The Numeric Contract is not `QUALIFIED`, because the
+N0–N7 gate requires every requirement to pass and the verified audit blocks
+N2–N7. Foundation remains `IN INVESTIGATION` at 25%. This is a qualification
+decision, not an implementation change or a scientific capability claim.
+
+Geometry and robust-predicate implementation remain blocked. The next
+admissible action is a bounded diagnosis of the audited N2–N7 blockers, with
+any correction requiring a new clean candidate and preserved failed evidence.

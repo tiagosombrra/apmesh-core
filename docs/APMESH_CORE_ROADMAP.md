@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-04
+Last updated: 2026-09-05
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -200,7 +200,7 @@ Status: `QUALIFIED` on WSL Ubuntu 24.04
 
 #### Numeric Contract
 
-Status: `IMPLEMENTED / QUALIFICATION PENDING`
+Status: `IMPLEMENTED / QUALIFICATION BLOCKED`
 
 - **Define physical scale and units policy** — SPECIFIED. Every dimensional
   decision requires an explicit positive finite scale and operation-owned
@@ -212,11 +212,15 @@ Status: `IMPLEMENTED / QUALIFICATION PENDING`
 - **Define degeneracy and conditioning policy** — SPECIFIED. Invalid numeric,
   invalid policy, degenerate, ill-conditioned, and indeterminate outcomes have
   distinct semantics.
-- **Qualify the bounded numeric primitives** — IMPLEMENTED / PENDING. Floating
-  classification, policy validation, and scalar scale-aware proximity have
-  focused passing contracts in GCC 13 and Clang 18 Debug. Run the formal N0–N7
-  gate from
-  `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`.
+- **Qualify the bounded numeric primitives** — IMPLEMENTED / BLOCKED. The
+  revision-bound audit for candidate
+  `7827a9633e97aadcc2b2777648b02ffa7a308b8e` classified N0/N1 `PASS` and
+  N2–N7 `BLOCKED`; the formal decision is retained in
+  `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`. The audited
+  evidence SHA-256 is
+  `ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`.
+  This blocks scientific qualification without changing the implementation or
+  claiming a numeric capability.
 
 #### Reproducible Experiment Contract
 
@@ -486,13 +490,13 @@ Current branch: `foundation/numeric-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Prepare a clean revision-bound N0–N7 manifest**
+**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Diagnose audited N2–N7 blockers**
 
-The Numeric Contract implementation, report-only certificate exporter, N1
-environment probe, profile, semantic comparer, and revision-bound formal runner
-have focused passing GCC/Clang Debug contracts. The runner writes only a
-`PREPARED` manifest by default and may execute only with an explicit `--execute`
-against that unchanged manifest. Its four-cell N0–N7 qualification regression
-has not been prepared or run. Foundation remains IN INVESTIGATION at 25%; Numeric,
-Reproducible Experiment, and Foundation End-to-End gates remain open. No
-greenfield geometry or meshing algorithm is implemented.
+Implementation status: the Numeric Contract slice is unchanged at candidate
+`7827a9633e97aadcc2b2777648b02ffa7a308b8e`. Evidence status: the
+revision-bound manifest audited at SHA-256
+`ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`
+classified N0/N1 `PASS` and N2–N7 `BLOCKED`. Scientific qualification status:
+the Numeric Contract is `BLOCKED`, so Foundation remains IN INVESTIGATION at
+25%; Numeric, Reproducible Experiment, and Foundation End-to-End are not
+qualified. No greenfield geometry or meshing algorithm is implemented.
