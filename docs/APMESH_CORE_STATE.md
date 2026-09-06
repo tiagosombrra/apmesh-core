@@ -46,11 +46,11 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 Current active investigation problem:
 
-**Numeric Contract**
+**Reproducible Experiment Contract**
 
 Current executable work unit:
 
-**Execute the pre-registered NQ-R2 formal regression on a clean candidate**
+**No executable work unit is authorized yet. Define the next bounded contract before implementation.**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -67,10 +67,12 @@ defect has been demonstrated. The contract still separates topological
 identity, exact equality, numeric proximity, certified predicate sign, and
 scientific acceptance.
 
-NQ-R2 adds explicit `min()` and `lowest()` classification evidence only in the
-focused test, report-only certificate, and independent oracle. Focused GCC 13
-Debug and Clang 18 Debug validation passed. This candidate remains unqualified
-until its own revision-bound four-cell regression is audited.
+NQ-R2 added explicit `min()` and `lowest()` classification evidence only in the
+focused test, report-only certificate, and independent oracle; `numeric.cpp`
+and the public API remained unchanged. Its revision-bound four-cell regression
+on candidate `236d290a20227f0abd646073499c0d3e20a19f8e` passed the formal audit:
+N0--N7 all pass. The Numeric Contract is `QUALIFIED` inside the declared WSL
+Ubuntu 24.04 GCC 13/Clang 18 envelope.
 
 Evidence status: the revision-bound NQ-R1 manifest at
 `C:\Users\tiago\AppData\Local\Temp\apmesh-core-nq-r1-531d0795e1a94e1e9f43a99a578f63ce\manifest.json`
@@ -79,8 +81,9 @@ with SHA-256
 was audited as N0/N1/N3–N7 `PASS` and N2 `BLOCKED`. The earlier N0/N1 `PASS`,
 N2–N7 `BLOCKED` decision remains preserved as negative historical evidence.
 
-Scientific qualification: the formal Numeric Contract decision remains
-`BLOCKED`; Foundation remains `IN INVESTIGATION` at 25%.
+Scientific qualification: the Numeric Contract is `QUALIFIED`. Foundation
+remains `IN INVESTIGATION` at 50% because the Reproducible Experiment Contract
+and Foundation End-to-End Regression remain unqualified.
 
 ## Bootstrap repository and toolchain
 
@@ -110,8 +113,8 @@ The minimal `apmesh::core` library skeleton is qualified on the GCC reference:
 
 The same project bootstrap and bounded Architecture Contract regression are
 qualified on Clang 18.1.3 with libc++ 18.1.3, including Debug and Release.
-Numeric and later Foundation contracts remain open. Native Windows remains NOT
-QUALIFIED; WSL execution does not qualify it.
+Reproducible Experiment and later Foundation contracts remain open. Native
+Windows remains NOT QUALIFIED; WSL execution does not qualify it.
 
 ## Architecture direction already agreed
 
@@ -144,17 +147,17 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Run one revision-bound NQ-R2 four-cell Numeric Contract regression on the
-   clean committed candidate; do not alter `numeric.cpp` unless it exposes a
-   defect.
-2. Audit N0–N7 only from the retained NQ-R2 artifacts.
-3. Do not implement geometry or robust predicates before the Numeric Contract
-   is qualified.
+1. Define one bounded Reproducible Experiment Contract work unit before any
+   implementation or execution.
+2. Preserve the qualified Numeric Contract as a prerequisite; reopen it only
+   if a later regression supplies contradictory evidence.
+3. Do not implement geometry or robust predicates before their own contracts
+   and bounded work units are authorized.
 
-Decision progress: 3/3 previously open questions resolved. Qualification progress:
-The Architecture Contract is qualified. Foundation remains IN INVESTIGATION at
-25% (one of four Foundation gates); Numeric, Reproducible Experiment, and
-Foundation End-to-End remain unqualified.
+Decision progress: 3/3 Numeric Contract questions resolved. Qualification
+progress: Architecture and Numeric Contracts are qualified. Foundation remains
+IN INVESTIGATION at 50% (two of four Foundation gates); Reproducible Experiment
+and Foundation End-to-End remain unqualified.
 
 ## Stage closure protocol
 

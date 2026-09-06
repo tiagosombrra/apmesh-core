@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-05
+Last updated: 2026-09-06
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -200,7 +200,7 @@ Status: `QUALIFIED` on WSL Ubuntu 24.04
 
 #### Numeric Contract
 
-Status: `IMPLEMENTED / QUALIFICATION BLOCKED`
+Status: `QUALIFIED` on the declared WSL Ubuntu 24.04 compiler envelope
 
 - **Define physical scale and units policy** — SPECIFIED. Every dimensional
   decision requires an explicit positive finite scale and operation-owned
@@ -228,12 +228,17 @@ Status: `IMPLEMENTED / QUALIFICATION BLOCKED`
   audited manifest SHA-256 is
   `bcc39af9b75a7bd6fe1a0b02607f617372dd9bd62d8014ea69d31a097eed2a9f`.
   Foundation remains at 25%; no implementation defect is currently shown.
-- **NQ-R2 finite-extrema evidence recovery** — IMPLEMENTED / FORMAL REGRESSION
-  PENDING. The candidate adds explicit `min()` and `lowest()` classifications
-  to the focused contract, report-only certificate, and independent oracle;
-  `numeric.cpp` remains unchanged. Focused GCC 13 and Clang 18 Debug validation
-  passed. Qualification remains blocked until a clean four-cell regression is
-  retained and audited.
+- **NQ-R2 finite-extrema evidence recovery** — QUALIFIED. Candidate
+  `236d290a20227f0abd646073499c0d3e20a19f8e` adds explicit `min()` and
+  `lowest()` classifications only to the focused contract, report-only
+  certificate, and independent oracle; `numeric.cpp` remains unchanged. Its
+  clean four-cell regression passed all twelve CTest processes, produced twelve
+  byte-identical certificates, and preserved the Architecture Contract across
+  all four cells with five required negative checks rejected. The audited
+  manifest SHA-256 is
+  `8ab37917a8e8de90cbbebe7ef5d393ef76ce877acc0e64275fd5d31cc15bdbd6`.
+  N0–N7 are `PASS`; the Numeric Contract is qualified only within the declared
+  WSL Ubuntu 24.04 GCC 13/Clang 18 envelope.
 
 #### Reproducible Experiment Contract
 
@@ -503,13 +508,12 @@ Current branch: `foundation/numeric-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Execute NQ-R2 formal regression**
+**Foundation — Architecture, Numerics, and Reproducibility / Reproducible Experiment Contract / Define the next bounded contract**
 
-NQ-R1 on candidate `74fede5` passed N0/N1/N3–N7 without changing
-`numeric.cpp`, but N2 remains blocked by missing explicit `min()` and `lowest()`
-classification evidence. NQ-R2 supplies only that evidence and has passed
-focused GCC/Clang checks; the four-cell formal regression remains pending. The
-earlier blocked result remains retained as negative evidence. Foundation remains
-IN INVESTIGATION at 25%; Numeric, Reproducible Experiment, and Foundation
-End-to-End are not qualified. No greenfield geometry or meshing algorithm is
+NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
+explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
+that evidence without changing `numeric.cpp`, then passed the audited clean
+four-cell regression on candidate `236d290`. N0–N7 are qualified. Foundation
+remains IN INVESTIGATION at 50%; Reproducible Experiment and Foundation
+End-to-End remain unqualified. No greenfield geometry or meshing algorithm is
 implemented.

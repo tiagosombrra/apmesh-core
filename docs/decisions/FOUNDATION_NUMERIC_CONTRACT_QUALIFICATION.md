@@ -1,6 +1,6 @@
 # Foundation Numeric Contract — Bounded Qualification Decision
 
-Status: BLOCKED
+Status: QUALIFIED within the declared WSL Ubuntu 24.04 compiler envelope
 Last updated: 2026-09-06
 Contract: `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
 
@@ -233,6 +233,43 @@ Candidate NQ-R2 adds only two explicit N2 cases: `min_normal` for
 evidence oracle were updated; `src/core/numeric.cpp` and the public numeric API
 remain unchanged. Focused GCC 13 Debug and Clang 18 Debug contract suites pass.
 
-NQ-R2 is not a qualification decision. It must run one new clean four-cell
-regression and be audited from its revision-bound retained artifacts before N2
-or the overall Numeric Contract status can change.
+Before execution, NQ-R2 was not a qualification decision: it had to run one
+new clean four-cell regression and be audited from its revision-bound retained
+artifacts before N2 or the overall Numeric Contract status could change.
+
+## NQ-R2 revision-bound audit
+
+Candidate `236d290a20227f0abd646073499c0d3e20a19f8e` was executed once from a
+clean tree in the four pre-registered cells: GCC 13/libstdc++ and Clang
+18/libc++, each in Debug and Release. The retained manifest has SHA-256
+`8ab37917a8e8de90cbbebe7ef5d393ef76ce877acc0e64275fd5d31cc15bdbd6`.
+
+All four cells passed three independent numeric CTest processes. Their twelve
+certificates are byte-identical; all twelve environments agree on binary64,
+radix 2, 53 digits, IEC 559, subnormal support, and round-to-nearest. The
+independent evidence comparer passed and the complete source inventory (47
+tracked files) and all nine declared input hashes match the executed candidate.
+The qualified Architecture Contract regression also passed in the same four
+cells; its five negative fixtures were rejected as required.
+
+| Gate | Audited result | Evidence basis |
+| --- | --- | --- |
+| N0 — scope | PASS | The candidate changes only focused tests and report-only evidence; `numeric.cpp` and the public numeric API are unchanged. |
+| N1 — environment | PASS | All twelve environment records satisfy the declared binary64 and rounding assumptions; no prohibited floating-point flag is present. |
+| N2 — classification | PASS | The certificates explicitly classify `min()` and `lowest()` as normal, alongside zero, normals, subnormals, `max()`, infinities, and quiet NaN. |
+| N3 — policy | PASS | Valid policies succeed; invalid tolerances and scales return the declared explicit errors. |
+| N4 — proximity | PASS | The independently declared boundary, scaling, near-zero, large-scale, and overflow cases match. |
+| N5 — separation | PASS | Evidence records no implicit identity conversion and no predicate-sign production. |
+| N6 — reproducibility | PASS | All twelve certificates are byte-identical across the four cells and three repetitions. |
+| N7 — preservation | PASS | The Architecture Contract passes across the four cells and rejects all five required negative fixtures. |
+
+### Scientific qualification
+
+**Decision: PASS.** N0–N7 satisfy the pre-registered obligations. The Numeric
+Contract is `QUALIFIED` only inside the declared WSL Ubuntu 24.04 GCC 13/Clang
+18 compiler envelope. Foundation advances from 25% to 50%.
+
+This decision does not qualify native Windows, geometry, robust predicates,
+topology, meshing, arbitrary precision, a universal tolerance, or a general
+conditioning claim. The NQ-R1 blocked result remains retained historical
+evidence; it is not erased or reclassified.
