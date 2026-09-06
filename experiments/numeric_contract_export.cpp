@@ -129,6 +129,8 @@ int write_certificate(const std::string_view output_path) {
     write_classification(output, "negative_denorm_min", -std::numeric_limits<double>::denorm_min(), true);
     write_classification(output, "one", 1.0, true);
     write_classification(output, "negative_one", -1.0, true);
+    write_classification(output, "min_normal", std::numeric_limits<double>::min(), true);
+    write_classification(output, "lowest_finite", std::numeric_limits<double>::lowest(), true);
     write_classification(output, "max_finite", std::numeric_limits<double>::max(), true);
     write_classification(output, "positive_infinity", std::numeric_limits<double>::infinity(), true);
     write_classification(output, "negative_infinity", -std::numeric_limits<double>::infinity(), true);

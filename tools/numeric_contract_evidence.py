@@ -22,6 +22,8 @@ EXPECTED_CLASSIFICATION = {
     "negative_denorm_min": "subnormal",
     "one": "normal",
     "negative_one": "normal",
+    "min_normal": "normal",
+    "lowest_finite": "normal",
     "max_finite": "normal",
     "positive_infinity": "infinite",
     "negative_infinity": "infinite",

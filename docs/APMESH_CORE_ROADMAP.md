@@ -212,7 +212,7 @@ Status: `IMPLEMENTED / QUALIFICATION BLOCKED`
 - **Define degeneracy and conditioning policy** — SPECIFIED. Invalid numeric,
   invalid policy, degenerate, ill-conditioned, and indeterminate outcomes have
   distinct semantics.
-- **Qualify the bounded numeric primitives** — IMPLEMENTED / BLOCKED. The
+- **Initial qualification attempt** — BLOCKED / RETAINED EVIDENCE. The
   revision-bound audit for candidate
   `7827a9633e97aadcc2b2777648b02ffa7a308b8e` classified N0/N1 `PASS` and
   N2–N7 `BLOCKED`; the formal decision is retained in
@@ -221,10 +221,19 @@ Status: `IMPLEMENTED / QUALIFICATION BLOCKED`
   `ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`.
   This blocks scientific qualification without changing the implementation or
   claiming a numeric capability.
-- **NQ-R1 evidence-completeness recovery** — IMPLEMENTED / FORMAL REGRESSION
-  PENDING. The bounded package completes the missing test/evidence matrix for
-  N2–N5, repeats CTest for N6, and prepares N7 preservation execution. It does
-  not change `numeric.cpp`, qualify the contract, or advance Foundation.
+- **NQ-R1 evidence-completeness recovery** — FORMAL REGRESSION BLOCKED.
+  Candidate `74fede5` preserved `numeric.cpp`; N0/N1/N3–N7 passed. N2 remains
+  blocked because the pre-registered finite-extrema fixture class does not
+  explicitly classify `std::numeric_limits<double>::min()` or `lowest()`. The
+  audited manifest SHA-256 is
+  `bcc39af9b75a7bd6fe1a0b02607f617372dd9bd62d8014ea69d31a097eed2a9f`.
+  Foundation remains at 25%; no implementation defect is currently shown.
+- **NQ-R2 finite-extrema evidence recovery** — IMPLEMENTED / FORMAL REGRESSION
+  PENDING. The candidate adds explicit `min()` and `lowest()` classifications
+  to the focused contract, report-only certificate, and independent oracle;
+  `numeric.cpp` remains unchanged. Focused GCC 13 and Clang 18 Debug validation
+  passed. Qualification remains blocked until a clean four-cell regression is
+  retained and audited.
 
 #### Reproducible Experiment Contract
 
@@ -494,13 +503,13 @@ Current branch: `foundation/numeric-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Execute NQ-R1 formal regression**
+**Foundation — Architecture, Numerics, and Reproducibility / Numeric Contract / Execute NQ-R2 formal regression**
 
-Implementation status: the original Numeric Contract behavior remains unchanged;
-NQ-R1 completes the missing evidence and future-preservation execution paths.
-Evidence status: the revision-bound manifest audited at SHA-256
-`ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`
-classified N0/N1 `PASS` and N2–N7 `BLOCKED`. Scientific qualification status:
-the Numeric Contract is `BLOCKED`, so Foundation remains IN INVESTIGATION at
-25%; Numeric, Reproducible Experiment, and Foundation End-to-End are not
-qualified. No greenfield geometry or meshing algorithm is implemented.
+NQ-R1 on candidate `74fede5` passed N0/N1/N3–N7 without changing
+`numeric.cpp`, but N2 remains blocked by missing explicit `min()` and `lowest()`
+classification evidence. NQ-R2 supplies only that evidence and has passed
+focused GCC/Clang checks; the four-cell formal regression remains pending. The
+earlier blocked result remains retained as negative evidence. Foundation remains
+IN INVESTIGATION at 25%; Numeric, Reproducible Experiment, and Foundation
+End-to-End are not qualified. No greenfield geometry or meshing algorithm is
+implemented.

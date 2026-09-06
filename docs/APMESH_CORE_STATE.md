@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-05
+Last updated: 2026-09-06
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: `foundation/numeric-contract`
 
@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Execute the pre-registered NQ-R1 formal regression on a clean candidate**
+**Execute the pre-registered NQ-R2 formal regression on a clean candidate**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -58,25 +58,29 @@ The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
 into `main` at `4927383`. All eight requirements passed the final audited
 four-cell protocol.
 
-Implementation status: NQ-R1 has completed the bounded evidence-completeness
-implementation: expanded N2/N3 cases, independent N4 residual/limit oracles,
-explicit N5 separation checks, three future CTest repetitions per cell, and an
-N7 Architecture Contract preservation invocation. `numeric.cpp` and the Numeric
-Contract semantics remain unchanged. Focused GCC Debug validation passed; this
-is not formal qualification evidence. The contract still separates topological
+NQ-R1 preserved `numeric.cpp` and collected complete passing evidence for N0,
+N1, and N3–N7 on clean candidate
+`74fede5ae5999580f2ef76e944cf61e334f44064`. N2 remains blocked because the
+pre-registered minimum/maximum finite fixture class does not explicitly classify
+`std::numeric_limits<double>::min()` or `lowest()`. No numeric implementation
+defect has been demonstrated. The contract still separates topological
 identity, exact equality, numeric proximity, certified predicate sign, and
-scientific acceptance. It does not select a robust predicate implementation or
-claim geometry capability.
+scientific acceptance.
 
-Evidence status: the revision-bound manifest at
-`C:\Users\tiago\AppData\Local\Temp\apmesh-core-numeric-contract-prepared-20260905-181000-1939d248\manifest.json`
+NQ-R2 adds explicit `min()` and `lowest()` classification evidence only in the
+focused test, report-only certificate, and independent oracle. Focused GCC 13
+Debug and Clang 18 Debug validation passed. This candidate remains unqualified
+until its own revision-bound four-cell regression is audited.
+
+Evidence status: the revision-bound NQ-R1 manifest at
+`C:\Users\tiago\AppData\Local\Temp\apmesh-core-nq-r1-531d0795e1a94e1e9f43a99a578f63ce\manifest.json`
 with SHA-256
-`ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5` was
-audited as N0/N1 `PASS` and N2–N7 `BLOCKED`.
+`bcc39af9b75a7bd6fe1a0b02607f617372dd9bd62d8014ea69d31a097eed2a9f`
+was audited as N0/N1/N3–N7 `PASS` and N2 `BLOCKED`. The earlier N0/N1 `PASS`,
+N2–N7 `BLOCKED` decision remains preserved as negative historical evidence.
 
-Scientific qualification: the formal Numeric Contract decision is `BLOCKED`.
-It is not `QUALIFIED`; Foundation remains IN INVESTIGATION at 25%. The decision
-does not diagnose the blocked gates or add a scientific capability claim.
+Scientific qualification: the formal Numeric Contract decision remains
+`BLOCKED`; Foundation remains `IN INVESTIGATION` at 25%.
 
 ## Bootstrap repository and toolchain
 
@@ -140,16 +144,17 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Prepare and execute one clean, revision-bound NQ-R1 formal regression; audit
-   N0–N7 only from retained evidence.
-2. Do not implement geometry or robust predicates before the Numeric Contract
+1. Run one revision-bound NQ-R2 four-cell Numeric Contract regression on the
+   clean committed candidate; do not alter `numeric.cpp` unless it exposes a
+   defect.
+2. Audit N0–N7 only from the retained NQ-R2 artifacts.
+3. Do not implement geometry or robust predicates before the Numeric Contract
    is qualified.
 
 Decision progress: 3/3 previously open questions resolved. Qualification progress:
-8/8 Architecture Contract requirements qualified by the final protocol.
-Foundation remains IN INVESTIGATION at 25% (Architecture Contract is the first
-of four Foundation gates); the Numeric Contract is BLOCKED, and Reproducible
-Experiment and Foundation End-to-End work remain unqualified.
+The Architecture Contract is qualified. Foundation remains IN INVESTIGATION at
+25% (one of four Foundation gates); Numeric, Reproducible Experiment, and
+Foundation End-to-End remain unqualified.
 
 ## Stage closure protocol
 

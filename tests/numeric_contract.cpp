@@ -74,6 +74,8 @@ int main() {
              passed;
     passed = require(apmesh::core::classify_floating(-1.0) == FloatingCategory::normal &&
                          apmesh::core::classify_floating(-std::numeric_limits<double>::denorm_min()) == FloatingCategory::subnormal &&
+                         apmesh::core::classify_floating(std::numeric_limits<double>::min()) == FloatingCategory::normal &&
+                         apmesh::core::classify_floating(std::numeric_limits<double>::lowest()) == FloatingCategory::normal &&
                          apmesh::core::classify_floating(std::numeric_limits<double>::max()) == FloatingCategory::normal,
                      "finite signed or extreme values were not classified") &&
              passed;

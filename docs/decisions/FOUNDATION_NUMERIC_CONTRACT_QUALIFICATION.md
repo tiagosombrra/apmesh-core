@@ -1,7 +1,7 @@
 # Foundation Numeric Contract — Bounded Qualification Decision
 
 Status: BLOCKED
-Last updated: 2026-09-05
+Last updated: 2026-09-06
 Contract: `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
 
 ## Question
@@ -125,7 +125,7 @@ evidence is preserved.
 - Preparation, documentation, tooling, or focused tests alone do not change
   scientific progress.
 
-## Formal audited decision
+## Initial audited decision — retained negative evidence
 
 ### Implementation status
 
@@ -155,13 +155,84 @@ record makes no additional diagnosis of the blocked gates.
 | N6 — reproducibility | BLOCKED |
 | N7 — preservation | BLOCKED |
 
-### Scientific qualification
+### Initial scientific qualification
 
 **Decision: BLOCKED.** The Numeric Contract is not `QUALIFIED`, because the
 N0–N7 gate requires every requirement to pass and the verified audit blocks
 N2–N7. Foundation remains `IN INVESTIGATION` at 25%. This is a qualification
 decision, not an implementation change or a scientific capability claim.
 
-Geometry and robust-predicate implementation remain blocked. The next
-admissible action is a bounded diagnosis of the audited N2–N7 blockers, with
-any correction requiring a new clean candidate and preserved failed evidence.
+Geometry and robust-predicate implementation remained blocked at that point.
+The admissible recovery was a bounded diagnosis of N2–N7, with any correction
+requiring a new clean candidate and preservation of this failed evidence.
+
+## NQ-R1 requalification decision
+
+### Candidate and provenance
+
+NQ-R1 was evaluated on the clean committed candidate
+`74fede5ae5999580f2ef76e944cf61e334f44064`. The original numeric behavior in
+`src/core/numeric.cpp` and its public declarations were unchanged by the
+recovery. NQ-R1 added missing contract cases, independent evidence oracles,
+three CTest processes per build cell, and execution of the already qualified
+Architecture Contract regression.
+
+The revision-bound evidence is:
+
+- manifest: `C:\Users\tiago\AppData\Local\Temp\apmesh-core-nq-r1-531d0795e1a94e1e9f43a99a578f63ce\manifest.json`;
+- manifest SHA-256: `bcc39af9b75a7bd6fe1a0b02607f617372dd9bd62d8014ea69d31a097eed2a9f`;
+- comparison report SHA-256: `6f254659716d2c737fd715a20e85030987ff62eedda972d947ba84d7e7af652d`;
+- Architecture Contract manifest SHA-256: `db57bb80cde8aea24d6b598e97f4f41b6572b817cd56b3c2a83d6ef2e1346977`;
+- execution interval: `2026-09-06T10:48:19+00:00` to
+  `2026-09-06T10:49:17+00:00`.
+
+The manifest candidate, complete tracked-source inventory, and all nine input
+hashes match the clean candidate. The four required GCC/Clang Debug/Release
+cells completed without a nonzero positive-path command. Each cell executed
+the numeric CTest set three times and produced three certificates. All twelve
+CTest executions passed, all twelve certificates are byte-identical, and the
+cross-cell semantic comparison passed. The dependency regression completed all
+four Architecture Contract cells; all positive-path commands passed and all
+five negative fixtures were rejected as required.
+
+### Gate classification
+
+| Gate | Audited result | Evidence basis |
+| --- | --- | --- |
+| N0 — scope | PASS | Core changes remain limited to scalar numeric primitives; geometry, topology, meshing, hidden policy, and core I/O are absent. Evidence I/O remains isolated in `experiments/` and `tools/`. |
+| N1 — environment | PASS | Every cell reports radix 2, 53 digits, IEC 559, subnormal support, and round-to-nearest; compile commands contain no prohibited floating-point flags. |
+| N2 — classification | BLOCKED | Positive/negative representative normals, zero, subnormal, maximum finite, positive/negative infinity, and quiet NaN match. The pre-registered “minimum/maximum finite values” class is not complete because neither `std::numeric_limits<double>::min()` nor `lowest()` is explicitly classified. |
+| N3 — policy | PASS | Valid zero/absolute/relative/mixed policies pass; negative or non-finite allowances and zero/negative/non-finite scales are rejected with explicit classes. |
+| N4 — proximity | PASS | Symmetry, reflexivity, boundary-adjacent, near-zero, large-scale, overflow, and power-of-two cases match independently encoded residual and limit oracles. |
+| N5 — separation | PASS | The result and evidence types have no implicit identity conversion; evidence explicitly excludes identity creation and predicate-sign production. |
+| N6 — reproducibility | PASS | GCC 13/libstdc++ and Clang 18/libc++, Debug and Release, pass three CTest processes each and produce one byte-identical certificate across all twelve processes. |
+| N7 — preservation | PASS | The Architecture Contract regression passes on the same candidate in all four cells, including its five required negative checks. |
+
+### Scientific qualification
+
+**Decision: BLOCKED.** N0, N1, and N3–N7 satisfy their individual obligations,
+but N2 does not fully satisfy the pre-registered finite-extrema fixture class.
+Because the gate requires every N0–N7 obligation to pass, the Numeric Contract
+is not `QUALIFIED` and Foundation remains at 25%.
+
+No defect in `numeric.cpp` is demonstrated: the blocker is missing explicit
+classification evidence for the finite extrema. The next admissible action is a
+new clean candidate that adds `min()` and `lowest()` to the focused test,
+certificate, and independent oracle, followed by one revision-bound rerun. It
+must not change numeric semantics unless that added evidence exposes a defect.
+Geometry, robust predicates, topology, meshing, native Windows, general
+conditioning, arbitrary precision, and a universal scientific tolerance remain
+unqualified.
+
+### NQ-R2 re-entry scope
+
+Candidate NQ-R2 adds only two explicit N2 cases: `min_normal` for
+`std::numeric_limits<double>::min()` and `lowest_finite` for
+`std::numeric_limits<double>::lowest()`. Both are independently expected to be
+`normal`. The focused C++ contract, report-only certificate, and independent
+evidence oracle were updated; `src/core/numeric.cpp` and the public numeric API
+remain unchanged. Focused GCC 13 Debug and Clang 18 Debug contract suites pass.
+
+NQ-R2 is not a qualification decision. It must run one new clean four-cell
+regression and be audited from its revision-bound retained artifacts before N2
+or the overall Numeric Contract status can change.
