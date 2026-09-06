@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-04
+Last updated: 2026-09-06
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -140,6 +140,85 @@ Project relevance:
 - motivates recording environment, expected runtime, claims, manifests, and scripts for reproduced figures/tables;
 - informs `Reproducible Experiment Contract` and mandatory end-of-stage regression packages;
 - long-term goal is to make doctoral computational claims artifact-evaluation-ready rather than retrofitting reproducibility at publication time.
+
+### National Academies 2019 — Reproducibility and Replicability in Science
+
+Status: `FOUNDATIONAL`
+
+National Academies of Sciences, Engineering, and Medicine.
+*Reproducibility and Replicability in Science*. National Academies Press, 2019.
+DOI: 10.17226/25303.
+
+Official report:
+https://nap.nationalacademies.org/catalog/25303/reproducibility-and-replicability-in-science
+
+Project relevance:
+
+- supports the project's explicit use of computational reproducibility for
+  recomputation using the same data, code, and methods;
+- distinguishes that claim from replication using a new study or method;
+- does not establish that reproduced AP Mesh output is scientifically correct.
+
+### NIST TN 1297 — Repeatability and reproducibility terminology
+
+Status: `FOUNDATIONAL`
+
+Official terminology:
+https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-appendix-d1-terminology
+
+Project relevance:
+
+- motivates stating which conditions remain fixed for repeatability and which
+  conditions change for reproducibility;
+- supports reporting the exact compiler/library/build envelope instead of an
+  unqualified portability claim.
+
+### W3C PROV-DM — Provenance data model
+
+Status: `FOUNDATIONAL`
+
+W3C Recommendation, 30 April 2013:
+https://www.w3.org/TR/prov-dm/
+
+Project relevance:
+
+- supports explicit identities and derivation relations between experiment
+  inputs, execution activities, and generated artifacts;
+- informs the bundle lineage model without requiring full PROV serialization.
+
+### RFC 8785 — JSON Canonicalization Scheme
+
+Status: `FOUNDATIONAL`
+
+RFC Editor entry:
+https://www.rfc-editor.org/rfc/rfc8785.html
+
+Project relevance:
+
+- documents why invariant serialization is required before byte-stable hashes
+  can represent structured JSON identity;
+- informs a tested versioned canonical representation where byte identity is
+  claimed;
+- remains an informational reference and does not by itself qualify AP Mesh
+  artifact equivalence.
+
+### Wilkinson et al. 2016 — FAIR Guiding Principles
+
+Status: `FOUNDATIONAL`
+
+Mark D. Wilkinson et al. *The FAIR Guiding Principles for scientific data
+management and stewardship*. Scientific Data 3, 160018 (2016).
+DOI: 10.1038/sdata.2016.18.
+
+Open-access article:
+https://doi.org/10.1038/sdata.2016.18
+
+Project relevance:
+
+- supports machine-actionable metadata, explicit provenance, and reusable
+  research objects covering data, algorithms, tools, and workflows;
+- FAIRness is treated as guidance for evidence stewardship, not as proof of
+  reproducibility or scientific validity.
 
 ## Modern C++ and build-system engineering
 

@@ -1,7 +1,7 @@
 # AP Mesh Core — Numeric Contract
 
-Status: IMPLEMENTED / QUALIFICATION PENDING
-Last updated: 2026-09-05
+Status: QUALIFIED / WSL UBUNTU 24.04
+Last updated: 2026-09-06
 Scope: Foundation numeric policy before geometry implementation
 
 ## 1. Question and boundary

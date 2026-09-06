@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**No executable work unit is authorized yet. Define the next bounded contract before implementation.**
+**Implement the pre-registered Reproducible Experiment Contract evidence package without changing C++ or launching the formal regression.**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -140,19 +140,22 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
-3. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-4. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
-5. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-6. `docs/research/REFERENCE_REGISTER.md`.
+3. `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
+4. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md`
+5. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+6. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
+7. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+8. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-1. Define one bounded Reproducible Experiment Contract work unit before any
-   implementation or execution.
-2. Preserve the qualified Numeric Contract as a prerequisite; reopen it only
-   if a later regression supplies contradictory evidence.
-3. Do not implement geometry or robust predicates before their own contracts
-   and bounded work units are authorized.
+1. Implement the pre-registered Reproducible Experiment Contract profile,
+   launcher, collector, comparer, derived table/figure, and focused tooling
+   contracts without changing C++ or launching the formal regression.
+2. Prepare one clean revision-bound two-replay/four-cell campaign only after
+   the implementation package passes focused review.
+3. Preserve the qualified Architecture and Numeric contracts as prerequisites;
+   do not implement geometry or robust predicates.
 
 Decision progress: 3/3 Numeric Contract questions resolved. Qualification
 progress: Architecture and Numeric Contracts are qualified. Foundation remains
