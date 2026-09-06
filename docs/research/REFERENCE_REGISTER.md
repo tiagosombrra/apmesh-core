@@ -220,6 +220,28 @@ Project relevance:
 - FAIRness is treated as guidance for evidence stewardship, not as proof of
   reproducibility or scientific validity.
 
+### GitHub evidence-storage mechanics
+
+Status: `FOUNDATIONAL` for repository storage boundaries.
+
+Official documentation:
+
+- https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts
+- https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
+- https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
+
+Project relevance:
+
+- workflow artifacts can retain logs and test outputs, but their availability
+  is tied to the workflow run and therefore cannot be the only canonical copy;
+- normal Git history should retain small decision-bearing evidence rather than
+  generated builds or large binary products;
+- tagged releases are a candidate durable distribution location for larger
+  indispensable evidence, provided the repository retains immutable locator,
+  size, SHA-256, retention expectation, and recovery metadata;
+- these storage mechanisms improve availability and provenance but do not
+  establish scientific validity or REC qualification.
+
 ## Modern C++ and build-system engineering
 
 ### C++ Core Guidelines

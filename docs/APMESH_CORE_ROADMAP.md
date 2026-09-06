@@ -242,7 +242,7 @@ Status: `QUALIFIED` on the declared WSL Ubuntu 24.04 compiler envelope
 
 #### Reproducible Experiment Contract
 
-Status: `SPECIFIED / IMPLEMENTATION PENDING`
+Status: `SPECIFIED / AMENDED / IMPLEMENTATION IN PROGRESS`
 
 - **Define experiment manifest** — SPECIFIED. A profile declares claims,
   execution matrix, inputs, artifacts, equivalence, gates, and limitations; a
@@ -253,12 +253,20 @@ Status: `SPECIFIED / IMPLEMENTATION PENDING`
 - **Define replay equivalence** — SPECIFIED. Byte, canonical-JSON, semantic,
   and numeric equivalence are separate; volatile provenance fields must be
   exhaustively declared and cannot be claim fields.
-- **First bounded regression** — PRE-REGISTERED / IMPLEMENTATION NOT STARTED.
+- **First bounded regression** — PRE-REGISTERED / AMENDED / REGRESSION NOT
+  AUTHORIZED.
   Two independent replays of the frozen Numeric Contract specimen will run in
   each of the four qualified GCC/Clang Debug/Release cells. E0–E7 require
   complete provenance, repeatability, cross-cell reproducibility, eight
   negative-fixture rejections, and preservation of the Architecture and Numeric
   contracts. No existing evidence closes this gate retrospectively.
+- **Completeness and durable-retention amendment** — APPROVED FOR
+  IMPLEMENTATION. The amendment fixes the E0–E7 implementation obligations,
+  separates control and evidence roots, defines the minimum reusable runtime,
+  and requires canonical evidence to survive temporary execution storage. The
+  current local tooling is an implementation candidate pending admission
+  review; formal preparation and execution remain unauthorized until that
+  admission gate passes.
 
 #### Foundation End-to-End Regression
 
@@ -516,17 +524,23 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current branch: `foundation/numeric-contract`.
+Current branch: `foundation/reproducible-experiment-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Reproducible Experiment Contract / Implement the pre-registered evidence package**
+**Foundation — Architecture, Numerics, and Reproducibility / Reproducible Experiment Contract / Review the amended reusable evidence and retention infrastructure**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
 that evidence without changing `numeric.cpp`, then passed the audited clean
 four-cell regression on candidate `236d290`. N0–N7 are qualified. Foundation
 remains IN INVESTIGATION at 50%. The Reproducible Experiment Contract and its
-first two-replay/four-cell E0–E7 regression are now specified and pre-registered,
-but no implementation or execution has started. Foundation End-to-End remains
-unqualified. No greenfield geometry or meshing algorithm is implemented.
+first two-replay/four-cell E0–E7 regression are specified and pre-registered.
+Its local profile, preparation/execution entrypoint, collector/comparer,
+derived table/SVG, reusable runtime, retention assembler, and focused
+no-execution contracts form an implementation candidate pending admission
+review. The governing E0–E7 obligations are recorded in
+`docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`. Formal campaign
+preparation and execution remain unauthorized until the amendment admission
+gate passes. Foundation End-to-End remains unqualified. No greenfield geometry
+or meshing algorithm is implemented.

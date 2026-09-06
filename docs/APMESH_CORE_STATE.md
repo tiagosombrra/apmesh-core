@@ -3,7 +3,7 @@
 Status: ACTIVE
 Last updated: 2026-09-06
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: `foundation/numeric-contract`
+Working branch: `foundation/reproducible-experiment-contract`
 
 ## Purpose
 
@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Implement the pre-registered Reproducible Experiment Contract evidence package without changing C++ or launching the formal regression.**
+**Complete the amended reusable experiment-evidence and durable-retention infrastructure without changing C++ or preparing the formal regression.**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -141,21 +141,19 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
 3. `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
-4. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md`
-5. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-6. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
-7. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-8. `docs/research/REFERENCE_REGISTER.md`.
+4. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`
+5. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md`
+6. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+7. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
+8. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+9. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-1. Implement the pre-registered Reproducible Experiment Contract profile,
-   launcher, collector, comparer, derived table/figure, and focused tooling
-   contracts without changing C++ or launching the formal regression.
-2. Prepare one clean revision-bound two-replay/four-cell campaign only after
-   the implementation package passes focused review.
-3. Preserve the qualified Architecture and Numeric contracts as prerequisites;
-   do not implement geometry or robust predicates.
+1. Review the completed REC infrastructure candidate against every E0–E7
+   implementation obligation in the approved completeness amendment.
+2. Review the amendment admission gate before committing a formal candidate;
+   do not prepare or execute the campaign yet.
 
 Decision progress: 3/3 Numeric Contract questions resolved. Qualification
 progress: Architecture and Numeric Contracts are qualified. Foundation remains

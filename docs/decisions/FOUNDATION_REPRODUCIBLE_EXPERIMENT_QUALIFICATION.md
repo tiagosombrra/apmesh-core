@@ -1,8 +1,10 @@
 # Foundation Reproducible Experiment Contract — Bounded Qualification Protocol
 
-Status: PRE-REGISTERED / IMPLEMENTATION NOT STARTED
+Status: PRE-REGISTERED / AMENDED / IMPLEMENTATION CANDIDATE COMPLETE / ADMISSION REVIEW REQUIRED / REGRESSION NOT AUTHORIZED
 Last updated: 2026-09-06
 Contract: `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
+Completeness amendment:
+`docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`
 
 ## Question
 
@@ -45,6 +47,33 @@ The bounded implementation may add only:
 
 It must not change C++, numeric semantics, geometry, topology, meshing,
 acceptance policy, or the existing qualification evidence.
+
+## Implementation-candidate status
+
+The current local candidate contains the following implementation components:
+
+- `experiments/profiles/reproducible_experiment_contract.json` declares the
+  eight replay cells, claim and volatile fields, required artifacts, limits,
+  and E0–E7 gates;
+- `tools/run_reproducible_experiment_contract.py` prepares an immutable clean,
+  revision-bound manifest and executes it only with `--execute`;
+- `tools/reproducible_experiment_evidence.py` validates bundle schemas and
+  compares the two replays of a declared cell without accepting undeclared
+  claim differences;
+- focused CTest contracts exercise profile validation, clean-candidate binding,
+  artifact inventory, and one replay-disagreement path.
+
+The completeness amendment defines the admission review. The candidate now has
+strict profile/plan revalidation, persisted lifecycle state, command and log
+provenance, exact bundle/inventory/derivation checks, replay and cross-cell
+comparison, focused negative contracts, and a canonical retention assembler.
+The qualified Architecture and Numeric runners remain separate authoritative
+protocols; their execution and linkage are required evidence for E7 and have
+not been performed by this implementation-only work unit.
+
+No formal REC cell has been executed. A formal manifest must not be prepared
+until the amendment admission gate passes. The protocol remains pre-registered
+and unqualified.
 
 ## Execution matrix
 
@@ -139,6 +168,10 @@ The formal campaign must run from one new empty OS-temporary root and record:
 The first audit reads compact summaries before any focused log. It may not
 reinterpret an unexpected difference as acceptable without a new recorded
 decision and a new candidate.
+
+Before this campaign may be prepared, the implementation must pass the
+admission gate in
+`docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`.
 
 ## Decision effect
 

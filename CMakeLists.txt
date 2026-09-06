@@ -52,7 +52,7 @@ apmesh_apply_target_defaults(apmesh_core_numeric_contract_export)
 
 include(CTest)
 if(BUILD_TESTING)
-    find_package(Python3 3.8 COMPONENTS Interpreter REQUIRED)
+    find_package(Python3 3.10 COMPONENTS Interpreter REQUIRED)
 
     add_executable(apmesh_core_bootstrap_smoke
         tests/bootstrap_smoke.cpp
@@ -92,6 +92,32 @@ if(BUILD_TESTING)
             --architecture-profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/architecture_bootstrap.json
             --architecture-expected ${CMAKE_CURRENT_SOURCE_DIR}/experiments/expected/bootstrap_certificate.json
             --architecture-comparer ${CMAKE_CURRENT_SOURCE_DIR}/tools/bootstrap_regression.py
+    )
+    add_test(
+        NAME apmesh_core.reproducible_experiment_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_evidence_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/reproducible_experiment_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
+    )
+    add_test(
+        NAME apmesh_core.reproducible_experiment_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_reproducible_experiment_contract.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
+            --contract ${CMAKE_CURRENT_SOURCE_DIR}/docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md
+            --collector ${CMAKE_CURRENT_SOURCE_DIR}/tools/reproducible_experiment_evidence.py
+    )
+    add_test(
+        NAME apmesh_core.reproducible_experiment_retention
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_retention_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/retain_experiment_evidence.py
     )
     add_test(
         NAME apmesh_core.bootstrap_export
@@ -134,5 +160,11 @@ if(BUILD_TESTING)
         apmesh_core.numeric_contract_evidence
         apmesh_core.numeric_contract_runner
         PROPERTIES LABELS "numeric;contract"
+    )
+    set_tests_properties(
+        apmesh_core.reproducible_experiment_evidence
+        apmesh_core.reproducible_experiment_runner
+        apmesh_core.reproducible_experiment_retention
+        PROPERTIES LABELS "reproducibility;contract"
     )
 endif()

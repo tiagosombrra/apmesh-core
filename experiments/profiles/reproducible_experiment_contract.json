@@ -1,0 +1,66 @@
+{
+  "schema_version": 2,
+  "experiment_id": "foundation-reproducible-experiment-contract",
+  "question": "Can the qualified Numeric Contract specimen be independently replayed from a revision-bound manifest?",
+  "specimen": "numeric-contract",
+  "replays_per_cell": 2,
+  "configurations": [
+    { "name": "gcc-debug", "preset": "gcc-debug", "compiler": "GCC 13", "standard_library": "libstdc++", "build_type": "Debug" },
+    { "name": "gcc-release", "preset": "gcc-release", "compiler": "GCC 13", "standard_library": "libstdc++", "build_type": "Release" },
+    { "name": "clang-debug", "preset": "clang-debug", "compiler": "Clang 18", "standard_library": "libc++", "build_type": "Debug" },
+    { "name": "clang-release", "preset": "clang-release", "compiler": "Clang 18", "standard_library": "libc++", "build_type": "Release" }
+  ],
+  "commands": {
+    "configure": "cmake Ninja configuration with the declared compiler and build type",
+    "build": "build only the numeric export and contract targets",
+    "ctest": "run the numeric CTest label",
+    "export": "export numeric certificate and environment",
+    "prerequisite_protocols": "invoke qualified Architecture and Numeric protocol runners on the same candidate"
+  },
+  "required_artifacts": ["certificate.json", "environment.json", "execution-record.json", "artifact-inventory.json", "summary.json", "report.md", "metrics.csv", "figures/status-matrix.svg"],
+  "optional_artifacts": [],
+  "artifact_schemas": {
+    "certificate.json": "numeric-contract-certificate/v1",
+    "environment.json": "numeric-contract-environment/v1",
+    "execution-record.json": "reproducible-experiment-execution/v1",
+    "artifact-inventory.json": "experiment-artifact-inventory/v1",
+    "summary.json": "reproducible-experiment-summary/v1",
+    "report.md": "reproducible-experiment-report/v1",
+    "metrics.csv": "reproducible-experiment-metrics/v1",
+    "figures/status-matrix.svg": "reproducible-experiment-status-matrix/v1"
+  },
+  "derivations": {
+    "report.md": "derived from summary.json",
+    "metrics.csv": "derived from summary.json",
+    "figures/status-matrix.svg": "derived from summary.json"
+  },
+  "claim_fields": ["certificate", "environment", "gates", "artifact_roles", "retained_limitations"],
+  "volatile_fields": ["started_utc", "ended_utc", "elapsed_seconds", "pid", "output_root", "absolute_paths"],
+  "equivalence_rules": {
+    "certificate.json": "semantic JSON equality",
+    "environment.json": "semantic JSON equality",
+    "execution-record.json": "provenance retained; declared volatile fields reported but not compared as claims",
+    "artifact-inventory.json": "every declared artifact hash and derivation must validate",
+    "summary.json": "pre-registered claim_fields exact equality",
+    "report.md": "derivation identity from summary.json",
+    "metrics.csv": "derivation identity from summary.json",
+    "figures/status-matrix.svg": "derivation identity from summary.json"
+  },
+  "gates": ["E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7"],
+  "limits_seconds": { "configure": 300, "build": 300, "ctest": 60, "export": 30, "overall": 1800 },
+  "limitations": ["WSL Ubuntu 24.04 toolchain envelope only", "No geometry, topology, meshing, parallelism, performance, or native Windows qualification"],
+  "gate_conditions": {
+    "E0": { "pass": "revision-bound scope classification records only infrastructure changes", "blocked": "scientific-core or protected contract bytes differ" },
+    "E1": { "pass": "strict profile validates with every required declaration", "blocked": "unknown, duplicate, or missing declaration" },
+    "E2": { "pass": "candidate, inputs, plan, tools and prerequisite identities revalidate", "blocked": "any observed identity differs" },
+    "E3": { "pass": "all planned commands retain complete provenance", "blocked": "command failure, timeout, or lifecycle mismatch" },
+    "E4": { "pass": "all bundles validate exact artifacts, inventory, and derivations", "blocked": "missing, extra, stale, or malformed artifact" },
+    "E5": { "pass": "both replays agree under declared rules", "blocked": "validated semantic claim difference" },
+    "E6": { "pass": "all four cells compare after E5", "blocked": "cross-cell claim difference or incomplete matrix" },
+    "E7": { "pass": "eight negative fixtures reject and qualified prerequisite protocols are linked", "blocked": "a rejection fails or prerequisite evidence is absent" }
+  },
+  "negative_fixtures": {
+    "N1": "dirty candidate is rejected", "N2": "changed declared input is rejected", "N3": "non-empty evidence root is rejected", "N4": "unsupported profile schema is rejected", "N5": "missing required artifact is rejected", "N6": "tampered artifact inventory is rejected", "N7": "failed command preserves BLOCKED provenance", "N8": "terminal manifest cannot be reused as PREPARED"
+  },
+  "prerequisites": ["architecture-contract", "numeric-contract"]
+}
