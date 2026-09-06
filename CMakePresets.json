@@ -14,6 +14,7 @@
       "cacheVariables": {
         "APMESH_USE_LIBCXX": "OFF",
         "BUILD_TESTING": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_CXX_COMPILER": "/usr/bin/g++-13"
       }
@@ -26,6 +27,7 @@
       "cacheVariables": {
         "APMESH_USE_LIBCXX": "OFF",
         "BUILD_TESTING": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_CXX_COMPILER": "/usr/bin/g++-13"
       }
@@ -38,6 +40,7 @@
       "cacheVariables": {
         "APMESH_USE_LIBCXX": "ON",
         "BUILD_TESTING": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_CXX_COMPILER": "/usr/bin/clang++-18"
       }
@@ -50,6 +53,7 @@
       "cacheVariables": {
         "APMESH_USE_LIBCXX": "ON",
         "BUILD_TESTING": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_CXX_COMPILER": "/usr/bin/clang++-18"
       }

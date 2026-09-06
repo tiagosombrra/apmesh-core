@@ -1,9 +1,9 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-04
+Last updated: 2026-09-06
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: `main`
+Working branch: `foundation/numeric-contract`
 
 ## Purpose
 
@@ -46,30 +46,44 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 Current active investigation problem:
 
-**Architecture Contract**
+**Reproducible Experiment Contract**
 
 Current executable work unit:
 
-**Record the qualified Architecture Contract and open the Numeric Contract**
+**Implement the pre-registered Reproducible Experiment Contract evidence package without changing C++ or launching the formal regression.**
 
 No greenfield meshing algorithm has been implemented yet.
 
-Architecture decisions are recorded; the Architecture Contract is QUALIFIED
-for WSL Ubuntu 24.04 at the final audited candidate.
-The three open questions (header/package layout, certificate/report boundary,
-ID allocation/canonical order) are resolved at specification level in
-`docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`.
+The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
+into `main` at `4927383`. All eight requirements passed the final audited
+four-cell protocol.
 
-The executable specification is
-`docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`, protocol 1:
-GCC/Clang x Debug/Release, three certificate processes per cell, four separate
-consumer validations, and all eight original architecture requirements. The
-first four-cell execution passed operationally, but the audit retained two
-evidence gaps: scratch-directory preservation and report identity by
-cell/repetition. The corrected launcher and comparer now have focused passing
-contracts; a single final four-cell regression remains to be prepared and run
-on their committed clean candidate. No architecture closure percentage is
-earned until that final evidence is audited.
+NQ-R1 preserved `numeric.cpp` and collected complete passing evidence for N0,
+N1, and N3–N7 on clean candidate
+`74fede5ae5999580f2ef76e944cf61e334f44064`. N2 remains blocked because the
+pre-registered minimum/maximum finite fixture class does not explicitly classify
+`std::numeric_limits<double>::min()` or `lowest()`. No numeric implementation
+defect has been demonstrated. The contract still separates topological
+identity, exact equality, numeric proximity, certified predicate sign, and
+scientific acceptance.
+
+NQ-R2 added explicit `min()` and `lowest()` classification evidence only in the
+focused test, report-only certificate, and independent oracle; `numeric.cpp`
+and the public API remained unchanged. Its revision-bound four-cell regression
+on candidate `236d290a20227f0abd646073499c0d3e20a19f8e` passed the formal audit:
+N0--N7 all pass. The Numeric Contract is `QUALIFIED` inside the declared WSL
+Ubuntu 24.04 GCC 13/Clang 18 envelope.
+
+Evidence status: the revision-bound NQ-R1 manifest at
+`C:\Users\tiago\AppData\Local\Temp\apmesh-core-nq-r1-531d0795e1a94e1e9f43a99a578f63ce\manifest.json`
+with SHA-256
+`bcc39af9b75a7bd6fe1a0b02607f617372dd9bd62d8014ea69d31a097eed2a9f`
+was audited as N0/N1/N3–N7 `PASS` and N2 `BLOCKED`. The earlier N0/N1 `PASS`,
+N2–N7 `BLOCKED` decision remains preserved as negative historical evidence.
+
+Scientific qualification: the Numeric Contract is `QUALIFIED`. Foundation
+remains `IN INVESTIGATION` at 50% because the Reproducible Experiment Contract
+and Foundation End-to-End Regression remain unqualified.
 
 ## Bootstrap repository and toolchain
 
@@ -97,11 +111,10 @@ The minimal `apmesh::core` library skeleton is qualified on the GCC reference:
 - CTest discovery of one `bootstrap`-labelled test;
 - one passing `apmesh_core.bootstrap_smoke` execution.
 
-The same clean project bootstrap is qualified on Clang 18.1.3 with libc++
-18.1.3. These Debug smoke qualifications do not establish strict language mode
-on the test target, Release checking, or repeated certificate evidence. The
-the remaining Foundation contracts remain open. Native Windows remains
-NOT QUALIFIED; WSL execution does not qualify it.
+The same project bootstrap and bounded Architecture Contract regression are
+qualified on Clang 18.1.3 with libc++ 18.1.3, including Debug and Release.
+Reproducible Experiment and later Foundation contracts remain open. Native
+Windows remains NOT QUALIFIED; WSL execution does not qualify it.
 
 ## Architecture direction already agreed
 
@@ -127,23 +140,27 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
-3. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-4. `docs/research/REFERENCE_REGISTER.md`
-5. `docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md`.
+3. `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
+4. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md`
+5. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+6. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
+7. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+8. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-1. Record and publish the audited Architecture Contract qualification.
-2. Define the bounded Numeric Contract work unit; do not claim geometry or
-   meshing capability from the Architecture evidence.
-3. Only after the Numeric Contract is specified, implement its first focused
-   value types and analytical checks.
+1. Implement the pre-registered Reproducible Experiment Contract profile,
+   launcher, collector, comparer, derived table/figure, and focused tooling
+   contracts without changing C++ or launching the formal regression.
+2. Prepare one clean revision-bound two-replay/four-cell campaign only after
+   the implementation package passes focused review.
+3. Preserve the qualified Architecture and Numeric contracts as prerequisites;
+   do not implement geometry or robust predicates.
 
-Decision progress: 3/3 previously open questions resolved. Qualification progress:
-8/8 Architecture Contract requirements qualified by the final protocol.
-Foundation remains IN INVESTIGATION at 25% (Architecture Contract is the first
-of four Foundation gates); Numeric, Reproducible Experiment, and Foundation
-End-to-End work remain unqualified.
+Decision progress: 3/3 Numeric Contract questions resolved. Qualification
+progress: Architecture and Numeric Contracts are qualified. Foundation remains
+IN INVESTIGATION at 50% (two of four Foundation gates); Reproducible Experiment
+and Foundation End-to-End remain unqualified.
 
 ## Stage closure protocol
 
