@@ -330,7 +330,8 @@ def execute(arguments: argparse.Namespace) -> int:
                     "gate_results": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in profile["gates"]}}
         write_json(evidence_root / "terminal-manifest.json", terminal)
         validate_terminal_manifest(evidence_root, profile, terminal["prepared_manifest_sha256"], candidate_commit,
-                                   profile_sha256, launch_plan_sha256)
+                                   profile_sha256, launch_plan_sha256, plan,
+                                   pathlib.Path(manifest["candidate"]["source_root"]), scratch_root, evidence_root)
         write_state(control_root, "EXECUTED_PENDING_AUDIT", {"terminal_manifest": str(evidence_root / "terminal-manifest.json"), "terminal_sha256": sha256_file(evidence_root / "terminal-manifest.json")})
         return 0
     except (EvidenceError, RuntimeErrorEvidence) as error:

@@ -528,7 +528,7 @@ Current branch: `foundation/reproducible-experiment-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Reproducible Experiment Contract / Implement REC-R3 admission-evidence fixes**
+**Foundation — Architecture, Numerics, and Reproducibility / Reproducible Experiment Contract / Audit bounded admission-closure candidate**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only

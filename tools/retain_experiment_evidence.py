@@ -52,10 +52,20 @@ def _validate_campaign(source: pathlib.Path, control_root: pathlib.Path, profile
     launch_plan = prepared.get("launch_plan")
     if not isinstance(launch_plan, dict) or not isinstance(launch_plan.get("sha256"), str):
         raise RuntimeErrorEvidence("prepared campaign launch-plan identity differs")
+    launch_plan_path = control_root / "launch-plan.json"
+    if not launch_plan_path.is_file() or sha256_file(launch_plan_path) != launch_plan["sha256"]:
+        raise RuntimeErrorEvidence("prepared campaign launch-plan bytes differ")
+    launch_plan_data = read_json(launch_plan_path)
+    candidate = prepared.get("candidate")
+    envelope = prepared.get("execution_envelope")
+    if not isinstance(candidate, dict) or not isinstance(candidate.get("source_root"), str) or not isinstance(envelope, dict) or not isinstance(envelope.get("scratch_root"), str) or not isinstance(prepared.get("evidence_root"), str):
+        raise RuntimeErrorEvidence("prepared campaign execution envelope differs")
     terminal = read_json(source / "terminal-manifest.json")
     if terminal.get("state") == "EXECUTED_PENDING_AUDIT":
         validate_terminal_manifest(source, profile_data, sha256_file(prepared_path), candidate_commit,
-                                   prepared["profile_sha256"], launch_plan["sha256"])
+                                   prepared["profile_sha256"], launch_plan["sha256"], launch_plan_data,
+                                   pathlib.Path(candidate["source_root"]), pathlib.Path(envelope["scratch_root"]),
+                                   pathlib.Path(prepared["evidence_root"]))
     elif terminal.get("state") == "BLOCKED":
         validate_blocked_terminal_manifest(source, sha256_file(prepared_path), candidate_commit)
     else:
@@ -70,7 +80,7 @@ def assemble(source: pathlib.Path, destination: pathlib.Path, candidate_commit: 
     terminal = read_json(source / "terminal-manifest.json")
     if terminal.get("kind") != "reproducible-experiment-terminal-manifest" or terminal.get("state") not in {"EXECUTED_PENDING_AUDIT", "BLOCKED"}:
         raise RuntimeErrorEvidence("campaign terminal manifest is absent or invalid")
-    for name in ("prepared-manifest.json", "state.json", "state-history.jsonl"):
+    for name in ("prepared-manifest.json", "launch-plan.json", "state.json", "state-history.jsonl"):
         if not (control_root / name).is_file():
             raise RuntimeErrorEvidence(f"control evidence is absent: {name}")
     _validate_campaign(source, control_root, profile, candidate_commit)
@@ -82,7 +92,7 @@ def assemble(source: pathlib.Path, destination: pathlib.Path, candidate_commit: 
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(item, target)
         copied.append((item, target))
-    for name in ("prepared-manifest.json", "state.json", "state-history.jsonl"):
+    for name in ("prepared-manifest.json", "launch-plan.json", "state.json", "state-history.jsonl"):
         source_item, target = control_root / name, destination / "control" / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source_item, target)
