@@ -41,10 +41,18 @@ def main() -> int:
     with tempfile.TemporaryDirectory() as temporary_directory:
         root, candidate = pathlib.Path(temporary_directory), pathlib.Path(temporary_directory) / "candidate"
         candidate.mkdir(); (candidate / "tracked.txt").write_text("candidate\n", encoding="utf-8")
-        (candidate / "tools").mkdir()
-        for name in ("run_architecture_bootstrap_regression.py", "run_numeric_contract_regression.py"):
-            shutil.copy2(runner_path.parent / name, candidate / "tools" / name)
-        for command in (["git", "init"], ["git", "config", "user.email", "test@example.invalid"], ["git", "config", "user.name", "Test"], ["git", "add", "tracked.txt", "tools"], ["git", "commit", "-m", "candidate"]):
+        source_repository = runner_path.parent.parent
+        for relative in (
+            "tools/run_architecture_bootstrap_regression.py", "tools/run_numeric_contract_regression.py",
+            "tools/numeric_contract_evidence.py", "tools/bootstrap_regression.py", "tools/reproducible_experiment_negative.py",
+            "experiments/profiles/numeric_contract.json", "experiments/profiles/architecture_bootstrap.json",
+            "docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md",
+            "docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md",
+            "experiments/expected/bootstrap_certificate.json",
+        ):
+            target = candidate / relative; target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source_repository / relative, target)
+        for command in (["git", "init"], ["git", "config", "user.email", "test@example.invalid"], ["git", "config", "user.name", "Test"], ["git", "add", "tracked.txt", "tools", "experiments", "docs"], ["git", "commit", "-m", "candidate"]):
             subprocess.run(command, cwd=candidate, check=True, capture_output=True)
         control, evidence = root / "control", root / "evidence"
         common = ["--source-root", str(candidate), "--profile", arguments.profile, "--contract", arguments.contract,

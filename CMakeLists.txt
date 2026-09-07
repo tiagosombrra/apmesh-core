@@ -120,6 +120,14 @@ if(BUILD_TESTING)
             --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/retain_experiment_evidence.py
     )
     add_test(
+        NAME apmesh_core.reproducible_experiment_negatives
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_negatives_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/reproducible_experiment_negative.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
+    )
+    add_test(
         NAME apmesh_core.bootstrap_export
         COMMAND
             ${Python3_EXECUTABLE}
@@ -165,6 +173,7 @@ if(BUILD_TESTING)
         apmesh_core.reproducible_experiment_evidence
         apmesh_core.reproducible_experiment_runner
         apmesh_core.reproducible_experiment_retention
+        apmesh_core.reproducible_experiment_negatives
         PROPERTIES LABELS "reproducibility;contract"
     )
 endif()

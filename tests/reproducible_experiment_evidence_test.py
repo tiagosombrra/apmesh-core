@@ -35,16 +35,17 @@ def write_bundle(module, root: pathlib.Path, profile: dict, cell: str, replay: i
         "cwd": "/synthetic", "environment_delta": {}, "started_utc": "2026-01-01T00:00:00+00:00",
         "ended_utc": "2026-01-01T00:00:01+00:00", "elapsed_seconds": 1.0, "pid": 17, "timeout_seconds": 10,
         "timed_out": False, "exit_code": 0,
+        "launch_error": None,
         "stdout": {"path": "logs/focused.stdout.log", "sha256": module.sha256(logs / "focused.stdout.log")},
         "stderr": {"path": "logs/focused.stderr.log", "sha256": module.sha256(logs / "focused.stderr.log")},
     }]
-    module.write_json(root / "certificate.json", {"kind": "numeric-contract-certificate", "stable": stable})
-    module.write_json(root / "environment.json", {"kind": "numeric-contract-environment", "stable": stable})
+    module.write_json(root / "certificate.json", {"schema_version": 1, "kind": "numeric-contract-certificate", "stable": stable})
+    module.write_json(root / "environment.json", {"schema_version": 1, "kind": "numeric-contract-environment", "stable": stable})
     module.write_json(root / "execution-record.json", {"schema_version": 1, "kind": "reproducible-experiment-execution", "cell": cell, "replay": replay, "records": records})
     summary = {"schema_version": 1, "kind": "reproducible-experiment-summary", "cell": cell, "replay": replay,
                "gates": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in module.EXPECTED_GATES},
-               "certificate": {"kind": "numeric-contract-certificate", "stable": stable},
-               "environment": {"kind": "numeric-contract-environment", "stable": stable},
+               "certificate": {"schema_version": 1, "kind": "numeric-contract-certificate", "stable": stable},
+               "environment": {"schema_version": 1, "kind": "numeric-contract-environment", "stable": stable},
                "artifact_roles": profile["required_artifacts"], "retained_limitations": profile["limitations"]}
     module.write_json(root / "summary.json", summary)
     module.write_derived(root, [summary])
@@ -85,6 +86,10 @@ def main() -> int:
         malformed = root / "malformed.json"
         malformed.write_text('{"schema_version":2,"schema_version":2}\n', encoding="utf-8")
         must_reject(lambda: module.validate_profile(malformed), "REC accepted duplicate profile keys")
+        nested_unknown = json.loads(pathlib.Path(arguments.profile).read_text(encoding="utf-8"))
+        nested_unknown["configurations"][0]["undeclared"] = True
+        module.write_json(root / "nested-unknown.json", nested_unknown)
+        must_reject(lambda: module.validate_profile(root / "nested-unknown.json"), "REC accepted unknown nested profile field")
         cells = {}
         for index, name in enumerate(module.EXPECTED_CONFIGURATION_NAMES):
             bundle = root / "cells" / name / "replay-1"; write_bundle(module, bundle, profile, name, 1)

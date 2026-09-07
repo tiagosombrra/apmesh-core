@@ -15,6 +15,7 @@ import os
 import pathlib
 import shutil
 import subprocess
+import time
 from typing import Any, Iterable
 
 
@@ -136,7 +137,19 @@ def run_command(argv: list[str], cwd: pathlib.Path, logs_root: pathlib.Path, rec
     environment = os.environ.copy()
     environment.update(environment_delta or {})
     started = dt.datetime.now(dt.timezone.utc)
-    process = subprocess.Popen(argv, cwd=cwd, env=environment, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        process = subprocess.Popen(argv, cwd=cwd, env=environment, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except OSError as error:
+        stderr_path.write_text(str(error), encoding="utf-8")
+        stdout_path.write_bytes(b"")
+        return {
+            "schema_version": 1, "kind": "experiment-command-record", "id": record_id, "argv": argv,
+            "cwd": str(cwd.resolve()), "environment_delta": environment_delta or {}, "started_utc": utc_now(),
+            "ended_utc": utc_now(), "elapsed_seconds": 0.0, "pid": None, "timeout_seconds": timeout_seconds,
+            "timed_out": False, "exit_code": None, "launch_error": str(error),
+            "stdout": {"path": relative_path(logs_root.parent, stdout_path), "sha256": sha256_file(stdout_path)},
+            "stderr": {"path": relative_path(logs_root.parent, stderr_path), "sha256": sha256_file(stderr_path)},
+        }
     pid = process.pid
     try:
         stdout, stderr = process.communicate(timeout=timeout_seconds)
@@ -165,6 +178,7 @@ def run_command(argv: list[str], cwd: pathlib.Path, logs_root: pathlib.Path, rec
         "timeout_seconds": timeout_seconds,
         "timed_out": timed_out,
         "exit_code": exit_code,
+        "launch_error": None,
         "stdout": {"path": relative_path(logs_root.parent, stdout_path), "sha256": sha256_file(stdout_path)},
         "stderr": {"path": relative_path(logs_root.parent, stderr_path), "sha256": sha256_file(stderr_path)},
     }
@@ -173,18 +187,30 @@ def run_command(argv: list[str], cwd: pathlib.Path, logs_root: pathlib.Path, rec
 def write_state(control_root: pathlib.Path, state: str, detail: dict[str, Any]) -> None:
     if state not in {"PREPARED", "RUNNING", "EXECUTED_PENDING_AUDIT", "BLOCKED"}:
         raise RuntimeErrorEvidence(f"unknown lifecycle state: {state}")
-    write_json(control_root / "state.json", {"schema_version": 1, "kind": "experiment-lifecycle", "state": state,
-                                                "recorded_utc": utc_now(), "detail": detail})
+    transitions = {"PREPARED": {"RUNNING", "BLOCKED"}, "RUNNING": {"EXECUTED_PENDING_AUDIT", "BLOCKED"},
+                   "EXECUTED_PENDING_AUDIT": set(), "BLOCKED": set()}
+    state_path = control_root / "state.json"
+    if state_path.exists():
+        previous = read_json(state_path).get("state")
+        if previous not in transitions or state not in transitions[previous]:
+            raise RuntimeErrorEvidence(f"invalid lifecycle transition: {previous} -> {state}")
+    elif state != "PREPARED":
+        raise RuntimeErrorEvidence("first lifecycle state must be PREPARED")
+    record = {"schema_version": 1, "kind": "experiment-lifecycle", "state": state, "recorded_utc": utc_now(), "detail": detail}
+    write_json(state_path, record)
+    history = control_root / "state-history.jsonl"
+    with history.open("ab") as stream:
+        stream.write(canonical_json(record))
 
 
-def inventory_files(root: pathlib.Path, entries: list[tuple[str, str, dict[str, Any] | None]]) -> list[dict[str, Any]]:
+def inventory_files(root: pathlib.Path, entries: list[tuple[str, str, str, dict[str, Any] | None]]) -> list[dict[str, Any]]:
     """Inventory explicit paths only; the inventory itself is intentionally omitted."""
     rows: list[dict[str, Any]] = []
-    for relative, role, derivation in entries:
+    for relative, role, schema, derivation in entries:
         path = root / relative
         if not path.is_file():
             raise RuntimeErrorEvidence(f"required artifact is absent: {path}")
-        row: dict[str, Any] = {"path": relative, "role": role, "size": path.stat().st_size, "sha256": sha256_file(path)}
+        row: dict[str, Any] = {"path": relative, "role": role, "schema": schema, "size": path.stat().st_size, "sha256": sha256_file(path)}
         if derivation is not None:
             row["derivation"] = derivation
         rows.append(row)

@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Complete the amended reusable experiment-evidence and durable-retention infrastructure without changing C++ or preparing the formal regression.**
+**Implement REC-R2: close the identified E2, E3, E4, E6, E7, and retention infrastructure gaps without changing C++ or preparing the formal regression.**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -150,7 +150,7 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Review the completed REC infrastructure candidate against every E0–E7
+1. Validate the REC-R2 infrastructure candidate against every E0–E7
    implementation obligation in the approved completeness amendment.
 2. Review the amendment admission gate before committing a formal candidate;
    do not prepare or execute the campaign yet.

@@ -24,10 +24,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(); parser.add_argument("--tool", required=True)
     arguments = parser.parse_args(); tool = load_tool(pathlib.Path(arguments.tool))
     with tempfile.TemporaryDirectory() as temporary_directory:
-        root = pathlib.Path(temporary_directory); campaign, destination = root / "campaign", root / "evidence" / "foundation" / "rec" / "synthetic"
+        root = pathlib.Path(temporary_directory); campaign, control, destination = root / "campaign", root / "control", root / "evidence" / "foundation" / "rec" / "synthetic"
         (campaign / "cells" / "one").mkdir(parents=True); (campaign / "cells" / "one" / "summary.json").write_text("{}\n", encoding="utf-8")
+        (campaign / "terminal-manifest.json").write_text('{"kind":"reproducible-experiment-terminal-manifest","state":"EXECUTED_PENDING_AUDIT"}\n', encoding="utf-8")
+        control.mkdir(); (control / "prepared-manifest.json").write_text("{}\n", encoding="utf-8"); (control / "state.json").write_text("{}\n", encoding="utf-8"); (control / "state-history.jsonl").write_text("{}\n", encoding="utf-8")
         (campaign / "build" / "CMakeFiles").mkdir(parents=True); (campaign / "build" / "CMakeFiles" / "object.o").write_bytes(b"object")
-        tool.assemble(campaign, destination, "candidate-sha", "archive-sha")
+        tool.assemble(campaign, destination, "candidate-sha", "archive-sha", control)
         tool.verify(destination)
         retained = json.loads((destination / "retention-manifest.json").read_text(encoding="utf-8"))
         if not retained["files"][0]["source_path"].startswith(str(campaign)):
