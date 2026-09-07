@@ -220,7 +220,7 @@ def main() -> int:
     profile_path = pathlib.Path(arguments.profile); profile = evidence.validate_profile(profile_path)
     with tempfile.TemporaryDirectory() as temporary_directory:
         root = pathlib.Path(temporary_directory); campaign, control, source = root / "campaign", root / "control", root / "source"
-        destination = root / "evidence" / "foundation" / "rec" / "synthetic"
+        destination = source / "evidence" / "foundation" / "rec" / "synthetic"
         command_root = root / "child-pid"; command_root.mkdir()
         architecture_record = architecture_runner.run([sys.executable, "-c", "print('architecture')"], cwd=command_root, timeout=10,
                                                      stdout=command_root / "architecture.stdout.log", stderr=command_root / "architecture.stderr.log")
@@ -399,15 +399,23 @@ def main() -> int:
         retained = json.loads((destination / "retention-manifest.json").read_text(encoding="utf-8"))
         if not retained["files"][0]["source_path"].startswith(str(campaign)) or (destination / "build").exists():
             raise RuntimeError("retention package did not preserve evidence policy")
-        (destination / "cells" / "gcc-debug" / "replay-1" / "summary.json").write_text("tampered\n", encoding="utf-8")
+        retained_summary = destination / "cells" / "gcc-debug" / "replay-1" / "summary.json"
+        original_retained_summary = retained_summary.read_bytes()
+        retained_summary.write_text("tampered\n", encoding="utf-8")
         try:
             tool.verify(destination, profile_path)
         except tool.RuntimeErrorEvidence:
             pass
         else:
             raise RuntimeError("retention verifier accepted tampered evidence")
+        retained_summary.write_bytes(original_retained_summary)
+        (source / "unexpected.txt").write_text("untracked outside canonical evidence\n", encoding="utf-8")
+        tool.verify(destination, profile_path)
+        (source / "unexpected.txt").unlink()
+        tool.verify(destination, profile_path)
+        shutil.rmtree(destination)
         blocked_campaign, blocked_control = root / "blocked-campaign", root / "blocked-control"
-        blocked_destination = root / "evidence" / "foundation" / "rec" / "blocked-synthetic"
+        blocked_destination = source / "evidence" / "foundation" / "rec" / "blocked-synthetic"
         blocked_control.mkdir(); evidence.write_json(blocked_control / "prepared-manifest.json", prepared)
         shutil.copy2(control / "launch-plan.json", blocked_control / "launch-plan.json")
         blocked_prepared_sha = evidence.sha256(blocked_control / "prepared-manifest.json")

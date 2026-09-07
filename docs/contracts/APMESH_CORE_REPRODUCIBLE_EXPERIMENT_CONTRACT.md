@@ -1,7 +1,7 @@
 # AP Mesh Core — Reproducible Experiment Contract
 
-Status: SPECIFIED / AMENDED / IMPLEMENTATION CANDIDATE COMPLETE / ADMISSION REVIEW REQUIRED
-Last updated: 2026-09-06
+Status: QUALIFIED / WSL Ubuntu 24.04
+Last updated: 2026-09-07
 Scope: Foundation evidence production before geometry implementation
 
 Normative amendment:
@@ -172,6 +172,10 @@ focused tests, or a green summary alone do not qualify it.
 Passing E0–E7 advances Foundation from 50% to 75% and authorizes preparation of
 the Foundation End-to-End Regression. Failure leaves Foundation at 50% and
 requires one bounded diagnosis of the failed gate.
+
+The first formal campaign passed E0–E7 on candidate `85d215a`. Its retained,
+revision-bound evidence is recorded in
+`evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a/`.
 
 ## 11. Retained limitations
 

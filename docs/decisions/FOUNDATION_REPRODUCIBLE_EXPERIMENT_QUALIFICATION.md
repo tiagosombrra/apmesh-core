@@ -1,7 +1,7 @@
 # Foundation Reproducible Experiment Contract — Bounded Qualification Protocol
 
-Status: PRE-REGISTERED / AMENDED / IMPLEMENTATION CANDIDATE COMPLETE / ADMISSION REVIEW REQUIRED / REGRESSION NOT AUTHORIZED
-Last updated: 2026-09-06
+Status: QUALIFIED / E0–E7 PASS / WSL Ubuntu 24.04
+Last updated: 2026-09-07
 Contract: `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
 Completeness amendment:
 `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`
@@ -68,12 +68,15 @@ implementation candidate adds a per-bundle manifest, structured terminal
 failure evidence, field-level provenance classifications, reason-coded negative
 fixtures, deep prerequisite-terminal checks, and semantic retention validation.
 The qualified Architecture and Numeric runners remain separate authoritative
-protocols; their execution and linkage are required evidence for E7 and have
-not been performed by this implementation-only work unit.
+protocols. Their execution and linkage are required evidence for E7; the
+implementation-only work unit did not perform them, while the formal campaign
+later retained their revision-bound evidence.
 
-No formal REC cell has been executed. A formal manifest must not be prepared
-until the amendment admission gate passes. The protocol remains pre-registered
-and unqualified.
+The formal REC campaign executed after the amendment admission gate passed.
+Candidate `85d215a` completed eight cells, eight negative fixtures, and linked
+Architecture/Numeric prerequisite evidence. Independent audit accepted E0–E7.
+The retained package is
+`evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a/`.
 
 ## Execution matrix
 

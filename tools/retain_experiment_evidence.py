@@ -7,7 +7,9 @@ import argparse
 import json
 import pathlib
 import shutil
+import subprocess
 import sys
+import tempfile
 
 from experiment_runtime import RuntimeErrorEvidence, read_json, relative_path, retention_manifest, sha256_file, write_json
 from reproducible_experiment_evidence import (EvidenceError, validate_blocked_terminal_manifest, validate_profile,
@@ -33,7 +35,8 @@ def _require_canonical_destination(destination: pathlib.Path) -> None:
 
 
 def _validate_campaign(source: pathlib.Path, control_root: pathlib.Path, profile: pathlib.Path,
-                       candidate_commit: str) -> None:
+                       candidate_commit: str, allowed_untracked_root: pathlib.Path | None = None,
+                       verification_source_root: pathlib.Path | None = None) -> None:
     prepared_path = control_root / "prepared-manifest.json"
     prepared = read_json(prepared_path)
     if prepared.get("state") != "PREPARED" or prepared.get("candidate", {}).get("commit") != candidate_commit:
@@ -65,7 +68,8 @@ def _validate_campaign(source: pathlib.Path, control_root: pathlib.Path, profile
         validate_terminal_manifest(source, profile_data, sha256_file(prepared_path), candidate_commit,
                                    prepared["profile_sha256"], launch_plan["sha256"], launch_plan_data,
                                    pathlib.Path(candidate["source_root"]), pathlib.Path(envelope["scratch_root"]),
-                                   pathlib.Path(prepared["evidence_root"]))
+                                   pathlib.Path(prepared["evidence_root"]), allowed_untracked_root,
+                                   verification_source_root)
     elif terminal.get("state") == "BLOCKED":
         validate_blocked_terminal_manifest(source, sha256_file(prepared_path), candidate_commit)
     else:
@@ -121,7 +125,25 @@ def verify(destination: pathlib.Path, profile: pathlib.Path) -> None:
     candidate_commit = manifest.get("candidate_commit")
     if not isinstance(candidate_commit, str):
         raise RuntimeErrorEvidence("retention candidate identity differs")
-    _validate_campaign(destination, destination / "control", profile, candidate_commit)
+    prepared = read_json(destination / "control" / "prepared-manifest.json")
+    candidate = prepared.get("candidate")
+    if not isinstance(candidate, dict) or not isinstance(candidate.get("source_root"), str) or not candidate["source_root"]:
+        raise RuntimeErrorEvidence("retention candidate source differs")
+    candidate_root = pathlib.Path(candidate["source_root"])
+    with tempfile.TemporaryDirectory(prefix="apmesh-core-retention-") as temporary_root:
+        verification_root = pathlib.Path(temporary_root) / "candidate"
+        create = subprocess.run(["git", "worktree", "add", "--detach", str(verification_root), candidate_commit],
+                                cwd=candidate_root, capture_output=True, text=True, check=False)
+        if create.returncode != 0:
+            raise RuntimeErrorEvidence("retention candidate worktree could not be created")
+        try:
+            _validate_campaign(destination, destination / "control", profile, candidate_commit,
+                                verification_source_root=verification_root)
+        finally:
+            remove = subprocess.run(["git", "worktree", "remove", "--force", str(verification_root)],
+                                    cwd=candidate_root, capture_output=True, text=True, check=False)
+            if remove.returncode != 0:
+                raise RuntimeErrorEvidence("retention candidate worktree could not be removed")
 
 
 def main() -> int:

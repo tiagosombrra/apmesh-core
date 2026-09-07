@@ -1,2 +1,6 @@
 # Canonical text bytes across Windows and WSL.
 * text=auto eol=lf
+
+# Retained execution artifacts are hash-bound historical evidence; preserve
+# their produced bytes without applying source-format whitespace checks.
+evidence/** -whitespace

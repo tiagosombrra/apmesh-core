@@ -554,14 +554,34 @@ def _relative_source_path(source_root: pathlib.Path, value: Any, context: str) -
     return path
 
 
-def _validated_source_inventory(candidate: dict[str, Any], expected_commit: str, context: str) -> tuple[pathlib.Path, dict[pathlib.Path, str]]:
-    source_root = pathlib.Path(candidate["source_root"])
+def _validated_source_inventory(candidate: dict[str, Any], expected_commit: str, context: str,
+                                allowed_untracked_root: pathlib.Path | None = None,
+                                verification_source_root: pathlib.Path | None = None) -> tuple[pathlib.Path, dict[pathlib.Path, str], pathlib.Path]:
+    recorded_source_root = pathlib.Path(candidate["source_root"])
+    source_root = verification_source_root if verification_source_root is not None else recorded_source_root
     if not source_root.is_dir():
         raise EvidenceError(f"{context} source root is absent")
-    status = subprocess.run(["git", "status", "--porcelain"], cwd=source_root, capture_output=True, text=True, check=False)
+    status_command = ["git", "status", "--porcelain"]
+    allowed_prefix: str | None = None
+    if allowed_untracked_root is not None:
+        try:
+            allowed_relative = allowed_untracked_root.resolve().relative_to(source_root.resolve()).as_posix()
+        except (OSError, ValueError) as error:
+            raise EvidenceError(f"{context} allowed retention path escapes source root") from error
+        if not allowed_relative:
+            raise EvidenceError(f"{context} allowed retention path differs")
+        allowed_prefix = f"{allowed_relative.rstrip('/')}/"
+        status_command.append("--untracked-files=all")
+    status = subprocess.run(status_command, cwd=source_root, capture_output=True, text=True, check=False)
     revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=source_root, capture_output=True, text=True, check=False)
     listed = subprocess.run(["git", "ls-files"], cwd=source_root, capture_output=True, text=True, check=False)
-    if status.returncode != 0 or status.stdout or revision.returncode != 0 or revision.stdout.strip() != expected_commit or listed.returncode != 0:
+    status_lines = [line for line in status.stdout.splitlines() if line]
+    if allowed_prefix is not None:
+        allowed_status = all(line.startswith("?? ") and line[3:].replace("\\", "/").startswith(allowed_prefix)
+                             for line in status_lines)
+    else:
+        allowed_status = not status_lines
+    if status.returncode != 0 or not allowed_status or revision.returncode != 0 or revision.stdout.strip() != expected_commit or listed.returncode != 0:
         raise EvidenceError(f"{context} revision-bound source differs")
     inventory = candidate["source_inventory"]
     rows: dict[pathlib.Path, str] = {}
@@ -576,21 +596,24 @@ def _validated_source_inventory(candidate: dict[str, Any], expected_commit: str,
     tracked = {pathlib.PurePosixPath(item).as_posix() for item in listed.stdout.splitlines() if item}
     if {path.as_posix() for path in rows} != tracked:
         raise EvidenceError(f"{context} source inventory differs")
-    return source_root, rows
+    return source_root, rows, recorded_source_root
 
 
-def _validate_prerequisite_candidate(manifest: dict[str, Any], expected_commit: str, context: str) -> tuple[pathlib.Path, dict[pathlib.Path, str]]:
+def _validate_prerequisite_candidate(manifest: dict[str, Any], expected_commit: str, context: str,
+                                    allowed_untracked_root: pathlib.Path | None = None,
+                                    verification_source_root: pathlib.Path | None = None) -> tuple[pathlib.Path, dict[pathlib.Path, str], pathlib.Path]:
     candidate = manifest.get("candidate")
     if not isinstance(candidate, dict) or set(candidate) != {"commit", "tree_clean", "source_root", "source_inventory"} or candidate["commit"] != expected_commit or candidate["tree_clean"] is not True or not isinstance(candidate["source_root"], str) or not candidate["source_root"]:
         raise EvidenceError(f"{context} candidate identity differs")
     inventory = candidate["source_inventory"]
     if not isinstance(inventory, list) or not inventory or any(not isinstance(row, dict) or set(row) != {"path", "sha256"} or not isinstance(row["path"], str) or not row["path"] or _sha256_text(row["sha256"], f"{context} source hash") != row["sha256"] for row in inventory):
         raise EvidenceError(f"{context} source inventory differs")
-    return _validated_source_inventory(candidate, expected_commit, context)
+    return _validated_source_inventory(candidate, expected_commit, context, allowed_untracked_root, verification_source_root)
 
 
 def _validate_prerequisite_inputs(manifest: dict[str, Any], names: set[str], source_root: pathlib.Path,
-                                  inventory: dict[pathlib.Path, str], context: str) -> None:
+                                  inventory: dict[pathlib.Path, str], context: str,
+                                  recorded_source_root: pathlib.Path | None = None) -> None:
     inputs = manifest.get("inputs")
     if not isinstance(inputs, dict) or set(inputs) != names:
         raise EvidenceError(f"{context} input identity differs")
@@ -598,7 +621,7 @@ def _validate_prerequisite_inputs(manifest: dict[str, Any], names: set[str], sou
         if not isinstance(item, dict) or set(item) != {"path", "sha256"} or not isinstance(item["path"], str) or not item["path"]:
             raise EvidenceError(f"{context} input identity differs")
         declared_hash = _sha256_text(item["sha256"], f"{context} input hash")
-        relative = _relative_source_path(source_root, item["path"], f"{context} input")
+        relative = _relative_source_path(recorded_source_root or source_root, item["path"], f"{context} input")
         path = source_root / relative
         if inventory.get(relative) != declared_hash or not path.is_file() or sha256(path) != declared_hash:
             raise EvidenceError(f"{context} input identity differs")
@@ -626,12 +649,14 @@ def _require_command_ids(records: list[dict[str, Any]], required: set[str], cont
         raise EvidenceError(f"{context} command matrix differs")
 
 
-def _validate_architecture_prerequisite(root: pathlib.Path, execution_root: pathlib.Path, manifest: dict[str, Any], expected_commit: str) -> None:
+def _validate_architecture_prerequisite(root: pathlib.Path, execution_root: pathlib.Path, manifest: dict[str, Any], expected_commit: str,
+                                        allowed_untracked_root: pathlib.Path | None = None,
+                                        verification_source_root: pathlib.Path | None = None) -> None:
     candidate, execution, requirements = manifest.get("candidate"), manifest.get("execution"), manifest.get("requirements")
     if manifest.get("state") != "EXECUTED_PENDING_AUDIT":
         raise EvidenceError("Architecture prerequisite state or candidate differs")
-    source_root, inventory = _validate_prerequisite_candidate(manifest, expected_commit, "Architecture prerequisite")
-    _validate_prerequisite_inputs(manifest, {"profile", "protocol", "expected_certificate", "comparer", "launcher"}, source_root, inventory, "Architecture prerequisite")
+    source_root, inventory, recorded_source_root = _validate_prerequisite_candidate(manifest, expected_commit, "Architecture prerequisite", allowed_untracked_root, verification_source_root)
+    _validate_prerequisite_inputs(manifest, {"profile", "protocol", "expected_certificate", "comparer", "launcher"}, source_root, inventory, "Architecture prerequisite", recorded_source_root)
     if not isinstance(requirements, dict) or requirements != {str(number): "EVIDENCE_COLLECTED_PENDING_AUDIT" for number in range(1, 9)}:
         raise EvidenceError("Architecture prerequisite requirement matrix differs")
     if not isinstance(execution, dict):
@@ -668,7 +693,7 @@ def _validate_architecture_prerequisite(root: pathlib.Path, execution_root: path
         expected.update({"scratch-smoke": ([str(build_root / "apmesh_core_bootstrap_smoke")], scratch_root),
                          **{f"export-{index}": ([str(build_root / "apmesh_core_bootstrap_export"), str(cell_root / f"certificate-{index}.json")], cell_root) for index in range(1, 4)},
                          **{f"validate-{index}": ([sys.executable, manifest["inputs"]["comparer"]["path"], "validate", "--expected", manifest["inputs"]["expected_certificate"]["path"], "--actual", str(cell_root / f"certificate-{index}.json")], cell_root) for index in range(1, 4)},
-                         "consumer-configure": (["cmake", "-S", str(source_root / "tests" / "consumer"), "-B", str(consumer_root), "-G", "Ninja", f"-DCMAKE_CXX_COMPILER={compiler}", f"-DAPMESH_CORE_SOURCE_DIR={source_root}", "-DBUILD_TESTING=OFF", f"-DAPMESH_USE_LIBCXX={'ON' if libcxx else 'OFF'}"], cell_root),
+                         "consumer-configure": (["cmake", "-S", str(recorded_source_root / "tests" / "consumer"), "-B", str(consumer_root), "-G", "Ninja", f"-DCMAKE_CXX_COMPILER={compiler}", f"-DAPMESH_CORE_SOURCE_DIR={recorded_source_root}", "-DBUILD_TESTING=OFF", f"-DAPMESH_USE_LIBCXX={'ON' if libcxx else 'OFF'}"], cell_root),
                          "consumer-build": (["cmake", "--build", str(consumer_root), "--target", "apmesh_core_external_consumer", "apmesh_core_unrelated_target"], cell_root),
                          "consumer": ([str(consumer_root / "apmesh_core_external_consumer")], scratch_root),
                          "unrelated": ([str(consumer_root / "apmesh_core_unrelated_target")], scratch_root)})
@@ -702,7 +727,7 @@ def _validate_architecture_prerequisite(root: pathlib.Path, execution_root: path
     negatives = execution.get("negative_records")
     if not isinstance(negatives, list) or len(negatives) != 5:
         raise EvidenceError("Architecture prerequisite negative evidence differs")
-    fixtures = pathlib.Path(manifest["candidate"]["source_root"]) / "tests" / "data" / "bootstrap_regression"
+    fixtures = recorded_source_root / "tests" / "data" / "bootstrap_regression"
     expected_negatives = [
         [sys.executable, manifest["inputs"]["comparer"]["path"], "validate", "--expected", manifest["inputs"]["expected_certificate"]["path"], "--actual", str(execution_root / "missing.json")],
         [sys.executable, manifest["inputs"]["comparer"]["path"], "validate", "--expected", manifest["inputs"]["expected_certificate"]["path"], "--actual", str(fixtures / "malformed.json")],
@@ -716,12 +741,14 @@ def _validate_architecture_prerequisite(root: pathlib.Path, execution_root: path
             raise EvidenceError("Architecture prerequisite negative command differs")
 
 
-def _validate_numeric_prerequisite(root: pathlib.Path, execution_root: pathlib.Path, manifest: dict[str, Any], expected_commit: str) -> None:
+def _validate_numeric_prerequisite(root: pathlib.Path, execution_root: pathlib.Path, manifest: dict[str, Any], expected_commit: str,
+                                   allowed_untracked_root: pathlib.Path | None = None,
+                                   verification_source_root: pathlib.Path | None = None) -> None:
     candidate, execution, gates = manifest.get("candidate"), manifest.get("execution"), manifest.get("gates")
     if manifest.get("state") != "EXECUTED_PENDING_AUDIT":
         raise EvidenceError("Numeric prerequisite state or candidate differs")
-    source_root, inventory = _validate_prerequisite_candidate(manifest, expected_commit, "Numeric prerequisite")
-    _validate_prerequisite_inputs(manifest, {"profile", "protocol", "validator", "architecture_runner", "architecture_profile", "architecture_evidence", "architecture_expected", "architecture_comparer", "launcher"}, source_root, inventory, "Numeric prerequisite")
+    source_root, inventory, recorded_source_root = _validate_prerequisite_candidate(manifest, expected_commit, "Numeric prerequisite", allowed_untracked_root, verification_source_root)
+    _validate_prerequisite_inputs(manifest, {"profile", "protocol", "validator", "architecture_runner", "architecture_profile", "architecture_evidence", "architecture_expected", "architecture_comparer", "launcher"}, source_root, inventory, "Numeric prerequisite", recorded_source_root)
     if not isinstance(gates, dict) or gates != {f"N{number}": "EVIDENCE_COLLECTED_PENDING_AUDIT" for number in range(8)}:
         raise EvidenceError("Numeric prerequisite gate matrix differs")
     if not isinstance(execution, dict):
@@ -786,7 +813,9 @@ def _validate_numeric_prerequisite(root: pathlib.Path, execution_root: pathlib.P
             raise EvidenceError("Numeric prerequisite Architecture command differs")
 
 
-def _validate_prerequisite(root: pathlib.Path, evidence_root: pathlib.Path, name: str, entry: Any, expected_commit: str) -> None:
+def _validate_prerequisite(root: pathlib.Path, evidence_root: pathlib.Path, name: str, entry: Any, expected_commit: str,
+                           allowed_untracked_root: pathlib.Path | None = None,
+                           verification_source_root: pathlib.Path | None = None) -> None:
     if not isinstance(entry, dict) or set(entry) != {"manifest", "manifest_sha256", "state", "candidate_commit"}:
         raise EvidenceError("terminal prerequisite schema differs")
     if not isinstance(entry["manifest"], str):
@@ -803,9 +832,9 @@ def _validate_prerequisite(root: pathlib.Path, evidence_root: pathlib.Path, name
         raise EvidenceError("terminal prerequisite identity differs")
     original_root = evidence_root / pathlib.PurePosixPath(entry["manifest"]).parent
     if name == "architecture_contract":
-        _validate_architecture_prerequisite(path.parent, original_root, manifest, expected_commit)
+        _validate_architecture_prerequisite(path.parent, original_root, manifest, expected_commit, allowed_untracked_root, verification_source_root)
     elif name == "numeric_contract":
-        _validate_numeric_prerequisite(path.parent, original_root, manifest, expected_commit)
+        _validate_numeric_prerequisite(path.parent, original_root, manifest, expected_commit, allowed_untracked_root, verification_source_root)
     else:
         raise EvidenceError("terminal prerequisite name differs")
 
@@ -841,7 +870,9 @@ def _validate_negative_fixture(root: pathlib.Path, row: Any, profile: dict[str, 
 def validate_terminal_manifest(root: pathlib.Path, profile: dict[str, Any], prepared_manifest_sha256: str,
                                candidate_commit: str, profile_sha256: str, launch_plan_sha256: str,
                                launch_plan: dict[str, Any], source_root: pathlib.Path,
-                               scratch_root: pathlib.Path, evidence_root: pathlib.Path) -> dict[str, Any]:
+                               scratch_root: pathlib.Path, evidence_root: pathlib.Path,
+                               allowed_untracked_root: pathlib.Path | None = None,
+                               verification_source_root: pathlib.Path | None = None) -> dict[str, Any]:
     terminal = read_json_object(root / "terminal-manifest.json")
     required = {"schema_version", "kind", "state", "prepared_manifest_sha256", "candidate_commit", "bundles", "bundle_seals", "replay_comparisons", "cross_configuration", "negative_fixtures", "prerequisites", "gate_results"}
     if set(terminal) != required or terminal["schema_version"] != 1 or terminal["kind"] != "reproducible-experiment-terminal-manifest" or terminal["state"] != "EXECUTED_PENDING_AUDIT":
@@ -887,7 +918,7 @@ def validate_terminal_manifest(root: pathlib.Path, profile: dict[str, Any], prep
     if not isinstance(terminal["prerequisites"], dict) or set(terminal["prerequisites"]) != {"numeric_contract", "architecture_contract"}:
         raise EvidenceError("terminal prerequisite evidence differs")
     for name, entry in terminal["prerequisites"].items():
-        _validate_prerequisite(root, evidence_root, name, entry, candidate_commit)
+        _validate_prerequisite(root, evidence_root, name, entry, candidate_commit, allowed_untracked_root, verification_source_root)
     numeric_manifest = read_json_object(root / terminal["prerequisites"]["numeric_contract"]["manifest"])
     reported_architecture = numeric_manifest["execution"]["architecture_preservation"]["manifest"]
     expected_architecture = evidence_root / terminal["prerequisites"]["architecture_contract"]["manifest"]

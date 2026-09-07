@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-06
+Last updated: 2026-09-07
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: `foundation/reproducible-experiment-contract`
 
@@ -46,11 +46,11 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 Current active investigation problem:
 
-**Reproducible Experiment Contract**
+**Foundation End-to-End Regression**
 
 Current executable work unit:
 
-**Audit the bounded REC admission-closure candidate against E0–E7. The candidate requires exact plan-to-command correspondence, independently recomputed replay and cross-configuration comparisons, one-to-one bundle/seal/cell/replay identity, and deep Architecture/Numeric terminal validation. Do not prepare the formal regression.**
+**Define and pre-register the bounded Foundation End-to-End Regression from the three qualified Foundation contracts. Do not prepare or execute it yet.**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -81,9 +81,10 @@ with SHA-256
 was audited as N0/N1/N3–N7 `PASS` and N2 `BLOCKED`. The earlier N0/N1 `PASS`,
 N2–N7 `BLOCKED` decision remains preserved as negative historical evidence.
 
-Scientific qualification: the Numeric Contract is `QUALIFIED`. Foundation
-remains `IN INVESTIGATION` at 50% because the Reproducible Experiment Contract
-and Foundation End-to-End Regression remain unqualified.
+Scientific qualification: the Architecture, Numeric, and Reproducible Experiment
+Contracts are `QUALIFIED` in the declared WSL Ubuntu 24.04 envelope. Foundation
+remains `IN INVESTIGATION` at 75%; only Foundation End-to-End Regression remains
+unqualified.
 
 ## Bootstrap repository and toolchain
 
@@ -113,7 +114,7 @@ The minimal `apmesh::core` library skeleton is qualified on the GCC reference:
 
 The same project bootstrap and bounded Architecture Contract regression are
 qualified on Clang 18.1.3 with libc++ 18.1.3, including Debug and Release.
-Reproducible Experiment and later Foundation contracts remain open. Native
+The Reproducible Experiment Contract is qualified. Foundation End-to-End and later contracts remain open. Native
 Windows remains NOT QUALIFIED; WSL execution does not qualify it.
 
 ## Architecture direction already agreed
@@ -150,15 +151,14 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-1. Validate the REC admission-closure candidate against every E0–E7
-   implementation obligation in the approved completeness amendment.
-2. Review the amendment admission gate before committing a formal candidate;
-   do not prepare or execute the campaign yet.
+1. Define and pre-register the bounded Foundation End-to-End Regression from
+   the qualified Architecture, Numeric, and Reproducible Experiment contracts;
+   do not prepare or execute it yet.
 
 Decision progress: 3/3 Numeric Contract questions resolved. Qualification
-progress: Architecture and Numeric Contracts are qualified. Foundation remains
-IN INVESTIGATION at 50% (two of four Foundation gates); Reproducible Experiment
-and Foundation End-to-End remain unqualified.
+progress: Architecture, Numeric, and Reproducible Experiment Contracts are
+qualified. Foundation remains IN INVESTIGATION at 75% (three of four Foundation
+gates); Foundation End-to-End remains unqualified.
 
 ## Stage closure protocol
 
