@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "kind": "foundation-end-to-end-profile",
+  "accepted_baseline": {
+    "path": "evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a",
+    "candidate_commit": "85d215ad193619a0d9ddcf34235c0e815b6000c4",
+    "retention_manifest_sha256": "7921f20cb970c5d009f64187224c3ba13d9db416141b6d4b00289d80bf0a5e67"
+  },
+  "configurations": {
+    "gcc-debug": "gcc",
+    "gcc-release": "gcc",
+    "clang-debug": "clang-libcxx",
+    "clang-release": "clang-libcxx"
+  },
+  "claim_fields": ["certificate", "environment", "gates", "artifact_roles", "retained_limitations"],
+  "required_executables": [
+    "apmesh_core_bootstrap_smoke",
+    "apmesh_core_bootstrap_export",
+    "apmesh_core_numeric_contract",
+    "apmesh_core_numeric_contract_export"
+  ],
+  "required_contract_tests": [
+    "apmesh_core.architecture_bootstrap_runner",
+    "apmesh_core.bootstrap_export",
+    "apmesh_core.bootstrap_smoke",
+    "apmesh_core.bootstrap_tool",
+    "apmesh_core.foundation_end_to_end_evidence",
+    "apmesh_core.numeric_contract",
+    "apmesh_core.numeric_contract_evidence",
+    "apmesh_core.numeric_contract_runner",
+    "apmesh_core.reproducible_experiment_evidence",
+    "apmesh_core.reproducible_experiment_negatives",
+    "apmesh_core.reproducible_experiment_retention",
+    "apmesh_core.reproducible_experiment_runner"
+  ],
+  "allowed_scope_changes": [
+    ".gitattributes",
+    "CMakeLists.txt",
+    "docs/**",
+    "evidence/foundation/**",
+    "experiments/profiles/foundation_end_to_end.json",
+    "tests/foundation_end_to_end_evidence_test.py",
+    "tests/reproducible_experiment_retention_test.py",
+    "tools/foundation_end_to_end_evidence.py",
+    "tools/reproducible_experiment_evidence.py",
+    "tools/retain_experiment_evidence.py"
+  ],
+  "allowed_runtime_dependencies": {
+    "gcc": ["ld-linux-x86-64.so.2", "libc.so.6", "libgcc_s.so.1", "libm.so.6", "libstdc++.so.6", "linux-vdso.so.1"],
+    "clang-libcxx": ["ld-linux-x86-64.so.2", "libc++.so.1", "libc++abi.so.1", "libc.so.6", "libgcc_s.so.1", "libm.so.6", "libunwind.so.1", "linux-vdso.so.1"]
+  },
+  "allowed_runtime_prefixes": ["/lib/", "/lib64/", "/usr/lib/"],
+  "allowed_pseudo_dependencies": ["linux-vdso.so.1"],
+  "gates": ["FND0", "FND1", "FND2", "FND3", "FND4", "FND5", "FND6", "FND7"],
+  "limitations": [
+    "WSL Ubuntu 24.04 toolchain envelope only",
+    "No geometry, topology, meshing, convergence, performance, parallel-equivalence, or native Windows qualification"
+  ]
+}

@@ -268,13 +268,23 @@ Status: `QUALIFIED` on WSL Ubuntu 24.04
 
 #### Foundation End-to-End Regression
 
-Status: `NOT STARTED`
+Status: `PRE-REGISTERED / QUALIFIER IMPLEMENTED / FOCUSED CONTRACT PASS / ADMISSION REVIEW REQUIRED / NOT PREPARED / NOT EXECUTED`
 
-- Rebuild from a clean checkout using the declared C++23 toolchain.
-- Execute the minimal deterministic smoke experiment repeatedly.
-- Regenerate its certificate, table, and figure.
-- Verify byte-stable or semantically canonical evidence where declared.
-- Verify that no undeclared third-party runtime dependency is introduced.
+- Reuse the qualified REC execution path; do not introduce a parallel campaign
+  framework.
+- Execute two replays in each declared GCC/Clang Debug/Release cell from one
+  clean candidate, including same-revision Architecture and Numeric
+  prerequisites.
+- Compare claim fields with the accepted REC baseline at `85d215a` and classify
+  every difference as `NO_CHANGE`, `EXPECTED_CHANGE`, `REGRESSION`, or
+  `INVESTIGATION_REQUIRED`.
+- Regenerate and retain the stage certificate, compact table, status figure,
+  dependency inventory, manifests, hashes, and limitations.
+- Require FND0–FND7 from
+  `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md` to pass jointly.
+- Use the report-only Foundation qualifier for source-scope, accepted-baseline,
+  dependency, and closure evidence; it may emit collected evidence or
+  `BLOCKED`, but never scientific `PASS`.
 
 Stage exit gate: all three contracts reviewed; minimal C++23 library builds from a clean checkout; one deterministic smoke experiment is fully reproducible from manifest to certificate and figure; Foundation End-to-End Regression passes.
 
@@ -526,7 +536,7 @@ Current branch: `foundation/reproducible-experiment-contract`.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Foundation End-to-End Regression / Define and pre-register bounded protocol**
+**Foundation — Architecture, Numerics, and Reproducibility / Foundation End-to-End Regression / Independently audit qualifier admission against FND0–FND7**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -540,5 +550,6 @@ no-execution contracts are qualified components of the retained campaign. The
 governing E0–E7 obligations are recorded in
 `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`. Canonical
 retention and revision-bound verification passed. Foundation End-to-End remains
-unqualified. No greenfield geometry
-or meshing algorithm is implemented.
+pre-registered with its report-only qualifier implemented; admission review is
+required, and the campaign is neither prepared nor executed. No greenfield
+geometry or meshing algorithm is implemented.

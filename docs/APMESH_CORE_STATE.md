@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Define and pre-register the bounded Foundation End-to-End Regression from the three qualified Foundation contracts. Do not prepare or execute it yet.**
+**Independently audit the report-only Foundation qualifier and its focused contract against FND0–FND7. Decide only whether preparation may be authorized. Do not prepare or execute the formal regression.**
 
 No greenfield meshing algorithm has been implemented yet.
 
@@ -142,18 +142,19 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
 3. `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
-4. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`
-5. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md`
-6. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-7. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
-8. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-9. `docs/research/REFERENCE_REGISTER.md`.
+4. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+5. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`
+6. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md`
+7. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+8. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
+9. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+10. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-1. Define and pre-register the bounded Foundation End-to-End Regression from
-   the qualified Architecture, Numeric, and Reproducible Experiment contracts;
-   do not prepare or execute it yet.
+1. Independently audit the Foundation profile, report-only qualifier, and
+   focused contract against FND0–FND7. Decide only whether preparation may be
+   authorized; do not prepare or execute the formal regression.
 
 Decision progress: 3/3 Numeric Contract questions resolved. Qualification
 progress: Architecture, Numeric, and Reproducible Experiment Contracts are
