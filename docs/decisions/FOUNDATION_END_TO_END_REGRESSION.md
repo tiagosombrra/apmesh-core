@@ -151,6 +151,13 @@ The qualifier independently compares publication with Git, recomputes CTest
 coverage and dependency findings from raw artifacts, verifies authority bytes,
 and seals its own output into a Foundation retention manifest.
 
+Each retained CTest and `ldd` artifact must carry its completed command record:
+argv, child PID, timestamps, exit status, and hash-bound stdout/stderr. The
+Foundation package retains the transitive executables and raw outputs, the
+candidate REC package, and proves candidate identity through a detached Git
+worktree. These are admission safeguards only; they do not prepare or execute
+the formal regression.
+
 The former broad path allowlist is replaced by exact support-path digests, an
 exact verified historical-evidence prefix, and protected core paths. FND1 and
 FND6 are not constants: they require qualified-authority verification and a

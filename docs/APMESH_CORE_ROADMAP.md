@@ -538,6 +538,10 @@ Current correction: revision-bound Foundation admission evidence is being
 completed before a new authorization audit. The correction does not prepare or
 execute the Foundation End-to-End Regression.
 
+Admission evidence must include real Git identity, completed hash-bound CTest
+and dependency command records, transitive retention, and detached-worktree
+verification. It is report-only infrastructure, not Foundation execution.
+
 Current active investigation:
 
 **Foundation — Architecture, Numerics, and Reproducibility / Foundation End-to-End Regression / Independently audit qualifier admission against FND0–FND7**

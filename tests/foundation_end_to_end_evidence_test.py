@@ -7,6 +7,7 @@ import argparse
 import copy
 import importlib.util
 import pathlib
+import subprocess
 import sys
 import tempfile
 
@@ -72,10 +73,15 @@ def write_dependencies(tool, root: pathlib.Path, profile: dict, commit: str) -> 
             binary = root / "bins" / cell / name; binary.parent.mkdir(parents=True, exist_ok=True); binary.write_bytes(f"{cell}/{name}".encode())
             raw = root / "ldd" / f"{cell}-{name}.txt"; raw.parent.mkdir(parents=True, exist_ok=True)
             raw.write_text(f"linux-vdso.so.1 (0x0000)\n{allowed[0]} => /lib/{allowed[0]} (0x0000)\n", encoding="utf-8")
+            stderr = root / "ldd" / f"{cell}-{name}.stderr"; stderr.write_text("", encoding="utf-8")
             executables.append({"name": name, "path": binary.relative_to(root).as_posix(), "sha256": tool.sha256_file(binary),
-                                "ldd": {"path": raw.relative_to(root).as_posix(), "sha256": tool.sha256_file(raw)}})
+                                "ldd": {"path": raw.relative_to(root).as_posix(), "sha256": tool.sha256_file(raw)},
+                                "execution": {"argv": ["ldd", str(binary)], "exit_code": 0, "pid": 1,
+                                              "started_utc": "2026-01-01T00:00:00Z", "finished_utc": "2026-01-01T00:00:01Z",
+                                              "stdout": {"path": raw.relative_to(root).as_posix(), "sha256": tool.sha256_file(raw)},
+                                              "stderr": {"path": stderr.relative_to(root).as_posix(), "sha256": tool.sha256_file(stderr)}}})
         cells.append({"name": cell, "executables": executables})
-    result = root / "dependencies.json"; tool.write_json(result, {"schema_version": 2, "kind": "foundation-runtime-dependencies", "candidate_commit": commit, "cells": cells}); return result
+    result = root / "dependencies.json"; tool.write_json(result, {"schema_version": 3, "kind": "foundation-runtime-dependencies", "candidate_commit": commit, "cells": cells}); return result
 
 
 def write_contracts(tool, root: pathlib.Path, profile: dict, commit: str) -> pathlib.Path:
@@ -84,10 +90,17 @@ def write_contracts(tool, root: pathlib.Path, profile: dict, commit: str) -> pat
         discovery = root / "ctest" / f"{cell}-discover.json"; discovery.parent.mkdir(parents=True, exist_ok=True)
         tool.write_json(discovery, {"tests": [{"name": name, "properties": [{"name": "LABELS", "value": ["contract"]}]} for name in names]})
         junit = root / "ctest" / f"{cell}-result.xml"; junit.write_text("<testsuites><testsuite>" + "".join(f'<testcase name="{name}"/>' for name in names) + "</testsuite></testsuites>\n", encoding="utf-8")
-        cells.append({"name": cell, "command": ["ctest", "--test-dir", f"build/{cell}", "-L", "contract", "--output-junit", junit.name],
+        stdout = root / "ctest" / f"{cell}-stdout.txt"; stdout.write_text("ctest completed\n", encoding="utf-8")
+        stderr = root / "ctest" / f"{cell}-stderr.txt"; stderr.write_text("", encoding="utf-8")
+        command = ["ctest", "--test-dir", f"build/{cell}", "-L", "contract", "--output-junit", str(junit)]
+        cells.append({"name": cell, "command": command,
                       "discovery": {"path": discovery.relative_to(root).as_posix(), "sha256": tool.sha256_file(discovery)},
-                      "junit": {"path": junit.relative_to(root).as_posix(), "sha256": tool.sha256_file(junit)}, "exit_code": 0})
-    result = root / "contract-tests.json"; tool.write_json(result, {"schema_version": 2, "kind": "foundation-contract-tests", "candidate_commit": commit, "cells": cells}); return result
+                      "junit": {"path": junit.relative_to(root).as_posix(), "sha256": tool.sha256_file(junit)}, "exit_code": 0,
+                      "execution": {"argv": command, "exit_code": 0, "pid": 1,
+                                    "started_utc": "2026-01-01T00:00:00Z", "finished_utc": "2026-01-01T00:00:01Z",
+                                    "stdout": {"path": stdout.relative_to(root).as_posix(), "sha256": tool.sha256_file(stdout)},
+                                    "stderr": {"path": stderr.relative_to(root).as_posix(), "sha256": tool.sha256_file(stderr)}}})
+    result = root / "contract-tests.json"; tool.write_json(result, {"schema_version": 3, "kind": "foundation-contract-tests", "candidate_commit": commit, "cells": cells}); return result
 
 
 def inputs_manifest(tool, root: pathlib.Path, profile_path: pathlib.Path, candidate: pathlib.Path, source_root: pathlib.Path,
@@ -105,31 +118,46 @@ def assert_blocked(tool, *arguments, gate: str) -> None:
         raise RuntimeError(f"Foundation qualifier did not block {gate}")
 
 
+def git(source: pathlib.Path, *arguments: str) -> str:
+    completed = subprocess.run(["git", *arguments], cwd=source, check=True, capture_output=True, text=True)
+    return completed.stdout.strip()
+
+
 def main() -> int:
+    global BASE, CANDIDATE
     parser = argparse.ArgumentParser(); parser.add_argument("--tool", required=True); parser.add_argument("--profile", required=True)
     arguments = parser.parse_args(); tool = load_tool(pathlib.Path(arguments.tool))
     with tempfile.TemporaryDirectory() as temporary:
         root = pathlib.Path(temporary); source = root / "source"; source.mkdir(); baseline, candidate = root / "baseline", root / "candidate"
+        remote = root / "remote.git"
+        subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True, text=True)
+        git(source, "init", "-b", "foundation/test"); git(source, "config", "user.email", "foundation@test.invalid"); git(source, "config", "user.name", "Foundation Test")
+        (source / "README.md").write_text("foundation\n", encoding="utf-8"); git(source, "add", "README.md"); git(source, "commit", "-m", "base")
+        BASE = git(source, "rev-parse", "HEAD")
+        git(source, "remote", "add", "origin", str(remote)); git(source, "push", "-u", "origin", "foundation/test")
+        # The actual candidate commit is created after the authority documents
+        # are populated below; source_identity is never replaced in this test.
         write_package(tool, baseline, BASE, source); write_package(tool, candidate, CANDIDATE, source)
         profile = copy.deepcopy(tool.read_json(pathlib.Path(arguments.profile)))
         profile["accepted_baseline"] = {"path": baseline.as_posix(), "candidate_commit": BASE, "retention_manifest_sha256": tool.sha256_file(baseline / "retention-manifest.json")}
         profile["scope_policy"]["approved_support_paths"] = [{"path": "tools/foundation_end_to_end_evidence.py", "candidate_sha256": "2" * 64}]
         profile["scope_policy"]["verified_retained_prefix"]["retention_manifest_sha256"] = tool.sha256_file(baseline / "retention-manifest.json")
-        profile_path = root / "profile.json"; authorities = write_authorities(tool, root, source, profile, CANDIDATE); tool.write_json(profile_path, profile)
+        profile_path = root / "profile.json"; write_authorities(tool, root, source, profile, CANDIDATE)
+        git(source, "add", "."); git(source, "commit", "-m", "authorities"); CANDIDATE = git(source, "rev-parse", "HEAD"); git(source, "push")
+        write_package(tool, candidate, CANDIDATE, source); authorities = write_authorities(tool, root, source, profile, CANDIDATE); tool.write_json(profile_path, profile)
         dependencies = write_dependencies(tool, root, profile, CANDIDATE); contracts = write_contracts(tool, root, profile, CANDIDATE)
         publication = root / "publication.json"; published = {"schema_version": 1, "kind": "foundation-candidate-publication", "branch": "foundation/test", "head": CANDIDATE, "upstream": "origin/foundation/test", "upstream_head": CANDIDATE, "tree_clean": True}; tool.write_json(publication, published)
         tool.verify_retained_package = lambda package, declared_profile: None
-        tool.source_identity = lambda source_root: published
         artifact_map = {"publication": publication, "authorities": authorities, "dependencies": dependencies, "contract_tests": contracts}
         manifest = inputs_manifest(tool, root, profile_path, candidate, source, CANDIDATE, artifact_map)
         args = (profile_path, root / "rec-profile.json", baseline, candidate, manifest, root / "pass")
         result = tool.qualify(*args)
         if result["state"] != tool.PENDING or any(value != tool.PENDING for value in result["gates"].values()):
             raise RuntimeError("Foundation qualifier rejected valid hash-bound evidence")
-        tool.verify_foundation_retention(root / "pass", profile_path, candidate / "retention-manifest.json", CANDIDATE)
+        tool.verify_foundation_retention(root / "pass", profile_path, candidate / "retention-manifest.json", CANDIDATE, source)
 
         tampered = root / "pass" / "summary.json"; tampered.write_text("{}\n", encoding="utf-8")
-        try: tool.verify_foundation_retention(root / "pass", profile_path, candidate / "retention-manifest.json", CANDIDATE)
+        try: tool.verify_foundation_retention(root / "pass", profile_path, candidate / "retention-manifest.json", CANDIDATE, source)
         except tool.RuntimeErrorEvidence: pass
         else: raise RuntimeError("Foundation retention accepted tampered output")
 
