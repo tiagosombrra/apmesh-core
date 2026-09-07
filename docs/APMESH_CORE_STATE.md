@@ -54,6 +54,12 @@ Current executable work unit:
 
 No greenfield meshing algorithm has been implemented yet.
 
+Current correction: the preceding audit-only work unit is superseded by the
+revision-bound Foundation admission correction. Its sole purpose is to make
+publication, authority, CTest, dependency, and closure evidence independently
+verifiable before any later authorization decision. It does not prepare or run
+the formal regression.
+
 The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
 into `main` at `4927383`. All eight requirements passed the final audited
 four-cell protocol.
@@ -151,6 +157,10 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 10. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
+
+Current first action: review the corrected Foundation admission qualifier and
+its focused contracts against FND0--FND7. Decide only whether preparation may
+be authorized; do not prepare or execute the formal regression.
 
 1. Independently audit the Foundation profile, report-only qualifier, and
    focused contract against FND0–FND7. Decide only whether preparation may be

@@ -119,14 +119,13 @@ prerequisite, that prerequisite is marked `REOPENED` before further work.
 
 ## 9. Infrastructure audit and qualifier
 
-The existing REC runner and validator already cover FND1, FND2, FND4, and the
-campaign portion of FND6: fixed matrix execution, same-revision prerequisites,
-command provenance, artifact seals, replay equivalence, cross-configuration
-equivalence, negative fixtures, and explicit terminal state. The retention
-verifier covers the detached revision-bound package check required by FND6.
-FND3 additionally requires an explicit four-cell inventory of every CTest
-labelled `contract`; REC's narrower scientific CTest command does not substitute
-for that cumulative inventory.
+The existing REC runner and validator cover the cumulative execution evidence
+for FND2 and FND4, plus the REC portion of FND6: fixed matrix execution,
+same-revision prerequisites, command provenance, artifact seals, replay and
+cross-configuration equivalence, negative fixtures, and explicit terminal
+state. They do not establish Foundation publication alignment, authority
+identity, the complete CTest inventory, runtime dependencies, or retention of
+the Foundation closure outputs.
 
 The bounded final-stage addition consists only of:
 
@@ -143,10 +142,26 @@ The bounded final-stage addition consists only of:
   contract-test coverage, a non-aligned candidate, and an undeclared protected
   source change.
 
+### Revision-bound admission correction
+
+The qualifier now requires one hash-bound admission-input manifest. It binds
+the candidate revision, profile, retained REC package, publication record,
+authority record, CTest discovery/JUnit outputs, and executable/`ldd` evidence.
+The qualifier independently compares publication with Git, recomputes CTest
+coverage and dependency findings from raw artifacts, verifies authority bytes,
+and seals its own output into a Foundation retention manifest.
+
+The former broad path allowlist is replaced by exact support-path digests, an
+exact verified historical-evidence prefix, and protected core paths. FND1 and
+FND6 are not constants: they require qualified-authority verification and a
+verified Foundation retention package. The focused contract includes forged
+publication, authority mutation, incomplete CTest, binary-hash mismatch,
+protected-source, and post-seal tampering negatives.
+
 The qualifier is report-only. Complete evidence is emitted as
 `EVIDENCE_COLLECTED_PENDING_AUDIT`; it cannot declare scientific `PASS`.
-No new campaign runner, scientific threshold, C++ behavior, preparation, or
-execution was introduced.
+No campaign runner, scientific threshold, C++ behavior, preparation, or
+execution is introduced by this correction.
 
 The focused qualifier contract passes in native Python and WSL Python, and its
 CTest registration passes in the GCC Debug build tree. This validates the

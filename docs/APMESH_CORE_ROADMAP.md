@@ -534,6 +534,10 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current branch: `foundation/reproducible-experiment-contract`.
 
+Current correction: revision-bound Foundation admission evidence is being
+completed before a new authorization audit. The correction does not prepare or
+execute the Foundation End-to-End Regression.
+
 Current active investigation:
 
 **Foundation — Architecture, Numerics, and Reproducibility / Foundation End-to-End Regression / Independently audit qualifier admission against FND0–FND7**

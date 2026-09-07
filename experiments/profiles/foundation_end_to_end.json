@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "kind": "foundation-end-to-end-profile",
   "accepted_baseline": {
     "path": "evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a",
@@ -33,17 +33,41 @@
     "apmesh_core.reproducible_experiment_retention",
     "apmesh_core.reproducible_experiment_runner"
   ],
-  "allowed_scope_changes": [
-    ".gitattributes",
-    "CMakeLists.txt",
-    "docs/**",
-    "evidence/foundation/**",
-    "experiments/profiles/foundation_end_to_end.json",
-    "tests/foundation_end_to_end_evidence_test.py",
-    "tests/reproducible_experiment_retention_test.py",
-    "tools/foundation_end_to_end_evidence.py",
-    "tools/reproducible_experiment_evidence.py",
-    "tools/retain_experiment_evidence.py"
+  "scope_policy": {
+    "protected_paths": [
+      "CMakeLists.txt",
+      "docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md",
+      "docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md",
+      "docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md",
+      "docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md",
+      "docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md",
+      "docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md"
+    ],
+    "protected_prefixes": ["include/", "src/"],
+    "profile_path": "experiments/profiles/foundation_end_to_end.json",
+    "approved_support_paths": [
+      {"path": ".gitattributes", "candidate_sha256": "da666b1c3a12b9efa1395f68253f2eb369bfb6031ddcf37ecb5736e701d5c373"},
+      {"path": "CMakeLists.txt", "candidate_sha256": "15ba6327d8b39c8ee1e55e10ce12ad19a2e4d4a527cc82655527fb1db1143176"},
+      {"path": "docs/APMESH_CORE_ROADMAP.md", "candidate_sha256": "05fe2239c8c4044f3551d1ea1409e395350709245e6dddd7fcc4260e7df40234"},
+      {"path": "docs/APMESH_CORE_STATE.md", "candidate_sha256": "3ca206a9b9d9a4ebe4fcb96019c038fd53257ca88206b3d1c6237cd2008ad29d"},
+      {"path": "docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md", "candidate_sha256": "b10a2cd618d8040193ae78120b49a7a615f5615e37160a295aef6bd01c0558cc"},
+      {"path": "docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md", "candidate_sha256": "0853acc220070084e5e8c1dbc2f2ede588e0fe26512d2a020ae3c09d364756b5"},
+      {"path": "docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md", "candidate_sha256": "5260b11a8423f2598d15c5a92789ab157043c11d878af0dfe65a2c88655d1992"},
+      {"path": "tests/foundation_end_to_end_evidence_test.py", "candidate_sha256": "61462a3ebc7243489a5a35b1281ade452b7760d530fa18ecff5ce136df1d8557"},
+      {"path": "tests/reproducible_experiment_retention_test.py", "candidate_sha256": "462c29ba02e7c161176abe6faa3a36b356b2179980ed4e060d14ac70ced016af"},
+      {"path": "tools/foundation_end_to_end_evidence.py", "candidate_sha256": "2aba19f04858ca8da88685cf00c3d8015e2822954103fdd28c9179f8ed06d11c"},
+      {"path": "tools/reproducible_experiment_evidence.py", "candidate_sha256": "884729f3e8ff75d2aff5ba430b5d5257c6f759399a447bb2fd62d56f664a6776"},
+      {"path": "tools/retain_experiment_evidence.py", "candidate_sha256": "0df242c0052996059f7bc461c7428a186b73be30bbdb760d96487b32a9130167"}
+    ],
+    "verified_retained_prefix": {
+      "path": "evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a",
+      "retention_manifest_sha256": "7921f20cb970c5d009f64187224c3ba13d9db416141b6d4b00289d80bf0a5e67"
+    }
+  },
+  "qualified_authorities": [
+    {"name": "architecture", "path": "docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md", "sha256": "3b3c35d07fa3a68f19341cd01ad59bb8e5134c5f70f8e015bd530a090cf51cab", "qualified_marker": "Status: QUALIFIED"},
+    {"name": "numeric", "path": "docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md", "sha256": "b8d83d514f89e9309240028caa6d22fca1c6d35aec48f8ed213d1b9d9355de55", "qualified_marker": "Status: QUALIFIED"},
+    {"name": "reproducible_experiment", "path": "docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md", "sha256": "5260b11a8423f2598d15c5a92789ab157043c11d878af0dfe65a2c88655d1992", "qualified_marker": "Status: QUALIFIED"}
   ],
   "allowed_runtime_dependencies": {
     "gcc": ["ld-linux-x86-64.so.2", "libc.so.6", "libgcc_s.so.1", "libm.so.6", "libstdc++.so.6", "linux-vdso.so.1"],

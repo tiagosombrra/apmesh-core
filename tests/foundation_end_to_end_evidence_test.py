@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused contracts for the report-only Foundation end-to-end qualifier."""
+"""Focused contracts for hash-bound Foundation admission evidence."""
 
 from __future__ import annotations
 
@@ -12,6 +12,8 @@ import tempfile
 
 
 CELLS = ("gcc-debug", "gcc-release", "clang-debug", "clang-release")
+BASE = "a" * 40
+CANDIDATE = "b" * 40
 
 
 def load_tool(path: pathlib.Path):
@@ -19,158 +21,144 @@ def load_tool(path: pathlib.Path):
     spec = importlib.util.spec_from_file_location("foundation_end_to_end_evidence", path)
     if spec is None or spec.loader is None:
         raise RuntimeError("cannot load Foundation evidence tool")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
+    module = importlib.util.module_from_spec(spec); sys.modules[spec.name] = module; spec.loader.exec_module(module)
     return module
 
 
-def write_package(tool, root: pathlib.Path, commit: str, stable: bool = True) -> None:
-    tool.write_json(root / "retention-manifest.json", {"schema_version": 1, "kind": "canonical-evidence-retention",
-                                                        "candidate_commit": commit, "archival_commit": None, "files": []})
+def write_package(tool, root: pathlib.Path, commit: str, source_root: pathlib.Path, changed: str | None = None) -> None:
+    tool.write_json(root / "retention-manifest.json", {"schema_version": 1, "kind": "canonical-evidence-retention", "candidate_commit": commit, "archival_commit": None, "files": []})
     bundles = []
     for cell in CELLS:
         for replay in (1, 2):
-            relative = f"cells/{cell}/replay-{replay}"
-            bundles.append({"cell": cell, "replay": replay, "bundle": relative})
-            tool.write_json(root / relative / "summary.json", {
-                "schema_version": 1, "kind": "reproducible-experiment-summary", "cell": cell, "replay": replay,
-                "certificate": {"stable": stable}, "environment": {"stable": True},
-                "gates": {f"E{index}": "BUNDLE_VALIDATED" for index in range(8)},
-                "artifact_roles": ["summary.json"], "retained_limitations": ["synthetic"],
-            })
+            relative = f"cells/{cell}/replay-{replay}"; bundles.append({"cell": cell, "replay": replay, "bundle": relative})
+            tool.write_json(root / relative / "summary.json", {"schema_version": 1, "kind": "reproducible-experiment-summary", "cell": cell, "replay": replay,
+                "certificate": {"stable": True}, "environment": {"stable": True}, "gates": {f"E{index}": "BUNDLE_VALIDATED" for index in range(8)},
+                "artifact_roles": ["summary.json"], "retained_limitations": ["synthetic"]})
     prerequisites = {}
-    for name, location in (("architecture_contract", "prerequisites/architecture/manifest.json"),
-                           ("numeric_contract", "prerequisites/numeric/manifest.json")):
-        manifest_path = root / location
-        records = []
+    for name, location in (("architecture_contract", "prerequisites/architecture/manifest.json"), ("numeric_contract", "prerequisites/numeric/manifest.json")):
+        manifest = root / location; records = []
         for cell in CELLS:
             certificates = [f"cells/{cell}/certificate-{index}.json" for index in range(1, 4)]
             row = {"cell": cell, "certificates": certificates}
-            if name == "numeric_contract":
-                row["environments"] = [f"cells/{cell}/environment-{index}.json" for index in range(1, 4)]
+            if name == "numeric_contract": row["environments"] = [f"cells/{cell}/environment-{index}.json" for index in range(1, 4)]
             records.append(row)
-            for item in certificates:
-                tool.write_json(manifest_path.parent / item, {"kind": name, "stable": stable})
-            for item in row.get("environments", []):
-                tool.write_json(manifest_path.parent / item, {"kind": "numeric-environment", "stable": True})
-        tool.write_json(manifest_path, {"execution": {"records": records}})
-        prerequisites[name] = {"candidate_commit": commit, "manifest": location,
-                               "manifest_sha256": "0" * 64, "state": "EXECUTED_PENDING_AUDIT"}
-    tool.write_json(root / "terminal-manifest.json", {
-        "state": "EXECUTED_PENDING_AUDIT", "candidate_commit": commit, "bundles": bundles,
-        "negative_fixtures": [{"fixture": f"N{index}"} for index in range(1, 9)],
-        "prerequisites": prerequisites,
-        "replay_comparisons": [{"cell": cell, "claim_fields": "equivalent"} for cell in CELLS],
-        "cross_configuration": {"claim_fields": "equivalent"},
-    })
-    inventory = [{"path": "README.md", "sha256": "2" * 64}]
-    if commit.startswith("b"):
-        inventory.append({"path": "tools/foundation_end_to_end_evidence.py", "sha256": "3" * 64})
-    tool.write_json(root / "control" / "prepared-manifest.json", {
-        "candidate": {"commit": commit, "tree_clean": True, "source_root": "/synthetic",
-                      "source_inventory": inventory}
-    })
+            for item in certificates: tool.write_json(manifest.parent / item, {"kind": name, "stable": True})
+            for item in row.get("environments", []): tool.write_json(manifest.parent / item, {"kind": "numeric-environment", "stable": True})
+        tool.write_json(manifest, {"execution": {"records": records}})
+        prerequisites[name] = {"candidate_commit": commit, "manifest": location, "manifest_sha256": "0" * 64, "state": "EXECUTED_PENDING_AUDIT"}
+    tool.write_json(root / "terminal-manifest.json", {"state": "EXECUTED_PENDING_AUDIT", "candidate_commit": commit, "bundles": bundles,
+        "negative_fixtures": [{"fixture": f"N{index}"} for index in range(1, 9)], "prerequisites": prerequisites,
+        "replay_comparisons": [{"cell": cell, "claim_fields": "equivalent"} for cell in CELLS], "cross_configuration": {"claim_fields": "equivalent"}})
+    inventory = [{"path": "README.md", "sha256": "1" * 64}]
+    if changed: inventory.append({"path": changed, "sha256": "2" * 64})
+    tool.write_json(root / "control" / "prepared-manifest.json", {"candidate": {"commit": commit, "tree_clean": True, "source_root": str(source_root.resolve()), "source_inventory": inventory}})
 
 
-def write_dependencies(tool, path: pathlib.Path, profile: dict, commit: str,
-                       unknown: bool = False, outside_system: bool = False) -> None:
+def write_authorities(tool, root: pathlib.Path, source_root: pathlib.Path, profile: dict, commit: str) -> pathlib.Path:
+    rows = []
+    for row in profile["qualified_authorities"]:
+        path = source_root / row["path"]; path.parent.mkdir(parents=True, exist_ok=True); path.write_text(f"{row['qualified_marker']}\n", encoding="utf-8")
+        updated = dict(row); updated["sha256"] = tool.sha256_file(path); rows.append(updated)
+    profile["qualified_authorities"] = rows
+    result = root / "authorities.json"; tool.write_json(result, {"schema_version": 1, "kind": "foundation-qualified-authorities", "candidate_commit": commit, "authorities": rows})
+    return result
+
+
+def write_dependencies(tool, root: pathlib.Path, profile: dict, commit: str) -> pathlib.Path:
     cells = []
     for cell, family in profile["configurations"].items():
-        allowed = profile["allowed_runtime_dependencies"][family]
-        dependencies = [{"soname": allowed[0], "resolved_path": f"/opt/{allowed[0]}" if outside_system else f"/lib/{allowed[0]}"}]
-        if unknown and cell == "gcc-debug":
-            dependencies.append({"soname": "libunexpected.so", "resolved_path": "/opt/libunexpected.so"})
-        cells.append({"name": cell, "executables": [
-            {"name": name, "path": f"/tmp/{cell}/{name}", "sha256": "1" * 64,
-             "dependencies": dependencies, "unresolved": []}
-            for name in profile["required_executables"]
-        ]})
-    tool.write_json(path, {"schema_version": 1, "kind": "foundation-runtime-dependencies",
-                           "candidate_commit": commit, "cells": cells})
+        allowed = profile["allowed_runtime_dependencies"][family]; executables = []
+        for name in profile["required_executables"]:
+            binary = root / "bins" / cell / name; binary.parent.mkdir(parents=True, exist_ok=True); binary.write_bytes(f"{cell}/{name}".encode())
+            raw = root / "ldd" / f"{cell}-{name}.txt"; raw.parent.mkdir(parents=True, exist_ok=True)
+            raw.write_text(f"linux-vdso.so.1 (0x0000)\n{allowed[0]} => /lib/{allowed[0]} (0x0000)\n", encoding="utf-8")
+            executables.append({"name": name, "path": binary.relative_to(root).as_posix(), "sha256": tool.sha256_file(binary),
+                                "ldd": {"path": raw.relative_to(root).as_posix(), "sha256": tool.sha256_file(raw)}})
+        cells.append({"name": cell, "executables": executables})
+    result = root / "dependencies.json"; tool.write_json(result, {"schema_version": 2, "kind": "foundation-runtime-dependencies", "candidate_commit": commit, "cells": cells}); return result
 
 
-def write_contract_tests(tool, path: pathlib.Path, profile: dict, commit: str, missing: bool = False) -> None:
-    tests = list(profile["required_contract_tests"])
-    cells = []
+def write_contracts(tool, root: pathlib.Path, profile: dict, commit: str) -> pathlib.Path:
+    names = list(profile["required_contract_tests"]); cells = []
     for cell in CELLS:
-        observed = tests[1:] if missing and cell == "gcc-debug" else tests
-        cells.append({"name": cell, "command": ["ctest", "--test-dir", f"/tmp/{cell}", "-L", "contract"],
-                      "discovered": observed, "passed": observed, "failed": [], "exit_code": 0})
-    tool.write_json(path, {"schema_version": 1, "kind": "foundation-contract-tests",
-                           "candidate_commit": commit, "cells": cells})
+        discovery = root / "ctest" / f"{cell}-discover.json"; discovery.parent.mkdir(parents=True, exist_ok=True)
+        tool.write_json(discovery, {"tests": [{"name": name, "properties": [{"name": "LABELS", "value": ["contract"]}]} for name in names]})
+        junit = root / "ctest" / f"{cell}-result.xml"; junit.write_text("<testsuites><testsuite>" + "".join(f'<testcase name="{name}"/>' for name in names) + "</testsuite></testsuites>\n", encoding="utf-8")
+        cells.append({"name": cell, "command": ["ctest", "--test-dir", f"build/{cell}", "-L", "contract", "--output-junit", junit.name],
+                      "discovery": {"path": discovery.relative_to(root).as_posix(), "sha256": tool.sha256_file(discovery)},
+                      "junit": {"path": junit.relative_to(root).as_posix(), "sha256": tool.sha256_file(junit)}, "exit_code": 0})
+    result = root / "contract-tests.json"; tool.write_json(result, {"schema_version": 2, "kind": "foundation-contract-tests", "candidate_commit": commit, "cells": cells}); return result
+
+
+def inputs_manifest(tool, root: pathlib.Path, profile_path: pathlib.Path, candidate: pathlib.Path, source_root: pathlib.Path,
+                    commit: str, artifacts: dict[str, pathlib.Path]) -> pathlib.Path:
+    result = root / "inputs.json"
+    tool.write_json(result, {"schema_version": 1, "kind": "foundation-admission-input-manifest", "candidate_commit": commit,
+        "candidate_retention_manifest_sha256": tool.sha256_file(candidate / "retention-manifest.json"), "profile_sha256": tool.sha256_file(profile_path),
+        "source_root": str(source_root.resolve()), "artifacts": {name: {"path": path.relative_to(root).as_posix(), "sha256": tool.sha256_file(path)} for name, path in artifacts.items()}})
+    return result
+
+
+def assert_blocked(tool, *arguments, gate: str) -> None:
+    result = tool.qualify(*arguments)
+    if result["state"] != tool.BLOCKED or result["gates"][gate] != tool.BLOCKED:
+        raise RuntimeError(f"Foundation qualifier did not block {gate}")
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(); parser.add_argument("--tool", required=True); parser.add_argument("--profile", required=True)
     arguments = parser.parse_args(); tool = load_tool(pathlib.Path(arguments.tool))
-    with tempfile.TemporaryDirectory() as temporary_directory:
-        root = pathlib.Path(temporary_directory); baseline, candidate = root / "baseline", root / "candidate"
-        baseline_commit, candidate_commit = "a" * 40, "b" * 40
-        write_package(tool, baseline, baseline_commit); write_package(tool, candidate, candidate_commit)
-        profile = tool.read_json(pathlib.Path(arguments.profile)); profile = copy.deepcopy(profile)
-        profile["accepted_baseline"] = {"path": baseline.as_posix(), "candidate_commit": baseline_commit,
-                                         "retention_manifest_sha256": tool.sha256_file(baseline / "retention-manifest.json")}
-        profile_path = root / "profile.json"; tool.write_json(profile_path, profile)
-        rec_profile = root / "rec-profile.json"; tool.write_json(rec_profile, {"synthetic": True})
-        publication = root / "publication.json"
-        tool.write_json(publication, {"schema_version": 1, "kind": "foundation-candidate-publication",
-                                      "branch": "foundation/end-to-end", "head": candidate_commit,
-                                      "upstream": "origin/foundation/end-to-end", "upstream_head": candidate_commit,
-                                      "tree_clean": True})
-        dependencies = root / "dependencies.json"; write_dependencies(tool, dependencies, profile, candidate_commit)
-        contract_tests = root / "contract-tests.json"; write_contract_tests(tool, contract_tests, profile, candidate_commit)
+    with tempfile.TemporaryDirectory() as temporary:
+        root = pathlib.Path(temporary); source = root / "source"; source.mkdir(); baseline, candidate = root / "baseline", root / "candidate"
+        write_package(tool, baseline, BASE, source); write_package(tool, candidate, CANDIDATE, source)
+        profile = copy.deepcopy(tool.read_json(pathlib.Path(arguments.profile)))
+        profile["accepted_baseline"] = {"path": baseline.as_posix(), "candidate_commit": BASE, "retention_manifest_sha256": tool.sha256_file(baseline / "retention-manifest.json")}
+        profile["scope_policy"]["approved_support_paths"] = [{"path": "tools/foundation_end_to_end_evidence.py", "candidate_sha256": "2" * 64}]
+        profile["scope_policy"]["verified_retained_prefix"]["retention_manifest_sha256"] = tool.sha256_file(baseline / "retention-manifest.json")
+        profile_path = root / "profile.json"; authorities = write_authorities(tool, root, source, profile, CANDIDATE); tool.write_json(profile_path, profile)
+        dependencies = write_dependencies(tool, root, profile, CANDIDATE); contracts = write_contracts(tool, root, profile, CANDIDATE)
+        publication = root / "publication.json"; published = {"schema_version": 1, "kind": "foundation-candidate-publication", "branch": "foundation/test", "head": CANDIDATE, "upstream": "origin/foundation/test", "upstream_head": CANDIDATE, "tree_clean": True}; tool.write_json(publication, published)
         tool.verify_retained_package = lambda package, declared_profile: None
-        result = tool.qualify(profile_path, rec_profile, baseline, candidate, publication, dependencies, contract_tests, root / "pass")
+        tool.source_identity = lambda source_root: published
+        artifact_map = {"publication": publication, "authorities": authorities, "dependencies": dependencies, "contract_tests": contracts}
+        manifest = inputs_manifest(tool, root, profile_path, candidate, source, CANDIDATE, artifact_map)
+        args = (profile_path, root / "rec-profile.json", baseline, candidate, manifest, root / "pass")
+        result = tool.qualify(*args)
         if result["state"] != tool.PENDING or any(value != tool.PENDING for value in result["gates"].values()):
-            raise RuntimeError("Foundation qualifier did not collect complete passing evidence")
-        required = {"summary.json", "certificate.json", "report.md", "metrics.csv", "figures/status-matrix.svg", "artifact-inventory.json"}
-        observed = {path.relative_to(root / "pass").as_posix() for path in (root / "pass").rglob("*") if path.is_file()}
-        if observed != required:
-            raise RuntimeError("Foundation qualifier artifact set differs")
+            raise RuntimeError("Foundation qualifier rejected valid hash-bound evidence")
+        tool.verify_foundation_retention(root / "pass", profile_path, candidate / "retention-manifest.json", CANDIDATE)
 
-        candidate_summary = candidate / "cells/gcc-debug/replay-1/summary.json"
-        changed = tool.read_json(candidate_summary); changed["certificate"]["stable"] = False; tool.write_json(candidate_summary, changed)
-        result = tool.qualify(profile_path, rec_profile, baseline, candidate, publication, dependencies, contract_tests, root / "claim-regression")
-        if result["state"] != "BLOCKED" or result["gates"]["FND5"] != "BLOCKED" or not result["baseline_comparison"]["differences"]:
-            raise RuntimeError("Foundation qualifier accepted a claim regression")
-        changed["certificate"]["stable"] = True; tool.write_json(candidate_summary, changed)
+        tampered = root / "pass" / "summary.json"; tampered.write_text("{}\n", encoding="utf-8")
+        try: tool.verify_foundation_retention(root / "pass", profile_path, candidate / "retention-manifest.json", CANDIDATE)
+        except tool.RuntimeErrorEvidence: pass
+        else: raise RuntimeError("Foundation retention accepted tampered output")
 
-        write_dependencies(tool, dependencies, profile, candidate_commit, unknown=True)
-        result = tool.qualify(profile_path, rec_profile, baseline, candidate, publication, dependencies, contract_tests, root / "dependency-regression")
-        if result["state"] != "BLOCKED" or result["gates"]["FND7"] != "BLOCKED" or not result["dependency_findings"]:
-            raise RuntimeError("Foundation qualifier accepted an undeclared dependency")
-        write_dependencies(tool, dependencies, profile, candidate_commit)
+        tool.write_json(publication, {**published, "upstream_head": "c" * 40})
+        manifest = inputs_manifest(tool, root, profile_path, candidate, source, CANDIDATE, artifact_map)
+        assert_blocked(tool, profile_path, root / "rec-profile.json", baseline, candidate, manifest, root / "publication-blocked", gate="FND0")
+        tool.write_json(publication, published)
 
-        write_dependencies(tool, dependencies, profile, candidate_commit, outside_system=True)
-        result = tool.qualify(profile_path, rec_profile, baseline, candidate, publication, dependencies, contract_tests, root / "dependency-location-investigation")
-        if result["state"] != "BLOCKED" or result["gates"]["FND7"] != "BLOCKED" or result["dependency_findings"][0]["classification"] != "INVESTIGATION_REQUIRED":
-            raise RuntimeError("Foundation qualifier accepted a non-system dependency resolution")
-        write_dependencies(tool, dependencies, profile, candidate_commit)
+        modified = source / profile["qualified_authorities"][0]["path"]; modified.write_text("not qualified\n", encoding="utf-8")
+        manifest = inputs_manifest(tool, root, profile_path, candidate, source, CANDIDATE, artifact_map)
+        assert_blocked(tool, profile_path, root / "rec-profile.json", baseline, candidate, manifest, root / "authority-blocked", gate="FND1")
+        modified.write_text(profile["qualified_authorities"][0]["qualified_marker"] + "\n", encoding="utf-8")
 
-        write_contract_tests(tool, contract_tests, profile, candidate_commit, missing=True)
-        result = tool.qualify(profile_path, rec_profile, baseline, candidate, publication, dependencies, contract_tests, root / "contract-test-regression")
-        if result["state"] != "BLOCKED" or result["gates"]["FND3"] != "BLOCKED" or not result["contract_test_findings"]:
-            raise RuntimeError("Foundation qualifier accepted incomplete contract tests")
-        write_contract_tests(tool, contract_tests, profile, candidate_commit)
+        junit = root / "ctest" / "gcc-debug-result.xml"; junit.write_text("<testsuites><testsuite><testcase name=\"missing\"/></testsuite></testsuites>\n", encoding="utf-8")
+        contract = tool.read_json(contracts); contract["cells"][0]["junit"]["sha256"] = tool.sha256_file(junit); tool.write_json(contracts, contract)
+        manifest = inputs_manifest(tool, root, profile_path, candidate, source, CANDIDATE, artifact_map)
+        assert_blocked(tool, profile_path, root / "rec-profile.json", baseline, candidate, manifest, root / "ctest-blocked", gate="FND3")
+        contracts = write_contracts(tool, root, profile, CANDIDATE); artifact_map["contract_tests"] = contracts
 
-        invalid_publication = tool.read_json(publication); invalid_publication["upstream_head"] = "c" * 40
-        tool.write_json(publication, invalid_publication)
-        result = tool.qualify(profile_path, rec_profile, baseline, candidate, publication, dependencies, contract_tests, root / "publication-regression")
-        if result["state"] != "BLOCKED" or result["gates"]["FND0"] != "BLOCKED":
-            raise RuntimeError("Foundation qualifier accepted an unaligned candidate")
+        binary = root / "bins" / "gcc-debug" / profile["required_executables"][0]; binary.write_bytes(b"tampered")
+        manifest = inputs_manifest(tool, root, profile_path, candidate, source, CANDIDATE, artifact_map)
+        try: tool.qualify(profile_path, root / "rec-profile.json", baseline, candidate, manifest, root / "dependency-blocked")
+        except tool.RuntimeErrorEvidence: pass
+        else: raise RuntimeError("Foundation qualifier accepted mismatched executable hash")
+        dependencies = write_dependencies(tool, root, profile, CANDIDATE); artifact_map["dependencies"] = dependencies
 
-        tool.write_json(publication, {"schema_version": 1, "kind": "foundation-candidate-publication",
-                                      "branch": "foundation/end-to-end", "head": candidate_commit,
-                                      "upstream": "origin/foundation/end-to-end", "upstream_head": candidate_commit,
-                                      "tree_clean": True})
-        prepared_path = candidate / "control/prepared-manifest.json"; prepared = tool.read_json(prepared_path)
-        prepared["candidate"]["source_inventory"].append({"path": "src/core/numeric.cpp", "sha256": "4" * 64})
-        tool.write_json(prepared_path, prepared)
-        result = tool.qualify(profile_path, rec_profile, baseline, candidate, publication, dependencies, contract_tests, root / "scope-investigation")
-        protected = next((row for row in result["scope_changes"] if row["path"] == "src/core/numeric.cpp"), None)
-        if result["state"] != "BLOCKED" or result["gates"]["FND0"] != "BLOCKED" or protected is None or protected["classification"] != "INVESTIGATION_REQUIRED":
-            raise RuntimeError("Foundation qualifier accepted an undeclared scientific source change")
+        prepared = tool.read_json(candidate / "control" / "prepared-manifest.json"); prepared["candidate"]["source_inventory"].append({"path": "src/core/numeric.cpp", "sha256": "4" * 64}); tool.write_json(candidate / "control" / "prepared-manifest.json", prepared)
+        manifest = inputs_manifest(tool, root, profile_path, candidate, source, CANDIDATE, artifact_map)
+        assert_blocked(tool, profile_path, root / "rec-profile.json", baseline, candidate, manifest, root / "scope-blocked", gate="FND0")
     return 0
 
 
