@@ -81,6 +81,23 @@ def main() -> int:
         record = runner.run_command([sys.executable, "-c", "raise SystemExit(7)"], root, root / "logs", "failing", 10)
         if record["exit_code"] != 7 or record["timed_out"] or record["pid"] is None:
             raise RuntimeError("REC command record did not preserve failed-process evidence")
+        failure_control, failure_evidence = root / "failure-control", root / "failure-evidence"
+        failure_arguments = argparse.Namespace(**{**vars(parsed), "control_root": str(failure_control), "evidence_root": str(failure_evidence)})
+        runner.prepare(failure_arguments)
+        original_write_bundle = runner._write_bundle
+        def synthetic_failure(bundle, *unused):
+            bundle.mkdir(parents=True)
+            runner.write_json(bundle / "execution-record.json", {"synthetic": "recorded-before-failure"})
+            raise runner.EvidenceError("synthetic command failure")
+        runner._write_bundle = synthetic_failure
+        try:
+            if runner.execute(failure_arguments) != 1:
+                raise RuntimeError("REC synthetic failure was not blocked")
+        finally:
+            runner._write_bundle = original_write_bundle
+        terminal = json.loads((failure_evidence / "terminal-manifest.json").read_text(encoding="utf-8"))
+        if terminal.get("state") != "BLOCKED" or not terminal.get("failure_evidence"):
+            raise RuntimeError("REC blocked terminal did not retain failure evidence")
     return 0
 
 

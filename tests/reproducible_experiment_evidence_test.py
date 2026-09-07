@@ -41,9 +41,12 @@ def write_bundle(module, root: pathlib.Path, profile: dict, cell: str, replay: i
     }]
     module.write_json(root / "certificate.json", {"schema_version": 1, "kind": "numeric-contract-certificate", "stable": stable})
     module.write_json(root / "environment.json", {"schema_version": 1, "kind": "numeric-contract-environment", "stable": stable})
+    module.write_json(root / "manifest.json", {"schema_version": 1, "kind": "reproducible-experiment-bundle-manifest", "cell": cell,
+                                                 "replay": replay, "candidate_commit": "a" * 40, "profile_sha256": "b" * 64,
+                                                 "prepared_manifest_sha256": "c" * 64, "launch_plan_sha256": "d" * 64})
     module.write_json(root / "execution-record.json", {"schema_version": 1, "kind": "reproducible-experiment-execution", "cell": cell, "replay": replay, "records": records})
     summary = {"schema_version": 1, "kind": "reproducible-experiment-summary", "cell": cell, "replay": replay,
-               "gates": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in module.EXPECTED_GATES},
+               "gates": {gate: "BUNDLE_VALIDATED" for gate in module.EXPECTED_GATES},
                "certificate": {"schema_version": 1, "kind": "numeric-contract-certificate", "stable": stable},
                "environment": {"schema_version": 1, "kind": "numeric-contract-environment", "stable": stable},
                "artifact_roles": profile["required_artifacts"], "retained_limitations": profile["limitations"]}
@@ -72,7 +75,8 @@ def main() -> int:
         first, second = root / "one", root / "two"
         write_bundle(module, first, profile, "gcc-debug", 1); write_bundle(module, second, profile, "gcc-debug", 2)
         module.validate_bundle(first, profile)
-        if module.compare_replays([first, second], profile)["claim_fields"] != "equivalent":
+        replay = module.compare_replays([first, second], profile)
+        if replay["claim_fields"] != "equivalent" or not replay["differences"]:
             raise RuntimeError("REC comparer did not record replay equivalence")
         # N5: required artifact absence.
         (second / "metrics.csv").unlink(); must_reject(lambda: module.validate_bundle(second, profile), "REC accepted missing artifact")
@@ -98,6 +102,11 @@ def main() -> int:
             raise RuntimeError("REC cross-configuration comparison did not record equivalence")
         cells["clang-release"] = dict(cells["clang-release"]); cells["clang-release"]["certificate"] = {"changed": True}
         must_reject(lambda: module.compare_configurations(cells, profile), "REC accepted cross-configuration claim difference")
+        write_bundle(module, second, profile, "gcc-debug", 2)
+        execution = json.loads((second / "execution-record.json").read_text(encoding="utf-8"))
+        execution["records"][0]["exit_code"] = 9
+        module.write_json(second / "execution-record.json", execution)
+        must_reject(lambda: module.compare_replays([first, second], profile), "REC accepted undeclared provenance difference")
     return 0
 
 

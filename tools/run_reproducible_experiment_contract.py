@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import pathlib
 import sys
 import time
@@ -156,8 +157,13 @@ def _command_or_blocked(argv: list[str], cwd: pathlib.Path, bundle: pathlib.Path
     return record["exit_code"] == 0 and not record["timed_out"] and record["launch_error"] is None
 
 
+def _write_command_records(path: pathlib.Path, records: list[dict[str, Any]]) -> None:
+    write_json(path, {"schema_version": 1, "kind": "reproducible-experiment-command-records", "records": records})
+
+
 def _write_bundle(bundle: pathlib.Path, row: dict[str, Any], profile: dict[str, Any], source_root: pathlib.Path,
-                  scratch_root: pathlib.Path, deadline: float) -> None:
+                  scratch_root: pathlib.Path, deadline: float, prepared_manifest_sha256: str,
+                  candidate_commit: str, launch_plan_sha256: str, profile_sha256: str) -> None:
     records: list[dict[str, Any]] = []
     bundle.mkdir(parents=True)
     failure: str | None = None
@@ -181,16 +187,22 @@ def _write_bundle(bundle: pathlib.Path, row: dict[str, Any], profile: dict[str, 
     write_json(bundle / "execution-record.json", {"schema_version": 1, "kind": "reproducible-experiment-execution", "cell": row["cell"], "replay": row["replay"], "records": records})
     if failure is not None:
         raise EvidenceError(failure)
+    write_json(bundle / "manifest.json", {
+        "schema_version": 1, "kind": "reproducible-experiment-bundle-manifest", "cell": row["cell"],
+        "replay": row["replay"], "candidate_commit": candidate_commit, "profile_sha256": profile_sha256,
+        "prepared_manifest_sha256": prepared_manifest_sha256, "launch_plan_sha256": launch_plan_sha256,
+    })
     certificate, environment = read_json(bundle / "certificate.json"), read_json(bundle / "environment.json")
     summary = {"schema_version": 1, "kind": "reproducible-experiment-summary", "cell": row["cell"], "replay": row["replay"],
-               "gates": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in profile["gates"]}, "certificate": certificate,
+               "gates": {gate: "BUNDLE_VALIDATED" for gate in profile["gates"]}, "certificate": certificate,
                "environment": environment, "artifact_roles": profile["required_artifacts"], "retained_limitations": profile["limitations"]}
     write_json(bundle / "summary.json", summary); write_derived(bundle, [summary])
     execution = read_json(bundle / "execution-record.json")
     write_json(bundle / "artifact-inventory.json", {"schema_version": 1, "kind": "experiment-artifact-inventory", "artifacts": artifact_inventory(bundle, profile, execution)})
 
 
-def _run_qualified_prerequisites(source_root: pathlib.Path, evidence_root: pathlib.Path, profile: dict[str, Any], deadline: float) -> dict[str, Any]:
+def _run_qualified_prerequisites(source_root: pathlib.Path, evidence_root: pathlib.Path, profile: dict[str, Any], deadline: float,
+                                 candidate_commit: str) -> dict[str, Any]:
     """Invoke the existing qualified protocols without absorbing their oracles."""
     numeric_root = evidence_root / "prerequisites" / "numeric-contract"
     command = [
@@ -209,9 +221,15 @@ def _run_qualified_prerequisites(source_root: pathlib.Path, evidence_root: pathl
     if time.monotonic() >= deadline:
         raise EvidenceError("overall timeout before prerequisites")
     prepare_record = run_command(command, source_root, evidence_root / "prerequisite-logs", "numeric-contract-prepare", max(1, int(deadline - time.monotonic())))
+    records = [prepare_record]
+    records_path = evidence_root / "prerequisites" / "prerequisite-command-records.json"
+    records_path.parent.mkdir(parents=True, exist_ok=True)
+    _write_command_records(records_path, records)
     if prepare_record["exit_code"] != 0 or prepare_record["timed_out"] or prepare_record["launch_error"] is not None:
         raise EvidenceError("qualified Numeric prerequisite preparation failed")
     execute_record = run_command([*command, "--execute"], source_root, evidence_root / "prerequisite-logs", "numeric-contract-execute", max(1, int(deadline - time.monotonic())))
+    records.append(execute_record)
+    _write_command_records(records_path, records)
     if execute_record["exit_code"] != 0 or execute_record["timed_out"] or execute_record["launch_error"] is not None:
         raise EvidenceError("qualified Numeric prerequisite protocol failed")
     manifest_path = numeric_root / "manifest.json"
@@ -221,23 +239,54 @@ def _run_qualified_prerequisites(source_root: pathlib.Path, evidence_root: pathl
     architecture_manifest = numeric_root / "architecture" / "manifest.json"
     if not architecture_manifest.is_file() or read_json(architecture_manifest).get("state") != "EXECUTED_PENDING_AUDIT":
         raise EvidenceError("qualified Architecture prerequisite terminal state differs")
-    return {"numeric_contract": {"prepare_record": prepare_record, "execute_record": execute_record,
-            "manifest": str(manifest_path.relative_to(evidence_root)), "manifest_sha256": sha256_file(manifest_path)},
-            "architecture_contract": {"manifest": str(architecture_manifest.relative_to(evidence_root)), "manifest_sha256": sha256_file(architecture_manifest)}}
+    numeric_candidate = manifest.get("candidate", {}).get("commit") if isinstance(manifest.get("candidate"), dict) else None
+    architecture = read_json(architecture_manifest)
+    architecture_candidate = architecture.get("candidate", {}).get("commit") if isinstance(architecture.get("candidate"), dict) else None
+    if numeric_candidate != candidate_commit or architecture_candidate != candidate_commit:
+        raise EvidenceError("qualified prerequisite candidate differs")
+    return {"numeric_contract": {"manifest": str(manifest_path.relative_to(evidence_root)), "manifest_sha256": sha256_file(manifest_path),
+            "state": "EXECUTED_PENDING_AUDIT", "candidate_commit": numeric_candidate},
+            "architecture_contract": {"manifest": str(architecture_manifest.relative_to(evidence_root)), "manifest_sha256": sha256_file(architecture_manifest),
+            "state": "EXECUTED_PENDING_AUDIT", "candidate_commit": architecture_candidate}}
 
 
 def _run_negative_fixtures(source_root: pathlib.Path, evidence_root: pathlib.Path, profile: dict[str, Any], deadline: float) -> list[dict[str, Any]]:
-    records = []
+    results: list[dict[str, Any]] = []
+    command_records: list[dict[str, Any]] = []
     tool = source_root / "tools" / "reproducible_experiment_negative.py"
+    record_path = evidence_root / "negative-fixtures" / "negative-fixture-records.json"
     for number in range(1, 9):
         if time.monotonic() >= deadline:
             raise EvidenceError("overall timeout during negative fixtures")
         fixture = f"N{number}"
         record = run_command([sys.executable, str(tool), "--fixture", fixture, "--profile", str(source_root / "experiments" / "profiles" / "reproducible_experiment_contract.json")], source_root, evidence_root / "negative-fixtures" / fixture / "logs", fixture, max(1, int(deadline - time.monotonic())))
+        command_records.append(record)
+        record_path.parent.mkdir(parents=True, exist_ok=True)
+        _write_command_records(record_path, command_records)
         if record["exit_code"] != 0 or record["timed_out"] or record["launch_error"] is not None:
             raise EvidenceError(f"negative fixture failed: {fixture}")
-        records.append({"fixture": fixture, "expected": profile["negative_fixtures"][fixture], "result": "REJECTED", "record": record})
-    return records
+        response_path = pathlib.Path("negative-fixtures") / fixture / record["stdout"]["path"]
+        payload = json.loads((evidence_root / response_path).read_text(encoding="utf-8"))
+        declaration = profile["negative_fixtures"][fixture]
+        expected = {"schema_version": 1, "kind": "reproducible-experiment-negative-result", "fixture": fixture,
+                    "result": "REJECTED", "reason_code": declaration["reason_code"]}
+        if payload != expected:
+            raise EvidenceError(f"negative fixture reason differs: {fixture}")
+        results.append({"fixture": fixture, "expected_reason_code": declaration["reason_code"], "result": "REJECTED",
+                        "reason_code": payload["reason_code"], "record": record,
+                        "response": {"path": response_path.as_posix(), "sha256": sha256_file(evidence_root / response_path)}})
+    return results
+
+
+def _failure_evidence(evidence_root: pathlib.Path) -> list[dict[str, str]]:
+    paths = []
+    for path in sorted(evidence_root.rglob("execution-record.json")):
+        paths.append(path)
+    for relative in ("negative-fixtures/negative-fixture-records.json", "prerequisites/prerequisite-command-records.json"):
+        path = evidence_root / relative
+        if path.is_file():
+            paths.append(path)
+    return [{"path": str(path.relative_to(evidence_root).as_posix()), "sha256": sha256_file(path)} for path in paths]
 
 
 def execute(arguments: argparse.Namespace) -> int:
@@ -249,10 +298,15 @@ def execute(arguments: argparse.Namespace) -> int:
     deadline = time.monotonic() + profile["limits_seconds"]["overall"]
     try:
         scratch_root = control_root / "scratch"
+        prepared_manifest_sha256 = sha256_file(control_root / "prepared-manifest.json")
+        candidate_commit = manifest["candidate"]["commit"]
+        launch_plan_sha256 = manifest["launch_plan"]["sha256"]
+        profile_sha256 = manifest["profile_sha256"]
         for row in plan["cells"]:
             bundle = evidence_root / "cells" / row["cell"] / f"replay-{row['replay']}"
             completed.append({"cell": row["cell"], "replay": row["replay"], "bundle": str(bundle.relative_to(evidence_root))})
-            _write_bundle(bundle, row, profile, pathlib.Path(arguments.source_root).resolve(), scratch_root, deadline)
+            _write_bundle(bundle, row, profile, pathlib.Path(arguments.source_root).resolve(), scratch_root, deadline,
+                          prepared_manifest_sha256, candidate_commit, launch_plan_sha256, profile_sha256)
         replay_reports = []
         cell_summaries: dict[str, dict[str, Any]] = {}
         provenance_by_cell: dict[str, dict[str, Any]] = {}
@@ -263,23 +317,27 @@ def execute(arguments: argparse.Namespace) -> int:
             provenance_by_cell[name] = read_json(bundles[0] / "execution-record.json")
         cross = compare_configurations(cell_summaries, profile, provenance_by_cell)
         negative_fixtures = _run_negative_fixtures(pathlib.Path(arguments.source_root).resolve(), evidence_root, profile, deadline)
-        prerequisite_evidence = _run_qualified_prerequisites(pathlib.Path(arguments.source_root).resolve(), evidence_root, profile, deadline)
+        prerequisite_evidence = _run_qualified_prerequisites(pathlib.Path(arguments.source_root).resolve(), evidence_root, profile, deadline, candidate_commit)
         seals = []
         for bundle in completed:
             root = evidence_root / bundle["bundle"]
             seals.append({"bundle": bundle["bundle"], "inventory_sha256": sha256_file(root / "artifact-inventory.json"),
                           "summary_sha256": sha256_file(root / "summary.json"), "execution_sha256": sha256_file(root / "execution-record.json")})
         terminal = {"schema_version": 1, "kind": "reproducible-experiment-terminal-manifest", "state": "EXECUTED_PENDING_AUDIT",
-                    "prepared_manifest_sha256": sha256_file(control_root / "prepared-manifest.json"), "bundles": completed,
+                    "prepared_manifest_sha256": prepared_manifest_sha256, "candidate_commit": candidate_commit, "bundles": completed,
                     "bundle_seals": seals, "replay_comparisons": replay_reports, "cross_configuration": cross,
-                    "negative_fixtures": negative_fixtures, "prerequisites": prerequisite_evidence}
+                    "negative_fixtures": negative_fixtures, "prerequisites": prerequisite_evidence,
+                    "gate_results": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in profile["gates"]}}
         write_json(evidence_root / "terminal-manifest.json", terminal)
-        validate_terminal_manifest(evidence_root, profile, terminal["prepared_manifest_sha256"])
+        validate_terminal_manifest(evidence_root, profile, terminal["prepared_manifest_sha256"], candidate_commit,
+                                   profile_sha256, launch_plan_sha256)
         write_state(control_root, "EXECUTED_PENDING_AUDIT", {"terminal_manifest": str(evidence_root / "terminal-manifest.json"), "terminal_sha256": sha256_file(evidence_root / "terminal-manifest.json")})
         return 0
     except (EvidenceError, RuntimeErrorEvidence) as error:
         terminal = {"schema_version": 1, "kind": "reproducible-experiment-terminal-manifest", "state": "BLOCKED",
-                    "prepared_manifest_sha256": sha256_file(control_root / "prepared-manifest.json"), "attempted_bundles": completed, "reason": str(error)}
+                    "prepared_manifest_sha256": sha256_file(control_root / "prepared-manifest.json"),
+                    "candidate_commit": manifest["candidate"]["commit"], "attempted_bundles": completed,
+                    "reason": str(error), "failure_evidence": _failure_evidence(evidence_root)}
         write_json(evidence_root / "terminal-manifest.json", terminal)
         write_state(control_root, "BLOCKED", {"terminal_manifest": str(evidence_root / "terminal-manifest.json"), "reason": str(error)})
         return 1

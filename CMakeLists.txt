@@ -118,6 +118,7 @@ if(BUILD_TESTING)
             ${Python3_EXECUTABLE}
             ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_retention_test.py
             --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/retain_experiment_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
     )
     add_test(
         NAME apmesh_core.reproducible_experiment_negatives

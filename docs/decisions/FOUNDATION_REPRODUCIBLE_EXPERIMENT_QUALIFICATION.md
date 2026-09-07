@@ -63,10 +63,10 @@ The current local candidate contains the following implementation components:
 - focused CTest contracts exercise profile validation, clean-candidate binding,
   artifact inventory, and one replay-disagreement path.
 
-The completeness amendment defines the admission review. The candidate now has
-strict profile/plan revalidation, persisted lifecycle state, command and log
-provenance, exact bundle/inventory/derivation checks, replay and cross-cell
-comparison, focused negative contracts, and a canonical retention assembler.
+The completeness amendment defines the admission review. REC-R3 is the active
+implementation candidate: it adds a per-bundle manifest, structured terminal
+failure evidence, field-level provenance classifications, reason-coded negative
+fixtures, deep prerequisite-terminal checks, and semantic retention validation.
 The qualified Architecture and Numeric runners remain separate authoritative
 protocols; their execution and linkage are required evidence for E7 and have
 not been performed by this implementation-only work unit.

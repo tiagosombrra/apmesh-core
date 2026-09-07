@@ -4,11 +4,14 @@
 from __future__ import annotations
 
 import argparse
+import json
 import pathlib
 import shutil
 import sys
 
 from experiment_runtime import RuntimeErrorEvidence, read_json, relative_path, retention_manifest, sha256_file, write_json
+from reproducible_experiment_evidence import (EvidenceError, validate_blocked_terminal_manifest, validate_profile,
+                                              validate_terminal_manifest)
 
 
 EXCLUDED_PARTS = {"build", "CMakeFiles", ".ninja_deps", ".ninja_log"}
@@ -29,8 +32,38 @@ def _require_canonical_destination(destination: pathlib.Path) -> None:
         raise RuntimeErrorEvidence("canonical destination must be evidence/<stage>/<contract>/<campaign-id>")
 
 
+def _validate_campaign(source: pathlib.Path, control_root: pathlib.Path, profile: pathlib.Path,
+                       candidate_commit: str) -> None:
+    prepared_path = control_root / "prepared-manifest.json"
+    prepared = read_json(prepared_path)
+    if prepared.get("state") != "PREPARED" or prepared.get("candidate", {}).get("commit") != candidate_commit:
+        raise RuntimeErrorEvidence("prepared campaign identity differs")
+    profile_data = validate_profile(profile)
+    if prepared.get("profile_sha256") != sha256_file(profile):
+        raise RuntimeErrorEvidence("prepared campaign profile identity differs")
+    state = read_json(control_root / "state.json")
+    history_path = control_root / "state-history.jsonl"
+    try:
+        history = [json.loads(line) for line in history_path.read_text(encoding="utf-8").splitlines() if line]
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise RuntimeErrorEvidence("campaign lifecycle history is invalid") from error
+    if not history or state.get("state") != history[-1].get("state") or [entry.get("state") for entry in history] not in (["PREPARED", "RUNNING", "EXECUTED_PENDING_AUDIT"], ["PREPARED", "RUNNING", "BLOCKED"]):
+        raise RuntimeErrorEvidence("campaign lifecycle history differs")
+    launch_plan = prepared.get("launch_plan")
+    if not isinstance(launch_plan, dict) or not isinstance(launch_plan.get("sha256"), str):
+        raise RuntimeErrorEvidence("prepared campaign launch-plan identity differs")
+    terminal = read_json(source / "terminal-manifest.json")
+    if terminal.get("state") == "EXECUTED_PENDING_AUDIT":
+        validate_terminal_manifest(source, profile_data, sha256_file(prepared_path), candidate_commit,
+                                   prepared["profile_sha256"], launch_plan["sha256"])
+    elif terminal.get("state") == "BLOCKED":
+        validate_blocked_terminal_manifest(source, sha256_file(prepared_path), candidate_commit)
+    else:
+        raise RuntimeErrorEvidence("campaign terminal state differs")
+
+
 def assemble(source: pathlib.Path, destination: pathlib.Path, candidate_commit: str, archival_commit: str | None,
-             control_root: pathlib.Path) -> None:
+             control_root: pathlib.Path, profile: pathlib.Path) -> None:
     if destination.exists():
         raise RuntimeErrorEvidence(f"canonical destination already exists: {destination}")
     _require_canonical_destination(destination)
@@ -40,6 +73,7 @@ def assemble(source: pathlib.Path, destination: pathlib.Path, candidate_commit: 
     for name in ("prepared-manifest.json", "state.json", "state-history.jsonl"):
         if not (control_root / name).is_file():
             raise RuntimeErrorEvidence(f"control evidence is absent: {name}")
+    _validate_campaign(source, control_root, profile, candidate_commit)
     files = retained_files(source)
     destination.mkdir(parents=True)
     copied: list[tuple[pathlib.Path, pathlib.Path]] = []
@@ -56,7 +90,7 @@ def assemble(source: pathlib.Path, destination: pathlib.Path, candidate_commit: 
     write_json(destination / "retention-manifest.json", retention_manifest(destination, copied, candidate_commit, archival_commit))
 
 
-def verify(destination: pathlib.Path) -> None:
+def verify(destination: pathlib.Path, profile: pathlib.Path) -> None:
     _require_canonical_destination(destination)
     manifest = read_json(destination / "retention-manifest.json")
     if manifest.get("kind") != "canonical-evidence-retention" or not isinstance(manifest.get("files"), list):
@@ -74,6 +108,10 @@ def verify(destination: pathlib.Path) -> None:
     observed_paths = {path.relative_to(destination).as_posix() for path in destination.rglob("*") if path.is_file()}
     if observed_paths != expected_paths:
         raise RuntimeErrorEvidence("canonical package contains unmanifested or absent files")
+    candidate_commit = manifest.get("candidate_commit")
+    if not isinstance(candidate_commit, str):
+        raise RuntimeErrorEvidence("retention candidate identity differs")
+    _validate_campaign(destination, destination / "control", profile, candidate_commit)
 
 
 def main() -> int:
@@ -81,16 +119,16 @@ def main() -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     assemble_parser = commands.add_parser("assemble")
     assemble_parser.add_argument("--source", required=True); assemble_parser.add_argument("--destination", required=True)
-    assemble_parser.add_argument("--candidate-commit", required=True); assemble_parser.add_argument("--archival-commit"); assemble_parser.add_argument("--control-root", required=True)
-    verify_parser = commands.add_parser("verify"); verify_parser.add_argument("--destination", required=True)
+    assemble_parser.add_argument("--candidate-commit", required=True); assemble_parser.add_argument("--archival-commit"); assemble_parser.add_argument("--control-root", required=True); assemble_parser.add_argument("--profile", required=True)
+    verify_parser = commands.add_parser("verify"); verify_parser.add_argument("--destination", required=True); verify_parser.add_argument("--profile", required=True)
     arguments = parser.parse_args()
     try:
         if arguments.command == "assemble":
-            assemble(pathlib.Path(arguments.source), pathlib.Path(arguments.destination), arguments.candidate_commit, arguments.archival_commit, pathlib.Path(arguments.control_root))
+            assemble(pathlib.Path(arguments.source), pathlib.Path(arguments.destination), arguments.candidate_commit, arguments.archival_commit, pathlib.Path(arguments.control_root), pathlib.Path(arguments.profile))
         else:
-            verify(pathlib.Path(arguments.destination))
+            verify(pathlib.Path(arguments.destination), pathlib.Path(arguments.profile))
         return 0
-    except RuntimeErrorEvidence as error:
+    except (RuntimeErrorEvidence, EvidenceError) as error:
         print(error, file=sys.stderr)
         return 1
 
