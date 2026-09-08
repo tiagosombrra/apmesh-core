@@ -172,7 +172,7 @@ Scientific closure and algorithmic qualification are distinct. A negative invest
 
 ### Foundation — Architecture, Numerics, and Reproducibility
 
-Status: `IN INVESTIGATION`
+Status: `QUALIFIED / WSL Ubuntu 24.04`
 
 Goal: establish the project contracts required to trust subsequent scientific work.
 
@@ -268,7 +268,7 @@ Status: `QUALIFIED` on WSL Ubuntu 24.04
 
 #### Foundation End-to-End Regression
 
-Status: `PRE-REGISTERED / FPR0–FPR6 IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED`
+Status: `QUALIFIED / FND0–FND7 PASS / candidate b333755 / WSL Ubuntu 24.04`
 
 - Reuse the qualified REC execution path; do not introduce a parallel campaign
   framework.
@@ -291,6 +291,13 @@ Status: `PRE-REGISTERED / FPR0–FPR6 IMPLEMENTED / FOCUSED CONTRACT PASS / NOT 
 - Treat retained REC evidence at `85d215a` only as qualified historical evidence
   and the accepted comparison baseline. It cannot substitute for current-candidate
   execution, deterministic claims, or retention required by FND2, FND4, and FND6.
+
+The formal post-execution audit accepted FND0–FND7 jointly on candidate
+`b333755442b934c490abaecda886dd2a40e981ca`. The Foundation evidence package
+retains four clean compiler/build cells, two replays per cell, 586 sealed files,
+and no dependency or contract-test finding. The only retained limitations are
+the declared WSL Ubuntu 24.04 envelope and the exclusion of geometry, topology,
+meshing, convergence, performance, parallel equivalence, and native Windows.
 
 Stage exit gate: all three contracts reviewed; minimal C++23 library builds from a clean checkout; one deterministic smoke experiment is fully reproducible from manifest to certificate and figure; Foundation End-to-End Regression passes.
 
@@ -540,34 +547,24 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current branch: `foundation/reproducible-experiment-contract`.
 
-Current decision: preparation readiness is governed by FPR0–FPR6, while
-FND0–FND7 remain post-execution scientific closure gates. Historical REC
-evidence at `85d215a` may be a verified prerequisite and comparison baseline,
-but it cannot replace current-candidate evidence for FND2, FND4, or FND6. This
-decision does not prepare or execute the Foundation End-to-End Regression.
-
-Admission evidence must include real Git identity, clean source-state snapshots
-before and after each build, completed hash-bound CTest
-and dependency command records, transitive retention, and detached-worktree
-verification. It is report-only infrastructure, not Foundation execution.
+Foundation closed with FND0–FND7 `PASS` on clean published candidate
+`b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
+recorded the required revision-bound build, CTest, dependency, comparison, and
+retention evidence; the separate audit made the scientific decision. Historical
+REC evidence at `85d215a` remained a comparison baseline and did not substitute
+for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Foundation End-to-End Regression / Implement the bounded FPR0–FPR6 preparation preflight**
+**Geometry Primitives — Exact Semantics Before Curves / define the bounded entry decision without implementing geometry**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
 that evidence without changing `numeric.cpp`, then passed the audited clean
 four-cell regression on candidate `236d290`. N0–N7 are qualified. Foundation
-remains IN INVESTIGATION at 75%. The Reproducible Experiment Contract and its
-first two-replay/four-cell E0–E7 regression are qualified on candidate
-`85d215a`. Its local profile, preparation/execution entrypoint, collector/comparer,
-derived table/SVG, reusable runtime, retention assembler, and focused
-no-execution contracts are qualified components of the retained campaign. The
-governing E0–E7 obligations are recorded in
-`docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`. Canonical
-retention and revision-bound verification passed. Foundation End-to-End remains
-pre-registered with a report-only FPR0–FPR6 preflight implemented; FPR6 still
-requires a separate scientific audit before preparation, and the campaign is neither
-prepared nor executed. No greenfield
-geometry or meshing algorithm is implemented.
+is QUALIFIED at 100% within the declared WSL envelope. The Reproducible
+Experiment Contract and its first two-replay/four-cell E0–E7 regression are
+qualified on candidate `85d215a`; that historical evidence remains the accepted
+comparison baseline. Foundation End-to-End passed its post-execution FND0–FND7
+audit on `b333755`, with retained scope limitations. No greenfield geometry or
+meshing algorithm is implemented.

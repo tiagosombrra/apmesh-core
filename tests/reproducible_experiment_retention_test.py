@@ -394,7 +394,27 @@ def main() -> int:
         terminal = original_terminal
         evidence.write_json(campaign / "terminal-manifest.json", terminal)
         (campaign / "build" / "CMakeFiles").mkdir(parents=True); (campaign / "build" / "CMakeFiles" / "object.o").write_bytes(b"object")
-        tool.assemble(campaign, destination, commit, "archive-sha", control, profile_path)
+        # The execution checkout may later acquire unrelated untracked files.
+        # Retention must reject that checkout by default, but may use a clean
+        # revision-equivalent worktree supplied explicitly for verification.
+        (source / "unexpected.txt").write_text("untracked outside canonical evidence\n", encoding="utf-8")
+        require_rejection(lambda: tool.assemble(campaign, destination, commit, "archive-sha", control, profile_path),
+                          (tool.RuntimeErrorEvidence, evidence.EvidenceError),
+                          "retention accepted a dirty execution checkout without an explicit verification source")
+        verification = root / "verification-source"
+        subprocess.run(("git", "worktree", "add", "--detach", str(verification), commit), cwd=source, check=True, capture_output=True)
+        try:
+            tool._validate_campaign(campaign, control, profile_path, commit, verification_source_root=verification)
+            verification_input = verification / "input"; original_verification_input = verification_input.read_bytes()
+            verification_input.write_text("tampered relocation input\n", encoding="utf-8")
+            require_rejection(lambda: tool._validate_campaign(campaign, control, profile_path, commit, verification_source_root=verification),
+                              (tool.RuntimeErrorEvidence, evidence.EvidenceError),
+                              "retention accepted a relocated checkout with changed tracked input")
+            verification_input.write_bytes(original_verification_input)
+            tool.assemble(campaign, destination, commit, "archive-sha", control, profile_path,
+                          verification_source_root=verification)
+        finally:
+            subprocess.run(("git", "worktree", "remove", "--force", str(verification)), cwd=source, check=True, capture_output=True)
         tool.verify(destination, profile_path)
         retained = json.loads((destination / "retention-manifest.json").read_text(encoding="utf-8"))
         if not retained["files"][0]["source_path"].startswith(str(campaign)) or (destination / "build").exists():
@@ -409,7 +429,6 @@ def main() -> int:
         else:
             raise RuntimeError("retention verifier accepted tampered evidence")
         retained_summary.write_bytes(original_retained_summary)
-        (source / "unexpected.txt").write_text("untracked outside canonical evidence\n", encoding="utf-8")
         tool.verify(destination, profile_path)
         (source / "unexpected.txt").unlink()
         tool.verify(destination, profile_path)

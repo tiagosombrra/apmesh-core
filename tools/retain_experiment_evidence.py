@@ -77,7 +77,8 @@ def _validate_campaign(source: pathlib.Path, control_root: pathlib.Path, profile
 
 
 def assemble(source: pathlib.Path, destination: pathlib.Path, candidate_commit: str, archival_commit: str | None,
-             control_root: pathlib.Path, profile: pathlib.Path) -> None:
+             control_root: pathlib.Path, profile: pathlib.Path,
+             verification_source_root: pathlib.Path | None = None) -> None:
     if destination.exists():
         raise RuntimeErrorEvidence(f"canonical destination already exists: {destination}")
     _require_canonical_destination(destination)
@@ -87,7 +88,8 @@ def assemble(source: pathlib.Path, destination: pathlib.Path, candidate_commit: 
     for name in ("prepared-manifest.json", "launch-plan.json", "state.json", "state-history.jsonl"):
         if not (control_root / name).is_file():
             raise RuntimeErrorEvidence(f"control evidence is absent: {name}")
-    _validate_campaign(source, control_root, profile, candidate_commit)
+    _validate_campaign(source, control_root, profile, candidate_commit,
+                       verification_source_root=verification_source_root)
     files = retained_files(source)
     destination.mkdir(parents=True)
     copied: list[tuple[pathlib.Path, pathlib.Path]] = []
@@ -151,12 +153,13 @@ def main() -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     assemble_parser = commands.add_parser("assemble")
     assemble_parser.add_argument("--source", required=True); assemble_parser.add_argument("--destination", required=True)
-    assemble_parser.add_argument("--candidate-commit", required=True); assemble_parser.add_argument("--archival-commit"); assemble_parser.add_argument("--control-root", required=True); assemble_parser.add_argument("--profile", required=True)
+    assemble_parser.add_argument("--candidate-commit", required=True); assemble_parser.add_argument("--archival-commit"); assemble_parser.add_argument("--control-root", required=True); assemble_parser.add_argument("--profile", required=True); assemble_parser.add_argument("--verification-source-root")
     verify_parser = commands.add_parser("verify"); verify_parser.add_argument("--destination", required=True); verify_parser.add_argument("--profile", required=True)
     arguments = parser.parse_args()
     try:
         if arguments.command == "assemble":
-            assemble(pathlib.Path(arguments.source), pathlib.Path(arguments.destination), arguments.candidate_commit, arguments.archival_commit, pathlib.Path(arguments.control_root), pathlib.Path(arguments.profile))
+            assemble(pathlib.Path(arguments.source), pathlib.Path(arguments.destination), arguments.candidate_commit, arguments.archival_commit, pathlib.Path(arguments.control_root), pathlib.Path(arguments.profile),
+                     pathlib.Path(arguments.verification_source_root) if arguments.verification_source_root else None)
         else:
             verify(pathlib.Path(arguments.destination), pathlib.Path(arguments.profile))
         return 0

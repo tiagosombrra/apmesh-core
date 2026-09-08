@@ -42,34 +42,28 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 ## Current active stage
 
-**Foundation — Architecture, Numerics, and Reproducibility**
+**Geometry Primitives — Exact Semantics Before Curves**
 
 Current active investigation problem:
 
-**Foundation End-to-End Regression**
+**Geometry Primitives — Exact Semantics Before Curves**
 
 Current executable work unit:
 
-**Audit the FPR0–FPR5 evidence for the current clean candidate and decide whether FPR6 may authorize one `PREPARED` manifest. Do not prepare or execute the formal regression.**
+**Define the bounded Geometry Primitives entry decision without implementing geometry.**
 
-No greenfield meshing algorithm has been implemented yet.
+Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
+envelope. No greenfield geometry or meshing algorithm has been implemented yet.
 
-Current decision: FPR0–FPR6 determine only whether one revision-bound Foundation
-manifest may be prepared. FND0–FND7 determine scientific closure only after the
-current candidate is executed. Retained REC evidence at `85d215a` is a qualified
-historical prerequisite and comparison baseline; it cannot satisfy current-
-candidate FND2, FND4, or FND6. No preparation or execution has occurred.
+Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
+`b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced
+revision-bound evidence; the separate audit made the scientific closure
+decision. Historical REC evidence at `85d215a` remained a qualified comparison
+baseline and did not substitute for current-candidate FND2, FND4, or FND6.
 
-The separate report-only FPR0–FPR6 preflight is implemented and its focused
-contract passes. It verifies candidate/baseline separation without creating a
-manifest or executing a campaign. FPR6 remains a scientific audit decision.
-
-The correction requires real Git publication identity, clean Git source-state
-snapshots before and after every build, completed hash-bound
-configure/build/CTest/`ldd` command records for every declared cell,
-transitive artifact retention, and semantic requalification in a detached
-candidate worktree. It remains an admission mechanism, not Foundation
-regression evidence.
+The retained limitations are unchanged: qualification is restricted to WSL
+Ubuntu 24.04 and makes no native-Windows, geometry, topology, meshing,
+convergence, performance, parallel-equivalence, or universal-portability claim.
 
 The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
 into `main` at `4927383`. All eight requirements passed the final audited
@@ -99,9 +93,10 @@ was audited as N0/N1/N3–N7 `PASS` and N2 `BLOCKED`. The earlier N0/N1 `PASS`,
 N2–N7 `BLOCKED` decision remains preserved as negative historical evidence.
 
 Scientific qualification: the Architecture, Numeric, and Reproducible Experiment
-Contracts are `QUALIFIED` in the declared WSL Ubuntu 24.04 envelope. Foundation
-remains `IN INVESTIGATION` at 75%; only Foundation End-to-End Regression remains
-unqualified.
+Contracts are `QUALIFIED` in the declared WSL Ubuntu 24.04 envelope. The
+Foundation End-to-End Regression passed FND0–FND7 jointly on clean published
+candidate `b333755442b934c490abaecda886dd2a40e981ca`; Foundation is
+`QUALIFIED` at 100% with retained scope limitations.
 
 ## Bootstrap repository and toolchain
 
@@ -131,8 +126,9 @@ The minimal `apmesh::core` library skeleton is qualified on the GCC reference:
 
 The same project bootstrap and bounded Architecture Contract regression are
 qualified on Clang 18.1.3 with libc++ 18.1.3, including Debug and Release.
-The Reproducible Experiment Contract is qualified. Foundation End-to-End and later contracts remain open. Native
-Windows remains NOT QUALIFIED; WSL execution does not qualify it.
+The Reproducible Experiment Contract and Foundation End-to-End Regression are
+qualified. Later scientific stages remain open. Native Windows remains NOT
+QUALIFIED; WSL execution does not qualify it.
 
 ## Architecture direction already agreed
 
@@ -169,18 +165,16 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: audit the current-candidate FPR0–FPR5 evidence and decide
-whether FPR6 may authorize one `PREPARED` manifest. Do not prepare or execute
-the formal regression.
+Current first action: define the Geometry Primitives entry decision without
+implementing geometry, topology, or meshing.
 
-1. Audit FPR0–FPR5 for the current clean candidate. Authorize FPR6 only through
-   a separate scientific decision; preserve FND0–FND7 for post-execution closure
-   and do not prepare or execute the regression.
+1. Define the bounded scope, mathematical vocabulary, assumptions, and initial
+   analytic verification cases for Geometry Primitives. Do not implement the
+   resulting types in that decision.
 
-Decision progress: 3/3 Numeric Contract questions resolved. Qualification
-progress: Architecture, Numeric, and Reproducible Experiment Contracts are
-qualified. Foundation remains IN INVESTIGATION at 75% (three of four Foundation
-gates); Foundation End-to-End remains unqualified.
+Decision progress: Foundation closure is complete. Qualification progress:
+Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
+qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is NOT STARTED.
 
 ## Stage closure protocol
 

@@ -1,6 +1,6 @@
 # Foundation End-to-End Regression — Bounded Pre-registration
 
-Status: PRE-REGISTERED / FPR0–FPR6 IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED
+Status: QUALIFIED / FND0–FND7 PASS / WSL Ubuntu 24.04
 Last updated: 2026-09-08
 Stage: Foundation — Architecture, Numerics, and Reproducibility
 
@@ -163,6 +163,9 @@ The bounded final-stage addition consists only of:
   accepted baseline, validates the cumulative contract-test inventory, rejects
   undeclared dependencies and non-system resolutions, and emits a compact
   certificate, table, report, status figure, and artifact inventory;
+- `tools/run_foundation_post_execution_qualification.py`, an operational bridge
+  that assembles existing completed REC evidence and invokes the qualified
+  report-only verifier from a clean checkout of the candidate revision; and
 - one focused contract covering accepted evidence, a claim regression, an
   undeclared dependency, a non-system dependency resolution, incomplete
   contract-test coverage, a non-aligned candidate, and an undeclared protected
@@ -211,8 +214,8 @@ current qualified-authority bytes, historical baseline integrity, fixed-matrix
 runner identity, report-only tool/contract identity, and output-root safety.
 It does not create a manifest, write campaign evidence, or invoke the runner.
 
-FPR6 remains `EVIDENCE_COLLECTED_PENDING_AUDIT` whenever FPR0–FPR5 are
-complete. It can be closed only by a separate scientific decision. The focused
+Before the executed campaign, FPR6 was `EVIDENCE_COLLECTED_PENDING_AUDIT` when
+FPR0–FPR5 were complete. It could be closed only by a separate scientific decision. The focused
 contract uses a distinct current source revision and keeps the REC authority
 marker unchanged; it proves that the historical package cannot be supplied as
 the current candidate and exercises FPR0, FPR1, and FPR5 negative cases.
@@ -223,8 +226,34 @@ CTest-discovery evidence, then revalidates a retained package in a detached
 worktree. This validates the report-only mechanism only; it does not satisfy
 an FND gate.
 
-## 10. Next bounded action
+## 10. Final audit and closure
 
-Audit the FPR0–FPR5 evidence for the current clean candidate and decide whether
-FPR6 may authorize one `PREPARED` manifest. Do not prepare or execute the formal
-regression in that decision.
+The fixed Foundation End-to-End Regression executed on clean published
+candidate `b333755442b934c490abaecda886dd2a40e981ca`, with upstream aligned to
+the same revision. The report-only qualification package retained the executed
+REC evidence, current-candidate admission inputs, Foundation evidence binding,
+and a sealed retention manifest before this separate scientific audit.
+
+| Gate | Decision | Audit basis |
+| --- | --- | --- |
+| FND0 | PASS | Clean, published, upstream-aligned candidate; source-scope comparison classified only declared Foundation support changes. |
+| FND1 | PASS | Architecture, Numeric, and REC authorities were present and hash-bound. |
+| FND2 | PASS | The four GCC/Clang Debug/Release cells completed two REC replays each, with same-revision prerequisites. |
+| FND3 | PASS | Each cell recorded successful clean configure, build, discovery, and contract execution; no contract finding remained. |
+| FND4 | PASS | Same-cell and cross-cell claim projections were equivalent; only declared configuration and volatile-provenance differences remained. |
+| FND5 | PASS | The comparison with accepted baseline `85d215a` was `NO_CHANGE`, with no regression or unresolved investigation. |
+| FND6 | PASS | The Foundation retention manifest declared 586 files; independent hash and size verification found zero missing or mismatched files. Detached-worktree semantic verification passed. |
+| FND7 | PASS | The four dependency cells reported no undeclared runtime dependency; the evidence binding names the candidate revision, inputs, retained REC package, and explicit limitations. |
+
+The formal decision is **PASS WITH RETAINED LIMITATIONS**. Foundation advances
+from 75% to 100% and is `QUALIFIED` only within the bounded scope stated here.
+The report-only qualifier still does not make this decision itself; it emitted
+`EVIDENCE_COLLECTED_PENDING_AUDIT`, which this record resolves.
+
+The retained limitations in section 8 remain unchanged. In particular, this
+closure does not qualify native Windows, geometry, topology, meshing,
+convergence, performance, parallel equivalence, or universal portability.
+
+## 11. Next bounded action
+
+Define the Geometry Primitives entry decision without implementing geometry.

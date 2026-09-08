@@ -522,7 +522,7 @@ The three previously open architecture questions are resolved:
 
 Ownership, immutability, fallible/infallible API distinction, and determinism are
 specified by this contract; future scientific types remain subject to their own
-stages. The immediate work is implementing the bounded bootstrap verification
-package, obtaining a committed clean candidate, and running the pre-registered
-regression. This document records decisions, not completed implementation or
-scientific proof. Foundation remains IN INVESTIGATION.
+stages. This document records architecture decisions, not completed geometry or
+scientific proof. The later Foundation closure is recorded separately in
+`docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`; Geometry Primitives
+remains a separate, not-started stage.
