@@ -147,7 +147,8 @@ The bounded final-stage addition consists only of:
 The qualifier now requires one hash-bound admission-input manifest. It binds
 the candidate revision, profile, retained REC package, publication record,
 authority record, CTest discovery/JUnit outputs, and executable/`ldd` evidence.
-For every declared cell, it records the actual CMake configure and build
+For every declared cell, it records clean Git source inventories before and
+after the actual CMake configure and build
 commands, produced executable hashes, verbose CTest discovery, CTest JUnit
 result, and `ldd` invocation. The qualifier independently compares publication
 with Git, recomputes CTest coverage and dependency findings from raw artifacts,

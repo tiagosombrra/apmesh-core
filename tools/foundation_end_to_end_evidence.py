@@ -288,6 +288,22 @@ def source_identity(source_root: pathlib.Path) -> dict[str, Any]:
             "upstream_head": values["upstream_head"], "tree_clean": not values["status"]}
 
 
+def build_source_state(source_root: pathlib.Path) -> dict[str, Any]:
+    """Capture the clean tracked source consumed by one build/CTest cell."""
+    status = subprocess.run(["git", "status", "--porcelain"], cwd=source_root, capture_output=True, text=True, check=False)
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=source_root, capture_output=True, text=True, check=False)
+    tracked = subprocess.run(["git", "ls-files"], cwd=source_root, capture_output=True, text=True, check=False)
+    if status.returncode != 0 or head.returncode != 0 or tracked.returncode != 0 or status.stdout.strip() or not GIT_COMMIT.fullmatch(head.stdout.strip()):
+        raise RuntimeErrorEvidence("Foundation build source is not a clean revision")
+    inventory = []
+    for name in tracked.stdout.splitlines():
+        path = source_root / name
+        if not path.is_file():
+            raise RuntimeErrorEvidence("Foundation build source inventory differs")
+        inventory.append({"path": name, "sha256": sha256_file(path)})
+    return {"commit": head.stdout.strip(), "tree_clean": True, "source_inventory": inventory}
+
+
 def validate_publication(path: pathlib.Path, candidate_commit: str, source_root: pathlib.Path) -> bool:
     publication = read_json(path)
     require_exact_keys(publication, {"schema_version", "kind", "branch", "head", "upstream", "upstream_head", "tree_clean"}, "Foundation publication")
@@ -332,12 +348,22 @@ def _build_provenance(row: Any, profile: dict[str, Any], candidate_commit: str, 
                       recorded_source_root: pathlib.Path | None = None) -> tuple[pathlib.Path, dict[str, str]]:
     if not isinstance(row, dict):
         raise RuntimeErrorEvidence("Foundation build provenance differs")
-    require_exact_keys(row, {"candidate_commit", "source_root", "build_directory", "configure", "build", "outputs"},
+    require_exact_keys(row, {"candidate_commit", "source_root", "source_before", "source_after", "build_directory", "configure", "build", "outputs"},
                        "Foundation build provenance")
     command_root = (recorded_root or root).resolve()
     command_source = (recorded_source_root or candidate_source_root).resolve()
     if row["candidate_commit"] != candidate_commit or row["source_root"] != str(command_source):
         raise RuntimeErrorEvidence("Foundation build provenance identity differs")
+    for name in ("source_before", "source_after"):
+        state = row[name]
+        if not isinstance(state, dict) or set(state) != {"commit", "tree_clean", "source_inventory"} or state["commit"] != candidate_commit or state["tree_clean"] is not True:
+            raise RuntimeErrorEvidence("Foundation build source state differs")
+        inventory = state["source_inventory"]
+        if (not isinstance(inventory, list) or not inventory or any(not isinstance(item, dict) or set(item) != {"path", "sha256"} or
+                not isinstance(item["path"], str) or not item["path"] or _sha(item["sha256"], "Foundation build source") != item["sha256"] for item in inventory)):
+            raise RuntimeErrorEvidence("Foundation build source inventory differs")
+    if row["source_before"] != row["source_after"] or row["source_after"] != build_source_state(candidate_source_root):
+        raise RuntimeErrorEvidence("Foundation build source changed during collection")
     build_directory = _relative(root, row["build_directory"], "Foundation build directory")
     configure, build = row["configure"], row["build"]
     _execution_record(root, configure, configure.get("argv", []), "Foundation configure")
@@ -543,12 +569,15 @@ def collect_observed_build_and_contract_evidence(profile_path: pathlib.Path, sou
     for name, family in profile["configurations"].items():
         build_directory = output_root / "build" / name
         logs = output_root / "logs" / name
+        source_before = build_source_state(source_root)
+        if source_before["commit"] != candidate_commit:
+            raise RuntimeErrorEvidence("Foundation observed build candidate differs")
         compiler = "g++-13" if family == "gcc" else "clang++-18"
         configure_argv = ["cmake", "-S", str(source_root.resolve()), "-B", str(build_directory), "-G", "Ninja",
                           f"-DCMAKE_CXX_COMPILER={compiler}", f"-DCMAKE_BUILD_TYPE={'Release' if name.endswith('release') else 'Debug'}",
-                          "-DBUILD_TESTING=ON"]
+                          "-DBUILD_TESTING=ON", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"]
         if family == "clang-libcxx":
-            configure_argv.extend(("-DCMAKE_CXX_FLAGS=-stdlib=libc++", "-DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++"))
+            configure_argv.append("-DAPMESH_USE_LIBCXX=ON")
         configure = run_command(configure_argv, source_root, logs, "configure", 120)
         build_argv = ["cmake", "--build", str(build_directory), "--target", *profile["required_executables"]]
         build = run_command(build_argv, source_root, logs, "build", 120)
@@ -576,8 +605,11 @@ def collect_observed_build_and_contract_evidence(profile_path: pathlib.Path, sou
         ctest_record = run_command(ctest_argv, source_root, logs, "ctest-contract", 60)
         if any(record["exit_code"] != 0 or record["timed_out"] or record["launch_error"] is not None for record in (discovery_record, ctest_record)) or not junit.is_file():
             raise RuntimeErrorEvidence(f"Foundation observed CTest failed: {name}")
+        source_after = build_source_state(source_root)
+        if source_before != source_after:
+            raise RuntimeErrorEvidence("Foundation observed source changed during collection")
         dependency_cells.append({"name": name, "build": {"candidate_commit": candidate_commit, "source_root": str(source_root.resolve()),
-                                 "build_directory": relative_path(output_root, build_directory), "configure": _observed_record(configure, logs.parent, output_root),
+                                 "source_before": source_before, "source_after": source_after, "build_directory": relative_path(output_root, build_directory), "configure": _observed_record(configure, logs.parent, output_root),
                                  "build": _observed_record(build, logs.parent, output_root), "outputs": outputs}, "executables": executable_rows})
         contract_cells.append({"name": name, "command": ctest_argv, "discovery": {"path": relative_path(output_root, discovery), "sha256": sha256_file(discovery)},
                                "discovery_execution": _observed_record(discovery_record, logs.parent, output_root), "junit": {"path": relative_path(output_root, junit), "sha256": sha256_file(junit)},
@@ -697,7 +729,7 @@ def _copy_transitive(source_root: pathlib.Path, paths: list[pathlib.Path], desti
     return copied
 
 
-def _seal_output(output: pathlib.Path, profile_path: pathlib.Path, candidate_retention: pathlib.Path,
+def _seal_output(output: pathlib.Path, profile_path: pathlib.Path, rec_profile: pathlib.Path, candidate_retention: pathlib.Path,
                  candidate_package: pathlib.Path, inputs_manifest: pathlib.Path, input_root: pathlib.Path,
                  inputs: dict[str, pathlib.Path], candidate_commit: str) -> None:
     inputs_root = output / "inputs"; inputs_root.mkdir(); copied: dict[str, dict[str, str]] = {}
@@ -706,12 +738,14 @@ def _seal_output(output: pathlib.Path, profile_path: pathlib.Path, candidate_ret
         suffix = path.suffix or ".bin"; target = inputs_root / f"{role}{suffix}"
         shutil.copy2(path, target); copied[role] = {"path": relative_path(output, target), "sha256": sha256_file(target)}
     profile_target = inputs_root / "foundation-profile.json"; shutil.copy2(profile_path, profile_target)
+    rec_profile_target = inputs_root / "reproducible-experiment-profile.json"; shutil.copy2(rec_profile, rec_profile_target)
     package_target = inputs_root / "candidate-rec-package"; shutil.copytree(candidate_package, package_target)
     transitive = _copy_transitive(input_root, _transitive_input_paths(input_root, inputs), inputs_root / "raw", output)
-    write_json(output / "foundation-evidence-manifest.json", {"schema_version": 3, "kind": "foundation-end-to-end-evidence-binding", "candidate_commit": candidate_commit,
+    write_json(output / "foundation-evidence-manifest.json", {"schema_version": 4, "kind": "foundation-end-to-end-evidence-binding", "candidate_commit": candidate_commit,
         "profile_sha256": sha256_file(profile_path), "candidate_retention_manifest_sha256": sha256_file(candidate_retention),
         "input_root": str(input_root.resolve()),
         "profile": {"path": relative_path(output, profile_target), "sha256": sha256_file(profile_target)},
+        "rec_profile": {"path": relative_path(output, rec_profile_target), "sha256": sha256_file(rec_profile_target)},
         "candidate_rec_package": {"path": relative_path(output, package_target / "retention-manifest.json"), "sha256": sha256_file(package_target / "retention-manifest.json")},
         "input_manifest": {"path": relative_path(output, manifest_target), "sha256": sha256_file(manifest_target)},
         "artifacts": copied, "transitive_artifacts": transitive})
@@ -723,8 +757,9 @@ def _seal_output(output: pathlib.Path, profile_path: pathlib.Path, candidate_ret
         "files": [{"path": relative_path(output, path), "sha256": sha256_file(path), "size": path.stat().st_size} for path in sealed]})
 
 
-def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path, candidate_retention: pathlib.Path,
-                                candidate_commit: str, candidate_source_root: pathlib.Path) -> None:
+def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path, rec_profile: pathlib.Path,
+                                candidate_retention: pathlib.Path, candidate_commit: str,
+                                candidate_source_root: pathlib.Path, recorded_source_root: pathlib.Path | None = None) -> None:
     manifest = read_json(output / "retention-manifest.json")
     require_exact_keys(manifest, {"schema_version", "kind", "candidate_commit", "files"}, "Foundation retention")
     if manifest["schema_version"] != 1 or manifest["kind"] != "foundation-end-to-end-retention" or manifest["candidate_commit"] != candidate_commit or not isinstance(manifest["files"], list):
@@ -741,13 +776,16 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
     if {relative_path(output, path) for path in output.rglob("*") if path.is_file()} != expected:
         raise RuntimeErrorEvidence("Foundation retained artifact set differs")
     binding = read_json(output / "foundation-evidence-manifest.json")
-    require_exact_keys(binding, {"schema_version", "kind", "candidate_commit", "profile_sha256", "candidate_retention_manifest_sha256", "input_root", "profile", "candidate_rec_package", "input_manifest", "artifacts", "transitive_artifacts"}, "Foundation evidence binding")
-    if (binding["schema_version"] != 3 or binding["kind"] != "foundation-end-to-end-evidence-binding" or binding["candidate_commit"] != candidate_commit or
+    require_exact_keys(binding, {"schema_version", "kind", "candidate_commit", "profile_sha256", "candidate_retention_manifest_sha256", "input_root", "profile", "rec_profile", "candidate_rec_package", "input_manifest", "artifacts", "transitive_artifacts"}, "Foundation evidence binding")
+    if (binding["schema_version"] != 4 or binding["kind"] != "foundation-end-to-end-evidence-binding" or binding["candidate_commit"] != candidate_commit or
             binding["profile_sha256"] != sha256_file(profile_path) or binding["candidate_retention_manifest_sha256"] != sha256_file(candidate_retention)):
         raise RuntimeErrorEvidence("Foundation evidence binding differs")
     if not isinstance(binding["input_root"], str) or not pathlib.Path(binding["input_root"]).is_absolute():
         raise RuntimeErrorEvidence("Foundation retained input root differs")
     _hash_bound_file(output, binding["profile"], "Foundation retained profile")
+    retained_rec_profile = _hash_bound_file(output, binding["rec_profile"], "Foundation retained REC profile")
+    if sha256_file(retained_rec_profile) != sha256_file(rec_profile):
+        raise RuntimeErrorEvidence("Foundation retained REC profile differs")
     _hash_bound_file(output, binding["candidate_rec_package"], "Foundation retained REC package")
     _hash_bound_file(output, binding["input_manifest"], "Foundation retained input manifest")
     if not isinstance(binding["artifacts"], dict) or set(binding["artifacts"]) != {"publication", "authorities", "dependencies", "contract_tests"}:
@@ -776,14 +814,16 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
             retained_input = read_json(_hash_bound_file(output, binding["input_manifest"], "Foundation retained input manifest"))
             require_exact_keys(retained_input, {"schema_version", "kind", "candidate_commit", "candidate_retention_manifest_sha256", "profile_sha256", "source_root", "artifacts"},
                                "Foundation retained admission input")
-            if retained_input["candidate_commit"] != candidate_commit or retained_input["source_root"] != str(candidate_source_root.resolve()):
+            expected_recorded_source = (recorded_source_root or candidate_source_root).resolve()
+            if retained_input["candidate_commit"] != candidate_commit or retained_input["source_root"] != str(expected_recorded_source):
                 raise RuntimeErrorEvidence("Foundation retained admission identity differs")
             raw_root = output / "inputs" / "raw"
             artifacts = retained_input.get("artifacts")
             if not isinstance(artifacts, dict) or set(artifacts) != {"publication", "authorities", "dependencies", "contract_tests"}:
                 raise RuntimeErrorEvidence("Foundation retained admission artifacts differ")
             retained = {role: _hash_bound_file(raw_root, row, f"Foundation retained raw {role}") for role, row in artifacts.items()}
-            terminal = read_json(_hash_bound_file(output, binding["candidate_rec_package"], "Foundation retained REC package").parent / "terminal-manifest.json")
+            retained_package = _hash_bound_file(output, binding["candidate_rec_package"], "Foundation retained REC package").parent
+            terminal = read_json(retained_package / "terminal-manifest.json")
             if not validate_authorities(retained["authorities"], retained_profile, candidate_commit, detached, terminal):
                 raise RuntimeErrorEvidence("Foundation retained authorities are not qualified")
             recorded_input_root = pathlib.Path(binding["input_root"])
@@ -796,6 +836,14 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
                                                                        retained["contract_tests"].parent, build_directories, contract_recorded_root)
             if not dependencies_ok or dependency_findings or not contract_ok or contract_findings:
                 raise RuntimeErrorEvidence("Foundation retained semantic evidence differs")
+            # The retained copy is sealed below ``inputs/``.  Recreate it at a
+            # canonical evidence path only after the clean-worktree build
+            # evidence was checked; the REC verifier intentionally rejects
+            # non-canonical destinations.
+            semantic_package = (detached / "evidence" / "foundation" / "reproducible-experiment-contract" /
+                                "retained-rec-semantic-check")
+            shutil.copytree(retained_package, semantic_package)
+            verify_retained_package(semantic_package, retained_rec_profile)
         finally:
             removed = subprocess.run(["git", "worktree", "remove", "--force", str(detached)], cwd=candidate_source_root,
                                      capture_output=True, text=True, check=False)
@@ -803,20 +851,23 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
                 raise RuntimeErrorEvidence("Foundation detached retention worktree could not be removed")
 
 
-def _write_outputs(output: pathlib.Path, summary: dict[str, Any], profile_path: pathlib.Path,
+def _write_outputs(output: pathlib.Path, summary: dict[str, Any], profile_path: pathlib.Path, rec_profile: pathlib.Path,
                    candidate_retention: pathlib.Path, candidate_package: pathlib.Path, inputs_manifest: pathlib.Path,
-                   input_root: pathlib.Path, inputs: dict[str, pathlib.Path], candidate_source_root: pathlib.Path) -> bool:
+                   input_root: pathlib.Path, inputs: dict[str, pathlib.Path], candidate_source_root: pathlib.Path,
+                   recorded_source_root: pathlib.Path | None = None) -> bool:
     if output.exists() and any(output.iterdir()):
         raise RuntimeErrorEvidence("Foundation qualifier output root is not empty")
     output.mkdir(parents=True, exist_ok=True)
     _write_text_outputs(output, summary)
-    _seal_output(output, profile_path, candidate_retention, candidate_package, inputs_manifest, input_root, inputs, summary["candidate_commit"])
-    verify_foundation_retention(output, profile_path, candidate_retention, summary["candidate_commit"], candidate_source_root)
+    _seal_output(output, profile_path, rec_profile, candidate_retention, candidate_package, inputs_manifest, input_root, inputs, summary["candidate_commit"])
+    verify_foundation_retention(output, profile_path, rec_profile, candidate_retention, summary["candidate_commit"], candidate_source_root,
+                                recorded_source_root)
     return True
 
 
 def qualify(profile_path: pathlib.Path, rec_profile: pathlib.Path, baseline_package: pathlib.Path,
-            candidate_package: pathlib.Path, inputs_manifest: pathlib.Path, output: pathlib.Path) -> dict[str, Any]:
+            candidate_package: pathlib.Path, inputs_manifest: pathlib.Path, output: pathlib.Path,
+            verification_source_root: pathlib.Path | None = None) -> dict[str, Any]:
     profile = validate_profile(profile_path); baseline_manifest = baseline_package / "retention-manifest.json"; declared = profile["accepted_baseline"]
     declared_path = pathlib.Path(declared["path"])
     if not declared_path.is_absolute():
@@ -833,13 +884,15 @@ def qualify(profile_path: pathlib.Path, rec_profile: pathlib.Path, baseline_pack
     candidate_source = read_json(candidate_package / "control" / "prepared-manifest.json").get("candidate", {}).get("source_root")
     if not isinstance(candidate_source, str) or not candidate_source:
         raise RuntimeErrorEvidence("Foundation candidate source differs")
-    input_root, inputs = _load_inputs(inputs_manifest, profile_path, candidate_package / "retention-manifest.json", candidate_commit, pathlib.Path(candidate_source))
-    publication_ok = validate_publication(inputs["publication"], candidate_commit, pathlib.Path(candidate_source))
-    authorities_ok = validate_authorities(inputs["authorities"], profile, candidate_commit, pathlib.Path(candidate_source), candidate_terminal)
+    recorded_source_root = pathlib.Path(candidate_source)
+    source_root = (verification_source_root or recorded_source_root).resolve()
+    input_root, inputs = _load_inputs(inputs_manifest, profile_path, candidate_package / "retention-manifest.json", candidate_commit, recorded_source_root)
+    publication_ok = validate_publication(inputs["publication"], candidate_commit, source_root)
+    authorities_ok = validate_authorities(inputs["authorities"], profile, candidate_commit, source_root, candidate_terminal)
     dependencies_ok, dependency_findings, build_directories = validate_dependencies(inputs["dependencies"], profile, candidate_commit,
-                                                                                     input_root, pathlib.Path(candidate_source))
+                                                                                     inputs["dependencies"].parent, source_root)
     contract_tests_ok, contract_test_findings = validate_contract_tests(inputs["contract_tests"], profile, candidate_commit,
-                                                                         input_root, build_directories)
+                                                                         inputs["contract_tests"].parent, build_directories)
     scope_ok, scope_changes_rows = source_changes(baseline_package, candidate_package, profile, profile_path)
     differences = _diff(package_claims(baseline_package, baseline_terminal, profile["claim_fields"]), package_claims(candidate_package, candidate_terminal, profile["claim_fields"]))
     conditions = {"FND0": publication_ok and scope_ok, "FND1": authorities_ok, "FND2": _terminal_complete(candidate_terminal, candidate_commit),
@@ -851,8 +904,15 @@ def qualify(profile_path: pathlib.Path, rec_profile: pathlib.Path, baseline_pack
                "baseline_comparison": {"classification": "NO_CHANGE" if not differences else "REGRESSION", "differences": differences},
                "scope_changes": scope_changes_rows, "dependency_findings": dependency_findings, "contract_test_findings": contract_test_findings,
                "gates": gates, "limitations": profile["limitations"]}
-    retention_verified = _write_outputs(output, summary, profile_path, candidate_package / "retention-manifest.json", candidate_package,
-                                        inputs_manifest, input_root, inputs, pathlib.Path(candidate_source))
+    if not all(conditions.values()):
+        summary["gates"]["FND6"] = BLOCKED
+        if output.exists() and any(output.iterdir()):
+            raise RuntimeErrorEvidence("Foundation qualifier output root is not empty")
+        output.mkdir(parents=True, exist_ok=True)
+        _write_text_outputs(output, summary)
+        return summary
+    retention_verified = _write_outputs(output, summary, profile_path, rec_profile, candidate_package / "retention-manifest.json", candidate_package,
+                                        inputs_manifest, input_root, inputs, source_root, recorded_source_root)
     conditions["FND6"] = retention_verified
     if not all(conditions.values()):
         summary["state"] = BLOCKED

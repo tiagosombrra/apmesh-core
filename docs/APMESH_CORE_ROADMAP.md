@@ -534,11 +534,13 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current branch: `foundation/reproducible-experiment-contract`.
 
-Current correction: revision-bound Foundation admission evidence is being
-completed before a new authorization audit. The correction does not prepare or
+Current correction: revision-bound Foundation admission evidence is implemented
+and its focused four-cell contract passed before a new authorization audit. The
+correction does not prepare or
 execute the Foundation End-to-End Regression.
 
-Admission evidence must include real Git identity, completed hash-bound CTest
+Admission evidence must include real Git identity, clean source-state snapshots
+before and after each build, completed hash-bound CTest
 and dependency command records, transitive retention, and detached-worktree
 verification. It is report-only infrastructure, not Foundation execution.
 

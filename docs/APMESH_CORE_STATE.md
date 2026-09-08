@@ -54,13 +54,14 @@ Current executable work unit:
 
 No greenfield meshing algorithm has been implemented yet.
 
-Current correction: the preceding audit-only work unit is superseded by the
-revision-bound Foundation admission correction. Its sole purpose is to make
+Current correction: the revision-bound Foundation admission correction is
+implemented and its focused four-cell contract passed. Its sole purpose is to make
 publication, authority, CTest, dependency, and closure evidence independently
 verifiable before any later authorization decision. It does not prepare or run
 the formal regression.
 
-The correction requires real Git publication identity, completed hash-bound
+The correction requires real Git publication identity, clean Git source-state
+snapshots before and after every build, completed hash-bound
 configure/build/CTest/`ldd` command records for every declared cell,
 transitive artifact retention, and semantic requalification in a detached
 candidate worktree. It remains an admission mechanism, not Foundation

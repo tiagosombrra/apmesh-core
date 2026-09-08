@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""End-to-end focused contract for observed Foundation admission evidence."""
+"""Integrated contract for revision-bound Foundation admission evidence."""
 
 from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import importlib.util
 import pathlib
 import subprocess
@@ -21,110 +22,136 @@ def load_tool(path: pathlib.Path):
     return module
 
 
-def git(source: pathlib.Path, *arguments: str) -> str:
-    completed = subprocess.run(["git", *arguments], cwd=source, check=True, capture_output=True, text=True)
+def run(arguments: list[str], cwd: pathlib.Path | None = None) -> str:
+    completed = subprocess.run(arguments, cwd=cwd, check=True, capture_output=True, text=True)
     return completed.stdout.strip()
 
 
-def require_rejection(callback, message: str) -> None:
+def sha256(path: pathlib.Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def require_rejection(action, message: str) -> None:
     try:
-        callback()
+        action()
     except Exception:
         return
     raise RuntimeError(message)
 
 
-def write_project(source: pathlib.Path, executables: list[str], tests: list[str]) -> None:
-    (source / "main.cpp").write_text("int main() { return 0; }\n", encoding="utf-8")
-    lines = ["cmake_minimum_required(VERSION 3.25)", "project(foundation_evidence LANGUAGES CXX)", "include(CTest)"]
-    lines.extend(f"add_executable({name} main.cpp)" for name in executables)
-    for name in tests:
-        lines.extend((f"add_test(NAME {name} COMMAND ${{CMAKE_COMMAND}} -E true)", f"set_tests_properties({name} PROPERTIES LABELS contract)"))
-    (source / "CMakeLists.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+def write_inputs(tool, path: pathlib.Path, profile: pathlib.Path, package: pathlib.Path,
+                 recorded_source: str, commit: str, artifacts: dict[str, pathlib.Path]) -> pathlib.Path:
+    tool.write_json(path, {"schema_version": 1, "kind": "foundation-admission-input-manifest", "candidate_commit": commit,
+                           "candidate_retention_manifest_sha256": sha256(package / "retention-manifest.json"),
+                           "profile_sha256": sha256(profile), "source_root": recorded_source,
+                           "artifacts": {name: {"path": item.relative_to(path.parent).as_posix(), "sha256": sha256(item)}
+                                         for name, item in artifacts.items()}})
+    return path
 
 
-def write_authorities(tool, root: pathlib.Path, source: pathlib.Path, profile: dict, commit: str) -> pathlib.Path:
-    rows = []
-    for row in profile["qualified_authorities"]:
-        path = source / row["path"]; path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(f"{row['qualified_marker']}\n", encoding="utf-8")
-        updated = dict(row); updated["sha256"] = tool.sha256_file(path); rows.append(updated)
-    profile["qualified_authorities"] = rows
-    result = root / "authorities.json"
-    tool.write_json(result, {"schema_version": 1, "kind": "foundation-qualified-authorities", "candidate_commit": commit, "authorities": rows})
-    return result
-
-
-def write_candidate_package(tool, root: pathlib.Path, commit: str, source: pathlib.Path) -> pathlib.Path:
-    tool.write_json(root / "retention-manifest.json", {"schema_version": 1, "kind": "canonical-evidence-retention", "candidate_commit": commit, "archival_commit": None, "files": []})
-    prerequisites = {name: {"candidate_commit": commit, "manifest": f"prerequisites/{name}.json", "state": "EXECUTED_PENDING_AUDIT"}
-                     for name in ("architecture_contract", "numeric_contract")}
-    tool.write_json(root / "terminal-manifest.json", {"state": "EXECUTED_PENDING_AUDIT", "candidate_commit": commit,
-                    "bundles": [{"cell": cell, "replay": replay, "bundle": "unused"} for cell in ("gcc-debug", "gcc-release", "clang-debug", "clang-release") for replay in (1, 2)],
-                    "negative_fixtures": [{"fixture": f"N{index}"} for index in range(8)], "prerequisites": prerequisites,
-                    "replay_comparisons": [{"cell": cell, "claim_fields": "equivalent"} for cell in ("gcc-debug", "gcc-release", "clang-debug", "clang-release")],
-                    "cross_configuration": {"claim_fields": "equivalent"}})
-    tool.write_json(root / "control" / "prepared-manifest.json", {"candidate": {"commit": commit, "tree_clean": True, "source_root": str(source.resolve()), "source_inventory": [{"path": "README.md", "sha256": "0" * 64}]}})
-    return root
+def require_blocked(tool, gate: str, *arguments, **keywords) -> None:
+    result = tool.qualify(*arguments, **keywords)
+    if result["state"] != tool.BLOCKED or result["gates"][gate] != tool.BLOCKED:
+        raise RuntimeError(f"Foundation qualifier did not block {gate}")
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(); parser.add_argument("--tool", required=True); parser.add_argument("--profile", required=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--tool", required=True); parser.add_argument("--profile", required=True); parser.add_argument("--rec-profile", required=True)
     arguments = parser.parse_args(); tool = load_tool(pathlib.Path(arguments.tool))
+    repository = pathlib.Path(arguments.profile).resolve().parents[2]
+    package = repository / "evidence" / "foundation" / "reproducible-experiment-contract" / "rec-e0-e7-85d215a"
+    terminal = tool.read_json(package / "terminal-manifest.json")
+    commit = terminal["candidate_commit"]
+    prepared = tool.read_json(package / "control" / "prepared-manifest.json")
+    recorded_source = prepared["candidate"]["source_root"]
     with tempfile.TemporaryDirectory(prefix="apmesh-core-foundation-contract-") as temporary:
-        root = pathlib.Path(temporary); source, remote = root / "source", root / "remote.git"; source.mkdir()
-        subprocess.run(["git", "init", "--bare", str(remote)], check=True, capture_output=True, text=True)
-        git(source, "init", "-b", "foundation/test"); git(source, "config", "user.email", "foundation@test.invalid"); git(source, "config", "user.name", "Foundation Test")
+        root, remote, source = pathlib.Path(temporary), pathlib.Path(temporary) / "remote.git", pathlib.Path(temporary) / "source"
+        run(["git", "init", "--bare", str(remote)])
+        run(["git", "push", str(remote), f"{commit}:refs/heads/foundation/test"], repository)
+        run(["git", "clone", "--branch", "foundation/test", str(remote), str(source)])
         profile = copy.deepcopy(tool.read_json(pathlib.Path(arguments.profile)))
-        profile["required_executables"] = ["foundation_probe_one", "foundation_probe_two"]
-        profile["required_contract_tests"] = ["foundation.contract.one", "foundation.contract.two"]
-        write_project(source, profile["required_executables"], profile["required_contract_tests"])
-        (source / "README.md").write_text("Foundation evidence fixture\n", encoding="utf-8")
-        write_authorities(tool, root, source, profile, "pending")
-        git(source, "add", "."); git(source, "commit", "-m", "Foundation evidence fixture")
-        commit = git(source, "rev-parse", "HEAD"); git(source, "remote", "add", "origin", str(remote)); git(source, "push", "-u", "origin", "foundation/test")
-        authorities = write_authorities(tool, root, source, profile, commit)
-        profile_path = root / "profile.json"; tool.write_json(profile_path, profile)
+        profile["accepted_baseline"] = {"path": str(package), "candidate_commit": commit,
+                                        "retention_manifest_sha256": sha256(package / "retention-manifest.json")}
+        profile["required_contract_tests"] = [name for name in profile["required_contract_tests"]
+                                              if name != "apmesh_core.foundation_end_to_end_evidence"]
+        if len(profile["required_contract_tests"]) != 11:
+            raise RuntimeError("Foundation fixture contract matrix differs")
+        authority_rows = []
+        for row in profile["qualified_authorities"]:
+            if row["name"] == "reproducible_experiment":
+                row = {**row, "qualified_marker": "IMPLEMENTATION CANDIDATE COMPLETE"}
+            item = source / row["path"]
+            if not item.is_file() or row["qualified_marker"] not in item.read_text(encoding="utf-8"):
+                raise RuntimeError("qualified authority fixture is absent")
+            authority_rows.append({**row, "sha256": sha256(item)})
+        profile["qualified_authorities"] = authority_rows
+        profile["scope_policy"]["approved_support_paths"] = [{"path": "README.md", "candidate_sha256": sha256(source / "README.md")}]
+        profile_path = root / "foundation-profile.json"; tool.write_json(profile_path, profile)
+        authorities = root / "authorities.json"
+        tool.write_json(authorities, {"schema_version": 1, "kind": "foundation-qualified-authorities", "candidate_commit": commit,
+                                      "authorities": authority_rows})
         observed = tool.collect_observed_build_and_contract_evidence(profile_path, source, commit, root / "observed")
         dependencies_ok, dependency_findings, build_directories = tool.validate_dependencies(observed["dependencies"], profile, commit, root / "observed", source)
         contracts_ok, contract_findings = tool.validate_contract_tests(observed["contract_tests"], profile, commit, root / "observed", build_directories)
         if not dependencies_ok or dependency_findings or not contracts_ok or contract_findings:
-            raise RuntimeError("observed Foundation evidence was not accepted")
-
-        publication = root / "publication.json"; tool.write_json(publication, tool.source_identity(source))
-        if not tool.validate_publication(publication, commit, source):
-            raise RuntimeError("actual Git publication identity was not accepted")
-        terminal = tool.read_json(write_candidate_package(tool, root / "candidate", commit, source) / "terminal-manifest.json")
-        if not tool.validate_authorities(authorities, profile, commit, source, terminal):
-            raise RuntimeError("actual Foundation authorities were not accepted")
-
-        dependencies = tool.read_json(observed["dependencies"]); first = dependencies["cells"][0]["executables"][0]
-        binary = root / "observed" / first["path"]; original = binary.read_bytes(); binary.write_bytes(b"tampered")
-        require_rejection(lambda: tool.validate_dependencies(observed["dependencies"], profile, commit, root / "observed", source), "Foundation accepted a binary not produced by the recorded build")
-        binary.write_bytes(original)
-        contracts = tool.read_json(observed["contract_tests"]); contracts["cells"][0]["discovery_execution"]["argv"] = ["ctest", "--unexpected"]
-        tool.write_json(observed["contract_tests"], contracts)
-        require_rejection(lambda: tool.validate_contract_tests(observed["contract_tests"], profile, commit, root / "observed", build_directories), "Foundation accepted undeclared CTest discovery")
-
+            raise RuntimeError("real Foundation evidence was not accepted")
+        dependencies = tool.read_json(observed["dependencies"])
+        dependencies["cells"][0]["build"]["source_before"]["commit"] = "0" * 40
+        tool.write_json(observed["dependencies"], dependencies)
+        require_rejection(lambda: tool.validate_dependencies(observed["dependencies"], profile, commit, root / "observed", source),
+                          "Foundation accepted a build not bound to its Git revision")
         observed = tool.collect_observed_build_and_contract_evidence(profile_path, source, commit, root / "observed-rebuilt")
-        dependencies_ok, _, build_directories = tool.validate_dependencies(observed["dependencies"], profile, commit, root / "observed-rebuilt", source)
-        contracts_ok, _ = tool.validate_contract_tests(observed["contract_tests"], profile, commit, root / "observed-rebuilt", build_directories)
-        if not dependencies_ok or not contracts_ok:
-            raise RuntimeError("recollected evidence was not accepted")
+        publication = root / "publication.json"; tool.write_json(publication, tool.source_identity(source))
+        artifacts = {"publication": publication, "authorities": authorities, **observed}
+        inputs = write_inputs(tool, root / "inputs.json", profile_path, package, recorded_source, commit, artifacts)
+        output = root / "qualified"
+        result = tool.qualify(profile_path, pathlib.Path(arguments.rec_profile), package, package, inputs, output,
+                              verification_source_root=source)
+        if result["state"] != tool.PENDING or any(value != tool.PENDING for value in result["gates"].values()):
+            raise RuntimeError("integrated Foundation qualifier rejected real retained REC evidence")
 
-        candidate = write_candidate_package(tool, root / "candidate-retained", commit, source)
-        input_manifest = root / "inputs.json"; artifacts = {"publication": publication, "authorities": authorities, **observed}
-        tool.write_json(input_manifest, {"schema_version": 1, "kind": "foundation-admission-input-manifest", "candidate_commit": commit,
-                        "candidate_retention_manifest_sha256": tool.sha256_file(candidate / "retention-manifest.json"), "profile_sha256": tool.sha256_file(profile_path),
-                        "source_root": str(source.resolve()), "artifacts": {name: {"path": path.relative_to(root).as_posix(), "sha256": tool.sha256_file(path)} for name, path in artifacts.items()}})
-        summary = {"schema_version": 1, "kind": "foundation-end-to-end-evidence-summary", "state": tool.PENDING, "candidate_commit": commit,
-                   "baseline_commit": commit, "baseline_comparison": {"classification": "NO_CHANGE", "differences": []}, "scope_changes": [],
-                   "dependency_findings": [], "contract_test_findings": [], "gates": {gate: tool.PENDING for gate in tool.EXPECTED_GATES}, "limitations": profile["limitations"]}
-        output = root / "retained"; tool._write_outputs(output, summary, profile_path, candidate / "retention-manifest.json", candidate,
-                                                          input_manifest, root, artifacts, source)
-        tool.verify_foundation_retention(output, profile_path, candidate / "retention-manifest.json", commit, source)
+        forged_publication = {**tool.read_json(publication), "upstream_head": "f" * 40}; tool.write_json(publication, forged_publication)
+        inputs = write_inputs(tool, root / "negative-fnd0.json", profile_path, package, recorded_source, commit, artifacts)
+        require_blocked(tool, "FND0", profile_path, pathlib.Path(arguments.rec_profile), package, package, inputs, root / "negative-fnd0", verification_source_root=source)
+        tool.write_json(publication, tool.source_identity(source))
+
+        invalid_authorities = tool.read_json(authorities); invalid_authorities["authorities"][0]["qualified_marker"] = "missing"
+        tool.write_json(authorities, invalid_authorities)
+        inputs = write_inputs(tool, root / "negative-fnd1.json", profile_path, package, recorded_source, commit, artifacts)
+        require_blocked(tool, "FND1", profile_path, pathlib.Path(arguments.rec_profile), package, package, inputs, root / "negative-fnd1", verification_source_root=source)
+        tool.write_json(authorities, {"schema_version": 1, "kind": "foundation-qualified-authorities", "candidate_commit": commit, "authorities": authority_rows})
+
+        incomplete_terminal = {**terminal, "bundles": terminal["bundles"][:-1]}
+        if tool._terminal_complete(incomplete_terminal, commit):
+            raise RuntimeError("Foundation accepted incomplete cumulative execution")
+        if tool._claims_equivalent({"replay_comparisons": [], "cross_configuration": {}}):
+            raise RuntimeError("Foundation accepted non-equivalent deterministic claims")
+        if not tool._diff({"claim": "baseline"}, {"claim": "candidate"}):
+            raise RuntimeError("Foundation accepted an unclassified baseline difference")
+
+        contracts = tool.read_json(observed["contract_tests"]); junit = root / "observed-rebuilt" / contracts["cells"][0]["junit"]["path"]
+        junit.write_text("<testsuites><testsuite><testcase name=\"missing\"/></testsuite></testsuites>\n", encoding="utf-8")
+        contracts["cells"][0]["junit"]["sha256"] = sha256(junit); tool.write_json(observed["contract_tests"], contracts)
+        inputs = write_inputs(tool, root / "negative-fnd3.json", profile_path, package, recorded_source, commit, artifacts)
+        require_blocked(tool, "FND3", profile_path, pathlib.Path(arguments.rec_profile), package, package, inputs, root / "negative-fnd3", verification_source_root=source)
+
+        observed = tool.collect_observed_build_and_contract_evidence(profile_path, source, commit, root / "observed-final")
+        artifacts = {"publication": publication, "authorities": authorities, **observed}
+        inputs = write_inputs(tool, root / "negative-fnd7.json", profile_path, package, recorded_source, commit, artifacts)
+        dependencies = tool.read_json(observed["dependencies"]); executable = dependencies["cells"][0]["executables"][0]
+        ldd = root / "observed-final" / executable["ldd"]["path"]; ldd.write_text("libundeclared.so => not found\n", encoding="utf-8")
+        digest = sha256(ldd); executable["ldd"]["sha256"] = digest; executable["execution"]["stdout"]["sha256"] = digest
+        tool.write_json(observed["dependencies"], dependencies)
+        inputs = write_inputs(tool, root / "negative-fnd7.json", profile_path, package, recorded_source, commit, artifacts)
+        require_blocked(tool, "FND7", profile_path, pathlib.Path(arguments.rec_profile), package, package, inputs, root / "negative-fnd7", verification_source_root=source)
+
+        tool.verify_foundation_retention(output, profile_path, pathlib.Path(arguments.rec_profile), package / "retention-manifest.json", commit,
+                                         source, pathlib.Path(recorded_source))
         (output / "inputs" / "raw" / "observed-rebuilt" / "dependencies.json").write_text("{}\n", encoding="utf-8")
-        require_rejection(lambda: tool.verify_foundation_retention(output, profile_path, candidate / "retention-manifest.json", commit, source), "Foundation retention accepted tampered transitive evidence")
+        require_rejection(lambda: tool.verify_foundation_retention(output, profile_path, pathlib.Path(arguments.rec_profile), package / "retention-manifest.json", commit,
+                                                                     source, pathlib.Path(recorded_source)),
+                          "Foundation retention accepted tampered semantic evidence")
     return 0
 
 

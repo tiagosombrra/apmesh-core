@@ -135,6 +135,7 @@ if(BUILD_TESTING)
             ${CMAKE_CURRENT_SOURCE_DIR}/tests/foundation_end_to_end_evidence_test.py
             --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/foundation_end_to_end_evidence.py
             --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/foundation_end_to_end.json
+            --rec-profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
     )
     add_test(
         NAME apmesh_core.bootstrap_export
