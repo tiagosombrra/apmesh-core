@@ -147,16 +147,21 @@ The bounded final-stage addition consists only of:
 The qualifier now requires one hash-bound admission-input manifest. It binds
 the candidate revision, profile, retained REC package, publication record,
 authority record, CTest discovery/JUnit outputs, and executable/`ldd` evidence.
-The qualifier independently compares publication with Git, recomputes CTest
-coverage and dependency findings from raw artifacts, verifies authority bytes,
-and seals its own output into a Foundation retention manifest.
+For every declared cell, it records the actual CMake configure and build
+commands, produced executable hashes, verbose CTest discovery, CTest JUnit
+result, and `ldd` invocation. The qualifier independently compares publication
+with Git, recomputes CTest coverage and dependency findings from raw artifacts,
+verifies authority bytes, and seals its own output into a Foundation retention
+manifest.
 
 Each retained CTest and `ldd` artifact must carry its completed command record:
 argv, child PID, timestamps, exit status, and hash-bound stdout/stderr. The
 Foundation package retains the transitive executables and raw outputs, the
 candidate REC package, and proves candidate identity through a detached Git
-worktree. These are admission safeguards only; they do not prepare or execute
-the formal regression.
+worktree. In that worktree it revalidates retained authority, build,
+dependency, discovery, and CTest evidence against recorded roots and the
+candidate revision. These are admission safeguards only; they do not prepare
+or execute the formal regression.
 
 The former broad path allowlist is replaced by exact support-path digests, an
 exact verified historical-evidence prefix, and protected core paths. FND1 and
@@ -170,9 +175,11 @@ The qualifier is report-only. Complete evidence is emitted as
 No campaign runner, scientific threshold, C++ behavior, preparation, or
 execution is introduced by this correction.
 
-The focused qualifier contract passes in native Python and WSL Python, and its
-CTest registration passes in the GCC Debug build tree. This validates the
-report-only mechanism only; it does not satisfy an FND gate.
+The focused qualifier contract creates a disposable CMake project and executes
+the four GCC/Clang × Debug/Release cells. It rejects altered executable and
+CTest-discovery evidence, then revalidates a retained package in a detached
+worktree. This validates the report-only mechanism only; it does not satisfy
+an FND gate.
 
 ## 10. Next bounded action
 

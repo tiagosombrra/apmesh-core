@@ -61,9 +61,10 @@ verifiable before any later authorization decision. It does not prepare or run
 the formal regression.
 
 The correction requires real Git publication identity, completed hash-bound
-CTest/`ldd` command records, transitive artifact retention, and detached
-candidate-worktree verification. It remains an admission mechanism, not
-Foundation regression evidence.
+configure/build/CTest/`ldd` command records for every declared cell,
+transitive artifact retention, and semantic requalification in a detached
+candidate worktree. It remains an admission mechanism, not Foundation
+regression evidence.
 
 The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
 into `main` at `4927383`. All eight requirements passed the final audited

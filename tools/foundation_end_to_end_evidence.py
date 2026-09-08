@@ -7,6 +7,7 @@ import argparse
 import csv
 import datetime
 import io
+import json
 import pathlib
 import posixpath
 import re
@@ -18,7 +19,7 @@ import xml.etree.ElementTree as etree
 from typing import Any
 
 from experiment_runtime import (RuntimeErrorEvidence, read_json, relative_path,
-                                require_exact_keys, sha256_file, write_json)
+                                require_exact_keys, run_command, sha256_file, write_json)
 from retain_experiment_evidence import verify as verify_retained_package
 
 
@@ -318,17 +319,66 @@ def _parse_ldd(path: pathlib.Path) -> tuple[list[dict[str, str]], list[str]]:
     return dependencies, unresolved
 
 
-def validate_dependencies(path: pathlib.Path, profile: dict[str, Any], candidate_commit: str, root: pathlib.Path) -> tuple[bool, list[dict[str, str]]]:
+def _observed_record(record: dict[str, Any], log_parent: pathlib.Path, evidence_root: pathlib.Path) -> dict[str, Any]:
+    """Project the common runtime record into the Foundation evidence schema."""
+    return {"argv": record["argv"], "exit_code": record["exit_code"], "pid": record["pid"],
+            "started_utc": record["started_utc"], "finished_utc": record["ended_utc"],
+            "stdout": {"path": relative_path(evidence_root, log_parent / record["stdout"]["path"]), "sha256": record["stdout"]["sha256"]},
+            "stderr": {"path": relative_path(evidence_root, log_parent / record["stderr"]["path"]), "sha256": record["stderr"]["sha256"]}}
+
+
+def _build_provenance(row: Any, profile: dict[str, Any], candidate_commit: str, root: pathlib.Path,
+                      candidate_source_root: pathlib.Path, recorded_root: pathlib.Path | None = None,
+                      recorded_source_root: pathlib.Path | None = None) -> tuple[pathlib.Path, dict[str, str]]:
+    if not isinstance(row, dict):
+        raise RuntimeErrorEvidence("Foundation build provenance differs")
+    require_exact_keys(row, {"candidate_commit", "source_root", "build_directory", "configure", "build", "outputs"},
+                       "Foundation build provenance")
+    command_root = (recorded_root or root).resolve()
+    command_source = (recorded_source_root or candidate_source_root).resolve()
+    if row["candidate_commit"] != candidate_commit or row["source_root"] != str(command_source):
+        raise RuntimeErrorEvidence("Foundation build provenance identity differs")
+    build_directory = _relative(root, row["build_directory"], "Foundation build directory")
+    configure, build = row["configure"], row["build"]
+    _execution_record(root, configure, configure.get("argv", []), "Foundation configure")
+    _execution_record(root, build, build.get("argv", []), "Foundation build")
+    expected_build = command_root / pathlib.PurePosixPath(row["build_directory"])
+    source_index = configure["argv"].index("-S") if "-S" in configure["argv"] else -1
+    build_index = configure["argv"].index("-B") if "-B" in configure["argv"] else -1
+    if (not configure["argv"] or pathlib.Path(configure["argv"][0]).name != "cmake" or source_index < 0 or build_index < 0 or
+            source_index + 1 >= len(configure["argv"]) or build_index + 1 >= len(configure["argv"]) or
+            configure["argv"][source_index + 1] != str(command_source) or configure["argv"][build_index + 1] != str(expected_build) or
+            not build["argv"] or pathlib.Path(build["argv"][0]).name != "cmake" or build["argv"][1:3] != ["--build", str(expected_build)]):
+        raise RuntimeErrorEvidence("Foundation build provenance command differs")
+    outputs = row["outputs"]
+    if not isinstance(outputs, list) or {item.get("name") for item in outputs if isinstance(item, dict)} != set(profile["required_executables"]):
+        raise RuntimeErrorEvidence("Foundation build output matrix differs")
+    hashes: dict[str, str] = {}
+    for item in outputs:
+        require_exact_keys(item, {"name", "path", "sha256"}, "Foundation build output")
+        output = _relative(root, item["path"], "Foundation build output")
+        if output.parent != build_directory or not output.is_file() or sha256_file(output) != _sha(item["sha256"], "Foundation build output"):
+            raise RuntimeErrorEvidence("Foundation build output identity differs")
+        hashes[item["name"]] = item["sha256"]
+    return build_directory, hashes
+
+
+def validate_dependencies(path: pathlib.Path, profile: dict[str, Any], candidate_commit: str, root: pathlib.Path,
+                          candidate_source_root: pathlib.Path, recorded_root: pathlib.Path | None = None,
+                          recorded_source_root: pathlib.Path | None = None) -> tuple[bool, list[dict[str, str]], dict[str, pathlib.Path]]:
     inventory = read_json(path)
     require_exact_keys(inventory, {"schema_version", "kind", "candidate_commit", "cells"}, "Foundation dependency inventory")
-    if inventory["schema_version"] != 3 or inventory["kind"] != "foundation-runtime-dependencies" or inventory["candidate_commit"] != candidate_commit:
+    if inventory["schema_version"] != 4 or inventory["kind"] != "foundation-runtime-dependencies" or inventory["candidate_commit"] != candidate_commit:
         raise RuntimeErrorEvidence("Foundation dependency inventory identity differs")
     cells = inventory["cells"]
     if not isinstance(cells, list) or {row.get("name") for row in cells if isinstance(row, dict)} != set(profile["configurations"]) or len(cells) != 4:
         raise RuntimeErrorEvidence("Foundation dependency cell matrix differs")
-    findings: list[dict[str, str]] = []; required = set(profile["required_executables"])
+    findings: list[dict[str, str]] = []; build_directories: dict[str, pathlib.Path] = {}; required = set(profile["required_executables"])
     for cell in cells:
-        require_exact_keys(cell, {"name", "executables"}, "Foundation dependency cell")
+        require_exact_keys(cell, {"name", "build", "executables"}, "Foundation dependency cell")
+        build_directory, built_hashes = _build_provenance(cell["build"], profile, candidate_commit, root, candidate_source_root,
+                                                           recorded_root, recorded_source_root)
+        build_directories[cell["name"]] = build_directory
         executables = cell["executables"]
         if not isinstance(executables, list) or {row.get("name") for row in executables if isinstance(row, dict)} != required or len(executables) != len(required):
             raise RuntimeErrorEvidence("Foundation executable dependency matrix differs")
@@ -336,10 +386,16 @@ def validate_dependencies(path: pathlib.Path, profile: dict[str, Any], candidate
         for executable in executables:
             require_exact_keys(executable, {"name", "path", "sha256", "ldd", "execution"}, "Foundation executable dependency")
             executable_path = _relative(root, executable["path"], "Foundation executable")
-            if not executable_path.is_file() or sha256_file(executable_path) != _sha(executable["sha256"], "Foundation executable"):
+            if (executable_path.parent != build_directory or not executable_path.is_file() or
+                    sha256_file(executable_path) != _sha(executable["sha256"], "Foundation executable") or
+                    built_hashes.get(executable["name"]) != executable["sha256"]):
                 raise RuntimeErrorEvidence("Foundation executable identity differs")
             ldd_path = _hash_bound_file(root, executable["ldd"], "Foundation executable ldd")
-            _execution_record(root, executable["execution"], ["ldd", str(executable_path)], "Foundation executable ldd")
+            ldd_argv = executable["execution"].get("argv", []) if isinstance(executable.get("execution"), dict) else []
+            if (not isinstance(ldd_argv, list) or len(ldd_argv) != 2 or pathlib.Path(ldd_argv[0]).name != "ldd" or
+                    ldd_argv[1] != str((recorded_root or root).resolve() / pathlib.PurePosixPath(executable["path"]))):
+                raise RuntimeErrorEvidence("Foundation executable ldd command differs")
+            _execution_record(root, executable["execution"], ldd_argv, "Foundation executable ldd")
             if _hash_bound_file(root, executable["execution"]["stdout"], "Foundation executable ldd stdout") != ldd_path:
                 raise RuntimeErrorEvidence("Foundation executable ldd output differs")
             dependencies, unresolved = _parse_ldd(ldd_path); seen: set[str] = set()
@@ -358,23 +414,38 @@ def validate_dependencies(path: pathlib.Path, profile: dict[str, Any], candidate
                     if normalized != resolved or not normalized.startswith("/") or not any(normalized.startswith(prefix) for prefix in profile["allowed_runtime_prefixes"]):
                         findings.append({"cell": cell["name"], "executable": executable["name"], "dependency": soname, "classification": "INVESTIGATION_REQUIRED"})
             findings.extend({"cell": cell["name"], "executable": executable["name"], "dependency": item, "classification": "REGRESSION"} for item in unresolved)
-    return not findings, findings
+    return not findings, findings, build_directories
 
 
 def _contract_names(discovery: pathlib.Path) -> set[str]:
-    data = read_json(discovery); tests = data.get("tests")
-    if not isinstance(tests, list):
+    try:
+        data = json.loads(discovery.read_text(encoding="utf-8")); tests = data.get("tests")
+    except (OSError, json.JSONDecodeError):
+        tests = None
+    if isinstance(tests, list):
+        names: set[str] = set()
+        for test in tests:
+            if not isinstance(test, dict) or not isinstance(test.get("name"), str):
+                raise RuntimeErrorEvidence("Foundation CTest discovery differs")
+            labels: list[str] = []
+            for prop in test.get("properties", []):
+                if isinstance(prop, dict) and prop.get("name") == "LABELS":
+                    value = prop.get("value"); labels = value if isinstance(value, list) else [value]
+            if "contract" in labels:
+                names.add(test["name"])
+        return names
+    labels: set[str] = set(); names = set()
+    for line in discovery.read_text(encoding="utf-8").splitlines():
+        label_match = re.fullmatch(r"Labels:\s*(.*)", line)
+        test_match = re.fullmatch(r"\s*Test\s+#\d+:\s*(\S+)\s*", line)
+        if label_match:
+            labels = {label for label in re.split(r"[;\s]+", label_match.group(1)) if label}
+        elif test_match:
+            if "contract" in labels:
+                names.add(test_match.group(1))
+            labels = set()
+    if not names:
         raise RuntimeErrorEvidence("Foundation CTest discovery differs")
-    names: set[str] = set()
-    for test in tests:
-        if not isinstance(test, dict) or not isinstance(test.get("name"), str):
-            raise RuntimeErrorEvidence("Foundation CTest discovery differs")
-        labels: list[str] = []
-        for prop in test.get("properties", []):
-            if isinstance(prop, dict) and prop.get("name") == "LABELS":
-                value = prop.get("value"); labels = value if isinstance(value, list) else [value]
-        if "contract" in labels:
-            names.add(test["name"])
     return names
 
 
@@ -411,25 +482,38 @@ def _execution_record(root: pathlib.Path, row: Any, expected_argv: list[str], co
     _hash_bound_file(root, row["stderr"], f"{context} stderr")
 
 
-def validate_contract_tests(path: pathlib.Path, profile: dict[str, Any], candidate_commit: str, root: pathlib.Path) -> tuple[bool, list[dict[str, Any]]]:
+def validate_contract_tests(path: pathlib.Path, profile: dict[str, Any], candidate_commit: str, root: pathlib.Path,
+                            build_directories: dict[str, pathlib.Path], recorded_root: pathlib.Path | None = None) -> tuple[bool, list[dict[str, Any]]]:
     inventory = read_json(path)
     require_exact_keys(inventory, {"schema_version", "kind", "candidate_commit", "cells"}, "Foundation contract-test inventory")
-    if inventory["schema_version"] != 3 or inventory["kind"] != "foundation-contract-tests" or inventory["candidate_commit"] != candidate_commit:
+    if inventory["schema_version"] != 4 or inventory["kind"] != "foundation-contract-tests" or inventory["candidate_commit"] != candidate_commit:
         raise RuntimeErrorEvidence("Foundation contract-test inventory identity differs")
     cells = inventory["cells"]; expected = set(profile["configurations"])
     if not isinstance(cells, list) or {row.get("name") for row in cells if isinstance(row, dict)} != expected or len(cells) != len(expected):
         raise RuntimeErrorEvidence("Foundation contract-test cell matrix differs")
     required = set(profile["required_contract_tests"]); findings: list[dict[str, Any]] = []
     for cell in cells:
-        require_exact_keys(cell, {"name", "command", "discovery", "junit", "exit_code", "execution"}, "Foundation contract-test cell")
+        require_exact_keys(cell, {"name", "command", "discovery", "discovery_execution", "junit", "exit_code", "execution"}, "Foundation contract-test cell")
         command = cell["command"]
         if not isinstance(command, list) or not command or any(not isinstance(part, str) or not part for part in command) or pathlib.Path(command[0]).name != "ctest" or "-L" not in command or "contract" not in command or "--output-junit" not in command:
             raise RuntimeErrorEvidence("Foundation contract-test command differs")
         _execution_record(root, cell["execution"], command, "Foundation CTest")
-        discovered = _contract_names(_hash_bound_file(root, cell["discovery"], "Foundation CTest discovery"))
+        build_directory = build_directories.get(cell["name"])
+        if build_directory is None or "--test-dir" not in command or command.index("--test-dir") + 1 >= len(command):
+            raise RuntimeErrorEvidence("Foundation CTest build provenance differs")
+        command_build = (recorded_root or root).resolve() / build_directory.relative_to(root.resolve())
+        if command[command.index("--test-dir") + 1] != str(command_build):
+            raise RuntimeErrorEvidence("Foundation CTest build provenance differs")
+        discovery_command = ["ctest", "--test-dir", str(command_build), "-N", "-V"]
+        _execution_record(root, cell["discovery_execution"], discovery_command, "Foundation CTest discovery")
+        discovery_path = _hash_bound_file(root, cell["discovery"], "Foundation CTest discovery")
+        if sha256_file(_hash_bound_file(root, cell["discovery_execution"]["stdout"], "Foundation CTest discovery stdout")) != sha256_file(discovery_path):
+            raise RuntimeErrorEvidence("Foundation CTest discovery output differs")
+        discovered = _contract_names(discovery_path)
         junit = _hash_bound_file(root, cell["junit"], "Foundation CTest JUnit")
         output_index = command.index("--output-junit") + 1
-        if output_index >= len(command) or pathlib.Path(command[output_index]).resolve() != junit.resolve():
+        recorded_junit = (recorded_root or root).resolve() / junit.relative_to(root.resolve())
+        if output_index >= len(command) or pathlib.Path(command[output_index]).resolve() != recorded_junit:
             raise RuntimeErrorEvidence("Foundation CTest output differs")
         passed, failed = _junit_passed(junit)
         missing, not_passed = sorted(required - discovered), sorted(required - passed)
@@ -437,6 +521,71 @@ def validate_contract_tests(path: pathlib.Path, profile: dict[str, Any], candida
             findings.append({"cell": cell["name"], "classification": "REGRESSION", "missing": missing,
                              "not_passed": not_passed, "failed": sorted(failed), "exit_code": cell["exit_code"]})
     return not findings, findings
+
+
+def collect_observed_build_and_contract_evidence(profile_path: pathlib.Path, source_root: pathlib.Path,
+                                                 candidate_commit: str, output_root: pathlib.Path) -> dict[str, pathlib.Path]:
+    """Collect real per-cell build, CTest, and `ldd` evidence for a later admission.
+
+    This helper deliberately has no CLI entrypoint: collecting evidence is not
+    the formal Foundation regression.  The formal runner may call it only after
+    its separate PREPARED gate.  The focused contract uses a disposable CMake
+    project to prove the recorded evidence comes from executed commands.
+    """
+    profile = validate_profile(profile_path)
+    if output_root.exists() and any(output_root.iterdir()):
+        raise RuntimeErrorEvidence("Foundation observed evidence root is not empty")
+    output_root.mkdir(parents=True, exist_ok=True)
+    ldd = shutil.which("ldd")
+    if ldd is None:
+        raise RuntimeErrorEvidence("Foundation ldd is unavailable")
+    dependency_cells: list[dict[str, Any]] = []; contract_cells: list[dict[str, Any]] = []
+    for name, family in profile["configurations"].items():
+        build_directory = output_root / "build" / name
+        logs = output_root / "logs" / name
+        compiler = "g++-13" if family == "gcc" else "clang++-18"
+        configure_argv = ["cmake", "-S", str(source_root.resolve()), "-B", str(build_directory), "-G", "Ninja",
+                          f"-DCMAKE_CXX_COMPILER={compiler}", f"-DCMAKE_BUILD_TYPE={'Release' if name.endswith('release') else 'Debug'}",
+                          "-DBUILD_TESTING=ON"]
+        if family == "clang-libcxx":
+            configure_argv.extend(("-DCMAKE_CXX_FLAGS=-stdlib=libc++", "-DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++"))
+        configure = run_command(configure_argv, source_root, logs, "configure", 120)
+        build_argv = ["cmake", "--build", str(build_directory), "--target", *profile["required_executables"]]
+        build = run_command(build_argv, source_root, logs, "build", 120)
+        if any(record["exit_code"] != 0 or record["timed_out"] or record["launch_error"] is not None for record in (configure, build)):
+            raise RuntimeErrorEvidence(f"Foundation observed build failed: {name}")
+        outputs = []
+        executable_rows = []
+        for executable_name in profile["required_executables"]:
+            executable = build_directory / executable_name
+            if not executable.is_file():
+                raise RuntimeErrorEvidence(f"Foundation observed executable is absent: {executable_name}")
+            identity = {"name": executable_name, "path": relative_path(output_root, executable), "sha256": sha256_file(executable)}
+            outputs.append(identity)
+            ldd_record = run_command(["ldd", str(executable)], source_root, logs, f"ldd-{executable_name}", 30)
+            if ldd_record["exit_code"] != 0 or ldd_record["timed_out"] or ldd_record["launch_error"] is not None:
+                raise RuntimeErrorEvidence(f"Foundation observed ldd failed: {executable_name}")
+            ldd_output = logs.parent / ldd_record["stdout"]["path"]
+            executable_rows.append({**identity, "ldd": {"path": relative_path(output_root, ldd_output), "sha256": sha256_file(ldd_output)},
+                                    "execution": _observed_record(ldd_record, logs.parent, output_root)})
+        discovery_record = run_command(["ctest", "--test-dir", str(build_directory), "-N", "-V"], source_root, logs, "ctest-discovery", 30)
+        discovery = output_root / "ctest" / f"{name}-discovery.txt"; discovery.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(logs.parent / discovery_record["stdout"]["path"], discovery)
+        junit = output_root / "ctest" / f"{name}-result.xml"
+        ctest_argv = ["ctest", "--test-dir", str(build_directory), "-L", "contract", "--output-junit", str(junit)]
+        ctest_record = run_command(ctest_argv, source_root, logs, "ctest-contract", 60)
+        if any(record["exit_code"] != 0 or record["timed_out"] or record["launch_error"] is not None for record in (discovery_record, ctest_record)) or not junit.is_file():
+            raise RuntimeErrorEvidence(f"Foundation observed CTest failed: {name}")
+        dependency_cells.append({"name": name, "build": {"candidate_commit": candidate_commit, "source_root": str(source_root.resolve()),
+                                 "build_directory": relative_path(output_root, build_directory), "configure": _observed_record(configure, logs.parent, output_root),
+                                 "build": _observed_record(build, logs.parent, output_root), "outputs": outputs}, "executables": executable_rows})
+        contract_cells.append({"name": name, "command": ctest_argv, "discovery": {"path": relative_path(output_root, discovery), "sha256": sha256_file(discovery)},
+                               "discovery_execution": _observed_record(discovery_record, logs.parent, output_root), "junit": {"path": relative_path(output_root, junit), "sha256": sha256_file(junit)},
+                               "exit_code": ctest_record["exit_code"], "execution": _observed_record(ctest_record, logs.parent, output_root)})
+    dependencies = output_root / "dependencies.json"; contracts = output_root / "contract-tests.json"
+    write_json(dependencies, {"schema_version": 4, "kind": "foundation-runtime-dependencies", "candidate_commit": candidate_commit, "cells": dependency_cells})
+    write_json(contracts, {"schema_version": 4, "kind": "foundation-contract-tests", "candidate_commit": candidate_commit, "cells": contract_cells})
+    return {"dependencies": dependencies, "contract_tests": contracts}
 
 
 def validate_authorities(path: pathlib.Path, profile: dict[str, Any], candidate_commit: str,
@@ -514,18 +663,27 @@ def _transitive_input_paths(root: pathlib.Path, inputs: dict[str, pathlib.Path])
     """Return every raw artifact consumed by the two evidence inventories."""
     paths = set(inputs.values())
     dependencies = read_json(inputs["dependencies"])
+    dependency_root = inputs["dependencies"].parent
     for cell in dependencies["cells"]:
-        for executable in cell["executables"]:
-            paths.add(_relative(root, executable["path"], "Foundation retained executable"))
-            paths.add(_hash_bound_file(root, executable["ldd"], "Foundation retained ldd"))
+        build = cell["build"]
+        for stage in ("configure", "build"):
             for stream in ("stdout", "stderr"):
-                paths.add(_hash_bound_file(root, executable["execution"][stream], f"Foundation retained ldd {stream}"))
+                paths.add(_hash_bound_file(dependency_root, build[stage][stream], f"Foundation retained {stage} {stream}"))
+        for output in build["outputs"]:
+            paths.add(_relative(dependency_root, output["path"], "Foundation retained build output"))
+        for executable in cell["executables"]:
+            paths.add(_relative(dependency_root, executable["path"], "Foundation retained executable"))
+            paths.add(_hash_bound_file(dependency_root, executable["ldd"], "Foundation retained ldd"))
+            for stream in ("stdout", "stderr"):
+                paths.add(_hash_bound_file(dependency_root, executable["execution"][stream], f"Foundation retained ldd {stream}"))
     contracts = read_json(inputs["contract_tests"])
+    contract_root = inputs["contract_tests"].parent
     for cell in contracts["cells"]:
         for key in ("discovery", "junit"):
-            paths.add(_hash_bound_file(root, cell[key], f"Foundation retained CTest {key}"))
-        for stream in ("stdout", "stderr"):
-            paths.add(_hash_bound_file(root, cell["execution"][stream], f"Foundation retained CTest {stream}"))
+            paths.add(_hash_bound_file(contract_root, cell[key], f"Foundation retained CTest {key}"))
+        for record_name in ("discovery_execution", "execution"):
+            for stream in ("stdout", "stderr"):
+                paths.add(_hash_bound_file(contract_root, cell[record_name][stream], f"Foundation retained CTest {record_name} {stream}"))
     return sorted(paths)
 
 
@@ -550,8 +708,9 @@ def _seal_output(output: pathlib.Path, profile_path: pathlib.Path, candidate_ret
     profile_target = inputs_root / "foundation-profile.json"; shutil.copy2(profile_path, profile_target)
     package_target = inputs_root / "candidate-rec-package"; shutil.copytree(candidate_package, package_target)
     transitive = _copy_transitive(input_root, _transitive_input_paths(input_root, inputs), inputs_root / "raw", output)
-    write_json(output / "foundation-evidence-manifest.json", {"schema_version": 2, "kind": "foundation-end-to-end-evidence-binding", "candidate_commit": candidate_commit,
+    write_json(output / "foundation-evidence-manifest.json", {"schema_version": 3, "kind": "foundation-end-to-end-evidence-binding", "candidate_commit": candidate_commit,
         "profile_sha256": sha256_file(profile_path), "candidate_retention_manifest_sha256": sha256_file(candidate_retention),
+        "input_root": str(input_root.resolve()),
         "profile": {"path": relative_path(output, profile_target), "sha256": sha256_file(profile_target)},
         "candidate_rec_package": {"path": relative_path(output, package_target / "retention-manifest.json"), "sha256": sha256_file(package_target / "retention-manifest.json")},
         "input_manifest": {"path": relative_path(output, manifest_target), "sha256": sha256_file(manifest_target)},
@@ -582,10 +741,12 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
     if {relative_path(output, path) for path in output.rglob("*") if path.is_file()} != expected:
         raise RuntimeErrorEvidence("Foundation retained artifact set differs")
     binding = read_json(output / "foundation-evidence-manifest.json")
-    require_exact_keys(binding, {"schema_version", "kind", "candidate_commit", "profile_sha256", "candidate_retention_manifest_sha256", "profile", "candidate_rec_package", "input_manifest", "artifacts", "transitive_artifacts"}, "Foundation evidence binding")
-    if (binding["schema_version"] != 2 or binding["kind"] != "foundation-end-to-end-evidence-binding" or binding["candidate_commit"] != candidate_commit or
+    require_exact_keys(binding, {"schema_version", "kind", "candidate_commit", "profile_sha256", "candidate_retention_manifest_sha256", "input_root", "profile", "candidate_rec_package", "input_manifest", "artifacts", "transitive_artifacts"}, "Foundation evidence binding")
+    if (binding["schema_version"] != 3 or binding["kind"] != "foundation-end-to-end-evidence-binding" or binding["candidate_commit"] != candidate_commit or
             binding["profile_sha256"] != sha256_file(profile_path) or binding["candidate_retention_manifest_sha256"] != sha256_file(candidate_retention)):
         raise RuntimeErrorEvidence("Foundation evidence binding differs")
+    if not isinstance(binding["input_root"], str) or not pathlib.Path(binding["input_root"]).is_absolute():
+        raise RuntimeErrorEvidence("Foundation retained input root differs")
     _hash_bound_file(output, binding["profile"], "Foundation retained profile")
     _hash_bound_file(output, binding["candidate_rec_package"], "Foundation retained REC package")
     _hash_bound_file(output, binding["input_manifest"], "Foundation retained input manifest")
@@ -611,6 +772,30 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
             status = subprocess.run(["git", "status", "--porcelain"], cwd=detached, capture_output=True, text=True, check=False)
             if head.returncode != 0 or head.stdout.strip() != candidate_commit or status.returncode != 0 or status.stdout.strip():
                 raise RuntimeErrorEvidence("Foundation detached retention worktree differs")
+            retained_profile = validate_profile(_hash_bound_file(output, binding["profile"], "Foundation retained profile"))
+            retained_input = read_json(_hash_bound_file(output, binding["input_manifest"], "Foundation retained input manifest"))
+            require_exact_keys(retained_input, {"schema_version", "kind", "candidate_commit", "candidate_retention_manifest_sha256", "profile_sha256", "source_root", "artifacts"},
+                               "Foundation retained admission input")
+            if retained_input["candidate_commit"] != candidate_commit or retained_input["source_root"] != str(candidate_source_root.resolve()):
+                raise RuntimeErrorEvidence("Foundation retained admission identity differs")
+            raw_root = output / "inputs" / "raw"
+            artifacts = retained_input.get("artifacts")
+            if not isinstance(artifacts, dict) or set(artifacts) != {"publication", "authorities", "dependencies", "contract_tests"}:
+                raise RuntimeErrorEvidence("Foundation retained admission artifacts differ")
+            retained = {role: _hash_bound_file(raw_root, row, f"Foundation retained raw {role}") for role, row in artifacts.items()}
+            terminal = read_json(_hash_bound_file(output, binding["candidate_rec_package"], "Foundation retained REC package").parent / "terminal-manifest.json")
+            if not validate_authorities(retained["authorities"], retained_profile, candidate_commit, detached, terminal):
+                raise RuntimeErrorEvidence("Foundation retained authorities are not qualified")
+            recorded_input_root = pathlib.Path(binding["input_root"])
+            dependency_recorded_root = recorded_input_root / pathlib.PurePosixPath(artifacts["dependencies"]["path"]).parent
+            contract_recorded_root = recorded_input_root / pathlib.PurePosixPath(artifacts["contract_tests"]["path"]).parent
+            dependencies_ok, dependency_findings, build_directories = validate_dependencies(retained["dependencies"], retained_profile,
+                                                                                              candidate_commit, retained["dependencies"].parent, detached,
+                                                                                              dependency_recorded_root, candidate_source_root)
+            contract_ok, contract_findings = validate_contract_tests(retained["contract_tests"], retained_profile, candidate_commit,
+                                                                       retained["contract_tests"].parent, build_directories, contract_recorded_root)
+            if not dependencies_ok or dependency_findings or not contract_ok or contract_findings:
+                raise RuntimeErrorEvidence("Foundation retained semantic evidence differs")
         finally:
             removed = subprocess.run(["git", "worktree", "remove", "--force", str(detached)], cwd=candidate_source_root,
                                      capture_output=True, text=True, check=False)
@@ -651,8 +836,10 @@ def qualify(profile_path: pathlib.Path, rec_profile: pathlib.Path, baseline_pack
     input_root, inputs = _load_inputs(inputs_manifest, profile_path, candidate_package / "retention-manifest.json", candidate_commit, pathlib.Path(candidate_source))
     publication_ok = validate_publication(inputs["publication"], candidate_commit, pathlib.Path(candidate_source))
     authorities_ok = validate_authorities(inputs["authorities"], profile, candidate_commit, pathlib.Path(candidate_source), candidate_terminal)
-    dependencies_ok, dependency_findings = validate_dependencies(inputs["dependencies"], profile, candidate_commit, input_root)
-    contract_tests_ok, contract_test_findings = validate_contract_tests(inputs["contract_tests"], profile, candidate_commit, input_root)
+    dependencies_ok, dependency_findings, build_directories = validate_dependencies(inputs["dependencies"], profile, candidate_commit,
+                                                                                     input_root, pathlib.Path(candidate_source))
+    contract_tests_ok, contract_test_findings = validate_contract_tests(inputs["contract_tests"], profile, candidate_commit,
+                                                                         input_root, build_directories)
     scope_ok, scope_changes_rows = source_changes(baseline_package, candidate_package, profile, profile_path)
     differences = _diff(package_claims(baseline_package, baseline_terminal, profile["claim_fields"]), package_claims(candidate_package, candidate_terminal, profile["claim_fields"]))
     conditions = {"FND0": publication_ok and scope_ok, "FND1": authorities_ok, "FND2": _terminal_complete(candidate_terminal, candidate_commit),
