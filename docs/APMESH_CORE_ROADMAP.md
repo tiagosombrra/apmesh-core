@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-07
+Last updated: 2026-09-08
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -268,7 +268,7 @@ Status: `QUALIFIED` on WSL Ubuntu 24.04
 
 #### Foundation End-to-End Regression
 
-Status: `PRE-REGISTERED / QUALIFIER IMPLEMENTED / FOCUSED CONTRACT PASS / ADMISSION REVIEW REQUIRED / NOT PREPARED / NOT EXECUTED`
+Status: `PRE-REGISTERED / FPR0–FPR6 IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED`
 
 - Reuse the qualified REC execution path; do not introduce a parallel campaign
   framework.
@@ -285,6 +285,12 @@ Status: `PRE-REGISTERED / QUALIFIER IMPLEMENTED / FOCUSED CONTRACT PASS / ADMISS
 - Use the report-only Foundation qualifier for source-scope, accepted-baseline,
   dependency, and closure evidence; it may emit collected evidence or
   `BLOCKED`, but never scientific `PASS`.
+- Evaluate FPR0–FPR6 before preparation. Their joint success may authorize one
+  `PREPARED` manifest only; it does not satisfy, waive, or alter FND0–FND7 and
+  does not authorize execution.
+- Treat retained REC evidence at `85d215a` only as qualified historical evidence
+  and the accepted comparison baseline. It cannot substitute for current-candidate
+  execution, deterministic claims, or retention required by FND2, FND4, and FND6.
 
 Stage exit gate: all three contracts reviewed; minimal C++23 library builds from a clean checkout; one deterministic smoke experiment is fully reproducible from manifest to certificate and figure; Foundation End-to-End Regression passes.
 
@@ -534,10 +540,11 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current branch: `foundation/reproducible-experiment-contract`.
 
-Current correction: revision-bound Foundation admission evidence is implemented
-and its focused four-cell contract passed before a new authorization audit. The
-correction does not prepare or
-execute the Foundation End-to-End Regression.
+Current decision: preparation readiness is governed by FPR0–FPR6, while
+FND0–FND7 remain post-execution scientific closure gates. Historical REC
+evidence at `85d215a` may be a verified prerequisite and comparison baseline,
+but it cannot replace current-candidate evidence for FND2, FND4, or FND6. This
+decision does not prepare or execute the Foundation End-to-End Regression.
 
 Admission evidence must include real Git identity, clean source-state snapshots
 before and after each build, completed hash-bound CTest
@@ -546,7 +553,7 @@ verification. It is report-only infrastructure, not Foundation execution.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Foundation End-to-End Regression / Independently audit qualifier admission against FND0–FND7**
+**Foundation — Architecture, Numerics, and Reproducibility / Foundation End-to-End Regression / Implement the bounded FPR0–FPR6 preparation preflight**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -560,6 +567,7 @@ no-execution contracts are qualified components of the retained campaign. The
 governing E0–E7 obligations are recorded in
 `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`. Canonical
 retention and revision-bound verification passed. Foundation End-to-End remains
-pre-registered with its report-only qualifier implemented; admission review is
-required, and the campaign is neither prepared nor executed. No greenfield
+pre-registered with a report-only FPR0–FPR6 preflight implemented; FPR6 still
+requires a separate scientific audit before preparation, and the campaign is neither
+prepared nor executed. No greenfield
 geometry or meshing algorithm is implemented.

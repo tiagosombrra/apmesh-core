@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "kind": "foundation-end-to-end-profile",
   "accepted_baseline": {
     "path": "evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a",
@@ -48,14 +48,14 @@
     "approved_support_paths": [
       {"path": ".gitattributes", "candidate_sha256": "da666b1c3a12b9efa1395f68253f2eb369bfb6031ddcf37ecb5736e701d5c373"},
       {"path": "CMakeLists.txt", "candidate_sha256": "38e720d2029ae4d0e1e2c749da30add77a751be2803e994fc2b1b05924720964"},
-      {"path": "docs/APMESH_CORE_ROADMAP.md", "candidate_sha256": "1209009da393e7de6c9ff5478e10c36e72da73bbdd9269d502d862bd4f9eba45"},
-      {"path": "docs/APMESH_CORE_STATE.md", "candidate_sha256": "247f439ffaec74aafe90a064583753de65d524716d612d7e6c7781c02bfcf111"},
+      {"path": "docs/APMESH_CORE_ROADMAP.md", "candidate_sha256": "05809f9103fe82aa063040eed8f75ee53c1a0b83833ecf851da313be958f64a1"},
+      {"path": "docs/APMESH_CORE_STATE.md", "candidate_sha256": "3aba100b1c139a335f0ad476680a1d5b2a063cee380c2f52cf88ecaff4466a70"},
       {"path": "docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md", "candidate_sha256": "b10a2cd618d8040193ae78120b49a7a615f5615e37160a295aef6bd01c0558cc"},
-      {"path": "docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md", "candidate_sha256": "8b00454088f14d2e082ada7249ef57bbdad0f5cf7f854db450e699aa42fcf040"},
+      {"path": "docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md", "candidate_sha256": "f4d70a5266fa93d37b14eaf72f908fb0df8dfa12be783a8c7f3491996b6c328f"},
       {"path": "docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md", "candidate_sha256": "5260b11a8423f2598d15c5a92789ab157043c11d878af0dfe65a2c88655d1992"},
-      {"path": "tests/foundation_end_to_end_evidence_test.py", "candidate_sha256": "3674ba967439d9d1d41c1b91648a8efbe1c58d79dfe51f15ab4b4fec5934f8f4"},
+      {"path": "tests/foundation_end_to_end_evidence_test.py", "candidate_sha256": "a7b0ee770749bf6c78e2c64e492f58d1efbe7a667e4050ed9a3e4dde4767b708"},
       {"path": "tests/reproducible_experiment_retention_test.py", "candidate_sha256": "462c29ba02e7c161176abe6faa3a36b356b2179980ed4e060d14ac70ced016af"},
-      {"path": "tools/foundation_end_to_end_evidence.py", "candidate_sha256": "f2e70e673237d4404a9d287f40313f6164729bd6db86051083973c61449169f6"},
+      {"path": "tools/foundation_end_to_end_evidence.py", "candidate_sha256": "aac32101f15b9f9b1cd506d5a02e83056a47ef38f2d6bfa725ebf00cb00a945b"},
       {"path": "tools/reproducible_experiment_evidence.py", "candidate_sha256": "884729f3e8ff75d2aff5ba430b5d5257c6f759399a447bb2fd62d56f664a6776"},
       {"path": "tools/retain_experiment_evidence.py", "candidate_sha256": "0df242c0052996059f7bc461c7428a186b73be30bbdb760d96487b32a9130167"}
     ],
@@ -76,6 +76,13 @@
   "allowed_runtime_prefixes": ["/lib/", "/lib64/", "/usr/lib/"],
   "allowed_pseudo_dependencies": ["linux-vdso.so.1"],
   "gates": ["FND0", "FND1", "FND2", "FND3", "FND4", "FND5", "FND6", "FND7"],
+  "preparation_preflight": {
+    "gates": ["FPR0", "FPR1", "FPR2", "FPR3", "FPR4", "FPR5", "FPR6"],
+    "runner": {"path": "tools/run_reproducible_experiment_contract.py", "sha256": "ffd9612287ef0345bb59aa56f43e82e73149a46146768518b37d4dcbad4b425c"},
+    "report_only_tool": {"path": "tools/foundation_end_to_end_evidence.py", "sha256": "aac32101f15b9f9b1cd506d5a02e83056a47ef38f2d6bfa725ebf00cb00a945b"},
+    "report_only_contract": {"path": "tests/foundation_end_to_end_evidence_test.py", "sha256": "a7b0ee770749bf6c78e2c64e492f58d1efbe7a667e4050ed9a3e4dde4767b708"},
+    "execution_authorization": false
+  },
   "limitations": [
     "WSL Ubuntu 24.04 toolchain envelope only",
     "No geometry, topology, meshing, convergence, performance, parallel-equivalence, or native Windows qualification"

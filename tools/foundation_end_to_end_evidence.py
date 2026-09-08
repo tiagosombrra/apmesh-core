@@ -24,6 +24,7 @@ from retain_experiment_evidence import verify as verify_retained_package
 
 
 EXPECTED_GATES = [f"FND{index}" for index in range(8)]
+PREPARATION_GATES = [f"FPR{index}" for index in range(7)]
 PENDING = "EVIDENCE_COLLECTED_PENDING_AUDIT"
 BLOCKED = "BLOCKED"
 SHA256 = re.compile(r"[0-9a-f]{64}")
@@ -69,9 +70,9 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
     require_exact_keys(profile, {"schema_version", "kind", "accepted_baseline", "configurations", "claim_fields",
                                  "required_executables", "required_contract_tests", "scope_policy",
                                  "qualified_authorities", "allowed_runtime_dependencies", "allowed_runtime_prefixes",
-                                 "allowed_pseudo_dependencies", "gates", "limitations"},
+                                 "allowed_pseudo_dependencies", "gates", "preparation_preflight", "limitations"},
                        "Foundation profile")
-    if profile["schema_version"] != 2 or profile["kind"] != "foundation-end-to-end-profile":
+    if profile["schema_version"] != 3 or profile["kind"] != "foundation-end-to-end-profile":
         raise RuntimeErrorEvidence("Foundation profile identity differs")
     baseline = profile["accepted_baseline"]
     if not isinstance(baseline, dict):
@@ -143,6 +144,21 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
         observed.add(row["name"])
     if observed != {"architecture", "numeric", "reproducible_experiment"}:
         raise RuntimeErrorEvidence("Foundation authority policy differs")
+    preflight = profile["preparation_preflight"]
+    if not isinstance(preflight, dict):
+        raise RuntimeErrorEvidence("Foundation preparation preflight differs")
+    require_exact_keys(preflight, {"gates", "runner", "report_only_tool", "report_only_contract", "execution_authorization"},
+                       "Foundation preparation preflight")
+    if preflight["gates"] != PREPARATION_GATES or preflight["execution_authorization"] is not False:
+        raise RuntimeErrorEvidence("Foundation preparation preflight differs")
+    for name in ("runner", "report_only_tool", "report_only_contract"):
+        row = preflight[name]
+        if not isinstance(row, dict):
+            raise RuntimeErrorEvidence("Foundation preparation preflight differs")
+        require_exact_keys(row, {"path", "sha256"}, "Foundation preparation preflight")
+        if not isinstance(row["path"], str) or not row["path"]:
+            raise RuntimeErrorEvidence("Foundation preparation preflight differs")
+        _sha(row["sha256"], "Foundation preparation preflight")
     return profile
 
 
@@ -286,6 +302,118 @@ def source_identity(source_root: pathlib.Path) -> dict[str, Any]:
     return {"schema_version": 1, "kind": "foundation-candidate-publication",
             "branch": values["branch"], "head": values["head"], "upstream": values["upstream"],
             "upstream_head": values["upstream_head"], "tree_clean": not values["status"]}
+
+
+def _worktree_scope_changes(baseline_package: pathlib.Path, source_root: pathlib.Path,
+                            candidate_commit: str, profile: dict[str, Any],
+                            profile_path: pathlib.Path) -> tuple[bool, list[dict[str, Any]]]:
+    baseline_commit = profile["accepted_baseline"]["candidate_commit"]
+    changed = subprocess.run(["git", "diff", "--name-only", f"{baseline_commit}..{candidate_commit}"], cwd=source_root,
+                            capture_output=True, text=True, check=False)
+    if changed.returncode != 0:
+        raise RuntimeErrorEvidence("Foundation candidate scope cannot be inspected")
+    policy = profile["scope_policy"]
+    protected, protected_prefixes = set(policy["protected_paths"]), tuple(policy["protected_prefixes"])
+    support = {row["path"]: row["candidate_sha256"] for row in policy["approved_support_paths"]}
+    retained_prefix = policy["verified_retained_prefix"]["path"].rstrip("/") + "/"
+    expected_retention = policy["verified_retained_prefix"]["retention_manifest_sha256"]
+    rows: list[dict[str, Any]] = []
+    for name in sorted(set(changed.stdout.splitlines())):
+        candidate = _relative(source_root, name, "Foundation candidate scope")
+        if not candidate.is_file():
+            classification = "BLOCKED_MISSING_OR_REMOVED_PATH"
+        elif name == policy["profile_path"] and sha256_file(candidate) == sha256_file(profile_path):
+            classification = "EXPECTED_PROFILE_IDENTITY"
+        elif name in support and sha256_file(candidate) == support[name]:
+            classification = "EXPECTED_CHANGE"
+        elif name in protected or name.startswith(protected_prefixes):
+            classification = "BLOCKED_PROTECTED_CHANGE"
+        elif name.startswith(retained_prefix):
+            historical = baseline_package / name[len(retained_prefix):]
+            if (historical.is_file() and sha256_file(candidate) == sha256_file(historical) and
+                    sha256_file(baseline_package / "retention-manifest.json") == expected_retention):
+                classification = "EXPECTED_RETAINED_BASELINE"
+            else:
+                classification = "BLOCKED_RETAINED_BASELINE_CHANGE"
+        else:
+            classification = "BLOCKED_UNDECLARED_CHANGE"
+        rows.append({"path": name, "candidate_sha256": sha256_file(candidate) if candidate.is_file() else None,
+                     "classification": classification})
+    allowed = {"EXPECTED_PROFILE_IDENTITY", "EXPECTED_CHANGE", "EXPECTED_RETAINED_BASELINE"}
+    return all(row["classification"] in allowed for row in rows), rows
+
+
+def _current_authorities(profile: dict[str, Any], source_root: pathlib.Path) -> bool:
+    for row in profile["qualified_authorities"]:
+        authority = _relative(source_root, row["path"], "Foundation qualified authority")
+        if (not authority.is_file() or sha256_file(authority) != row["sha256"] or
+                row["qualified_marker"] not in authority.read_text(encoding="utf-8")):
+            return False
+    return True
+
+
+def _preflight_file(source_root: pathlib.Path, declaration: dict[str, Any], context: str) -> bool:
+    path = _relative(source_root, declaration["path"], context)
+    return path.is_file() and sha256_file(path) == declaration["sha256"]
+
+
+def _runner_supports_fixed_matrix(source_root: pathlib.Path, rec_profile_path: pathlib.Path,
+                                  declaration: dict[str, Any]) -> bool:
+    if not _preflight_file(source_root, declaration, "Foundation REC runner"):
+        return False
+    profile = read_json(rec_profile_path)
+    configurations = profile.get("configurations")
+    names = [row.get("name") for row in configurations] if isinstance(configurations, list) else []
+    if names != ["gcc-debug", "gcc-release", "clang-debug", "clang-release"] or profile.get("replays_per_cell") != 2:
+        return False
+    source = _relative(source_root, declaration["path"], "Foundation REC runner").read_text(encoding="utf-8")
+    return all(token in source for token in ("def prepare", "def load_prepared", "def admit_execution", "--execute"))
+
+
+def _external_empty_root(path: pathlib.Path, source_root: pathlib.Path) -> bool:
+    resolved = path.resolve()
+    try:
+        resolved.relative_to(source_root.resolve())
+    except ValueError:
+        return not resolved.exists() or not any(resolved.iterdir())
+    return False
+
+
+def preflight(profile_path: pathlib.Path, rec_profile_path: pathlib.Path, baseline_package: pathlib.Path,
+              source_root: pathlib.Path, control_root: pathlib.Path, evidence_root: pathlib.Path) -> dict[str, Any]:
+    """Collect FPR0–FPR5 evidence without creating a manifest or running a campaign."""
+    profile = validate_profile(profile_path)
+    declared = profile["accepted_baseline"]
+    baseline_path = pathlib.Path(declared["path"])
+    if not baseline_path.is_absolute():
+        baseline_path = profile_path.resolve().parents[2] / baseline_path
+    if (baseline_package.resolve() != baseline_path.resolve() or
+            sha256_file(baseline_package / "retention-manifest.json") != declared["retention_manifest_sha256"]):
+        raise RuntimeErrorEvidence("accepted Foundation baseline identity differs")
+    baseline_retention, _ = _package_identity(baseline_package, rec_profile_path)
+    publication = source_identity(source_root)
+    candidate_commit = publication["head"]
+    if not GIT_COMMIT.fullmatch(candidate_commit):
+        raise RuntimeErrorEvidence("Foundation preparation candidate differs")
+    scope_ok, scope_changes = _worktree_scope_changes(baseline_package, source_root, candidate_commit, profile, profile_path)
+    current_candidate = candidate_commit != baseline_retention["candidate_commit"]
+    fpr0 = (publication["tree_clean"] and publication["head"] == publication["upstream_head"] and
+            bool(publication["branch"]) and current_candidate and scope_ok)
+    fpr1 = _current_authorities(profile, source_root)
+    fpr2 = baseline_retention.get("candidate_commit") == declared["candidate_commit"]
+    fpr3 = _runner_supports_fixed_matrix(source_root, rec_profile_path, profile["preparation_preflight"]["runner"])
+    fpr4 = (_preflight_file(source_root, profile["preparation_preflight"]["report_only_tool"], "Foundation report-only tool") and
+            _preflight_file(source_root, profile["preparation_preflight"]["report_only_contract"], "Foundation report-only contract"))
+    fpr5 = (control_root.resolve() != evidence_root.resolve() and
+            _external_empty_root(control_root, source_root) and _external_empty_root(evidence_root, source_root))
+    conditions = {"FPR0": fpr0, "FPR1": fpr1, "FPR2": fpr2, "FPR3": fpr3, "FPR4": fpr4, "FPR5": fpr5}
+    gates = {name: PENDING if passed else BLOCKED for name, passed in conditions.items()}
+    gates["FPR6"] = PENDING if all(conditions.values()) else BLOCKED
+    return {"schema_version": 1, "kind": "foundation-preparation-preflight-summary",
+            "state": PENDING if all(conditions.values()) else BLOCKED,
+            "candidate_commit": candidate_commit, "baseline_commit": baseline_retention["candidate_commit"],
+            "publication": publication, "scope_changes": scope_changes, "gates": gates,
+            "execution_authorization": False, "limitations": profile["limitations"]}
 
 
 def build_source_state(source_root: pathlib.Path) -> dict[str, Any]:
@@ -881,6 +1009,8 @@ def qualify(profile_path: pathlib.Path, rec_profile: pathlib.Path, baseline_pack
     candidate_commit = candidate_retention.get("candidate_commit")
     if not isinstance(candidate_commit, str) or not GIT_COMMIT.fullmatch(candidate_commit):
         raise RuntimeErrorEvidence("Foundation candidate commit differs")
+    if candidate_commit == baseline_retention["candidate_commit"]:
+        raise RuntimeErrorEvidence("historical Foundation baseline cannot be the current candidate")
     candidate_source = read_json(candidate_package / "control" / "prepared-manifest.json").get("candidate", {}).get("source_root")
     if not isinstance(candidate_source, str) or not candidate_source:
         raise RuntimeErrorEvidence("Foundation candidate source differs")
@@ -921,15 +1051,33 @@ def qualify(profile_path: pathlib.Path, rec_profile: pathlib.Path, baseline_pack
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--preflight", action="store_true")
     parser.add_argument("--profile", required=True); parser.add_argument("--rec-profile", required=True)
-    parser.add_argument("--baseline-package", required=True); parser.add_argument("--candidate-package", required=True)
-    parser.add_argument("--inputs-manifest", required=True); parser.add_argument("--output", required=True)
+    parser.add_argument("--baseline-package", required=True); parser.add_argument("--candidate-package")
+    parser.add_argument("--inputs-manifest"); parser.add_argument("--output")
+    parser.add_argument("--source-root"); parser.add_argument("--control-root"); parser.add_argument("--evidence-root")
     return parser.parse_args()
 
 
 def main() -> int:
     arguments = parse_arguments()
     try:
+        if arguments.preflight:
+            required = {"source root": arguments.source_root, "control root": arguments.control_root,
+                        "evidence root": arguments.evidence_root}
+            missing = [name for name, value in required.items() if value is None]
+            if missing:
+                raise RuntimeErrorEvidence(f"Foundation preflight argument is absent: {', '.join(missing)}")
+            summary = preflight(pathlib.Path(arguments.profile), pathlib.Path(arguments.rec_profile),
+                                pathlib.Path(arguments.baseline_package), pathlib.Path(arguments.source_root),
+                                pathlib.Path(arguments.control_root), pathlib.Path(arguments.evidence_root))
+            print(json.dumps(summary, sort_keys=True))
+            return 0 if summary["state"] == PENDING else 1
+        required = {"candidate package": arguments.candidate_package, "inputs manifest": arguments.inputs_manifest,
+                    "output": arguments.output}
+        missing = [name for name, value in required.items() if value is None]
+        if missing:
+            raise RuntimeErrorEvidence(f"Foundation qualification argument is absent: {', '.join(missing)}")
         summary = qualify(pathlib.Path(arguments.profile), pathlib.Path(arguments.rec_profile), pathlib.Path(arguments.baseline_package),
                           pathlib.Path(arguments.candidate_package), pathlib.Path(arguments.inputs_manifest), pathlib.Path(arguments.output))
         return 0 if summary["state"] == PENDING else 1

@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-07
+Last updated: 2026-09-08
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: `foundation/reproducible-experiment-contract`
 
@@ -50,15 +50,19 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Independently audit the report-only Foundation qualifier and its focused contract against FND0–FND7. Decide only whether preparation may be authorized. Do not prepare or execute the formal regression.**
+**Audit the FPR0–FPR5 evidence for the current clean candidate and decide whether FPR6 may authorize one `PREPARED` manifest. Do not prepare or execute the formal regression.**
 
 No greenfield meshing algorithm has been implemented yet.
 
-Current correction: the revision-bound Foundation admission correction is
-implemented and its focused four-cell contract passed. Its sole purpose is to make
-publication, authority, CTest, dependency, and closure evidence independently
-verifiable before any later authorization decision. It does not prepare or run
-the formal regression.
+Current decision: FPR0–FPR6 determine only whether one revision-bound Foundation
+manifest may be prepared. FND0–FND7 determine scientific closure only after the
+current candidate is executed. Retained REC evidence at `85d215a` is a qualified
+historical prerequisite and comparison baseline; it cannot satisfy current-
+candidate FND2, FND4, or FND6. No preparation or execution has occurred.
+
+The separate report-only FPR0–FPR6 preflight is implemented and its focused
+contract passes. It verifies candidate/baseline separation without creating a
+manifest or executing a campaign. FPR6 remains a scientific audit decision.
 
 The correction requires real Git publication identity, clean Git source-state
 snapshots before and after every build, completed hash-bound
@@ -165,13 +169,13 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: review the corrected Foundation admission qualifier and
-its focused contracts against FND0--FND7. Decide only whether preparation may
-be authorized; do not prepare or execute the formal regression.
+Current first action: audit the current-candidate FPR0–FPR5 evidence and decide
+whether FPR6 may authorize one `PREPARED` manifest. Do not prepare or execute
+the formal regression.
 
-1. Independently audit the Foundation profile, report-only qualifier, and
-   focused contract against FND0–FND7. Decide only whether preparation may be
-   authorized; do not prepare or execute the formal regression.
+1. Audit FPR0–FPR5 for the current clean candidate. Authorize FPR6 only through
+   a separate scientific decision; preserve FND0–FND7 for post-execution closure
+   and do not prepare or execute the regression.
 
 Decision progress: 3/3 Numeric Contract questions resolved. Qualification
 progress: Architecture, Numeric, and Reproducible Experiment Contracts are

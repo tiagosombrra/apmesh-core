@@ -1,7 +1,7 @@
 # Foundation End-to-End Regression — Bounded Pre-registration
 
-Status: PRE-REGISTERED / QUALIFIER IMPLEMENTED / FOCUSED CONTRACT PASS / ADMISSION REVIEW REQUIRED / NOT PREPARED / NOT EXECUTED
-Last updated: 2026-09-07
+Status: PRE-REGISTERED / FPR0–FPR6 IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED
+Last updated: 2026-09-08
 Stage: Foundation — Architecture, Numerics, and Reproducibility
 
 ## 1. Question
@@ -14,24 +14,48 @@ an undeclared runtime dependency?
 This is the cumulative Foundation exit gate. It does not introduce geometry,
 topology, meshing, a new numerical policy, or a new scientific claim.
 
-## 2. Preconditions
+## 2. Preparation readiness versus scientific closure
 
-Preparation is forbidden until all of the following are true:
+Preparation readiness and Foundation closure are distinct decisions. The
+preflight gates below may authorize creation of one `PREPARED` manifest for one
+named candidate and two named external roots. They cannot declare Foundation
+`PASS`, change Foundation progress, waive an FND gate, or authorize execution.
 
-1. the candidate is one clean, published commit with local `HEAD` equal to its
-   upstream branch;
-2. the Architecture Contract is `QUALIFIED` in the declared WSL Ubuntu 24.04
-   GCC 13/Clang 18 envelope;
-3. the Numeric Contract is `QUALIFIED` in the same envelope;
-4. the Reproducible Experiment Contract is `QUALIFIED`, and its retained
-   package for candidate `85d215a` passes revision-bound verification;
-5. the candidate diff contains no geometry or meshing implementation;
-6. the existing REC runner can execute the cumulative matrix without hidden
-   retry, fallback, relaxed acceptance, or fixture-specific rescue;
-7. any missing final-stage comparison is implemented as a report-only
-   extension and passes focused contracts before preparation.
+| Gate | Preparation-readiness condition |
+| --- | --- |
+| FPR0 — current candidate identity | The candidate is one clean, published, upstream-aligned commit, and its diff contains no geometry, topology, meshing, or undeclared scientific-policy change. |
+| FPR1 — qualified authorities | The candidate contains the exact qualified Architecture, Numeric, and REC authorities, and their accepted evidence remains independently verifiable. |
+| FPR2 — historical REC baseline | The retained REC package for `85d215a` passes revision-bound semantic verification and is identified only as the accepted comparison baseline. |
+| FPR3 — executable path | The existing REC runner can express the fixed four-configuration, two-replay Foundation plan for the current candidate without retry, fallback, relaxed acceptance, fixture-specific rescue, or a parallel campaign framework. |
+| FPR4 — report-only infrastructure | Focused contracts validate candidate/baseline separation, source identity, comparison, dependency inventory, failure classification, and output sealing. |
+| FPR5 — external output safety | The proposed control and evidence roots are new, external to the repository, empty, distinct, and recorded; no execution occurs during this check. |
+| FPR6 — explicit preparation authorization | A scientific audit records FPR0–FPR5 as jointly satisfied and authorizes only one `PREPARED` manifest for the named candidate and roots. |
 
-Passing this pre-registration does not satisfy any execution gate.
+The historical REC package at `85d215a` may establish its own E0–E7 result,
+its byte and semantic integrity, its role as the accepted comparison baseline,
+its historical expected claims, and that the qualified execution path worked
+for that historical candidate. It cannot establish execution, replay or
+cross-configuration equivalence, retained outputs, or closure for the current
+Foundation candidate.
+
+FND0–FND7 remain post-execution scientific closure gates. In particular,
+historical REC evidence cannot satisfy FND2, FND4, or FND6 for the current
+candidate. It also cannot replace current-candidate evidence required by FND0,
+FND1, FND3, FND5, or FND7.
+
+The decision relation is:
+
+```text
+FPR0 ∧ ... ∧ FPR6  =>  preparation of one bound manifest is permitted
+prepared manifest  !=  execution authorization
+historical REC PASS !=  current-candidate FND2 ∧ FND4 ∧ FND6
+Foundation PASS    <=> current-candidate FND0 ∧ ... ∧ FND7 after execution
+```
+
+Facts checked during preparation that also contribute to FND0, FND1, FND3,
+FND5, or FND7 must be bound to the prepared candidate and revalidated in the
+terminal closure package. Preparation evidence is not carried forward as an
+unconditional pass.
 
 ## 3. Fixed execution envelope
 
@@ -119,13 +143,15 @@ prerequisite, that prerequisite is marked `REOPENED` before further work.
 
 ## 9. Infrastructure audit and qualifier
 
-The existing REC runner and validator cover the cumulative execution evidence
-for FND2 and FND4, plus the REC portion of FND6: fixed matrix execution,
-same-revision prerequisites, command provenance, artifact seals, replay and
-cross-configuration equivalence, negative fixtures, and explicit terminal
-state. They do not establish Foundation publication alignment, authority
-identity, the complete CTest inventory, runtime dependencies, or retention of
-the Foundation closure outputs.
+The existing REC runner and validator provide mechanisms that a future
+current-candidate execution may use to produce evidence for FND2 and FND4 and
+the REC portion of FND6: fixed matrix execution, same-revision prerequisites,
+command provenance, artifact seals, replay and cross-configuration equivalence,
+negative fixtures, and explicit terminal state. Their historical use at
+`85d215a` does not itself establish those gates for a later Foundation
+candidate. They also do not establish current Foundation publication alignment,
+authority identity, the complete CTest inventory, runtime dependencies, or
+retention of current Foundation closure outputs.
 
 The bounded final-stage addition consists only of:
 
@@ -176,6 +202,21 @@ The qualifier is report-only. Complete evidence is emitted as
 No campaign runner, scientific threshold, C++ behavior, preparation, or
 execution is introduced by this correction.
 
+### Preparation-readiness implementation
+
+The qualifier now exposes a separate FPR0–FPR6 preflight. It receives the
+historical REC baseline package, a clean current source root, and proposed
+external control and evidence roots. It verifies source publication and scope,
+current qualified-authority bytes, historical baseline integrity, fixed-matrix
+runner identity, report-only tool/contract identity, and output-root safety.
+It does not create a manifest, write campaign evidence, or invoke the runner.
+
+FPR6 remains `EVIDENCE_COLLECTED_PENDING_AUDIT` whenever FPR0–FPR5 are
+complete. It can be closed only by a separate scientific decision. The focused
+contract uses a distinct current source revision and keeps the REC authority
+marker unchanged; it proves that the historical package cannot be supplied as
+the current candidate and exercises FPR0, FPR1, and FPR5 negative cases.
+
 The focused qualifier contract creates a disposable CMake project and executes
 the four GCC/Clang × Debug/Release cells. It rejects altered executable and
 CTest-discovery evidence, then revalidates a retained package in a detached
@@ -184,6 +225,6 @@ an FND gate.
 
 ## 10. Next bounded action
 
-Independently audit the profile, qualifier, focused contract, and their mapping
-to FND0–FND7. Decide only whether preparation may be authorized. Do not prepare
-or execute the formal regression.
+Audit the FPR0–FPR5 evidence for the current clean candidate and decide whether
+FPR6 may authorize one `PREPARED` manifest. Do not prepare or execute the formal
+regression in that decision.
