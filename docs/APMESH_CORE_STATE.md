@@ -3,7 +3,7 @@
 Status: ACTIVE
 Last updated: 2026-09-08
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: `foundation/reproducible-experiment-contract`
+Working branch: `geometry/point-vector-semantics`
 
 ## Purpose
 
@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Review and publish the bounded point-vector implementation package.**
+**Implement the bounded Point/Vector qualification evidence infrastructure.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -62,7 +62,9 @@ implementation is limited to distinct `Point2`, `Point3`, `Vector2`, and
 `Vector3` value semantics, finite construction, affine/Euclidean operations,
 explicit failures, and focused analytic evidence. Matrices, transforms,
 predicates, topology, curves, surfaces, and meshing remain blocked. The focused
-contract passed on GCC/Clang Debug/Release; stage qualification remains pending.
+contract passed on GCC/Clang Debug/Release. The revision-bound Point/Vector
+qualification protocol is pre-registered; its evidence infrastructure and
+formal execution remain pending, and the complete stage remains unqualified.
 
 Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced
@@ -164,24 +166,30 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
 3. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
-4. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-5. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-6. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-7. `docs/research/REFERENCE_REGISTER.md`.
+4. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
+5. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+6. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+7. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+8. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: review and publish the bounded point/vector implementation
-and focused four-cell contract evidence.
+Current first action: implement the reusable profile, certificate exporter,
+report-only collector/comparer, and `PREPARED`-only launcher for the
+pre-registered Point/Vector qualification protocol. Only focused tooling
+contracts may run in that work unit; the formal regression remains blocked.
 
-1. Review the bounded implementation and commit it on
-   `geometry/point-vector-semantics`. Do not add matrices, transforms,
-   predicates, topology, curves, surfaces, meshing, or the stage regression.
+1. Implement the bounded Point/Vector qualification evidence infrastructure on
+   `geometry/point-vector-semantics`. Do not prepare or execute the formal
+   regression and do not add matrices, transforms, predicates, topology,
+   curves, surfaces, meshing, or the stage regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
-INVESTIGATION with point/vector semantics implemented and qualification pending.
+INVESTIGATION with Point/Vector semantics implemented, its qualification
+protocol pre-registered, and formal qualification pending. Protocol definition
+does not increase scientific progress.
 
 ## Stage closure protocol
 

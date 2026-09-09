@@ -303,7 +303,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / FOCUSED FOUR-CELL CONTRACT PASS / QUALIFICATION PENDING`
+Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / FOCUSED FOUR-CELL CONTRACT PASS / QUALIFICATION PROTOCOL PRE-REGISTERED`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -318,6 +318,13 @@ The bounded point/vector implementation and its focused `geometry;contract`
 CTest passed on GCC/Clang Debug/Release in the qualified WSL envelope. This
 does not yet qualify cross-compiler claim equivalence, native Windows, or the
 Geometry Primitives stage regression.
+
+The revision-bound work-unit protocol is pre-registered in
+`docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`. Its `PV0`–`PV7`
+gates qualify only Point and Vector Semantics, require one fixed four-cell run
+with three independent focused processes per cell, and reuse the current
+Foundation contract tests without repeating the full historical REC campaign.
+No profile, launcher, formal execution, or scientific decision exists yet.
 
 #### Point and Vector Semantics
 
@@ -557,7 +564,7 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current branch: `foundation/reproducible-experiment-contract`.
+Current branch: `geometry/point-vector-semantics`.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -568,7 +575,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / review and publish the bounded point-vector implementation package**
+**Geometry Primitives — Exact Semantics Before Curves / implement bounded Point/Vector qualification evidence infrastructure**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -578,5 +585,6 @@ is QUALIFIED at 100% within the declared WSL envelope. The Reproducible
 Experiment Contract and its first two-replay/four-cell E0–E7 regression are
 qualified on candidate `85d215a`; that historical evidence remains the accepted
 comparison baseline. Foundation End-to-End passed its post-execution FND0–FND7
-audit on `b333755`, with retained scope limitations. No greenfield geometry or
-meshing algorithm is implemented.
+audit on `b333755`, with retained scope limitations. The bounded Point/Vector
+layer is implemented but not qualified; no topology, curve, surface, or meshing
+algorithm is implemented.

@@ -1,6 +1,6 @@
 # Geometry Primitives — Bounded Entry Decision
 
-Status: IMPLEMENTED / FOCUSED FOUR-CELL CONTRACT PASS / QUALIFICATION PENDING
+Status: IMPLEMENTED / FOCUSED FOUR-CELL CONTRACT PASS / QUALIFICATION PROTOCOL PRE-REGISTERED
 Date: 2026-09-08
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Prerequisite: Foundation `QUALIFIED` at candidate `b333755`
@@ -173,11 +173,16 @@ fixtures, signed zero, finite extrema, subnormal normalization, invalid input,
 and each fallible operation's deliberate overflow or division failure.
 
 This is implementation evidence only. It does not yet establish a
-revision-bound stage certificate, cross-compiler claim-field equivalence, native
-Windows behavior, or Geometry Primitives qualification.
+revision-bound work-unit certificate, cross-compiler claim-field equivalence,
+native Windows behavior, or Point/Vector qualification. The bounded
+qualification protocol is pre-registered in
+`docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`; it explicitly
+does not qualify the complete Geometry Primitives stage.
 
 ## Next bounded action
 
-Review the bounded implementation package and publish it on its isolated branch.
-Do not implement matrices, transforms, predicates, topology, curves, or meshing,
-and do not launch the Geometry Primitives stage regression.
+Implement the reusable report-only evidence and `PREPARED`-only execution
+infrastructure required by the Point/Vector qualification protocol. Run only
+focused tooling contracts; do not prepare or execute the formal qualification
+regression and do not implement matrices, transforms, predicates, topology,
+curves, or meshing.
