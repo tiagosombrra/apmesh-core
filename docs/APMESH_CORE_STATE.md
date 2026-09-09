@@ -50,17 +50,19 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Implement bounded point and vector semantics with focused analytic tests.**
+**Review and publish the bounded point-vector implementation package.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
-envelope. No greenfield geometry or meshing algorithm has been implemented yet.
+envelope. Bounded point/vector geometry is implemented and has passed its
+focused four-cell contract; meshing remains unimplemented.
 
 Geometry Primitives entry is approved by
 `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`. The authorized first
 implementation is limited to distinct `Point2`, `Point3`, `Vector2`, and
 `Vector3` value semantics, finite construction, affine/Euclidean operations,
 explicit failures, and focused analytic evidence. Matrices, transforms,
-predicates, topology, curves, surfaces, and meshing remain blocked.
+predicates, topology, curves, surfaces, and meshing remain blocked. The focused
+contract passed on GCC/Clang Debug/Release; stage qualification remains pending.
 
 Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced
@@ -169,18 +171,17 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: implement only the bounded point and vector semantics and
-focused analytic cases authorized by the Geometry Primitives entry decision.
+Current first action: review and publish the bounded point/vector implementation
+and focused four-cell contract evidence.
 
-1. Add the four distinct fixed-dimension value types, finite construction,
-   authorized affine/Euclidean operations, explicit failures, and the complete
-   focused test table. Do not add matrices, transforms, predicates, topology,
-   curves, surfaces, meshing, or the stage regression.
+1. Review the bounded implementation and commit it on
+   `geometry/point-vector-semantics`. Do not add matrices, transforms,
+   predicates, topology, curves, surfaces, meshing, or the stage regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
-INVESTIGATION with its entry decision approved and implementation not started.
+INVESTIGATION with point/vector semantics implemented and qualification pending.
 
 ## Stage closure protocol
 

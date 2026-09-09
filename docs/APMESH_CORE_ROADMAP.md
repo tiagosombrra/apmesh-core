@@ -303,7 +303,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED`
+Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / FOCUSED FOUR-CELL CONTRACT PASS / QUALIFICATION PENDING`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -313,6 +313,11 @@ unit is restricted to distinct 2D/3D point and vector value semantics, finite
 construction, affine/Euclidean operations, explicit failures, and focused
 analytic evidence. It does not authorize topology, predicates, matrices,
 transforms, curves, surfaces, or meshing.
+
+The bounded point/vector implementation and its focused `geometry;contract`
+CTest passed on GCC/Clang Debug/Release in the qualified WSL envelope. This
+does not yet qualify cross-compiler claim equivalence, native Windows, or the
+Geometry Primitives stage regression.
 
 #### Point and Vector Semantics
 
@@ -563,7 +568,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / implement bounded point and vector semantics with focused analytic tests**
+**Geometry Primitives — Exact Semantics Before Curves / review and publish the bounded point-vector implementation package**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only

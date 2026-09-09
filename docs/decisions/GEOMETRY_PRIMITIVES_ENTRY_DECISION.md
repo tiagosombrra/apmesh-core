@@ -1,6 +1,6 @@
 # Geometry Primitives — Bounded Entry Decision
 
-Status: APPROVED FOR BOUNDED IMPLEMENTATION / NO GEOMETRY IMPLEMENTED
+Status: IMPLEMENTED / FOCUSED FOUR-CELL CONTRACT PASS / QUALIFICATION PENDING
 Date: 2026-09-08
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Prerequisite: Foundation `QUALIFIED` at candidate `b333755`
@@ -158,8 +158,26 @@ DECISION APPROVED`. Scientific implementation and qualification remain pending.
 Foundation stays qualified and is not reopened by this documentation-only
 decision.
 
+## Implementation result
+
+The bounded candidate adds only `include/apmesh/core/geometry.hpp`,
+`src/core/geometry.cpp`, and `tests/geometry_primitives.cpp`, with the focused
+CTest label `geometry;contract`. It implements the authorized point/vector
+construction, affine operations, dot/cross, stable norm, normalization, and
+classified failure paths. No matrix, predicate, topology, curve, surface, or
+meshing code was introduced.
+
+The focused contract passed on the qualified GCC 13 and Clang 18/libc++
+toolchains in both Debug and Release. It covers type separation, analytic basis
+fixtures, signed zero, finite extrema, subnormal normalization, invalid input,
+and each fallible operation's deliberate overflow or division failure.
+
+This is implementation evidence only. It does not yet establish a
+revision-bound stage certificate, cross-compiler claim-field equivalence, native
+Windows behavior, or Geometry Primitives qualification.
+
 ## Next bounded action
 
-Implement only the authorized point/vector value semantics and focused tests.
+Review the bounded implementation package and publish it on its isolated branch.
 Do not implement matrices, transforms, predicates, topology, curves, or meshing,
 and do not launch the Geometry Primitives stage regression.

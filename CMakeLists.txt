@@ -17,6 +17,7 @@ endfunction()
 
 add_library(apmesh_core STATIC
     src/core/bootstrap.cpp
+    src/core/geometry.cpp
     src/core/numeric.cpp
 )
 add_library(apmesh::core ALIAS apmesh_core)
@@ -68,6 +69,13 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core_numeric_contract)
 
     add_test(NAME apmesh_core.numeric_contract COMMAND apmesh_core_numeric_contract)
+    add_executable(apmesh_core.geometry_primitives
+        tests/geometry_primitives.cpp
+    )
+    target_link_libraries(apmesh_core.geometry_primitives PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.geometry_primitives)
+
+    add_test(NAME apmesh_core.geometry_primitives COMMAND apmesh_core.geometry_primitives)
     add_test(
         NAME apmesh_core.numeric_contract_evidence
         COMMAND
@@ -178,6 +186,10 @@ if(BUILD_TESTING)
         apmesh_core.numeric_contract_evidence
         apmesh_core.numeric_contract_runner
         PROPERTIES LABELS "numeric;contract"
+    )
+    set_tests_properties(
+        apmesh_core.geometry_primitives
+        PROPERTIES LABELS "geometry;contract"
     )
     set_tests_properties(
         apmesh_core.reproducible_experiment_evidence
