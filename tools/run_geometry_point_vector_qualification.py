@@ -317,7 +317,7 @@ def verify_observed_inventories(output_root: pathlib.Path, manifest: dict[str, A
             if sha256_file(executable_path) != dependency["sha256"]:
                 raise fail("observed runtime dependency hash differs")
             record = dependency["ldd_record"]
-            if (not isinstance(record, dict) or record.get("stage") != f"ldd-{executable_name}" or
+            if (not isinstance(record, dict) or record.get("id") != f"ldd-{executable_name}" or
                     record.get("exit_code") != 0 or record.get("timed_out") is not False or record.get("launch_error") is not None):
                 raise fail("observed runtime dependency command record differs")
         normalized_dependencies.append({"cell": actual["cell"], "dependencies": dependencies})

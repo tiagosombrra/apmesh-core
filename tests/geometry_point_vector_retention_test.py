@@ -42,7 +42,7 @@ def main() -> int:
             "executable": "apmesh_core_geometry_point_vector_export",
             "path": "cells/gcc-debug/build/apmesh_core_geometry_point_vector_export",
             "sha256": sha256_file(planned_executable),
-            "ldd_record": {"stage": "ldd-apmesh_core_geometry_point_vector_export", "exit_code": 0,
+            "ldd_record": {"id": "ldd-apmesh_core_geometry_point_vector_export", "exit_code": 0,
                            "timed_out": False, "launch_error": None},
         }
         inventories = [{"cell": "gcc-debug", "compile_commands": {"path": "cells/gcc-debug/build/compile_commands.json",
@@ -72,6 +72,25 @@ def main() -> int:
         write_state(output, "EXECUTED_PENDING_AUDIT", {"candidate_commit": candidate["commit"]})
         runner.seal_output(output, source, prepared)
         runner.verify_retention(output, source)
+
+        legacy_dependency = {
+            **dependency,
+            "ldd_record": {"stage": "ldd-apmesh_core_geometry_point_vector_export", "exit_code": 0,
+                           "timed_out": False, "launch_error": None},
+        }
+        legacy_inventories = [{"cell": "gcc-debug", "compile_commands": inventories[0]["compile_commands"],
+                               "runtime_dependencies": [legacy_dependency]}]
+        legacy_runtime_inventory = {"schema_version": 1, "kind": "geometry-point-vector-runtime-dependencies",
+                                    "candidate_commit": candidate["commit"],
+                                    "cells": [{"cell": "gcc-debug", "dependencies": [legacy_dependency]}]}
+        try:
+            runner.verify_observed_inventories(output, prepared, legacy_inventories, legacy_runtime_inventory,
+                                               output / "runtime-dependencies.json")
+        except RuntimeErrorEvidence:
+            pass
+        else:
+            raise RuntimeError("runtime dependency verifier accepted legacy stage instead of command id")
+
         (output / "unexpected.txt").write_text("tamper\n", encoding="utf-8")
         try:
             runner.verify_retention(output, source)
