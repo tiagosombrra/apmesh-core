@@ -313,7 +313,32 @@ The ID allocation/order choice is a software design decision constrained by
 explicit identity; it is not a theorem about topology or arbitrary reorderings.
 Fixed bootstrap strings need exact comparison rather than numerical tolerances.
 
-## Geometry, curves, surfaces, and meshing — pending focused reviews
+## Geometry primitives
+
+### CGAL 6.2.1 — Point, vector, and affine-transformation semantics
+
+Status: `FOUNDATIONAL` for Geometry Primitives entry, reviewed 2026-09-08.
+
+Official references:
+
+- https://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Point__3.html
+- https://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Vector__3.html
+- https://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Aff__transformation__3.html
+
+Project relevance:
+
+- provides an authoritative mature-kernel example of distinct point and vector
+  types, point subtraction yielding a displacement vector, and point translation
+  by a vector;
+- confirms that affine transformations form a separate explicit concept;
+- supports semantic comparison and test design only: CGAL is not admitted as a
+  dependency and is not an implementation or numerical oracle.
+
+The Geometry Primitives entry decision combines this interface evidence with
+the existing IEEE 754, Goldberg, Higham, and Shewchuk references. Raw vector
+operations do not qualify robust predicate signs or topological decisions.
+
+## Curves, surfaces, and meshing — pending focused reviews
 
 These areas intentionally remain incomplete. References will be added only when the corresponding roadmap investigation becomes active.
 

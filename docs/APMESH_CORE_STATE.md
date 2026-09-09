@@ -50,10 +50,17 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Define the bounded Geometry Primitives entry decision without implementing geometry.**
+**Implement bounded point and vector semantics with focused analytic tests.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. No greenfield geometry or meshing algorithm has been implemented yet.
+
+Geometry Primitives entry is approved by
+`docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`. The authorized first
+implementation is limited to distinct `Point2`, `Point3`, `Vector2`, and
+`Vector3` value semantics, finite construction, affine/Euclidean operations,
+explicit failures, and focused analytic evidence. Matrices, transforms,
+predicates, topology, curves, surfaces, and meshing remain blocked.
 
 Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced
@@ -154,27 +161,26 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
-3. `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
-4. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-5. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`
-6. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md`
-7. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-8. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
-9. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-10. `docs/research/REFERENCE_REGISTER.md`.
+3. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
+4. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+5. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+6. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+7. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: define the Geometry Primitives entry decision without
-implementing geometry, topology, or meshing.
+Current first action: implement only the bounded point and vector semantics and
+focused analytic cases authorized by the Geometry Primitives entry decision.
 
-1. Define the bounded scope, mathematical vocabulary, assumptions, and initial
-   analytic verification cases for Geometry Primitives. Do not implement the
-   resulting types in that decision.
+1. Add the four distinct fixed-dimension value types, finite construction,
+   authorized affine/Euclidean operations, explicit failures, and the complete
+   focused test table. Do not add matrices, transforms, predicates, topology,
+   curves, surfaces, meshing, or the stage regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
-qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is NOT STARTED.
+qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
+INVESTIGATION with its entry decision approved and implementation not started.
 
 ## Stage closure protocol
 

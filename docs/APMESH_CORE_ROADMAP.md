@@ -303,9 +303,16 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `NOT STARTED`
+Status: `IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
+
+Entry authority:
+`docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`. The first bounded work
+unit is restricted to distinct 2D/3D point and vector value semantics, finite
+construction, affine/Euclidean operations, explicit failures, and focused
+analytic evidence. It does not authorize topology, predicates, matrices,
+transforms, curves, surfaces, or meshing.
 
 #### Point and Vector Semantics
 
@@ -556,7 +563,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / define the bounded entry decision without implementing geometry**
+**Geometry Primitives — Exact Semantics Before Curves / implement bounded point and vector semantics with focused analytic tests**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
