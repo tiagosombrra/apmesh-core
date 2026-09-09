@@ -36,6 +36,7 @@ def main() -> int:
             "docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md": "qualified\n",
             "docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md": "qualified\n",
             "docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md": "qualified\n",
+            "docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md": "approved\n",
         }
         for relative, content in required.items():
             path = source / relative
@@ -82,10 +83,17 @@ def main() -> int:
         if completed.returncode != 0:
             raise RuntimeError(f"PREPARED manifest creation failed: {completed.stderr!r}")
         manifest = json.loads((prepared / "prepared-manifest.json").read_text(encoding="utf-8"))
-        if manifest["state"] != "PREPARED" or manifest["execution_requested"] is not False or len(manifest["plan"]) != 4:
+        if (manifest["schema_version"] != 3 or manifest["state"] != "PREPARED" or
+                manifest["execution_requested"] is not False or len(manifest["plan"]) != 4):
             raise RuntimeError("launcher did not produce a four-cell PREPARED-only manifest")
-        if set(manifest["inputs"]) < {"architecture_authority", "numeric_authority", "reproducibility_authority", "foundation_authority"}:
-            raise RuntimeError("launcher did not bind qualified Foundation authorities")
+        if set(manifest["inputs"]) < {"geometry_entry_authority", "architecture_authority", "numeric_authority", "reproducibility_authority", "foundation_authority"}:
+            raise RuntimeError("launcher did not bind Geometry and Foundation authorities")
+        inventories = manifest["planned_inventories"]
+        if (inventories.get("kind") != "geometry-point-vector-planned-inventories" or
+                len(inventories.get("cells", [])) != 4 or
+                any(cell.get("runtime_dependency_executables") != ["apmesh_core_geometry_point_vector_export", "apmesh_core.geometry_primitives", "apmesh_core_bootstrap_smoke", "apmesh_core_numeric_contract"]
+                    for cell in inventories["cells"])):
+            raise RuntimeError("launcher did not bind planned artifact inventories")
         if (prepared / "state.json").read_text(encoding="utf-8").find('"PREPARED"') < 0:
             raise RuntimeError("PREPARED lifecycle state is absent")
 

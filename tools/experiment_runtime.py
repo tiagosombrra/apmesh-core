@@ -188,12 +188,14 @@ def write_state(control_root: pathlib.Path, state: str, detail: dict[str, Any]) 
     if state not in {"PREPARED", "RUNNING", "EXECUTED_PENDING_AUDIT", "BLOCKED"}:
         raise RuntimeErrorEvidence(f"unknown lifecycle state: {state}")
     transitions = {"PREPARED": {"RUNNING", "BLOCKED"}, "RUNNING": {"EXECUTED_PENDING_AUDIT", "BLOCKED"},
-                   "EXECUTED_PENDING_AUDIT": set(), "BLOCKED": set()}
+                   "EXECUTED_PENDING_AUDIT": {"BLOCKED"}, "BLOCKED": set()}
     state_path = control_root / "state.json"
     if state_path.exists():
         previous = read_json(state_path).get("state")
         if previous not in transitions or state not in transitions[previous]:
             raise RuntimeErrorEvidence(f"invalid lifecycle transition: {previous} -> {state}")
+        if previous == "EXECUTED_PENDING_AUDIT" and state == "BLOCKED" and detail.get("closure_failure") is not True:
+            raise RuntimeErrorEvidence("pending-audit state may become BLOCKED only after an explicit closure failure")
     elif state != "PREPARED":
         raise RuntimeErrorEvidence("first lifecycle state must be PREPARED")
     record = {"schema_version": 1, "kind": "experiment-lifecycle", "state": state, "recorded_utc": utc_now(), "detail": detail}

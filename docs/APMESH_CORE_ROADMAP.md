@@ -303,7 +303,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / ADMISSION HARDENING PASS / QUALIFICATION NOT PREPARED`
+Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / ADMISSION CORRECTIONS IMPLEMENTED / QUALIFICATION NOT PREPARED`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -325,9 +325,10 @@ gates qualify only Point and Vector Semantics, require one fixed four-cell run
 with three independent focused processes per cell, and reuse the current
 Foundation contract tests without repeating the full historical REC campaign.
 The profile enumerates the fixed cases; the exporter carries expected and
-observed fields; and the launcher binds the four-by-three matrix, Foundation
-authorities, dependencies, partial evidence, and detached retention. The
-focused `geometry;contract` set validates this hardening in GCC Debug. No
+observed fields; and the launcher binds the four-by-three matrix, Geometry and
+Foundation authorities, planned/observed inventories, partial evidence, and
+detached retention. The focused `geometry;contract` set validates these
+admission corrections in GCC Debug. No
 formal manifest, qualification execution, or scientific gate decision exists
 yet.
 
@@ -580,7 +581,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / review and publish bounded Point/Vector qualification infrastructure**
+**Geometry Primitives — Exact Semantics Before Curves / re-audit corrected Point/Vector qualification admission**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only

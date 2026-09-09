@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Audit the hardened Point/Vector admission package before any formal preparation.**
+**Re-audit the corrected Point/Vector admission package before any formal preparation.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -66,9 +66,10 @@ contract passed on GCC/Clang Debug/Release. The revision-bound Point/Vector
 qualification protocol is pre-registered; its evidence infrastructure and
 formal execution remain pending, and the complete stage remains unqualified.
 The profile, exporter, report-only comparer, `PREPARED`-only launcher, and
-focused contracts now pass after hardening the matrix, Foundation authorities,
-dependency records, partial failures, and detached retention. No formal
-manifest or qualification execution exists.
+focused contracts now pass after hardening the matrix, Geometry and Foundation
+authorities, planned/observed inventories, independently recomputed proximity
+evidence, partial failures, and detached retention. No formal manifest or
+qualification execution exists.
 
 Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced
@@ -178,10 +179,10 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: audit the hardened Point/Vector admission package. The
+Current first action: audit the corrected Point/Vector admission package. The
 formal regression remains blocked.
 
-1. Audit the hardened Point/Vector qualification admission package on
+1. Audit the corrected Point/Vector qualification admission package on
 `geometry/point-vector-semantics` before any formal preparation. Do not
 execute the formal regression and do not add matrices, transforms, predicates,
 topology, curves, surfaces, meshing, or the stage regression.

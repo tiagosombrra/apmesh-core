@@ -34,6 +34,7 @@ SEPARATION = {
     "vector_scaling": True, "point_displacement_vector": True,
 }
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
+NORMALIZE_THREE_FOUR_POLICY = {"relative_limit": "0x1p-52", "absolute_limit": "0x0p+0"}
 
 
 def reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -272,6 +273,34 @@ def validate_result(value: Any, expected: tuple[str, str | None, list[str] | Non
             raise EvidenceError(f"{context}[{index}] differs")
 
 
+def validate_normalize_three_four_proximity(comparison: dict[str, Any], expected: dict[str, Any], observed: dict[str, Any]) -> None:
+    if comparison["exact_match"] is not False or comparison["policy"] != NORMALIZE_THREE_FOUR_POLICY:
+        raise EvidenceError("normalize_three_four proximity policy differs")
+    if expected["outcome"] != "value" or observed["outcome"] != "value":
+        raise EvidenceError("normalize_three_four proximity requires successful values")
+    expected_values = [as_hex(value, "normalize_three_four expected") for value in expected["value"]]
+    observed_values = [as_hex(value, "normalize_three_four observed") for value in observed["value"]]
+    if len(expected_values) != 2 or len(observed_values) != 2:
+        raise EvidenceError("normalize_three_four proximity arity differs")
+    reference_scale = math.hypot(*expected_values)
+    residual = math.hypot(*(actual - reference for actual, reference in zip(observed_values, expected_values, strict=True)))
+    absolute_limit = as_hex(NORMALIZE_THREE_FOUR_POLICY["absolute_limit"], "normalize_three_four absolute limit")
+    relative_limit = as_hex(NORMALIZE_THREE_FOUR_POLICY["relative_limit"], "normalize_three_four relative limit")
+    limit = absolute_limit + relative_limit * reference_scale
+    if not all(math.isfinite(value) for value in (reference_scale, residual, limit)):
+        raise EvidenceError("normalize_three_four proximity calculation is non-finite")
+    recorded = {
+        "reference_scale": as_hex(comparison["reference_scale"], "normalize_three_four comparison reference_scale"),
+        "residual": as_hex(comparison["residual"], "normalize_three_four comparison residual"),
+        "limit": as_hex(comparison["limit"], "normalize_three_four comparison limit"),
+    }
+    expected_fields = {"reference_scale": reference_scale, "residual": residual, "limit": limit}
+    if any(recorded[key] != value for key, value in expected_fields.items()):
+        raise EvidenceError("normalize_three_four proximity evidence differs")
+    if residual > limit:
+        raise EvidenceError("normalize_three_four violates the declared proximity bound")
+
+
 def validate_certificate(path: pathlib.Path, profile: dict[str, Any] | None = None) -> dict[str, Any]:
     value = read_json(path)
     if not isinstance(value, dict):
@@ -309,10 +338,9 @@ def validate_certificate(path: pathlib.Path, profile: dict[str, Any] | None = No
         if comparison["rule"] != metadata["comparison_rule"]:
             raise EvidenceError(f"{case_id} comparison rule differs")
         if approximate:
-            if comparison["exact_match"] is not False or comparison["policy"] != {"relative_limit": "0x1p-52", "absolute_limit": "0x1p-52"}:
-                raise EvidenceError(f"{case_id} proximity policy differs")
-            for key in ("reference_scale", "residual", "limit"):
-                as_hex(comparison[key], f"{case_id} comparison {key}")
+            if case_id != "normalize_three_four":
+                raise EvidenceError(f"unexpected proximity case: {case_id}")
+            validate_normalize_three_four_proximity(comparison, entry["expected"], entry["observed"])
         elif comparison != {"rule": "exact", "exact_match": True, "policy": None, "reference_scale": None, "residual": None, "limit": None}:
             raise EvidenceError(f"{case_id} exact comparison differs")
         cases[case_id] = entry
@@ -394,11 +422,26 @@ def negative_self_check(profile: pathlib.Path, certificate: pathlib.Path, compil
             validate_compile_commands(altered_commands_path)
         except EvidenceError:
             commands_blocked = True
-    if not certificate_blocked or not commands_blocked:
+        altered_proximity = read_json(certificate)
+        for case in altered_proximity["cases"]:
+            if case["id"] == "normalize_three_four":
+                case["comparison"]["residual"] = "0x1p+0"
+                break
+        else:
+            raise EvidenceError("normalize_three_four fixture is absent")
+        altered_proximity_path = root / "forged-proximity-certificate.json"
+        write_json(altered_proximity_path, altered_proximity)
+        proximity_blocked = False
+        try:
+            validate_certificate(altered_proximity_path, validated)
+        except EvidenceError:
+            proximity_blocked = True
+    if not certificate_blocked or not commands_blocked or not proximity_blocked:
         raise EvidenceError("negative self-check did not reject malformed evidence")
     write_json(output, {"schema_version": 1, "kind": "geometry-point-vector-negative-fixtures",
                         "outcomes": [{"id": "duplicate_case", "result": "REJECTED"},
-                                     {"id": "unsafe_compile_flag", "result": "REJECTED"}]})
+                                     {"id": "unsafe_compile_flag", "result": "REJECTED"},
+                                     {"id": "forged_proximity", "result": "REJECTED"}]})
 
 
 def parse_arguments() -> argparse.Namespace:

@@ -51,6 +51,13 @@ def main() -> int:
         changed_certificate.write_text(json.dumps(changed), encoding="utf-8")
         run([sys.executable, arguments.tool, "validate-certificate", "--profile", arguments.profile, "--certificate", str(changed_certificate)], 1)
 
+        forged_proximity = json.loads(certificate.read_text(encoding="utf-8"))
+        next(case for case in forged_proximity["cases"] if case["id"] == "normalize_three_four")["comparison"]["limit"] = "0x1p+0"
+        forged_proximity_certificate = root / "forged-proximity-certificate.json"
+        forged_proximity_certificate.write_text(json.dumps(forged_proximity), encoding="utf-8")
+        run([sys.executable, arguments.tool, "validate-certificate", "--profile", arguments.profile,
+             "--certificate", str(forged_proximity_certificate)], 1)
+
         commands = json.loads(pathlib.Path(arguments.compile_commands).read_text(encoding="utf-8"))
         for entry in commands:
             if str(entry.get("file", "")).replace("\\", "/").endswith("src/core/geometry.cpp"):
@@ -63,7 +70,8 @@ def main() -> int:
              "--certificate", str(certificate), "--compile-commands", arguments.compile_commands,
              "--output", str(negative)], 0)
         if json.loads(negative.read_text(encoding="utf-8"))["outcomes"] != [
-            {"id": "duplicate_case", "result": "REJECTED"}, {"id": "unsafe_compile_flag", "result": "REJECTED"}
+            {"id": "duplicate_case", "result": "REJECTED"}, {"id": "unsafe_compile_flag", "result": "REJECTED"},
+            {"id": "forged_proximity", "result": "REJECTED"}
         ]:
             raise RuntimeError("negative fixture evidence differs")
     return 0

@@ -199,6 +199,37 @@ void write_expected(std::ostream& output, const std::string_view id, const std::
     write_values(output, inputs);
 }
 
+void write_exact_comparison(std::ostream& output) {
+    output << "\"rule\":\"exact\",\"exact_match\":true,\"policy\":null,\"reference_scale\":null,\"residual\":null,\"limit\":null";
+}
+
+template <typename Value>
+void write_comparison(std::ostream& output, const std::string_view,
+                      const std::expected<Value, GeometryError>&) {
+    write_exact_comparison(output);
+}
+
+void write_comparison(std::ostream& output, const std::string_view id,
+                      const std::expected<Vector2, GeometryError>& value) {
+    if (id != "normalize_three_four" || !value) {
+        write_exact_comparison(output);
+        return;
+    }
+
+    constexpr double expected_x = 0.6;
+    constexpr double expected_y = 0.8;
+    constexpr double absolute_limit = 0.0;
+    constexpr double relative_limit = 0x1p-52;
+    const double reference_scale = std::hypot(expected_x, expected_y);
+    const double residual = std::hypot(value->x() - expected_x, value->y() - expected_y);
+    const double limit = absolute_limit + relative_limit * reference_scale;
+    output << "\"rule\":\"proximity\",\"exact_match\":false,\"policy\":{\"relative_limit\":\""
+           << hex_value(relative_limit) << "\",\"absolute_limit\":\"" << hex_value(absolute_limit)
+           << "\"},\"reference_scale\":\"" << hex_value(reference_scale)
+           << "\",\"residual\":\"" << hex_value(residual)
+           << "\",\"limit\":\"" << hex_value(limit) << '\"';
+}
+
 template <typename Value>
 void write_case(std::ostream& output, bool& first, const std::string_view id,
                 const std::initializer_list<double> inputs,
@@ -213,11 +244,7 @@ void write_case(std::ostream& output, bool& first, const std::string_view id,
     output << "},\"observed\":{";
     write_observed(output, value);
     output << "},\"comparison\":{";
-    if (id == "normalize_three_four") {
-        output << "\"rule\":\"proximity\",\"exact_match\":false,\"policy\":{\"relative_limit\":\"0x1p-52\",\"absolute_limit\":\"0x1p-52\"},\"reference_scale\":\"0x1p0\",\"residual\":\"0x0p+0\",\"limit\":\"0x1p-52\"";
-    } else {
-        output << "\"rule\":\"exact\",\"exact_match\":true,\"policy\":null,\"reference_scale\":null,\"residual\":null,\"limit\":null";
-    }
+    write_comparison(output, id, value);
     output << "}}";
 }
 

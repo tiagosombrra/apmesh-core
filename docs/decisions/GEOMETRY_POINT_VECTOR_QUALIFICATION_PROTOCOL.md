@@ -1,6 +1,6 @@
 # Geometry Primitives — Point/Vector Qualification Protocol
 
-Status: ADMISSION HARDENING IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED
+Status: ADMISSION CORRECTIONS IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED
 Date: 2026-09-08
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Work unit: Qualify Point and Vector Semantics
@@ -50,8 +50,10 @@ whose upstream resolves to the same commit. The prepared manifest must bind:
 - the profile, runner, collector, comparer, focused C++ contract, public header,
   implementation source, CMake configuration, and all prerequisite authorities
   by SHA-256;
-- the exact toolchain identities, presets, compile commands, runtime dependency
-  inventory, working directory, environment observations, and output roots;
+- the exact toolchain identities, presets, planned compile-command paths, planned
+  runtime dependency executables, working directory, environment observations,
+  and output roots; the terminal package must separately hash-bind the observed
+  compile commands and runtime dependency inventory;
 - the fixed fixtures, repetitions, claim fields, equivalence rules, gates, and
   retained limitations in this protocol; and
 - `execution_requested=false` until a separately authorized launch consumes the
@@ -106,6 +108,12 @@ Expected results are encoded independently of production calls. Exact cases use
 declared exact components. Rounded cases record the reference value, reference
 scale, `ProximityPolicy`, residual, limit, and classification. No default epsilon
 or fixture-specific rescue is admissible.
+
+For `normalize_three_four`, the independent residual is the Euclidean norm of
+the observed-minus-expected components, the reference scale is the Euclidean
+norm of the expected unit vector, and `limit = absolute_limit +
+relative_limit * reference_scale`. The certificate and validator must both
+recompute these finite quantities.
 
 ## 6. Claim fields and equivalence
 
@@ -215,10 +223,12 @@ The bounded infrastructure now consists of a versioned, case-enumerating
 profile; an independent C++ certificate exporter with declared expected and
 observed fields; a report-only validator/comparer that requires all twelve
 fixed certificate slots; and a `PREPARED`-only launcher. The launcher binds
-current Foundation authorities, tool identities, candidate source inventory,
-compile-command checks, runtime dependency records, negative-fixture outcomes,
-partial command records, separate prepared/terminal manifests, and a
-detached-worktree retention seal.
+the Geometry Primitives entry authority and current Foundation authorities,
+tool identities, candidate source inventory, planned artifact inventories,
+observed compile-command and runtime-dependency hashes, negative-fixture
+outcomes, partial command records, separate prepared/terminal manifests, and a
+detached-worktree retention seal. A closure/retention failure is recorded as
+explicit `BLOCKED` evidence rather than leaving a pending-audit state behind.
 
 Focused contracts now pass; this remains tooling and focused-contract evidence only. No formal manifest was
 prepared, no qualification cell was launched, and no `PV0`–`PV7` scientific
@@ -226,6 +236,6 @@ gate changed status.
 
 ## 13. Next bounded action
 
-Audit the hardened admission package against this protocol and explicitly
+Audit the corrected admission package against this protocol and explicitly
 authorize or block creation of one `PREPARED` manifest. Do not execute the
 formal qualification regression.

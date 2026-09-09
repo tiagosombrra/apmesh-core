@@ -74,6 +74,7 @@ def input_paths(arguments: argparse.Namespace, source_root: pathlib.Path) -> dic
         "geometry_header": source_root / "include/apmesh/core/geometry.hpp",
         "geometry_source": source_root / "src/core/geometry.cpp",
         "geometry_contract": source_root / "tests/geometry_primitives.cpp",
+        "geometry_entry_authority": source_root / "docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md",
         "architecture_authority": source_root / "docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md",
         "numeric_authority": source_root / "docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md",
         "reproducibility_authority": source_root / "docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md",
@@ -140,6 +141,21 @@ def expected_slots(profile: dict[str, Any]) -> list[dict[str, Any]]:
             for repetition in range(1, profile["repetitions_per_configuration"] + 1)]
 
 
+def planned_inventories(plan: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "schema_version": 1,
+        "kind": "geometry-point-vector-planned-inventories",
+        "cells": [
+            {
+                "cell": cell["name"],
+                "compile_commands_path": f"cells/{cell['name']}/build/compile_commands.json",
+                "runtime_dependency_executables": cell["dependency_executables"],
+            }
+            for cell in plan
+        ],
+    }
+
+
 def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]]:
     source_root = pathlib.Path(arguments.source_root).resolve()
     output_root = pathlib.Path(arguments.output_root).resolve()
@@ -151,7 +167,7 @@ def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]
     environment = environment_identity()
     output_root.mkdir(parents=True)
     manifest = {
-        "schema_version": 2,
+        "schema_version": 3,
         "kind": "geometry-point-vector-prepared-manifest",
         "state": "PREPARED",
         "execution_requested": False,
@@ -162,6 +178,7 @@ def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]
         "output_root": str(output_root),
         "limits_seconds": {"build": BUILD_TIMEOUT_SECONDS, "process": PROCESS_TIMEOUT_SECONDS, "overall": OVERALL_TIMEOUT_SECONDS},
         "plan": command_plan(profile, source_root),
+        "planned_inventories": planned_inventories(command_plan(profile, source_root)),
         "expected_certificate_slots": expected_slots(profile),
         "gates": {gate: "NOT_EXECUTED" for gate in profile["gates"]},
         "retained_limitations": profile["limitations"],
@@ -182,10 +199,10 @@ def load_prepared(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str
     profile = validate_profile(profile_path)
     expected_keys = {
         "schema_version", "kind", "state", "execution_requested", "candidate", "inputs", "environment",
-        "working_directory", "output_root", "limits_seconds", "plan", "expected_certificate_slots", "gates",
+        "working_directory", "output_root", "limits_seconds", "plan", "planned_inventories", "expected_certificate_slots", "gates",
         "retained_limitations", "prepared_utc",
     }
-    if set(manifest) != expected_keys or manifest["schema_version"] != 2 or manifest["kind"] != "geometry-point-vector-prepared-manifest":
+    if set(manifest) != expected_keys or manifest["schema_version"] != 3 or manifest["kind"] != "geometry-point-vector-prepared-manifest":
         raise fail("prepared manifest schema differs")
     if manifest["state"] != "PREPARED" or manifest["execution_requested"] is not False:
         raise fail("manifest is not an executable PREPARED manifest")
@@ -194,7 +211,9 @@ def load_prepared(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str
     if manifest["environment"] != environment_identity() or manifest["working_directory"] != str(source_root) or manifest["output_root"] != str(output_root):
         raise fail("prepared execution environment differs")
     verify_input_identity(manifest["inputs"], input_paths(arguments, source_root))
-    if manifest["plan"] != command_plan(profile, source_root) or manifest["expected_certificate_slots"] != expected_slots(profile):
+    if (manifest["plan"] != command_plan(profile, source_root) or
+            manifest["planned_inventories"] != planned_inventories(manifest["plan"]) or
+            manifest["expected_certificate_slots"] != expected_slots(profile)):
         raise fail("prepared manifest plan differs")
     if manifest["gates"] != {gate: "NOT_EXECUTED" for gate in profile["gates"]} or manifest["retained_limitations"] != profile["limitations"]:
         raise fail("prepared manifest claims differ")
@@ -247,6 +266,68 @@ def seal_output(output_root: pathlib.Path, source_root: pathlib.Path, manifest: 
             "detached_verification": "detached-verification.json"}
 
 
+def artifact_path(output_root: pathlib.Path, relative: str, context: str) -> pathlib.Path:
+    if not isinstance(relative, str):
+        raise fail(f"{context} path differs")
+    path = (output_root / relative).resolve()
+    try:
+        path.relative_to(output_root.resolve())
+    except ValueError as error:
+        raise fail(f"{context} path escapes output root") from error
+    if not path.is_file():
+        raise fail(f"{context} artifact is absent")
+    return path
+
+
+def verify_observed_inventories(output_root: pathlib.Path, manifest: dict[str, Any], observed: Any,
+                                dependency_inventory: dict[str, Any], dependency_inventory_path: pathlib.Path) -> None:
+    planned = manifest["planned_inventories"]
+    if not isinstance(observed, list) or not isinstance(planned, dict) or not isinstance(planned.get("cells"), list):
+        raise fail("observed inventory schema differs")
+    expected_cells = planned["cells"]
+    if len(observed) != len(expected_cells):
+        raise fail("observed inventory cell count differs")
+    normalized_dependencies: list[dict[str, Any]] = []
+    for expected, actual in zip(expected_cells, observed, strict=True):
+        if not isinstance(expected, dict) or not isinstance(actual, dict):
+            raise fail("inventory cell differs")
+        if set(actual) != {"cell", "compile_commands", "runtime_dependencies"} or actual["cell"] != expected.get("cell"):
+            raise fail("observed inventory cell identity differs")
+        compile_commands = actual["compile_commands"]
+        if not isinstance(compile_commands, dict) or set(compile_commands) != {"path", "sha256"}:
+            raise fail("observed compile-command inventory differs")
+        if compile_commands["path"] != expected.get("compile_commands_path"):
+            raise fail("observed compile-command path differs")
+        compile_commands_path = artifact_path(output_root, compile_commands["path"], "observed compile-command")
+        if sha256_file(compile_commands_path) != compile_commands["sha256"]:
+            raise fail("observed compile-command hash differs")
+        dependencies = actual["runtime_dependencies"]
+        expected_executables = expected.get("runtime_dependency_executables")
+        if not isinstance(dependencies, list) or not isinstance(expected_executables, list) or len(dependencies) != len(expected_executables):
+            raise fail("observed runtime dependency count differs")
+        for executable_name, dependency in zip(expected_executables, dependencies, strict=True):
+            if not isinstance(dependency, dict) or set(dependency) != {"executable", "path", "sha256", "ldd_record"}:
+                raise fail("observed runtime dependency schema differs")
+            if dependency["executable"] != executable_name:
+                raise fail("observed runtime dependency identity differs")
+            expected_path = f"cells/{actual['cell']}/build/{executable_name}"
+            if dependency["path"] != expected_path:
+                raise fail("observed runtime dependency path differs")
+            executable_path = artifact_path(output_root, dependency["path"], "observed runtime dependency")
+            if sha256_file(executable_path) != dependency["sha256"]:
+                raise fail("observed runtime dependency hash differs")
+            record = dependency["ldd_record"]
+            if (not isinstance(record, dict) or record.get("stage") != f"ldd-{executable_name}" or
+                    record.get("exit_code") != 0 or record.get("timed_out") is not False or record.get("launch_error") is not None):
+                raise fail("observed runtime dependency command record differs")
+        normalized_dependencies.append({"cell": actual["cell"], "dependencies": dependencies})
+    if (dependency_inventory != {"schema_version": 1, "kind": "geometry-point-vector-runtime-dependencies",
+                                 "candidate_commit": manifest["candidate"]["commit"], "cells": normalized_dependencies}):
+        raise fail("runtime dependency inventory differs")
+    if not dependency_inventory_path.is_file():
+        raise fail("runtime dependency inventory is absent")
+
+
 def verify_retention(output_root: pathlib.Path, source_root: pathlib.Path) -> None:
     prepared = read_json(output_root / "prepared-manifest.json")
     terminal = read_json(output_root / "terminal-manifest.json")
@@ -263,6 +344,18 @@ def verify_retention(output_root: pathlib.Path, source_root: pathlib.Path) -> No
             retention.get("prepared_manifest_sha256") != sha256_file(output_root / "prepared-manifest.json") or
             not isinstance(retention.get("files"), list)):
         raise fail("retention manifest identity differs")
+    if prepared.get("schema_version") == 3 and terminal.get("state") == "EXECUTED_PENDING_AUDIT":
+        execution = terminal.get("execution")
+        if not isinstance(execution, dict):
+            raise fail("terminal execution evidence differs")
+        inventories = execution.get("observed_inventories")
+        runtime_inventory = execution.get("runtime_dependencies")
+        if not isinstance(runtime_inventory, dict) or set(runtime_inventory) != {"path", "sha256"}:
+            raise fail("terminal runtime dependency reference differs")
+        runtime_path = artifact_path(output_root, runtime_inventory["path"], "terminal runtime dependency")
+        if sha256_file(runtime_path) != runtime_inventory["sha256"]:
+            raise fail("terminal runtime dependency hash differs")
+        verify_observed_inventories(output_root, prepared, inventories, read_json(runtime_path), runtime_path)
     expected_paths = {"retention-manifest.json"}
     for row in retention["files"]:
         if not isinstance(row, dict) or set(row) != {"path", "sha256", "size"} or not isinstance(row["path"], str):
@@ -304,11 +397,16 @@ def execute(arguments: argparse.Namespace, output_root: pathlib.Path, manifest: 
     write_state(output_root, "RUNNING", {"candidate_commit": manifest["candidate"]["commit"], "started_utc": started_utc})
     try:
         for plan_cell in manifest["plan"]:
-            cell = {"cell": plan_cell["name"], "state": "RUNNING", "records": [], "certificates": [], "negative_fixtures": None, "dependencies": []}
+            cell = {"cell": plan_cell["name"], "state": "RUNNING", "records": [], "certificates": [], "negative_fixtures": None,
+                    "compile_commands": None, "dependencies": []}
             records.append(cell)
             write_progress()
             for stage in ("configure", "compile_command_validation", "build"):
                 record_command(cell, replace_output_root(plan_cell[stage], output_root), stage, BUILD_TIMEOUT_SECONDS)
+            compile_commands = output_root / "cells" / cell["cell"] / "build" / "compile_commands.json"
+            if not compile_commands.is_file():
+                raise fail(f"{cell['cell']} compile-command inventory is absent")
+            cell["compile_commands"] = {"path": relative_path(output_root, compile_commands), "sha256": sha256_file(compile_commands)}
             for repetition in range(1, plan_cell["repetitions"] + 1):
                 record_command(cell, replace_output_root(plan_cell["focused_ctest"], output_root), f"focused-ctest-{repetition}", PROCESS_TIMEOUT_SECONDS)
                 certificate = output_root / "cells" / cell["cell"] / f"certificate-{repetition}.json"
@@ -341,7 +439,8 @@ def execute(arguments: argparse.Namespace, output_root: pathlib.Path, manifest: 
         certificate_entries = [certificate for cell in records for certificate in cell["certificates"]]
         index = output_root / "certificate-index.json"
         write_json(index, {"schema_version": 1, "kind": "geometry-point-vector-certificate-index", "entries": certificate_entries})
-        comparison_cell = {"cell": "cross-cell-comparison", "state": "RUNNING", "records": [], "certificates": [], "negative_fixtures": None, "dependencies": []}
+        comparison_cell = {"cell": "cross-cell-comparison", "state": "RUNNING", "records": [], "certificates": [], "negative_fixtures": None,
+                           "compile_commands": None, "dependencies": []}
         records.append(comparison_cell)
         report = output_root / "report.md"
         record_command(comparison_cell, [sys.executable, str(pathlib.Path(arguments.validator).resolve()), "compare",
@@ -349,16 +448,24 @@ def execute(arguments: argparse.Namespace, output_root: pathlib.Path, manifest: 
                        "compare", PROCESS_TIMEOUT_SECONDS)
         comparison_cell["state"] = "PASS"
         dependency_inventory = output_root / "runtime-dependencies.json"
-        write_json(dependency_inventory, {"schema_version": 1, "kind": "geometry-point-vector-runtime-dependencies",
-                                          "candidate_commit": manifest["candidate"]["commit"],
-                                          "cells": [{"cell": cell["cell"], "dependencies": cell["dependencies"]} for cell in records if cell["cell"] != "cross-cell-comparison"]})
+        observed_inventories = [
+            {"cell": cell["cell"], "compile_commands": cell["compile_commands"], "runtime_dependencies": cell["dependencies"]}
+            for cell in records if cell["cell"] != "cross-cell-comparison"
+        ]
+        dependency_inventory_value = {"schema_version": 1, "kind": "geometry-point-vector-runtime-dependencies",
+                                      "candidate_commit": manifest["candidate"]["commit"],
+                                      "cells": [{"cell": entry["cell"], "dependencies": entry["runtime_dependencies"]}
+                                                for entry in observed_inventories]}
+        write_json(dependency_inventory, dependency_inventory_value)
+        verify_observed_inventories(output_root, manifest, observed_inventories, dependency_inventory_value, dependency_inventory)
         terminal = {
-            "schema_version": 2, "kind": "geometry-point-vector-terminal-manifest",
+            "schema_version": 3, "kind": "geometry-point-vector-terminal-manifest",
             "state": "EXECUTED_PENDING_AUDIT", "candidate": manifest["candidate"],
             "prepared_manifest_sha256": sha256_file(output_root / "prepared-manifest.json"),
             "execution": {"started_utc": started_utc, "ended_utc": utc_now(), "records": records,
                           "certificate_index": "certificate-index.json", "report": "report.md",
-                          "runtime_dependencies": "runtime-dependencies.json"},
+                          "observed_inventories": observed_inventories,
+                          "runtime_dependencies": {"path": "runtime-dependencies.json", "sha256": sha256_file(dependency_inventory)}},
             "gates": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in profile["gates"]},
             "retained_limitations": profile["limitations"],
             "retention_manifest": "retention-manifest.json",
@@ -368,16 +475,20 @@ def execute(arguments: argparse.Namespace, output_root: pathlib.Path, manifest: 
                                                              "terminal_manifest": "terminal-manifest.json"})
         seal_output(output_root, pathlib.Path(arguments.source_root).resolve(), manifest)
         return 0
-    except (EvidenceError, RuntimeErrorEvidence) as error:
+    except (EvidenceError, RuntimeErrorEvidence, OSError) as error:
         terminal = {
-            "schema_version": 2, "kind": "geometry-point-vector-terminal-manifest", "state": "BLOCKED",
+            "schema_version": 3, "kind": "geometry-point-vector-terminal-manifest", "state": "BLOCKED",
             "candidate": manifest["candidate"], "prepared_manifest_sha256": sha256_file(output_root / "prepared-manifest.json"),
             "execution": {"started_utc": started_utc, "ended_utc": utc_now(), "records": records, "reason": str(error)},
             "gates": {gate: "BLOCKED" for gate in profile["gates"]}, "retained_limitations": profile["limitations"],
             "retention_manifest": "retention-manifest.json",
         }
         write_json(output_root / "terminal-manifest.json", terminal)
-        write_state(output_root, "BLOCKED", {"reason": str(error), "terminal_manifest": "terminal-manifest.json"})
+        prior_state = read_json(output_root / "state.json").get("state")
+        detail = {"reason": str(error), "terminal_manifest": "terminal-manifest.json"}
+        if prior_state == "EXECUTED_PENDING_AUDIT":
+            detail["closure_failure"] = True
+        write_state(output_root, "BLOCKED", detail)
         try:
             seal_output(output_root, pathlib.Path(arguments.source_root).resolve(), manifest)
         except RuntimeErrorEvidence as retention_error:
