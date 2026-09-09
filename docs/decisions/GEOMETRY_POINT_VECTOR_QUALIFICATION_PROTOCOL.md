@@ -1,6 +1,6 @@
 # Geometry Primitives — Point/Vector Qualification Protocol
 
-Status: ADMISSION CORRECTIONS IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED
+Status: FORMAL ATTEMPT BLOCKED BY CONTRACT-SELECTION DEFECT / CORRECTION FOCUSED CONTRACT PASS / NOT RE-PREPARED
 Date: 2026-09-08
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Work unit: Qualify Point and Vector Semantics
@@ -78,8 +78,10 @@ Each cell executes the Point/Vector contract in three independent processes.
 The formal runner is launched once. A failed command stops the attempt and its
 partial evidence is retained; no automatic retry is permitted.
 
-Each cell also runs the current registered Foundation contract tests once on the
-same revision. The full historical REC campaign is not repeated here: its
+Each cell also runs the exact `foundation-preservation` CTest set once on the
+same revision. This set contains only the current Architecture, Numeric, and
+Reproducible Experiment contract tests; it excludes the historical Foundation
+preflight self-test. The full historical REC campaign is not repeated here: its
 general execution and retention contract is reused, while the later Geometry
 Primitives end-of-stage regression remains responsible for the cumulative
 stage campaign.
@@ -230,12 +232,30 @@ outcomes, partial command records, separate prepared/terminal manifests, and a
 detached-worktree retention seal. A closure/retention failure is recorded as
 explicit `BLOCKED` evidence rather than leaving a pending-audit state behind.
 
-Focused contracts now pass; this remains tooling and focused-contract evidence only. No formal manifest was
-prepared, no qualification cell was launched, and no `PV0`–`PV7` scientific
-gate changed status.
+The corrected selection passed its focused contracts; this remains tooling and
+focused-contract evidence only.
 
-## 13. Next bounded action
+## 13. Retained contract-selection incident
 
-Audit the corrected admission package against this protocol and explicitly
-authorize or block creation of one `PREPARED` manifest. Do not execute the
-formal qualification regression.
+The first prepared manifest, bound to candidate `b7f8fe9`, was launched once
+and stopped fail-fast in `gcc-debug` at the selected
+`foundation_end_to_end_evidence` CTest. Its terminal evidence is retained as
+`BLOCKED_BY_CONTRACT_SELECTION_DEFECT`.
+
+That CTest is a self-test of the historical Foundation preflight scope policy.
+It evaluates whether a candidate contains only Foundation-approved support
+changes relative to the accepted Foundation baseline. Point/Vector additions
+are intentionally outside that historical scope, so its failure does not test
+or contradict the Architecture, Numeric, or Reproducible Experiment contracts
+required by `PV6`.
+
+The corrected selector is an exact semantic label, guarded by a CTest discovery
+contract. It does not relax a PV6 requirement, alter Point/Vector behavior, or
+change the preserved blocked evidence. The failed manifest cannot be reused.
+No `PV0`–`PV7` scientific gate changed status.
+
+## 14. Next bounded action
+
+Validate the corrected PV6 selector and record the incident. Do not prepare or
+execute a new formal qualification until a separate admission audit authorizes
+a fresh manifest.

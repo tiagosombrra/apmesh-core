@@ -303,7 +303,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / ADMISSION CORRECTIONS IMPLEMENTED / QUALIFICATION NOT PREPARED`
+Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / FORMAL ATTEMPT BLOCKED BY CONTRACT-SELECTION DEFECT / CORRECTION FOCUSED CONTRACT PASS`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -323,13 +323,18 @@ The revision-bound work-unit protocol is pre-registered in
 `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`. Its `PV0`–`PV7`
 gates qualify only Point and Vector Semantics, require one fixed four-cell run
 with three independent focused processes per cell, and reuse the current
-Foundation contract tests without repeating the full historical REC campaign.
+Architecture/Numeric/Reproducible Experiment preservation contracts without
+repeating the full historical REC campaign.
 The profile enumerates the fixed cases; the exporter carries expected and
 observed fields; and the launcher binds the four-by-three matrix, Geometry and
 Foundation authorities, planned/observed inventories, partial evidence, and
-detached retention. The focused `geometry;contract` set validates these
-admission corrections in GCC Debug. No
-formal manifest, qualification execution, or scientific gate decision exists
+detached retention. A first formal attempt on `b7f8fe9` was retained as
+`BLOCKED_BY_CONTRACT_SELECTION_DEFECT`: the PV6 CTest selector admitted the
+historical Foundation preflight self-test, whose scope policy intentionally
+rejects later Geometry changes. The correction uses an exact semantic CTest
+label for Architecture/Numeric/Reproducible Experiment preservation and adds a
+discovery contract to prevent test leakage. Its focused validation passed; a
+fresh admission audit is still required, and no scientific gate decision exists
 yet.
 
 #### Point and Vector Semantics
@@ -581,7 +586,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / re-audit corrected Point/Vector qualification admission**
+**Geometry Primitives — Exact Semantics Before Curves / audit corrected Point/Vector PV6 preservation selection**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only

@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-08
+Last updated: 2026-09-09
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: `geometry/point-vector-semantics`
 
@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Re-audit the corrected Point/Vector admission package before any formal preparation.**
+**Correct the Point/Vector PV6 contract-selection defect before a fresh admission audit.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -63,13 +63,18 @@ implementation is limited to distinct `Point2`, `Point3`, `Vector2`, and
 explicit failures, and focused analytic evidence. Matrices, transforms,
 predicates, topology, curves, surfaces, and meshing remain blocked. The focused
 contract passed on GCC/Clang Debug/Release. The revision-bound Point/Vector
-qualification protocol is pre-registered; its evidence infrastructure and
-formal execution remain pending, and the complete stage remains unqualified.
+qualification protocol is pre-registered. Its first formal attempt on
+`b7f8fe9` stopped in `gcc-debug` because the PV6 selector included a historical
+Foundation preflight self-test rather than only the required Architecture,
+Numeric, and Reproducible Experiment contracts. The terminal evidence is
+retained as `BLOCKED_BY_CONTRACT_SELECTION_DEFECT`; the complete stage remains
+unqualified.
 The profile, exporter, report-only comparer, `PREPARED`-only launcher, and
 focused contracts now pass after hardening the matrix, Geometry and Foundation
 authorities, planned/observed inventories, independently recomputed proximity
-evidence, partial failures, and detached retention. No formal manifest or
-qualification execution exists.
+evidence, partial failures, and detached retention. The selector correction
+passed its focused validation. The failed manifest cannot be reused; no new
+manifest or qualification execution exists.
 
 Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced
@@ -179,13 +184,13 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: audit the corrected Point/Vector admission package. The
-formal regression remains blocked.
+Current first action: audit the corrected Point/Vector PV6 preservation selector.
+The formal regression remains blocked pending a fresh admission audit.
 
-1. Audit the corrected Point/Vector qualification admission package on
-`geometry/point-vector-semantics` before any formal preparation. Do not
-execute the formal regression and do not add matrices, transforms, predicates,
-topology, curves, surfaces, meshing, or the stage regression.
+1. Audit the corrected exact Architecture/Numeric/Reproducible Experiment PV6
+CTest set and preserve the `b7f8fe9` selection-defect evidence. Do not prepare
+or execute a new formal regression and do not add matrices, transforms,
+predicates, topology, curves, surfaces, meshing, or the stage regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are

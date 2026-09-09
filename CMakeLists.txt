@@ -112,6 +112,14 @@ if(BUILD_TESTING)
             --runtime ${CMAKE_CURRENT_SOURCE_DIR}/tools/experiment_runtime.py
     )
     add_test(
+        NAME apmesh_core.geometry_point_vector_foundation_preservation
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_point_vector_foundation_preservation_test.py
+            --ctest ${CMAKE_CTEST_COMMAND}
+            --build-dir ${CMAKE_BINARY_DIR}
+    )
+    add_test(
         NAME apmesh_core.numeric_contract_evidence
         COMMAND
             ${Python3_EXECUTABLE}
@@ -214,19 +222,20 @@ if(BUILD_TESTING)
         apmesh_core.bootstrap_export
         apmesh_core.bootstrap_tool
         apmesh_core.architecture_bootstrap_runner
-        PROPERTIES LABELS "bootstrap;contract"
+        PROPERTIES LABELS "bootstrap;contract;foundation-preservation"
     )
     set_tests_properties(
         apmesh_core.numeric_contract
         apmesh_core.numeric_contract_evidence
         apmesh_core.numeric_contract_runner
-        PROPERTIES LABELS "numeric;contract"
+        PROPERTIES LABELS "numeric;contract;foundation-preservation"
     )
     set_tests_properties(
         apmesh_core.geometry_primitives
         apmesh_core.geometry_point_vector_evidence
         apmesh_core.geometry_point_vector_runner
         apmesh_core.geometry_point_vector_retention
+        apmesh_core.geometry_point_vector_foundation_preservation
         PROPERTIES LABELS "geometry;contract"
     )
     set_tests_properties(
@@ -234,7 +243,7 @@ if(BUILD_TESTING)
         apmesh_core.reproducible_experiment_runner
         apmesh_core.reproducible_experiment_retention
         apmesh_core.reproducible_experiment_negatives
-        PROPERTIES LABELS "reproducibility;contract"
+        PROPERTIES LABELS "reproducibility;contract;foundation-preservation"
     )
     set_tests_properties(
         apmesh_core.foundation_end_to_end_evidence

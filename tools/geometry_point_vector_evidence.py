@@ -183,7 +183,7 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
         raise EvidenceError("profile execution matrix differs")
     if value["gates"] != [f"PV{number}" for number in range(8)]:
         raise EvidenceError("profile gates differ")
-    if value["focused_ctest_label"] != "geometry" or value["foundation_ctest_label"] != "bootstrap|numeric|reproducibility|foundation":
+    if value["focused_ctest_label"] != "geometry" or value["foundation_ctest_label"] != "foundation-preservation":
         raise EvidenceError("profile CTest labels differ")
     if not all(isinstance(value[key], list) for key in ("claim_fields", "volatile_fields", "limitations", "cases")):
         raise EvidenceError("profile lists are malformed")

@@ -94,6 +94,8 @@ def main() -> int:
                 any(cell.get("runtime_dependency_executables") != ["apmesh_core_geometry_point_vector_export", "apmesh_core.geometry_primitives", "apmesh_core_bootstrap_smoke", "apmesh_core_numeric_contract"]
                     for cell in inventories["cells"])):
             raise RuntimeError("launcher did not bind planned artifact inventories")
+        if any(cell["foundation_ctest"][3:5] != ["-L", "foundation-preservation"] for cell in manifest["plan"]):
+            raise RuntimeError("launcher did not bind the exact PV6 preservation test label")
         if (prepared / "state.json").read_text(encoding="utf-8").find('"PREPARED"') < 0:
             raise RuntimeError("PREPARED lifecycle state is absent")
 
