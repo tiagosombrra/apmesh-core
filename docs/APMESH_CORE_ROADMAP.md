@@ -303,7 +303,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / FOCUSED FOUR-CELL CONTRACT PASS / QUALIFICATION PROTOCOL PRE-REGISTERED`
+Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / FOCUSED CONTRACT PASS / QUALIFICATION INFRASTRUCTURE READY`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -324,7 +324,10 @@ The revision-bound work-unit protocol is pre-registered in
 gates qualify only Point and Vector Semantics, require one fixed four-cell run
 with three independent focused processes per cell, and reuse the current
 Foundation contract tests without repeating the full historical REC campaign.
-No profile, launcher, formal execution, or scientific decision exists yet.
+The profile, exporter, report-only comparer, `PREPARED`-only launcher, and
+focused contracts are implemented. The focused `geometry;contract` set passes
+in GCC Debug. No formal manifest, qualification execution, or scientific gate
+decision exists yet.
 
 #### Point and Vector Semantics
 
@@ -575,7 +578,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / implement bounded Point/Vector qualification evidence infrastructure**
+**Geometry Primitives — Exact Semantics Before Curves / review and publish bounded Point/Vector qualification infrastructure**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only

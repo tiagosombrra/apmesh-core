@@ -1,0 +1,40 @@
+{
+  "protocol_version": 1,
+  "kind": "geometry-point-vector-qualification-profile",
+  "repetitions_per_configuration": 3,
+  "configurations": [
+    {"name": "gcc-debug", "compiler": "GCC 13", "standard_library": "libstdc++", "build_type": "Debug"},
+    {"name": "gcc-release", "compiler": "GCC 13", "standard_library": "libstdc++", "build_type": "Release"},
+    {"name": "clang-debug", "compiler": "Clang 18", "standard_library": "libc++", "build_type": "Debug"},
+    {"name": "clang-release", "compiler": "Clang 18", "standard_library": "libc++", "build_type": "Release"}
+  ],
+  "gates": ["PV0", "PV1", "PV2", "PV3", "PV4", "PV5", "PV6", "PV7"],
+  "claim_fields": [
+    "candidate_identity",
+    "type_separation",
+    "finite_construction",
+    "affine_vector_algebra",
+    "norm_normalization_scale",
+    "failure_classification",
+    "cross_cell_equivalence",
+    "foundation_preservation"
+  ],
+  "volatile_fields": [
+    "compiler",
+    "build_type",
+    "standard_library",
+    "command_records",
+    "paths",
+    "pid",
+    "timestamps",
+    "duration",
+    "artifact_hashes"
+  ],
+  "focused_ctest_label": "geometry",
+  "foundation_ctest_label": "bootstrap|numeric|reproducibility|foundation",
+  "limitations": [
+    "WSL Ubuntu 24.04 GCC 13 and Clang 18 libc++ envelope only",
+    "No native Windows, parallel, topology, predicate, curve, surface, or meshing qualification",
+    "Point and Vector Semantics only; not the complete Geometry Primitives stage"
+  ]
+}

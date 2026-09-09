@@ -1,6 +1,6 @@
 # Geometry Primitives — Bounded Entry Decision
 
-Status: IMPLEMENTED / FOCUSED FOUR-CELL CONTRACT PASS / QUALIFICATION PROTOCOL PRE-REGISTERED
+Status: IMPLEMENTED / FOCUSED CONTRACT PASS / QUALIFICATION INFRASTRUCTURE READY
 Date: 2026-09-08
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Prerequisite: Foundation `QUALIFIED` at candidate `b333755`
@@ -181,8 +181,7 @@ does not qualify the complete Geometry Primitives stage.
 
 ## Next bounded action
 
-Implement the reusable report-only evidence and `PREPARED`-only execution
-infrastructure required by the Point/Vector qualification protocol. Run only
-focused tooling contracts; do not prepare or execute the formal qualification
+Review and publish the Point/Vector qualification infrastructure package. The
+focused contracts pass, but do not prepare or execute the formal qualification
 regression and do not implement matrices, transforms, predicates, topology,
 curves, or meshing.

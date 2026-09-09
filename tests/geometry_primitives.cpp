@@ -44,14 +44,15 @@ template <typename Value>
 concept Scalable = requires(Value value) { value * 2.0; };
 
 bool close(const double lhs, const double rhs) {
+    constexpr apmesh::core::ProximityPolicy normalized_three_four_policy{
+        .absolute_tolerance = 1.0e-15,
+        .relative_tolerance = 1.0e-15,
+        .reference_scale = 1.0,
+    };
     const auto comparison = apmesh::core::compare_proximity(
         lhs,
         rhs,
-        apmesh::core::ProximityPolicy{
-            .absolute_tolerance = 1.0e-15,
-            .relative_tolerance = 1.0e-15,
-            .reference_scale = 1.0,
-        });
+        normalized_three_four_policy);
     return comparison.has_value() && comparison->result == apmesh::core::ProximityResult::within;
 }
 
@@ -176,6 +177,21 @@ int main() {
                      "subnormal vector was not measured as nonzero") && passed;
     passed = require(tiny_normalized && tiny_normalized->x() == 1.0 && tiny_normalized->y() == 0.0,
                      "subnormal vector normalization differs") && passed;
+
+    for (const int exponent : {-500, -100, 0, 100, 500}) {
+        const double scale = std::ldexp(1.0, exponent);
+        const auto scaled = Vector2::make(scale, 0.0);
+        passed = require_value(scaled, "power-of-two vector construction failed") && passed;
+        if (!scaled) {
+            continue;
+        }
+        const auto scaled_length = apmesh::core::norm(*scaled);
+        const auto scaled_normalized = apmesh::core::normalize(*scaled);
+        passed = require(scaled_length && *scaled_length == scale,
+                         "power-of-two norm differs") && passed;
+        passed = require(scaled_normalized && scaled_normalized->x() == 1.0 && scaled_normalized->y() == 0.0,
+                         "power-of-two normalization differs") && passed;
+    }
 
     const double maximum = std::numeric_limits<double>::max();
     const double lowest = std::numeric_limits<double>::lowest();

@@ -51,6 +51,12 @@ add_executable(apmesh_core_numeric_contract_export
 target_link_libraries(apmesh_core_numeric_contract_export PRIVATE apmesh::core)
 apmesh_apply_target_defaults(apmesh_core_numeric_contract_export)
 
+add_executable(apmesh_core_geometry_point_vector_export
+    experiments/geometry_point_vector_export.cpp
+)
+target_link_libraries(apmesh_core_geometry_point_vector_export PRIVATE apmesh::core)
+apmesh_apply_target_defaults(apmesh_core_geometry_point_vector_export)
+
 include(CTest)
 if(BUILD_TESTING)
     find_package(Python3 3.10 COMPONENTS Interpreter REQUIRED)
@@ -76,6 +82,27 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.geometry_primitives)
 
     add_test(NAME apmesh_core.geometry_primitives COMMAND apmesh_core.geometry_primitives)
+    add_test(
+        NAME apmesh_core.geometry_point_vector_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_point_vector_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_geometry_point_vector_export>
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_point_vector_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/geometry_point_vector.json
+            --compile-commands ${CMAKE_BINARY_DIR}/compile_commands.json
+    )
+    add_test(
+        NAME apmesh_core.geometry_point_vector_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_point_vector_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_geometry_point_vector_qualification.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/geometry_point_vector.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/geometry_point_vector_export.cpp
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_point_vector_evidence.py
+    )
     add_test(
         NAME apmesh_core.numeric_contract_evidence
         COMMAND
@@ -189,6 +216,8 @@ if(BUILD_TESTING)
     )
     set_tests_properties(
         apmesh_core.geometry_primitives
+        apmesh_core.geometry_point_vector_evidence
+        apmesh_core.geometry_point_vector_runner
         PROPERTIES LABELS "geometry;contract"
     )
     set_tests_properties(

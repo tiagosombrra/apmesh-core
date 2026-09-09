@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Implement the bounded Point/Vector qualification evidence infrastructure.**
+**Review and publish the bounded Point/Vector qualification infrastructure.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -65,6 +65,9 @@ predicates, topology, curves, surfaces, and meshing remain blocked. The focused
 contract passed on GCC/Clang Debug/Release. The revision-bound Point/Vector
 qualification protocol is pre-registered; its evidence infrastructure and
 formal execution remain pending, and the complete stage remains unqualified.
+The profile, exporter, report-only comparer, `PREPARED`-only launcher, and
+focused contracts are now implemented; the focused `geometry;contract` set
+passes in GCC Debug. No formal manifest or qualification execution exists.
 
 Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced
@@ -174,15 +177,13 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: implement the reusable profile, certificate exporter,
-report-only collector/comparer, and `PREPARED`-only launcher for the
-pre-registered Point/Vector qualification protocol. Only focused tooling
-contracts may run in that work unit; the formal regression remains blocked.
+Current first action: review and publish the reusable Point/Vector evidence
+package. Its focused contracts pass; the formal regression remains blocked.
 
-1. Implement the bounded Point/Vector qualification evidence infrastructure on
-   `geometry/point-vector-semantics`. Do not prepare or execute the formal
-   regression and do not add matrices, transforms, predicates, topology,
-   curves, surfaces, meshing, or the stage regression.
+1. Review and publish the bounded Point/Vector qualification evidence
+   infrastructure on `geometry/point-vector-semantics`. Do not prepare or
+   execute the formal regression and do not add matrices, transforms,
+   predicates, topology, curves, surfaces, meshing, or the stage regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
