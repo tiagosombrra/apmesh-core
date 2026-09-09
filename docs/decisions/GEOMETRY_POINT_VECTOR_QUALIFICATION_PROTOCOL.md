@@ -1,6 +1,6 @@
 # Geometry Primitives — Point/Vector Qualification Protocol
 
-Status: INFRASTRUCTURE IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED
+Status: ADMISSION HARDENING IMPLEMENTED / FOCUSED CONTRACT PASS / NOT PREPARED / NOT EXECUTED
 Date: 2026-09-08
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Work unit: Qualify Point and Vector Semantics
@@ -209,24 +209,23 @@ evidence instead reopens the affected prerequisite explicitly.
 - This work-unit gate does not replace the mandatory Geometry Primitives
   end-of-stage regression.
 
-## 12. Implementation result
+## 12. Admission-hardening implementation result
 
-The bounded infrastructure now consists of the versioned profile
-`experiments/profiles/geometry_point_vector.json`, the independent C++
-certificate exporter, the report-only validator/comparer, the
-`PREPARED`-only launcher, and focused self-check contracts. The focused
-`geometry;contract` set passed in the GCC 13 Debug build and covers the
-Point/Vector C++ contract, certificate schema/oracle, compile-command safety,
-semantic comparison, occupied output-root rejection, and changed-candidate
-execution rejection.
+The bounded infrastructure now consists of a versioned, case-enumerating
+profile; an independent C++ certificate exporter with declared expected and
+observed fields; a report-only validator/comparer that requires all twelve
+fixed certificate slots; and a `PREPARED`-only launcher. The launcher binds
+current Foundation authorities, tool identities, candidate source inventory,
+compile-command checks, runtime dependency records, negative-fixture outcomes,
+partial command records, separate prepared/terminal manifests, and a
+detached-worktree retention seal.
 
-This is tooling and focused-contract evidence only. No formal manifest was
+Focused contracts now pass; this remains tooling and focused-contract evidence only. No formal manifest was
 prepared, no qualification cell was launched, and no `PV0`–`PV7` scientific
 gate changed status.
 
 ## 13. Next bounded action
 
-Implement one reusable evidence profile, certificate exporter, report-only
-collector/comparer, and `PREPARED`-only launcher for this fixed protocol. Run
-only focused tooling contracts during that implementation; do not prepare or
-execute the formal qualification regression.
+Audit the hardened admission package against this protocol and explicitly
+authorize or block creation of one `PREPARED` manifest. Do not execute the
+formal qualification regression.

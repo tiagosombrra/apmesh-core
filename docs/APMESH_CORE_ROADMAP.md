@@ -303,7 +303,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / FOCUSED CONTRACT PASS / QUALIFICATION INFRASTRUCTURE READY`
+Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / ADMISSION HARDENING PASS / QUALIFICATION NOT PREPARED`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -324,10 +324,12 @@ The revision-bound work-unit protocol is pre-registered in
 gates qualify only Point and Vector Semantics, require one fixed four-cell run
 with three independent focused processes per cell, and reuse the current
 Foundation contract tests without repeating the full historical REC campaign.
-The profile, exporter, report-only comparer, `PREPARED`-only launcher, and
-focused contracts are implemented. The focused `geometry;contract` set passes
-in GCC Debug. No formal manifest, qualification execution, or scientific gate
-decision exists yet.
+The profile enumerates the fixed cases; the exporter carries expected and
+observed fields; and the launcher binds the four-by-three matrix, Foundation
+authorities, dependencies, partial evidence, and detached retention. The
+focused `geometry;contract` set validates this hardening in GCC Debug. No
+formal manifest, qualification execution, or scientific gate decision exists
+yet.
 
 #### Point and Vector Semantics
 

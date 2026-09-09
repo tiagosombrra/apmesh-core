@@ -104,6 +104,14 @@ if(BUILD_TESTING)
             --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_point_vector_evidence.py
     )
     add_test(
+        NAME apmesh_core.geometry_point_vector_retention
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_point_vector_retention_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_geometry_point_vector_qualification.py
+            --runtime ${CMAKE_CURRENT_SOURCE_DIR}/tools/experiment_runtime.py
+    )
+    add_test(
         NAME apmesh_core.numeric_contract_evidence
         COMMAND
             ${Python3_EXECUTABLE}
@@ -218,6 +226,7 @@ if(BUILD_TESTING)
         apmesh_core.geometry_primitives
         apmesh_core.geometry_point_vector_evidence
         apmesh_core.geometry_point_vector_runner
+        apmesh_core.geometry_point_vector_retention
         PROPERTIES LABELS "geometry;contract"
     )
     set_tests_properties(

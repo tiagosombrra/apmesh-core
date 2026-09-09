@@ -73,7 +73,7 @@ void write_values(std::ostream& output, const std::initializer_list<double> valu
     output << ']';
 }
 
-void write_result(std::ostream& output, const std::expected<double, GeometryError>& value) {
+void write_observed(std::ostream& output, const std::expected<double, GeometryError>& value) {
     if (!value) {
         output << "\"outcome\":\"error\",\"error\":\"" << error_name(value.error())
                << "\",\"value\":null";
@@ -83,7 +83,7 @@ void write_result(std::ostream& output, const std::expected<double, GeometryErro
     write_values(output, {*value});
 }
 
-void write_result(std::ostream& output, const std::expected<Vector2, GeometryError>& value) {
+void write_observed(std::ostream& output, const std::expected<Vector2, GeometryError>& value) {
     if (!value) {
         output << "\"outcome\":\"error\",\"error\":\"" << error_name(value.error())
                << "\",\"value\":null";
@@ -93,7 +93,7 @@ void write_result(std::ostream& output, const std::expected<Vector2, GeometryErr
     write_values(output, {value->x(), value->y()});
 }
 
-void write_result(std::ostream& output, const std::expected<Vector3, GeometryError>& value) {
+void write_observed(std::ostream& output, const std::expected<Vector3, GeometryError>& value) {
     if (!value) {
         output << "\"outcome\":\"error\",\"error\":\"" << error_name(value.error())
                << "\",\"value\":null";
@@ -103,7 +103,7 @@ void write_result(std::ostream& output, const std::expected<Vector3, GeometryErr
     write_values(output, {value->x(), value->y(), value->z()});
 }
 
-void write_result(std::ostream& output, const std::expected<Point2, GeometryError>& value) {
+void write_observed(std::ostream& output, const std::expected<Point2, GeometryError>& value) {
     if (!value) {
         output << "\"outcome\":\"error\",\"error\":\"" << error_name(value.error())
                << "\",\"value\":null";
@@ -113,7 +113,7 @@ void write_result(std::ostream& output, const std::expected<Point2, GeometryErro
     write_values(output, {value->x(), value->y()});
 }
 
-void write_result(std::ostream& output, const std::expected<Point3, GeometryError>& value) {
+void write_observed(std::ostream& output, const std::expected<Point3, GeometryError>& value) {
     if (!value) {
         output << "\"outcome\":\"error\",\"error\":\"" << error_name(value.error())
                << "\",\"value\":null";
@@ -121,21 +121,104 @@ void write_result(std::ostream& output, const std::expected<Point3, GeometryErro
     }
     output << "\"outcome\":\"value\",\"error\":null,\"value\":";
     write_values(output, {value->x(), value->y(), value->z()});
+}
+
+bool ends_with(const std::string_view value, const std::string_view suffix) {
+    return value.size() >= suffix.size() && value.ends_with(suffix);
+}
+
+std::string_view operation_for(const std::string_view id) {
+    if (id.starts_with("point2_")) return "construct_point2";
+    if (id.starts_with("point3_")) return "construct_point3";
+    if (id.starts_with("vector2_")) return "construct_vector2";
+    if (id.starts_with("vector3_")) return "construct_vector3";
+    if (id == "affine_translation" || id == "overflow_point_translate") return "point_vector_addition";
+    if (id == "affine_inverse_translation" || id == "overflow_point_reverse_translate") return "point_vector_subtraction";
+    if (id == "point_displacement" || id == "overflow_point_displacement") return "point_point_subtraction";
+    if (id.starts_with("dot_") || id == "overflow_dot") return "dot";
+    if (id.starts_with("cross_") || id == "overflow_cross") return "cross";
+    if (id.starts_with("norm_") || ends_with(id, "_norm") || id == "overflow_norm") return "norm";
+    if (id.starts_with("normalize_") || ends_with(id, "_normalize")) return "normalize";
+    if (id == "overflow_vector_add") return "vector_addition";
+    if (id == "overflow_vector_subtract") return "vector_subtraction";
+    if (id == "overflow_vector_scale" || id == "scale_infinite") return "vector_scaling";
+    return "vector_division";
+}
+
+std::string_view category_for(const std::string_view id) {
+    if (id.starts_with("overflow_") || id == "division_by_zero" || id == "scale_infinite" || id == "divide_nan" ||
+        id == "normalize_positive_zero" || id == "normalize_mixed_zero") return "failure_classification";
+    if (id.starts_with("norm_") || id.starts_with("normalize_") || id.starts_with("power_two_")) return "norm_normalization_scale";
+    if (id.starts_with("point2_") || id.starts_with("point3_") || id.starts_with("vector2_") || id.starts_with("vector3_")) return "finite_construction";
+    return "affine_vector_algebra";
+}
+
+bool invalid_construction_case(const std::string_view id) {
+    return id.find("_nan_") != std::string_view::npos ||
+           id.find("_positive_infinity_") != std::string_view::npos ||
+           id.find("_negative_infinity_") != std::string_view::npos;
+}
+
+void write_expected(std::ostream& output, const std::string_view id, const std::initializer_list<double> inputs) {
+    if (invalid_construction_case(id) || id == "scale_infinite" || id == "divide_nan") {
+        output << "\"outcome\":\"error\",\"error\":\"non_finite_input\",\"value\":null";
+        return;
+    }
+    if (id == "normalize_positive_zero" || id == "normalize_mixed_zero") {
+        output << "\"outcome\":\"error\",\"error\":\"zero_length\",\"value\":null";
+        return;
+    }
+    if (id == "division_by_zero") {
+        output << "\"outcome\":\"error\",\"error\":\"division_by_zero\",\"value\":null";
+        return;
+    }
+    if (id.starts_with("overflow_")) {
+        output << "\"outcome\":\"error\",\"error\":\"non_finite_result\",\"value\":null";
+        return;
+    }
+    output << "\"outcome\":\"value\",\"error\":null,\"value\":";
+    if (id == "affine_translation") { write_values(output, {4.0, 2.0}); return; }
+    if (id == "affine_inverse_translation") { write_values(output, {1.0, -2.0}); return; }
+    if (id == "point_displacement") { write_values(output, {0.0, 0.0}); return; }
+    if (id == "dot_basis_same") { write_values(output, {1.0}); return; }
+    if (id == "dot_basis_distinct") { write_values(output, {0.0}); return; }
+    if (id == "cross_basis") { write_values(output, {0.0, 0.0, 1.0}); return; }
+    if (id == "cross_antisymmetry") { write_values(output, {0.0, 0.0, -1.0}); return; }
+    if (id == "cross_parallel") { write_values(output, {0.0, 0.0, 0.0}); return; }
+    if (id == "norm_three_four") { write_values(output, {5.0}); return; }
+    if (id == "normalize_three_four") { write_values(output, {0.6, 0.8}); return; }
+    if (id == "norm_subnormal") { write_values(output, {std::numeric_limits<double>::denorm_min()}); return; }
+    if (id == "normalize_subnormal") { write_values(output, {1.0, 0.0}); return; }
+    if (id.starts_with("power_two_")) {
+        const auto marker = id.substr(std::string_view{"power_two_"}.size(), 4);
+        const int exponent = marker == "m500" ? -500 : marker == "m100" ? -100 : marker == "p100" ? 100 : marker == "p500" ? 500 : 0;
+        if (ends_with(id, "_norm")) write_values(output, {std::ldexp(1.0, exponent)});
+        else write_values(output, {1.0, 0.0});
+        return;
+    }
+    write_values(output, inputs);
 }
 
 template <typename Value>
 void write_case(std::ostream& output, bool& first, const std::string_view id,
                 const std::initializer_list<double> inputs,
                 const std::expected<Value, GeometryError>& value) {
-    if (!first) {
-        output << ',';
-    }
+    if (!first) output << ',';
     first = false;
-    output << "{\"id\":\"" << id << "\",\"inputs\":";
+    output << "{\"id\":\"" << id << "\",\"operation\":\"" << operation_for(id)
+           << "\",\"claim_category\":\"" << category_for(id) << "\",\"inputs\":";
     write_values(output, inputs);
-    output << ',';
-    write_result(output, value);
-    output << '}';
+    output << ",\"expected\":{";
+    write_expected(output, id, inputs);
+    output << "},\"observed\":{";
+    write_observed(output, value);
+    output << "},\"comparison\":{";
+    if (id == "normalize_three_four") {
+        output << "\"rule\":\"proximity\",\"exact_match\":false,\"policy\":{\"relative_limit\":\"0x1p-52\",\"absolute_limit\":\"0x1p-52\"},\"reference_scale\":\"0x1p0\",\"residual\":\"0x0p+0\",\"limit\":\"0x1p-52\"";
+    } else {
+        output << "\"rule\":\"exact\",\"exact_match\":true,\"policy\":null,\"reference_scale\":null,\"residual\":null,\"limit\":null";
+    }
+    output << "}}";
 }
 
 int write_certificate(const std::string_view output_path) {
@@ -152,7 +235,7 @@ int write_certificate(const std::string_view output_path) {
     const double lowest = std::numeric_limits<double>::lowest();
     const double maximum = std::numeric_limits<double>::max();
 
-    output << "{\"schema_version\":1,\"kind\":\"geometry-point-vector-certificate\",";
+    output << "{\"schema_version\":2,\"kind\":\"geometry-point-vector-certificate\",";
     output << "\"environment\":{\"double_radix\":2,\"double_digits\":53,\"iec559\":true},";
     output << "\"separation\":{\"compiled_contract\":true,\"point_vector_conversion\":false,"
               "\"point_plus_point\":false,\"scalar_times_point\":false,"
