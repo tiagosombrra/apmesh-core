@@ -1,7 +1,7 @@
 # Geometry Primitives — Point/Vector Qualification Protocol
 
-Status: FORMAL ATTEMPT BLOCKED BY CONTRACT-SELECTION DEFECT / CORRECTION FOCUSED CONTRACT PASS / NOT RE-PREPARED
-Date: 2026-09-08
+Status: QUALIFIED / PV0–PV7 PASS / WSL Ubuntu 24.04
+Date: 2026-09-10
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Work unit: Qualify Point and Vector Semantics
 Entry authority: `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
@@ -252,10 +252,12 @@ required by `PV6`.
 The corrected selector is an exact semantic label, guarded by a CTest discovery
 contract. It does not relax a PV6 requirement, alter Point/Vector behavior, or
 change the preserved blocked evidence. The failed manifest cannot be reused.
-No `PV0`–`PV7` scientific gate changed status.
+No scientific gate changed status in that historical attempt. The independent
+`ededf65` execution and audit are recorded in
+`docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`.
 
 ## 14. Next bounded action
 
-Validate the corrected PV6 selector and record the incident. Do not prepare or
-execute a new formal qualification until a separate admission audit authorizes
-a fresh manifest.
+Point and Vector Semantics is qualified within the declared WSL envelope.
+Do not begin another Geometry Primitives component without a separate bounded
+entry decision. The Geometry Primitives stage regression remains required.

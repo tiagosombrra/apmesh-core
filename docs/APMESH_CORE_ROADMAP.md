@@ -303,7 +303,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR IMPLEMENTED / FORMAL ATTEMPT BLOCKED BY CONTRACT-SELECTION DEFECT / CORRECTION FOCUSED CONTRACT PASS`
+Status: `IN INVESTIGATION / POINT-VECTOR QUALIFIED / WSL Ubuntu 24.04`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -315,27 +315,29 @@ analytic evidence. It does not authorize topology, predicates, matrices,
 transforms, curves, surfaces, or meshing.
 
 The bounded point/vector implementation and its focused `geometry;contract`
-CTest passed on GCC/Clang Debug/Release in the qualified WSL envelope. This
-does not yet qualify cross-compiler claim equivalence, native Windows, or the
-Geometry Primitives stage regression.
+CTest passed on GCC/Clang Debug/Release in the qualified WSL envelope. Focused
+CTest evidence alone did not qualify cross-compiler claim equivalence, native
+Windows, or the Geometry Primitives stage regression.
 
-The revision-bound work-unit protocol is pre-registered in
+The revision-bound work-unit protocol is recorded in
 `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`. Its `PV0`–`PV7`
 gates qualify only Point and Vector Semantics, require one fixed four-cell run
 with three independent focused processes per cell, and reuse the current
 Architecture/Numeric/Reproducible Experiment preservation contracts without
 repeating the full historical REC campaign.
-The profile enumerates the fixed cases; the exporter carries expected and
-observed fields; and the launcher binds the four-by-three matrix, Geometry and
-Foundation authorities, planned/observed inventories, partial evidence, and
-detached retention. A first formal attempt on `b7f8fe9` was retained as
-`BLOCKED_BY_CONTRACT_SELECTION_DEFECT`: the PV6 CTest selector admitted the
-historical Foundation preflight self-test, whose scope policy intentionally
-rejects later Geometry changes. The correction uses an exact semantic CTest
-label for Architecture/Numeric/Reproducible Experiment preservation and adds a
-discovery contract to prevent test leakage. Its focused validation passed; a
-fresh admission audit is still required, and no scientific gate decision exists
-yet.
+The formal execution on clean published candidate `ededf65` passed PV0–PV7:
+four GCC/Clang Debug/Release cells, three independent focused processes per
+cell, twelve semantically equivalent certificates, the exact
+Foundation-preservation CTest set in every cell, and detached retention
+verification. The separate audit qualified only Point and Vector Semantics in
+the declared WSL envelope. The decision and retained limitations are recorded
+in `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`.
+
+A first formal attempt on `b7f8fe9` remains retained as
+`BLOCKED_BY_CONTRACT_SELECTION_DEFECT`: its PV6 selector admitted a historical
+Foundation preflight self-test whose scope intentionally excludes later
+Geometry changes. That incident is historical negative evidence; it was not
+reused or reclassified by the successful `ededf65` execution.
 
 #### Point and Vector Semantics
 
@@ -586,7 +588,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / audit corrected Point/Vector PV6 preservation selection**
+**Geometry Primitives — Exact Semantics Before Curves / Point and Vector Semantics qualified; no next Geometry component authorized**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -596,6 +598,8 @@ is QUALIFIED at 100% within the declared WSL envelope. The Reproducible
 Experiment Contract and its first two-replay/four-cell E0–E7 regression are
 qualified on candidate `85d215a`; that historical evidence remains the accepted
 comparison baseline. Foundation End-to-End passed its post-execution FND0–FND7
-audit on `b333755`, with retained scope limitations. The bounded Point/Vector
-layer is implemented but not qualified; no topology, curve, surface, or meshing
-algorithm is implemented.
+audit on `b333755`, with retained scope limitations. Point and Vector Semantics
+are QUALIFIED on `ededf65` only within the declared WSL Ubuntu 24.04 GCC 13 /
+Clang 18 libc++ envelope. Geometry Primitives remains IN INVESTIGATION: no
+matrix, transform, predicate, topology, curve, surface, or meshing algorithm
+is implemented or authorized by this qualification.
