@@ -394,6 +394,11 @@ def main() -> int:
         terminal = original_terminal
         evidence.write_json(campaign / "terminal-manifest.json", terminal)
         (campaign / "build" / "CMakeFiles").mkdir(parents=True); (campaign / "build" / "CMakeFiles" / "object.o").write_bytes(b"object")
+        consumer = campaign / "prerequisites" / "numeric-contract" / "architecture" / "cells" / "gcc-debug" / "consumer"
+        (consumer / "apmesh-core-build").mkdir(parents=True)
+        for name in ("CMakeCache.txt", "build.ninja", "cmake_install.cmake", "apmesh_core_external_consumer", "apmesh_core_unrelated_target"):
+            (consumer / name).write_bytes(b"scratch")
+        (consumer / "apmesh-core-build" / "libapmesh_core.a").write_bytes(b"scratch")
         # The execution checkout may later acquire unrelated untracked files.
         # Retention must reject that checkout by default, but may use a clean
         # revision-equivalent worktree supplied explicitly for verification.
@@ -417,7 +422,19 @@ def main() -> int:
             subprocess.run(("git", "worktree", "remove", "--force", str(verification)), cwd=source, check=True, capture_output=True)
         tool.verify(destination, profile_path)
         retained = json.loads((destination / "retention-manifest.json").read_text(encoding="utf-8"))
-        if not retained["files"][0]["source_path"].startswith(str(campaign)) or (destination / "build").exists():
+        excluded = retained.get("excluded_artifacts")
+        excluded_paths = {row["source_relative_path"] for row in excluded} if isinstance(excluded, list) else set()
+        expected_exclusions = {
+            "build/CMakeFiles/object.o",
+            "prerequisites/numeric-contract/architecture/cells/gcc-debug/consumer/CMakeCache.txt",
+            "prerequisites/numeric-contract/architecture/cells/gcc-debug/consumer/build.ninja",
+            "prerequisites/numeric-contract/architecture/cells/gcc-debug/consumer/cmake_install.cmake",
+            "prerequisites/numeric-contract/architecture/cells/gcc-debug/consumer/apmesh_core_external_consumer",
+            "prerequisites/numeric-contract/architecture/cells/gcc-debug/consumer/apmesh_core_unrelated_target",
+            "prerequisites/numeric-contract/architecture/cells/gcc-debug/consumer/apmesh-core-build/libapmesh_core.a",
+        }
+        if (not retained["files"][0]["source_path"].startswith(str(campaign)) or (destination / "build").exists() or
+                not expected_exclusions <= excluded_paths):
             raise RuntimeError("retention package did not preserve evidence policy")
         retained_summary = destination / "cells" / "gcc-debug" / "replay-1" / "summary.json"
         original_retained_summary = retained_summary.read_bytes()

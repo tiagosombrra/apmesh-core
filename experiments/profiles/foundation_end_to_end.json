@@ -4,7 +4,7 @@
   "accepted_baseline": {
     "path": "evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a",
     "candidate_commit": "85d215ad193619a0d9ddcf34235c0e815b6000c4",
-    "retention_manifest_sha256": "7921f20cb970c5d009f64187224c3ba13d9db416141b6d4b00289d80bf0a5e67"
+    "retention_manifest_sha256": "04f705bc9bd238adbcfd21837cac472f9c53eb889f2c797d5c99a9d61938395e"
   },
   "configurations": {
     "gcc-debug": "gcc",
@@ -61,7 +61,7 @@
     ],
     "verified_retained_prefix": {
       "path": "evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a",
-      "retention_manifest_sha256": "7921f20cb970c5d009f64187224c3ba13d9db416141b6d4b00289d80bf0a5e67"
+      "retention_manifest_sha256": "04f705bc9bd238adbcfd21837cac472f9c53eb889f2c797d5c99a9d61938395e"
     }
   },
   "qualified_authorities": [
