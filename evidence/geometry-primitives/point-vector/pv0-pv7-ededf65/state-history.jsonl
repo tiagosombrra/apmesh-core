@@ -1,0 +1,3 @@
+{"detail":{"candidate_commit":"ededf6584941de9dfe6a47633ffd67caf17d4f51","execution_requested":false,"prepared_manifest_sha256":"20b01cb46866ec70dd7bb3095c0ba2a59ca0e3bb3940e18186fd6f11f74874ae"},"kind":"experiment-lifecycle","recorded_utc":"2026-09-10T08:45:17+00:00","schema_version":1,"state":"PREPARED"}
+{"detail":{"candidate_commit":"ededf6584941de9dfe6a47633ffd67caf17d4f51","started_utc":"2026-09-10T08:52:18+00:00"},"kind":"experiment-lifecycle","recorded_utc":"2026-09-10T08:52:18+00:00","schema_version":1,"state":"RUNNING"}
+{"detail":{"candidate_commit":"ededf6584941de9dfe6a47633ffd67caf17d4f51","terminal_manifest":"terminal-manifest.json"},"kind":"experiment-lifecycle","recorded_utc":"2026-09-10T08:53:29+00:00","schema_version":1,"state":"EXECUTED_PENDING_AUDIT"}

@@ -16,6 +16,7 @@ import pathlib
 import shutil
 import subprocess
 import sys
+import time
 from dataclasses import dataclass
 from typing import Any
 
@@ -56,17 +57,36 @@ def canonical_bytes(value: Any) -> bytes:
 
 def run(command: list[str], *, cwd: pathlib.Path, timeout: int, stdout: pathlib.Path, stderr: pathlib.Path) -> dict[str, Any]:
     started = utc_now()
+    started_monotonic = time.monotonic()
+    evidence_root = stdout.parent.parent.parent if stdout.parent.parent.name == "cells" else stdout.parent
+    record = {"schema_version": 1, "kind": "qualified-command-record", "id": stdout.stem.removesuffix(".stdout"),
+              "command": command, "cwd": str(cwd.resolve()), "timeout_seconds": timeout,
+              "started_utc": started}
     try:
-        completed = subprocess.run(command, cwd=cwd, check=False, capture_output=True, timeout=timeout, text=False)
-        stdout.write_bytes(completed.stdout)
-        stderr.write_bytes(completed.stderr)
-        return {"command": command, "exit_code": completed.returncode, "started_utc": started,
-                "ended_utc": utc_now(), "stdout_sha256": sha256(stdout), "stderr_sha256": sha256(stderr)}
+        process = subprocess.Popen(command, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except OSError as error:
+        stdout.write_bytes(b""); stderr.write_bytes(b"")
+        return {**record, "pid": None, "exit_code": None, "ended_utc": utc_now(),
+                "elapsed_seconds": time.monotonic() - started_monotonic, "timed_out": False, "launch_error": str(error),
+                "stdout": {"path": str(stdout.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stdout)},
+                "stderr": {"path": str(stderr.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stderr)}}
+    try:
+        captured_stdout, captured_stderr = process.communicate(timeout=timeout)
+        stdout.write_bytes(captured_stdout)
+        stderr.write_bytes(captured_stderr)
+        return {**record, "pid": process.pid, "exit_code": process.returncode, "ended_utc": utc_now(),
+                "elapsed_seconds": time.monotonic() - started_monotonic, "timed_out": False, "launch_error": None,
+                "stdout": {"path": str(stdout.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stdout)},
+                "stderr": {"path": str(stderr.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stderr)}}
     except subprocess.TimeoutExpired as error:
-        stdout.write_bytes(error.stdout or b"")
-        stderr.write_bytes(error.stderr or b"")
-        return {"command": command, "exit_code": None, "timeout_seconds": timeout, "started_utc": started,
-                "ended_utc": utc_now(), "stdout_sha256": sha256(stdout), "stderr_sha256": sha256(stderr)}
+        process.kill()
+        captured_stdout, captured_stderr = process.communicate()
+        stdout.write_bytes(captured_stdout or error.stdout or b"")
+        stderr.write_bytes(captured_stderr or error.stderr or b"")
+        return {**record, "pid": process.pid, "exit_code": None, "ended_utc": utc_now(),
+                "elapsed_seconds": time.monotonic() - started_monotonic, "timed_out": True, "launch_error": None,
+                "stdout": {"path": str(stdout.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stdout)},
+                "stderr": {"path": str(stderr.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stderr)}}
 
 
 def require_clean_candidate(source_root: pathlib.Path) -> tuple[str, list[dict[str, str]]]:
@@ -157,6 +177,9 @@ def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]
     profile_path = pathlib.Path(arguments.profile).resolve()
     profile = validate_profile(profile_path)
     output_root.mkdir(parents=True)
+    expected_certificate = pathlib.Path(arguments.expected).resolve()
+    retained_expected_certificate = output_root / "expected-certificate.json"
+    shutil.copy2(expected_certificate, retained_expected_certificate)
     plan = command_plan(profile, source_root)
     manifest = {
         "schema_version": 1, "protocol_version": profile["protocol_version"], "state": "PREPARED",
@@ -164,10 +187,11 @@ def prepare(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any]
         "inputs": {
             "profile": {"path": str(profile_path), "sha256": sha256(profile_path)},
             "protocol": {"path": str(pathlib.Path(arguments.protocol).resolve()), "sha256": sha256(pathlib.Path(arguments.protocol))},
-            "expected_certificate": {"path": str(pathlib.Path(arguments.expected).resolve()), "sha256": sha256(pathlib.Path(arguments.expected))},
+            "expected_certificate": {"path": str(expected_certificate), "sha256": sha256(expected_certificate)},
             "comparer": {"path": str(pathlib.Path(arguments.comparer).resolve()), "sha256": sha256(pathlib.Path(arguments.comparer))},
             "launcher": {"path": str(pathlib.Path(__file__).resolve()), "sha256": sha256(pathlib.Path(__file__).resolve())},
         },
+        "evidence_inputs": {"expected_certificate": {"path": "expected-certificate.json", "sha256": sha256(retained_expected_certificate)}},
         "environment": {"python": sys.version.splitlines()[0], "python_path": str(pathlib.Path(sys.executable).resolve()),
                         "cmake": tool_version("cmake"), "ninja": tool_version("ninja"), "gcc": tool_version("g++-13"),
                         "clang": tool_version("clang++-18"), "pid": os.getpid(), "working_directory": str(pathlib.Path.cwd())},
@@ -256,7 +280,7 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
                 record = command_result([sys.executable, comparer, "validate", "--expected", expected, "--actual", str(certificate)], cwd=cell_root, timeout=PROCESS_TIMEOUT_SECONDS, root=cell_root, name=f"validate-{repeat + 1}")
                 cell_records.append(record)
                 require_success(record, f"{cell['name']} certificate validation {repeat + 1}")
-                certificates.append(str(certificate))
+                certificates.append(str(certificate.relative_to(output_root)))
             configuration = CONFIGURATIONS[cell["name"]]
             consumer_root = cell_root / "consumer"
             consumer_configure = ["cmake", "-S", str(source_root / "tests" / "consumer"), "-B", str(consumer_root), "-G", "Ninja", f"-DCMAKE_CXX_COMPILER={configuration.compiler}", f"-DAPMESH_CORE_SOURCE_DIR={source_root}", "-DBUILD_TESTING=OFF", f"-DAPMESH_USE_LIBCXX={'ON' if configuration.libcxx else 'OFF'}"]
@@ -274,10 +298,14 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
             compile_commands = build_root / "compile_commands.json"
             if not compile_commands.is_file():
                 raise EvidenceError(f"{cell['name']} compile commands are absent")
-            cell_records.append({"stage": "compile-commands", "sha256": sha256(compile_commands)})
-            records.append({"cell": cell["name"], "state": "PASS", "certificates": certificates, "records": cell_records})
+            retained_compile_commands = cell_root / "compile_commands.json"
+            shutil.copy2(compile_commands, retained_compile_commands)
+            cell_records.append({"stage": "compile-commands", "path": str(retained_compile_commands.relative_to(output_root)), "sha256": sha256(retained_compile_commands)})
+            records.append({"cell": cell["name"], "state": "PASS", "certificates": certificates,
+                            "certificate_artifacts": [{"path": certificate, "sha256": sha256(output_root / certificate)}
+                                                      for certificate in certificates], "records": cell_records})
 
-        all_certificates = [certificate for record in records for certificate in record["certificates"]]
+        all_certificates = [str(output_root / certificate) for record in records if "certificates" in record for certificate in record["certificates"]]
         report_one = output_root / "reports" / "one" / "certificate-report.md"
         report_two = output_root / "reports" / "two" / "certificate-report.md"
         for name, report in (("compare-one", report_one), ("compare-two", report_two)):

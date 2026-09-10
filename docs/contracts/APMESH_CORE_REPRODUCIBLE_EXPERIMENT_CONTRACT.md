@@ -1,8 +1,11 @@
 # AP Mesh Core — Reproducible Experiment Contract
 
-Status: SPECIFIED / IMPLEMENTATION PENDING
-Last updated: 2026-09-06
+Status: QUALIFIED / WSL Ubuntu 24.04
+Last updated: 2026-09-07
 Scope: Foundation evidence production before geometry implementation
+
+Normative amendment:
+`docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`
 
 ## 1. Question and boundary
 
@@ -170,6 +173,10 @@ Passing E0–E7 advances Foundation from 50% to 75% and authorizes preparation o
 the Foundation End-to-End Regression. Failure leaves Foundation at 50% and
 requires one bounded diagnosis of the failed gate.
 
+The first formal campaign passed E0–E7 on candidate `85d215a`. Its retained,
+revision-bound evidence is recorded in
+`evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a/`.
+
 ## 11. Retained limitations
 
 Initial qualification is limited to local WSL Ubuntu 24.04 execution using the
@@ -177,3 +184,20 @@ already qualified GCC 13/libstdc++ and Clang 18/libc++ Debug/Release cells. It
 does not qualify native Windows, other operating systems, distributed execution,
 external datasets, long-running mesh campaigns, stochastic algorithms,
 archival longevity, or independent institutional replication.
+
+## 12. Completeness and durable-retention amendment
+
+The completeness obligations, control/evidence-root separation, minimum shared
+runtime boundary, durable evidence classes, and formal-campaign admission gate
+are normative in
+`docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`.
+
+Gate evidence may be marked pending audit only after every obligation mapped to
+that gate has been checked. Replay comparison and cross-configuration comparison
+are both required. Qualified Architecture and Numeric protocols must run on the
+same candidate and be linked into the REC bundle. Focused tests alone do not
+satisfy E7.
+
+Canonical decision evidence must survive the temporary execution directory.
+Retention records candidate and archival revisions separately and never
+retroactively changes the classification of historical campaigns.

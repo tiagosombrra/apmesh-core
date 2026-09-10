@@ -17,6 +17,7 @@ endfunction()
 
 add_library(apmesh_core STATIC
     src/core/bootstrap.cpp
+    src/core/geometry.cpp
     src/core/numeric.cpp
 )
 add_library(apmesh::core ALIAS apmesh_core)
@@ -50,9 +51,15 @@ add_executable(apmesh_core_numeric_contract_export
 target_link_libraries(apmesh_core_numeric_contract_export PRIVATE apmesh::core)
 apmesh_apply_target_defaults(apmesh_core_numeric_contract_export)
 
+add_executable(apmesh_core_geometry_point_vector_export
+    experiments/geometry_point_vector_export.cpp
+)
+target_link_libraries(apmesh_core_geometry_point_vector_export PRIVATE apmesh::core)
+apmesh_apply_target_defaults(apmesh_core_geometry_point_vector_export)
+
 include(CTest)
 if(BUILD_TESTING)
-    find_package(Python3 3.8 COMPONENTS Interpreter REQUIRED)
+    find_package(Python3 3.10 COMPONENTS Interpreter REQUIRED)
 
     add_executable(apmesh_core_bootstrap_smoke
         tests/bootstrap_smoke.cpp
@@ -68,6 +75,50 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core_numeric_contract)
 
     add_test(NAME apmesh_core.numeric_contract COMMAND apmesh_core_numeric_contract)
+    add_executable(apmesh_core.geometry_primitives
+        tests/geometry_primitives.cpp
+    )
+    target_link_libraries(apmesh_core.geometry_primitives PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.geometry_primitives)
+
+    add_test(NAME apmesh_core.geometry_primitives COMMAND apmesh_core.geometry_primitives)
+    add_test(
+        NAME apmesh_core.geometry_point_vector_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_point_vector_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_geometry_point_vector_export>
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_point_vector_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/geometry_point_vector.json
+            --compile-commands ${CMAKE_BINARY_DIR}/compile_commands.json
+    )
+    add_test(
+        NAME apmesh_core.geometry_point_vector_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_point_vector_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_geometry_point_vector_qualification.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/geometry_point_vector.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/geometry_point_vector_export.cpp
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_point_vector_evidence.py
+    )
+    add_test(
+        NAME apmesh_core.geometry_point_vector_retention
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_point_vector_retention_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_geometry_point_vector_qualification.py
+            --runtime ${CMAKE_CURRENT_SOURCE_DIR}/tools/experiment_runtime.py
+    )
+    add_test(
+        NAME apmesh_core.geometry_point_vector_foundation_preservation
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_point_vector_foundation_preservation_test.py
+            --ctest ${CMAKE_CTEST_COMMAND}
+            --build-dir ${CMAKE_BINARY_DIR}
+    )
     add_test(
         NAME apmesh_core.numeric_contract_evidence
         COMMAND
@@ -92,6 +143,50 @@ if(BUILD_TESTING)
             --architecture-profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/architecture_bootstrap.json
             --architecture-expected ${CMAKE_CURRENT_SOURCE_DIR}/experiments/expected/bootstrap_certificate.json
             --architecture-comparer ${CMAKE_CURRENT_SOURCE_DIR}/tools/bootstrap_regression.py
+    )
+    add_test(
+        NAME apmesh_core.reproducible_experiment_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_evidence_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/reproducible_experiment_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
+    )
+    add_test(
+        NAME apmesh_core.reproducible_experiment_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_reproducible_experiment_contract.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
+            --contract ${CMAKE_CURRENT_SOURCE_DIR}/docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md
+            --collector ${CMAKE_CURRENT_SOURCE_DIR}/tools/reproducible_experiment_evidence.py
+    )
+    add_test(
+        NAME apmesh_core.reproducible_experiment_retention
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_retention_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/retain_experiment_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
+    )
+    add_test(
+        NAME apmesh_core.reproducible_experiment_negatives
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/reproducible_experiment_negatives_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/reproducible_experiment_negative.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
+    )
+    add_test(
+        NAME apmesh_core.foundation_end_to_end_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/foundation_end_to_end_evidence_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/foundation_end_to_end_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/foundation_end_to_end.json
+            --rec-profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/reproducible_experiment_contract.json
     )
     add_test(
         NAME apmesh_core.bootstrap_export
@@ -127,12 +222,31 @@ if(BUILD_TESTING)
         apmesh_core.bootstrap_export
         apmesh_core.bootstrap_tool
         apmesh_core.architecture_bootstrap_runner
-        PROPERTIES LABELS "bootstrap;contract"
+        PROPERTIES LABELS "bootstrap;contract;foundation-preservation"
     )
     set_tests_properties(
         apmesh_core.numeric_contract
         apmesh_core.numeric_contract_evidence
         apmesh_core.numeric_contract_runner
-        PROPERTIES LABELS "numeric;contract"
+        PROPERTIES LABELS "numeric;contract;foundation-preservation"
+    )
+    set_tests_properties(
+        apmesh_core.geometry_primitives
+        apmesh_core.geometry_point_vector_evidence
+        apmesh_core.geometry_point_vector_runner
+        apmesh_core.geometry_point_vector_retention
+        apmesh_core.geometry_point_vector_foundation_preservation
+        PROPERTIES LABELS "geometry;contract"
+    )
+    set_tests_properties(
+        apmesh_core.reproducible_experiment_evidence
+        apmesh_core.reproducible_experiment_runner
+        apmesh_core.reproducible_experiment_retention
+        apmesh_core.reproducible_experiment_negatives
+        PROPERTIES LABELS "reproducibility;contract;foundation-preservation"
+    )
+    set_tests_properties(
+        apmesh_core.foundation_end_to_end_evidence
+        PROPERTIES LABELS "foundation;reproducibility;contract"
     )
 endif()

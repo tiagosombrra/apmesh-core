@@ -1,0 +1,1077 @@
+{
+  "archival_revision": "87ea9a4142db5b0b802eae13dd9a5b003c429723",
+  "candidate_commit": "ededf6584941de9dfe6a47633ffd67caf17d4f51",
+  "files": [
+    {
+      "retained_path": "inventories/clang-debug/compile_commands.json",
+      "sha256": "1b1cf389f4827fbc49338d2a00f8ba832a43df35c409b451810682f1d8b09643",
+      "size": 5978,
+      "source_path": "cells/clang-debug/build/compile_commands.json"
+    },
+    {
+      "retained_path": "cells/clang-debug/certificate-1.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/clang-debug/certificate-1.json"
+    },
+    {
+      "retained_path": "cells/clang-debug/certificate-2.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/clang-debug/certificate-2.json"
+    },
+    {
+      "retained_path": "cells/clang-debug/certificate-3.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/clang-debug/certificate-3.json"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/build.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/build.stdout.log",
+      "sha256": "ea35434543b432575d9c526a06c938da80bdb6b15cafdbbed7d64fb7fc48977b",
+      "size": 1327,
+      "source_path": "cells/clang-debug/logs/build.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-validation-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-validation-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-validation-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-validation-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-validation-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-validation-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-validation-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-validation-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-validation-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-validation-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/certificate-validation-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/certificate-validation-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/compile_command_validation.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/compile_command_validation.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/compile_command_validation.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/compile_command_validation.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/configure.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/configure.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/configure.stdout.log",
+      "sha256": "dc978c32cbe2b00bfa0f04fc2ccd6db6e53e5078e8e804524800d6513d12e05a",
+      "size": 620,
+      "source_path": "cells/clang-debug/logs/configure.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/focused-ctest-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/focused-ctest-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/focused-ctest-1.stdout.log",
+      "sha256": "aef0a3f229d2294aa70217754b5ec112ed8b2332b0e2d2369810b4cd1fc5b110",
+      "size": 1266,
+      "source_path": "cells/clang-debug/logs/focused-ctest-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/focused-ctest-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/focused-ctest-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/focused-ctest-2.stdout.log",
+      "sha256": "b029766a95e1664351aa74d976c4dbca6b64ffa5f35428b83cd1c78301cf3d61",
+      "size": 1266,
+      "source_path": "cells/clang-debug/logs/focused-ctest-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/focused-ctest-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/focused-ctest-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/focused-ctest-3.stdout.log",
+      "sha256": "a7abf6402d82dd4f04233978379844f51ab5d6adbba35cef7b734edebac07c74",
+      "size": 1266,
+      "source_path": "cells/clang-debug/logs/focused-ctest-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/foundation-ctest.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/foundation-ctest.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/foundation-ctest.stdout.log",
+      "sha256": "088b2bc5c8a5b8f3999cd49e7ffe97243d7900947f16f12bb5a4b3391e3f137a",
+      "size": 2243,
+      "source_path": "cells/clang-debug/logs/foundation-ctest.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/ldd-apmesh_core.geometry_primitives.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/ldd-apmesh_core.geometry_primitives.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/ldd-apmesh_core.geometry_primitives.stdout.log",
+      "sha256": "7642b8185af33686937782746c04c5fd0a024ec4cc1b041728ff835b477cf9da",
+      "size": 522,
+      "source_path": "cells/clang-debug/logs/ldd-apmesh_core.geometry_primitives.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/ldd-apmesh_core_bootstrap_smoke.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/ldd-apmesh_core_bootstrap_smoke.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/ldd-apmesh_core_bootstrap_smoke.stdout.log",
+      "sha256": "fd1fbcbcc3c0a95c50da69573147bbeac725b20c480c88bc681bc2645a084089",
+      "size": 522,
+      "source_path": "cells/clang-debug/logs/ldd-apmesh_core_bootstrap_smoke.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/ldd-apmesh_core_geometry_point_vector_export.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/ldd-apmesh_core_geometry_point_vector_export.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/ldd-apmesh_core_geometry_point_vector_export.stdout.log",
+      "sha256": "ddc162a06b52037bb86451001b836e1072eb2480e4cd4e77ba3ff96c0ee6888b",
+      "size": 522,
+      "source_path": "cells/clang-debug/logs/ldd-apmesh_core_geometry_point_vector_export.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/ldd-apmesh_core_numeric_contract.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/ldd-apmesh_core_numeric_contract.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/ldd-apmesh_core_numeric_contract.stdout.log",
+      "sha256": "b5394c3ffef1360d242d72749e8685be33055b9494a5c9da6c35aac7a4aae9cf",
+      "size": 522,
+      "source_path": "cells/clang-debug/logs/ldd-apmesh_core_numeric_contract.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/negative-fixtures.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/negative-fixtures.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/logs/negative-fixtures.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-debug/logs/negative-fixtures.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-debug/negative-fixtures.json",
+      "sha256": "0de91c6422ea56deed39582e55ced48120b3eea8db18797af58037f5f2afafe2",
+      "size": 222,
+      "source_path": "cells/clang-debug/negative-fixtures.json"
+    },
+    {
+      "retained_path": "inventories/clang-release/compile_commands.json",
+      "sha256": "6920a56ea8d441657e6f4e1abffcae21820e081ed2dc02695ad7a431ec843bba",
+      "size": 6086,
+      "source_path": "cells/clang-release/build/compile_commands.json"
+    },
+    {
+      "retained_path": "cells/clang-release/certificate-1.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/clang-release/certificate-1.json"
+    },
+    {
+      "retained_path": "cells/clang-release/certificate-2.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/clang-release/certificate-2.json"
+    },
+    {
+      "retained_path": "cells/clang-release/certificate-3.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/clang-release/certificate-3.json"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/build.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/build.stdout.log",
+      "sha256": "13757bb9d028f5f97882a1d18158272358f2fd12b8504ff876300af91eeda534",
+      "size": 1327,
+      "source_path": "cells/clang-release/logs/build.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-validation-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-validation-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-validation-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-validation-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-validation-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-validation-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-validation-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-validation-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-validation-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-validation-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/certificate-validation-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/certificate-validation-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/compile_command_validation.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/compile_command_validation.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/compile_command_validation.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/compile_command_validation.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/configure.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/configure.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/configure.stdout.log",
+      "sha256": "15f90dcd538f6571100e474a7032e3c9bb1773928d09df8ff031c0c0ef1eaa70",
+      "size": 622,
+      "source_path": "cells/clang-release/logs/configure.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/focused-ctest-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/focused-ctest-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/focused-ctest-1.stdout.log",
+      "sha256": "1641bcc6d25c308978ebf0665ac87c487d721a616b3a39e60aff00871c79e639",
+      "size": 1270,
+      "source_path": "cells/clang-release/logs/focused-ctest-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/focused-ctest-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/focused-ctest-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/focused-ctest-2.stdout.log",
+      "sha256": "a66ce033e77c09ff480696bb5646b4b27e0d97d14521ebe9897a68a4e2aedfd0",
+      "size": 1270,
+      "source_path": "cells/clang-release/logs/focused-ctest-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/focused-ctest-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/focused-ctest-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/focused-ctest-3.stdout.log",
+      "sha256": "c5db5ee14160e25511b896284d0df9295bcc38edd001daa97f478bf56cfede33",
+      "size": 1270,
+      "source_path": "cells/clang-release/logs/focused-ctest-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/foundation-ctest.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/foundation-ctest.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/foundation-ctest.stdout.log",
+      "sha256": "57dd7229a483681a0062ec06c646d4fa5500ea9e71fd1f130f9c1122d81f0cc7",
+      "size": 2247,
+      "source_path": "cells/clang-release/logs/foundation-ctest.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/ldd-apmesh_core.geometry_primitives.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/ldd-apmesh_core.geometry_primitives.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/ldd-apmesh_core.geometry_primitives.stdout.log",
+      "sha256": "de4a99011331c9093ff3b1c8943a6b03a319965bcdeef895718b994eccc460ec",
+      "size": 522,
+      "source_path": "cells/clang-release/logs/ldd-apmesh_core.geometry_primitives.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/ldd-apmesh_core_bootstrap_smoke.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/ldd-apmesh_core_bootstrap_smoke.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/ldd-apmesh_core_bootstrap_smoke.stdout.log",
+      "sha256": "b108a8956394cf92e20dcd3c9e5edac0690f01eec1160902d2146e1a6fccf603",
+      "size": 522,
+      "source_path": "cells/clang-release/logs/ldd-apmesh_core_bootstrap_smoke.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/ldd-apmesh_core_geometry_point_vector_export.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/ldd-apmesh_core_geometry_point_vector_export.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/ldd-apmesh_core_geometry_point_vector_export.stdout.log",
+      "sha256": "72b116a04d7f71769ae5c1202192ce978198f6c932f729242b80f9be893cc0e2",
+      "size": 522,
+      "source_path": "cells/clang-release/logs/ldd-apmesh_core_geometry_point_vector_export.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/ldd-apmesh_core_numeric_contract.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/ldd-apmesh_core_numeric_contract.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/ldd-apmesh_core_numeric_contract.stdout.log",
+      "sha256": "0d8366e1847fc15918f395cde762c64d0ac32e14209a03d3bfc43974086d5625",
+      "size": 522,
+      "source_path": "cells/clang-release/logs/ldd-apmesh_core_numeric_contract.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/negative-fixtures.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/negative-fixtures.stderr.log"
+    },
+    {
+      "retained_path": "cells/clang-release/logs/negative-fixtures.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/clang-release/logs/negative-fixtures.stdout.log"
+    },
+    {
+      "retained_path": "cells/clang-release/negative-fixtures.json",
+      "sha256": "0de91c6422ea56deed39582e55ced48120b3eea8db18797af58037f5f2afafe2",
+      "size": 222,
+      "source_path": "cells/clang-release/negative-fixtures.json"
+    },
+    {
+      "retained_path": "cells/cross-cell-comparison/logs/compare.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/cross-cell-comparison/logs/compare.stderr.log"
+    },
+    {
+      "retained_path": "cells/cross-cell-comparison/logs/compare.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/cross-cell-comparison/logs/compare.stdout.log"
+    },
+    {
+      "retained_path": "inventories/gcc-debug/compile_commands.json",
+      "sha256": "3fe051d825113ba36d14740cc1e5bfda67ad121058e496507daed5e63b34e902",
+      "size": 5789,
+      "source_path": "cells/gcc-debug/build/compile_commands.json"
+    },
+    {
+      "retained_path": "cells/gcc-debug/certificate-1.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/gcc-debug/certificate-1.json"
+    },
+    {
+      "retained_path": "cells/gcc-debug/certificate-2.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/gcc-debug/certificate-2.json"
+    },
+    {
+      "retained_path": "cells/gcc-debug/certificate-3.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/gcc-debug/certificate-3.json"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/build.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/build.stdout.log",
+      "sha256": "df35a107ffe84e527af6d5f80ac9ba0e6087808c09ef9726be29fed06743065a",
+      "size": 1327,
+      "source_path": "cells/gcc-debug/logs/build.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-validation-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-validation-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-validation-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-validation-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-validation-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-validation-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-validation-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-validation-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-validation-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-validation-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/certificate-validation-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/certificate-validation-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/compile_command_validation.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/compile_command_validation.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/compile_command_validation.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/compile_command_validation.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/configure.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/configure.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/configure.stdout.log",
+      "sha256": "57e0ffa380093d7186873a502c3929f04e4cd89d5f691ac9c680eb8aa4581f63",
+      "size": 612,
+      "source_path": "cells/gcc-debug/logs/configure.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/focused-ctest-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/focused-ctest-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/focused-ctest-1.stdout.log",
+      "sha256": "8bd8b1a97fcf17a8a8a5ea03c16dcba64a2bb15429be1f276af5012df0b4e637",
+      "size": 1262,
+      "source_path": "cells/gcc-debug/logs/focused-ctest-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/focused-ctest-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/focused-ctest-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/focused-ctest-2.stdout.log",
+      "sha256": "e1449a999d9eda351c1f642201eec0085d8226df022bad7d45d4df1ae63148de",
+      "size": 1262,
+      "source_path": "cells/gcc-debug/logs/focused-ctest-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/focused-ctest-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/focused-ctest-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/focused-ctest-3.stdout.log",
+      "sha256": "3a80644cebb32ce22f5511b2758872ca2f741a79975b9a9f5c68059cbbbaeeb3",
+      "size": 1262,
+      "source_path": "cells/gcc-debug/logs/focused-ctest-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/foundation-ctest.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/foundation-ctest.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/foundation-ctest.stdout.log",
+      "sha256": "7df06f29daa50f0de9a81230f216a562a94e1bb480024cf9366c74baab23d8cd",
+      "size": 2239,
+      "source_path": "cells/gcc-debug/logs/foundation-ctest.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/ldd-apmesh_core.geometry_primitives.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/ldd-apmesh_core.geometry_primitives.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/ldd-apmesh_core.geometry_primitives.stdout.log",
+      "sha256": "66b752705363459675c98dcef7a9d051d2094009bf4c71b71f6660927ad5367e",
+      "size": 374,
+      "source_path": "cells/gcc-debug/logs/ldd-apmesh_core.geometry_primitives.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/ldd-apmesh_core_bootstrap_smoke.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/ldd-apmesh_core_bootstrap_smoke.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/ldd-apmesh_core_bootstrap_smoke.stdout.log",
+      "sha256": "042a260b6f8ee769cfc9787baec6845ff70ce93fe068646eff34a9fe709aba6c",
+      "size": 374,
+      "source_path": "cells/gcc-debug/logs/ldd-apmesh_core_bootstrap_smoke.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/ldd-apmesh_core_geometry_point_vector_export.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/ldd-apmesh_core_geometry_point_vector_export.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/ldd-apmesh_core_geometry_point_vector_export.stdout.log",
+      "sha256": "bacaf84ab2840930864138813737faa1b1d6986ed517211f88c55f1019915911",
+      "size": 374,
+      "source_path": "cells/gcc-debug/logs/ldd-apmesh_core_geometry_point_vector_export.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/ldd-apmesh_core_numeric_contract.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/ldd-apmesh_core_numeric_contract.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/ldd-apmesh_core_numeric_contract.stdout.log",
+      "sha256": "67d3d091584dbf787949a488545f9aae0e3152ca0a3ad48f3e0cd1f8b9aa3f1e",
+      "size": 374,
+      "source_path": "cells/gcc-debug/logs/ldd-apmesh_core_numeric_contract.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/negative-fixtures.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/negative-fixtures.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/logs/negative-fixtures.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-debug/logs/negative-fixtures.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-debug/negative-fixtures.json",
+      "sha256": "0de91c6422ea56deed39582e55ced48120b3eea8db18797af58037f5f2afafe2",
+      "size": 222,
+      "source_path": "cells/gcc-debug/negative-fixtures.json"
+    },
+    {
+      "retained_path": "inventories/gcc-release/compile_commands.json",
+      "sha256": "86522b4a134a40de87fb361d614d5f35f9ced5b605069d23030b2461e6221df5",
+      "size": 5897,
+      "source_path": "cells/gcc-release/build/compile_commands.json"
+    },
+    {
+      "retained_path": "cells/gcc-release/certificate-1.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/gcc-release/certificate-1.json"
+    },
+    {
+      "retained_path": "cells/gcc-release/certificate-2.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/gcc-release/certificate-2.json"
+    },
+    {
+      "retained_path": "cells/gcc-release/certificate-3.json",
+      "sha256": "2784d4ea55b164876c73e75ee83027985eb4f6347d1542d604f29b94cb76ad15",
+      "size": 35990,
+      "source_path": "cells/gcc-release/certificate-3.json"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/build.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/build.stdout.log",
+      "sha256": "484c1df27a231b13020d5378b84d63ba04c945bd362df249579095c7d2899fe9",
+      "size": 1327,
+      "source_path": "cells/gcc-release/logs/build.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-validation-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-validation-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-validation-1.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-validation-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-validation-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-validation-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-validation-2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-validation-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-validation-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-validation-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/certificate-validation-3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/certificate-validation-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/compile_command_validation.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/compile_command_validation.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/compile_command_validation.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/compile_command_validation.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/configure.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/configure.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/configure.stdout.log",
+      "sha256": "e53d013be357f3f0f8c5418abbb1ae9c8a78d6fc30ae99bb84a876cda2e95bb4",
+      "size": 614,
+      "source_path": "cells/gcc-release/logs/configure.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/focused-ctest-1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/focused-ctest-1.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/focused-ctest-1.stdout.log",
+      "sha256": "b6d11c31f63004fa9faad28722692d0ac239f7986b5c4b61b4d247c2b794894b",
+      "size": 1266,
+      "source_path": "cells/gcc-release/logs/focused-ctest-1.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/focused-ctest-2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/focused-ctest-2.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/focused-ctest-2.stdout.log",
+      "sha256": "cdb61d8332791ac35d0c842a23a30c2c0ac96d79a1a0a587b828f24d8a6d0303",
+      "size": 1266,
+      "source_path": "cells/gcc-release/logs/focused-ctest-2.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/focused-ctest-3.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/focused-ctest-3.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/focused-ctest-3.stdout.log",
+      "sha256": "a0af4be943741a7ede0a734f9c05f9551c5f739a36a8c4857301ef4bc2ae81e7",
+      "size": 1266,
+      "source_path": "cells/gcc-release/logs/focused-ctest-3.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/foundation-ctest.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/foundation-ctest.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/foundation-ctest.stdout.log",
+      "sha256": "9f2e704f8282df240f0c5a143caea6fb47cd72e0a8ba99057e9162979daeca54",
+      "size": 2243,
+      "source_path": "cells/gcc-release/logs/foundation-ctest.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/ldd-apmesh_core.geometry_primitives.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/ldd-apmesh_core.geometry_primitives.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/ldd-apmesh_core.geometry_primitives.stdout.log",
+      "sha256": "df0110f7b6d898e0729c1b827f6c50b9255da6832103e7344719d02afec42545",
+      "size": 374,
+      "source_path": "cells/gcc-release/logs/ldd-apmesh_core.geometry_primitives.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/ldd-apmesh_core_bootstrap_smoke.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/ldd-apmesh_core_bootstrap_smoke.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/ldd-apmesh_core_bootstrap_smoke.stdout.log",
+      "sha256": "73b8d211c206e3b7df52b03abe917876bdd411d80bc2484c09e24efde4d421d6",
+      "size": 374,
+      "source_path": "cells/gcc-release/logs/ldd-apmesh_core_bootstrap_smoke.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/ldd-apmesh_core_geometry_point_vector_export.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/ldd-apmesh_core_geometry_point_vector_export.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/ldd-apmesh_core_geometry_point_vector_export.stdout.log",
+      "sha256": "c2a6eb74dea3490e111195548e4646686424861b01913c4596d7427be100f62b",
+      "size": 374,
+      "source_path": "cells/gcc-release/logs/ldd-apmesh_core_geometry_point_vector_export.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/ldd-apmesh_core_numeric_contract.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/ldd-apmesh_core_numeric_contract.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/ldd-apmesh_core_numeric_contract.stdout.log",
+      "sha256": "c0eb14be90aa6a690cdf78f7545176a62c054a7b9c9ffa90779f883c043dbf14",
+      "size": 155,
+      "source_path": "cells/gcc-release/logs/ldd-apmesh_core_numeric_contract.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/negative-fixtures.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/negative-fixtures.stderr.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/logs/negative-fixtures.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "source_path": "cells/gcc-release/logs/negative-fixtures.stdout.log"
+    },
+    {
+      "retained_path": "cells/gcc-release/negative-fixtures.json",
+      "sha256": "0de91c6422ea56deed39582e55ced48120b3eea8db18797af58037f5f2afafe2",
+      "size": 222,
+      "source_path": "cells/gcc-release/negative-fixtures.json"
+    },
+    {
+      "retained_path": "certificate-index.json",
+      "sha256": "0aa535da39d1fb8d1b1189de6c2b1e21729cb10162b4efbe07698fd1426a463a",
+      "size": 2002,
+      "source_path": "certificate-index.json"
+    },
+    {
+      "retained_path": "detached-verification.json",
+      "sha256": "3058090ead02bc1ab0d7a5dbca62492f67df244309084efbe2b797db185edc6c",
+      "size": 181,
+      "source_path": "detached-verification.json"
+    },
+    {
+      "retained_path": "execution-progress.json",
+      "sha256": "79e020e67df72a781ccb5c61b4eba313f1107925e2fd0b72d891c79b4b81bcb0",
+      "size": 94293,
+      "source_path": "execution-progress.json"
+    },
+    {
+      "retained_path": "plan.json",
+      "sha256": "c5d501cc98b630c4bd75262031bc1dd28526c7b3f5c7a22dd37bbc4d24135421",
+      "size": 4336,
+      "source_path": "plan.json"
+    },
+    {
+      "retained_path": "prepared-manifest.json",
+      "sha256": "20b01cb46866ec70dd7bb3095c0ba2a59ca0e3bb3940e18186fd6f11f74874ae",
+      "size": 128454,
+      "source_path": "prepared-manifest.json"
+    },
+    {
+      "retained_path": "report.json",
+      "sha256": "17ee5a2ffb73ee5c7bbd0e00b91e528d8f5ebb1cbd867667022aebeff628d9f7",
+      "size": 211,
+      "source_path": "report.json"
+    },
+    {
+      "retained_path": "report.md",
+      "sha256": "b1026a92ab4f0ba9c0cabbc2043e548224da6bb19a2371baf060e1e97f0c808e",
+      "size": 115,
+      "source_path": "report.md"
+    },
+    {
+      "retained_path": "retention-manifest.json",
+      "sha256": "0ed85effd05ec749189802fb432c42aceb89fdf2425b3d56f9253ce1a2a01222",
+      "size": 48893,
+      "source_path": "retention-manifest.json"
+    },
+    {
+      "retained_path": "runtime-dependencies.json",
+      "sha256": "163f2de7e78590010ca4f4ed72a8033e20dfbfd09984f8ccc650ebb223a4a19c",
+      "size": 18188,
+      "source_path": "runtime-dependencies.json"
+    },
+    {
+      "retained_path": "state-history.jsonl",
+      "sha256": "0f564586e5b110dc544d39d18143887ddb7c1a666721e54d5ac8e96a743f977d",
+      "size": 780,
+      "source_path": "state-history.jsonl"
+    },
+    {
+      "retained_path": "state.json",
+      "sha256": "05247924e17ba0b6169872da7f6514813c073b0366a41552a13f5dc56fe3c87e",
+      "size": 245,
+      "source_path": "state.json"
+    },
+    {
+      "retained_path": "terminal-manifest.json",
+      "sha256": "9144ef3d98be659da5a69ac0f941ed86e109dec61608e8ec93981459a01c5fdf",
+      "size": 231988,
+      "source_path": "terminal-manifest.json"
+    }
+  ],
+  "kind": "geometry-point-vector-canonical-evidence",
+  "schema_version": 1,
+  "source_retention_manifest_sha256": "0ed85effd05ec749189802fb432c42aceb89fdf2425b3d56f9253ce1a2a01222"
+}

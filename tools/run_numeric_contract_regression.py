@@ -7,10 +7,12 @@ import argparse
 import datetime as dt
 import hashlib
 import json
+import os
 import pathlib
 import shutil
 import subprocess
 import sys
+import time
 from typing import Any
 
 from numeric_contract_evidence import EvidenceError, validate_certificate, validate_environment, validate_profile
@@ -85,18 +87,36 @@ def command_plan(profile: dict[str, Any], source_root: pathlib.Path) -> list[dic
 
 def execute_command(command: list[str], cwd: pathlib.Path, timeout: int, root: pathlib.Path, name: str) -> dict[str, Any]:
     started = utc_now()
+    started_monotonic = time.monotonic()
     stdout, stderr = root / f"{name}.stdout.log", root / f"{name}.stderr.log"
+    evidence_root = root.parent.parent if root.parent.name == "cells" else root
+    record = {"schema_version": 1, "kind": "qualified-command-record", "id": name, "command": command,
+              "cwd": str(cwd.resolve()), "timeout_seconds": timeout, "started_utc": started}
     try:
-        completed = subprocess.run(command, cwd=cwd, check=False, capture_output=True, timeout=timeout, text=False)
-        stdout.write_bytes(completed.stdout)
-        stderr.write_bytes(completed.stderr)
-        return {"command": command, "exit_code": completed.returncode, "started_utc": started, "ended_utc": utc_now(),
-                "stdout_sha256": sha256(stdout), "stderr_sha256": sha256(stderr)}
+        process = subprocess.Popen(command, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except OSError as error:
+        stdout.write_bytes(b""); stderr.write_bytes(b"")
+        return {**record, "pid": None, "exit_code": None, "ended_utc": utc_now(),
+                "elapsed_seconds": time.monotonic() - started_monotonic, "timed_out": False, "launch_error": str(error),
+                "stdout": {"path": str(stdout.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stdout)},
+                "stderr": {"path": str(stderr.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stderr)}}
+    try:
+        captured_stdout, captured_stderr = process.communicate(timeout=timeout)
+        stdout.write_bytes(captured_stdout)
+        stderr.write_bytes(captured_stderr)
+        return {**record, "pid": process.pid, "exit_code": process.returncode, "ended_utc": utc_now(),
+                "elapsed_seconds": time.monotonic() - started_monotonic, "timed_out": False, "launch_error": None,
+                "stdout": {"path": str(stdout.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stdout)},
+                "stderr": {"path": str(stderr.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stderr)}}
     except subprocess.TimeoutExpired as error:
-        stdout.write_bytes(error.stdout or b"")
-        stderr.write_bytes(error.stderr or b"")
-        return {"command": command, "exit_code": None, "timeout_seconds": timeout, "started_utc": started, "ended_utc": utc_now(),
-                "stdout_sha256": sha256(stdout), "stderr_sha256": sha256(stderr)}
+        process.kill()
+        captured_stdout, captured_stderr = process.communicate()
+        stdout.write_bytes(captured_stdout or error.stdout or b"")
+        stderr.write_bytes(captured_stderr or error.stderr or b"")
+        return {**record, "pid": process.pid, "exit_code": None, "ended_utc": utc_now(),
+                "elapsed_seconds": time.monotonic() - started_monotonic, "timed_out": True, "launch_error": None,
+                "stdout": {"path": str(stdout.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stdout)},
+                "stderr": {"path": str(stderr.resolve().relative_to(evidence_root.resolve())), "sha256": sha256(stderr)}}
 
 
 def require_success(record: dict[str, Any], context: str) -> None:
@@ -206,10 +226,18 @@ def execute(output_root: pathlib.Path, manifest: dict[str, Any]) -> int:
                     require_success(record, f"{cell['name']} {mode} {repeat + 1}")
                 validate_certificate(certificate)
                 validate_environment(environment, build_root / "compile_commands.json")
-                certificates.append(str(certificate)); environments.append(str(environment))
-            records.append({"cell": cell["name"], "state": "PASS", "certificates": certificates, "environments": environments, "records": cell_records})
-        certificates = [path for record in records for path in record["certificates"]]
-        environments = [path for record in records for path in record["environments"]]
+                certificates.append(str(certificate.relative_to(output_root))); environments.append(str(environment.relative_to(output_root)))
+            retained_compile_commands = cell_root / "compile_commands.json"
+            shutil.copy2(build_root / "compile_commands.json", retained_compile_commands)
+            records.append({"cell": cell["name"], "state": "PASS", "certificates": certificates, "environments": environments,
+                            "certificate_artifacts": [{"path": certificate, "sha256": sha256(output_root / certificate)}
+                                                      for certificate in certificates],
+                            "environment_artifacts": [{"path": environment, "sha256": sha256(output_root / environment)}
+                                                      for environment in environments],
+                            "compile_commands_artifact": {"path": str(retained_compile_commands.relative_to(output_root)), "sha256": sha256(retained_compile_commands)},
+                            "records": cell_records})
+        certificates = [str(output_root / path) for record in records for path in record["certificates"]]
+        environments = [str(output_root / path) for record in records for path in record["environments"]]
         report = output_root / "report.md"
         command = [sys.executable, manifest["inputs"]["validator"]["path"], "compare", *sum((["--certificate", path] for path in certificates), []), *sum((["--environment", path] for path in environments), []), "--report", str(report)]
         comparison = execute_command(command, output_root, PROCESS_TIMEOUT_SECONDS, output_root, "compare")

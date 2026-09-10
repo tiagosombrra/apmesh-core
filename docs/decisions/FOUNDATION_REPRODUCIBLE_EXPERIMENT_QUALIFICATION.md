@@ -1,8 +1,10 @@
 # Foundation Reproducible Experiment Contract — Bounded Qualification Protocol
 
-Status: PRE-REGISTERED / IMPLEMENTATION NOT STARTED
-Last updated: 2026-09-06
+Status: QUALIFIED / E0–E7 PASS / WSL Ubuntu 24.04
+Last updated: 2026-09-07
 Contract: `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
+Completeness amendment:
+`docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`
 
 ## Question
 
@@ -45,6 +47,36 @@ The bounded implementation may add only:
 
 It must not change C++, numeric semantics, geometry, topology, meshing,
 acceptance policy, or the existing qualification evidence.
+
+## Implementation-candidate status
+
+The current local candidate contains the following implementation components:
+
+- `experiments/profiles/reproducible_experiment_contract.json` declares the
+  eight replay cells, claim and volatile fields, required artifacts, limits,
+  and E0–E7 gates;
+- `tools/run_reproducible_experiment_contract.py` prepares an immutable clean,
+  revision-bound manifest and executes it only with `--execute`;
+- `tools/reproducible_experiment_evidence.py` validates bundle schemas and
+  compares the two replays of a declared cell without accepting undeclared
+  claim differences;
+- focused CTest contracts exercise profile validation, clean-candidate binding,
+  artifact inventory, and one replay-disagreement path.
+
+The completeness amendment defines the admission review. The active bounded
+implementation candidate adds a per-bundle manifest, structured terminal
+failure evidence, field-level provenance classifications, reason-coded negative
+fixtures, deep prerequisite-terminal checks, and semantic retention validation.
+The qualified Architecture and Numeric runners remain separate authoritative
+protocols. Their execution and linkage are required evidence for E7; the
+implementation-only work unit did not perform them, while the formal campaign
+later retained their revision-bound evidence.
+
+The formal REC campaign executed after the amendment admission gate passed.
+Candidate `85d215a` completed eight cells, eight negative fixtures, and linked
+Architecture/Numeric prerequisite evidence. Independent audit accepted E0–E7.
+The retained package is
+`evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a/`.
 
 ## Execution matrix
 
@@ -139,6 +171,10 @@ The formal campaign must run from one new empty OS-temporary root and record:
 The first audit reads compact summaries before any focused log. It may not
 reinterpret an unexpected difference as acceptable without a new recorded
 decision and a new candidate.
+
+Before this campaign may be prepared, the implementation must pass the
+admission gate in
+`docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_AMENDMENT.md`.
 
 ## Decision effect
 

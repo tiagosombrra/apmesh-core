@@ -1,0 +1,1 @@
+{"kind":"geometry-point-vector-negative-fixtures","outcomes":[{"id":"duplicate_case","result":"REJECTED"},{"id":"unsafe_compile_flag","result":"REJECTED"},{"id":"forged_proximity","result":"REJECTED"}],"schema_version":1}

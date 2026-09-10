@@ -1,9 +1,9 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-06
+Last updated: 2026-09-10
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: `foundation/numeric-contract`
+Working branch: `geometry/point-vector-semantics`
 
 ## Purpose
 
@@ -42,17 +42,60 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 ## Current active stage
 
-**Foundation — Architecture, Numerics, and Reproducibility**
+**Geometry Primitives — Exact Semantics Before Curves**
 
 Current active investigation problem:
 
-**Reproducible Experiment Contract**
+**Geometry Primitives — Exact Semantics Before Curves**
 
 Current executable work unit:
 
-**Implement the pre-registered Reproducible Experiment Contract evidence package without changing C++ or launching the formal regression.**
+**Record the qualified Point/Vector work unit and prepare its controlled integration review; do not start another Geometry component.**
 
-No greenfield meshing algorithm has been implemented yet.
+Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
+envelope. Bounded point/vector geometry is implemented and has passed its
+focused four-cell contract; meshing remains unimplemented.
+
+Geometry Primitives entry is approved by
+`docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`. The authorized first
+implementation is limited to distinct `Point2`, `Point3`, `Vector2`, and
+`Vector3` value semantics, finite construction, affine/Euclidean operations,
+explicit failures, and focused analytic evidence. Matrices, transforms,
+predicates, topology, curves, surfaces, and meshing remain blocked. The focused
+contract passed on GCC/Clang Debug/Release. The revision-bound Point/Vector
+qualification protocol is recorded. Its first formal attempt on
+`b7f8fe9` stopped in `gcc-debug` because the PV6 selector included a historical
+Foundation preflight self-test rather than only the required Architecture,
+Numeric, and Reproducible Experiment contracts. The terminal evidence is
+retained as `BLOCKED_BY_CONTRACT_SELECTION_DEFECT`; the complete stage remains
+unqualified.
+
+The corrected exact preservation selector was executed once on clean published
+candidate `ededf6584941de9dfe6a47633ffd67caf17d4f51`. The formal matrix
+completed four GCC/Clang Debug/Release cells with three independent Point/Vector
+processes per cell. All twelve certificates were semantically identical across
+the matrix; every Foundation-preservation CTest set passed; negative evidence
+rejected duplicate cases, unsafe compiler flags, and forged proximity values;
+and detached retention verification passed. The separate audit accepted
+PV0–PV7. **Point and Vector Semantics is QUALIFIED** only in the declared WSL
+Ubuntu 24.04 GCC 13 / Clang 18 libc++ envelope. The full Geometry Primitives
+stage remains `IN INVESTIGATION`; no matrix, transform, predicate, topology,
+curve, surface, or meshing capability is authorized.
+The canonical retained evidence package is
+`evidence/geometry-primitives/point-vector/pv0-pv7-ededf65/`; it excludes
+scratch builds, caches, and reproducible binaries while preserving hash-bound
+manifests, certificates, inventories, reports, negative evidence, and focused
+logs.
+
+Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
+`b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced
+revision-bound evidence; the separate audit made the scientific closure
+decision. Historical REC evidence at `85d215a` remained a qualified comparison
+baseline and did not substitute for current-candidate FND2, FND4, or FND6.
+
+The retained limitations are unchanged: qualification is restricted to WSL
+Ubuntu 24.04 and makes no native-Windows, geometry, topology, meshing,
+convergence, performance, parallel-equivalence, or universal-portability claim.
 
 The Architecture Contract is QUALIFIED for WSL Ubuntu 24.04 and is integrated
 into `main` at `4927383`. All eight requirements passed the final audited
@@ -81,9 +124,11 @@ with SHA-256
 was audited as N0/N1/N3–N7 `PASS` and N2 `BLOCKED`. The earlier N0/N1 `PASS`,
 N2–N7 `BLOCKED` decision remains preserved as negative historical evidence.
 
-Scientific qualification: the Numeric Contract is `QUALIFIED`. Foundation
-remains `IN INVESTIGATION` at 50% because the Reproducible Experiment Contract
-and Foundation End-to-End Regression remain unqualified.
+Scientific qualification: the Architecture, Numeric, and Reproducible Experiment
+Contracts are `QUALIFIED` in the declared WSL Ubuntu 24.04 envelope. The
+Foundation End-to-End Regression passed FND0–FND7 jointly on clean published
+candidate `b333755442b934c490abaecda886dd2a40e981ca`; Foundation is
+`QUALIFIED` at 100% with retained scope limitations.
 
 ## Bootstrap repository and toolchain
 
@@ -113,8 +158,9 @@ The minimal `apmesh::core` library skeleton is qualified on the GCC reference:
 
 The same project bootstrap and bounded Architecture Contract regression are
 qualified on Clang 18.1.3 with libc++ 18.1.3, including Debug and Release.
-Reproducible Experiment and later Foundation contracts remain open. Native
-Windows remains NOT QUALIFIED; WSL execution does not qualify it.
+The Reproducible Experiment Contract and Foundation End-to-End Regression are
+qualified. Later scientific stages remain open. Native Windows remains NOT
+QUALIFIED; WSL execution does not qualify it.
 
 ## Architecture direction already agreed
 
@@ -140,27 +186,31 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
-3. `docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md`
-4. `docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md`
-5. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-6. `docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md`
+3. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
+4. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
+5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
+6. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
 7. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-8. `docs/research/REFERENCE_REGISTER.md`.
+8. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+9. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-1. Implement the pre-registered Reproducible Experiment Contract profile,
-   launcher, collector, comparer, derived table/figure, and focused tooling
-   contracts without changing C++ or launching the formal regression.
-2. Prepare one clean revision-bound two-replay/four-cell campaign only after
-   the implementation package passes focused review.
-3. Preserve the qualified Architecture and Numeric contracts as prerequisites;
-   do not implement geometry or robust predicates.
+Current first action: review the qualified Point/Vector branch for controlled
+integration. Do not begin Small Linear Algebra, transformations, predicates,
+topology, curves, surfaces, or meshing.
 
-Decision progress: 3/3 Numeric Contract questions resolved. Qualification
-progress: Architecture and Numeric Contracts are qualified. Foundation remains
-IN INVESTIGATION at 50% (two of four Foundation gates); Reproducible Experiment
-and Foundation End-to-End remain unqualified.
+1. Review the qualified `ededf65` Point/Vector package for integration into
+`main`. Preserve the `b7f8fe9` selection-defect evidence. Do not add matrices,
+transforms, predicates, topology, curves, surfaces, meshing, or the Geometry
+Primitives stage regression.
+
+Decision progress: Foundation closure is complete. Qualification progress:
+Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
+qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
+INVESTIGATION with Point/Vector Semantics QUALIFIED. The remaining Geometry
+Primitives investigation problems and the cumulative stage regression remain
+unqualified; this work-unit closure does not qualify them.
 
 ## Stage closure protocol
 

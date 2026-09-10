@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-06
+Last updated: 2026-09-08
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -172,7 +172,7 @@ Scientific closure and algorithmic qualification are distinct. A negative invest
 
 ### Foundation — Architecture, Numerics, and Reproducibility
 
-Status: `IN INVESTIGATION`
+Status: `QUALIFIED / WSL Ubuntu 24.04`
 
 Goal: establish the project contracts required to trust subsequent scientific work.
 
@@ -242,7 +242,7 @@ Status: `QUALIFIED` on the declared WSL Ubuntu 24.04 compiler envelope
 
 #### Reproducible Experiment Contract
 
-Status: `SPECIFIED / IMPLEMENTATION PENDING`
+Status: `QUALIFIED` on WSL Ubuntu 24.04
 
 - **Define experiment manifest** — SPECIFIED. A profile declares claims,
   execution matrix, inputs, artifacts, equivalence, gates, and limitations; a
@@ -253,30 +253,91 @@ Status: `SPECIFIED / IMPLEMENTATION PENDING`
 - **Define replay equivalence** — SPECIFIED. Byte, canonical-JSON, semantic,
   and numeric equivalence are separate; volatile provenance fields must be
   exhaustively declared and cannot be claim fields.
-- **First bounded regression** — PRE-REGISTERED / IMPLEMENTATION NOT STARTED.
+- **First bounded regression** — PASS. Two independent replays completed in
+  each qualified GCC/Clang Debug/Release cell on candidate `85d215a`.
   Two independent replays of the frozen Numeric Contract specimen will run in
   each of the four qualified GCC/Clang Debug/Release cells. E0–E7 require
   complete provenance, repeatability, cross-cell reproducibility, eight
   negative-fixture rejections, and preservation of the Architecture and Numeric
-  contracts. No existing evidence closes this gate retrospectively.
+  contracts. The audit accepted E0–E7; the canonical retained package is
+  `evidence/foundation/reproducible-experiment-contract/rec-e0-e7-85d215a/`.
+- **Completeness and durable-retention amendment** — QUALIFIED. The amendment
+  fixed the E0–E7 implementation obligations, control/evidence separation, and
+  durable retention; retained evidence verifies against a clean worktree bound
+  to the candidate revision.
 
 #### Foundation End-to-End Regression
 
-Status: `NOT STARTED`
+Status: `QUALIFIED / FND0–FND7 PASS / candidate b333755 / WSL Ubuntu 24.04`
 
-- Rebuild from a clean checkout using the declared C++23 toolchain.
-- Execute the minimal deterministic smoke experiment repeatedly.
-- Regenerate its certificate, table, and figure.
-- Verify byte-stable or semantically canonical evidence where declared.
-- Verify that no undeclared third-party runtime dependency is introduced.
+- Reuse the qualified REC execution path; do not introduce a parallel campaign
+  framework.
+- Execute two replays in each declared GCC/Clang Debug/Release cell from one
+  clean candidate, including same-revision Architecture and Numeric
+  prerequisites.
+- Compare claim fields with the accepted REC baseline at `85d215a` and classify
+  every difference as `NO_CHANGE`, `EXPECTED_CHANGE`, `REGRESSION`, or
+  `INVESTIGATION_REQUIRED`.
+- Regenerate and retain the stage certificate, compact table, status figure,
+  dependency inventory, manifests, hashes, and limitations.
+- Require FND0–FND7 from
+  `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md` to pass jointly.
+- Use the report-only Foundation qualifier for source-scope, accepted-baseline,
+  dependency, and closure evidence; it may emit collected evidence or
+  `BLOCKED`, but never scientific `PASS`.
+- Evaluate FPR0–FPR6 before preparation. Their joint success may authorize one
+  `PREPARED` manifest only; it does not satisfy, waive, or alter FND0–FND7 and
+  does not authorize execution.
+- Treat retained REC evidence at `85d215a` only as qualified historical evidence
+  and the accepted comparison baseline. It cannot substitute for current-candidate
+  execution, deterministic claims, or retention required by FND2, FND4, and FND6.
+
+The formal post-execution audit accepted FND0–FND7 jointly on candidate
+`b333755442b934c490abaecda886dd2a40e981ca`. The Foundation evidence package
+retains four clean compiler/build cells, two replays per cell, 586 sealed files,
+and no dependency or contract-test finding. The only retained limitations are
+the declared WSL Ubuntu 24.04 envelope and the exclusion of geometry, topology,
+meshing, convergence, performance, parallel equivalence, and native Windows.
 
 Stage exit gate: all three contracts reviewed; minimal C++23 library builds from a clean checkout; one deterministic smoke experiment is fully reproducible from manifest to certificate and figure; Foundation End-to-End Regression passes.
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `NOT STARTED`
+Status: `IN INVESTIGATION / POINT-VECTOR QUALIFIED / WSL Ubuntu 24.04`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
+
+Entry authority:
+`docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`. The first bounded work
+unit is restricted to distinct 2D/3D point and vector value semantics, finite
+construction, affine/Euclidean operations, explicit failures, and focused
+analytic evidence. It does not authorize topology, predicates, matrices,
+transforms, curves, surfaces, or meshing.
+
+The bounded point/vector implementation and its focused `geometry;contract`
+CTest passed on GCC/Clang Debug/Release in the qualified WSL envelope. Focused
+CTest evidence alone did not qualify cross-compiler claim equivalence, native
+Windows, or the Geometry Primitives stage regression.
+
+The revision-bound work-unit protocol is recorded in
+`docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`. Its `PV0`–`PV7`
+gates qualify only Point and Vector Semantics, require one fixed four-cell run
+with three independent focused processes per cell, and reuse the current
+Architecture/Numeric/Reproducible Experiment preservation contracts without
+repeating the full historical REC campaign.
+The formal execution on clean published candidate `ededf65` passed PV0–PV7:
+four GCC/Clang Debug/Release cells, three independent focused processes per
+cell, twelve semantically equivalent certificates, the exact
+Foundation-preservation CTest set in every cell, and detached retention
+verification. The separate audit qualified only Point and Vector Semantics in
+the declared WSL envelope. The decision and retained limitations are recorded
+in `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`.
+
+A first formal attempt on `b7f8fe9` remains retained as
+`BLOCKED_BY_CONTRACT_SELECTION_DEFECT`: its PV6 selector admitted a historical
+Foundation preflight self-test whose scope intentionally excludes later
+Geometry changes. That incident is historical negative evidence; it was not
+reused or reclassified by the successful `ededf65` execution.
 
 #### Point and Vector Semantics
 
@@ -516,17 +577,29 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current branch: `foundation/numeric-contract`.
+Current branch: `geometry/point-vector-semantics`.
+
+Foundation closed with FND0–FND7 `PASS` on clean published candidate
+`b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
+recorded the required revision-bound build, CTest, dependency, comparison, and
+retention evidence; the separate audit made the scientific decision. Historical
+REC evidence at `85d215a` remained a comparison baseline and did not substitute
+for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Foundation — Architecture, Numerics, and Reproducibility / Reproducible Experiment Contract / Implement the pre-registered evidence package**
+**Geometry Primitives — Exact Semantics Before Curves / Point and Vector Semantics qualified; no next Geometry component authorized**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
 that evidence without changing `numeric.cpp`, then passed the audited clean
 four-cell regression on candidate `236d290`. N0–N7 are qualified. Foundation
-remains IN INVESTIGATION at 50%. The Reproducible Experiment Contract and its
-first two-replay/four-cell E0–E7 regression are now specified and pre-registered,
-but no implementation or execution has started. Foundation End-to-End remains
-unqualified. No greenfield geometry or meshing algorithm is implemented.
+is QUALIFIED at 100% within the declared WSL envelope. The Reproducible
+Experiment Contract and its first two-replay/four-cell E0–E7 regression are
+qualified on candidate `85d215a`; that historical evidence remains the accepted
+comparison baseline. Foundation End-to-End passed its post-execution FND0–FND7
+audit on `b333755`, with retained scope limitations. Point and Vector Semantics
+are QUALIFIED on `ededf65` only within the declared WSL Ubuntu 24.04 GCC 13 /
+Clang 18 libc++ envelope. Geometry Primitives remains IN INVESTIGATION: no
+matrix, transform, predicate, topology, curve, surface, or meshing algorithm
+is implemented or authorized by this qualification.
