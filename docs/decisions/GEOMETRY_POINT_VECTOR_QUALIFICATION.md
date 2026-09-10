@@ -18,12 +18,15 @@ The audit covers clean, published candidate
 time of execution. The unchanged prepared manifest has SHA-256
 `20b01cb46866ec70dd7bb3095c0ba2a59ca0e3bb3940e18186fd6f11f74874ae`.
 
-The retained external package is
-`apmesh-core-evidence/geometry-point-vector/pv0-pv7-ededf65-prepared/`. It
-contains the prepared and terminal manifests, 12 certificates, command
-records, runtime-dependency inventory, comparison report, negative evidence,
-and retention manifest. Detached verification covered 559 tracked source
-files; the retention manifest covered 313 evidence files.
+The canonical retained package is
+`evidence/geometry-primitives/point-vector/pv0-pv7-ededf65/`. It contains the
+prepared and terminal manifests, 12 certificates, command records,
+runtime-dependency inventory, compile-command inventories, comparison report,
+negative evidence, focused logs, and canonical evidence manifest. Build trees,
+caches, object files, and reproducible binaries are intentionally excluded.
+The canonical manifest binds every retained file to its original path and hash,
+including the source retention-manifest hash. Detached verification covered 559
+tracked source files; the source retention manifest covered 313 evidence files.
 
 ## Execution and audit
 

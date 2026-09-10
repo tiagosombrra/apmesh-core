@@ -81,6 +81,11 @@ PV0–PV7. **Point and Vector Semantics is QUALIFIED** only in the declared WSL
 Ubuntu 24.04 GCC 13 / Clang 18 libc++ envelope. The full Geometry Primitives
 stage remains `IN INVESTIGATION`; no matrix, transform, predicate, topology,
 curve, surface, or meshing capability is authorized.
+The canonical retained evidence package is
+`evidence/geometry-primitives/point-vector/pv0-pv7-ededf65/`; it excludes
+scratch builds, caches, and reproducible binaries while preserving hash-bound
+manifests, certificates, inventories, reports, negative evidence, and focused
+logs.
 
 Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualifier produced

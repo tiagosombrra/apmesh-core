@@ -1,0 +1,20 @@
+Internal ctest changing into directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-evidence/geometry-point-vector/pv0-pv7-ededf65-prepared/cells/clang-debug/build
+Test project /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-evidence/geometry-point-vector/pv0-pv7-ededf65-prepared/cells/clang-debug/build
+    Start 3: apmesh_core.geometry_primitives
+1/5 Test #3: apmesh_core.geometry_primitives .............................   Passed    0.01 sec
+    Start 4: apmesh_core.geometry_point_vector_evidence
+2/5 Test #4: apmesh_core.geometry_point_vector_evidence ..................   Passed    0.78 sec
+    Start 5: apmesh_core.geometry_point_vector_runner
+3/5 Test #5: apmesh_core.geometry_point_vector_runner ....................   Passed    0.30 sec
+    Start 6: apmesh_core.geometry_point_vector_retention
+4/5 Test #6: apmesh_core.geometry_point_vector_retention .................   Passed    0.13 sec
+    Start 7: apmesh_core.geometry_point_vector_foundation_preservation
+5/5 Test #7: apmesh_core.geometry_point_vector_foundation_preservation ...   Passed    0.06 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Label Time Summary:
+contract    =   1.29 sec*proc (5 tests)
+geometry    =   1.29 sec*proc (5 tests)
+
+Total Test time (real) =   1.34 sec

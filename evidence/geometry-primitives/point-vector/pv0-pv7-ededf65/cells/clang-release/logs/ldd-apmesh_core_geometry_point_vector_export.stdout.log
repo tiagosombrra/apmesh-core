@@ -1,0 +1,8 @@
+	linux-vdso.so.1 (0x000079a376c9f000)
+	libc++.so.1 => /lib/x86_64-linux-gnu/libc++.so.1 (0x000079a376b86000)
+	libc++abi.so.1 => /lib/x86_64-linux-gnu/libc++abi.so.1 (0x000079a376b4a000)
+	libunwind.so.1 => /lib/x86_64-linux-gnu/libunwind.so.1 (0x000079a376b3c000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000079a376a53000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x000079a376a23000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000079a376800000)
+	/lib64/ld-linux-x86-64.so.2 (0x000079a376ca1000)

@@ -1,0 +1,16 @@
+[1/16] Building CXX object CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o
+[2/16] Building CXX object CMakeFiles/apmesh_core_bootstrap_smoke.dir/tests/bootstrap_smoke.cpp.o
+[3/16] Building CXX object CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o
+[4/16] Building CXX object CMakeFiles/apmesh_core.dir/src/core/geometry.cpp.o
+[5/16] Building CXX object CMakeFiles/apmesh_core_numeric_contract.dir/tests/numeric_contract.cpp.o
+[6/16] Building CXX object CMakeFiles/apmesh_core.geometry_primitives.dir/tests/geometry_primitives.cpp.o
+[7/16] Building CXX object CMakeFiles/apmesh_core_bootstrap_export.dir/experiments/bootstrap_export.cpp.o
+[8/16] Linking CXX static library libapmesh_core.a
+[9/16] Building CXX object CMakeFiles/apmesh_core_numeric_contract_export.dir/experiments/numeric_contract_export.cpp.o
+[10/16] Linking CXX executable apmesh_core_bootstrap_export
+[11/16] Linking CXX executable apmesh_core_bootstrap_smoke
+[12/16] Linking CXX executable apmesh_core_numeric_contract
+[13/16] Building CXX object CMakeFiles/apmesh_core_geometry_point_vector_export.dir/experiments/geometry_point_vector_export.cpp.o
+[14/16] Linking CXX executable apmesh_core.geometry_primitives
+[15/16] Linking CXX executable apmesh_core_numeric_contract_export
+[16/16] Linking CXX executable apmesh_core_geometry_point_vector_export
