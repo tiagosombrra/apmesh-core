@@ -50,9 +50,9 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Implement the accepted bounded Minimal Small Linear Algebra Contract; do not
-add capabilities outside `Mat2`, `Mat3`, their admitted matrix-only operations,
-or the Geometry-side vector adapters.**
+**The bounded `Mat2`/`Mat3` implementation and its focused contracts are
+complete. Preserve the exact admitted scope and do not prepare formal LA0-LA7
+qualification until a separate work unit authorizes it.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -207,16 +207,18 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: implement the accepted Minimal Small Linear Algebra
-Contract as one bounded work unit. Point/Vector integration is complete. Do not
-add transforms, predicates, topology, curves, surfaces, meshing, or the Geometry
+Current first action: review the bounded Minimal Small Linear Algebra package
+before publication. Point/Vector integration is complete. Do not add
+transforms, predicates, topology, curves, surfaces, meshing, or the Geometry
 Primitives stage regression.
 
-1. Implement concrete `Mat2` and `Mat3` in the logical `math` layer, their
-admitted matrix-only operations, and the one-way Geometry-side adapters for
-`Vector2`/`Vector3`. Add only the focused analytic and adversarial contracts
-specified by
-`docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
+1. Review the implemented concrete `Mat2` and `Mat3` logical `math` layer,
+their admitted matrix-only operations, the one-way Geometry-side adapters for
+`Vector2`/`Vector3`, and the focused analytic/adversarial contracts specified
+by `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
+Focused `apmesh_core.minimal_small_linear_algebra` and
+`apmesh_core.math_header_isolation` CTests passed on GCC 13 Debug and Clang 18
+libc++ Debug in the declared WSL Ubuntu 24.04 envelope.
 Preserve the qualified `ededf65` Point/Vector evidence and the negative
 `b7f8fe9` selection-defect evidence. Do not prepare formal `LA0`–`LA7`
 qualification in the implementation work unit.
@@ -225,10 +227,9 @@ Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics QUALIFIED and integrated. The Minimal
-Small Linear Algebra Contract is accepted for bounded implementation;
-implementation, focused tests, and qualification remain at 0%. The remaining
-Geometry Primitives investigation problems and the cumulative stage regression
-remain unqualified.
+Small Linear Algebra implementation and focused tests are complete; formal
+qualification remains at 0%. The remaining Geometry Primitives investigation
+problems and the cumulative stage regression remain unqualified.
 
 ## Stage closure protocol
 
