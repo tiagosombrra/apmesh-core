@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-08
+Last updated: 2026-09-10
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -333,6 +333,12 @@ verification. The separate audit qualified only Point and Vector Semantics in
 the declared WSL envelope. The decision and retained limitations are recorded
 in `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`.
 
+PR #3 integrated the reviewed Point/Vector package into `main` at
+`1ff6568c908ea144b903a70a2497c000a89e35eb`. The resulting tree is identical to
+the reviewed source head `b17067312b523e934c81d56b6cde7948f30ff93f`;
+both resolve to tree `bea6ffaa71877811daa98d1f69a299446b12f401`.
+The source branch was removed after this identity check.
+
 A first formal attempt on `b7f8fe9` remains retained as
 `BLOCKED_BY_CONTRACT_SELECTION_DEFECT`: its PV6 selector admitted a historical
 Foundation preflight self-test whose scope intentionally excludes later
@@ -347,9 +353,22 @@ reused or reclassified by the successful `ededf65` execution.
 
 #### Small Linear Algebra
 
-- Implement only operations justified by current scientific need (`Mat2`, `Mat3`, small eigensystems if needed later).
-- Verify against analytic matrices and conditioning cases.
-- Reassess whether a third-party library becomes materially advantageous before expanding scope.
+Status: `ACCEPTED FOR BOUNDED IMPLEMENTATION / IMPLEMENTATION NOT STARTED`
+
+- Authority: `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
+- Candidate hypothesis: concrete fixed-size `Mat2` and `Mat3` value semantics,
+  finite construction, checked access, identity, transpose, matching
+  matrix-vector application, same-dimension composition, and an algebraic-only
+  determinant are sufficient for the next dependency.
+- Explicitly exclude dynamic matrices, inverses, solves, decompositions,
+  eigensystems, determinant predicates, transformations, topology, curves,
+  surfaces, meshing, and new dependencies.
+- Require independent analytic cases, explicit non-finite failure, preservation
+  of Foundation and Point/Vector semantics, and a later revision-bound
+  qualification before this investigation problem can close.
+- Amendment 1 fixes the one-way `math -> geometry` dependency, exact error
+  vocabulary, transpose identity `(A B)^T = B^T A^T`, and operation-specific
+  power-of-two scale laws without expanding the admitted capability.
 
 #### Transformations and Coordinate Frames
 
@@ -577,7 +596,7 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current branch: `geometry/point-vector-semantics`.
+Current branch: `geometry/minimal-small-linear-algebra-contract`.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -588,7 +607,8 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / Point and Vector Semantics qualified; no next Geometry component authorized**
+**Geometry Primitives — Exact Semantics Before Curves / implement the accepted
+bounded Minimal Small Linear Algebra semantics**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -602,4 +622,9 @@ audit on `b333755`, with retained scope limitations. Point and Vector Semantics
 are QUALIFIED on `ededf65` only within the declared WSL Ubuntu 24.04 GCC 13 /
 Clang 18 libc++ envelope. Geometry Primitives remains IN INVESTIGATION: no
 matrix, transform, predicate, topology, curve, surface, or meshing algorithm
-is implemented or authorized by this qualification.
+is implemented or authorized by the Point/Vector qualification. PR #3 is
+integrated into `main` at `1ff6568`; its tree matches reviewed source head
+`b170673`. The bounded Minimal Small Linear Algebra Contract is accepted for
+implementation after Amendment 1 resolved its dependency, error, transpose,
+and scale ambiguities. `Mat2`/`Mat3` implementation, tests, and qualification
+have not started.

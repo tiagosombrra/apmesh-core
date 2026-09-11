@@ -3,7 +3,7 @@
 Status: ACTIVE
 Last updated: 2026-09-10
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: `geometry/point-vector-semantics`
+Working branch: `geometry/minimal-small-linear-algebra-contract`
 
 ## Purpose
 
@@ -50,11 +50,21 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Record the qualified Point/Vector work unit and prepare its controlled integration review; do not start another Geometry component.**
+**Implement the accepted bounded Minimal Small Linear Algebra Contract; do not
+add capabilities outside `Mat2`, `Mat3`, their admitted matrix-only operations,
+or the Geometry-side vector adapters.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
 focused four-cell contract; meshing remains unimplemented.
+
+PR #3 was squash-merged into `main` at
+`1ff6568c908ea144b903a70a2497c000a89e35eb`. Its tree is identical to the
+reviewed source head `b17067312b523e934c81d56b6cde7948f30ff93f`; both
+resolve to tree `bea6ffaa71877811daa98d1f69a299446b12f401`. The source
+branch was removed only after that identity was verified. Point and Vector
+Semantics therefore remains qualified and is now integrated into the canonical
+`main` history.
 
 Geometry Primitives entry is approved by
 `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`. The authorized first
@@ -186,31 +196,39 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
-3. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
-4. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
-5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
-6. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-7. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-8. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-9. `docs/research/REFERENCE_REGISTER.md`.
+3. `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`
+4. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
+5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
+6. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
+7. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+8. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+9. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+10. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: review the qualified Point/Vector branch for controlled
-integration. Do not begin Small Linear Algebra, transformations, predicates,
-topology, curves, surfaces, or meshing.
-
-1. Review the qualified `ededf65` Point/Vector package for integration into
-`main`. Preserve the `b7f8fe9` selection-defect evidence. Do not add matrices,
-transforms, predicates, topology, curves, surfaces, meshing, or the Geometry
+Current first action: implement the accepted Minimal Small Linear Algebra
+Contract as one bounded work unit. Point/Vector integration is complete. Do not
+add transforms, predicates, topology, curves, surfaces, meshing, or the Geometry
 Primitives stage regression.
+
+1. Implement concrete `Mat2` and `Mat3` in the logical `math` layer, their
+admitted matrix-only operations, and the one-way Geometry-side adapters for
+`Vector2`/`Vector3`. Add only the focused analytic and adversarial contracts
+specified by
+`docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
+Preserve the qualified `ededf65` Point/Vector evidence and the negative
+`b7f8fe9` selection-defect evidence. Do not prepare formal `LA0`–`LA7`
+qualification in the implementation work unit.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
-INVESTIGATION with Point/Vector Semantics QUALIFIED. The remaining Geometry
-Primitives investigation problems and the cumulative stage regression remain
-unqualified; this work-unit closure does not qualify them.
+INVESTIGATION with Point/Vector Semantics QUALIFIED and integrated. The Minimal
+Small Linear Algebra Contract is accepted for bounded implementation;
+implementation, focused tests, and qualification remain at 0%. The remaining
+Geometry Primitives investigation problems and the cumulative stage regression
+remain unqualified.
 
 ## Stage closure protocol
 
