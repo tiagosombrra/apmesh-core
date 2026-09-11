@@ -353,7 +353,7 @@ reused or reclassified by the successful `ededf65` execution.
 
 #### Small Linear Algebra
 
-Status: `ACCEPTED FOR BOUNDED IMPLEMENTATION / IMPLEMENTATION NOT STARTED`
+Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED`
 
 - Authority: `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
 - Candidate hypothesis: concrete fixed-size `Mat2` and `Mat3` value semantics,
@@ -369,6 +369,12 @@ Status: `ACCEPTED FOR BOUNDED IMPLEMENTATION / IMPLEMENTATION NOT STARTED`
 - Amendment 1 fixes the one-way `math -> geometry` dependency, exact error
   vocabulary, transpose identity `(A B)^T = B^T A^T`, and operation-specific
   power-of-two scale laws without expanding the admitted capability.
+- The bounded implementation provides only `Mat2`, `Mat3`, their admitted
+  matrix-only operations, and one-way Geometry-side `Vector2`/`Vector3`
+  adapters. Focused `apmesh_core.minimal_small_linear_algebra` and
+  `apmesh_core.math_header_isolation` CTests passed on GCC 13 Debug and Clang
+  18 libc++ Debug in the declared WSL Ubuntu 24.04 envelope. This is focused
+  implementation evidence, not formal LA0-LA7 qualification.
 
 #### Transformations and Coordinate Frames
 
@@ -624,7 +630,7 @@ Clang 18 libc++ envelope. Geometry Primitives remains IN INVESTIGATION: no
 matrix, transform, predicate, topology, curve, surface, or meshing algorithm
 is implemented or authorized by the Point/Vector qualification. PR #3 is
 integrated into `main` at `1ff6568`; its tree matches reviewed source head
-`b170673`. The bounded Minimal Small Linear Algebra Contract is accepted for
-implementation after Amendment 1 resolved its dependency, error, transpose,
-and scale ambiguities. `Mat2`/`Mat3` implementation, tests, and qualification
-have not started.
+`b170673`. The bounded Minimal Small Linear Algebra Contract was accepted after
+Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
+`Mat2`/`Mat3` implementation and focused tests now pass in the declared WSL
+Debug envelope; formal LA0-LA7 qualification has not started.

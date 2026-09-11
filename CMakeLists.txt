@@ -19,6 +19,7 @@ add_library(apmesh_core STATIC
     src/core/bootstrap.cpp
     src/core/geometry.cpp
     src/core/numeric.cpp
+    src/math/linear_algebra.cpp
 )
 add_library(apmesh::core ALIAS apmesh_core)
 
@@ -82,6 +83,26 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.geometry_primitives)
 
     add_test(NAME apmesh_core.geometry_primitives COMMAND apmesh_core.geometry_primitives)
+    add_executable(apmesh_core.minimal_small_linear_algebra
+        tests/minimal_small_linear_algebra.cpp
+    )
+    target_link_libraries(apmesh_core.minimal_small_linear_algebra PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.minimal_small_linear_algebra)
+
+    add_test(
+        NAME apmesh_core.minimal_small_linear_algebra
+        COMMAND apmesh_core.minimal_small_linear_algebra
+    )
+    add_executable(apmesh_core.math_header_isolation
+        tests/math_header_isolation.cpp
+    )
+    target_link_libraries(apmesh_core.math_header_isolation PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.math_header_isolation)
+
+    add_test(
+        NAME apmesh_core.math_header_isolation
+        COMMAND apmesh_core.math_header_isolation
+    )
     add_test(
         NAME apmesh_core.geometry_point_vector_evidence
         COMMAND
@@ -237,6 +258,11 @@ if(BUILD_TESTING)
         apmesh_core.geometry_point_vector_retention
         apmesh_core.geometry_point_vector_foundation_preservation
         PROPERTIES LABELS "geometry;contract"
+    )
+    set_tests_properties(
+        apmesh_core.minimal_small_linear_algebra
+        apmesh_core.math_header_isolation
+        PROPERTIES LABELS "math;geometry;contract"
     )
     set_tests_properties(
         apmesh_core.reproducible_experiment_evidence
