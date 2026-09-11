@@ -63,5 +63,9 @@ regression remains open.
 
 ## Next bounded action
 
-Review the qualified Point/Vector branch for controlled integration into
-`main`; do not begin another Geometry Primitives component.
+PR #3 integrated the qualified Point/Vector package into `main` at
+`1ff6568c908ea144b903a70a2497c000a89e35eb`; its tree matches reviewed source
+head `b17067312b523e934c81d56b6cde7948f30ff93f`. Review the separately
+accepted Minimal Small Linear Algebra Contract before its bounded
+implementation. No matrix implementation is authorized by this Point/Vector
+qualification itself.

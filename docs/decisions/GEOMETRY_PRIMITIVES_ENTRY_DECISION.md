@@ -1,6 +1,6 @@
 # Geometry Primitives — Bounded Entry Decision
 
-Status: IMPLEMENTED / FOCUSED CONTRACT PASS / QUALIFICATION INFRASTRUCTURE READY
+Status: COMPLETED / POINT-VECTOR QUALIFIED AND INTEGRATED
 Date: 2026-09-08
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Prerequisite: Foundation `QUALIFIED` at candidate `b333755`
@@ -151,10 +151,11 @@ Stop the work unit if a case requires a topological predicate, an undeclared
 numeric acceptance rule, a general matrix abstraction, or reinterpretation of
 the Numeric Contract. Such a finding requires a separate bounded decision.
 
-## Effect on the roadmap
+## Effect on the roadmap at entry decision time
 
-Geometry Primitives moves from `NOT STARTED` to `IN INVESTIGATION / ENTRY
-DECISION APPROVED`. Scientific implementation and qualification remain pending.
+Geometry Primitives moved from `NOT STARTED` to `IN INVESTIGATION / ENTRY
+DECISION APPROVED`. Scientific implementation and qualification were pending at
+the time of this entry decision.
 Foundation stays qualified and is not reopened by this documentation-only
 decision.
 
@@ -181,7 +182,8 @@ does not qualify the complete Geometry Primitives stage.
 
 ## Next bounded action
 
-Review and publish the Point/Vector qualification infrastructure package. The
-focused contracts pass, but do not prepare or execute the formal qualification
-regression and do not implement matrices, transforms, predicates, topology,
-curves, or meshing.
+Point and Vector Semantics subsequently passed PV0–PV7 on candidate `ededf65`
+and was integrated into `main` by PR #3 at `1ff6568`. Review the separately
+accepted Minimal Small Linear Algebra Contract before implementing its bounded
+`Mat2`/`Mat3` capability. Transforms, predicates, topology, curves, and meshing
+remain unauthorized.

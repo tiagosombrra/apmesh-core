@@ -259,5 +259,6 @@ No scientific gate changed status in that historical attempt. The independent
 ## 14. Next bounded action
 
 Point and Vector Semantics is qualified within the declared WSL envelope.
-Do not begin another Geometry Primitives component without a separate bounded
-entry decision. The Geometry Primitives stage regression remains required.
+The separate Minimal Small Linear Algebra Contract is accepted for bounded
+implementation; it does not itself implement or qualify matrices. The Geometry
+Primitives stage regression remains required.
