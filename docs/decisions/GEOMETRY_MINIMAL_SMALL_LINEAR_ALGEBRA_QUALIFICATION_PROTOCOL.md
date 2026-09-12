@@ -177,7 +177,7 @@ and meshing remain unqualified.
 
 ## 10. Next bounded action
 
-Implement only the report-only LA profile, exporter, runner, collector,
-comparer, negative contracts, and retention verifier required by this protocol.
-Run focused infrastructure contracts only. Do not prepare a manifest or execute
-the formal four-cell qualification in that work unit.
+Audit the published report-only LA profile, exporter, runner, collector,
+comparer, negative contracts, and retention verifier against this protocol. Do
+not prepare a manifest or execute the formal four-cell qualification in that
+work unit.

@@ -50,10 +50,10 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**The bounded `Mat2`/`Mat3` implementation and focused contracts are complete,
-and the formal LA0-LA7 protocol is preregistered. The next work unit may add
-only its report-only evidence infrastructure; it must not prepare or execute the
-formal qualification.**
+**The bounded `Mat2`/`Mat3` implementation, report-only LA0-LA7 evidence
+infrastructure, and focused contracts are complete. The formal protocol remains
+preregistered, not prepared, and not executed; the next work unit is an
+admission audit only.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -215,11 +215,11 @@ protocol. Point/Vector integration is complete. Do not prepare a manifest or
 execute LA0-LA7, and do not add transforms, predicates, topology, curves,
 surfaces, meshing, or the Geometry Primitives stage regression.
 
-1. Add only the versioned LA profile, semantic-certificate exporter, runner,
-collector, comparer, negative contracts, and retention verifier specified by
+1. Audit the published LA0-LA7 evidence infrastructure against its
+preregistered protocol,
 `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`.
-Run focused infrastructure contracts only. Preserve the qualified `ededf65`
-Point/Vector evidence and negative `b7f8fe9` selection-defect evidence. Do not
+Preserve the qualified `ededf65` Point/Vector evidence and negative `b7f8fe9`
+selection-defect evidence. Do not
 prepare or execute formal `LA0`–`LA7` qualification in that work unit.
 
 Decision progress: Foundation closure is complete. Qualification progress:

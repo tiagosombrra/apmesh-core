@@ -379,8 +379,9 @@ Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED`
   `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`.
   It fixes one four-cell GCC/Clang Debug/Release matrix, three independent
   semantic certificates per cell, exact prerequisite preservation, immutable
-  evidence, and a separate scientific audit. No manifest is prepared and no
-  formal execution has started.
+  evidence, and a separate scientific audit. Its report-only profile, exporter,
+  runner, comparer, negative contracts, and retention verifier pass focused
+  GCC/Clang checks. No manifest is prepared and no formal execution has started.
 
 #### Transformations and Coordinate Frames
 
