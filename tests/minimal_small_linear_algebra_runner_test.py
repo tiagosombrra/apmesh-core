@@ -4,8 +4,18 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import subprocess
 import sys
+
+
+def load(path: str):
+    spec = importlib.util.spec_from_file_location("la_runner", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("cannot load runner")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def main() -> int:
@@ -21,7 +31,13 @@ def main() -> int:
     ], capture_output=True, text=True, check=False)
     if completed.returncode != 0:
         raise RuntimeError(f"runner self-check failed: {completed.stderr}")
-    return 0
+    runner = load(arguments.runner)
+    profile = runner.validate_profile(__import__("pathlib").Path(arguments.profile))
+    try:
+        runner.validate_prerequisite_discovery(profile["exact_prerequisite_tests"][:-1], profile["exact_prerequisite_tests"])
+    except runner.RuntimeErrorEvidence:
+        return 0
+    raise RuntimeError("missing prerequisite was accepted")
 
 
 if __name__ == "__main__":

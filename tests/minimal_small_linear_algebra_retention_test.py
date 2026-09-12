@@ -25,24 +25,37 @@ def digest(path: pathlib.Path) -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--runner", required=True)
-    arguments = parser.parse_args()
-    runner = load(pathlib.Path(arguments.runner))
+    parser = argparse.ArgumentParser(); parser.add_argument("--runner", required=True)
+    arguments = parser.parse_args(); runner = load(pathlib.Path(arguments.runner))
     with tempfile.TemporaryDirectory(prefix="apmesh-core-la-retention-") as temporary:
         root = pathlib.Path(temporary)
-        prepared = root / "prepared-manifest.json"; summary = root / "summary.json"
-        prepared.write_text("{}\n", encoding="utf-8"); summary.write_text("{}\n", encoding="utf-8")
-        manifest = {"schema_version": 2, "kind": "minimal-small-linear-algebra-retention", "candidate_commit": "a" * 40,
-                    "prepared_manifest_sha256": digest(prepared), "files": [{"path": "summary.json", "sha256": digest(summary), "size": summary.stat().st_size}]}
+        for relative in runner.TERMINAL_REQUIRED_FAILURE - {"retention-manifest.json"}:
+            path = root / relative; path.parent.mkdir(parents=True, exist_ok=True)
+            if relative == "terminal-manifest.json":
+                path.write_text(json.dumps({"state": "BLOCKED"}), encoding="utf-8")
+            else:
+                path.write_text("{}\n", encoding="utf-8")
+        prepared = root / "prepared-manifest.json"
+        manifest = {
+            "schema_version": 3,
+            "kind": "minimal-small-linear-algebra-retention",
+            "candidate_commit": "a" * 40,
+            "prepared_manifest_sha256": digest(prepared),
+            "required_paths": sorted(runner.TERMINAL_REQUIRED_FAILURE),
+            "files": [],
+        }
+        for path in sorted(root.rglob("*")):
+            if path.is_file() and path.name != "retention-manifest.json":
+                manifest["files"].append({"path": path.relative_to(root).as_posix(), "sha256": digest(path), "size": path.stat().st_size})
         (root / "retention-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
         runner.verify_retention(argparse.Namespace(output_root=str(root)))
-        summary.write_text("tampered\n", encoding="utf-8")
+        manifest["required_paths"] = ["prepared-manifest.json"]
+        (root / "retention-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
         try:
             runner.verify_retention(argparse.Namespace(output_root=str(root)))
         except runner.RuntimeErrorEvidence:
             return 0
-        raise RuntimeError("tampered retention was accepted")
+        raise RuntimeError("incomplete failure retention was accepted")
 
 
 if __name__ == "__main__":

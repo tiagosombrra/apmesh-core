@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "kind": "minimal-small-linear-algebra-qualification-profile",
   "repetitions_per_cell": 3,
   "cells": [
@@ -10,13 +10,21 @@
   ],
   "gates": ["LA0", "LA1", "LA2", "LA3", "LA4", "LA5", "LA6", "LA7"],
   "cases": [
-    "mat2_access", "mat3_access", "mat2_application", "mat3_application",
-    "mat2_swap", "mat3_cycle", "mat2_quarter_turn", "mat2_transpose_composition",
-    "mat3_transpose_composition", "mat2_zero_determinant", "mat3_zero_determinant",
-    "mat2_nonfinite_input_all", "mat3_nonfinite_input_all", "mat2_overflow_application",
-    "mat3_overflow_application", "mat2_overflow_composition", "mat3_overflow_composition",
-    "mat2_overflow_determinant", "mat3_overflow_determinant", "scale_k_m8", "scale_k_m1",
-    "scale_k_0", "scale_k_1", "scale_k_8", "type_separation"
+    "mat2_zero", "mat2_identity", "mat3_zero", "mat3_identity",
+    "mat2_access_r0c0", "mat2_access_r0c1", "mat2_access_r1c0", "mat2_access_r1c1", "mat2_access_row_oob", "mat2_access_column_oob",
+    "mat3_access_r0c0", "mat3_access_r0c1", "mat3_access_r0c2", "mat3_access_r1c0", "mat3_access_r1c1", "mat3_access_r1c2", "mat3_access_r2c0", "mat3_access_r2c1", "mat3_access_r2c2", "mat3_access_row_oob", "mat3_access_column_oob",
+    "mat2_diagonal_application", "mat3_diagonal_application", "mat2_swap_determinant", "mat3_cycle_determinant",
+    "mat2_quarter_turn_application", "mat2_quarter_turn_square", "mat2_noncommuting_composition", "mat3_noncommuting_composition",
+    "mat2_transpose_composition", "mat3_transpose_composition", "mat2_zero_row_determinant", "mat3_zero_row_determinant",
+    "type_reject_mat2_point2", "type_reject_mat3_point3", "type_reject_mat2_vector3", "type_reject_mat2_mat3",
+    "mat2_nonfinite_nan_e0", "mat2_nonfinite_nan_e1", "mat2_nonfinite_nan_e2", "mat2_nonfinite_nan_e3",
+    "mat2_nonfinite_posinf_e0", "mat2_nonfinite_posinf_e1", "mat2_nonfinite_posinf_e2", "mat2_nonfinite_posinf_e3",
+    "mat2_nonfinite_neginf_e0", "mat2_nonfinite_neginf_e1", "mat2_nonfinite_neginf_e2", "mat2_nonfinite_neginf_e3",
+    "mat3_nonfinite_nan_e0", "mat3_nonfinite_nan_e1", "mat3_nonfinite_nan_e2", "mat3_nonfinite_nan_e3", "mat3_nonfinite_nan_e4", "mat3_nonfinite_nan_e5", "mat3_nonfinite_nan_e6", "mat3_nonfinite_nan_e7", "mat3_nonfinite_nan_e8",
+    "mat3_nonfinite_posinf_e0", "mat3_nonfinite_posinf_e1", "mat3_nonfinite_posinf_e2", "mat3_nonfinite_posinf_e3", "mat3_nonfinite_posinf_e4", "mat3_nonfinite_posinf_e5", "mat3_nonfinite_posinf_e6", "mat3_nonfinite_posinf_e7", "mat3_nonfinite_posinf_e8",
+    "mat3_nonfinite_neginf_e0", "mat3_nonfinite_neginf_e1", "mat3_nonfinite_neginf_e2", "mat3_nonfinite_neginf_e3", "mat3_nonfinite_neginf_e4", "mat3_nonfinite_neginf_e5", "mat3_nonfinite_neginf_e6", "mat3_nonfinite_neginf_e7", "mat3_nonfinite_neginf_e8",
+    "mat2_overflow_application", "mat3_overflow_application", "mat2_overflow_composition", "mat3_overflow_composition", "mat2_overflow_determinant", "mat3_overflow_determinant",
+    "scale_k_m8", "scale_k_m1", "scale_k_0", "scale_k_1", "scale_k_8"
   ],
   "scale_exponents": [-8, -1, 0, 1, 8],
   "exact_prerequisite_tests": [
