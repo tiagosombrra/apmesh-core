@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "kind": "minimal-small-linear-algebra-qualification-profile",
+  "repetitions_per_cell": 3,
+  "cells": [
+    {"id": "gcc-debug", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Debug"},
+    {"id": "gcc-release", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Release"},
+    {"id": "clang-debug", "compiler": "Clang 18", "library": "libc++", "build_type": "Debug"},
+    {"id": "clang-release", "compiler": "Clang 18", "library": "libc++", "build_type": "Release"}
+  ],
+  "gates": ["LA0", "LA1", "LA2", "LA3", "LA4", "LA5", "LA6", "LA7"],
+  "case_families": [
+    "zero_identity_access", "mat2_application", "mat3_application", "permutation",
+    "quarter_turn", "transpose_composition", "determinant_boundary",
+    "nonfinite_construction", "nonfinite_result", "power_two_scale", "type_separation"
+  ],
+  "exact_prerequisite_tests": [
+    "apmesh_core.bootstrap_smoke", "apmesh_core.bootstrap_export", "apmesh_core.bootstrap_tool",
+    "apmesh_core.architecture_bootstrap_runner", "apmesh_core.numeric_contract",
+    "apmesh_core.numeric_contract_evidence", "apmesh_core.numeric_contract_runner",
+    "apmesh_core.reproducible_experiment_evidence", "apmesh_core.reproducible_experiment_runner",
+    "apmesh_core.reproducible_experiment_retention", "apmesh_core.reproducible_experiment_negatives",
+    "apmesh_core.geometry_primitives", "apmesh_core.geometry_point_vector_evidence",
+    "apmesh_core.geometry_point_vector_runner", "apmesh_core.geometry_point_vector_retention",
+    "apmesh_core.geometry_point_vector_foundation_preservation"
+  ],
+  "volatile_fields": ["cell", "compiler", "library", "build_type", "path", "pid", "timestamp", "duration", "artifact_hash"],
+  "limitations": [
+    "WSL Ubuntu 24.04 GCC 13 and Clang 18 libc++ envelope only",
+    "No native Windows, parallel, predicate, topology, curve, surface, or meshing qualification",
+    "Algebraic determinant only; no sign, rank, degeneracy, orientation, or topology claim"
+  ]
+}
