@@ -3,13 +3,17 @@
 
 #include <array>
 #include <cmath>
+#include <concepts>
 #include <expected>
 #include <fstream>
 #include <iomanip>
 #include <limits>
 #include <locale>
 #include <sstream>
+#include <string>
 #include <string_view>
+#include <utility>
+#include <vector>
 
 namespace {
 
@@ -17,12 +21,37 @@ using apmesh::core::GeometryError;
 using apmesh::core::LinearAlgebraError;
 using apmesh::core::Mat2;
 using apmesh::core::Mat3;
+using apmesh::core::Point2;
+using apmesh::core::Point3;
 using apmesh::core::Vector2;
 using apmesh::core::Vector3;
 using apmesh::core::apply;
 using apmesh::core::compose;
 using apmesh::core::determinant;
 using apmesh::core::transpose;
+
+template <typename Matrix, typename Operand>
+concept Applicable = requires(const Matrix& matrix, const Operand& operand) {
+    apply(matrix, operand);
+};
+
+template <typename Left, typename Right>
+concept Composable = requires(const Left& left, const Right& right) {
+    compose(left, right);
+};
+
+static_assert(!Applicable<Mat2, Point2>);
+static_assert(!Applicable<Mat3, Point3>);
+static_assert(!Applicable<Mat2, Vector3>);
+static_assert(!Composable<Mat2, Mat3>);
+
+using Values = std::vector<double>;
+
+struct Result {
+    std::string outcome;
+    std::string error;
+    Values value;
+};
 
 std::string hex_value(const double value) {
     if (std::isnan(value)) return "nan";
@@ -34,7 +63,7 @@ std::string hex_value(const double value) {
     return output.str();
 }
 
-void write_values(std::ostream& output, const std::initializer_list<double> values) {
+void write_values(std::ostream& output, const Values& values) {
     output << '[';
     bool first = true;
     for (const double value : values) {
@@ -45,175 +74,281 @@ void write_values(std::ostream& output, const std::initializer_list<double> valu
     output << ']';
 }
 
-void write_result(std::ostream& output, const bool passed, const std::string_view error = {}) {
-    if (!error.empty()) {
-        output << "\"outcome\":\"error\",\"error\":\"" << error << "\",\"value\":null";
-        return;
-    }
-    output << "\"outcome\":\"value\",\"error\":null,\"value\":";
-    write_values(output, {passed ? 1.0 : 0.0});
+void write_result(std::ostream& output, const Result& result) {
+    output << "\"outcome\":\"" << result.outcome << "\",\"error\":";
+    if (result.error.empty()) output << "null";
+    else output << '"' << result.error << '"';
+    output << ",\"value\":";
+    if (result.outcome == "value") write_values(output, result.value);
+    else output << "null";
 }
 
-void write_case(std::ostream& output, bool& first, const std::string_view id, const int dimension,
-                const std::string_view operation, const std::string_view category,
-                const std::initializer_list<double> inputs, const bool passed,
-                const std::string_view expected_error = {}, const bool determinant_case = false) {
+Result value(Values entries) {
+    return {"value", {}, std::move(entries)};
+}
+
+Result error(const std::string_view name) {
+    return {"error", std::string{name}, {}};
+}
+
+Result compile_time_rejection() {
+    return {"compile_time_rejection", {}, {}};
+}
+
+std::string error_name(const LinearAlgebraError value) {
+    switch (value) {
+    case LinearAlgebraError::non_finite_input: return "non_finite_input";
+    case LinearAlgebraError::non_finite_result: return "non_finite_result";
+    case LinearAlgebraError::index_out_of_range: return "index_out_of_range";
+    }
+    return "unknown";
+}
+
+std::string error_name(const GeometryError value) {
+    switch (value) {
+    case GeometryError::non_finite_input: return "non_finite_input";
+    case GeometryError::non_finite_result: return "non_finite_result";
+    default: return "unknown";
+    }
+}
+
+Result result_of(const std::expected<double, LinearAlgebraError>& input) {
+    if (!input) return error(error_name(input.error()));
+    return value({*input});
+}
+
+Result result_of(const std::expected<Mat2, LinearAlgebraError>& input);
+Result result_of(const std::expected<Mat3, LinearAlgebraError>& input);
+Result result_of(const std::expected<Vector2, GeometryError>& input);
+Result result_of(const std::expected<Vector3, GeometryError>& input);
+
+Values entries(const Mat2& matrix) {
+    Values result;
+    for (std::size_t row = 0; row < 2; ++row) {
+        for (std::size_t column = 0; column < 2; ++column) result.push_back(*matrix.at(row, column));
+    }
+    return result;
+}
+
+Values entries(const Mat3& matrix) {
+    Values result;
+    for (std::size_t row = 0; row < 3; ++row) {
+        for (std::size_t column = 0; column < 3; ++column) result.push_back(*matrix.at(row, column));
+    }
+    return result;
+}
+
+Values entries(const Vector2& vector) { return {vector.x(), vector.y()}; }
+Values entries(const Vector3& vector) { return {vector.x(), vector.y(), vector.z()}; }
+
+Result result_of(const std::expected<Mat2, LinearAlgebraError>& input) {
+    if (!input) return error(error_name(input.error()));
+    return value(entries(*input));
+}
+
+Result result_of(const std::expected<Mat3, LinearAlgebraError>& input) {
+    if (!input) return error(error_name(input.error()));
+    return value(entries(*input));
+}
+
+Result result_of(const std::expected<Vector2, GeometryError>& input) {
+    if (!input) return error(error_name(input.error()));
+    return value(entries(*input));
+}
+
+Result result_of(const std::expected<Vector3, GeometryError>& input) {
+    if (!input) return error(error_name(input.error()));
+    return value(entries(*input));
+}
+
+Values join(Values first, const Values& second) {
+    first.insert(first.end(), second.begin(), second.end());
+    return first;
+}
+
+Values join(Values first, const std::initializer_list<double> second) {
+    first.insert(first.end(), second.begin(), second.end());
+    return first;
+}
+
+void write_case(std::ostream& output, bool& first, const std::string_view id,
+                const int dimension, const std::string_view operation,
+                const std::string_view category, const std::string_view input_layout,
+                const Values& inputs, const Result& expected, const Result& observed,
+                const bool determinant_case = false) {
     if (!first) output << ',';
     first = false;
-    output << "{\"schema_version\":1,\"id\":\"" << id << "\",\"dimension\":" << dimension
+    output << "{\"schema_version\":2,\"id\":\"" << id << "\",\"dimension\":" << dimension
            << ",\"operation\":\"" << operation << "\",\"claim_category\":\"" << category
-           << "\",\"inputs\":";
+           << "\",\"input_layout\":\"" << input_layout << "\",\"inputs\":";
     write_values(output, inputs);
     output << ",\"expected\":{";
-    write_result(output, true, expected_error);
+    write_result(output, expected);
     output << "},\"observed\":{";
-    if (!expected_error.empty()) {
-        write_result(output, passed, passed ? expected_error : "non_finite_result");
-    } else {
-        write_result(output, passed);
-    }
+    write_result(output, observed);
     output << "},\"comparison\":{\"rule\":\"exact_hex\",\"exact_match\":"
-           << (passed ? "true" : "false") << ",\"proximity_policy\":null},\"non_claims\":[";
+           << (expected.outcome == observed.outcome && expected.error == observed.error && expected.value == observed.value ? "true" : "false")
+           << ",\"proximity_policy\":null},\"non_claims\":[";
     if (determinant_case) {
         output << "\"predicate\",\"rank\",\"degeneracy\",\"orientation\",\"incidence\",\"topology\"";
     }
     output << "]}";
 }
 
-bool access2(const Mat2& value) {
+void write_access_cases(std::ostream& output, bool& first, const Mat2& matrix) {
+    const Values matrix_values = entries(matrix);
     for (std::size_t row = 0; row < 2; ++row) {
         for (std::size_t column = 0; column < 2; ++column) {
-            if (!value.at(row, column)) return false;
+            const Values input = join(matrix_values, {static_cast<double>(row), static_cast<double>(column)});
+            write_case(output, first, std::string{"mat2_access_r"} + std::to_string(row) + "c" + std::to_string(column), 2,
+                       "checked_access", "dimension_dependency", "matrix_row_major,row,column", input,
+                       value({matrix_values[row * 2 + column]}), result_of(matrix.at(row, column)));
         }
     }
-    for (std::size_t index = 0; index < 2; ++index) {
-        if (value.at(2, index).error() != LinearAlgebraError::index_out_of_range ||
-            value.at(index, 2).error() != LinearAlgebraError::index_out_of_range) return false;
-    }
-    return value.at(2, 2).error() == LinearAlgebraError::index_out_of_range;
+    write_case(output, first, "mat2_access_row_oob", 2, "checked_access", "dimension_dependency",
+               "matrix_row_major,row,column", join(matrix_values, {2.0, 0.0}), error("index_out_of_range"), result_of(matrix.at(2, 0)));
+    write_case(output, first, "mat2_access_column_oob", 2, "checked_access", "dimension_dependency",
+               "matrix_row_major,row,column", join(matrix_values, {0.0, 2.0}), error("index_out_of_range"), result_of(matrix.at(0, 2)));
 }
 
-bool access3(const Mat3& value) {
+void write_access_cases(std::ostream& output, bool& first, const Mat3& matrix) {
+    const Values matrix_values = entries(matrix);
     for (std::size_t row = 0; row < 3; ++row) {
         for (std::size_t column = 0; column < 3; ++column) {
-            if (!value.at(row, column)) return false;
+            const Values input = join(matrix_values, {static_cast<double>(row), static_cast<double>(column)});
+            write_case(output, first, std::string{"mat3_access_r"} + std::to_string(row) + "c" + std::to_string(column), 3,
+                       "checked_access", "dimension_dependency", "matrix_row_major,row,column", input,
+                       value({matrix_values[row * 3 + column]}), result_of(matrix.at(row, column)));
         }
     }
-    for (std::size_t index = 0; index < 3; ++index) {
-        if (value.at(3, index).error() != LinearAlgebraError::index_out_of_range ||
-            value.at(index, 3).error() != LinearAlgebraError::index_out_of_range) return false;
-    }
-    return value.at(3, 3).error() == LinearAlgebraError::index_out_of_range;
+    write_case(output, first, "mat3_access_row_oob", 3, "checked_access", "dimension_dependency",
+               "matrix_row_major,row,column", join(matrix_values, {3.0, 0.0}), error("index_out_of_range"), result_of(matrix.at(3, 0)));
+    write_case(output, first, "mat3_access_column_oob", 3, "checked_access", "dimension_dependency",
+               "matrix_row_major,row,column", join(matrix_values, {0.0, 3.0}), error("index_out_of_range"), result_of(matrix.at(0, 3)));
 }
 
-bool invalid_inputs2() {
-    for (const double invalid : {std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity()}) {
-        for (std::size_t index = 0; index < 4; ++index) {
-            std::array<double, 4> entries{1.0, 0.0, 0.0, 1.0}; entries[index] = invalid;
-            const auto value = Mat2::make(entries);
-            if (value || value.error() != LinearAlgebraError::non_finite_input) return false;
+void write_nonfinite_cases(std::ostream& output, bool& first, const int dimension) {
+    const std::array<std::pair<std::string_view, double>, 3> invalid_values{{
+        {"nan", std::numeric_limits<double>::quiet_NaN()},
+        {"posinf", std::numeric_limits<double>::infinity()},
+        {"neginf", -std::numeric_limits<double>::infinity()},
+    }};
+    const std::size_t count = dimension == 2 ? 4U : 9U;
+    for (const auto& [name, invalid] : invalid_values) {
+        for (std::size_t index = 0; index < count; ++index) {
+            const std::string id = "mat" + std::to_string(dimension) + "_nonfinite_" + std::string(name) + "_e" + std::to_string(index);
+            if (dimension == 2) {
+                std::array<double, 4> input{1.0, 0.0, 0.0, 1.0}; input[index] = invalid;
+                write_case(output, first, id, 2, "matrix_construction", "failure_classification", "invalid_value,entry_index",
+                           {invalid, static_cast<double>(index)}, error("non_finite_input"), result_of(Mat2::make(input)));
+            } else {
+                std::array<double, 9> input{1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}; input[index] = invalid;
+                write_case(output, first, id, 3, "matrix_construction", "failure_classification", "invalid_value,entry_index",
+                           {invalid, static_cast<double>(index)}, error("non_finite_input"), result_of(Mat3::make(input)));
+            }
         }
     }
-    return true;
 }
 
-bool invalid_inputs3() {
-    for (const double invalid : {std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity()}) {
-        for (std::size_t index = 0; index < 9; ++index) {
-            std::array<double, 9> entries{1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}; entries[index] = invalid;
-            const auto value = Mat3::make(entries);
-            if (value || value.error() != LinearAlgebraError::non_finite_input) return false;
-        }
-    }
-    return true;
+Values scaled_results(const double scale) {
+    return {
+        -scale, -scale,
+        0.0, scale, 2.0 * scale,
+        scale, 0.0, 2.0 * scale, scale,
+        scale, 0.0, 0.0, scale, scale, 0.0, 0.0, scale, scale,
+        scale * scale, scale * scale * scale,
+        scale, 4.0 * scale, 0.0, scale,
+        scale, 2.0 * scale, scale, 0.0, scale, 2.0 * scale, 0.0, 0.0, scale,
+    };
 }
 
-bool scale_case(const int exponent) {
-    const double scale = std::ldexp(1.0, exponent);
+Result observed_scale_results(const double scale) {
     const auto base2 = Mat2::make(std::array<double, 4>{1.0, 2.0, 0.0, 1.0});
     const auto base3 = Mat3::make(std::array<double, 9>{1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0});
-    const auto vector2 = Vector2::make(1.0, -1.0);
-    const auto vector3 = Vector3::make(1.0, -1.0, 2.0);
-    if (!base2 || !base3 || !vector2 || !vector3) return false;
     const auto scaled2 = Mat2::make(std::array<double, 4>{scale, 2.0 * scale, 0.0, scale});
     const auto scaled3 = Mat3::make(std::array<double, 9>{scale, scale, 0.0, 0.0, scale, scale, 0.0, 0.0, scale});
-    if (!scaled2 || !scaled3) return false;
+    const auto vector2 = Vector2::make(1.0, -1.0);
+    const auto vector3 = Vector3::make(1.0, -1.0, 2.0);
+    if (!base2 || !base3 || !scaled2 || !scaled3 || !vector2 || !vector3) return error("non_finite_result");
     const auto application2 = apply(*scaled2, *vector2);
     const auto application3 = apply(*scaled3, *vector3);
-    const auto base_application2 = apply(*base2, *vector2);
-    const auto base_application3 = apply(*base3, *vector3);
-    const auto expected2 = base_application2 ? *base_application2 * scale : std::expected<Vector2, GeometryError>{std::unexpect, GeometryError::non_finite_result};
-    const auto expected3 = base_application3 ? *base_application3 * scale : std::expected<Vector3, GeometryError>{std::unexpect, GeometryError::non_finite_result};
     const auto determinant2 = determinant(*scaled2);
     const auto determinant3 = determinant(*scaled3);
-    const auto base_det2 = determinant(*base2);
-    const auto base_det3 = determinant(*base3);
-    return application2 && application3 && expected2 && expected3 && *application2 == *expected2 && *application3 == *expected3 &&
-           transpose(*scaled2) == Mat2::make(std::array<double, 4>{scale, 0.0, 2.0 * scale, scale}).value() &&
-           transpose(*scaled3) == Mat3::make(std::array<double, 9>{scale, 0.0, 0.0, scale, scale, 0.0, 0.0, scale, scale}).value() &&
-           determinant2 && determinant3 && base_det2 && base_det3 && *determinant2 == scale * scale * *base_det2 && *determinant3 == scale * scale * scale * *base_det3;
+    const auto composition2 = compose(*scaled2, *base2);
+    const auto composition3 = compose(*scaled3, *base3);
+    if (!application2 || !application3 || !determinant2 || !determinant3 || !composition2 || !composition3) return error("non_finite_result");
+    Values result = entries(*application2);
+    result = join(std::move(result), entries(*application3));
+    result = join(std::move(result), entries(transpose(*scaled2)));
+    result = join(std::move(result), entries(transpose(*scaled3)));
+    result.push_back(*determinant2); result.push_back(*determinant3);
+    result = join(std::move(result), entries(*composition2));
+    result = join(std::move(result), entries(*composition3));
+    return value(std::move(result));
 }
 
 int write_certificate(const std::string_view output_path) {
     std::ofstream output{output_path.data(), std::ios::binary | std::ios::trunc};
     if (!output.is_open()) return 2;
-    const auto identity2 = Mat2::identity(); const auto identity3 = Mat3::identity();
-    const auto vector2 = Vector2::make(3.0, -2.0); const auto vector3 = Vector3::make(2.0, -1.0, 4.0);
+
+    const Mat2 zero2 = Mat2::zero(); const Mat2 identity2 = Mat2::identity();
+    const Mat3 zero3 = Mat3::zero(); const Mat3 identity3 = Mat3::identity();
     const auto diagonal2 = Mat2::make(std::array<double, 4>{2.0, 0.0, 0.0, -4.0});
     const auto diagonal3 = Mat3::make(std::array<double, 9>{2.0, 0.0, 0.0, 0.0, -3.0, 0.0, 0.0, 0.0, 4.0});
+    const auto vector2 = Vector2::make(3.0, -2.0); const auto vector3 = Vector3::make(2.0, -1.0, 4.0);
     const auto swap2 = Mat2::make(std::array<double, 4>{0.0, 1.0, 1.0, 0.0});
     const auto cycle3 = Mat3::make(std::array<double, 9>{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0});
     const auto quarter = Mat2::make(std::array<double, 4>{0.0, -1.0, 1.0, 0.0});
     const auto left2 = Mat2::make(std::array<double, 4>{1.0, 2.0, 0.0, 1.0}); const auto right2 = Mat2::make(std::array<double, 4>{2.0, 0.0, 1.0, 3.0});
     const auto left3 = Mat3::make(std::array<double, 9>{1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0}); const auto right3 = Mat3::make(std::array<double, 9>{2.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 4.0});
-    const auto zero2 = Mat2::make(std::array<double, 4>{0.0, 0.0, 0.0, 1.0}); const auto zero3 = Mat3::make(std::array<double, 9>{0.0, 0.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0});
+    const auto zero_row2 = Mat2::make(std::array<double, 4>{0.0, 0.0, 0.0, 1.0}); const auto zero_row3 = Mat3::make(std::array<double, 9>{0.0, 0.0, 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0});
     const double maximum = std::numeric_limits<double>::max();
     const auto maximum2 = Mat2::make(std::array<double, 4>{maximum, 0.0, 0.0, maximum}); const auto maximum3 = Mat3::make(std::array<double, 9>{maximum, 0.0, 0.0, 0.0, maximum, 0.0, 0.0, 0.0, maximum});
     const auto twice2 = Mat2::make(std::array<double, 4>{2.0, 0.0, 0.0, 2.0}); const auto twice3 = Mat3::make(std::array<double, 9>{2.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 2.0});
     const auto overflow_vector2 = Vector2::make(2.0, 0.0); const auto overflow_vector3 = Vector3::make(2.0, 0.0, 0.0);
-    const bool setup = vector2 && vector3 && diagonal2 && diagonal3 && swap2 && cycle3 && quarter && left2 && right2 && left3 && right3 && zero2 && zero3 && maximum2 && maximum3 && twice2 && twice3 && overflow_vector2 && overflow_vector3;
-    const bool application2 = setup && apply(*diagonal2, *vector2) && apply(*diagonal2, *vector2)->x() == 6.0 && apply(*diagonal2, *vector2)->y() == 8.0;
-    const bool application3 = setup && apply(*diagonal3, *vector3) && apply(*diagonal3, *vector3)->x() == 4.0 && apply(*diagonal3, *vector3)->y() == 3.0 && apply(*diagonal3, *vector3)->z() == 16.0;
-    const bool swap_case = setup && determinant(*swap2) && *determinant(*swap2) == -1.0;
-    const bool cycle_case = setup && determinant(*cycle3) && *determinant(*cycle3) == 1.0;
-    const bool quarter_case = setup && compose(*quarter, *quarter) && *compose(*quarter, *quarter) == Mat2::make(std::array<double, 4>{-1.0, 0.0, 0.0, -1.0}).value();
-    const bool transpose2 = setup && compose(*left2, *right2) && compose(transpose(*right2), transpose(*left2)) && transpose(*compose(*left2, *right2)) == *compose(transpose(*right2), transpose(*left2));
-    const bool transpose3 = setup && compose(*left3, *right3) && compose(transpose(*right3), transpose(*left3)) && transpose(*compose(*left3, *right3)) == *compose(transpose(*right3), transpose(*left3));
-    const bool overflow_apply2 = setup && !apply(*maximum2, *overflow_vector2) && apply(*maximum2, *overflow_vector2).error() == GeometryError::non_finite_result;
-    const bool overflow_apply3 = setup && !apply(*maximum3, *overflow_vector3) && apply(*maximum3, *overflow_vector3).error() == GeometryError::non_finite_result;
-    const bool overflow_compose2 = setup && !compose(*maximum2, *twice2) && compose(*maximum2, *twice2).error() == LinearAlgebraError::non_finite_result;
-    const bool overflow_compose3 = setup && !compose(*maximum3, *twice3) && compose(*maximum3, *twice3).error() == LinearAlgebraError::non_finite_result;
-    const bool overflow_det2 = setup && !determinant(*maximum2) && determinant(*maximum2).error() == LinearAlgebraError::non_finite_result;
-    const bool overflow_det3 = setup && !determinant(*maximum3) && determinant(*maximum3).error() == LinearAlgebraError::non_finite_result;
-    output << "{\"schema_version\":2,\"kind\":\"minimal-small-linear-algebra-certificate\",\"environment\":{\"double_radix\":2,\"double_digits\":53,\"iec559\":true},\"source_checks\":{\"math_header_has_no_geometry_include\":\"PASS\",\"math_source_has_no_geometry_include\":\"PASS\",\"no_inverse_solve_decomposition_eigen_or_predicate_api\":\"PASS\",\"no_unsafe_floating_flags\":\"PASS\"},\"cases\":[";
+    if (!diagonal2 || !diagonal3 || !vector2 || !vector3 || !swap2 || !cycle3 || !quarter || !left2 || !right2 || !left3 || !right3 || !zero_row2 || !zero_row3 || !maximum2 || !maximum3 || !twice2 || !twice3 || !overflow_vector2 || !overflow_vector3) return 3;
+
+    output << "{\"schema_version\":3,\"kind\":\"minimal-small-linear-algebra-certificate\",\"environment\":{\"double_radix\":2,\"double_digits\":53,\"iec559\":true},\"source_checks\":{\"mode\":\"external_command_required\"},\"cases\":[";
     bool first = true;
-    write_case(output, first, "mat2_access", 2, "checked_access", "dimension_dependency", {0.0, 1.0}, access2(identity2));
-    write_case(output, first, "mat3_access", 3, "checked_access", "dimension_dependency", {0.0, 1.0}, access3(identity3));
-    write_case(output, first, "mat2_application", 2, "matrix_vector_application", "algebraic_agreement", {2.0, -4.0}, application2);
-    write_case(output, first, "mat3_application", 3, "matrix_vector_application", "algebraic_agreement", {2.0, -3.0, 4.0}, application3);
-    write_case(output, first, "mat2_swap", 2, "determinant", "determinant_boundary", {0.0, 1.0}, swap_case, {}, true);
-    write_case(output, first, "mat3_cycle", 3, "determinant", "determinant_boundary", {0.0, 1.0}, cycle_case, {}, true);
-    write_case(output, first, "mat2_quarter_turn", 2, "matrix_composition", "algebraic_agreement", {0.0, -1.0, 1.0}, quarter_case);
-    write_case(output, first, "mat2_transpose_composition", 2, "transpose_composition", "algebraic_agreement", {1.0, 2.0}, transpose2);
-    write_case(output, first, "mat3_transpose_composition", 3, "transpose_composition", "algebraic_agreement", {1.0, 1.0}, transpose3);
-    write_case(output, first, "mat2_zero_determinant", 2, "determinant", "determinant_boundary", {0.0}, setup && determinant(*zero2) && *determinant(*zero2) == 0.0, {}, true);
-    write_case(output, first, "mat3_zero_determinant", 3, "determinant", "determinant_boundary", {0.0}, setup && determinant(*zero3) && *determinant(*zero3) == 0.0, {}, true);
-    write_case(output, first, "mat2_nonfinite_input_all", 2, "matrix_construction", "failure_classification", {std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity()}, invalid_inputs2(), "non_finite_input");
-    write_case(output, first, "mat3_nonfinite_input_all", 3, "matrix_construction", "failure_classification", {std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity()}, invalid_inputs3(), "non_finite_input");
-    write_case(output, first, "mat2_overflow_application", 2, "matrix_vector_application", "failure_classification", {maximum, 2.0}, overflow_apply2, "non_finite_result");
-    write_case(output, first, "mat3_overflow_application", 3, "matrix_vector_application", "failure_classification", {maximum, 2.0}, overflow_apply3, "non_finite_result");
-    write_case(output, first, "mat2_overflow_composition", 2, "matrix_composition", "failure_classification", {maximum, 2.0}, overflow_compose2, "non_finite_result");
-    write_case(output, first, "mat3_overflow_composition", 3, "matrix_composition", "failure_classification", {maximum, 2.0}, overflow_compose3, "non_finite_result");
-    write_case(output, first, "mat2_overflow_determinant", 2, "determinant", "failure_classification", {maximum}, overflow_det2, "non_finite_result");
-    write_case(output, first, "mat3_overflow_determinant", 3, "determinant", "failure_classification", {maximum}, overflow_det3, "non_finite_result");
-    write_case(output, first, "scale_k_m8", 0, "power_two_scale_laws", "scale_determinism", {std::ldexp(1.0, -8)}, scale_case(-8));
-    write_case(output, first, "scale_k_m1", 0, "power_two_scale_laws", "scale_determinism", {std::ldexp(1.0, -1)}, scale_case(-1));
-    write_case(output, first, "scale_k_0", 0, "power_two_scale_laws", "scale_determinism", {1.0}, scale_case(0));
-    write_case(output, first, "scale_k_1", 0, "power_two_scale_laws", "scale_determinism", {2.0}, scale_case(1));
-    write_case(output, first, "scale_k_8", 0, "power_two_scale_laws", "scale_determinism", {std::ldexp(1.0, 8)}, scale_case(8));
-    write_case(output, first, "type_separation", 0, "compile_time_contract", "dimension_dependency", {1.0}, true);
+    write_case(output, first, "mat2_zero", 2, "zero", "algebraic_agreement", "none", {}, value({0.0, 0.0, 0.0, 0.0}), value(entries(zero2)));
+    write_case(output, first, "mat2_identity", 2, "identity", "algebraic_agreement", "none", {}, value({1.0, 0.0, 0.0, 1.0}), value(entries(identity2)));
+    write_case(output, first, "mat3_zero", 3, "zero", "algebraic_agreement", "none", {}, value({0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}), value(entries(zero3)));
+    write_case(output, first, "mat3_identity", 3, "identity", "algebraic_agreement", "none", {}, value({1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}), value(entries(identity3)));
+    write_access_cases(output, first, identity2); write_access_cases(output, first, identity3);
+
+    write_case(output, first, "mat2_diagonal_application", 2, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector", join(entries(*diagonal2), entries(*vector2)), value({6.0, 8.0}), result_of(apply(*diagonal2, *vector2)));
+    write_case(output, first, "mat3_diagonal_application", 3, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector", join(entries(*diagonal3), entries(*vector3)), value({4.0, 3.0, 16.0}), result_of(apply(*diagonal3, *vector3)));
+    write_case(output, first, "mat2_swap_determinant", 2, "determinant", "determinant_boundary", "matrix_row_major", entries(*swap2), value({-1.0}), result_of(determinant(*swap2)), true);
+    write_case(output, first, "mat3_cycle_determinant", 3, "determinant", "determinant_boundary", "matrix_row_major", entries(*cycle3), value({1.0}), result_of(determinant(*cycle3)), true);
+    const auto basis2 = Vector2::make(1.0, 0.0);
+    write_case(output, first, "mat2_quarter_turn_application", 2, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector", join(entries(*quarter), entries(*basis2)), value({0.0, 1.0}), result_of(apply(*quarter, *basis2)));
+    write_case(output, first, "mat2_quarter_turn_square", 2, "matrix_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*quarter), entries(*quarter)), value({-1.0, 0.0, 0.0, -1.0}), result_of(compose(*quarter, *quarter)));
+    const auto left_right2 = compose(*left2, *right2); const auto right_left2 = compose(*right2, *left2);
+    const auto left_right3 = compose(*left3, *right3); const auto right_left3 = compose(*right3, *left3);
+    write_case(output, first, "mat2_noncommuting_composition", 2, "noncommuting_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left2), entries(*right2)), value({4.0, 6.0, 1.0, 3.0, 2.0, 4.0, 1.0, 5.0}), value(join(entries(*left_right2), entries(*right_left2))));
+    write_case(output, first, "mat3_noncommuting_composition", 3, "noncommuting_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left3), entries(*right3)), value({2.0, 3.0, 0.0, 0.0, 3.0, 4.0, 0.0, 0.0, 4.0, 2.0, 2.0, 0.0, 0.0, 3.0, 3.0, 0.0, 0.0, 4.0}), value(join(entries(*left_right3), entries(*right_left3))));
+    write_case(output, first, "mat2_transpose_composition", 2, "transpose_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left2), entries(*right2)), value({4.0, 1.0, 6.0, 3.0}), value(entries(transpose(*left_right2))));
+    write_case(output, first, "mat3_transpose_composition", 3, "transpose_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left3), entries(*right3)), value({2.0, 0.0, 0.0, 3.0, 3.0, 0.0, 0.0, 4.0, 4.0}), value(entries(transpose(*left_right3))));
+    write_case(output, first, "mat2_zero_row_determinant", 2, "determinant", "determinant_boundary", "matrix_row_major", entries(*zero_row2), value({0.0}), result_of(determinant(*zero_row2)), true);
+    write_case(output, first, "mat3_zero_row_determinant", 3, "determinant", "determinant_boundary", "matrix_row_major", entries(*zero_row3), value({0.0}), result_of(determinant(*zero_row3)), true);
+    write_case(output, first, "type_reject_mat2_point2", 2, "compile_time_rejection", "dimension_dependency", "Mat2,Point2", {}, compile_time_rejection(), compile_time_rejection());
+    write_case(output, first, "type_reject_mat3_point3", 3, "compile_time_rejection", "dimension_dependency", "Mat3,Point3", {}, compile_time_rejection(), compile_time_rejection());
+    write_case(output, first, "type_reject_mat2_vector3", 2, "compile_time_rejection", "dimension_dependency", "Mat2,Vector3", {}, compile_time_rejection(), compile_time_rejection());
+    write_case(output, first, "type_reject_mat2_mat3", 2, "compile_time_rejection", "dimension_dependency", "Mat2,Mat3", {}, compile_time_rejection(), compile_time_rejection());
+    write_nonfinite_cases(output, first, 2); write_nonfinite_cases(output, first, 3);
+    write_case(output, first, "mat2_overflow_application", 2, "matrix_vector_application", "failure_classification", "matrix_row_major,vector", join(entries(*maximum2), entries(*overflow_vector2)), error("non_finite_result"), result_of(apply(*maximum2, *overflow_vector2)));
+    write_case(output, first, "mat3_overflow_application", 3, "matrix_vector_application", "failure_classification", "matrix_row_major,vector", join(entries(*maximum3), entries(*overflow_vector3)), error("non_finite_result"), result_of(apply(*maximum3, *overflow_vector3)));
+    write_case(output, first, "mat2_overflow_composition", 2, "matrix_composition", "failure_classification", "lhs_row_major,rhs_row_major", join(entries(*maximum2), entries(*twice2)), error("non_finite_result"), result_of(compose(*maximum2, *twice2)));
+    write_case(output, first, "mat3_overflow_composition", 3, "matrix_composition", "failure_classification", "lhs_row_major,rhs_row_major", join(entries(*maximum3), entries(*twice3)), error("non_finite_result"), result_of(compose(*maximum3, *twice3)));
+    write_case(output, first, "mat2_overflow_determinant", 2, "determinant", "failure_classification", "matrix_row_major", entries(*maximum2), error("non_finite_result"), result_of(determinant(*maximum2)), true);
+    write_case(output, first, "mat3_overflow_determinant", 3, "determinant", "failure_classification", "matrix_row_major", entries(*maximum3), error("non_finite_result"), result_of(determinant(*maximum3)), true);
+    for (const int exponent : {-8, -1, 0, 1, 8}) {
+        const double scale = std::ldexp(1.0, exponent);
+        const std::string id = exponent < 0 ? "scale_k_m" + std::to_string(-exponent) : "scale_k_" + std::to_string(exponent);
+        write_case(output, first, id, 0, "power_two_scale_laws", "scale_determinism", "power_of_two_scale", {scale}, value(scaled_results(scale)), observed_scale_results(scale));
+    }
     output << "]}";
-    return output.good() ? 0 : 3;
+    return output.good() ? 0 : 4;
 }
 
 } // namespace

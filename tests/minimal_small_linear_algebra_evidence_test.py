@@ -66,9 +66,18 @@ def main() -> int:
         try:
             tool.validate_certificate(profile, forged_path)
         except tool.EvidenceError:
-            return 0
+            pass
         else:
             raise RuntimeError("forged certificate observation was accepted")
+        wrong_placement = json.loads(first.read_text(encoding="utf-8"))
+        target = next(item for item in wrong_placement["cases"] if item["id"] == "mat3_nonfinite_posinf_e8")
+        target["inputs"][1] = "0x0p+0"
+        wrong_path = root / "wrong-placement.json"; wrong_path.write_text(json.dumps(wrong_placement), encoding="utf-8")
+        try:
+            tool.validate_certificate(profile, wrong_path)
+        except tool.EvidenceError:
+            return 0
+        raise RuntimeError("forged non-finite placement was accepted")
 
 
 if __name__ == "__main__":

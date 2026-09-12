@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Strict, report-only schemas and independent checks for LA0-LA7 evidence."""
+"""Strict, report-only validation for Minimal Small Linear Algebra evidence."""
 
 from __future__ import annotations
 
@@ -9,17 +9,16 @@ import json
 import math
 import pathlib
 import re
-import sys
 from typing import Any
 
 
 class EvidenceError(RuntimeError):
-    pass
+    """Raised when declared LA evidence is incomplete or differs."""
 
 
 CELLS = ["gcc-debug", "gcc-release", "clang-debug", "clang-release"]
-SHA256 = re.compile(r"^[0-9a-f]{64}$")
 DETERMINANT_NON_CLAIMS = ["predicate", "rank", "degeneracy", "orientation", "incidence", "topology"]
+SHA256 = re.compile(r"[0-9a-f]{64}")
 
 
 def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -32,10 +31,7 @@ def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 
 
 def read_json(path: pathlib.Path) -> Any:
-    try:
-        raw = path.read_bytes()
-    except OSError as error:
-        raise EvidenceError(f"cannot read {path}: {error}") from error
+    raw = path.read_bytes()
     if raw.startswith(b"\xef\xbb\xbf"):
         raise EvidenceError(f"UTF-8 BOM is not accepted: {path}")
     try:
@@ -46,7 +42,7 @@ def read_json(path: pathlib.Path) -> Any:
 
 def write_json(path: pathlib.Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes((json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True) + "\n").encode("utf-8"))
+    path.write_text(json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True) + "\n", encoding="utf-8")
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -58,15 +54,12 @@ def require_keys(value: dict[str, Any], expected: set[str], context: str) -> Non
         raise EvidenceError(f"{context} keys differ; missing={sorted(expected - set(value))}, extra={sorted(set(value) - expected)}")
 
 
-def as_hex(value: Any, context: str, *, finite: bool = True) -> float:
+def as_float(value: Any, context: str, *, finite: bool = True) -> float:
     if not isinstance(value, str):
-        raise EvidenceError(f"{context} must be hexadecimal floating text")
-    if value in {"nan", "inf", "-inf"}:
-        if finite:
-            raise EvidenceError(f"{context} must be finite")
-        return math.nan
+        raise EvidenceError(f"{context} must be hexadecimal text")
+    special = {"nan": math.nan, "inf": math.inf, "-inf": -math.inf}
     try:
-        result = float.fromhex(value)
+        result = special[value] if value in special else float.fromhex(value)
     except ValueError as error:
         raise EvidenceError(f"{context} is not hexadecimal floating text") from error
     if finite and not math.isfinite(result):
@@ -74,146 +67,268 @@ def as_hex(value: Any, context: str, *, finite: bool = True) -> float:
     return result
 
 
-def metadata(case_id: str) -> tuple[int, str, str]:
-    if case_id == "type_separation":
-        return 0, "compile_time_contract", "dimension_dependency"
-    if case_id.startswith("scale_k_"):
-        return 0, "power_two_scale_laws", "scale_determinism"
-    if case_id.startswith("mat2_"):
-        dimension = 2
-    elif case_id.startswith("mat3_"):
-        dimension = 3
-    else:
-        raise EvidenceError(f"unknown case id: {case_id}")
-    if "access" in case_id:
-        return dimension, "checked_access", "dimension_dependency"
-    if "nonfinite_input" in case_id:
-        return dimension, "matrix_construction", "failure_classification"
-    if "overflow_application" in case_id:
-        return dimension, "matrix_vector_application", "failure_classification"
-    if "overflow_composition" in case_id:
-        return dimension, "matrix_composition", "failure_classification"
-    if "overflow_determinant" in case_id:
-        return dimension, "determinant", "failure_classification"
-    if "application" in case_id:
-        return dimension, "matrix_vector_application", "algebraic_agreement"
-    if "transpose" in case_id:
-        return dimension, "transpose_composition", "algebraic_agreement"
-    if "quarter_turn" in case_id:
-        return dimension, "matrix_composition", "algebraic_agreement"
-    if "determinant" in case_id or "swap" in case_id or "cycle" in case_id:
-        return dimension, "determinant", "determinant_boundary"
-    raise EvidenceError(f"unknown case metadata: {case_id}")
+def required_cases() -> list[str]:
+    cases = ["mat2_zero", "mat2_identity", "mat3_zero", "mat3_identity"]
+    cases += [f"mat2_access_r{row}c{column}" for row in range(2) for column in range(2)]
+    cases += ["mat2_access_row_oob", "mat2_access_column_oob"]
+    cases += [f"mat3_access_r{row}c{column}" for row in range(3) for column in range(3)]
+    cases += ["mat3_access_row_oob", "mat3_access_column_oob"]
+    cases += ["mat2_diagonal_application", "mat3_diagonal_application", "mat2_swap_determinant", "mat3_cycle_determinant"]
+    cases += ["mat2_quarter_turn_application", "mat2_quarter_turn_square", "mat2_noncommuting_composition", "mat3_noncommuting_composition"]
+    cases += ["mat2_transpose_composition", "mat3_transpose_composition", "mat2_zero_row_determinant", "mat3_zero_row_determinant"]
+    cases += ["type_reject_mat2_point2", "type_reject_mat3_point3", "type_reject_mat2_vector3", "type_reject_mat2_mat3"]
+    for dimension, count in ((2, 4), (3, 9)):
+        for kind in ("nan", "posinf", "neginf"):
+            cases += [f"mat{dimension}_nonfinite_{kind}_e{index}" for index in range(count)]
+    cases += [
+        "mat2_overflow_application", "mat3_overflow_application", "mat2_overflow_composition",
+        "mat3_overflow_composition", "mat2_overflow_determinant", "mat3_overflow_determinant",
+    ]
+    cases += ["scale_k_m8", "scale_k_m1", "scale_k_0", "scale_k_1", "scale_k_8"]
+    return cases
+
+
+def metadata(case_id: str) -> tuple[int, str, str, str]:
+    if case_id in {"mat2_zero", "mat2_identity"}:
+        return 2, case_id.removeprefix("mat2_"), "algebraic_agreement", "none"
+    if case_id in {"mat3_zero", "mat3_identity"}:
+        return 3, case_id.removeprefix("mat3_"), "algebraic_agreement", "none"
+    match = re.fullmatch(r"mat([23])_access_r([0-2])c([0-2])", case_id)
+    if match:
+        return int(match.group(1)), "checked_access", "dimension_dependency", "matrix_row_major,row,column"
+    match = re.fullmatch(r"mat([23])_access_(row|column)_oob", case_id)
+    if match:
+        return int(match.group(1)), "checked_access", "dimension_dependency", "matrix_row_major,row,column"
+    match = re.fullmatch(r"mat([23])_nonfinite_(nan|posinf|neginf)_e[0-8]", case_id)
+    if match:
+        return int(match.group(1)), "matrix_construction", "failure_classification", "invalid_value,entry_index"
+    match = re.fullmatch(r"mat([23])_overflow_(application|composition|determinant)", case_id)
+    if match:
+        dimension, kind = int(match.group(1)), match.group(2)
+        operation = {"application": "matrix_vector_application", "composition": "matrix_composition", "determinant": "determinant"}[kind]
+        layout = {"application": "matrix_row_major,vector", "composition": "lhs_row_major,rhs_row_major", "determinant": "matrix_row_major"}[kind]
+        return dimension, operation, "failure_classification", layout
+    known = {
+        "mat2_diagonal_application": (2, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector"),
+        "mat3_diagonal_application": (3, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector"),
+        "mat2_swap_determinant": (2, "determinant", "determinant_boundary", "matrix_row_major"),
+        "mat3_cycle_determinant": (3, "determinant", "determinant_boundary", "matrix_row_major"),
+        "mat2_quarter_turn_application": (2, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector"),
+        "mat2_quarter_turn_square": (2, "matrix_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major"),
+        "mat2_noncommuting_composition": (2, "noncommuting_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major"),
+        "mat3_noncommuting_composition": (3, "noncommuting_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major"),
+        "mat2_transpose_composition": (2, "transpose_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major"),
+        "mat3_transpose_composition": (3, "transpose_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major"),
+        "mat2_zero_row_determinant": (2, "determinant", "determinant_boundary", "matrix_row_major"),
+        "mat3_zero_row_determinant": (3, "determinant", "determinant_boundary", "matrix_row_major"),
+        "type_reject_mat2_point2": (2, "compile_time_rejection", "dimension_dependency", "Mat2,Point2"),
+        "type_reject_mat3_point3": (3, "compile_time_rejection", "dimension_dependency", "Mat3,Point3"),
+        "type_reject_mat2_vector3": (2, "compile_time_rejection", "dimension_dependency", "Mat2,Vector3"),
+        "type_reject_mat2_mat3": (2, "compile_time_rejection", "dimension_dependency", "Mat2,Mat3"),
+    }
+    if case_id in known:
+        return known[case_id]
+    if re.fullmatch(r"scale_k_(?:m8|m1|0|1|8)", case_id):
+        return 0, "power_two_scale_laws", "scale_determinism", "power_of_two_scale"
+    raise EvidenceError(f"unknown case id: {case_id}")
 
 
 def validate_profile(path: pathlib.Path) -> dict[str, Any]:
     profile = read_json(path)
     if not isinstance(profile, dict):
         raise EvidenceError("profile must be an object")
-    require_keys(profile, {"schema_version", "kind", "repetitions_per_cell", "cells", "gates", "cases", "scale_exponents", "exact_prerequisite_tests", "source_checks", "equivalence", "volatile_fields", "limitations"}, "profile")
-    if profile["schema_version"] != 2 or profile["kind"] != "minimal-small-linear-algebra-qualification-profile":
+    expected = {"schema_version", "kind", "repetitions_per_cell", "cells", "gates", "cases", "scale_exponents", "exact_prerequisite_tests", "source_checks", "equivalence", "volatile_fields", "limitations"}
+    require_keys(profile, expected, "profile")
+    if profile["schema_version"] != 3 or profile["kind"] != "minimal-small-linear-algebra-qualification-profile":
         raise EvidenceError("profile identity differs")
     if profile["repetitions_per_cell"] != 3 or profile["gates"] != [f"LA{number}" for number in range(8)]:
         raise EvidenceError("profile repetitions or gates differ")
-    if not isinstance(profile["cells"], list) or [cell.get("id") for cell in profile["cells"] if isinstance(cell, dict)] != CELLS:
+    if not isinstance(profile["cells"], list) or [item.get("id") for item in profile["cells"] if isinstance(item, dict)] != CELLS:
         raise EvidenceError("profile cell matrix differs")
-    for cell in profile["cells"]:
-        if not isinstance(cell, dict):
+    for item in profile["cells"]:
+        if not isinstance(item, dict):
             raise EvidenceError("profile cell is malformed")
-        require_keys(cell, {"id", "compiler", "library", "build_type"}, "profile cell")
+        require_keys(item, {"id", "compiler", "library", "build_type"}, "profile cell")
     for key in ("cases", "exact_prerequisite_tests", "source_checks", "volatile_fields", "limitations"):
         if not isinstance(profile[key], list) or not profile[key] or any(not isinstance(item, str) or not item for item in profile[key]):
             raise EvidenceError(f"profile {key} differs")
-    if len(set(profile["cases"])) != len(profile["cases"]) or len(set(profile["exact_prerequisite_tests"])) != len(profile["exact_prerequisite_tests"]):
-        raise EvidenceError("profile has duplicate fixed entries")
-    for case_id in profile["cases"]:
-        metadata(case_id)
-    if profile["scale_exponents"] != [-8, -1, 0, 1, 8]:
-        raise EvidenceError("profile scale exponents differ")
-    if profile["equivalence"] != {"rule": "exact_hex", "proximity_policy": None}:
+    if profile["cases"] != required_cases() or len(set(profile["cases"])) != len(profile["cases"]):
+        raise EvidenceError("profile does not enumerate the fixed case matrix")
+    if len(set(profile["exact_prerequisite_tests"])) != len(profile["exact_prerequisite_tests"]):
+        raise EvidenceError("profile prerequisite names are duplicated")
+    if profile["scale_exponents"] != [-8, -1, 0, 1, 8] or profile["equivalence"] != {"rule": "exact_hex", "proximity_policy": None}:
         raise EvidenceError("profile equivalence differs")
     return profile
 
 
-def validate_source_root(source_root: pathlib.Path) -> None:
-    header = source_root / "include/apmesh/math/linear_algebra.hpp"
-    source = source_root / "src/math/linear_algebra.cpp"
-    cmake = source_root / "CMakeLists.txt"
-    for path in (header, source, cmake):
-        if not path.is_file():
-            raise EvidenceError(f"source check input is absent: {path}")
-    header_text, source_text, cmake_text = (header.read_text(encoding="utf-8"), source.read_text(encoding="utf-8"), cmake.read_text(encoding="utf-8"))
-    if "apmesh/core/geometry.hpp" in header_text or "apmesh/core/geometry.hpp" in source_text:
+def validate_source_root(source_root: pathlib.Path) -> dict[str, str]:
+    paths = [source_root / "include/apmesh/math/linear_algebra.hpp", source_root / "src/math/linear_algebra.cpp", source_root / "CMakeLists.txt"]
+    if any(not path.is_file() for path in paths):
+        raise EvidenceError("source check input is absent")
+    header, source, cmake = (path.read_text(encoding="utf-8") for path in paths)
+    if "apmesh/core/geometry.hpp" in header or "apmesh/core/geometry.hpp" in source:
         raise EvidenceError("math depends on geometry")
-    if re.search(r"\b(inverse|solve|decomposition|eigen|predicate)\b", header_text + "\n" + source_text, re.IGNORECASE):
+    if re.search(r"\b(inverse|solve|decomposition|eigen|predicate)\b", header + "\n" + source, re.IGNORECASE):
         raise EvidenceError("excluded linear algebra capability appears in math")
-    if any(flag in cmake_text.lower() for flag in ("-ffast-math", "-ofast", "-fassociative-math", "-funsafe-math-optimizations", "-ffinite-math-only")):
+    if any(flag in cmake.lower() for flag in ("-ffast-math", "-ofast", "-fassociative-math", "-funsafe-math-optimizations", "-ffinite-math-only")):
         raise EvidenceError("unsafe floating flag appears in CMake")
+    return {
+        "math_header_has_no_geometry_include": "PASS",
+        "math_source_has_no_geometry_include": "PASS",
+        "no_inverse_solve_decomposition_eigen_or_predicate_api": "PASS",
+        "no_unsafe_floating_flags": "PASS",
+    }
 
 
-def validate_result(value: Any, context: str) -> None:
+def parse_values(value: Any, context: str, *, finite: bool = True) -> list[float]:
+    if not isinstance(value, list):
+        raise EvidenceError(f"{context} must be an array")
+    return [as_float(item, f"{context}[{index}]", finite=finite) for index, item in enumerate(value)]
+
+
+def parse_result(value: Any, context: str) -> tuple[str, str | None, list[float] | None]:
     if not isinstance(value, dict):
         raise EvidenceError(f"{context} is malformed")
     require_keys(value, {"outcome", "error", "value"}, context)
+    if value["outcome"] == "value":
+        if value["error"] is not None:
+            raise EvidenceError(f"{context} value error differs")
+        return "value", None, parse_values(value["value"], context)
     if value["outcome"] == "error":
         if value["error"] not in {"non_finite_input", "non_finite_result", "index_out_of_range"} or value["value"] is not None:
             raise EvidenceError(f"{context} error differs")
-        return
-    if value["outcome"] != "value" or value["error"] is not None or not isinstance(value["value"], list) or not value["value"]:
-        raise EvidenceError(f"{context} result differs")
-    for index, item in enumerate(value["value"]):
-        as_hex(item, f"{context}[{index}]")
+        return "error", value["error"], None
+    if value["outcome"] == "compile_time_rejection" and value["error"] is None and value["value"] is None:
+        return "compile_time_rejection", None, None
+    raise EvidenceError(f"{context} result kind differs")
 
 
-def oracle_result(case_id: str) -> dict[str, Any]:
-    if "nonfinite_input" in case_id:
-        return {"outcome": "error", "error": "non_finite_input", "value": None}
-    if "overflow" in case_id:
-        return {"outcome": "error", "error": "non_finite_result", "value": None}
-    return {"outcome": "value", "error": None, "value": ["0x1p+0"]}
+def matmul(left: list[float], right: list[float], dimension: int) -> list[float]:
+    return [sum(left[row * dimension + index] * right[index * dimension + column] for index in range(dimension)) for row in range(dimension) for column in range(dimension)]
+
+
+def matvec(matrix: list[float], vector: list[float], dimension: int) -> list[float]:
+    return [sum(matrix[row * dimension + index] * vector[index] for index in range(dimension)) for row in range(dimension)]
+
+
+def transpose_values(matrix: list[float], dimension: int) -> list[float]:
+    return [matrix[column * dimension + row] for row in range(dimension) for column in range(dimension)]
+
+
+def determinant_value(matrix: list[float], dimension: int) -> float:
+    if dimension == 2:
+        return matrix[0] * matrix[3] - matrix[1] * matrix[2]
+    return matrix[0] * (matrix[4] * matrix[8] - matrix[5] * matrix[7]) - matrix[1] * (matrix[3] * matrix[8] - matrix[5] * matrix[6]) + matrix[2] * (matrix[3] * matrix[7] - matrix[4] * matrix[6])
+
+
+def expected_result(case_id: str, inputs: list[float]) -> tuple[str, str | None, list[float] | None]:
+    if case_id == "mat2_zero": return "value", None, [0.0] * 4
+    if case_id == "mat2_identity": return "value", None, [1.0, 0.0, 0.0, 1.0]
+    if case_id == "mat3_zero": return "value", None, [0.0] * 9
+    if case_id == "mat3_identity": return "value", None, [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+    access = re.fullmatch(r"mat([23])_access_r([0-2])c([0-2])", case_id)
+    if access:
+        dimension, row, column = (int(access.group(1)), int(access.group(2)), int(access.group(3)))
+        expected_input = ([1.0 if row_ == column_ else 0.0 for row_ in range(dimension) for column_ in range(dimension)] + [float(row), float(column)])
+        if inputs != expected_input: raise EvidenceError(f"access inputs differ: {case_id}")
+        return "value", None, [expected_input[row * dimension + column]]
+    oob = re.fullmatch(r"mat([23])_access_(row|column)_oob", case_id)
+    if oob:
+        dimension, axis = int(oob.group(1)), oob.group(2)
+        matrix = [1.0 if row == column else 0.0 for row in range(dimension) for column in range(dimension)]
+        expected_input = matrix + ([float(dimension), 0.0] if axis == "row" else [0.0, float(dimension)])
+        if inputs != expected_input: raise EvidenceError(f"out-of-range inputs differ: {case_id}")
+        return "error", "index_out_of_range", None
+    if case_id in {"mat2_diagonal_application", "mat3_diagonal_application"}:
+        dimension = int(case_id[3]); matrix, vector = inputs[:dimension * dimension], inputs[dimension * dimension:]
+        if len(inputs) != dimension * dimension + dimension: raise EvidenceError(f"application inputs differ: {case_id}")
+        return "value", None, matvec(matrix, vector, dimension)
+    if case_id in {"mat2_swap_determinant", "mat3_cycle_determinant", "mat2_zero_row_determinant", "mat3_zero_row_determinant"}:
+        dimension = int(case_id[3]);
+        if len(inputs) != dimension * dimension: raise EvidenceError(f"determinant inputs differ: {case_id}")
+        return "value", None, [determinant_value(inputs, dimension)]
+    if case_id == "mat2_quarter_turn_application":
+        if len(inputs) != 6: raise EvidenceError("quarter-turn application inputs differ")
+        return "value", None, matvec(inputs[:4], inputs[4:], 2)
+    if case_id == "mat2_quarter_turn_square":
+        if len(inputs) != 8: raise EvidenceError("quarter-turn square inputs differ")
+        return "value", None, matmul(inputs[:4], inputs[4:], 2)
+    if case_id in {"mat2_noncommuting_composition", "mat3_noncommuting_composition"}:
+        dimension = int(case_id[3]); split = dimension * dimension
+        if len(inputs) != split * 2: raise EvidenceError(f"composition inputs differ: {case_id}")
+        return "value", None, matmul(inputs[:split], inputs[split:], dimension) + matmul(inputs[split:], inputs[:split], dimension)
+    if case_id in {"mat2_transpose_composition", "mat3_transpose_composition"}:
+        dimension = int(case_id[3]); split = dimension * dimension
+        if len(inputs) != split * 2: raise EvidenceError(f"transpose inputs differ: {case_id}")
+        return "value", None, transpose_values(matmul(inputs[:split], inputs[split:], dimension), dimension)
+    if case_id.startswith("type_reject_"):
+        if inputs: raise EvidenceError(f"compile-time inputs differ: {case_id}")
+        return "compile_time_rejection", None, None
+    nonfinite = re.fullmatch(r"mat([23])_nonfinite_(nan|posinf|neginf)_e([0-8])", case_id)
+    if nonfinite:
+        dimension, kind, index = int(nonfinite.group(1)), nonfinite.group(2), int(nonfinite.group(3))
+        expected = {"nan": math.nan, "posinf": math.inf, "neginf": -math.inf}[kind]
+        if len(inputs) != 2 or inputs[1] != float(index) or not ((math.isnan(expected) and math.isnan(inputs[0])) or inputs[0] == expected) or index >= dimension * dimension:
+            raise EvidenceError(f"non-finite placement differs: {case_id}")
+        return "error", "non_finite_input", None
+    overflow = re.fullmatch(r"mat[23]_overflow_(application|composition|determinant)", case_id)
+    if overflow:
+        if not inputs or not any(value == sys_float_max() for value in inputs): raise EvidenceError(f"overflow inputs differ: {case_id}")
+        return "error", "non_finite_result", None
+    scale = re.fullmatch(r"scale_k_(m?)([018])", case_id)
+    if scale:
+        exponent = -int(scale.group(2)) if scale.group(1) else int(scale.group(2))
+        factor = math.ldexp(1.0, exponent)
+        if inputs != [factor]: raise EvidenceError(f"scale input differs: {case_id}")
+        return "value", None, scale_results(factor)
+    raise EvidenceError(f"independent oracle does not recognize {case_id}")
+
+
+def sys_float_max() -> float:
+    return float.fromhex("0x1.fffffffffffffp+1023")
+
+
+def scale_results(scale: float) -> list[float]:
+    return [-scale, -scale, 0.0, scale, 2.0 * scale, scale, 0.0, 2.0 * scale, scale,
+            scale, 0.0, 0.0, scale, scale, 0.0, 0.0, scale, scale,
+            scale * scale, scale * scale * scale, scale, 4.0 * scale, 0.0, scale,
+            scale, 2.0 * scale, scale, 0.0, scale, 2.0 * scale, 0.0, 0.0, scale]
+
+
+def result_matches(actual: tuple[str, str | None, list[float] | None], expected: tuple[str, str | None, list[float] | None]) -> bool:
+    if actual[:2] != expected[:2]: return False
+    if actual[2] is None or expected[2] is None: return actual[2] == expected[2]
+    return len(actual[2]) == len(expected[2]) and all(left == right for left, right in zip(actual[2], expected[2], strict=True))
 
 
 def validate_certificate(profile: dict[str, Any], path: pathlib.Path) -> dict[str, Any]:
     certificate = read_json(path)
-    if not isinstance(certificate, dict):
-        raise EvidenceError("certificate must be an object")
+    if not isinstance(certificate, dict): raise EvidenceError("certificate must be an object")
     require_keys(certificate, {"schema_version", "kind", "environment", "source_checks", "cases"}, "certificate")
-    if certificate["schema_version"] != 2 or certificate["kind"] != "minimal-small-linear-algebra-certificate":
-        raise EvidenceError("certificate identity differs")
-    if certificate["environment"] != {"double_radix": 2, "double_digits": 53, "iec559": True}:
-        raise EvidenceError("certificate environment differs")
-    if certificate["source_checks"] != {check: "PASS" for check in profile["source_checks"]}:
-        raise EvidenceError("certificate source checks differ")
-    if not isinstance(certificate["cases"], list):
-        raise EvidenceError("certificate cases differ")
-    seen: dict[str, dict[str, Any]] = {}
+    if certificate["schema_version"] != 3 or certificate["kind"] != "minimal-small-linear-algebra-certificate": raise EvidenceError("certificate identity differs")
+    if certificate["environment"] != {"double_radix": 2, "double_digits": 53, "iec559": True}: raise EvidenceError("certificate environment differs")
+    if certificate["source_checks"] != {"mode": "external_command_required"}: raise EvidenceError("certificate source-check authority differs")
+    if not isinstance(certificate["cases"], list): raise EvidenceError("certificate cases differ")
+    seen: list[str] = []
     for row in certificate["cases"]:
-        if not isinstance(row, dict):
-            raise EvidenceError("certificate case is malformed")
-        require_keys(row, {"schema_version", "id", "dimension", "operation", "claim_category", "inputs", "expected", "observed", "comparison", "non_claims"}, "certificate case")
+        if not isinstance(row, dict): raise EvidenceError("certificate case is malformed")
+        require_keys(row, {"schema_version", "id", "dimension", "operation", "claim_category", "input_layout", "inputs", "expected", "observed", "comparison", "non_claims"}, "certificate case")
         case_id = row["id"]
-        if not isinstance(case_id, str) or case_id in seen:
-            raise EvidenceError("certificate case identity differs")
-        expected_metadata = metadata(case_id)
-        if (row["schema_version"], row["dimension"], row["operation"], row["claim_category"]) != (1, *expected_metadata):
-            raise EvidenceError(f"certificate case metadata differs: {case_id}")
-        if not isinstance(row["inputs"], list) or not row["inputs"]:
-            raise EvidenceError(f"certificate inputs differ: {case_id}")
-        for item in row["inputs"]:
-            as_hex(item, f"{case_id} input", finite=False)
-        validate_result(row["expected"], f"{case_id} expected")
-        validate_result(row["observed"], f"{case_id} observed")
-        expected = oracle_result(case_id)
-        if row["expected"] != expected or row["observed"] != expected:
+        if not isinstance(case_id, str) or case_id in seen: raise EvidenceError("certificate case identity differs")
+        if (row["schema_version"], row["dimension"], row["operation"], row["claim_category"], row["input_layout"]) != (2, *metadata(case_id)):
+            raise EvidenceError(f"certificate metadata differs: {case_id}")
+        inputs = parse_values(row["inputs"], f"{case_id} inputs", finite=False)
+        expected = expected_result(case_id, inputs)
+        declared_expected = parse_result(row["expected"], f"{case_id} expected")
+        observed = parse_result(row["observed"], f"{case_id} observed")
+        if not result_matches(declared_expected, expected) or not result_matches(observed, expected):
             raise EvidenceError(f"certificate independent oracle differs: {case_id}")
         if row["comparison"] != {"rule": "exact_hex", "exact_match": True, "proximity_policy": None}:
             raise EvidenceError(f"certificate comparison differs: {case_id}")
-        non_claims = DETERMINANT_NON_CLAIMS if expected_metadata[2] == "determinant_boundary" else []
-        if row["non_claims"] != non_claims:
-            raise EvidenceError(f"certificate non-claims differ: {case_id}")
-        seen[case_id] = row
-    if list(seen) != profile["cases"]:
-        raise EvidenceError("certificate case set differs")
+        non_claims = DETERMINANT_NON_CLAIMS if metadata(case_id)[1] == "determinant" else []
+        if row["non_claims"] != non_claims: raise EvidenceError(f"certificate non-claims differ: {case_id}")
+        seen.append(case_id)
+    if seen != profile["cases"]: raise EvidenceError("certificate case order or set differs")
     return certificate
 
 
@@ -222,64 +337,50 @@ def projection(certificate: dict[str, Any]) -> dict[str, Any]:
 
 
 def compare_certificates(profile: dict[str, Any], paths: list[pathlib.Path]) -> dict[str, Any]:
-    if len(paths) != profile["repetitions_per_cell"]:
-        raise EvidenceError("repeat count differs")
+    if len(paths) != profile["repetitions_per_cell"]: raise EvidenceError("repeat count differs")
     certificates = [validate_certificate(profile, path) for path in paths]
     baseline = projection(certificates[0])
-    if any(projection(certificate) != baseline for certificate in certificates[1:]):
-        raise EvidenceError("within-cell certificate projections differ")
-    return {"schema_version": 2, "kind": "minimal-small-linear-algebra-cell-comparison", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "certificate_sha256": [sha256(path) for path in paths], "projection": baseline}
+    if any(projection(certificate) != baseline for certificate in certificates[1:]): raise EvidenceError("within-cell certificate projections differ")
+    return {"schema_version": 3, "kind": "minimal-small-linear-algebra-cell-comparison", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "certificate_sha256": [sha256(path) for path in paths], "projection": baseline}
 
 
 def compare_index(profile: dict[str, Any], index_path: pathlib.Path) -> dict[str, Any]:
     index = read_json(index_path)
-    if not isinstance(index, dict):
-        raise EvidenceError("certificate index is malformed")
+    if not isinstance(index, dict): raise EvidenceError("certificate index is malformed")
     require_keys(index, {"schema_version", "kind", "entries"}, "certificate index")
-    if index["schema_version"] != 1 or index["kind"] != "minimal-small-linear-algebra-certificate-index" or not isinstance(index["entries"], list):
-        raise EvidenceError("certificate index identity differs")
+    if index["schema_version"] != 1 or index["kind"] != "minimal-small-linear-algebra-certificate-index" or not isinstance(index["entries"], list): raise EvidenceError("certificate index identity differs")
     slots = [(cell, repeat) for cell in CELLS for repeat in range(1, profile["repetitions_per_cell"] + 1)]
     paths: dict[tuple[str, int], pathlib.Path] = {}
     for entry in index["entries"]:
-        if not isinstance(entry, dict):
-            raise EvidenceError("certificate index entry differs")
+        if not isinstance(entry, dict): raise EvidenceError("certificate index entry differs")
         require_keys(entry, {"cell", "repetition", "path", "sha256"}, "certificate index entry")
-        slot = (entry["cell"], entry["repetition"])
-        path = (index_path.parent / entry["path"]).resolve()
+        slot = (entry["cell"], entry["repetition"]); path = (index_path.parent / entry["path"]).resolve()
         if slot not in slots or slot in paths or not isinstance(entry["sha256"], str) or not SHA256.fullmatch(entry["sha256"]) or not path.is_file() or sha256(path) != entry["sha256"]:
             raise EvidenceError("certificate index binding differs")
         paths[slot] = path
-    if list(paths) != slots:
-        raise EvidenceError("certificate index slots differ")
+    if list(paths) != slots: raise EvidenceError("certificate index slots differ")
     cells = {cell: compare_certificates(profile, [paths[(cell, repeat)] for repeat in range(1, profile["repetitions_per_cell"] + 1)]) for cell in CELLS}
     baseline = cells[CELLS[0]]["projection"]
-    if any(value["projection"] != baseline for value in cells.values()):
-        raise EvidenceError("cross-cell certificate projections differ")
-    return {"schema_version": 2, "kind": "minimal-small-linear-algebra-cross-cell-comparison", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "cells": cells, "projection": baseline}
+    if any(item["projection"] != baseline for item in cells.values()): raise EvidenceError("cross-cell certificate projections differ")
+    return {"schema_version": 3, "kind": "minimal-small-linear-algebra-cross-cell-comparison", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "cells": cells, "projection": baseline}
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(); parser.add_argument("--profile", required=True)
     commands = parser.add_subparsers(dest="command", required=True)
-    profile_parser = commands.add_parser("validate-profile"); profile_parser.add_argument("--profile", required=True)
-    certificate_parser = commands.add_parser("validate-certificate"); certificate_parser.add_argument("--profile", required=True); certificate_parser.add_argument("--certificate", required=True)
-    comparison_parser = commands.add_parser("compare"); comparison_parser.add_argument("--profile", required=True); comparison_parser.add_argument("--certificate", action="append", required=True); comparison_parser.add_argument("--output", required=True)
-    index_parser = commands.add_parser("compare-index"); index_parser.add_argument("--profile", required=True); index_parser.add_argument("--index", required=True); index_parser.add_argument("--output", required=True)
-    source_parser = commands.add_parser("validate-source"); source_parser.add_argument("--profile", required=True); source_parser.add_argument("--source-root", required=True)
-    arguments = parser.parse_args()
-    try:
-        profile = validate_profile(pathlib.Path(arguments.profile))
-        if arguments.command == "validate-profile": return 0
-        if arguments.command == "validate-source":
-            validate_source_root(pathlib.Path(arguments.source_root)); return 0
-        if arguments.command == "validate-certificate":
-            validate_certificate(profile, pathlib.Path(arguments.certificate)); return 0
-        if arguments.command == "compare":
-            write_json(pathlib.Path(arguments.output), compare_certificates(profile, [pathlib.Path(path) for path in arguments.certificate])); return 0
-        write_json(pathlib.Path(arguments.output), compare_index(profile, pathlib.Path(arguments.index))); return 0
-    except EvidenceError as error:
-        print(f"evidence error: {error}", file=sys.stderr)
-        return 2
+    commands.add_parser("validate-profile")
+    certificate = commands.add_parser("validate-certificate"); certificate.add_argument("--certificate", required=True)
+    comparison = commands.add_parser("compare"); comparison.add_argument("--certificate", action="append", required=True); comparison.add_argument("--output", required=True)
+    index = commands.add_parser("compare-index"); index.add_argument("--index", required=True); index.add_argument("--output", required=True)
+    source = commands.add_parser("validate-source"); source.add_argument("--source-root", required=True); source.add_argument("--output", required=False)
+    arguments = parser.parse_args(); profile = validate_profile(pathlib.Path(arguments.profile))
+    if arguments.command == "validate-profile": return 0
+    if arguments.command == "validate-certificate": validate_certificate(profile, pathlib.Path(arguments.certificate)); return 0
+    if arguments.command == "compare": write_json(pathlib.Path(arguments.output), compare_certificates(profile, [pathlib.Path(path) for path in arguments.certificate])); return 0
+    if arguments.command == "compare-index": write_json(pathlib.Path(arguments.output), compare_index(profile, pathlib.Path(arguments.index))); return 0
+    result = validate_source_root(pathlib.Path(arguments.source_root))
+    if arguments.output: write_json(pathlib.Path(arguments.output), {"schema_version": 1, "kind": "minimal-small-linear-algebra-source-check", "checks": result})
+    return 0
 
 
 if __name__ == "__main__":
