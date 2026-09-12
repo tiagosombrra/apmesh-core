@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-10
+Last updated: 2026-09-12
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: `geometry/minimal-small-linear-algebra-contract`
 
@@ -50,10 +50,15 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**The bounded `Mat2`/`Mat3` implementation, report-only LA0-LA7 evidence
-infrastructure, and focused contracts are complete. The formal protocol remains
-preregistered, not prepared, and not executed; the next work unit is an
-admission audit only.**
+**The bounded `Mat2`/`Mat3` implementation is complete. The LA0-LA7 admission
+package adds explicit permutation observations, bidirectional dimension
+rejections, named certificate fields, both composition scale laws, transitive
+and compiler-observed dependencies, sealed preparation identity, and executed
+negative lifecycle/retention contracts. Five focused contracts pass on each of
+GCC 13 Debug and Clang 18 libc++ Debug; this includes a real failing CMake
+child in a disposable repository, mutation rejection, detached source checks,
+and relocated terminal retention. The next work unit is admission audit only.
+The formal protocol remains preregistered, not prepared, and not executed.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -209,9 +214,9 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: implement only the report-only evidence infrastructure
-required by the preregistered Minimal Small Linear Algebra qualification
-protocol. Point/Vector integration is complete. Do not prepare a manifest or
+Current first action: audit the published LA0-LA7 admission correction package
+against the existing contract and protocol. Point/Vector integration is complete.
+Do not prepare a manifest or
 execute LA0-LA7, and do not add transforms, predicates, topology, curves,
 surfaces, meshing, or the Geometry Primitives stage regression.
 

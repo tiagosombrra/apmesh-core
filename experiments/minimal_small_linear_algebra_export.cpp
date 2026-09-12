@@ -43,7 +43,9 @@ concept Composable = requires(const Left& left, const Right& right) {
 static_assert(!Applicable<Mat2, Point2>);
 static_assert(!Applicable<Mat3, Point3>);
 static_assert(!Applicable<Mat2, Vector3>);
+static_assert(!Applicable<Mat3, Vector2>);
 static_assert(!Composable<Mat2, Mat3>);
+static_assert(!Composable<Mat3, Mat2>);
 
 using Values = std::vector<double>;
 
@@ -171,6 +173,32 @@ Values join(Values first, const std::initializer_list<double> second) {
     return first;
 }
 
+std::vector<std::string> output_fields(const int dimension, const std::string_view operation,
+                                     const Result& expected) {
+    std::vector<std::string> fields;
+    const auto matrix = [&fields](const std::string& prefix, const int size) {
+        for (int row = 0; row < size; ++row)
+            for (int column = 0; column < size; ++column)
+                fields.push_back(prefix + ".r" + std::to_string(row) + "c" + std::to_string(column));
+    };
+    const auto vector = [&fields](const std::string& prefix, const int size) {
+        for (int axis = 0; axis < size; ++axis) fields.push_back(prefix + "." + std::string(1, "xyz"[axis]));
+    };
+    if (expected.outcome != "value") return fields;
+    if (operation == "power_two_scale_laws") {
+        vector("mat2.scaled_application", 2); vector("mat3.scaled_application", 3);
+        matrix("mat2.scaled_transpose", 2); matrix("mat3.scaled_transpose", 3);
+        fields.push_back("mat2.scaled_determinant"); fields.push_back("mat3.scaled_determinant");
+        matrix("mat2.left_scaled_composition", 2); matrix("mat3.left_scaled_composition", 3);
+        matrix("mat2.right_scaled_composition", 2); matrix("mat3.right_scaled_composition", 3);
+    } else if (operation == "matrix_vector_application") vector("result", dimension);
+    else if (operation == "determinant" || operation == "checked_access") fields.push_back("scalar");
+    else if (operation == "noncommuting_composition") { matrix("AB", dimension); matrix("BA", dimension); }
+    else if (operation == "transpose_composition") { matrix("transpose_AB", dimension); matrix("transpose_B_transpose_A", dimension); }
+    else matrix("result", dimension);
+    return fields;
+}
+
 void write_case(std::ostream& output, bool& first, const std::string_view id,
                 const int dimension, const std::string_view operation,
                 const std::string_view category, const std::string_view input_layout,
@@ -178,10 +206,17 @@ void write_case(std::ostream& output, bool& first, const std::string_view id,
                 const bool determinant_case = false) {
     if (!first) output << ',';
     first = false;
-    output << "{\"schema_version\":2,\"id\":\"" << id << "\",\"dimension\":" << dimension
+    output << "{\"schema_version\":3,\"id\":\"" << id << "\",\"dimension\":" << dimension
            << ",\"operation\":\"" << operation << "\",\"claim_category\":\"" << category
            << "\",\"input_layout\":\"" << input_layout << "\",\"inputs\":";
     write_values(output, inputs);
+    output << ",\"output_fields\":[";
+    bool first_field = true;
+    for (const auto& field : output_fields(dimension, operation, expected)) {
+        if (!first_field) output << ',';
+        first_field = false; output << '"' << field << '"';
+    }
+    output << ']';
     output << ",\"expected\":{";
     write_result(output, expected);
     output << "},\"observed\":{";
@@ -259,6 +294,8 @@ Values scaled_results(const double scale) {
         scale * scale, scale * scale * scale,
         scale, 4.0 * scale, 0.0, scale,
         scale, 2.0 * scale, scale, 0.0, scale, 2.0 * scale, 0.0, 0.0, scale,
+        scale, 4.0 * scale, 0.0, scale,
+        scale, 2.0 * scale, scale, 0.0, scale, 2.0 * scale, 0.0, 0.0, scale,
     };
 }
 
@@ -276,7 +313,9 @@ Result observed_scale_results(const double scale) {
     const auto determinant3 = determinant(*scaled3);
     const auto composition2 = compose(*scaled2, *base2);
     const auto composition3 = compose(*scaled3, *base3);
-    if (!application2 || !application3 || !determinant2 || !determinant3 || !composition2 || !composition3) return error("non_finite_result");
+    const auto right_composition2 = compose(*base2, *scaled2);
+    const auto right_composition3 = compose(*base3, *scaled3);
+    if (!application2 || !application3 || !determinant2 || !determinant3 || !composition2 || !composition3 || !right_composition2 || !right_composition3) return error("non_finite_result");
     Values result = entries(*application2);
     result = join(std::move(result), entries(*application3));
     result = join(std::move(result), entries(transpose(*scaled2)));
@@ -284,6 +323,8 @@ Result observed_scale_results(const double scale) {
     result.push_back(*determinant2); result.push_back(*determinant3);
     result = join(std::move(result), entries(*composition2));
     result = join(std::move(result), entries(*composition3));
+    result = join(std::move(result), entries(*right_composition2));
+    result = join(std::move(result), entries(*right_composition3));
     return value(std::move(result));
 }
 
@@ -320,21 +361,29 @@ int write_certificate(const std::string_view output_path) {
     write_case(output, first, "mat3_diagonal_application", 3, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector", join(entries(*diagonal3), entries(*vector3)), value({4.0, 3.0, 16.0}), result_of(apply(*diagonal3, *vector3)));
     write_case(output, first, "mat2_swap_determinant", 2, "determinant", "determinant_boundary", "matrix_row_major", entries(*swap2), value({-1.0}), result_of(determinant(*swap2)), true);
     write_case(output, first, "mat3_cycle_determinant", 3, "determinant", "determinant_boundary", "matrix_row_major", entries(*cycle3), value({1.0}), result_of(determinant(*cycle3)), true);
+    write_case(output, first, "mat2_swap_application", 2, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector", join(entries(*swap2), entries(*vector2)), value({-2.0, 3.0}), result_of(apply(*swap2, *vector2)));
+    write_case(output, first, "mat3_cycle_application", 3, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector", join(entries(*cycle3), entries(*vector3)), value({-1.0, 4.0, 2.0}), result_of(apply(*cycle3, *vector3)));
     const auto basis2 = Vector2::make(1.0, 0.0);
     write_case(output, first, "mat2_quarter_turn_application", 2, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector", join(entries(*quarter), entries(*basis2)), value({0.0, 1.0}), result_of(apply(*quarter, *basis2)));
     write_case(output, first, "mat2_quarter_turn_square", 2, "matrix_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*quarter), entries(*quarter)), value({-1.0, 0.0, 0.0, -1.0}), result_of(compose(*quarter, *quarter)));
     const auto left_right2 = compose(*left2, *right2); const auto right_left2 = compose(*right2, *left2);
     const auto left_right3 = compose(*left3, *right3); const auto right_left3 = compose(*right3, *left3);
+    if (!left_right2 || !right_left2 || !left_right3 || !right_left3) return 3;
     write_case(output, first, "mat2_noncommuting_composition", 2, "noncommuting_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left2), entries(*right2)), value({4.0, 6.0, 1.0, 3.0, 2.0, 4.0, 1.0, 5.0}), value(join(entries(*left_right2), entries(*right_left2))));
     write_case(output, first, "mat3_noncommuting_composition", 3, "noncommuting_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left3), entries(*right3)), value({2.0, 3.0, 0.0, 0.0, 3.0, 4.0, 0.0, 0.0, 4.0, 2.0, 2.0, 0.0, 0.0, 3.0, 3.0, 0.0, 0.0, 4.0}), value(join(entries(*left_right3), entries(*right_left3))));
-    write_case(output, first, "mat2_transpose_composition", 2, "transpose_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left2), entries(*right2)), value({4.0, 1.0, 6.0, 3.0}), value(entries(transpose(*left_right2))));
-    write_case(output, first, "mat3_transpose_composition", 3, "transpose_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left3), entries(*right3)), value({2.0, 0.0, 0.0, 3.0, 3.0, 0.0, 0.0, 4.0, 4.0}), value(entries(transpose(*left_right3))));
+    const auto transposed_product2 = compose(transpose(*right2), transpose(*left2));
+    const auto transposed_product3 = compose(transpose(*right3), transpose(*left3));
+    if (!transposed_product2 || !transposed_product3) return 3;
+    write_case(output, first, "mat2_transpose_composition", 2, "transpose_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left2), entries(*right2)), value({4.0, 1.0, 6.0, 3.0, 4.0, 1.0, 6.0, 3.0}), value(join(entries(transpose(*left_right2)), entries(*transposed_product2))));
+    write_case(output, first, "mat3_transpose_composition", 3, "transpose_composition", "algebraic_agreement", "lhs_row_major,rhs_row_major", join(entries(*left3), entries(*right3)), value({2.0, 0.0, 0.0, 3.0, 3.0, 0.0, 0.0, 4.0, 4.0, 2.0, 0.0, 0.0, 3.0, 3.0, 0.0, 0.0, 4.0, 4.0}), value(join(entries(transpose(*left_right3)), entries(*transposed_product3))));
     write_case(output, first, "mat2_zero_row_determinant", 2, "determinant", "determinant_boundary", "matrix_row_major", entries(*zero_row2), value({0.0}), result_of(determinant(*zero_row2)), true);
     write_case(output, first, "mat3_zero_row_determinant", 3, "determinant", "determinant_boundary", "matrix_row_major", entries(*zero_row3), value({0.0}), result_of(determinant(*zero_row3)), true);
     write_case(output, first, "type_reject_mat2_point2", 2, "compile_time_rejection", "dimension_dependency", "Mat2,Point2", {}, compile_time_rejection(), compile_time_rejection());
     write_case(output, first, "type_reject_mat3_point3", 3, "compile_time_rejection", "dimension_dependency", "Mat3,Point3", {}, compile_time_rejection(), compile_time_rejection());
     write_case(output, first, "type_reject_mat2_vector3", 2, "compile_time_rejection", "dimension_dependency", "Mat2,Vector3", {}, compile_time_rejection(), compile_time_rejection());
     write_case(output, first, "type_reject_mat2_mat3", 2, "compile_time_rejection", "dimension_dependency", "Mat2,Mat3", {}, compile_time_rejection(), compile_time_rejection());
+    write_case(output, first, "type_reject_mat3_vector2", 3, "compile_time_rejection", "dimension_dependency", "Mat3,Vector2", {}, compile_time_rejection(), compile_time_rejection());
+    write_case(output, first, "type_reject_mat3_mat2", 3, "compile_time_rejection", "dimension_dependency", "Mat3,Mat2", {}, compile_time_rejection(), compile_time_rejection());
     write_nonfinite_cases(output, first, 2); write_nonfinite_cases(output, first, 3);
     write_case(output, first, "mat2_overflow_application", 2, "matrix_vector_application", "failure_classification", "matrix_row_major,vector", join(entries(*maximum2), entries(*overflow_vector2)), error("non_finite_result"), result_of(apply(*maximum2, *overflow_vector2)));
     write_case(output, first, "mat3_overflow_application", 3, "matrix_vector_application", "failure_classification", "matrix_row_major,vector", join(entries(*maximum3), entries(*overflow_vector3)), error("non_finite_result"), result_of(apply(*maximum3, *overflow_vector3)));
@@ -345,7 +394,7 @@ int write_certificate(const std::string_view output_path) {
     for (const int exponent : {-8, -1, 0, 1, 8}) {
         const double scale = std::ldexp(1.0, exponent);
         const std::string id = exponent < 0 ? "scale_k_m" + std::to_string(-exponent) : "scale_k_" + std::to_string(exponent);
-        write_case(output, first, id, 0, "power_two_scale_laws", "scale_determinism", "power_of_two_scale", {scale}, value(scaled_results(scale)), observed_scale_results(scale));
+        write_case(output, first, id, 0, "power_two_scale_laws", "scale_determinism", "power_of_two_scale", {scale}, value(scaled_results(scale)), observed_scale_results(scale), true);
     }
     output << "]}";
     return output.good() ? 0 : 4;

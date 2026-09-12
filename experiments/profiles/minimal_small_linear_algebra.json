@@ -14,9 +14,11 @@
     "mat2_access_r0c0", "mat2_access_r0c1", "mat2_access_r1c0", "mat2_access_r1c1", "mat2_access_row_oob", "mat2_access_column_oob",
     "mat3_access_r0c0", "mat3_access_r0c1", "mat3_access_r0c2", "mat3_access_r1c0", "mat3_access_r1c1", "mat3_access_r1c2", "mat3_access_r2c0", "mat3_access_r2c1", "mat3_access_r2c2", "mat3_access_row_oob", "mat3_access_column_oob",
     "mat2_diagonal_application", "mat3_diagonal_application", "mat2_swap_determinant", "mat3_cycle_determinant",
+    "mat2_swap_application", "mat3_cycle_application",
     "mat2_quarter_turn_application", "mat2_quarter_turn_square", "mat2_noncommuting_composition", "mat3_noncommuting_composition",
     "mat2_transpose_composition", "mat3_transpose_composition", "mat2_zero_row_determinant", "mat3_zero_row_determinant",
     "type_reject_mat2_point2", "type_reject_mat3_point3", "type_reject_mat2_vector3", "type_reject_mat2_mat3",
+    "type_reject_mat3_vector2", "type_reject_mat3_mat2",
     "mat2_nonfinite_nan_e0", "mat2_nonfinite_nan_e1", "mat2_nonfinite_nan_e2", "mat2_nonfinite_nan_e3",
     "mat2_nonfinite_posinf_e0", "mat2_nonfinite_posinf_e1", "mat2_nonfinite_posinf_e2", "mat2_nonfinite_posinf_e3",
     "mat2_nonfinite_neginf_e0", "mat2_nonfinite_neginf_e1", "mat2_nonfinite_neginf_e2", "mat2_nonfinite_neginf_e3",
@@ -39,7 +41,7 @@
   ],
   "source_checks": [
     "math_header_has_no_geometry_include", "math_source_has_no_geometry_include",
-    "no_inverse_solve_decomposition_eigen_or_predicate_api", "no_unsafe_floating_flags"
+    "no_inverse_solve_decomposition_eigen_or_predicate_api", "no_unsafe_floating_flags", "transitive_module_dependencies", "single_core_target_no_external_link"
   ],
   "equivalence": {"rule": "exact_hex", "proximity_policy": null},
   "volatile_fields": ["cell", "compiler", "library", "build_type", "path", "pid", "timestamp", "duration", "artifact_hash"],
