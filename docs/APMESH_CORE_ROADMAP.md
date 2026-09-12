@@ -375,6 +375,12 @@ Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED`
   `apmesh_core.math_header_isolation` CTests passed on GCC 13 Debug and Clang
   18 libc++ Debug in the declared WSL Ubuntu 24.04 envelope. This is focused
   implementation evidence, not formal LA0-LA7 qualification.
+- The formal LA0-LA7 protocol is preregistered in
+  `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`.
+  It fixes one four-cell GCC/Clang Debug/Release matrix, three independent
+  semantic certificates per cell, exact prerequisite preservation, immutable
+  evidence, and a separate scientific audit. No manifest is prepared and no
+  formal execution has started.
 
 #### Transformations and Coordinate Frames
 
@@ -633,4 +639,5 @@ integrated into `main` at `1ff6568`; its tree matches reviewed source head
 `b170673`. The bounded Minimal Small Linear Algebra Contract was accepted after
 Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 `Mat2`/`Mat3` implementation and focused tests now pass in the declared WSL
-Debug envelope; formal LA0-LA7 qualification has not started.
+Debug envelope. The LA0-LA7 protocol is preregistered; its evidence
+infrastructure, preparation, execution, and scientific audit have not started.
