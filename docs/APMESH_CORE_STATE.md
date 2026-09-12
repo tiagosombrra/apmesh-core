@@ -50,9 +50,10 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**The bounded `Mat2`/`Mat3` implementation and its focused contracts are
-complete. Preserve the exact admitted scope and do not prepare formal LA0-LA7
-qualification until a separate work unit authorizes it.**
+**The bounded `Mat2`/`Mat3` implementation and focused contracts are complete,
+and the formal LA0-LA7 protocol is preregistered. The next work unit may add
+only its report-only evidence infrastructure; it must not prepare or execute the
+formal qualification.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -200,36 +201,35 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 4. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
 5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
 6. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
-7. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-8. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-9. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-10. `docs/research/REFERENCE_REGISTER.md`.
+7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
+8. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+9. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+10. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+11. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: review the bounded Minimal Small Linear Algebra package
-before publication. Point/Vector integration is complete. Do not add
-transforms, predicates, topology, curves, surfaces, meshing, or the Geometry
-Primitives stage regression.
+Current first action: implement only the report-only evidence infrastructure
+required by the preregistered Minimal Small Linear Algebra qualification
+protocol. Point/Vector integration is complete. Do not prepare a manifest or
+execute LA0-LA7, and do not add transforms, predicates, topology, curves,
+surfaces, meshing, or the Geometry Primitives stage regression.
 
-1. Review the implemented concrete `Mat2` and `Mat3` logical `math` layer,
-their admitted matrix-only operations, the one-way Geometry-side adapters for
-`Vector2`/`Vector3`, and the focused analytic/adversarial contracts specified
-by `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
-Focused `apmesh_core.minimal_small_linear_algebra` and
-`apmesh_core.math_header_isolation` CTests passed on GCC 13 Debug and Clang 18
-libc++ Debug in the declared WSL Ubuntu 24.04 envelope.
-Preserve the qualified `ededf65` Point/Vector evidence and the negative
-`b7f8fe9` selection-defect evidence. Do not prepare formal `LA0`–`LA7`
-qualification in the implementation work unit.
+1. Add only the versioned LA profile, semantic-certificate exporter, runner,
+collector, comparer, negative contracts, and retention verifier specified by
+`docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`.
+Run focused infrastructure contracts only. Preserve the qualified `ededf65`
+Point/Vector evidence and negative `b7f8fe9` selection-defect evidence. Do not
+prepare or execute formal `LA0`–`LA7` qualification in that work unit.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics QUALIFIED and integrated. The Minimal
-Small Linear Algebra implementation and focused tests are complete; formal
-qualification remains at 0%. The remaining Geometry Primitives investigation
-problems and the cumulative stage regression remain unqualified.
+Small Linear Algebra implementation and focused tests are complete; its formal
+protocol is preregistered and qualification remains at 0%. The remaining
+Geometry Primitives investigation problems and the cumulative stage regression
+remain unqualified.
 
 ## Stage closure protocol
 
