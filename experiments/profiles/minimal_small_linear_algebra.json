@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "kind": "minimal-small-linear-algebra-qualification-profile",
   "repetitions_per_cell": 3,
   "cells": [
@@ -9,11 +9,16 @@
     {"id": "clang-release", "compiler": "Clang 18", "library": "libc++", "build_type": "Release"}
   ],
   "gates": ["LA0", "LA1", "LA2", "LA3", "LA4", "LA5", "LA6", "LA7"],
-  "case_families": [
-    "zero_identity_access", "mat2_application", "mat3_application", "permutation",
-    "quarter_turn", "transpose_composition", "determinant_boundary",
-    "nonfinite_construction", "nonfinite_result", "power_two_scale", "type_separation"
+  "cases": [
+    "mat2_access", "mat3_access", "mat2_application", "mat3_application",
+    "mat2_swap", "mat3_cycle", "mat2_quarter_turn", "mat2_transpose_composition",
+    "mat3_transpose_composition", "mat2_zero_determinant", "mat3_zero_determinant",
+    "mat2_nonfinite_input_all", "mat3_nonfinite_input_all", "mat2_overflow_application",
+    "mat3_overflow_application", "mat2_overflow_composition", "mat3_overflow_composition",
+    "mat2_overflow_determinant", "mat3_overflow_determinant", "scale_k_m8", "scale_k_m1",
+    "scale_k_0", "scale_k_1", "scale_k_8", "type_separation"
   ],
+  "scale_exponents": [-8, -1, 0, 1, 8],
   "exact_prerequisite_tests": [
     "apmesh_core.bootstrap_smoke", "apmesh_core.bootstrap_export", "apmesh_core.bootstrap_tool",
     "apmesh_core.architecture_bootstrap_runner", "apmesh_core.numeric_contract",
@@ -24,6 +29,11 @@
     "apmesh_core.geometry_point_vector_runner", "apmesh_core.geometry_point_vector_retention",
     "apmesh_core.geometry_point_vector_foundation_preservation"
   ],
+  "source_checks": [
+    "math_header_has_no_geometry_include", "math_source_has_no_geometry_include",
+    "no_inverse_solve_decomposition_eigen_or_predicate_api", "no_unsafe_floating_flags"
+  ],
+  "equivalence": {"rule": "exact_hex", "proximity_policy": null},
   "volatile_fields": ["cell", "compiler", "library", "build_type", "path", "pid", "timestamp", "duration", "artifact_hash"],
   "limitations": [
     "WSL Ubuntu 24.04 GCC 13 and Clang 18 libc++ envelope only",

@@ -33,7 +33,7 @@ def main() -> int:
         root = pathlib.Path(temporary)
         prepared = root / "prepared-manifest.json"; summary = root / "summary.json"
         prepared.write_text("{}\n", encoding="utf-8"); summary.write_text("{}\n", encoding="utf-8")
-        manifest = {"schema_version": 1, "kind": "minimal-small-linear-algebra-retention", "candidate_commit": "a" * 40,
+        manifest = {"schema_version": 2, "kind": "minimal-small-linear-algebra-retention", "candidate_commit": "a" * 40,
                     "prepared_manifest_sha256": digest(prepared), "files": [{"path": "summary.json", "sha256": digest(summary), "size": summary.stat().st_size}]}
         (root / "retention-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
         runner.verify_retention(argparse.Namespace(output_root=str(root)))

@@ -117,6 +117,7 @@ if(BUILD_TESTING)
             --exporter $<TARGET_FILE:apmesh_core_minimal_small_linear_algebra_export>
             --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/minimal_small_linear_algebra.json
             --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/minimal_small_linear_algebra_evidence.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
     )
     add_test(
         NAME apmesh_core.minimal_small_linear_algebra_runner
