@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-10
+Last updated: 2026-09-12
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -382,6 +382,14 @@ Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED`
   evidence, and a separate scientific audit. Its report-only profile, exporter,
   runner, comparer, negative contracts, and retention verifier pass focused
   GCC/Clang checks. No manifest is prepared and no formal execution has started.
+- Admission correction package (2026-09-12): explicit permutation outputs and
+  bidirectional dimension rejection; named output fields including both scale
+  composition laws; planned source/runtime/artifact inventories; transitive and
+  compiler-observed dependencies; preparation seal and exclusive consumption;
+  real disposable-repository failure and retention negatives. Five focused
+  contracts pass on GCC 13 Debug and on Clang 18 libc++ Debug. Terminal
+  retention is also verified after relocation. The next step is admission
+  audit; this work adds no mathematical capability or qualification.
 
 #### Transformations and Coordinate Frames
 
@@ -641,4 +649,6 @@ integrated into `main` at `1ff6568`; its tree matches reviewed source head
 Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 `Mat2`/`Mat3` implementation and focused tests now pass in the declared WSL
 Debug envelope. The LA0-LA7 protocol is preregistered; its evidence
-infrastructure, preparation, execution, and scientific audit have not started.
+infrastructure and focused admission corrections are implemented and tested.
+Manifest preparation, formal execution, and scientific qualification have not
+started; the published correction package requires an admission audit.

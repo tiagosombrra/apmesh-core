@@ -74,9 +74,11 @@ def required_cases() -> list[str]:
     cases += [f"mat3_access_r{row}c{column}" for row in range(3) for column in range(3)]
     cases += ["mat3_access_row_oob", "mat3_access_column_oob"]
     cases += ["mat2_diagonal_application", "mat3_diagonal_application", "mat2_swap_determinant", "mat3_cycle_determinant"]
+    cases += ["mat2_swap_application", "mat3_cycle_application"]
     cases += ["mat2_quarter_turn_application", "mat2_quarter_turn_square", "mat2_noncommuting_composition", "mat3_noncommuting_composition"]
     cases += ["mat2_transpose_composition", "mat3_transpose_composition", "mat2_zero_row_determinant", "mat3_zero_row_determinant"]
     cases += ["type_reject_mat2_point2", "type_reject_mat3_point3", "type_reject_mat2_vector3", "type_reject_mat2_mat3"]
+    cases += ["type_reject_mat3_vector2", "type_reject_mat3_mat2"]
     for dimension, count in ((2, 4), (3, 9)):
         for kind in ("nan", "posinf", "neginf"):
             cases += [f"mat{dimension}_nonfinite_{kind}_e{index}" for index in range(count)]
@@ -109,6 +111,10 @@ def metadata(case_id: str) -> tuple[int, str, str, str]:
         layout = {"application": "matrix_row_major,vector", "composition": "lhs_row_major,rhs_row_major", "determinant": "matrix_row_major"}[kind]
         return dimension, operation, "failure_classification", layout
     known = {
+        "mat2_swap_application": (2, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector"),
+        "mat3_cycle_application": (3, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector"),
+        "type_reject_mat3_vector2": (3, "compile_time_rejection", "dimension_dependency", "Mat3,Vector2"),
+        "type_reject_mat3_mat2": (3, "compile_time_rejection", "dimension_dependency", "Mat3,Mat2"),
         "mat2_diagonal_application": (2, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector"),
         "mat3_diagonal_application": (3, "matrix_vector_application", "algebraic_agreement", "matrix_row_major,vector"),
         "mat2_swap_determinant": (2, "determinant", "determinant_boundary", "matrix_row_major"),
@@ -172,12 +178,68 @@ def validate_source_root(source_root: pathlib.Path) -> dict[str, str]:
         raise EvidenceError("excluded linear algebra capability appears in math")
     if any(flag in cmake.lower() for flag in ("-ffast-math", "-ofast", "-fassociative-math", "-funsafe-math-optimizations", "-ffinite-math-only")):
         raise EvidenceError("unsafe floating flag appears in CMake")
+    dependency_graph(source_root)
+    library = re.search(r"add_library\(apmesh_core\s+STATIC\s+([^)]*)\)", cmake)
+    expected_sources = {"src/core/bootstrap.cpp", "src/core/numeric.cpp", "src/core/geometry.cpp", "src/math/linear_algebra.cpp"}
+    if not library or set(library.group(1).split()) != expected_sources:
+        raise EvidenceError("core target source boundary differs")
+    if re.search(r"target_link_libraries\(apmesh_core\s", cmake):
+        raise EvidenceError("core target has an undeclared link dependency")
     return {
         "math_header_has_no_geometry_include": "PASS",
         "math_source_has_no_geometry_include": "PASS",
         "no_inverse_solve_decomposition_eigen_or_predicate_api": "PASS",
         "no_unsafe_floating_flags": "PASS",
+        "transitive_module_dependencies": "PASS",
+        "single_core_target_no_external_link": "PASS",
     }
+
+
+def dependency_graph(root: pathlib.Path) -> dict[str, list[str]]:
+    """Resolve actual project includes transitively, including relative includes."""
+    graph: dict[str, list[str]] = {}
+    for folder in ("include", "src"):
+        for path in sorted((root / folder).rglob("*")):
+            if path.suffix not in {".hpp", ".h", ".cpp"}: continue
+            text = re.sub(r"/\*.*?\*/|//[^\n]*", "", path.read_text(encoding="utf-8"), flags=re.S)
+            edges = []
+            for name in re.findall(r'^\s*#\s*include\s*[<"]([^>"]+)[>"]', text, re.M):
+                candidates = [path.parent / name, root / "include" / name]
+                found = next((item.resolve() for item in candidates if item.is_file()), None)
+                if found is not None:
+                    try: edges.append(found.relative_to(root.resolve()).as_posix())
+                    except ValueError: raise EvidenceError("include escapes project boundary")
+                elif name.startswith("apmesh/"): raise EvidenceError(f"unresolved project include: {name}")
+            graph[path.relative_to(root).as_posix()] = sorted(edges)
+    for start in graph:
+        if "/math/" not in start and not start.endswith("numeric.cpp") and not start.endswith("numeric.hpp"): continue
+        seen: set[str] = set(); pending = list(graph[start])
+        while pending:
+            node = pending.pop()
+            if node in seen: continue
+            seen.add(node); pending.extend(graph.get(node, []))
+        if any("geometry" in node or any(f"/{part}/" in node for part in ("topology", "mesh", "sizing")) for node in seen):
+            raise EvidenceError(f"prohibited transitive dependency: {start}")
+    if "include/apmesh/math/linear_algebra.hpp" not in graph.get("include/apmesh/core/geometry.hpp", []):
+        raise EvidenceError("Geometry adapter does not depend on math")
+    return graph
+
+
+def output_fields(case_id: str) -> list[str]:
+    dimension, operation, _, _ = metadata(case_id)
+    matrix = lambda prefix, size: [f"{prefix}.r{row}c{column}" for row in range(size) for column in range(size)]
+    vector = lambda prefix, size: [f"{prefix}.{axis}" for axis in "xyz"[:size]]
+    if "_overflow_" in case_id or "_nonfinite_" in case_id or "_oob" in case_id or case_id.startswith("type_reject_"): return []
+    if operation == "power_two_scale_laws":
+        return (vector("mat2.scaled_application", 2) + vector("mat3.scaled_application", 3)
+                + matrix("mat2.scaled_transpose", 2) + matrix("mat3.scaled_transpose", 3)
+                + ["mat2.scaled_determinant", "mat3.scaled_determinant"]
+                + [field for side in ("left", "right") for size in (2, 3) for field in matrix(f"mat{size}.{side}_scaled_composition", size)])
+    if operation == "matrix_vector_application": return vector("result", dimension)
+    if operation in {"determinant", "checked_access"}: return ["scalar"]
+    if operation == "noncommuting_composition": return matrix("AB", dimension) + matrix("BA", dimension)
+    if operation == "transpose_composition": return matrix("transpose_AB", dimension) + matrix("transpose_B_transpose_A", dimension)
+    return matrix("result", dimension)
 
 
 def parse_values(value: Any, context: str, *, finite: bool = True) -> list[float]:
@@ -222,6 +284,22 @@ def determinant_value(matrix: list[float], dimension: int) -> float:
 
 
 def expected_result(case_id: str, inputs: list[float]) -> tuple[str, str | None, list[float] | None]:
+    diagonal2 = [2., 0., 0., -4.]; diagonal3 = [2., 0., 0., 0., -3., 0., 0., 0., 4.]
+    swap = [0., 1., 1., 0.]; cycle = [0., 1., 0., 0., 0., 1., 1., 0., 0.]
+    left2 = [1., 2., 0., 1.]; right2 = [2., 0., 1., 3.]
+    left3 = [1., 1., 0., 0., 1., 1., 0., 0., 1.]; right3 = [2., 0., 0., 0., 3., 0., 0., 0., 4.]
+    quarter = [0., -1., 1., 0.]
+    fixed = {
+        "mat2_zero": [], "mat2_identity": [], "mat3_zero": [], "mat3_identity": [],
+        "mat2_diagonal_application": diagonal2 + [3., -2.], "mat3_diagonal_application": diagonal3 + [2., -1., 4.],
+        "mat2_swap_application": swap + [3., -2.], "mat3_cycle_application": cycle + [2., -1., 4.],
+        "mat2_swap_determinant": swap, "mat3_cycle_determinant": cycle,
+        "mat2_zero_row_determinant": [0., 0., 0., 1.], "mat3_zero_row_determinant": [0., 0., 0., 1., 2., 3., 4., 5., 6.],
+        "mat2_quarter_turn_application": quarter + [1., 0.], "mat2_quarter_turn_square": quarter + quarter,
+        "mat2_noncommuting_composition": left2 + right2, "mat3_noncommuting_composition": left3 + right3,
+        "mat2_transpose_composition": left2 + right2, "mat3_transpose_composition": left3 + right3,
+    }
+    if case_id in fixed and inputs != fixed[case_id]: raise EvidenceError(f"fixed analytic inputs differ: {case_id}")
     if case_id == "mat2_zero": return "value", None, [0.0] * 4
     if case_id == "mat2_identity": return "value", None, [1.0, 0.0, 0.0, 1.0]
     if case_id == "mat3_zero": return "value", None, [0.0] * 9
@@ -239,7 +317,7 @@ def expected_result(case_id: str, inputs: list[float]) -> tuple[str, str | None,
         expected_input = matrix + ([float(dimension), 0.0] if axis == "row" else [0.0, float(dimension)])
         if inputs != expected_input: raise EvidenceError(f"out-of-range inputs differ: {case_id}")
         return "error", "index_out_of_range", None
-    if case_id in {"mat2_diagonal_application", "mat3_diagonal_application"}:
+    if case_id in {"mat2_diagonal_application", "mat3_diagonal_application", "mat2_swap_application", "mat3_cycle_application"}:
         dimension = int(case_id[3]); matrix, vector = inputs[:dimension * dimension], inputs[dimension * dimension:]
         if len(inputs) != dimension * dimension + dimension: raise EvidenceError(f"application inputs differ: {case_id}")
         return "value", None, matvec(matrix, vector, dimension)
@@ -260,7 +338,8 @@ def expected_result(case_id: str, inputs: list[float]) -> tuple[str, str | None,
     if case_id in {"mat2_transpose_composition", "mat3_transpose_composition"}:
         dimension = int(case_id[3]); split = dimension * dimension
         if len(inputs) != split * 2: raise EvidenceError(f"transpose inputs differ: {case_id}")
-        return "value", None, transpose_values(matmul(inputs[:split], inputs[split:], dimension), dimension)
+        return "value", None, (transpose_values(matmul(inputs[:split], inputs[split:], dimension), dimension)
+                              + matmul(transpose_values(inputs[split:], dimension), transpose_values(inputs[:split], dimension), dimension))
     if case_id.startswith("type_reject_"):
         if inputs: raise EvidenceError(f"compile-time inputs differ: {case_id}")
         return "compile_time_rejection", None, None
@@ -273,7 +352,11 @@ def expected_result(case_id: str, inputs: list[float]) -> tuple[str, str | None,
         return "error", "non_finite_input", None
     overflow = re.fullmatch(r"mat[23]_overflow_(application|composition|determinant)", case_id)
     if overflow:
-        if not inputs or not any(value == sys_float_max() for value in inputs): raise EvidenceError(f"overflow inputs differ: {case_id}")
+        dimension = int(case_id[3])
+        maximum = [sys_float_max() if row == col else 0. for row in range(dimension) for col in range(dimension)]
+        suffix = ([2.] + [0.] * (dimension - 1) if overflow.group(1) == "application" else
+                  [2. if row == col else 0. for row in range(dimension) for col in range(dimension)] if overflow.group(1) == "composition" else [])
+        if inputs != maximum + suffix: raise EvidenceError(f"overflow inputs differ: {case_id}")
         return "error", "non_finite_result", None
     scale = re.fullmatch(r"scale_k_(m?)([018])", case_id)
     if scale:
@@ -289,10 +372,14 @@ def sys_float_max() -> float:
 
 
 def scale_results(scale: float) -> list[float]:
-    return [-scale, -scale, 0.0, scale, 2.0 * scale, scale, 0.0, 2.0 * scale, scale,
-            scale, 0.0, 0.0, scale, scale, 0.0, 0.0, scale, scale,
-            scale * scale, scale * scale * scale, scale, 4.0 * scale, 0.0, scale,
-            scale, 2.0 * scale, scale, 0.0, scale, 2.0 * scale, 0.0, 0.0, scale]
+    bases = {2: [1., 2., 0., 1.], 3: [1., 1., 0., 0., 1., 1., 0., 0., 1.]}
+    vectors = {2: [1., -1.], 3: [1., -1., 2.]}
+    # Independent component formulas on the unscaled operands implement the RHS laws.
+    applications = [scale * x for n in (2, 3) for x in matvec(bases[n], vectors[n], n)]
+    transposes = [scale * x for n in (2, 3) for x in transpose_values(bases[n], n)]
+    determinants = [scale ** n * determinant_value(bases[n], n) for n in (2, 3)]
+    compositions = [scale * x for n in (2, 3) for x in matmul(bases[n], bases[n], n)]
+    return applications + transposes + determinants + compositions + compositions
 
 
 def result_matches(actual: tuple[str, str | None, list[float] | None], expected: tuple[str, str | None, list[float] | None]) -> bool:
@@ -312,20 +399,22 @@ def validate_certificate(profile: dict[str, Any], path: pathlib.Path) -> dict[st
     seen: list[str] = []
     for row in certificate["cases"]:
         if not isinstance(row, dict): raise EvidenceError("certificate case is malformed")
-        require_keys(row, {"schema_version", "id", "dimension", "operation", "claim_category", "input_layout", "inputs", "expected", "observed", "comparison", "non_claims"}, "certificate case")
+        require_keys(row, {"schema_version", "id", "dimension", "operation", "claim_category", "input_layout", "inputs", "output_fields", "expected", "observed", "comparison", "non_claims"}, "certificate case")
         case_id = row["id"]
         if not isinstance(case_id, str) or case_id in seen: raise EvidenceError("certificate case identity differs")
-        if (row["schema_version"], row["dimension"], row["operation"], row["claim_category"], row["input_layout"]) != (2, *metadata(case_id)):
+        if (row["schema_version"], row["dimension"], row["operation"], row["claim_category"], row["input_layout"]) != (3, *metadata(case_id)):
             raise EvidenceError(f"certificate metadata differs: {case_id}")
         inputs = parse_values(row["inputs"], f"{case_id} inputs", finite=False)
         expected = expected_result(case_id, inputs)
         declared_expected = parse_result(row["expected"], f"{case_id} expected")
         observed = parse_result(row["observed"], f"{case_id} observed")
+        if row["output_fields"] != output_fields(case_id) or len(row["output_fields"]) != len(observed[2] or []):
+            raise EvidenceError(f"certificate output fields differ: {case_id}")
         if not result_matches(declared_expected, expected) or not result_matches(observed, expected):
             raise EvidenceError(f"certificate independent oracle differs: {case_id}")
         if row["comparison"] != {"rule": "exact_hex", "exact_match": True, "proximity_policy": None}:
             raise EvidenceError(f"certificate comparison differs: {case_id}")
-        non_claims = DETERMINANT_NON_CLAIMS if metadata(case_id)[1] == "determinant" else []
+        non_claims = DETERMINANT_NON_CLAIMS if metadata(case_id)[1] in {"determinant", "power_two_scale_laws"} else []
         if row["non_claims"] != non_claims: raise EvidenceError(f"certificate non-claims differ: {case_id}")
         seen.append(case_id)
     if seen != profile["cases"]: raise EvidenceError("certificate case order or set differs")

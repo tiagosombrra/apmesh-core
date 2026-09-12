@@ -124,6 +124,7 @@ if(BUILD_TESTING)
         COMMAND
             ${Python3_EXECUTABLE}
             ${CMAKE_CURRENT_SOURCE_DIR}/tests/minimal_small_linear_algebra_runner_test.py
+            --build-root ${CMAKE_CURRENT_BINARY_DIR}
             --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_minimal_small_linear_algebra_qualification.py
             --source-root ${CMAKE_CURRENT_SOURCE_DIR}
             --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/minimal_small_linear_algebra.json

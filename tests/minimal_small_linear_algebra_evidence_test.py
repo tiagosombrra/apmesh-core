@@ -9,6 +9,8 @@ import json
 import pathlib
 import subprocess
 import tempfile
+import copy
+import shutil
 
 
 def load(path: pathlib.Path):
@@ -51,6 +53,27 @@ def main() -> int:
         index.write_text(json.dumps({"schema_version": 1, "kind": "minimal-small-linear-algebra-certificate-index", "entries": entries}), encoding="utf-8")
         if tool.compare_index(profile, index)["state"] != "EVIDENCE_COLLECTED_PENDING_AUDIT":
             raise RuntimeError("cross-cell comparison made a scientific decision")
+        for case_id, field in (("mat2_swap_application", "observed"), ("mat3_cycle_application", "observed"), ("scale_k_1", "output_fields"), ("mat2_transpose_composition", "observed")):
+            mutated = copy.deepcopy(tool.read_json(first))
+            row = next(item for item in mutated["cases"] if item["id"] == case_id)
+            if field == "output_fields": row[field][-1] = "wrong.law"
+            else: row[field]["value"][-1] = "0x1.1p+20"
+            path = root / (case_id + "-negative.json"); tool.write_json(path, mutated)
+            try: tool.validate_certificate(profile, path)
+            except tool.EvidenceError: pass
+            else: raise RuntimeError(f"forged field accepted: {case_id}")
+        project = root / "dependency-project"
+        for folder in ("include", "src"):
+            shutil.copytree(pathlib.Path(arguments.source_root) / folder, project / folder)
+        shutil.copyfile(pathlib.Path(arguments.source_root) / "CMakeLists.txt", project / "CMakeLists.txt")
+        tool.validate_source_root(project)
+        bridge = project / "include/apmesh/math/bridge.hpp"
+        bridge.write_text('#include "../core/geometry.hpp"\n', encoding="utf-8")
+        header = project / "include/apmesh/math/linear_algebra.hpp"
+        header.write_text(header.read_text(encoding="utf-8") + '\n#include "bridge.hpp"\n', encoding="utf-8")
+        try: tool.validate_source_root(project)
+        except tool.EvidenceError: pass
+        else: raise RuntimeError("transitive relative geometry dependency accepted")
         bad = json.loads(first.read_text(encoding="utf-8"))
         bad["cases"].append(bad["cases"][0])
         duplicate = root / "duplicate.json"; duplicate.write_text(json.dumps(bad), encoding="utf-8")
