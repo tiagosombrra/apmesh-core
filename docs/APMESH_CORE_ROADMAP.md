@@ -303,7 +303,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR QUALIFIED / WSL Ubuntu 24.04`
+Status: `IN INVESTIGATION / POINT-VECTOR AND SMALL LINEAR ALGEBRA QUALIFIED / WSL Ubuntu 24.04`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -353,7 +353,7 @@ reused or reclassified by the successful `ededf65` execution.
 
 #### Small Linear Algebra
 
-Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FIRST FORMAL ATTEMPT BLOCKED`
+Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
 
 - Authority: `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
 - Candidate hypothesis: concrete fixed-size `Mat2` and `Mat3` value semantics,
@@ -413,8 +413,16 @@ Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FIRST FORMAL ATTEMPT BLOCKED`
   hexadecimal comparison; both signed zeros normalize to `0x0p+0`, while raw
   encodings remain diagnostic provenance. The evidence oracle, validator,
   comparer, retention checks, schemas, and focused GCC/Clang contracts pass;
-  production code is unchanged. A new revision-bound campaign still requires
-  an independent admission audit and is not authorized by this correction.
+  production code is unchanged. At the time of this correction, a new
+  revision-bound campaign still required an independent admission audit.
+- Qualification closure (2026-09-13): the one authorized revision-bound
+  four-cell execution on clean published candidate `3804e90` passed LA0-LA7.
+  It retained 12 semantically equivalent certificates, 40 expected negative
+  rejections, 56 successful command records, source/runtime inventories,
+  retention, and detached verification. The formal decision is recorded in
+  `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION.md`.
+  The blocked `6fa00bd` attempt remains negative evidence; neither production
+  math nor Geometry behavior changed.
 
 #### Transformations and Coordinate Frames
 
@@ -653,8 +661,8 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / implement the accepted
-bounded Minimal Small Linear Algebra semantics**
+**Geometry Primitives — Exact Semantics Before Curves / preserve qualified
+Point/Vector and Minimal Small Linear Algebra evidence**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -672,9 +680,9 @@ is implemented or authorized by the Point/Vector qualification. PR #3 is
 integrated into `main` at `1ff6568`; its tree matches reviewed source head
 `b170673`. The bounded Minimal Small Linear Algebra Contract was accepted after
 Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
-`Mat2`/`Mat3` implementation and focused tests now pass in the declared WSL
-Debug envelope. The first formal LA0-LA7 attempt executed on `6fa00bd` and is
-`BLOCKED` at LA3/LA7 by underdeclared signed-zero evidence equivalence; the
-other six gates are supported. The canonical-zero evidence correction and its
-focused contracts pass, production behavior remains unchanged, and scientific
-qualification has not closed.
+`Mat2`/`Mat3` are QUALIFIED on `3804e90` in the declared WSL GCC/Clang
+Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
+evidence correction, without production behavior change. The first `6fa00bd`
+attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
+INVESTIGATION; Transformations and Coordinate Frames require a separate entry
+decision and are not started by this closure.

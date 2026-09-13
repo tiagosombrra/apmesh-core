@@ -50,16 +50,14 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**The bounded `Mat2`/`Mat3` implementation is complete. The first formal
-LA0–LA7 attempt executed on clean published candidate `6fa00bd` and remains
-`BLOCKED`: LA0, LA1, LA2, LA4, LA5, and LA6 are supported, while LA3 and LA7
-are blocked because `mat2_quarter_turn_square` recorded `0x0p+0` versus
-`-0x0p+0` under an underdeclared `exact_hex` validator. The matrix result is
-algebraically correct; no production defect is established. The approved
-signed-zero evidence correction is implemented and its focused GCC/Clang
-contracts pass: signed zero is canonical numeric zero for LA evidence, with
-raw encodings retained only as diagnostics. Production math/geometry is
-unchanged and formal qualification remains open.**
+**Minimal Small Linear Algebra is QUALIFIED on clean published candidate
+`3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
+24.04 GCC 13 / Clang 18 libc++ envelope. LA0-LA7 passed after one revision-bound
+four-cell execution with three certificates per cell, exact prerequisite
+preservation, expected negative rejections, retention, and detached
+verification. The first `6fa00bd` attempt remains immutable BLOCKED evidence
+for underdeclared signed-zero equivalence. The correction changed evidence
+semantics only; production math and Geometry behavior are unchanged.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -216,27 +214,19 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: independently audit the implemented canonical signed-zero
-evidence correction and decide whether one new revision-bound LA0–LA7 manifest
-may be prepared. Point/Vector integration is complete. Do not modify production
-`Mat2`/`Mat3`, prepare a manifest, execute LA0–LA7, or add transforms,
-predicates, topology, curves, surfaces, meshing, or the Geometry Primitives
-stage regression.
-
-1. Audit the bounded correction authorized by
-`docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`.
-Preserve the blocked `6fa00bd` LA attempt, the qualified `ededf65`
-Point/Vector evidence, and negative `b7f8fe9` selection-defect evidence. Do not
-prepare or execute formal `LA0`–`LA7` qualification in that work unit.
+Current first action: no new Geometry implementation is authorized. Preserve
+the qualified `3804e90` LA evidence, the blocked `6fa00bd` attempt, qualified
+`ededf65` Point/Vector evidence, and negative `b7f8fe9` selection-defect
+evidence. A separate scientific entry decision is required before
+Transformations and Coordinate Frames, predicates, topology, curves, surfaces,
+meshing, or the Geometry Primitives stage regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
-INVESTIGATION with Point/Vector Semantics QUALIFIED and integrated. The Minimal
-Small Linear Algebra implementation and focused tests are complete; its first
-formal attempt is `BLOCKED` at LA3/LA7 and qualification remains at 0%. The remaining
-Geometry Primitives investigation problems and the cumulative stage regression
-remain unqualified.
+INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
+QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
+and the cumulative Geometry Primitives regression remain unqualified.
 
 ## Stage closure protocol
 
