@@ -353,7 +353,7 @@ reused or reclassified by the successful `ededf65` execution.
 
 #### Small Linear Algebra
 
-Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED`
+Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FIRST FORMAL ATTEMPT BLOCKED`
 
 - Authority: `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
 - Candidate hypothesis: concrete fixed-size `Mat2` and `Mat3` value semantics,
@@ -381,7 +381,8 @@ Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED`
   semantic certificates per cell, exact prerequisite preservation, immutable
   evidence, and a separate scientific audit. Its report-only profile, exporter,
   runner, comparer, negative contracts, and retention verifier pass focused
-  GCC/Clang checks. No manifest is prepared and no formal execution has started.
+  GCC/Clang checks. At preregistration time, no manifest had been prepared and
+  no formal execution had started.
 - Admission correction package (2026-09-12): explicit permutation outputs and
   bidirectional dimension rejection; named output fields including both scale
   composition laws; planned source/runtime/artifact inventories; transitive and
@@ -400,8 +401,20 @@ Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED`
   terminal evidence and produce verifiable `BLOCKED` diagnostic archives,
   without retrying success sealing or claiming detached success. Five focused
   contracts pass in each GCC/Clang Debug build; the expanded runner contract
-  passes in both as well. Production math/geometry is unchanged. Formal
-  manifest preparation and execution remain blocked pending admission audit.
+  passes in both as well. Production math/geometry is unchanged. At that point,
+  manifest preparation and execution remained blocked pending admission audit.
+- First formal attempt (2026-09-13): the four-cell campaign on clean published
+  candidate `6fa00bd` completed, but scientific audit classified the attempt
+  `BLOCKED`. LA0, LA1, LA2, LA4, LA5, and LA6 are supported; LA3 and LA7 are
+  blocked because `mat2_quarter_turn_square` contains raw `0x0p+0` versus
+  `-0x0p+0` while the validator asserted `exact_match=true` without a declared
+  signed-zero canonicalization rule. The evidence remains immutable.
+- Signed-zero correction (2026-09-13): LA exact comparison is canonical numeric
+  hexadecimal comparison; both signed zeros normalize to `0x0p+0`, while raw
+  encodings remain diagnostic provenance. The evidence oracle, validator,
+  comparer, retention checks, schemas, and focused GCC/Clang contracts pass;
+  production code is unchanged. A new revision-bound campaign still requires
+  an independent admission audit and is not authorized by this correction.
 
 #### Transformations and Coordinate Frames
 
@@ -660,7 +673,8 @@ integrated into `main` at `1ff6568`; its tree matches reviewed source head
 `b170673`. The bounded Minimal Small Linear Algebra Contract was accepted after
 Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 `Mat2`/`Mat3` implementation and focused tests now pass in the declared WSL
-Debug envelope. The LA0-LA7 protocol is preregistered; its evidence
-infrastructure and focused admission corrections are implemented and tested.
-Manifest preparation, formal execution, and scientific qualification have not
-started; the published correction package requires an admission audit.
+Debug envelope. The first formal LA0-LA7 attempt executed on `6fa00bd` and is
+`BLOCKED` at LA3/LA7 by underdeclared signed-zero evidence equivalence; the
+other six gates are supported. The canonical-zero evidence correction and its
+focused contracts pass, production behavior remains unchanged, and scientific
+qualification has not closed.

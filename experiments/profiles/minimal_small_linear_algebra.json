@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "kind": "minimal-small-linear-algebra-qualification-profile",
   "repetitions_per_cell": 3,
   "cells": [
@@ -31,7 +31,8 @@
   "negative_cases": [
     "duplicate_case", "forged_permutation", "wrong_nonfinite_placement",
     "incomplete_nonfinite_matrix", "altered_finite_matrix_entry", "wrong_failure_error",
-    "undeclared_scale_field", "missing_determinant_nonclaim"
+    "undeclared_scale_field", "missing_determinant_nonclaim",
+    "undeclared_signed_zero_policy", "nonzero_one_ulp_mismatch"
   ],
   "scale_exponents": [-8, -1, 0, 1, 8],
   "exact_prerequisite_tests": [
@@ -48,7 +49,7 @@
     "math_header_has_no_geometry_include", "math_source_has_no_geometry_include",
     "no_inverse_solve_decomposition_eigen_or_predicate_api", "no_unsafe_floating_flags", "transitive_module_dependencies", "single_core_target_no_external_link"
   ],
-  "equivalence": {"rule": "exact_hex", "proximity_policy": null},
+  "equivalence": {"rule": "exact_hex", "signed_zero_policy": "normalize_to_positive", "proximity_policy": null},
   "volatile_fields": ["cell", "compiler", "library", "build_type", "path", "pid", "timestamp", "duration", "artifact_hash"],
   "limitations": [
     "WSL Ubuntu 24.04 GCC 13 and Clang 18 libc++ envelope only",

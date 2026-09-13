@@ -1,10 +1,11 @@
 # AP Mesh Core — Minimal Small Linear Algebra Contract
 
-Status: IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED
+Status: IMPLEMENTED / FOCUSED CONTRACT PASS / FIRST FORMAL ATTEMPT BLOCKED
 Date: 2026-09-10
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Prerequisites: Foundation `QUALIFIED`; Point and Vector Semantics `QUALIFIED`
-Amendment: 1 — implementation-admission ambiguities resolved on 2026-09-10
+Amendments: 1 — implementation-admission ambiguities resolved on 2026-09-10;
+2 — signed-zero evidence semantics resolved on 2026-09-13
 
 ## 1. Question and boundary
 
@@ -142,6 +143,14 @@ The bounded implementation and its focused contracts must cover at least:
 
 Expected results must be derived independently in tests rather than copied from
 production code or the legacy repository.
+
+For exact evidence comparison, hexadecimal encoding is canonical numeric
+encoding rather than byte identity. Finite nonzero values retain their exact
+hexadecimal representation; `+0.0` and `-0.0` both canonicalize to `0x0p+0`
+for semantic comparison, while their raw observed encodings remain available
+as diagnostic provenance. The comparison record must declare this signed-zero
+policy explicitly. This rule follows the Numeric Contract and introduces no
+tolerance or proximity.
 
 ## 7. Bounded qualification gates
 

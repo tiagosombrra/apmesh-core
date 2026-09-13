@@ -2,8 +2,10 @@
 #include "apmesh/math/linear_algebra.hpp"
 
 #include <array>
+#include <bit>
 #include <cmath>
 #include <concepts>
+#include <cstdint>
 #include <expected>
 #include <fstream>
 #include <iomanip>
@@ -95,6 +97,18 @@ Result error(const std::string_view name) {
 
 Result compile_time_rejection() {
     return {"compile_time_rejection", {}, {}};
+}
+
+bool canonical_exact_match(const Result& expected, const Result& observed) {
+    if (expected.outcome != observed.outcome || expected.error != observed.error
+        || expected.value.size() != observed.value.size()) return false;
+    for (std::size_t index = 0; index < expected.value.size(); ++index) {
+        const double left = expected.value[index];
+        const double right = observed.value[index];
+        if (left == 0.0 && right == 0.0) continue;
+        if (std::bit_cast<std::uint64_t>(left) != std::bit_cast<std::uint64_t>(right)) return false;
+    }
+    return true;
 }
 
 std::string error_name(const LinearAlgebraError value) {
@@ -206,7 +220,7 @@ void write_case(std::ostream& output, bool& first, const std::string_view id,
                 const bool determinant_case = false) {
     if (!first) output << ',';
     first = false;
-    output << "{\"schema_version\":3,\"id\":\"" << id << "\",\"dimension\":" << dimension
+    output << "{\"schema_version\":4,\"id\":\"" << id << "\",\"dimension\":" << dimension
            << ",\"operation\":\"" << operation << "\",\"claim_category\":\"" << category
            << "\",\"input_layout\":\"" << input_layout << "\",\"inputs\":";
     write_values(output, inputs);
@@ -221,8 +235,8 @@ void write_case(std::ostream& output, bool& first, const std::string_view id,
     write_result(output, expected);
     output << "},\"observed\":{";
     write_result(output, observed);
-    output << "},\"comparison\":{\"rule\":\"exact_hex\",\"exact_match\":"
-           << (expected.outcome == observed.outcome && expected.error == observed.error && expected.value == observed.value ? "true" : "false")
+    output << "},\"comparison\":{\"rule\":\"exact_hex\",\"signed_zero_policy\":\"normalize_to_positive\",\"exact_match\":"
+           << (canonical_exact_match(expected, observed) ? "true" : "false")
            << ",\"proximity_policy\":null},\"non_claims\":[";
     if (determinant_case) {
         output << "\"predicate\",\"rank\",\"degeneracy\",\"orientation\",\"incidence\",\"topology\"";
@@ -349,7 +363,7 @@ int write_certificate(const std::string_view output_path) {
     const auto overflow_vector2 = Vector2::make(2.0, 0.0); const auto overflow_vector3 = Vector3::make(2.0, 0.0, 0.0);
     if (!diagonal2 || !diagonal3 || !vector2 || !vector3 || !swap2 || !cycle3 || !quarter || !left2 || !right2 || !left3 || !right3 || !zero_row2 || !zero_row3 || !maximum2 || !maximum3 || !twice2 || !twice3 || !overflow_vector2 || !overflow_vector3) return 3;
 
-    output << "{\"schema_version\":3,\"kind\":\"minimal-small-linear-algebra-certificate\",\"environment\":{\"double_radix\":2,\"double_digits\":53,\"iec559\":true},\"source_checks\":{\"mode\":\"external_command_required\"},\"cases\":[";
+    output << "{\"schema_version\":4,\"kind\":\"minimal-small-linear-algebra-certificate\",\"environment\":{\"double_radix\":2,\"double_digits\":53,\"iec559\":true},\"source_checks\":{\"mode\":\"external_command_required\"},\"cases\":[";
     bool first = true;
     write_case(output, first, "mat2_zero", 2, "zero", "algebraic_agreement", "none", {}, value({0.0, 0.0, 0.0, 0.0}), value(entries(zero2)));
     write_case(output, first, "mat2_identity", 2, "identity", "algebraic_agreement", "none", {}, value({1.0, 0.0, 0.0, 1.0}), value(entries(identity2)));
