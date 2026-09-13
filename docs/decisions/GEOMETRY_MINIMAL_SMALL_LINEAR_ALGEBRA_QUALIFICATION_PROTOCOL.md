@@ -1,6 +1,6 @@
 # Geometry Primitives — Minimal Small Linear Algebra Qualification Protocol
 
-Status: PREREGISTERED / NOT PREPARED / NOT EXECUTED
+Status: FIRST ATTEMPT EXECUTED / BLOCKED AT LA3 AND LA7 / CORRECTION IMPLEMENTED / ADMISSION AUDIT REQUIRED
 Date: 2026-09-11
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Authority: `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`
@@ -97,7 +97,12 @@ The profile must enumerate, not infer:
   `math -> geometry` dependency.
 
 Expected values are encoded independently of production calls. Exact integer
-and power-of-two cases compare exact hexadecimal floating representations.
+and power-of-two cases compare canonical hexadecimal numeric representations.
+Finite nonzero values retain their exact hexadecimal representation; `+0.0`
+and `-0.0` both canonicalize to `0x0p+0` for semantic comparison. Raw expected
+and observed encodings remain recorded as diagnostic provenance, and every
+exact comparison record declares
+`signed_zero_policy=normalize_to_positive`. This is not a tolerance.
 Any rounded case must preregister its independent reference, scale,
 `ProximityPolicy`, residual, and limit. No default epsilon is permitted.
 
@@ -110,6 +115,7 @@ Every case record contains at least:
 - expected and observed result kind and exact error classification;
 - expected and observed entries, components, or scalar result;
 - exact-match status or explicit proximity fields; and
+- the declared signed-zero policy for exact hexadecimal comparison; and
 - an explicit non-claim for determinant predicate/rank/topology semantics where
   determinant is observed.
 
@@ -122,6 +128,13 @@ Within a cell, the three semantic projections must be identical. Across cells:
 
 Missing, duplicate, additional, non-finite, schema-invalid, or unclassified
 claim data is `BLOCKED`.
+
+The first formal attempt on candidate `6fa00bd` remains `BLOCKED`: its
+`mat2_quarter_turn_square` certificate recorded raw `0x0p+0` versus
+`-0x0p+0`, while the validator asserted `exact_match=true` through numeric
+equality without declaring canonical signed-zero handling. The scientific
+semantics and minimum correction are fixed in
+`docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`.
 
 ## 7. LA0–LA7 gates
 

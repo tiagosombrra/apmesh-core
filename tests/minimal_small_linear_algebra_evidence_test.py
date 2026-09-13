@@ -40,6 +40,16 @@ def main() -> int:
             if completed.returncode != 0:
                 raise RuntimeError(f"exporter failed: {completed.stderr}")
             tool.validate_certificate(profile, path)
+        quarter_turn = next(row for row in tool.read_json(first)["cases"] if row["id"] == "mat2_quarter_turn_square")
+        if quarter_turn["expected"]["value"][1] != "0x0p+0" or quarter_turn["observed"]["value"][1] != "-0x0p+0":
+            raise RuntimeError("quarter-turn raw signed-zero evidence differs")
+        if quarter_turn["comparison"] != tool.EXACT_HEX_COMPARISON:
+            raise RuntimeError("signed-zero policy declaration differs")
+        signed_zero_expected = copy.deepcopy(tool.read_json(first))
+        row = next(item for item in signed_zero_expected["cases"] if item["id"] == "mat2_quarter_turn_square")
+        row["expected"]["value"][1] = "-0x0p+0"
+        signed_zero_path = root / "signed-zero-expected.json"; tool.write_json(signed_zero_path, signed_zero_expected)
+        tool.validate_certificate(profile, signed_zero_path)
         # Every rejected constructor preserves all entries, including the finite ones.
         nonfinite_rows = [row for row in tool.read_json(first)["cases"] if "_nonfinite_" in row["id"]]
         if len(nonfinite_rows) != 39 or any(len(row["inputs"]) != row["dimension"] ** 2 or row["input_layout"] != "matrix_row_major" for row in nonfinite_rows):
@@ -78,6 +88,12 @@ def main() -> int:
         comparison = tool.compare_certificates(profile, [first, second, third])
         if comparison["state"] != "EVIDENCE_COLLECTED_PENDING_AUDIT":
             raise RuntimeError("comparison made a scientific decision")
+        signed_zero_observed = copy.deepcopy(tool.read_json(second))
+        row = next(item for item in signed_zero_observed["cases"] if item["id"] == "mat2_quarter_turn_square")
+        row["observed"]["value"][1] = "0x0p+0"
+        signed_zero_observed_path = root / "signed-zero-observed.json"; tool.write_json(signed_zero_observed_path, signed_zero_observed)
+        if tool.compare_certificates(profile, [first, signed_zero_observed_path, third])["state"] != "EVIDENCE_COLLECTED_PENDING_AUDIT":
+            raise RuntimeError("canonical signed-zero comparison differs")
         entries = []
         for cell in ("gcc-debug", "gcc-release", "clang-debug", "clang-release"):
             for repetition in range(1, 4):
@@ -97,6 +113,15 @@ def main() -> int:
             try: tool.validate_certificate(profile, path)
             except tool.EvidenceError: pass
             else: raise RuntimeError(f"forged field accepted: {case_id}")
+        for mutation, expected_reason in (("undeclared_signed_zero_policy", "certificate comparison differs: mat2_quarter_turn_square"), ("nonzero_one_ulp_mismatch", "certificate independent oracle differs: mat2_quarter_turn_square")):
+            mutated, reason = tool.negative_mutation(tool.read_json(first), mutation)
+            if reason != expected_reason:
+                raise RuntimeError(f"signed-zero negative reason differs: {mutation}")
+            path = root / (mutation + ".json"); tool.write_json(path, mutated)
+            try: tool.validate_certificate(profile, path)
+            except tool.EvidenceError as error:
+                if str(error) != reason: raise RuntimeError(f"signed-zero negative reason is undeclared: {mutation}") from error
+            else: raise RuntimeError(f"signed-zero negative accepted: {mutation}")
         project = root / "dependency-project"
         for folder in ("include", "src"):
             shutil.copytree(pathlib.Path(arguments.source_root) / folder, project / folder)

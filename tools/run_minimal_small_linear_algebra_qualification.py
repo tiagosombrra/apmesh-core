@@ -27,7 +27,7 @@ from experiment_runtime import (  # noqa: E402
 )
 from minimal_small_linear_algebra_evidence import (  # noqa: E402
     EvidenceError, compare_index, validate_profile, output_fields, validate_source_root, dependency_graph,
-    NEGATIVE_CASES, validate_negative_outcomes,
+    EXACT_HEX_POLICY, NEGATIVE_CASES, validate_negative_outcomes,
 )
 
 BUILD_TIMEOUT_SECONDS = 300
@@ -458,9 +458,11 @@ def verify_retention(arguments: argparse.Namespace) -> None:
         if terminal.get("failure") != "failure.json" or not failure.get("message") or failure.get("records") != records: raise fail("terminal failure evidence differs")
     else:
         profile_path = root / "profile.json"
-        if read_json(root / "cross-cell-comparison.json") != compare_index(validate_profile(profile_path), root / "certificate-index.json"):
-            raise fail("retained comparison recomputation differs")
         profile = validate_profile(profile_path)
+        if profile["equivalence"] != EXACT_HEX_POLICY:
+            raise fail("retained signed-zero policy differs")
+        if read_json(root / "cross-cell-comparison.json") != compare_index(profile, root / "certificate-index.json"):
+            raise fail("retained comparison recomputation differs")
         for cell in manifest["plan"]:
             validate_negative_cell(root, manifest, cell, records, profile)
 

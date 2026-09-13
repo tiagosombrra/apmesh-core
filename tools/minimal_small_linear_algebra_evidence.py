@@ -24,7 +24,14 @@ NEGATIVE_CASES = (
     "duplicate_case", "forged_permutation", "wrong_nonfinite_placement",
     "incomplete_nonfinite_matrix", "altered_finite_matrix_entry", "wrong_failure_error",
     "undeclared_scale_field", "missing_determinant_nonclaim",
+    "undeclared_signed_zero_policy", "nonzero_one_ulp_mismatch",
 )
+EXACT_HEX_POLICY = {
+    "rule": "exact_hex",
+    "signed_zero_policy": "normalize_to_positive",
+    "proximity_policy": None,
+}
+EXACT_HEX_COMPARISON = {**EXACT_HEX_POLICY, "exact_match": True}
 
 
 def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -151,7 +158,7 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
         raise EvidenceError("profile must be an object")
     expected = {"schema_version", "kind", "repetitions_per_cell", "cells", "gates", "cases", "negative_cases", "scale_exponents", "exact_prerequisite_tests", "source_checks", "equivalence", "volatile_fields", "limitations"}
     require_keys(profile, expected, "profile")
-    if profile["schema_version"] != 3 or profile["kind"] != "minimal-small-linear-algebra-qualification-profile":
+    if profile["schema_version"] != 4 or profile["kind"] != "minimal-small-linear-algebra-qualification-profile":
         raise EvidenceError("profile identity differs")
     if profile["repetitions_per_cell"] != 3 or profile["gates"] != [f"LA{number}" for number in range(8)]:
         raise EvidenceError("profile repetitions or gates differ")
@@ -170,7 +177,7 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
         raise EvidenceError("profile does not enumerate the fixed negative matrix")
     if len(set(profile["exact_prerequisite_tests"])) != len(profile["exact_prerequisite_tests"]):
         raise EvidenceError("profile prerequisite names are duplicated")
-    if profile["scale_exponents"] != [-8, -1, 0, 1, 8] or profile["equivalence"] != {"rule": "exact_hex", "proximity_policy": None}:
+    if profile["scale_exponents"] != [-8, -1, 0, 1, 8] or profile["equivalence"] != EXACT_HEX_POLICY:
         raise EvidenceError("profile equivalence differs")
     return profile
 
@@ -393,17 +400,27 @@ def scale_results(scale: float) -> list[float]:
     return applications + transposes + determinants + compositions + compositions
 
 
+def canonical_hex(value: float) -> str:
+    """Canonical exact numeric representation; signed zero is not a claim."""
+    if not math.isfinite(value):
+        raise EvidenceError("canonical hexadecimal comparison requires finite values")
+    return "0x0p+0" if value == 0.0 else value.hex()
+
+
 def result_matches(actual: tuple[str, str | None, list[float] | None], expected: tuple[str, str | None, list[float] | None]) -> bool:
     if actual[:2] != expected[:2]: return False
     if actual[2] is None or expected[2] is None: return actual[2] == expected[2]
-    return len(actual[2]) == len(expected[2]) and all(left == right for left, right in zip(actual[2], expected[2], strict=True))
+    return len(actual[2]) == len(expected[2]) and all(
+        canonical_hex(left) == canonical_hex(right)
+        for left, right in zip(actual[2], expected[2], strict=True)
+    )
 
 
 def validate_certificate(profile: dict[str, Any], path: pathlib.Path) -> dict[str, Any]:
     certificate = read_json(path)
     if not isinstance(certificate, dict): raise EvidenceError("certificate must be an object")
     require_keys(certificate, {"schema_version", "kind", "environment", "source_checks", "cases"}, "certificate")
-    if certificate["schema_version"] != 3 or certificate["kind"] != "minimal-small-linear-algebra-certificate": raise EvidenceError("certificate identity differs")
+    if certificate["schema_version"] != 4 or certificate["kind"] != "minimal-small-linear-algebra-certificate": raise EvidenceError("certificate identity differs")
     if certificate["environment"] != {"double_radix": 2, "double_digits": 53, "iec559": True}: raise EvidenceError("certificate environment differs")
     if certificate["source_checks"] != {"mode": "external_command_required"}: raise EvidenceError("certificate source-check authority differs")
     if not isinstance(certificate["cases"], list): raise EvidenceError("certificate cases differ")
@@ -413,7 +430,7 @@ def validate_certificate(profile: dict[str, Any], path: pathlib.Path) -> dict[st
         require_keys(row, {"schema_version", "id", "dimension", "operation", "claim_category", "input_layout", "inputs", "output_fields", "expected", "observed", "comparison", "non_claims"}, "certificate case")
         case_id = row["id"]
         if not isinstance(case_id, str) or case_id in seen: raise EvidenceError("certificate case identity differs")
-        if (row["schema_version"], row["dimension"], row["operation"], row["claim_category"], row["input_layout"]) != (3, *metadata(case_id)):
+        if (row["schema_version"], row["dimension"], row["operation"], row["claim_category"], row["input_layout"]) != (4, *metadata(case_id)):
             raise EvidenceError(f"certificate metadata differs: {case_id}")
         inputs = parse_values(row["inputs"], f"{case_id} inputs", finite=False)
         expected = expected_result(case_id, inputs)
@@ -423,7 +440,7 @@ def validate_certificate(profile: dict[str, Any], path: pathlib.Path) -> dict[st
             raise EvidenceError(f"certificate output fields differ: {case_id}")
         if not result_matches(declared_expected, expected) or not result_matches(observed, expected):
             raise EvidenceError(f"certificate independent oracle differs: {case_id}")
-        if row["comparison"] != {"rule": "exact_hex", "exact_match": True, "proximity_policy": None}:
+        if row["comparison"] != EXACT_HEX_COMPARISON:
             raise EvidenceError(f"certificate comparison differs: {case_id}")
         non_claims = DETERMINANT_NON_CLAIMS if metadata(case_id)[1] in {"determinant", "power_two_scale_laws"} else []
         if row["non_claims"] != non_claims: raise EvidenceError(f"certificate non-claims differ: {case_id}")
@@ -458,6 +475,12 @@ def negative_mutation(baseline: dict[str, Any], case: str) -> tuple[dict[str, An
     elif case == "missing_determinant_nonclaim":
         rows["mat2_swap_determinant"]["non_claims"] = []
         reason = "certificate non-claims differ: mat2_swap_determinant"
+    elif case == "undeclared_signed_zero_policy":
+        rows["mat2_quarter_turn_square"]["comparison"].pop("signed_zero_policy")
+        reason = "certificate comparison differs: mat2_quarter_turn_square"
+    elif case == "nonzero_one_ulp_mismatch":
+        rows["mat2_quarter_turn_square"]["observed"]["value"][0] = "-0x1.0000000000001p+0"
+        reason = "certificate independent oracle differs: mat2_quarter_turn_square"
     else: raise EvidenceError("unknown negative case")
     return altered, reason
 
@@ -512,8 +535,21 @@ def validate_negative_outcomes(profile: dict[str, Any], path: pathlib.Path, base
     return report
 
 
+def canonical_result_projection(result: dict[str, Any]) -> dict[str, Any]:
+    projected = copy.deepcopy(result)
+    if projected["outcome"] == "value":
+        projected["value"] = [canonical_hex(as_float(value, "projection value")) for value in projected["value"]]
+    return projected
+
+
 def projection(certificate: dict[str, Any]) -> dict[str, Any]:
-    return {"environment": certificate["environment"], "source_checks": certificate["source_checks"], "cases": certificate["cases"]}
+    cases = []
+    for row in certificate["cases"]:
+        projected = copy.deepcopy(row)
+        projected["expected"] = canonical_result_projection(row["expected"])
+        projected["observed"] = canonical_result_projection(row["observed"])
+        cases.append(projected)
+    return {"environment": certificate["environment"], "source_checks": certificate["source_checks"], "cases": cases}
 
 
 def compare_certificates(profile: dict[str, Any], paths: list[pathlib.Path]) -> dict[str, Any]:
@@ -521,7 +557,7 @@ def compare_certificates(profile: dict[str, Any], paths: list[pathlib.Path]) -> 
     certificates = [validate_certificate(profile, path) for path in paths]
     baseline = projection(certificates[0])
     if any(projection(certificate) != baseline for certificate in certificates[1:]): raise EvidenceError("within-cell certificate projections differ")
-    return {"schema_version": 3, "kind": "minimal-small-linear-algebra-cell-comparison", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "certificate_sha256": [sha256(path) for path in paths], "projection": baseline}
+    return {"schema_version": 4, "kind": "minimal-small-linear-algebra-cell-comparison", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "certificate_sha256": [sha256(path) for path in paths], "projection": baseline}
 
 
 def compare_index(profile: dict[str, Any], index_path: pathlib.Path) -> dict[str, Any]:
@@ -542,7 +578,7 @@ def compare_index(profile: dict[str, Any], index_path: pathlib.Path) -> dict[str
     cells = {cell: compare_certificates(profile, [paths[(cell, repeat)] for repeat in range(1, profile["repetitions_per_cell"] + 1)]) for cell in CELLS}
     baseline = cells[CELLS[0]]["projection"]
     if any(item["projection"] != baseline for item in cells.values()): raise EvidenceError("cross-cell certificate projections differ")
-    return {"schema_version": 3, "kind": "minimal-small-linear-algebra-cross-cell-comparison", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "cells": cells, "projection": baseline}
+    return {"schema_version": 4, "kind": "minimal-small-linear-algebra-cross-cell-comparison", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "cells": cells, "projection": baseline}
 
 
 def main() -> int:

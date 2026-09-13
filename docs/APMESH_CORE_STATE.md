@@ -50,17 +50,16 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**The bounded `Mat2`/`Mat3` implementation is complete. The LA2/LA7 correction
-package now retains complete non-finite input matrices, eight enumerated
-negative mutations with independently revalidated outcomes, conditional
-artifact requirements, and verifiable BLOCKED archives for sealing failures.
-Five focused contracts pass on each of GCC 13 Debug and Clang 18 libc++ Debug.
-The expanded runner contract also passes on both builds: planned negative CLI,
-provenance rejection, detached/inventory/verification sealing failures, and
-relocation are exercised without a formal campaign. Production math/geometry
-is unchanged. The next work unit is admission audit only; focused PASS does
-not close LA0-LA7. The formal protocol remains preregistered, not prepared,
-and not executed.**
+**The bounded `Mat2`/`Mat3` implementation is complete. The first formal
+LA0–LA7 attempt executed on clean published candidate `6fa00bd` and remains
+`BLOCKED`: LA0, LA1, LA2, LA4, LA5, and LA6 are supported, while LA3 and LA7
+are blocked because `mat2_quarter_turn_square` recorded `0x0p+0` versus
+`-0x0p+0` under an underdeclared `exact_hex` validator. The matrix result is
+algebraically correct; no production defect is established. The approved
+signed-zero evidence correction is implemented and its focused GCC/Clang
+contracts pass: signed zero is canonical numeric zero for LA evidence, with
+raw encodings retained only as diagnostics. Production math/geometry is
+unchanged and formal qualification remains open.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -209,32 +208,33 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
 6. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
 7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
-8. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-9. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-10. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-11. `docs/research/REFERENCE_REGISTER.md`.
+8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
+9. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+10. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+11. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+12. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: audit the published LA2/LA7 correction package
-against the existing contract and protocol. Point/Vector integration is complete.
-Do not prepare a manifest or
-execute LA0-LA7, and do not add transforms, predicates, topology, curves,
-surfaces, meshing, or the Geometry Primitives stage regression.
+Current first action: independently audit the implemented canonical signed-zero
+evidence correction and decide whether one new revision-bound LA0–LA7 manifest
+may be prepared. Point/Vector integration is complete. Do not modify production
+`Mat2`/`Mat3`, prepare a manifest, execute LA0–LA7, or add transforms,
+predicates, topology, curves, surfaces, meshing, or the Geometry Primitives
+stage regression.
 
-1. Audit the published LA0-LA7 evidence infrastructure against its
-preregistered protocol,
-`docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`.
-Preserve the qualified `ededf65` Point/Vector evidence and negative `b7f8fe9`
-selection-defect evidence. Do not
+1. Audit the bounded correction authorized by
+`docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`.
+Preserve the blocked `6fa00bd` LA attempt, the qualified `ededf65`
+Point/Vector evidence, and negative `b7f8fe9` selection-defect evidence. Do not
 prepare or execute formal `LA0`–`LA7` qualification in that work unit.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics QUALIFIED and integrated. The Minimal
-Small Linear Algebra implementation and focused tests are complete; its formal
-protocol is preregistered and qualification remains at 0%. The remaining
+Small Linear Algebra implementation and focused tests are complete; its first
+formal attempt is `BLOCKED` at LA3/LA7 and qualification remains at 0%. The remaining
 Geometry Primitives investigation problems and the cumulative stage regression
 remain unqualified.
 
