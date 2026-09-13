@@ -1,6 +1,6 @@
 # Geometry Primitives — Minimal Small Linear Algebra Qualification Protocol
 
-Status: FIRST ATTEMPT EXECUTED / BLOCKED AT LA3 AND LA7 / CORRECTION IMPLEMENTED / ADMISSION AUDIT REQUIRED
+Status: QUALIFIED / LA0-LA7 PASS / CANDIDATE 3804e90 / WSL Ubuntu 24.04
 Date: 2026-09-11
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Authority: `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`
@@ -188,9 +188,22 @@ Native Windows, performance, SIMD, GPU, OpenMP, MPI, arbitrary conditioning,
 general numerical stability, robust determinant signs, transforms, topology,
 and meshing remain unqualified.
 
-## 10. Next bounded action
+## 10. Formal decision
 
-Audit the published report-only LA profile, exporter, runner, collector,
-comparer, negative contracts, and retention verifier against this protocol. Do
-not prepare a manifest or execute the formal four-cell qualification in that
-work unit.
+The independent audit of the one revision-bound execution on clean published
+candidate `3804e903f56a226d38319fd44255b5832639815d` records `PASS` for
+LA0-LA7. The execution retained 12 semantic certificates from four GCC/Clang
+Debug/Release cells, 40 expected negative rejections, observed source and
+runtime inventories, command records, a retention manifest, and detached
+verification. The detailed decision is recorded in
+`docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION.md`.
+
+The first attempt on `6fa00bd` remains immutable `BLOCKED` evidence. The
+signed-zero correction did not alter `Mat2`, `Mat3`, Geometry adapters, or the
+admitted mathematical capability.
+
+## 11. Next bounded action
+
+Minimal Small Linear Algebra is closed within its declared WSL envelope. Do
+not start Transformations and Coordinate Frames from this protocol; a separate
+entry decision is required.
