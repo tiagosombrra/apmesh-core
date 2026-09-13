@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import math
@@ -19,6 +20,11 @@ class EvidenceError(RuntimeError):
 CELLS = ["gcc-debug", "gcc-release", "clang-debug", "clang-release"]
 DETERMINANT_NON_CLAIMS = ["predicate", "rank", "degeneracy", "orientation", "incidence", "topology"]
 SHA256 = re.compile(r"[0-9a-f]{64}")
+NEGATIVE_CASES = (
+    "duplicate_case", "forged_permutation", "wrong_nonfinite_placement",
+    "incomplete_nonfinite_matrix", "altered_finite_matrix_entry", "wrong_failure_error",
+    "undeclared_scale_field", "missing_determinant_nonclaim",
+)
 
 
 def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -103,7 +109,7 @@ def metadata(case_id: str) -> tuple[int, str, str, str]:
         return int(match.group(1)), "checked_access", "dimension_dependency", "matrix_row_major,row,column"
     match = re.fullmatch(r"mat([23])_nonfinite_(nan|posinf|neginf)_e[0-8]", case_id)
     if match:
-        return int(match.group(1)), "matrix_construction", "failure_classification", "invalid_value,entry_index"
+        return int(match.group(1)), "matrix_construction", "failure_classification", "matrix_row_major"
     match = re.fullmatch(r"mat([23])_overflow_(application|composition|determinant)", case_id)
     if match:
         dimension, kind = int(match.group(1)), match.group(2)
@@ -143,7 +149,7 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
     profile = read_json(path)
     if not isinstance(profile, dict):
         raise EvidenceError("profile must be an object")
-    expected = {"schema_version", "kind", "repetitions_per_cell", "cells", "gates", "cases", "scale_exponents", "exact_prerequisite_tests", "source_checks", "equivalence", "volatile_fields", "limitations"}
+    expected = {"schema_version", "kind", "repetitions_per_cell", "cells", "gates", "cases", "negative_cases", "scale_exponents", "exact_prerequisite_tests", "source_checks", "equivalence", "volatile_fields", "limitations"}
     require_keys(profile, expected, "profile")
     if profile["schema_version"] != 3 or profile["kind"] != "minimal-small-linear-algebra-qualification-profile":
         raise EvidenceError("profile identity differs")
@@ -160,6 +166,8 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
             raise EvidenceError(f"profile {key} differs")
     if profile["cases"] != required_cases() or len(set(profile["cases"])) != len(profile["cases"]):
         raise EvidenceError("profile does not enumerate the fixed case matrix")
+    if profile["negative_cases"] != list(NEGATIVE_CASES):
+        raise EvidenceError("profile does not enumerate the fixed negative matrix")
     if len(set(profile["exact_prerequisite_tests"])) != len(profile["exact_prerequisite_tests"]):
         raise EvidenceError("profile prerequisite names are duplicated")
     if profile["scale_exponents"] != [-8, -1, 0, 1, 8] or profile["equivalence"] != {"rule": "exact_hex", "proximity_policy": None}:
@@ -347,7 +355,10 @@ def expected_result(case_id: str, inputs: list[float]) -> tuple[str, str | None,
     if nonfinite:
         dimension, kind, index = int(nonfinite.group(1)), nonfinite.group(2), int(nonfinite.group(3))
         expected = {"nan": math.nan, "posinf": math.inf, "neginf": -math.inf}[kind]
-        if len(inputs) != 2 or inputs[1] != float(index) or not ((math.isnan(expected) and math.isnan(inputs[0])) or inputs[0] == expected) or index >= dimension * dimension:
+        matrix = [float(row == column) for row in range(dimension) for column in range(dimension)]
+        if index >= len(matrix): raise EvidenceError(f"non-finite placement differs: {case_id}")
+        matrix[index] = expected
+        if len(inputs) != len(matrix) or not all((math.isnan(wanted) and math.isnan(actual)) or actual == wanted for actual, wanted in zip(inputs, matrix)):
             raise EvidenceError(f"non-finite placement differs: {case_id}")
         return "error", "non_finite_input", None
     overflow = re.fullmatch(r"mat[23]_overflow_(application|composition|determinant)", case_id)
@@ -421,6 +432,86 @@ def validate_certificate(profile: dict[str, Any], path: pathlib.Path) -> dict[st
     return certificate
 
 
+def negative_mutation(baseline: dict[str, Any], case: str) -> tuple[dict[str, Any], str]:
+    """One declared mutation and one exact expected rejection, independent of output labels."""
+    altered = copy.deepcopy(baseline)
+    rows = {row["id"]: row for row in altered["cases"]}
+    nonfinite_id = "mat3_nonfinite_posinf_e8"
+    row = rows[nonfinite_id]
+    if case == "duplicate_case":
+        altered["cases"].append(copy.deepcopy(altered["cases"][0]))
+        reason = "certificate case identity differs"
+    elif case == "forged_permutation":
+        rows["mat3_cycle_application"]["observed"]["value"][0] = "0x1.1p+20"
+        reason = "certificate independent oracle differs: mat3_cycle_application"
+    elif case in {"wrong_nonfinite_placement", "incomplete_nonfinite_matrix", "altered_finite_matrix_entry"}:
+        if case == "wrong_nonfinite_placement": row["inputs"][0], row["inputs"][8] = row["inputs"][8], row["inputs"][0]
+        elif case == "incomplete_nonfinite_matrix": row["inputs"] = row["inputs"][-2:]
+        else: row["inputs"][1] = "0x1p+0"
+        reason = f"non-finite placement differs: {nonfinite_id}"
+    elif case == "wrong_failure_error":
+        row["observed"]["error"] = "non_finite_result"
+        reason = f"certificate independent oracle differs: {nonfinite_id}"
+    elif case == "undeclared_scale_field":
+        rows["scale_k_1"]["output_fields"][-1] = "wrong.law"
+        reason = "certificate output fields differ: scale_k_1"
+    elif case == "missing_determinant_nonclaim":
+        rows["mat2_swap_determinant"]["non_claims"] = []
+        reason = "certificate non-claims differ: mat2_swap_determinant"
+    else: raise EvidenceError("unknown negative case")
+    return altered, reason
+
+
+def negative_outcome(profile: dict[str, Any], path: pathlib.Path, reason: str) -> dict[str, str]:
+    try: validate_certificate(profile, path)
+    except EvidenceError as error:
+        if str(error) != reason: raise EvidenceError("negative rejected for an undeclared reason") from error
+        return {"outcome": "REJECTED", "error_type": "EvidenceError", "reason": str(error)}
+    raise EvidenceError("negative certificate was accepted")
+
+
+def generate_negative_outcomes(profile: dict[str, Any], certificate: pathlib.Path, output: pathlib.Path) -> None:
+    baseline = validate_certificate(profile, certificate)
+    output.mkdir(parents=True, exist_ok=False)
+    (output / "baseline.json").write_bytes(certificate.read_bytes())
+    entries = []
+    for case in NEGATIVE_CASES:
+        altered, reason = negative_mutation(baseline, case)
+        path = output / f"{case}.json"; write_json(path, altered)
+        entries.append({"id": case, "path": path.name, "sha256": sha256(path),
+                        "expected_reason": reason, "observed": negative_outcome(profile, path, reason)})
+    write_json(output / "negative-outcomes.json", {
+        "schema_version": 1, "kind": "minimal-small-linear-algebra-negative-outcomes",
+        "baseline_sha256": sha256(certificate), "validator_sha256": sha256(pathlib.Path(__file__)),
+        "entries": entries,
+    })
+    validate_negative_outcomes(profile, output / "negative-outcomes.json", sha256(certificate), sha256(pathlib.Path(__file__)))
+
+
+def validate_negative_outcomes(profile: dict[str, Any], path: pathlib.Path, baseline_hash: str, validator_hash: str) -> dict[str, Any]:
+    report = read_json(path)
+    if not isinstance(report, dict): raise EvidenceError("negative outcomes must be an object")
+    require_keys(report, {"schema_version", "kind", "baseline_sha256", "validator_sha256", "entries"}, "negative outcomes")
+    if (report["schema_version"], report["kind"], report["baseline_sha256"], report["validator_sha256"]) != (1, "minimal-small-linear-algebra-negative-outcomes", baseline_hash, validator_hash):
+        raise EvidenceError("negative outcomes identity differs")
+    baseline_path = path.parent / "baseline.json"
+    if sha256(baseline_path) != baseline_hash: raise EvidenceError("negative baseline binding differs")
+    baseline = validate_certificate(profile, baseline_path)
+    entries = report["entries"]
+    if not isinstance(entries, list) or [entry.get("id") for entry in entries if isinstance(entry, dict)] != list(NEGATIVE_CASES):
+        raise EvidenceError("negative outcome set differs")
+    for entry in entries:
+        require_keys(entry, {"id", "path", "sha256", "expected_reason", "observed"}, "negative outcome")
+        if entry["path"] != f"{entry['id']}.json": raise EvidenceError("negative artifact path differs")
+        artifact = path.parent / entry["path"]
+        altered, reason = negative_mutation(baseline, entry["id"])
+        if sha256(artifact) != entry["sha256"] or read_json(artifact) != altered or entry["expected_reason"] != reason:
+            raise EvidenceError("negative mutation binding differs")
+        if entry["observed"] != negative_outcome(profile, artifact, reason):
+            raise EvidenceError("negative outcome recomputation differs")
+    return report
+
+
 def projection(certificate: dict[str, Any]) -> dict[str, Any]:
     return {"environment": certificate["environment"], "source_checks": certificate["source_checks"], "cases": certificate["cases"]}
 
@@ -459,12 +550,14 @@ def main() -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("validate-profile")
     certificate = commands.add_parser("validate-certificate"); certificate.add_argument("--certificate", required=True)
+    negatives = commands.add_parser("negative-outcomes"); negatives.add_argument("--certificate", required=True); negatives.add_argument("--output", required=True)
     comparison = commands.add_parser("compare"); comparison.add_argument("--certificate", action="append", required=True); comparison.add_argument("--output", required=True)
     index = commands.add_parser("compare-index"); index.add_argument("--index", required=True); index.add_argument("--output", required=True)
     source = commands.add_parser("validate-source"); source.add_argument("--source-root", required=True); source.add_argument("--output", required=False)
     arguments = parser.parse_args(); profile = validate_profile(pathlib.Path(arguments.profile))
     if arguments.command == "validate-profile": return 0
     if arguments.command == "validate-certificate": validate_certificate(profile, pathlib.Path(arguments.certificate)); return 0
+    if arguments.command == "negative-outcomes": generate_negative_outcomes(profile, pathlib.Path(arguments.certificate), pathlib.Path(arguments.output)); return 0
     if arguments.command == "compare": write_json(pathlib.Path(arguments.output), compare_certificates(profile, [pathlib.Path(path) for path in arguments.certificate])); return 0
     if arguments.command == "compare-index": write_json(pathlib.Path(arguments.output), compare_index(profile, pathlib.Path(arguments.index))); return 0
     result = validate_source_root(pathlib.Path(arguments.source_root))

@@ -27,6 +27,7 @@ from experiment_runtime import (  # noqa: E402
 )
 from minimal_small_linear_algebra_evidence import (  # noqa: E402
     EvidenceError, compare_index, validate_profile, output_fields, validate_source_root, dependency_graph,
+    NEGATIVE_CASES, validate_negative_outcomes,
 )
 
 BUILD_TIMEOUT_SECONDS = 300
@@ -50,6 +51,7 @@ TERMINAL_REQUIRED_FAILURE = {
     "prepared-manifest.json", "plan.json", "state.json", "state-history.jsonl", "command-records.json",
     "failure.json", "terminal-manifest.json", "detached-verification.json", "retention-manifest.json",
 }
+SEAL_FAILURE_PATHS = {"retention-error.json", "pre-seal-terminal.json"}
 
 
 def fail(message: str) -> RuntimeErrorEvidence:
@@ -131,6 +133,7 @@ def command_plan(profile: dict[str, Any], source: pathlib.Path) -> list[dict[str
             "focused_ctest": ["ctest", "--test-dir", build, "--output-on-failure", "-R", "^apmesh_core\\.(minimal_small_linear_algebra|math_header_isolation|minimal_small_linear_algebra_evidence|minimal_small_linear_algebra_runner|minimal_small_linear_algebra_retention)$"],
             "prerequisite_ctest": ["ctest", "--test-dir", build, "--output-on-failure", "-R", ctest_regex(profile["exact_prerequisite_tests"])],
             "exporter": f"{build}/apmesh_core_minimal_small_linear_algebra_export", "repetitions": profile["repetitions_per_cell"],
+            "negative_outcomes": [sys.executable, str(source / "tools/minimal_small_linear_algebra_evidence.py"), "--profile", str(source / "experiments/profiles/minimal_small_linear_algebra.json"), "negative-outcomes", "--certificate", f"@OUTPUT_ROOT@/certificates/{cell['id']}-1.json", "--output", f"@OUTPUT_ROOT@/negatives/{cell['id']}"],
             "compile_commands": f"cells/{cell['id']}/build/compile_commands.json",
             "runtime_executables": ["apmesh_core_minimal_small_linear_algebra_export", "apmesh_core.minimal_small_linear_algebra", "apmesh_core.math_header_isolation"],
         })
@@ -138,17 +141,20 @@ def command_plan(profile: dict[str, Any], source: pathlib.Path) -> list[dict[str
 
 
 def planned_inventories(plan: list[dict[str, Any]], candidate: dict[str, Any]) -> dict[str, Any]:
-    artifacts = [{"path": path, "role": "terminal-control", "required_when": "success" if path in TERMINAL_REQUIRED_SUCCESS else "failure"}
+    artifacts = [{"path": path, "role": "terminal-control", "required_when": "always" if path in TERMINAL_REQUIRED_SUCCESS & TERMINAL_REQUIRED_FAILURE else "success" if path in TERMINAL_REQUIRED_SUCCESS else "failure"}
                  for path in sorted(TERMINAL_REQUIRED_SUCCESS | TERMINAL_REQUIRED_FAILURE)]
+    artifacts += [{"path": path, "role": "seal-failure", "required_when": "seal-failure"} for path in sorted(SEAL_FAILURE_PATHS)]
+    artifacts += [{"path": path, "role": "seal-snapshot", "required_when": "if-produced"} for path in ("pre-seal-detached.json", "pre-seal-retention.json")]
     cells = []
     for cell in plan:
         name = cell["cell"]
-        stages = ["source_check", "configure", "build", "dependency_discovery", "prerequisite-discovery", "focused_ctest", "prerequisite_ctest"]
+        stages = ["source_check", "configure", "build", "dependency_discovery", "prerequisite-discovery", "focused_ctest", "prerequisite_ctest", "negative-outcomes"]
         stages += [f"certificate-{repeat}" for repeat in range(1, cell["repetitions"] + 1)]
         stages += ["ldd-" + executable.replace(".", "_") for executable in cell["runtime_executables"]]
         for stage in stages:
             artifacts += [{"path": f"logs/{name}-{stage}.{stream}.log", "role": "command-log", "required_when": "command-started"} for stream in ("stdout", "stderr")]
         artifacts += [{"path": f"certificates/{name}-{repeat}.json", "role": "certificate", "required_when": "success"} for repeat in range(1, cell["repetitions"] + 1)]
+        artifacts += [{"path": f"negatives/{name}/{file}.json", "role": "negative-evidence", "required_when": "success"} for file in ("baseline", "negative-outcomes", *NEGATIVE_CASES)]
         artifacts += [{"path": f"cells/{name}/{file}", "role": role, "required_when": "success"} for file, role in (("source-check.json", "source-check"), ("compile_commands.json", "compile-inventory"), ("dependency-graph.json", "module-graph"))]
         cells.append({"cell": name, "compile_commands": cell["compile_commands"], "runtime_executables": cell["runtime_executables"]})
     return {"schema_version": 3, "kind": "minimal-small-linear-algebra-planned-inventories", "source": candidate["source_inventory"], "cells": cells, "artifacts": artifacts}
@@ -309,14 +315,41 @@ def write_terminal(output: pathlib.Path, manifest: dict[str, Any], state: str, e
     write_json(output / "terminal-manifest.json", value)
 
 
-def seal_output(output: pathlib.Path, source: pathlib.Path, manifest: dict[str, Any], required_paths: set[str]) -> None:
-    detached = verify_detached_candidate(source, manifest["candidate"])
-    write_json(output / "detached-verification.json", {"schema_version": 1, "kind": "minimal-small-linear-algebra-detached-verification", **detached})
-    required_paths = set(required_paths); required_paths.add("detached-verification.json"); required_paths.add("retention-manifest.json")
+def write_retention_inventory(output: pathlib.Path, manifest: dict[str, Any], required_paths: set[str]) -> None:
+    """Byte inventory only: writing this file never asserts scientific qualification."""
     files = sorted(path for path in output.rglob("*") if path.is_file() and path.name != "retention-manifest.json" and "/build/" not in path.relative_to(output).as_posix())
     manifest_data = {"schema_version": 3, "kind": "minimal-small-linear-algebra-retention", "candidate_commit": manifest["candidate"]["commit"], "prepared_manifest_sha256": sha256_file(output / "prepared-manifest.json"), "required_paths": sorted(required_paths), "files": [{"path": relative_path(output, path), "sha256": sha256_file(path), "size": path.stat().st_size} for path in files]}
     write_json(output / "retention-manifest.json", manifest_data)
-    verify_retention(argparse.Namespace(output_root=str(output)))
+
+
+def seal_output(output: pathlib.Path, source: pathlib.Path, manifest: dict[str, Any], required_paths: set[str]) -> None:
+    stage = "detached-verification"
+    try:
+        detached = verify_detached_candidate(source, manifest["candidate"])
+        write_json(output / "detached-verification.json", {"schema_version": 1, "kind": "minimal-small-linear-algebra-detached-verification", **detached})
+        stage = "inventory"
+        write_retention_inventory(output, manifest, required_paths)
+        stage = "verification"
+        verify_retention(argparse.Namespace(output_root=str(output)))
+    except Exception as error:
+        # Preserve the failed attempt. This is not a second detached check or a retry
+        # of success sealing: it writes an explicitly BLOCKED diagnostic archive.
+        snapshots = {}
+        for original, snapshot in (("terminal-manifest.json", "pre-seal-terminal.json"), ("detached-verification.json", "pre-seal-detached.json"), ("retention-manifest.json", "pre-seal-retention.json")):
+            path = output / original
+            if path.is_file():
+                with (output / snapshot).open("xb") as stream: stream.write(path.read_bytes())
+                snapshots[snapshot] = sha256_file(output / snapshot)
+        failure = {"schema_version": 1, "kind": "minimal-small-linear-algebra-seal-failure", "candidate_commit": manifest["candidate"]["commit"], "stage": stage, "error_type": type(error).__name__, "message": str(error), "retry_attempted": False, "snapshots": snapshots}
+        write_json(output / "retention-error.json", failure)
+        if not (output / "failure.json").exists():
+            write_json(output / "failure.json", {"schema_version": 2, "kind": "minimal-small-linear-algebra-failure", "message": str(error), "records": read_json(output / "command-records.json")["records"], "partial_certificate_slots": []})
+        write_terminal(output, manifest, "BLOCKED", {"failure": "failure.json", "retention_failure": "retention-error.json"})
+        if read_json(output / "state.json")["state"] != "BLOCKED":
+            write_state(output, "BLOCKED", {"candidate_commit": manifest["candidate"]["commit"], "closure_failure": True, "failure": "failure.json"})
+        write_json(output / "detached-verification.json", {"schema_version": 1, "kind": "minimal-small-linear-algebra-detached-verification", "result": "BLOCKED", "candidate_commit": manifest["candidate"]["commit"], "retention_failure": "retention-error.json"})
+        write_retention_inventory(output, manifest, TERMINAL_REQUIRED_FAILURE | SEAL_FAILURE_PATHS)
+        raise
 
 
 def execute(arguments: argparse.Namespace) -> None:
@@ -352,6 +385,8 @@ def execute(arguments: argparse.Namespace) -> None:
                 record = run_command([str(exporter), str(certificate)], source, output / "logs", f"{cell['cell']}-certificate-{repetition}", PROCESS_TIMEOUT_SECONDS)
                 records.append(record); require_success(record, f"{cell['cell']} certificate {repetition}")
                 entries.append({"cell": cell["cell"], "repetition": repetition, "path": relative_path(output, certificate), "sha256": sha256_file(certificate)})
+            record = run_command(replace_root(cell["negative_outcomes"], output), source, output / "logs", f"{cell['cell']}-negative-outcomes", PROCESS_TIMEOUT_SECONDS)
+            records.append(record); require_success(record, f"{cell['cell']} negative outcomes")
         inventories = observed_inventories(output, manifest["plan"], source, records, deadline)
         write_command_records(output, records); write_json(output / "source-checks.json", {"schema_version": 1, "kind": "minimal-small-linear-algebra-source-checks", "cells": source_checks}); write_json(output / "prerequisite-discovery.json", {"schema_version": 1, "kind": "minimal-small-linear-algebra-prerequisite-discovery", "cells": discovery})
         write_json(output / "observed-inventories.json", inventories); write_json(output / "certificate-index.json", {"schema_version": 1, "kind": "minimal-small-linear-algebra-certificate-index", "entries": entries})
@@ -367,14 +402,7 @@ def execute(arguments: argparse.Namespace) -> None:
         write_state(output, "BLOCKED", {"candidate_commit": manifest["candidate"]["commit"], "closure_failure": True, "failure": "failure.json"})
         seal_output(output, source, manifest, TERMINAL_REQUIRED_FAILURE)
         raise
-    # A retention failure is explicit and is never silently retried.
-    try:
-        seal_output(output, source, manifest, TERMINAL_REQUIRED_SUCCESS)
-    except Exception as error:
-        write_json(output / "retention-error.json", {"message": str(error), "candidate_commit": manifest["candidate"]["commit"]})
-        write_terminal(output, manifest, "BLOCKED", {"failure": "retention-error.json"})
-        write_state(output, "BLOCKED", {"candidate_commit": manifest["candidate"]["commit"], "closure_failure": True, "failure": "retention-error.json"})
-        raise
+    seal_output(output, source, manifest, TERMINAL_REQUIRED_SUCCESS)
 
 
 def verify_retention(arguments: argparse.Namespace) -> None:
@@ -394,6 +422,10 @@ def verify_retention(arguments: argparse.Namespace) -> None:
         raise fail("execution claim identity differs")
     terminal_state = terminal.get("state")
     expected_required = TERMINAL_REQUIRED_SUCCESS if terminal_state == "EXECUTED_PENDING_AUDIT" else TERMINAL_REQUIRED_FAILURE if terminal_state == "BLOCKED" else None
+    sealing_failure = terminal.get("retention_failure")
+    if sealing_failure is not None:
+        if terminal_state != "BLOCKED" or sealing_failure != "retention-error.json": raise fail("seal failure terminal differs")
+        expected_required = TERMINAL_REQUIRED_FAILURE | SEAL_FAILURE_PATHS
     if expected_required is None or set(retention["required_paths"]) != expected_required:
         raise fail("retention terminal requirement set differs")
     actual: set[str] = set(); listed: set[str] = {"retention-manifest.json"}
@@ -413,17 +445,57 @@ def verify_retention(arguments: argparse.Namespace) -> None:
             if row[stream]["path"] not in listed or sha256_file(root / row[stream]["path"]) != row[stream]["sha256"]:
                 raise fail("command log binding differs")
     detached = read_json(root / "detached-verification.json")
-    if detached.get("result") != "PASS" or detached.get("candidate_commit") != manifest["candidate"]["commit"] or detached.get("source_inventory_count") != len(manifest["candidate"]["source_inventory"]):
+    if sealing_failure:
+        validate_sealing_failure(root, manifest, detached)
+    elif detached.get("result") != "PASS" or detached.get("candidate_commit") != manifest["candidate"]["commit"] or detached.get("source_inventory_count") != len(manifest["candidate"]["source_inventory"]):
         raise fail("detached candidate evidence differs")
+    conditions = {"always", "success" if terminal_state == "EXECUTED_PENDING_AUDIT" else "failure"}
+    if sealing_failure: conditions.add("seal-failure")
+    required_artifacts = {row["path"] for row in manifest["planned_inventories"]["artifacts"] if row["required_when"] in conditions}
+    if not required_artifacts.issubset(listed): raise fail("planned conditional artifacts are incomplete")
     if terminal_state == "BLOCKED":
         failure = read_json(root / "failure.json")
-        if not failure.get("message") or failure.get("records") != records: raise fail("terminal failure evidence differs")
+        if terminal.get("failure") != "failure.json" or not failure.get("message") or failure.get("records") != records: raise fail("terminal failure evidence differs")
     else:
-        required_artifacts = {row["path"] for row in manifest["planned_inventories"]["artifacts"] if row["required_when"] == "success"}
-        if not required_artifacts.issubset(listed): raise fail("planned success artifacts are incomplete")
         profile_path = root / "profile.json"
         if read_json(root / "cross-cell-comparison.json") != compare_index(validate_profile(profile_path), root / "certificate-index.json"):
             raise fail("retained comparison recomputation differs")
+        profile = validate_profile(profile_path)
+        for cell in manifest["plan"]:
+            validate_negative_cell(root, manifest, cell, records, profile)
+
+
+def validate_negative_cell(root: pathlib.Path, manifest: dict[str, Any], cell: dict[str, Any], records: list[dict[str, Any]], profile: dict[str, Any]) -> None:
+    name = cell["cell"]
+    matches = [row for row in records if row["id"] == f"{name}-negative-outcomes"]
+    if len(matches) != 1 or matches[0]["argv"] != replace_root(cell["negative_outcomes"], pathlib.Path(manifest["output_root"])):
+        raise fail("negative command provenance differs")
+    require_success(matches[0], f"{name} retained negatives")
+    validate_negative_outcomes(profile, root / "negatives" / name / "negative-outcomes.json", sha256_file(root / "certificates" / f"{name}-1.json"), manifest["inputs"]["validator"]["sha256"])
+
+
+def validate_sealing_failure(root: pathlib.Path, manifest: dict[str, Any], detached: dict[str, Any]) -> None:
+    failure = read_json(root / "retention-error.json")
+    keys = {"schema_version", "kind", "candidate_commit", "stage", "error_type", "message", "retry_attempted", "snapshots"}
+    if set(failure) != keys or failure["schema_version"] != 1 or failure["kind"] != "minimal-small-linear-algebra-seal-failure" or failure["candidate_commit"] != manifest["candidate"]["commit"] or failure["stage"] not in {"detached-verification", "inventory", "verification"} or failure["retry_attempted"] is not False or not failure["message"] or not failure["error_type"]:
+        raise fail("seal failure evidence differs")
+    expected_detached = {"schema_version": 1, "kind": "minimal-small-linear-algebra-detached-verification", "result": "BLOCKED", "candidate_commit": manifest["candidate"]["commit"], "retention_failure": "retention-error.json"}
+    if detached != expected_detached: raise fail("failed seal was presented as detached success")
+    snapshots = failure["snapshots"]
+    allowed = {"pre-seal-terminal.json", "pre-seal-detached.json", "pre-seal-retention.json"}
+    if not isinstance(snapshots, dict) or set(snapshots) != {name for name in allowed if (root / name).is_file()} or "pre-seal-terminal.json" not in snapshots:
+        raise fail("seal snapshot inventory differs")
+    for name, digest in snapshots.items():
+        if sha256_file(root / name) != digest: raise fail("seal snapshot binding differs")
+    previous = read_json(root / "pre-seal-terminal.json")
+    if previous.get("candidate") != manifest["candidate"] or previous.get("prepared_manifest_sha256") != sha256_file(root / "prepared-manifest.json") or previous.get("state") not in {"BLOCKED", "EXECUTED_PENDING_AUDIT"} or "retention_failure" in previous:
+        raise fail("pre-seal terminal differs")
+    if failure["stage"] in {"inventory", "verification"}:
+        if "pre-seal-detached.json" not in snapshots: raise fail("pre-seal detached evidence is absent")
+        prior = read_json(root / "pre-seal-detached.json")
+        if prior.get("result") != "PASS" or prior.get("candidate_commit") != manifest["candidate"]["commit"] or prior.get("source_inventory_count") != len(manifest["candidate"]["source_inventory"]):
+            raise fail("pre-seal detached evidence differs")
+    if failure["stage"] == "verification" and "pre-seal-retention.json" not in snapshots: raise fail("failed retention seal is absent")
 
 
 def self_check(arguments: argparse.Namespace) -> None:

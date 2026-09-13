@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-12
+Last updated: 2026-09-13
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: `geometry/minimal-small-linear-algebra-contract`
 
@@ -50,15 +50,17 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**The bounded `Mat2`/`Mat3` implementation is complete. The LA0-LA7 admission
-package adds explicit permutation observations, bidirectional dimension
-rejections, named certificate fields, both composition scale laws, transitive
-and compiler-observed dependencies, sealed preparation identity, and executed
-negative lifecycle/retention contracts. Five focused contracts pass on each of
-GCC 13 Debug and Clang 18 libc++ Debug; this includes a real failing CMake
-child in a disposable repository, mutation rejection, detached source checks,
-and relocated terminal retention. The next work unit is admission audit only.
-The formal protocol remains preregistered, not prepared, and not executed.**
+**The bounded `Mat2`/`Mat3` implementation is complete. The LA2/LA7 correction
+package now retains complete non-finite input matrices, eight enumerated
+negative mutations with independently revalidated outcomes, conditional
+artifact requirements, and verifiable BLOCKED archives for sealing failures.
+Five focused contracts pass on each of GCC 13 Debug and Clang 18 libc++ Debug.
+The expanded runner contract also passes on both builds: planned negative CLI,
+provenance rejection, detached/inventory/verification sealing failures, and
+relocation are exercised without a formal campaign. Production math/geometry
+is unchanged. The next work unit is admission audit only; focused PASS does
+not close LA0-LA7. The formal protocol remains preregistered, not prepared,
+and not executed.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -214,7 +216,7 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: audit the published LA0-LA7 admission correction package
+Current first action: audit the published LA2/LA7 correction package
 against the existing contract and protocol. Point/Vector integration is complete.
 Do not prepare a manifest or
 execute LA0-LA7, and do not add transforms, predicates, topology, curves,

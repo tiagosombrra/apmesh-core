@@ -8,6 +8,9 @@ import pathlib
 import shutil
 import subprocess
 import tempfile
+import os
+import copy
+from unittest.mock import patch
 
 
 def load(path):
@@ -52,12 +55,88 @@ def rejects(action, message):
     raise RuntimeError(message)
 
 
+def sealing_failure_checks(runner, args, root, parent):
+    """Faults at sealing boundaries, not fabricated qualification successes."""
+    for stage in ("detached-verification", "inventory", "verification"):
+        args = argparse.Namespace(**vars(args)); args.output_root = str(parent / ("seal-" + stage))
+        output = pathlib.Path(args.output_root)
+        runner.prepare(args)
+        _, manifest, _ = runner.load_prepared(args)
+        runner.write_json(output / "execution-claim.json", {"candidate_commit": manifest["candidate"]["commit"], "prepared_manifest_sha256": runner.sha256_file(output / "prepared-manifest.json"), "pid": os.getpid(), "started_utc": runner.utc_now()})
+        runner.write_state(output, "RUNNING", {"candidate_commit": manifest["candidate"]["commit"]})
+        cell = manifest["plan"][0]
+        record = runner.run_command(runner.replace_root(cell["source_check"], output), root, output / "logs", "gcc-debug-source_check", 30)
+        runner.require_success(record, "disposable source check")
+        runner.write_command_records(output, [record])
+        # Deliberately incomplete success candidate: real verifier must reject it.
+        runner.write_terminal(output, manifest, "EXECUTED_PENDING_AUDIT", {})
+        runner.write_state(output, "EXECUTED_PENDING_AUDIT", {"candidate_commit": manifest["candidate"]["commit"]})
+        original_writer = runner.write_retention_inventory
+        def inventory_fault(out, prepared, required):
+            if required == runner.TERMINAL_REQUIRED_SUCCESS: raise OSError("injected inventory write failure")
+            return original_writer(out, prepared, required)
+        with patch.object(runner, "verify_detached_candidate", wraps=runner.verify_detached_candidate) as detached, patch.object(runner, "write_retention_inventory", wraps=original_writer) as inventory:
+            if stage == "detached-verification": detached.side_effect = OSError("injected detached I/O failure")
+            if stage == "inventory": inventory.side_effect = inventory_fault
+            try: runner.seal_output(output, root, manifest, runner.TERMINAL_REQUIRED_SUCCESS)
+            except (RuntimeError, OSError): pass
+            else: raise RuntimeError("incomplete or failed sealing was accepted")
+            if detached.call_count != 1: raise RuntimeError("detached verification was retried")
+            if sum(call.args[2] == runner.TERMINAL_REQUIRED_SUCCESS for call in inventory.call_args_list) > 1: raise RuntimeError("success sealing was retried")
+        if runner.read_json(output / "retention-error.json")["stage"] != stage: raise RuntimeError("wrong sealing failure exercised")
+        if runner.read_json(output / "state.json")["state"] != "BLOCKED": raise RuntimeError("sealing failure is not BLOCKED")
+        runner.verify_retention(args)
+        relocated = parent / ("relocated-seal-" + stage)
+        shutil.copytree(output, relocated)
+        runner.verify_retention(argparse.Namespace(output_root=str(relocated)))
+        # The preserved error cannot be promoted or rebound by recomputing hashes.
+        for name, field, value in (("detached-verification.json", "result", "PASS"), ("retention-error.json", "candidate_commit", "0" * 40), ("retention-error.json", "retry_attempted", True), ("pre-seal-terminal.json", "candidate", {})):
+            path = output / name; saved = path.read_bytes()
+            retention = output / "retention-manifest.json"; saved_retention = retention.read_bytes()
+            changed = runner.read_json(path); changed[field] = value; runner.write_json(path, changed)
+            original_writer(output, manifest, runner.TERMINAL_REQUIRED_FAILURE | runner.SEAL_FAILURE_PATHS)
+            rejects(lambda: runner.verify_retention(args), f"rehashed seal failure mutation accepted: {name}/{field}")
+            path.write_bytes(saved); retention.write_bytes(saved_retention)
+        rejects(lambda: runner.execute(args), "seal-failed attempt was reused")
+
+
+def negative_command_checks(runner, root, original_build, parent, profile):
+    """Use the planned CLI and real exporter, without preparing a campaign."""
+    output = parent / "negative-command-test"; (output / "certificates").mkdir(parents=True)
+    cell = runner.command_plan(profile, root)[0]
+    certificate = output / "certificates/gcc-debug-1.json"
+    exporter = original_build / "apmesh_core_minimal_small_linear_algebra_export"
+    record = runner.run_command([str(exporter), str(certificate)], root, output / "logs", "focused-export", 30)
+    runner.require_success(record, "focused negative baseline")
+    record = runner.run_command(runner.replace_root(cell["negative_outcomes"], output), root, output / "logs", "gcc-debug-negative-outcomes", 30)
+    runner.require_success(record, "focused negative CLI")
+    # Minimal arguments for the same binding verifier called by verify_retention().
+    manifest = {"output_root": str(output), "inputs": {"validator": {"sha256": runner.sha256_file(root / "tools/minimal_small_linear_algebra_evidence.py")}}}
+    runner.validate_negative_cell(output, manifest, cell, [record], profile)
+    relocated = parent / "negative-command-relocated"; shutil.copytree(output, relocated)
+    runner.validate_negative_cell(relocated, manifest, cell, [record], profile)
+    rejects(lambda: runner.validate_negative_cell(output, manifest, cell, [], profile), "missing negative command accepted")
+    for field, value in (("argv", ["wrong-command"]), ("exit_code", 1)):
+        altered = copy.deepcopy(record); altered[field] = value
+        rejects(lambda: runner.validate_negative_cell(output, manifest, cell, [altered], profile), "invalid negative command accepted")
+    altered_manifest = copy.deepcopy(manifest); altered_manifest["inputs"]["validator"]["sha256"] = "0" * 64
+    rejects(lambda: runner.validate_negative_cell(output, altered_manifest, cell, [record], profile), "unbound negative validator accepted")
+
+
 def lifecycle_checks(original, original_build):
     with tempfile.TemporaryDirectory(prefix="apmesh-la-lifecycle-test-") as temporary:
         runner, args, root = sandbox(pathlib.Path(temporary), original)
         output = pathlib.Path(args.output_root)
         runner.prepare(args)
         runner.load_prepared(args)
+        inventory = runner.read_json(output / "planned-inventories.json")
+        conditions = {row["path"]: row["required_when"] for row in inventory["artifacts"]}
+        for name in runner.TERMINAL_REQUIRED_SUCCESS & runner.TERMINAL_REQUIRED_FAILURE:
+            if conditions[name] != "always": raise RuntimeError("common terminal artifact is not unconditional")
+        for name in runner.TERMINAL_REQUIRED_FAILURE - runner.TERMINAL_REQUIRED_SUCCESS:
+            if conditions[name] != "failure": raise RuntimeError("failure-only artifact condition differs")
+        for name in runner.SEAL_FAILURE_PATHS:
+            if conditions[name] != "seal-failure": raise RuntimeError("seal failure condition differs")
         for name in ("prepared-manifest.json", "plan.json", "planned-inventories.json", "state.json", "state-history.jsonl", "preparation-seal.json"):
             path = output / name; original_bytes = path.read_bytes()
             path.write_bytes(original_bytes.replace(b'"schema_version":', b'"altered_schema_version":', 1))
@@ -116,7 +195,9 @@ def lifecycle_checks(original, original_build):
             path.write_text(path.read_text(encoding="utf-8").replace("src/math/linear_algebra.cpp.o:", "src/math/missing.cpp.o:"), encoding="utf-8")
             record["stdout"]["sha256"] = runner.sha256_file(path)
             rejects(lambda: runner.validate_observed_dependencies(record, pathlib.Path(temporary)), "missing compiled math dependency accepted")
-        print("PASS: preparation mutation, publication, discovery, actual subprocess failure, terminal retention and single use")
+        sealing_failure_checks(runner, args, root, pathlib.Path(temporary))
+        negative_command_checks(runner, root, original_build, pathlib.Path(temporary), profile)
+        print("PASS: preparation mutation, publication, discovery, actual subprocess failure, conditional inventories, sealing failures, structured negative CLI/binding, relocated retention and single use")
 
 
 def main():
