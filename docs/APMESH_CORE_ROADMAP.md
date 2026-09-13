@@ -426,9 +426,19 @@ Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
 
 #### Transformations and Coordinate Frames
 
-- Define transformations required by later curve/surface verification.
-- Verify invariance/equivariance properties under translation, rotation, and scale where mathematically appropriate.
-- Produce transformation regression certificates.
+Status: `ENTRY DECISION ACCEPTED / NOT IMPLEMENTED`
+
+- Entry authority:
+  `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
+- Implement only exact Cartesian similarity frames in 2D/3D: finite origin,
+  exact signed-permutation basis, and positive power-of-two scale.
+- Preserve distinct point/vector mapping: translation applies only to points.
+- Verify exact local/world round trips and bounded invariance/equivariance
+  cases without a general matrix inverse, tolerance, or orientation predicate.
+- General affine transforms, arbitrary rotations, nonuniform scale, frame
+  interpolation, curves, surfaces, and meshes remain outside this work unit.
+- Focused contracts precede any revision-bound qualification protocol and the
+  cumulative Geometry Primitives regression.
 
 #### Geometry Primitives Regression
 
@@ -661,8 +671,8 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / preserve qualified
-Point/Vector and Minimal Small Linear Algebra evidence**
+**Geometry Primitives — Exact Semantics Before Curves / implement bounded
+Cartesian similarity frames**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -684,5 +694,6 @@ Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
 evidence correction, without production behavior change. The first `6fa00bd`
 attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
-INVESTIGATION; Transformations and Coordinate Frames require a separate entry
-decision and are not started by this closure.
+INVESTIGATION. The bounded Transformations and Coordinate Frames entry decision
+now authorizes only exact 2D/3D Cartesian similarity frames; implementation has
+not started.

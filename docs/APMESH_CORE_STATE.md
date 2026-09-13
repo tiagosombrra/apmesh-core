@@ -50,14 +50,17 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Minimal Small Linear Algebra is QUALIFIED on clean published candidate
+**Implement the accepted bounded Cartesian similarity frame semantics. The
+entry decision authorizes concrete 2D/3D frames composed only of a finite
+origin, exact signed-permutation basis, and positive power-of-two scale, with
+distinct point/vector local-to-world and world-to-local mappings. General
+affine transforms, arbitrary rotations, inverses, predicates, topology, curves,
+surfaces, and meshing remain unauthorized. No frame code exists yet.**
+
+Minimal Small Linear Algebra is QUALIFIED on clean published candidate
 `3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
-24.04 GCC 13 / Clang 18 libc++ envelope. LA0-LA7 passed after one revision-bound
-four-cell execution with three certificates per cell, exact prerequisite
-preservation, expected negative rejections, retention, and detached
-verification. The first `6fa00bd` attempt remains immutable BLOCKED evidence
-for underdeclared signed-zero equivalence. The correction changed evidence
-semantics only; production math and Geometry behavior are unchanged.**
+24.04 GCC 13 / Clang 18 libc++ envelope. LA0-LA7 passed without production
+behavior change; the first `6fa00bd` attempt remains immutable BLOCKED evidence.
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -207,26 +210,29 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 6. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
 7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
 8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
-9. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-10. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-11. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-12. `docs/research/REFERENCE_REGISTER.md`.
+9. `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
+10. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+11. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+12. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+13. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: no new Geometry implementation is authorized. Preserve
-the qualified `3804e90` LA evidence, the blocked `6fa00bd` attempt, qualified
-`ededf65` Point/Vector evidence, and negative `b7f8fe9` selection-defect
-evidence. A separate scientific entry decision is required before
-Transformations and Coordinate Frames, predicates, topology, curves, surfaces,
-meshing, or the Geometry Primitives stage regression.
+Current first action: implement only the bounded Cartesian frame capability in
+`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
+and its focused analytic contracts. Preserve the qualified `3804e90` LA
+evidence, blocked `6fa00bd` attempt, qualified `ededf65` Point/Vector evidence,
+and negative `b7f8fe9` selection-defect evidence. Do not create general
+transformations, formal qualification infrastructure, predicates, topology,
+curves, surfaces, meshing, or the cumulative stage regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
 QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
-and the cumulative Geometry Primitives regression remain unqualified.
+has an accepted bounded entry decision but remains unimplemented and
+unqualified. The cumulative Geometry Primitives regression remains unqualified.
 
 ## Stage closure protocol
 

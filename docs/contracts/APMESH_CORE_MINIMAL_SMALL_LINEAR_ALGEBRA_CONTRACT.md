@@ -1,6 +1,6 @@
 # AP Mesh Core — Minimal Small Linear Algebra Contract
 
-Status: IMPLEMENTED / FOCUSED CONTRACT PASS / FIRST FORMAL ATTEMPT BLOCKED
+Status: QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04
 Date: 2026-09-10
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Prerequisites: Foundation `QUALIFIED`; Point and Vector Semantics `QUALIFIED`
@@ -224,3 +224,12 @@ decision itself makes no behavior change and adds no scientific qualification.
 Implementation, focused validation, and the later revision-bound `LA0`–`LA7`
 qualification remain separate states and must not be reported as complete until
 their respective evidence exists.
+
+## 12. Qualification result
+
+Minimal Small Linear Algebra subsequently passed LA0-LA7 on clean published
+candidate `3804e903f56a226d38319fd44255b5832639815d` within the declared WSL
+Ubuntu 24.04 GCC 13 / Clang 18 libc++ envelope. The formal decision is recorded
+in `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION.md`.
+The first `6fa00bd` attempt remains immutable `BLOCKED` evidence. Qualification
+does not broaden the capability or remove any exclusion in this contract.
