@@ -390,6 +390,18 @@ Status: `IMPLEMENTED / FOCUSED CONTRACT PASS / FORMAL QUALIFICATION NOT STARTED`
   contracts pass on GCC 13 Debug and on Clang 18 libc++ Debug. Terminal
   retention is also verified after relocation. The next step is admission
   audit; this work adds no mathematical capability or qualification.
+- LA2/LA7 correction (2026-09-13): retain all matrix entries for the 39
+  non-finite constructor cases; enumerate eight certificate mutations with
+  baseline/validator hashes, exact rejection reasons, retained inputs, and
+  independent recomputation. The planned CLI and its retained command binding
+  are tested. Common terminal artifacts are required in both outcomes;
+  failure-only and sealing-failure artifacts have explicit conditions.
+  Detached-check, inventory-write, and verification failures retain the prior
+  terminal evidence and produce verifiable `BLOCKED` diagnostic archives,
+  without retrying success sealing or claiming detached success. Five focused
+  contracts pass in each GCC/Clang Debug build; the expanded runner contract
+  passes in both as well. Production math/geometry is unchanged. Formal
+  manifest preparation and execution remain blocked pending admission audit.
 
 #### Transformations and Coordinate Frames
 

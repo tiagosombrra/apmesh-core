@@ -28,6 +28,11 @@
     "mat2_overflow_application", "mat3_overflow_application", "mat2_overflow_composition", "mat3_overflow_composition", "mat2_overflow_determinant", "mat3_overflow_determinant",
     "scale_k_m8", "scale_k_m1", "scale_k_0", "scale_k_1", "scale_k_8"
   ],
+  "negative_cases": [
+    "duplicate_case", "forged_permutation", "wrong_nonfinite_placement",
+    "incomplete_nonfinite_matrix", "altered_finite_matrix_entry", "wrong_failure_error",
+    "undeclared_scale_field", "missing_determinant_nonclaim"
+  ],
   "scale_exponents": [-8, -1, 0, 1, 8],
   "exact_prerequisite_tests": [
     "apmesh_core.bootstrap_smoke", "apmesh_core.bootstrap_export", "apmesh_core.bootstrap_tool",

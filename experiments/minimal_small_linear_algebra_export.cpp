@@ -274,12 +274,12 @@ void write_nonfinite_cases(std::ostream& output, bool& first, const int dimensio
             const std::string id = "mat" + std::to_string(dimension) + "_nonfinite_" + std::string(name) + "_e" + std::to_string(index);
             if (dimension == 2) {
                 std::array<double, 4> input{1.0, 0.0, 0.0, 1.0}; input[index] = invalid;
-                write_case(output, first, id, 2, "matrix_construction", "failure_classification", "invalid_value,entry_index",
-                           {invalid, static_cast<double>(index)}, error("non_finite_input"), result_of(Mat2::make(input)));
+                write_case(output, first, id, 2, "matrix_construction", "failure_classification", "matrix_row_major",
+                           Values(input.begin(), input.end()), error("non_finite_input"), result_of(Mat2::make(input)));
             } else {
                 std::array<double, 9> input{1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}; input[index] = invalid;
-                write_case(output, first, id, 3, "matrix_construction", "failure_classification", "invalid_value,entry_index",
-                           {invalid, static_cast<double>(index)}, error("non_finite_input"), result_of(Mat3::make(input)));
+                write_case(output, first, id, 3, "matrix_construction", "failure_classification", "matrix_row_major",
+                           Values(input.begin(), input.end()), error("non_finite_input"), result_of(Mat3::make(input)));
             }
         }
     }
