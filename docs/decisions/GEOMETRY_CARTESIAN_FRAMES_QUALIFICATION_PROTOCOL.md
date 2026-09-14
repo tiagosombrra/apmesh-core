@@ -1,6 +1,6 @@
 # Geometry Primitives — Cartesian Frames Qualification Protocol
 
-Status: **PRE-REGISTERED / PREPARATION AUTHORIZED / NOT EXECUTED**
+Status: **PRE-REGISTERED / ADMISSION REVIEW REQUIRED / NOT EXECUTED**
 
 Date: 2026-09-14
 
@@ -200,9 +200,34 @@ Geometry Primitives stage remain unqualified.
 
 ## 10. Current decision
 
-**Protocol pre-registered; preparation authorized.** The report-only profile,
-exporter, independent collector/comparer, revision-bound lifecycle runner,
-negative contracts, and retention checks are implemented. No `PREPARED`
-manifest has been created, no execution has started, and no scientific closure
-has been recorded. The next bounded work is an admission audit; no manifest may
-be created without separate authorization.
+**Protocol pre-registered; preparation is not yet authorized.** Admission of
+`a3b1f4e` was blocked by incomplete recorded inputs, formula recomputation,
+prerequisite discovery, process provenance and retention. This is an
+infrastructure finding, not evidence of a Cartesian-frame production defect.
+
+The amended report-only package enumerates 142 cases with actual hexadecimal
+inputs in both dimensions. The exporter calls the qualified APIs; the separate
+rational oracle recomputes construction, maps and laws from those inputs.
+Negative observations include their exact baseline mutation and rejection
+reason. Raw signed zero is retained; only semantic comparison canonicalizes it.
+
+Preparation binds the reviewed production and focused-contract Git objects,
+all prerequisite authorities, source inventory, toolchains, planned commands
+and artifacts. Control and evidence roots are separate: the control root is
+created during preparation and the evidence root is created exclusively on
+execution. The initial state/history and input table are sealed. Discovery
+must match the exact prerequisite selection before tests execute.
+
+Execution records independent exporter child PIDs, command results, source and
+binary identities, compile commands, cache, object dependencies and runtime
+libraries. Retention rechecks the semantic payload in a detached candidate
+process and publishes the staged archive only after verification. A failed
+command or failed sealing remains explicit; no retry is automatic. Transient
+log files are excluded; hash-bound command stdout/stderr observations remain
+in structured evidence for revalidation.
+
+Focused development contracts, including disposable lifecycle/retention
+fixtures, passed in GCC 13 and Clang 18 libc++ Debug/Release (four selected
+CTests per build). They are not a formal PREPARED manifest or CF0–CF7 qualification.
+The next bounded action is an independent admission audit of the published
+package. No scientific gate is closed by this amendment.

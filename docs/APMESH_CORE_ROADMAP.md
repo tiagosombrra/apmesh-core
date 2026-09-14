@@ -448,8 +448,12 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
   independent certificates per cell, exact cross-cell equivalence, prerequisite
   preservation, and detached retention. The report-only profile, exporter,
   independent collector/comparer, revision-bound lifecycle runner, negative
-  checks, and retention verifier are implemented. Manifest creation, execution, and scientific
-  closure have not started.
+  checks, and retention verifier are implemented. Admission of `a3b1f4e` was
+  blocked by evidence-infrastructure gaps. The subsequent package adds 142
+  recorded-input cases, rational formula recomputation, exact discovered
+  prerequisites, source/process provenance and detached semantic retention.
+  Preparation remains subject to independent admission review. Formal manifest
+  creation, execution and scientific closure have not started.
 
 #### Geometry Primitives Regression
 

@@ -50,7 +50,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Implement the accepted bounded Cartesian similarity frame semantics. The
+**Audit admission of the implemented bounded Cartesian similarity frames. The
 entry decision authorizes concrete 2D/3D frames composed only of a finite
 origin, exact signed-permutation basis, and positive power-of-two scale, with
 distinct point/vector local-to-world and world-to-local mappings. General
@@ -223,7 +223,7 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: audit the implemented report-only `CF0`–`CF7` profile,
+Current first action: audit the hardened report-only `CF0`–`CF7` profile,
 exporter, collector, comparer, revision-bound runner, retention checks, and
 focused tooling contracts fixed by
 `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
@@ -240,9 +240,14 @@ INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
 QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
 has an accepted bounded entry decision, an implemented focused-contract
 candidate, a preregistered `CF0`–`CF7` protocol, and report-only infrastructure
-for profile/exporter/collector/comparer/runner/retention. No manifest has been
-prepared or executed, and it remains unqualified. The cumulative Geometry Primitives
-regression remains unqualified.
+for profile/exporter/collector/comparer/runner/retention. Admission of `a3b1f4e`
+was blocked; the subsequent package binds 142 recorded-input cases to a
+rational oracle, exact prerequisite discovery, process provenance and detached
+retention. Focused validation passed all four selected CTests in each WSL GCC 13
+and Clang 18 libc++ Debug/Release build (16/16); no production file or reviewed
+C++ contract changed. Preparation requires a new independent admission decision.
+No formal manifest has been prepared or executed, and the capability remains
+unqualified. The cumulative Geometry Primitives regression remains unqualified.
 
 ## Stage closure protocol
 

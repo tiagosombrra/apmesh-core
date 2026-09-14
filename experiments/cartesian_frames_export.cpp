@@ -1,168 +1,195 @@
+// Fixed-profile observation adapter. Expected results belong to the Python oracle.
 #include "apmesh/core/geometry.hpp"
-
 #include <array>
 #include <cmath>
 #include <concepts>
 #include <expected>
 #include <fstream>
 #include <iomanip>
-#include <limits>
+#include <iostream>
 #include <locale>
 #include <sstream>
+#include <stdexcept>
 #include <string>
-#include <string_view>
-#include <utility>
+#include <type_traits>
 #include <vector>
+#ifdef _WIN32
+#include <process.h>
+#else
+#include <unistd.h>
+#endif
 
 namespace {
+using namespace apmesh::core;
+template<class F, class P> concept PW = requires(F f, P p) { f.point_to_world(p); };
+template<class F, class P> concept PL = requires(F f, P p) { f.point_to_local(p); };
+template<class F, class V> concept VW = requires(F f, V v) { f.vector_to_world(v); };
+template<class F, class V> concept VL = requires(F f, V v) { f.vector_to_local(v); };
+static_assert(PW<CartesianFrame2, Point2> && PL<CartesianFrame2, Point2>);
+static_assert(VW<CartesianFrame2, Vector2> && VL<CartesianFrame2, Vector2>);
+static_assert(PW<CartesianFrame3, Point3> && PL<CartesianFrame3, Point3>);
+static_assert(VW<CartesianFrame3, Vector3> && VL<CartesianFrame3, Vector3>);
+static_assert(!PW<CartesianFrame2, Point3> && !PL<CartesianFrame2, Point3>);
+static_assert(!VW<CartesianFrame2, Vector3> && !VL<CartesianFrame2, Vector3>);
+static_assert(!PW<CartesianFrame3, Point2> && !PL<CartesianFrame3, Point2>);
+static_assert(!VW<CartesianFrame3, Vector2> && !VL<CartesianFrame3, Vector2>);
+static_assert(!PW<CartesianFrame2, Vector2> && !PL<CartesianFrame2, Vector2>);
+static_assert(!VW<CartesianFrame2, Point2> && !VL<CartesianFrame2, Point2>);
+static_assert(!PW<CartesianFrame3, Vector3> && !PL<CartesianFrame3, Vector3>);
+static_assert(!VW<CartesianFrame3, Point3> && !VL<CartesianFrame3, Point3>);
+static_assert(std::is_same_v<decltype(std::declval<const CartesianFrame2&>().basis()), const Mat2&>);
+static_assert(std::is_same_v<decltype(std::declval<const CartesianFrame3&>().origin()), const Point3&>);
 
-using apmesh::core::CartesianFrame2;
-using apmesh::core::CartesianFrame3;
-using apmesh::core::GeometryError;
-using apmesh::core::Mat2;
-using apmesh::core::Mat3;
-using apmesh::core::Point2;
-using apmesh::core::Point3;
-using apmesh::core::Vector2;
-using apmesh::core::Vector3;
-
-template <typename Frame, typename Point>
-concept PointMappable = requires(const Frame& frame, const Point& point) { frame.point_to_world(point); };
-static_assert(PointMappable<CartesianFrame2, Point2>);
-static_assert(!PointMappable<CartesianFrame2, Point3>);
-static_assert(PointMappable<CartesianFrame3, Point3>);
-static_assert(!PointMappable<CartesianFrame3, Point2>);
-
-std::string hex(const double value) {
-    std::ostringstream stream; stream.imbue(std::locale::classic()); stream << std::hexfloat << value; return stream.str();
-}
-std::string error_name(const GeometryError error) {
-    switch (error) {
+struct Case {
+    std::string id, operation, kind, direction, category;
+    int dimension{}, exponent{};
+    std::vector<double> origin, basis, operand, auxiliary;
+};
+struct Observation { std::string error; std::vector<double> value; };
+std::string name(GeometryError e) {
+    switch(e) {
     case GeometryError::non_finite_input: return "non_finite_input";
     case GeometryError::non_finite_result: return "non_finite_result";
     case GeometryError::invalid_frame: return "invalid_frame";
     case GeometryError::scale_out_of_range: return "scale_out_of_range";
-    default: return "other";
+    default: throw std::runtime_error("unexpected geometry error");
     }
 }
-void values(std::ostream& out, const std::vector<double>& input) {
-    out << '['; for (std::size_t i = 0; i < input.size(); ++i) { if (i) out << ','; out << '"' << hex(input[i]) << '"'; } out << ']';
+template<class T> T checked(std::expected<T, GeometryError> v) {
+    if (!v) throw v.error();
+    return *v;
 }
-template <typename Value>
-std::vector<double> flat(const Value& value);
-template <> std::vector<double> flat(const Point2& v) { return {v.x(), v.y()}; }
-template <> std::vector<double> flat(const Vector2& v) { return {v.x(), v.y()}; }
-template <> std::vector<double> flat(const Point3& v) { return {v.x(), v.y(), v.z()}; }
-template <> std::vector<double> flat(const Vector3& v) { return {v.x(), v.y(), v.z()}; }
-template <> std::vector<double> flat(const CartesianFrame2&) { return {}; }
-template <> std::vector<double> flat(const CartesianFrame3&) { return {}; }
-void write_case(std::ostream& out, bool& first, const std::string_view id, const std::vector<double>& value) {
-    if (!first) out << ',';
-    first = false;
-    out << "{\"id\":\"" << id << "\",\"outcome\":\"value\",\"error\":null,\"value\":";
-    values(out, value);
-    out << '}';
+template<class T> std::vector<double> flat(const T& v) {
+    if constexpr (requires { v.z(); }) return {v.x(),v.y(),v.z()};
+    else return {v.x(),v.y()};
 }
-void write_error(std::ostream& out, bool& first, const std::string_view id, const GeometryError error) {
-    if (!first) out << ',';
-    first = false;
-    out << "{\"id\":\"" << id << "\",\"outcome\":\"error\",\"error\":\"" << error_name(error) << "\",\"value\":null}";
+template<class T> T value(const std::vector<double>& x) {
+    if constexpr (std::is_same_v<T,Point2> || std::is_same_v<T,Vector2>) return checked(T::make(x[0],x[1]));
+    else return checked(T::make(x[0],x[1],x[2]));
 }
-template <typename Value>
-void write_result(std::ostream& out, bool& first, const std::string_view id, const std::expected<Value, GeometryError>& result) {
-    if (result) write_case(out, first, id, flat(*result)); else write_error(out, first, id, result.error());
-}
-
-int export_certificate(const std::string_view destination) {
-    std::ofstream out(destination.data(), std::ios::binary | std::ios::trunc);
-    if (!out) return 2;
-    const auto zero2 = Point2::make(0.0, 0.0); const auto zero3 = Point3::make(0.0, 0.0, 0.0);
-    const auto p2 = Point2::make(1.0, 2.0); const auto v2 = Vector2::make(1.0, 2.0);
-    const auto p3 = Point3::make(1.0, 2.0, 3.0); const auto v3 = Vector3::make(1.0, 2.0, 3.0);
-    const auto quarter = Mat2::make(std::array<double, 4>{0.0, -1.0, 1.0, 0.0});
-    const auto cycle = Mat3::make(std::array<double, 9>{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0});
-    const auto reflection = Mat2::make(std::array<double, 4>{-1.0, 0.0, 0.0, 1.0});
-    const auto origin2 = Point2::make(10.0, 20.0); const auto origin3 = Point3::make(5.0, -2.0, 1.0);
-    if (!zero2 || !zero3 || !p2 || !v2 || !p3 || !v3 || !quarter || !cycle || !reflection || !origin2 || !origin3) return 3;
-    const auto frame2 = CartesianFrame2::make(*origin2, *quarter, 1); const auto frame3 = CartesianFrame3::make(*origin3, *cycle, -1);
-    if (!frame2 || !frame3) return 4;
-    out << "{\"schema_version\":1,\"kind\":\"cartesian-frames-certificate\",\"signed_zero_policy\":\"normalize_to_positive\",\"cases\":[";
-    bool first = true;
-    write_result(out, first, "identity2_point", CartesianFrame2::identity().point_to_world(*p2));
-    write_result(out, first, "identity2_vector", CartesianFrame2::identity().vector_to_world(*v2));
-    write_result(out, first, "identity3_point", CartesianFrame3::identity().point_to_world(*p3));
-    write_result(out, first, "identity3_vector", CartesianFrame3::identity().vector_to_world(*v3));
-    write_case(out, first, "accessor2_origin", flat(frame2->origin()));
-    write_case(out, first, "accessor2_exponent", {static_cast<double>(frame2->scale_exponent())});
-    write_case(out, first, "accessor3_origin", flat(frame3->origin()));
-    write_case(out, first, "accessor3_exponent", {static_cast<double>(frame3->scale_exponent())});
-    write_result(out, first, "quarter2_axis_x", frame2->vector_to_world(*Vector2::make(1.0, 0.0)));
-    write_result(out, first, "quarter2_axis_y", frame2->vector_to_world(*Vector2::make(0.0, 1.0)));
-    write_result(out, first, "quarter2_point_x", frame2->point_to_world(*Point2::make(1.0, 0.0)));
-    write_result(out, first, "quarter2_point_y", frame2->point_to_world(*Point2::make(0.0, 1.0)));
-    write_result(out, first, "cycle3_axis_x", frame3->vector_to_world(*Vector3::make(1.0, 0.0, 0.0)));
-    write_result(out, first, "cycle3_axis_y", frame3->vector_to_world(*Vector3::make(0.0, 1.0, 0.0)));
-    write_result(out, first, "cycle3_axis_z", frame3->vector_to_world(*Vector3::make(0.0, 0.0, 1.0)));
-    write_result(out, first, "cycle3_point_x", frame3->point_to_world(*Point3::make(1.0, 0.0, 0.0)));
-    write_result(out, first, "cycle3_point_y", frame3->point_to_world(*Point3::make(0.0, 1.0, 0.0)));
-    write_result(out, first, "cycle3_point_z", frame3->point_to_world(*Point3::make(0.0, 0.0, 1.0)));
-    const auto reflected = CartesianFrame2::make(*zero2, *reflection, 0);
-    write_result(out, first, "reflection2_vector", reflected->vector_to_world(*v2));
-    for (const int exponent : {-8, -1, 0, 1, 8}) {
-        const auto scaled = CartesianFrame2::make(*zero2, Mat2::identity(), exponent);
-        const std::string id = exponent < 0 ? "scale_m" + std::to_string(-exponent) : "scale_" + std::to_string(exponent);
-        write_result(out, first, id, scaled->vector_to_world(*Vector2::make(1.0, 0.0)));
-        write_result(out, first, id + "_point", scaled->point_to_world(*Point2::make(1.0, 0.0)));
+template<int N> Observation observe(const Case& c) {
+    using P=std::conditional_t<N==2,Point2,Point3>;
+    using V=std::conditional_t<N==2,Vector2,Vector3>;
+    using M=std::conditional_t<N==2,Mat2,Mat3>;
+    using F=std::conditional_t<N==2,CartesianFrame2,CartesianFrame3>;
+    std::array<double,N*N> entries{};
+    for(std::size_t i=0;i<entries.size();++i) entries[i]=c.basis[i];
+    const auto matrix=M::make(entries);
+    if(!matrix) {
+        if(matrix.error()!=LinearAlgebraError::non_finite_input) throw std::runtime_error("unexpected matrix error");
+        return {"non_finite_input",{}};
     }
-    const auto world_p2 = frame2->point_to_world(*p2); const auto world_v2 = frame2->vector_to_world(*v2);
-    const auto world_p3 = frame3->point_to_world(*p3); const auto world_v3 = frame3->vector_to_world(*v3);
-    write_result(out, first, "roundtrip2_point", frame2->point_to_local(*world_p2));
-    write_result(out, first, "roundtrip2_vector", frame2->vector_to_local(*world_v2));
-    write_result(out, first, "roundtrip3_point", frame3->point_to_local(*world_p3));
-    write_result(out, first, "roundtrip3_vector", frame3->vector_to_local(*world_v3));
-    write_result(out, first, "roundtrip2_reverse_point", frame2->point_to_world(*frame2->point_to_local(*world_p2)));
-    write_result(out, first, "roundtrip2_reverse_vector", frame2->vector_to_world(*frame2->vector_to_local(*world_v2)));
-    write_result(out, first, "roundtrip3_reverse_point", frame3->point_to_world(*frame3->point_to_local(*world_p3)));
-    write_result(out, first, "roundtrip3_reverse_vector", frame3->vector_to_world(*frame3->vector_to_local(*world_v3)));
-    const auto local_sum = *p2 + *v2; const auto world_sum = *world_p2 + *world_v2;
-    const auto affine = local_sum && world_sum ? frame2->point_to_world(*local_sum) : std::expected<Point2, GeometryError>{std::unexpected{GeometryError::non_finite_result}};
-    write_result(out, first, "affine2", affine && world_sum ? *affine - *world_sum : std::expected<Vector2, GeometryError>{std::unexpected{GeometryError::non_finite_result}});
-    const auto local_difference = *p2 - *zero2; const auto mapped_difference = local_difference ? frame2->vector_to_world(*local_difference) : std::expected<Vector2, GeometryError>{std::unexpected{GeometryError::non_finite_result}};
-    write_result(out, first, "difference2", mapped_difference);
-    const auto scale_two = CartesianFrame2::make(*zero2, Mat2::identity(), 1); const auto unit = Vector2::make(1.0, 0.0);
-    const auto metric_vector = scale_two->vector_to_world(*unit); const auto metric = metric_vector ? apmesh::core::dot(*metric_vector, *metric_vector) : std::expected<double, GeometryError>{std::unexpected{GeometryError::non_finite_result}};
-    if (metric) write_case(out, first, "metric_scale2", {*metric}); else write_error(out, first, "metric_scale2", metric.error());
-    const auto norm = metric_vector ? apmesh::core::norm(*metric_vector) : std::expected<double, GeometryError>{std::unexpected{GeometryError::non_finite_result}};
-    if (norm) write_case(out, first, "norm_scale2", {*norm}); else write_error(out, first, "norm_scale2", norm.error());
-    if (!first) out << ',';
-    first = false;
-    out << "{\"id\":\"compile_time_dimension_separation\",\"outcome\":\"compile_time_rejection\",\"error\":null,\"value\":[]}";
-    const auto duplicate = Mat2::make(std::array<double, 4>{1.0, 0.0, 1.0, 0.0}); const auto nonunit = Mat2::make(std::array<double, 4>{2.0, 0.0, 0.0, 1.0}); const auto missing = Mat2::make(std::array<double, 4>{0.0, 0.0, 0.0, 1.0});
-    const auto signed_zero = Mat2::make(std::array<double, 4>{-0.0, -1.0, 1.0, 0.0});
-    write_result(out, first, "reject_duplicate_basis2", CartesianFrame2::make(*zero2, *duplicate, 0));
-    write_result(out, first, "reject_nonunit_basis2", CartesianFrame2::make(*zero2, *nonunit, 0));
-    write_result(out, first, "reject_missing_basis2", CartesianFrame2::make(*zero2, *missing, 0));
-    write_result(out, first, "accept_signed_zero_basis2", CartesianFrame2::make(*zero2, *signed_zero, 0));
-    const auto duplicate3 = Mat3::make(std::array<double, 9>{1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0});
-    const auto nonunit3 = Mat3::make(std::array<double, 9>{2.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0});
-    const auto missing3 = Mat3::make(std::array<double, 9>{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0});
-    write_result(out, first, "reject_duplicate_basis3", CartesianFrame3::make(*zero3, *duplicate3, 0));
-    write_result(out, first, "reject_nonunit_basis3", CartesianFrame3::make(*zero3, *nonunit3, 0));
-    write_result(out, first, "reject_missing_basis3", CartesianFrame3::make(*zero3, *missing3, 0));
-    if (!first) out << ',';
-    first = false;
-    out << "{\"id\":\"mat2_nonfinite_rejection\",\"outcome\":\"error\",\"error\":\"non_finite_input\",\"value\":null}";
-    write_result(out, first, "reject_scale_high", CartesianFrame2::make(*zero2, Mat2::identity(), 1024));
-    write_result(out, first, "reject_scale_low", CartesianFrame2::make(*zero2, Mat2::identity(), -1075));
-    write_result(out, first, "reject_scale_nonfinite_reciprocal", CartesianFrame2::make(*zero2, Mat2::identity(), -1024));
-    write_result(out, first, "accept_scale_high_boundary", CartesianFrame2::make(*zero2, Mat2::identity(), 1023));
-    write_result(out, first, "accept_scale_low_boundary", CartesianFrame2::make(*zero2, Mat2::identity(), -1023));
-    const auto maximum = Vector2::make(std::numeric_limits<double>::max(), 0.0);
-    write_result(out, first, "overflow_vector2", scale_two->vector_to_world(*maximum));
-    const auto maximum_point = Point2::make(std::numeric_limits<double>::max(), 0.0);
-    write_result(out, first, "overflow_point2", scale_two->point_to_world(*maximum_point));
-    out << "]}";
-    return out.good() ? 0 : 5;
+    try {
+        const F frame=c.operation=="identity"?F::identity():checked(F::make(value<P>(c.origin),*matrix,c.exponent));
+        const auto point=[&](const P& p,bool world){return checked(world?frame.point_to_world(p):frame.point_to_local(p));};
+        const auto vector=[&](const V& v,bool world){return checked(world?frame.vector_to_world(v):frame.vector_to_local(v));};
+        const bool world=c.direction=="world";
+        std::vector<double> result;
+        if(c.operation=="construct" || c.operation=="basis") {
+            if(c.operation=="construct") result=flat(frame.origin());
+            for(std::size_t r=0;r<N;++r) for(std::size_t col=0;col<N;++col) {
+                const auto entry=frame.basis().at(r,col);
+                if(!entry) throw std::runtime_error("basis accessor failure");
+                result.push_back(*entry);
+            }
+            if(c.operation=="construct") result.push_back(static_cast<double>(frame.scale_exponent()));
+        } else if(c.operation=="origin") result=flat(frame.origin());
+        else if(c.operation=="exponent") result={static_cast<double>(frame.scale_exponent())};
+        else if(c.operation=="type_separation") result={1.0};
+        else if(c.operation=="map" || c.operation=="identity" || c.operation=="roundtrip") {
+            if(c.kind=="point") {
+                auto mapped=point(value<P>(c.operand),world);
+                if(c.operation=="roundtrip") mapped=point(mapped,!world);
+                result=flat(mapped);
+            } else {
+                auto mapped=vector(value<V>(c.operand),world);
+                if(c.operation=="roundtrip") mapped=vector(mapped,!world);
+                result=flat(mapped);
+            }
+        } else if(c.operation=="translation") {
+            const F zero_frame=checked(F::make(value<P>(std::vector<double>(N,0.0)),*matrix,c.exponent));
+            if(c.kind=="point") {
+                const auto p=value<P>(c.operand);
+                result=flat(point(p,world));
+                const auto other=flat(checked(world?zero_frame.point_to_world(p):zero_frame.point_to_local(p)));
+                result.insert(result.end(),other.begin(),other.end());
+            } else {
+                const auto v=value<V>(c.operand);
+                result=flat(vector(v,world));
+                const auto other=flat(checked(world?zero_frame.vector_to_world(v):zero_frame.vector_to_local(v)));
+                result.insert(result.end(),other.begin(),other.end());
+            }
+        } else if(c.operation=="affine") {
+            const auto p=value<P>(c.operand); const auto v=value<V>(c.auxiliary);
+            result=flat(point(checked(p+v),true));
+            const auto rhs=flat(checked(point(p,true)+vector(v,true)));
+            result.insert(result.end(),rhs.begin(),rhs.end());
+        } else if(c.operation=="difference") {
+            const auto p=value<P>(c.operand); const auto q=value<P>(c.auxiliary);
+            result=flat(vector(checked(p-q),true));
+            const auto rhs=flat(checked(point(p,true)-point(q,true)));
+            result.insert(result.end(),rhs.begin(),rhs.end());
+        } else if(c.operation=="dot") {
+            const auto v=value<V>(c.operand), w=value<V>(c.auxiliary);
+            result={checked(dot(vector(v,true),vector(w,true))),std::ldexp(checked(dot(v,w)),2*c.exponent)};
+        } else if(c.operation=="norm") {
+            const auto v=value<V>(c.operand);
+            result={checked(norm(vector(v,true))),std::ldexp(checked(norm(v)),c.exponent)};
+        } else throw std::runtime_error("unknown operation");
+        return {"",result};
+    } catch(GeometryError e) {return {name(e),{}};}
+}
+void array(std::ostream& out,const std::vector<double>& v) {
+    out<<'[';
+    for(std::size_t i=0;i<v.size();++i) {if(i)out<<',';out<<'"'<<std::hexfloat<<v[i]<<'"';}
+    out<<']';
+}
+double number(std::istream& in) {
+    std::string token; if(!(in>>token))throw std::runtime_error("missing numeric input");
+    std::size_t used{}; const double result=std::stod(token,&used);
+    if(used!=token.size())throw std::runtime_error("invalid numeric input");
+    return result;
+}
+void write_case(std::ostream& out,const Case& c,const Observation& obs) {
+    out<<"{\"schema_version\":2,\"id\":\""<<c.id<<"\",\"dimension\":"<<c.dimension
+       <<",\"operation\":\""<<c.operation<<"\",\"operand_kind\":\""<<c.kind
+       <<"\",\"direction\":\""<<c.direction<<"\",\"claim_category\":\""<<c.category<<"\",\"inputs\":{\"origin\":";
+    array(out,c.origin);out<<",\"basis\":";array(out,c.basis);out<<",\"exponent\":"<<c.exponent<<",\"operand\":";
+    array(out,c.operand);out<<",\"auxiliary\":";array(out,c.auxiliary);
+    out<<"},\"non_claims\":[\"orientation\",\"handedness\",\"topology\",\"general_transform\"],\"observed\":{\"kind\":\""
+       <<(obs.error.empty()?"value":"error")<<"\",\"error\":";
+    if(obs.error.empty())out<<"null";else out<<'"'<<obs.error<<'"';
+    out<<",\"values\":"; if(obs.error.empty())array(out,obs.value);else out<<"null";out<<"}}";
 }
 } // namespace
-int main(int argc, char** argv) { return argc == 2 ? export_certificate(argv[1]) : 64; }
+int main(int argc,char** argv) {
+    if(argc!=3)return 64;
+    try {
+        std::ifstream in(argv[1]); std::ofstream out(argv[2],std::ios::binary);
+        if(!in||!out)return 2;
+        in.imbue(std::locale::classic());out.imbue(std::locale::classic());
+#ifdef _WIN32
+        const auto pid=_getpid();
+#else
+        const auto pid=getpid();
+#endif
+        out<<"{\"schema_version\":2,\"kind\":\"cartesian-frames-certificate\",\"signed_zero_policy\":\"normalize_to_positive\",\"pid\":"<<pid<<",\"cases\":[";
+        std::string line;bool first=true;
+        while(std::getline(in,line)) {
+            if(line.empty())continue;
+            std::istringstream row(line);Case c;
+            if(!(row>>c.id>>c.dimension>>c.operation>>c.kind>>c.direction>>c.category>>c.exponent))return 3;
+            if(c.dimension!=2&&c.dimension!=3)return 3;
+            for(auto* vec:{&c.origin,&c.basis,&c.operand,&c.auxiliary}) {
+                const int count=vec==&c.basis?c.dimension*c.dimension:c.dimension;
+                for(int i=0;i<count;++i)vec->push_back(number(row));
+            }
+            std::string extra;if(row>>extra)return 3;
+            const auto observed=c.dimension==2?observe<2>(c):observe<3>(c);
+            if(!first) out<<',';
+            first=false;
+            write_case(out,c,observed);
+        }
+        out<<"]}\n";return out.good()?0:4;
+    } catch(const std::exception& e){std::cerr<<e.what()<<'\n';return 5;}
+}
