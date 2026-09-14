@@ -55,7 +55,11 @@ entry decision authorizes concrete 2D/3D frames composed only of a finite
 origin, exact signed-permutation basis, and positive power-of-two scale, with
 distinct point/vector local-to-world and world-to-local mappings. General
 affine transforms, arbitrary rotations, inverses, predicates, topology, curves,
-surfaces, and meshing remain unauthorized. No frame code exists yet.**
+surfaces, and meshing remain unauthorized. `CartesianFrame2` and
+`CartesianFrame3` now implement only this exact capability. Their focused
+analytic contract passed in the existing GCC 13 Debug and Clang 18 libc++ Debug
+builds. This is implementation evidence only; no revision-bound frame
+qualification has started.**
 
 Minimal Small Linear Algebra is QUALIFIED on clean published candidate
 `3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
@@ -218,21 +222,23 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: implement only the bounded Cartesian frame capability in
-`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
-and its focused analytic contracts. Preserve the qualified `3804e90` LA
-evidence, blocked `6fa00bd` attempt, qualified `ededf65` Point/Vector evidence,
-and negative `b7f8fe9` selection-defect evidence. Do not create general
-transformations, formal qualification infrastructure, predicates, topology,
-curves, surfaces, meshing, or the cumulative stage regression.
+Current first action: review the bounded Cartesian frame implementation and its
+focused analytic evidence against
+`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
+Preserve the qualified `3804e90` LA evidence, blocked `6fa00bd` attempt,
+qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
+selection-defect evidence. Do not create general transformations, formal
+qualification infrastructure, predicates, topology, curves, surfaces, meshing,
+or the cumulative stage regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
 QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
-has an accepted bounded entry decision but remains unimplemented and
-unqualified. The cumulative Geometry Primitives regression remains unqualified.
+has an accepted bounded entry decision, an implemented focused-contract
+candidate, and remains unqualified. The cumulative Geometry Primitives
+regression remains unqualified.
 
 ## Stage closure protocol
 

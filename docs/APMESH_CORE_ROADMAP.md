@@ -426,7 +426,7 @@ Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
 
 #### Transformations and Coordinate Frames
 
-Status: `ENTRY DECISION ACCEPTED / NOT IMPLEMENTED`
+Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
 
 - Entry authority:
   `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
@@ -439,6 +439,9 @@ Status: `ENTRY DECISION ACCEPTED / NOT IMPLEMENTED`
   interpolation, curves, surfaces, and meshes remain outside this work unit.
 - Focused contracts precede any revision-bound qualification protocol and the
   cumulative Geometry Primitives regression.
+- `CartesianFrame2` and `CartesianFrame3` implement only the authorized exact
+  maps. Their focused analytic contract passed on GCC 13 Debug and Clang 18
+  libc++ Debug; this does not yet qualify a cross-cell scientific claim.
 
 #### Geometry Primitives Regression
 
@@ -695,5 +698,6 @@ Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
 evidence correction, without production behavior change. The first `6fa00bd`
 attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
 INVESTIGATION. The bounded Transformations and Coordinate Frames entry decision
-now authorizes only exact 2D/3D Cartesian similarity frames; implementation has
-not started.
+now authorizes only exact 2D/3D Cartesian similarity frames. The bounded
+implementation and focused GCC/Clang Debug contract have passed; formal
+qualification has not started.

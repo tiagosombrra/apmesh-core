@@ -89,6 +89,13 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.geometry_primitives)
 
     add_test(NAME apmesh_core.geometry_primitives COMMAND apmesh_core.geometry_primitives)
+    add_executable(apmesh_core.coordinate_frames
+        tests/coordinate_frames.cpp
+    )
+    target_link_libraries(apmesh_core.coordinate_frames PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.coordinate_frames)
+
+    add_test(NAME apmesh_core.coordinate_frames COMMAND apmesh_core.coordinate_frames)
     add_executable(apmesh_core.minimal_small_linear_algebra
         tests/minimal_small_linear_algebra.cpp
     )
@@ -287,6 +294,7 @@ if(BUILD_TESTING)
     )
     set_tests_properties(
         apmesh_core.geometry_primitives
+        apmesh_core.coordinate_frames
         apmesh_core.geometry_point_vector_evidence
         apmesh_core.geometry_point_vector_runner
         apmesh_core.geometry_point_vector_retention
