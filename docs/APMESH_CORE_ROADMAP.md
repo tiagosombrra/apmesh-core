@@ -440,8 +440,8 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
 - Focused contracts precede any revision-bound qualification protocol and the
   cumulative Geometry Primitives regression.
 - `CartesianFrame2` and `CartesianFrame3` implement only the authorized exact
-  maps. Their focused analytic contract passed on GCC 13 Debug and Clang 18
-  libc++ Debug; this does not yet qualify a cross-cell scientific claim.
+  maps. Their focused analytic contract passed on GCC 13 and Clang 18 libc++
+  Debug/Release; this does not yet qualify a revision-bound scientific claim.
 
 #### Geometry Primitives Regression
 
@@ -699,5 +699,5 @@ evidence correction, without production behavior change. The first `6fa00bd`
 attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
 INVESTIGATION. The bounded Transformations and Coordinate Frames entry decision
 now authorizes only exact 2D/3D Cartesian similarity frames. The bounded
-implementation and focused GCC/Clang Debug contract have passed; formal
-qualification has not started.
+implementation and focused GCC/Clang Debug/Release contract have passed;
+formal qualification has not started.

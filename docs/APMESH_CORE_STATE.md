@@ -57,8 +57,8 @@ distinct point/vector local-to-world and world-to-local mappings. General
 affine transforms, arbitrary rotations, inverses, predicates, topology, curves,
 surfaces, and meshing remain unauthorized. `CartesianFrame2` and
 `CartesianFrame3` now implement only this exact capability. Their focused
-analytic contract passed in the existing GCC 13 Debug and Clang 18 libc++ Debug
-builds. This is implementation evidence only; no revision-bound frame
+analytic contract passed in the existing GCC 13 and Clang 18 libc++
+Debug/Release builds. This is implementation evidence only; no revision-bound frame
 qualification has started.**
 
 Minimal Small Linear Algebra is QUALIFIED on clean published candidate
@@ -222,8 +222,8 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: review the bounded Cartesian frame implementation and its
-focused analytic evidence against
+Current first action: audit the bounded Cartesian frame implementation and its
+completed focused analytic evidence against
 `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
 Preserve the qualified `3804e90` LA evidence, blocked `6fa00bd` attempt,
 qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
