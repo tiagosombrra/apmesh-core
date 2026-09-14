@@ -215,21 +215,23 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
 8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
 9. `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
-10. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-11. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-12. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-13. `docs/research/REFERENCE_REGISTER.md`.
+10. `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`
+11. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+12. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+13. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+14. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: audit the bounded Cartesian frame implementation and its
-completed focused analytic evidence against
-`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
+Current first action: implement only the report-only `CF0`–`CF7` profile,
+exporter, collector, comparer, runner, retention checks, and focused tooling
+contracts fixed by
+`docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
 Preserve the qualified `3804e90` LA evidence, blocked `6fa00bd` attempt,
 qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
-selection-defect evidence. Do not create general transformations, formal
-qualification infrastructure, predicates, topology, curves, surfaces, meshing,
-or the cumulative stage regression.
+selection-defect evidence. Reuse `tools/experiment_runtime.py`; do not prepare a
+manifest, execute the qualification, create general transformations, or start
+predicates, topology, curves, surfaces, meshing, or the cumulative regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
@@ -237,7 +239,8 @@ qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
 QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
 has an accepted bounded entry decision, an implemented focused-contract
-candidate, and remains unqualified. The cumulative Geometry Primitives
+candidate, and a preregistered `CF0`–`CF7` protocol; its infrastructure is not
+implemented and it remains unqualified. The cumulative Geometry Primitives
 regression remains unqualified.
 
 ## Stage closure protocol

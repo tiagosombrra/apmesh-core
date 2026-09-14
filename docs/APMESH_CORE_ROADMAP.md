@@ -430,6 +430,8 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
 
 - Entry authority:
   `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
+- Qualification authority:
+  `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
 - Implement only exact Cartesian similarity frames in 2D/3D: finite origin,
   exact signed-permutation basis, and positive power-of-two scale.
 - Preserve distinct point/vector mapping: translation applies only to points.
@@ -442,6 +444,10 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
 - `CartesianFrame2` and `CartesianFrame3` implement only the authorized exact
   maps. Their focused analytic contract passed on GCC 13 and Clang 18 libc++
   Debug/Release; this does not yet qualify a revision-bound scientific claim.
+- The preregistered `CF0`–`CF7` protocol fixes one clean four-cell matrix, three
+  independent certificates per cell, exact cross-cell equivalence, prerequisite
+  preservation, and detached retention. Preparation is authorized; tooling,
+  manifest creation, execution, and scientific closure have not started.
 
 #### Geometry Primitives Regression
 
@@ -700,4 +706,5 @@ attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
 INVESTIGATION. The bounded Transformations and Coordinate Frames entry decision
 now authorizes only exact 2D/3D Cartesian similarity frames. The bounded
 implementation and focused GCC/Clang Debug/Release contract have passed;
-formal qualification has not started.
+the `CF0`–`CF7` protocol is preregistered, but its infrastructure and formal
+qualification have not started.
