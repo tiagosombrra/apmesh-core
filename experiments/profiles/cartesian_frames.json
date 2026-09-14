@@ -11,13 +11,15 @@
   ],
   "gates": ["CF0", "CF1", "CF2", "CF3", "CF4", "CF5", "CF6", "CF7"],
   "cases": [
-    "identity2_point", "identity2_vector", "quarter2_axis_x", "quarter2_axis_y",
-    "cycle3_axis_x", "cycle3_axis_y", "cycle3_axis_z", "reflection2_vector",
-    "scale_m8", "scale_m1", "scale_0", "scale_1", "scale_8",
-    "roundtrip2_point", "roundtrip2_vector", "roundtrip3_point", "roundtrip3_vector",
-    "affine2", "difference2", "metric_scale2", "compile_time_dimension_separation",
-    "reject_duplicate_basis2", "reject_nonunit_basis2", "reject_missing_basis2",
-    "mat2_nonfinite_rejection", "reject_scale_high", "reject_scale_low", "overflow_vector2"
+    "identity2_point", "identity2_vector", "identity3_point", "identity3_vector",
+    "accessor2_origin", "accessor2_exponent", "accessor3_origin", "accessor3_exponent",
+    "quarter2_axis_x", "quarter2_axis_y", "quarter2_point_x", "quarter2_point_y",
+    "cycle3_axis_x", "cycle3_axis_y", "cycle3_axis_z", "cycle3_point_x", "cycle3_point_y", "cycle3_point_z", "reflection2_vector",
+    "scale_m8", "scale_m8_point", "scale_m1", "scale_m1_point", "scale_0", "scale_0_point", "scale_1", "scale_1_point", "scale_8", "scale_8_point",
+    "roundtrip2_point", "roundtrip2_vector", "roundtrip3_point", "roundtrip3_vector", "roundtrip2_reverse_point", "roundtrip2_reverse_vector", "roundtrip3_reverse_point", "roundtrip3_reverse_vector",
+    "affine2", "difference2", "metric_scale2", "norm_scale2", "compile_time_dimension_separation",
+    "reject_duplicate_basis2", "reject_nonunit_basis2", "reject_missing_basis2", "accept_signed_zero_basis2", "reject_duplicate_basis3", "reject_nonunit_basis3", "reject_missing_basis3",
+    "mat2_nonfinite_rejection", "reject_scale_high", "reject_scale_low", "reject_scale_nonfinite_reciprocal", "accept_scale_high_boundary", "accept_scale_low_boundary", "overflow_vector2", "overflow_point2"
   ],
   "negative_cases": [
     "duplicate_case", "forged_value", "forged_error", "missing_case",
@@ -25,9 +27,17 @@
   ],
   "scale_exponents": [-8, -1, 0, 1, 8],
   "exact_prerequisite_tests": [
-    "apmesh_core.bootstrap_smoke", "apmesh_core.numeric_contract",
-    "apmesh_core.reproducible_experiment_evidence", "apmesh_core.geometry_primitives",
-    "apmesh_core.geometry_point_vector_evidence", "apmesh_core.minimal_small_linear_algebra"
+    "apmesh_core.bootstrap_smoke", "apmesh_core.bootstrap_export", "apmesh_core.bootstrap_tool",
+    "apmesh_core.architecture_bootstrap_runner", "apmesh_core.numeric_contract",
+    "apmesh_core.numeric_contract_evidence", "apmesh_core.numeric_contract_runner",
+    "apmesh_core.reproducible_experiment_evidence", "apmesh_core.reproducible_experiment_runner",
+    "apmesh_core.reproducible_experiment_retention", "apmesh_core.reproducible_experiment_negatives",
+    "apmesh_core.geometry_primitives", "apmesh_core.geometry_point_vector_evidence",
+    "apmesh_core.geometry_point_vector_runner", "apmesh_core.geometry_point_vector_retention",
+    "apmesh_core.geometry_point_vector_foundation_preservation",
+    "apmesh_core.minimal_small_linear_algebra", "apmesh_core.math_header_isolation",
+    "apmesh_core.minimal_small_linear_algebra_evidence", "apmesh_core.minimal_small_linear_algebra_runner",
+    "apmesh_core.minimal_small_linear_algebra_retention"
   ],
   "equivalence": {"rule": "exact_hex", "signed_zero_policy": "normalize_to_positive"},
   "limitations": [

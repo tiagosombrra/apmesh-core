@@ -11,7 +11,7 @@ import tempfile
 
 
 def verify(runner: str, package: pathlib.Path, expected: int) -> None:
-    result = subprocess.run([sys.executable, runner, "verify-retention", "--package", str(package)], text=True, capture_output=True, check=False)
+    result = subprocess.run([sys.executable, runner, "--source-root", str(package.parent), "--profile", str(package), "--protocol", str(package), "--validator", str(package), "--exporter", str(package), "--package", str(package), "verify-retention"], text=True, capture_output=True, check=False)
     if result.returncode != expected:
         raise RuntimeError(result.stderr)
 
@@ -23,7 +23,7 @@ def main() -> int:
         package = root / "package.json"; package.write_text(json.dumps({"status": "sealed", "formal_manifest": None, "entries": [{"path": str(artifact), "sha256": hashlib.sha256(artifact.read_bytes()).hexdigest()}]}), encoding="utf-8")
         verify(args.runner, package, 0)
         artifact.write_text("mutated\n", encoding="utf-8")
-        verify(args.runner, package, 1)
+        verify(args.runner, package, 2)
     return 0
 
 

@@ -27,7 +27,11 @@ def main() -> int:
         run([sys.executable, args.tool, "validate-profile", "--profile", args.profile])
         run([sys.executable, args.tool, "validate-certificate", "--profile", args.profile, "--certificate", str(certificate)])
         run([sys.executable, args.tool, "negative-self-check", "--profile", args.profile, "--certificate", str(certificate), "--output", str(negatives)])
-        index.write_text(json.dumps({"certificates": [str(certificate), str(certificate)]}), encoding="utf-8")
+        copies = []
+        for cell in ("gcc-debug", "gcc-release", "clang-debug", "clang-release"):
+            for repetition in range(1, 4):
+                copies.append({"cell": cell, "repetition": repetition, "path": str(certificate)})
+        index.write_text(json.dumps({"certificates": copies}), encoding="utf-8")
         run([sys.executable, args.tool, "compare", "--profile", args.profile, "--index", str(index), "--report", str(report)])
         if json.loads(report.read_text(encoding="utf-8")).get("equivalent") is not True:
             raise RuntimeError("comparison did not record equivalence")

@@ -447,8 +447,8 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
 - The preregistered `CF0`–`CF7` protocol fixes one clean four-cell matrix, three
   independent certificates per cell, exact cross-cell equivalence, prerequisite
   preservation, and detached retention. The report-only profile, exporter,
-  independent collector/comparer, runner, negative checks, and retention
-  verifier are implemented. Manifest creation, execution, and scientific
+  independent collector/comparer, revision-bound lifecycle runner, negative
+  checks, and retention verifier are implemented. Manifest creation, execution, and scientific
   closure have not started.
 
 #### Geometry Primitives Regression

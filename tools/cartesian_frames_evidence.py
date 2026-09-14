@@ -75,11 +75,22 @@ def values(items: list[Any], where: str) -> list[str]:
 EXPECTED: dict[str, tuple[str, str | None, list[str] | None]] = {
     "identity2_point": ("value", None, ["0x1.0000000000000p+0", "0x1.0000000000000p+1"]),
     "identity2_vector": ("value", None, ["0x1.0000000000000p+0", "0x1.0000000000000p+1"]),
+    "identity3_point": ("value", None, ["0x1.0000000000000p+0", "0x1.0000000000000p+1", "0x1.8000000000000p+1"]),
+    "identity3_vector": ("value", None, ["0x1.0000000000000p+0", "0x1.0000000000000p+1", "0x1.8000000000000p+1"]),
+    "accessor2_origin": ("value", None, ["0x1.4000000000000p+3", "0x1.4000000000000p+4"]),
+    "accessor2_exponent": ("value", None, ["0x1.0000000000000p+0"]),
+    "accessor3_origin": ("value", None, ["0x1.4000000000000p+2", "-0x1.0000000000000p+1", "0x1.0000000000000p+0"]),
+    "accessor3_exponent": ("value", None, ["-0x1.0000000000000p+0"]),
     "quarter2_axis_x": ("value", None, ["0x0.0p+0", "0x1.0000000000000p+1"]),
     "quarter2_axis_y": ("value", None, ["-0x1.0000000000000p+1", "0x0.0p+0"]),
+    "quarter2_point_x": ("value", None, ["0x1.4000000000000p+3", "0x1.6000000000000p+4"]),
+    "quarter2_point_y": ("value", None, ["0x1.0000000000000p+3", "0x1.4000000000000p+4"]),
     "cycle3_axis_x": ("value", None, ["0x0.0p+0", "0x0.0p+0", "0x1.0000000000000p-1"]),
     "cycle3_axis_y": ("value", None, ["0x1.0000000000000p-1", "0x0.0p+0", "0x0.0p+0"]),
     "cycle3_axis_z": ("value", None, ["0x0.0p+0", "0x1.0000000000000p-1", "0x0.0p+0"]),
+    "cycle3_point_x": ("value", None, ["0x1.4000000000000p+2", "-0x1.0000000000000p+1", "0x1.8000000000000p+0"]),
+    "cycle3_point_y": ("value", None, ["0x1.6000000000000p+2", "-0x1.0000000000000p+1", "0x1.0000000000000p+0"]),
+    "cycle3_point_z": ("value", None, ["0x1.4000000000000p+2", "-0x1.8000000000000p+0", "0x1.0000000000000p+0"]),
     "reflection2_vector": ("value", None, ["-0x1.0000000000000p+0", "0x1.0000000000000p+1"]),
     "scale_m8": ("value", None, ["0x1.0000000000000p-8", "0x0.0p+0"]),
     "scale_m1": ("value", None, ["0x1.0000000000000p-1", "0x0.0p+0"]),
@@ -90,18 +101,35 @@ EXPECTED: dict[str, tuple[str, str | None, list[str] | None]] = {
     "roundtrip2_vector": ("value", None, ["0x1.0000000000000p+0", "0x1.0000000000000p+1"]),
     "roundtrip3_point": ("value", None, ["0x1.0000000000000p+0", "0x1.0000000000000p+1", "0x1.8000000000000p+1"]),
     "roundtrip3_vector": ("value", None, ["0x1.0000000000000p+0", "0x1.0000000000000p+1", "0x1.8000000000000p+1"]),
+    "roundtrip2_reverse_point": ("value", None, ["0x1.8000000000000p+2", "0x1.6000000000000p+4"]),
+    "roundtrip2_reverse_vector": ("value", None, ["-0x1.0000000000000p+2", "0x1.0000000000000p+1"]),
+    "roundtrip3_reverse_point": ("value", None, ["0x1.8000000000000p+2", "-0x1.0000000000000p-1", "0x1.8000000000000p+0"]),
+    "roundtrip3_reverse_vector": ("value", None, ["0x1.0000000000000p+0", "0x1.8000000000000p+0", "0x1.0000000000000p-1"]),
     "affine2": ("value", None, ["0x0.0p+0", "0x0.0p+0"]),
     "difference2": ("value", None, ["-0x1.0000000000000p+2", "0x1.0000000000000p+1"]),
     "metric_scale2": ("value", None, ["0x1.0000000000000p+2"]),
+    "norm_scale2": ("value", None, ["0x1.0000000000000p+1"]),
     "compile_time_dimension_separation": ("compile_time_rejection", None, []),
     "reject_duplicate_basis2": ("error", "invalid_frame", None),
     "reject_nonunit_basis2": ("error", "invalid_frame", None),
     "reject_missing_basis2": ("error", "invalid_frame", None),
+    "accept_signed_zero_basis2": ("value", None, []),
+    "reject_duplicate_basis3": ("error", "invalid_frame", None),
+    "reject_nonunit_basis3": ("error", "invalid_frame", None),
+    "reject_missing_basis3": ("error", "invalid_frame", None),
     "mat2_nonfinite_rejection": ("error", "non_finite_input", None),
     "reject_scale_high": ("error", "scale_out_of_range", None),
     "reject_scale_low": ("error", "scale_out_of_range", None),
+    "reject_scale_nonfinite_reciprocal": ("error", "scale_out_of_range", None),
+    "accept_scale_high_boundary": ("value", None, []),
+    "accept_scale_low_boundary": ("value", None, []),
     "overflow_vector2": ("error", "non_finite_result", None),
+    "overflow_point2": ("error", "non_finite_result", None),
 }
+
+for _exponent in (-8, -1, 0, 1, 8):
+    _suffix = f"m{-_exponent}" if _exponent < 0 else str(_exponent)
+    EXPECTED[f"scale_{_suffix}_point"] = ("value", None, [float(2.0 ** _exponent).hex(), "0x0.0p+0"])
 
 
 def validate_profile(path: pathlib.Path) -> dict[str, Any]:
@@ -113,7 +141,7 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
         raise EvidenceError("profile is not the fixed report-only 3-repeat definition")
     if profile["gates"] != [f"CF{i}" for i in range(8)]:
         raise EvidenceError("profile gates must be CF0..CF7")
-    if profile["cases"] != list(EXPECTED):
+    if len(profile["cases"]) != len(EXPECTED) or set(profile["cases"]) != set(EXPECTED):
         raise EvidenceError("profile case list differs from independent oracle")
     if profile["scale_exponents"] != [-8, -1, 0, 1, 8]:
         raise EvidenceError("profile scale exponents differ")
@@ -156,23 +184,48 @@ def validate_certificate(profile: dict[str, Any], path: pathlib.Path) -> dict[st
             canonical = values(case["value"], case_id)
             if canonical != expected:
                 raise EvidenceError(f"{case_id}: exact value differs from independent oracle")
-        canonical_cases.append({"id": case_id, "outcome": outcome, "error": error, "value": canonical})
+        metadata = case_metadata(case_id)
+        canonical_cases.append({"schema_version": 1, "id": case_id, **metadata,
+                                "expected": {"outcome": outcome, "error": error, "value": expected},
+                                "observed": {"outcome": case["outcome"], "error": case["error"], "value": canonical},
+                                "comparison": {"rule": "exact_hex", "signed_zero_policy": "normalize_to_positive", "exact_match": True},
+                                "non_claims": ["orientation", "topology", "general_transform"]})
     if observed_ids != profile["cases"]:
         raise EvidenceError("certificate order or coverage differs from profile")
-    return {"schema_version": 1, "kind": "cartesian-frames-canonical-certificate", "cases": canonical_cases}
+    return {"schema_version": 1, "kind": "cartesian-frames-semantic-certificate", "cases": canonical_cases}
+
+
+def case_metadata(case_id: str) -> dict[str, Any]:
+    """Inputs are fixed protocol data, never read from observed output."""
+    dimension = 3 if "3" in case_id or case_id.startswith("cycle") else 2
+    category = "mapping"
+    operation = "local_to_world"
+    if case_id.startswith("roundtrip"): category, operation = "round_trip", "both_directions"
+    elif case_id.startswith("accessor"): category, operation = "accessor", "read_only"
+    elif case_id.startswith("reject_") or case_id.startswith("accept_") or "nonfinite" in case_id: category, operation = "construction", "frame_or_matrix_validation"
+    elif case_id.startswith("overflow"): category, operation = "failure", "mapped_result"
+    elif case_id.startswith("metric") or case_id.startswith("norm"): category, operation = "metric", "power_of_two_scaling"
+    elif case_id == "compile_time_dimension_separation": category, operation = "type_boundary", "compile_time_rejection"
+    elif case_id in {"affine2", "difference2"}: category, operation = "compatibility", "affine_or_difference"
+    return {"dimension": dimension, "operation": operation, "claim_category": category,
+            "inputs": {"scenario": case_id, "origin": "fixed_protocol", "basis": "fixed_protocol", "exponent": "fixed_protocol", "operand": "fixed_protocol"}}
 
 
 def compare(profile: dict[str, Any], index_path: pathlib.Path, report_path: pathlib.Path) -> None:
     index = read_json(index_path)
     require_keys(index, {"certificates"}, "comparison index")
-    raw_paths = index["certificates"]
-    if not isinstance(raw_paths, list) or not raw_paths:
-        raise EvidenceError("comparison needs at least one certificate")
-    projections = [validate_certificate(profile, pathlib.Path(item)) for item in raw_paths]
+    entries = index["certificates"]
+    expected_slots = [{"cell": cell["id"], "repetition": repeat} for cell in profile["cells"] for repeat in range(1, 4)]
+    if not isinstance(entries, list) or len(entries) != len(expected_slots):
+        raise EvidenceError("comparison requires exactly the fixed twelve certificate slots")
+    slots = [{"cell": entry.get("cell"), "repetition": entry.get("repetition")} for entry in entries if isinstance(entry, dict)]
+    if slots != expected_slots or any(not isinstance(entry.get("path"), str) for entry in entries):
+        raise EvidenceError("comparison slot identity differs")
+    projections = [validate_certificate(profile, pathlib.Path(entry["path"])) for entry in entries]
     first = json.dumps(projections[0], sort_keys=True, separators=(",", ":"))
     if any(json.dumps(item, sort_keys=True, separators=(",", ":")) != first for item in projections[1:]):
         raise EvidenceError("certificate projections differ")
-    write_json(report_path, {"schema_version": 1, "kind": "cartesian-frames-comparison", "status": "report_only", "certificate_count": len(projections), "equivalent": True})
+    write_json(report_path, {"schema_version": 1, "kind": "cartesian-frames-comparison", "status": "EVIDENCE_COLLECTED_PENDING_AUDIT", "certificate_count": len(projections), "expected_certificate_count": 12, "equivalent": True, "semantic_projection": projections[0]})
 
 
 def negative_self_check(profile: dict[str, Any], certificate_path: pathlib.Path, output: pathlib.Path) -> None:

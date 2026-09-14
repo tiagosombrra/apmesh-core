@@ -223,9 +223,9 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: implement only the report-only `CF0`–`CF7` profile,
-exporter, collector, comparer, runner, retention checks, and focused tooling
-contracts fixed by
+Current first action: audit the implemented report-only `CF0`–`CF7` profile,
+exporter, collector, comparer, revision-bound runner, retention checks, and
+focused tooling contracts fixed by
 `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
 Preserve the qualified `3804e90` LA evidence, blocked `6fa00bd` attempt,
 qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`

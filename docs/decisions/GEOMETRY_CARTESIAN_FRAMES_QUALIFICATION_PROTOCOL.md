@@ -200,7 +200,9 @@ Geometry Primitives stage remain unqualified.
 
 ## 10. Current decision
 
-**Protocol pre-registered; preparation authorized.** Tooling, profile, manifest,
-execution, evidence collection, and scientific closure have not started. The
-next bounded work may implement only the report-only CF0–CF7 infrastructure and
-its focused tooling contracts.
+**Protocol pre-registered; preparation authorized.** The report-only profile,
+exporter, independent collector/comparer, revision-bound lifecycle runner,
+negative contracts, and retention checks are implemented. No `PREPARED`
+manifest has been created, no execution has started, and no scientific closure
+has been recorded. The next bounded work is an admission audit; no manifest may
+be created without separate authorization.
