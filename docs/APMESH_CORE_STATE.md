@@ -239,8 +239,9 @@ qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
 QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
 has an accepted bounded entry decision, an implemented focused-contract
-candidate, and a preregistered `CF0`–`CF7` protocol; its infrastructure is not
-implemented and it remains unqualified. The cumulative Geometry Primitives
+candidate, a preregistered `CF0`–`CF7` protocol, and report-only infrastructure
+for profile/exporter/collector/comparer/runner/retention. No manifest has been
+prepared or executed, and it remains unqualified. The cumulative Geometry Primitives
 regression remains unqualified.
 
 ## Stage closure protocol

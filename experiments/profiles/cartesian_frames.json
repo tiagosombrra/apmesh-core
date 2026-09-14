@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "kind": "cartesian-frames-qualification-profile",
+  "status": "report_only_infrastructure",
+  "repetitions_per_cell": 3,
+  "cells": [
+    {"id": "gcc-debug", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Debug"},
+    {"id": "gcc-release", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Release"},
+    {"id": "clang-debug", "compiler": "Clang 18", "library": "libc++", "build_type": "Debug"},
+    {"id": "clang-release", "compiler": "Clang 18", "library": "libc++", "build_type": "Release"}
+  ],
+  "gates": ["CF0", "CF1", "CF2", "CF3", "CF4", "CF5", "CF6", "CF7"],
+  "cases": [
+    "identity2_point", "identity2_vector", "quarter2_axis_x", "quarter2_axis_y",
+    "cycle3_axis_x", "cycle3_axis_y", "cycle3_axis_z", "reflection2_vector",
+    "scale_m8", "scale_m1", "scale_0", "scale_1", "scale_8",
+    "roundtrip2_point", "roundtrip2_vector", "roundtrip3_point", "roundtrip3_vector",
+    "affine2", "difference2", "metric_scale2", "compile_time_dimension_separation",
+    "reject_duplicate_basis2", "reject_nonunit_basis2", "reject_missing_basis2",
+    "mat2_nonfinite_rejection", "reject_scale_high", "reject_scale_low", "overflow_vector2"
+  ],
+  "negative_cases": [
+    "duplicate_case", "forged_value", "forged_error", "missing_case",
+    "wrong_signed_zero_policy", "mutated_retention_hash"
+  ],
+  "scale_exponents": [-8, -1, 0, 1, 8],
+  "exact_prerequisite_tests": [
+    "apmesh_core.bootstrap_smoke", "apmesh_core.numeric_contract",
+    "apmesh_core.reproducible_experiment_evidence", "apmesh_core.geometry_primitives",
+    "apmesh_core.geometry_point_vector_evidence", "apmesh_core.minimal_small_linear_algebra"
+  ],
+  "equivalence": {"rule": "exact_hex", "signed_zero_policy": "normalize_to_positive"},
+  "limitations": [
+    "Report-only infrastructure only; no manifest is prepared and no formal qualification is executed",
+    "WSL Ubuntu 24.04 GCC 13 and Clang 18 libc++ envelope only",
+    "No general transformations, orientation, topology, curves, surfaces, meshes, parallelism, or native Windows claim"
+  ]
+}

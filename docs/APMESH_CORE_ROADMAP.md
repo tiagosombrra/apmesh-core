@@ -446,8 +446,10 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
   Debug/Release; this does not yet qualify a revision-bound scientific claim.
 - The preregistered `CF0`–`CF7` protocol fixes one clean four-cell matrix, three
   independent certificates per cell, exact cross-cell equivalence, prerequisite
-  preservation, and detached retention. Preparation is authorized; tooling,
-  manifest creation, execution, and scientific closure have not started.
+  preservation, and detached retention. The report-only profile, exporter,
+  independent collector/comparer, runner, negative checks, and retention
+  verifier are implemented. Manifest creation, execution, and scientific
+  closure have not started.
 
 #### Geometry Primitives Regression
 
