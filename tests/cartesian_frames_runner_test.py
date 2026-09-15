@@ -87,6 +87,8 @@ def main():
                 changed=r.read_json(file);changed["detail"]["candidate_commit"]="2"*40;r.write_json(file,changed)
             rejects(lambda:r.validate_prepared(control));file.write_bytes(original)
         r.execution_claim(control,evidence,m)
+        assert (evidence/"certificates").is_dir()
+        assert (evidence/"semantic").is_dir()
         rejects(lambda:r.execution_claim(control,evidence,m));rejects(lambda:r.validate_prepared(control))
         r.validate_prepared(control,unused=False)
         # A real failed child is retained, rather than replacing failure with a success mock.

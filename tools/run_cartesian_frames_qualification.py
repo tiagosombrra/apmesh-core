@@ -247,6 +247,8 @@ def runtime_paths(text,cell):
 
 def execution_claim(control,evidence,manifest):
     evidence.mkdir() # exclusive creation prevents two executions of the same plan
+    (evidence/"certificates").mkdir()
+    (evidence/"semantic").mkdir()
     claim={"prepared_sha256":sha256_file(control/"prepared-manifest.json"),"candidate_commit":manifest["candidate"]["commit"],"pid":os.getpid(),"started_utc":utc_now(),"execution_requested":True}
     with (evidence/"execution-claim.json").open("xb") as f:f.write(canonical_json(claim))
     write_state(control,"RUNNING",{"candidate_commit":manifest["candidate"]["commit"]})
