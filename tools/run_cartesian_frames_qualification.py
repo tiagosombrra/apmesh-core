@@ -213,14 +213,16 @@ def validate_observations(records,observations):
 
 def validate_build_metadata(cache,commands,build,cell,env,source):
     compiler,libcxx=CONFIGURATIONS[cell]
-    required={"CMAKE_CXX_COMPILER:FILEPATH":env["tools"][compiler]["path"],
-              "CMAKE_BUILD_TYPE:STRING":"Debug" if cell.endswith("debug") else "Release",
+    required={"CMAKE_BUILD_TYPE:STRING":"Debug" if cell.endswith("debug") else "Release",
               "CMAKE_HOME_DIRECTORY:INTERNAL":str(source),"APMESH_USE_LIBCXX:BOOL":"ON" if libcxx else "OFF"}
     entries=dict(line.split("=",1) for line in cache.splitlines() if "=" in line and not line.startswith("//"))
+    compiler_values=[entries[f"CMAKE_CXX_COMPILER:{kind}"] for kind in ("FILEPATH","STRING","UNINITIALIZED")
+                     if f"CMAKE_CXX_COMPILER:{kind}" in entries]
+    require(compiler_values and all(pathlib.Path(value).resolve()==pathlib.Path(env["tools"][compiler]["path"]).resolve()
+                                    for value in compiler_values),"cache compiler identity differs")
     for key,v in required.items():
         actual=entries.get(key)
-        if actual is None and key=="CMAKE_CXX_COMPILER:FILEPATH":actual=entries.get("CMAKE_CXX_COMPILER:UNINITIALIZED")
-        require(actual is not None and (pathlib.Path(actual).resolve()==pathlib.Path(v).resolve() if key.startswith("CMAKE_CXX_COMPILER") else actual==v),"cache identity differs: "+key)
+        require(actual is not None and actual==v,"cache identity differs: "+key)
     require(any(pathlib.Path(row["file"]).resolve()==source/"src/core/geometry.cpp" for row in commands),"geometry compile command absent")
     require(all(pathlib.Path(row["file"]).resolve().is_relative_to(source) for row in commands),"compile source escapes revision")
     require(all(pathlib.Path(row["directory"]).resolve()==build for row in commands),"compile build directory differs")

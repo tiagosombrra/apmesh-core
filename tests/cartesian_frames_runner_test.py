@@ -28,6 +28,19 @@ def main():
     build=pathlib.Path(a.exporter).resolve().parent
     actual_env=r.environment_identity()
     cache,commands=r.validate_cache(build,build.name,actual_env,source)
+    def compiler_cache(cache_type, value=None):
+        rows=[]; replaced=False
+        for row in cache.splitlines():
+            if row.startswith("CMAKE_CXX_COMPILER:"):
+                rows.append(f"CMAKE_CXX_COMPILER:{cache_type}="+(row.split("=",1)[1] if value is None else value))
+                replaced=True
+            else:rows.append(row)
+        assert replaced
+        return "\n".join(rows)+"\n"
+    for cache_type in ("FILEPATH","STRING","UNINITIALIZED"):
+        r.validate_build_metadata(compiler_cache(cache_type),commands,build,build.name,actual_env,source)
+    rejects(lambda:r.validate_build_metadata(compiler_cache("STRING","/compiler/path-mismatch"),
+        commands,build,build.name,actual_env,source))
     rejects(lambda:r.validate_build_metadata(cache.replace("CMAKE_BUILD_TYPE:STRING=","INVALID_BUILD_TYPE:STRING="),
         commands,build,build.name,actual_env,source))
     bad_commands=copy.deepcopy(commands);bad_commands[0]["file"]="/unrelated/source.cpp"
