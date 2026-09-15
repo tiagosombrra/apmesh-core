@@ -452,8 +452,14 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
   blocked by evidence-infrastructure gaps. The subsequent package adds 142
   recorded-input cases, rational formula recomputation, exact discovered
   prerequisites, source/process provenance and detached semantic retention.
-  Preparation remains subject to independent admission review. Formal manifest
-  creation, execution and scientific closure have not started.
+  The formal attempt on `008030f` is retained as
+  `BLOCKED_BY_EVIDENCE_OUTPUT_DIRECTORY_DEFECT`: its initial GCC Debug
+  certificate export could not write below the uncreated certificate directory;
+  no retry or CF-gate interpretation occurred. Commit `067df4d` creates the
+  certificate and semantic output directories during the exclusive evidence
+  claim and is limited to lifecycle infrastructure. A new independent admission
+  review is required before one new manifest with new external roots may be
+  prepared; Cartesian Frames remains unqualified.
 
 #### Geometry Primitives Regression
 

@@ -200,10 +200,11 @@ Geometry Primitives stage remain unqualified.
 
 ## 10. Current decision
 
-**Protocol pre-registered; preparation is not yet authorized.** Admission of
-`a3b1f4e` was blocked by incomplete recorded inputs, formula recomputation,
-prerequisite discovery, process provenance and retention. This is an
-infrastructure finding, not evidence of a Cartesian-frame production defect.
+**Protocol pre-registered; a new independent admission remains required.**
+Admission of `a3b1f4e` was blocked by incomplete recorded inputs, formula
+recomputation, prerequisite discovery, process provenance and retention. This
+is an infrastructure finding, not evidence of a Cartesian-frame production
+defect.
 
 The amended report-only package enumerates 142 cases with actual hexadecimal
 inputs in both dimensions. The exporter calls the qualified APIs; the separate
@@ -229,5 +230,14 @@ in structured evidence for revalidation.
 Focused development contracts, including disposable lifecycle/retention
 fixtures, passed in GCC 13 and Clang 18 libc++ Debug/Release (four selected
 CTests per build). They are not a formal PREPARED manifest or CF0–CF7 qualification.
-The next bounded action is an independent admission audit of the published
-package. No scientific gate is closed by this amendment.
+
+The formal attempt on `008030f` was retained as
+`BLOCKED_BY_EVIDENCE_OUTPUT_DIRECTORY_DEFECT`: its first GCC Debug certificate
+exporter could not create its output because `evidence/certificates/` had not
+been created. The terminal manifest records `gcc-debug-certificate-1` and
+`retry_attempted=false`; no CF gate was interpreted. Published commit `067df4d`
+creates the certificate and semantic output directories as part of the exclusive
+evidence claim, with a focused lifecycle contract. It changes neither production
+frame code nor the scientific profile. A new independent admission may now
+consider one new manifest with new external roots; no manifest is currently
+prepared and no scientific gate is closed.

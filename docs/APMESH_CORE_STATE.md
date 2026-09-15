@@ -245,9 +245,16 @@ was blocked; the subsequent package binds 142 recorded-input cases to a
 rational oracle, exact prerequisite discovery, process provenance and detached
 retention. Focused validation passed all four selected CTests in each WSL GCC 13
 and Clang 18 libc++ Debug/Release build (16/16); no production file or reviewed
-C++ contract changed. Preparation requires a new independent admission decision.
-No formal manifest has been prepared or executed, and the capability remains
-unqualified. The cumulative Geometry Primitives regression remains unqualified.
+C++ contract changed. The formal attempt on `008030f` is retained as
+`BLOCKED_BY_EVIDENCE_OUTPUT_DIRECTORY_DEFECT`: `gcc-debug-certificate-1` could
+not write below an uncreated `evidence/certificates/` directory; its terminal
+record has `retry_attempted=false` and no CF gate was interpreted. Commit
+`067df4d` creates the certificate and semantic output directories during the
+exclusive evidence claim and passed the focused lifecycle contract without
+changing production code or the scientific profile. A new independent admission
+decision is required before one new manifest with new external roots may be
+prepared. Cartesian Frames remains unqualified, and the cumulative Geometry
+Primitives regression remains unqualified.
 
 ## Stage closure protocol
 
