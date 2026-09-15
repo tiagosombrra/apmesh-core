@@ -27,7 +27,9 @@ def main():
         profile=r.validate_profile(original/r.PROFILE)
         # Retained failure payload revalidation is semantic; it cannot depend on the original path.
         shutil.copyfile(original/r.PROFILE,source/r.PROFILE)
-        for command in (["config","user.name","Contract Test"],["config","user.email","contract@example.invalid"],["add","tools","experiments/profiles/cartesian_frames.json"],["commit","-m","test fixture"]):
+        marker=source/"retention-fixture-marker.txt"
+        marker.write_text("retention contract fixture\n",encoding="utf-8")
+        for command in (["config","user.name","Contract Test"],["config","user.email","contract@example.invalid"],["add","tools","experiments/profiles/cartesian_frames.json",marker.name],["commit","-m","test fixture"]):
             r.git(source,*command)
         candidate=r.clean_candidate(source)
         control=root/"control";control.mkdir();evidence=root/"evidence"

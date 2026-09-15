@@ -26,8 +26,10 @@ def main():
     for tests in ([],profile["exact_prerequisite_tests"][:-1],profile["exact_prerequisite_tests"]+["extra"]):
         rejects(lambda:r.discovery(r.json.dumps({"tests":[{"name":n,"command":["true"]} for n in tests]}),profile["exact_prerequisite_tests"]))
     build=pathlib.Path(a.exporter).resolve().parent
+    cell=next((part.name for part in (build,*build.parents) if part.name in r.CONFIGURATIONS),None)
+    assert cell is not None
     actual_env=r.environment_identity()
-    cache,commands=r.validate_cache(build,build.name,actual_env,source)
+    cache,commands=r.validate_cache(build,cell,actual_env,source)
     def compiler_cache(cache_type, value=None):
         rows=[]; replaced=False
         for row in cache.splitlines():
@@ -38,13 +40,13 @@ def main():
         assert replaced
         return "\n".join(rows)+"\n"
     for cache_type in ("FILEPATH","STRING","UNINITIALIZED"):
-        r.validate_build_metadata(compiler_cache(cache_type),commands,build,build.name,actual_env,source)
+        r.validate_build_metadata(compiler_cache(cache_type),commands,build,cell,actual_env,source)
     rejects(lambda:r.validate_build_metadata(compiler_cache("STRING","/compiler/path-mismatch"),
-        commands,build,build.name,actual_env,source))
+        commands,build,cell,actual_env,source))
     rejects(lambda:r.validate_build_metadata(cache.replace("CMAKE_BUILD_TYPE:STRING=","INVALID_BUILD_TYPE:STRING="),
-        commands,build,build.name,actual_env,source))
+        commands,build,cell,actual_env,source))
     bad_commands=copy.deepcopy(commands);bad_commands[0]["file"]="/unrelated/source.cpp"
-    rejects(lambda:r.validate_build_metadata(cache,bad_commands,build,build.name,actual_env,source))
+    rejects(lambda:r.validate_build_metadata(cache,bad_commands,build,cell,actual_env,source))
     import subprocess
     # Discovery in a separate directory avoids overwriting the enclosing CTest's logs.
     with tempfile.TemporaryDirectory(prefix="cf-discovery-contract-") as discovery_dir:
@@ -63,8 +65,8 @@ def main():
     r.dependency_check(deps.stdout)
     rejects(lambda:r.dependency_check(deps.stdout.replace("/apmesh/math/linear_algebra.hpp","/missing.hpp")))
     runtime=subprocess.run(["/usr/bin/ldd",a.exporter],check=True,capture_output=True,text=True)
-    r.runtime_paths(runtime.stdout,build.name)
-    rejects(lambda:r.runtime_paths(runtime.stdout+"\nlibunexpected.so => /tmp/libunexpected.so (0x0)",build.name))
+    r.runtime_paths(runtime.stdout,cell)
+    rejects(lambda:r.runtime_paths(runtime.stdout+"\nlibunexpected.so => /tmp/libunexpected.so (0x0)",cell))
     with tempfile.TemporaryDirectory(prefix="cf-lifecycle-contract-") as temp:
         root=pathlib.Path(temp);control=root/"control";control.mkdir();evidence=root/"evidence"
         checks=r.source_checks(source)
