@@ -1,0 +1,21 @@
+Internal ctest changing into directory: /mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-release/build
+Test project /mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-release/build
+    Start 4: apmesh_core.minimal_small_linear_algebra
+1/5 Test #4: apmesh_core.minimal_small_linear_algebra .............   Passed    0.00 sec
+    Start 5: apmesh_core.math_header_isolation
+2/5 Test #5: apmesh_core.math_header_isolation ....................   Passed    0.00 sec
+    Start 6: apmesh_core.minimal_small_linear_algebra_evidence
+3/5 Test #6: apmesh_core.minimal_small_linear_algebra_evidence ....   Passed    0.58 sec
+    Start 7: apmesh_core.minimal_small_linear_algebra_runner
+4/5 Test #7: apmesh_core.minimal_small_linear_algebra_runner ......   Passed    3.12 sec
+    Start 8: apmesh_core.minimal_small_linear_algebra_retention
+5/5 Test #8: apmesh_core.minimal_small_linear_algebra_retention ...   Passed    0.12 sec
+
+100% tests passed, 0 tests failed out of 5
+
+Label Time Summary:
+contract    =   3.83 sec*proc (5 tests)
+geometry    =   3.83 sec*proc (5 tests)
+math        =   3.83 sec*proc (5 tests)
+
+Total Test time (real) =   3.91 sec

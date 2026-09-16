@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Linux-g++-13"
+	tests="12"
+	failures="0"
+	disabled="0"
+	skipped="0"
+	hostname="DellProMicro"
+	time="23"
+	timestamp="2026-09-08T15:19:48"
+	>
+	<testcase name="apmesh_core.bootstrap_smoke" classname="apmesh_core.bootstrap_smoke" time="0.00296358" status="run">
+		<properties>
+			<property name="cmake_labels" value="bootstrap;contract"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.numeric_contract" classname="apmesh_core.numeric_contract" time="0.00292472" status="run">
+		<properties>
+			<property name="cmake_labels" value="contract;numeric"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.numeric_contract_evidence" classname="apmesh_core.numeric_contract_evidence" time="0.460851" status="run">
+		<properties>
+			<property name="cmake_labels" value="contract;numeric"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.numeric_contract_runner" classname="apmesh_core.numeric_contract_runner" time="0.48705" status="run">
+		<properties>
+			<property name="cmake_labels" value="contract;numeric"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.reproducible_experiment_evidence" classname="apmesh_core.reproducible_experiment_evidence" time="0.122594" status="run">
+		<properties>
+			<property name="cmake_labels" value="contract;reproducibility"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.reproducible_experiment_runner" classname="apmesh_core.reproducible_experiment_runner" time="1.03842" status="run">
+		<properties>
+			<property name="cmake_labels" value="contract;reproducibility"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.reproducible_experiment_retention" classname="apmesh_core.reproducible_experiment_retention" time="1.82088" status="run">
+		<properties>
+			<property name="cmake_labels" value="contract;reproducibility"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.reproducible_experiment_negatives" classname="apmesh_core.reproducible_experiment_negatives" time="0.852629" status="run">
+		<properties>
+			<property name="cmake_labels" value="contract;reproducibility"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.foundation_end_to_end_evidence" classname="apmesh_core.foundation_end_to_end_evidence" time="17.3671" status="run">
+		<properties>
+			<property name="cmake_labels" value="contract;foundation;reproducibility"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.bootstrap_export" classname="apmesh_core.bootstrap_export" time="0.0623811" status="run">
+		<properties>
+			<property name="cmake_labels" value="bootstrap;contract"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.bootstrap_tool" classname="apmesh_core.bootstrap_tool" time="0.733282" status="run">
+		<properties>
+			<property name="cmake_labels" value="bootstrap;contract"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+	<testcase name="apmesh_core.architecture_bootstrap_runner" classname="apmesh_core.architecture_bootstrap_runner" time="0.412086" status="run">
+		<properties>
+			<property name="cmake_labels" value="bootstrap;contract"/>
+		</properties>
+		<system-out></system-out>
+	</testcase>
+</testsuite>

@@ -1,0 +1,37 @@
+Internal ctest changing into directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/clang-debug
+Test project /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/clang-debug
+      Start  1: apmesh_core.bootstrap_smoke
+ 1/12 Test  #1: apmesh_core.bootstrap_smoke .....................   Passed    0.00 sec
+      Start  2: apmesh_core.numeric_contract
+ 2/12 Test  #2: apmesh_core.numeric_contract ....................   Passed    0.00 sec
+      Start  3: apmesh_core.numeric_contract_evidence
+ 3/12 Test  #3: apmesh_core.numeric_contract_evidence ...........   Passed    0.42 sec
+      Start  4: apmesh_core.numeric_contract_runner
+ 4/12 Test  #4: apmesh_core.numeric_contract_runner .............   Passed    0.39 sec
+      Start  5: apmesh_core.reproducible_experiment_evidence
+ 5/12 Test  #5: apmesh_core.reproducible_experiment_evidence ....   Passed    0.11 sec
+      Start  6: apmesh_core.reproducible_experiment_runner
+ 6/12 Test  #6: apmesh_core.reproducible_experiment_runner ......   Passed    1.15 sec
+      Start  7: apmesh_core.reproducible_experiment_retention
+ 7/12 Test  #7: apmesh_core.reproducible_experiment_retention ...   Passed    1.75 sec
+      Start  8: apmesh_core.reproducible_experiment_negatives
+ 8/12 Test  #8: apmesh_core.reproducible_experiment_negatives ...   Passed    0.84 sec
+      Start  9: apmesh_core.foundation_end_to_end_evidence
+ 9/12 Test  #9: apmesh_core.foundation_end_to_end_evidence ......   Passed   16.52 sec
+      Start 10: apmesh_core.bootstrap_export
+10/12 Test #10: apmesh_core.bootstrap_export ....................   Passed    0.06 sec
+      Start 11: apmesh_core.bootstrap_tool
+11/12 Test #11: apmesh_core.bootstrap_tool ......................   Passed    0.72 sec
+      Start 12: apmesh_core.architecture_bootstrap_runner
+12/12 Test #12: apmesh_core.architecture_bootstrap_runner .......   Passed    0.39 sec
+
+100% tests passed, 0 tests failed out of 12
+
+Label Time Summary:
+bootstrap          =   1.17 sec*proc (4 tests)
+contract           =  22.37 sec*proc (12 tests)
+foundation         =  16.52 sec*proc (1 test)
+numeric            =   0.82 sec*proc (3 tests)
+reproducibility    =  20.38 sec*proc (5 tests)
+
+Total Test time (real) =  22.43 sec

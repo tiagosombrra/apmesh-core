@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-12
+Last updated: 2026-09-16
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -298,6 +298,11 @@ retains four clean compiler/build cells, two replays per cell, 586 sealed files,
 and no dependency or contract-test finding. The only retained limitations are
 the declared WSL Ubuntu 24.04 envelope and the exclusion of geometry, topology,
 meshing, convergence, performance, parallel equivalence, and native Windows.
+The canonical retained package is
+`evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`; all 586 declared
+entries were recovered from the original package and verified by size and
+SHA-256 against retention manifest
+`bbd316c8084a6bb4fd862112288ee6d826870ca63589977e77d0453916a7b937`.
 
 Stage exit gate: all three contracts reviewed; minimal C++23 library builds from a clean checkout; one deterministic smoke experiment is fully reproducible from manifest to certificate and figure; Foundation End-to-End Regression passes.
 
@@ -423,6 +428,13 @@ Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
   `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION.md`.
   The blocked `6fa00bd` attempt remains negative evidence; neither production
   math nor Geometry behavior changed.
+- Durable-retention audit (2026-09-16): the original package was located and
+  copied byte-for-byte to
+  `evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/`.
+  All 201 manifest-declared entries passed size and SHA-256 verification against
+  retention manifest
+  `24894a2cf9875254862a27ac80582d2652a2543c891a59ed7920478d7c6aeb65`;
+  reproducible build/cache extras were not imported.
 
 #### Transformations and Coordinate Frames
 
@@ -650,7 +662,9 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current branch: `geometry/minimal-small-linear-algebra-contract`.
+Current integration work: isolate the qualified Minimal Small Linear Algebra
+candidate from later Geometry work, then validate the isolated candidate on a
+clean four-cell regression before opening an integration PR.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -661,8 +675,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / preserve qualified
-Point/Vector and Minimal Small Linear Algebra evidence**
+**Geometry Primitives — integrate qualified Minimal Small Linear Algebra**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only

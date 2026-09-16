@@ -25,6 +25,15 @@ rejections, retention manifest, and detached verification. It retains 201
 files and 18 required paths while excluding reproducible build trees, caches,
 object files, and binaries.
 
+The original package was located without reconstruction and retained
+byte-for-byte at
+`evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/`.
+Its retention manifest has SHA-256
+`24894a2cf9875254862a27ac80582d2652a2543c891a59ed7920478d7c6aeb65`.
+Independent size and SHA-256 verification of all 201 declared entries found
+zero missing or mismatched files. The 169 source-side build/cache artifacts not
+declared by the manifest were intentionally excluded as reproducible extras.
+
 ## Execution and audit
 
 The one authorized execution used GCC 13/libstdc++ and Clang 18/libc++, each

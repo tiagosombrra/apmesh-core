@@ -1,0 +1,80 @@
+[
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/bootstrap.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/bootstrap.cpp",
+  "output": "CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core.dir/src/core/geometry.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/geometry.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/geometry.cpp",
+  "output": "CMakeFiles/apmesh_core.dir/src/core/geometry.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/numeric.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/numeric.cpp",
+  "output": "CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core.dir/src/math/linear_algebra.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/math/linear_algebra.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/math/linear_algebra.cpp",
+  "output": "CMakeFiles/apmesh_core.dir/src/math/linear_algebra.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core_bootstrap_export.dir/experiments/bootstrap_export.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/bootstrap_export.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/bootstrap_export.cpp",
+  "output": "CMakeFiles/apmesh_core_bootstrap_export.dir/experiments/bootstrap_export.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core_numeric_contract_export.dir/experiments/numeric_contract_export.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/numeric_contract_export.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/numeric_contract_export.cpp",
+  "output": "CMakeFiles/apmesh_core_numeric_contract_export.dir/experiments/numeric_contract_export.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core_geometry_point_vector_export.dir/experiments/geometry_point_vector_export.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/geometry_point_vector_export.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/geometry_point_vector_export.cpp",
+  "output": "CMakeFiles/apmesh_core_geometry_point_vector_export.dir/experiments/geometry_point_vector_export.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core_minimal_small_linear_algebra_export.dir/experiments/minimal_small_linear_algebra_export.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/minimal_small_linear_algebra_export.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/minimal_small_linear_algebra_export.cpp",
+  "output": "CMakeFiles/apmesh_core_minimal_small_linear_algebra_export.dir/experiments/minimal_small_linear_algebra_export.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core_bootstrap_smoke.dir/tests/bootstrap_smoke.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/bootstrap_smoke.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/bootstrap_smoke.cpp",
+  "output": "CMakeFiles/apmesh_core_bootstrap_smoke.dir/tests/bootstrap_smoke.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core_numeric_contract.dir/tests/numeric_contract.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/numeric_contract.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/numeric_contract.cpp",
+  "output": "CMakeFiles/apmesh_core_numeric_contract.dir/tests/numeric_contract.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core.geometry_primitives.dir/tests/geometry_primitives.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/geometry_primitives.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/geometry_primitives.cpp",
+  "output": "CMakeFiles/apmesh_core.geometry_primitives.dir/tests/geometry_primitives.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core.minimal_small_linear_algebra.dir/tests/minimal_small_linear_algebra.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/minimal_small_linear_algebra.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/minimal_small_linear_algebra.cpp",
+  "output": "CMakeFiles/apmesh_core.minimal_small_linear_algebra.dir/tests/minimal_small_linear_algebra.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build",
+  "command": "/usr/bin/clang++-18 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -stdlib=libc++ -o CMakeFiles/apmesh_core.math_header_isolation.dir/tests/math_header_isolation.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/math_header_isolation.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/math_header_isolation.cpp",
+  "output": "CMakeFiles/apmesh_core.math_header_isolation.dir/tests/math_header_isolation.cpp.o"
+}
+]

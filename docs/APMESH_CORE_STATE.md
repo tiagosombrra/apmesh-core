@@ -1,9 +1,10 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-13
+Last updated: 2026-09-16
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: `geometry/minimal-small-linear-algebra-contract`
+Working branch: verify with Git; the current bounded target is the LA-only
+integration candidate.
 
 ## Purpose
 
@@ -57,7 +58,13 @@ four-cell execution with three certificates per cell, exact prerequisite
 preservation, expected negative rejections, retention, and detached
 verification. The first `6fa00bd` attempt remains immutable BLOCKED evidence
 for underdeclared signed-zero equivalence. The correction changed evidence
-semantics only; production math and Geometry behavior are unchanged.**
+semantics only; production math and Geometry behavior are unchanged. The
+original 201-file retained package is preserved at
+`evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/`;
+its retention manifest has SHA-256
+`24894a2cf9875254862a27ac80582d2652a2543c891a59ed7920478d7c6aeb65`.
+The current bounded work is a clean LA-only integration regression; no later
+Geometry component is included.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -107,6 +114,10 @@ Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidat
 revision-bound evidence; the separate audit made the scientific closure
 decision. Historical REC evidence at `85d215a` remained a qualified comparison
 baseline and did not substitute for current-candidate FND2, FND4, or FND6.
+The original 586-file retained package is preserved at
+`evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`; its retention
+manifest has SHA-256
+`bbd316c8084a6bb4fd862112288ee6d826870ca63589977e77d0453916a7b937`.
 
 The retained limitations are unchanged: qualification is restricted to WSL
 Ubuntu 24.04 and makes no native-Windows, geometry, topology, meshing,
@@ -214,12 +225,11 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: no new Geometry implementation is authorized. Preserve
-the qualified `3804e90` LA evidence, the blocked `6fa00bd` attempt, qualified
-`ededf65` Point/Vector evidence, and negative `b7f8fe9` selection-defect
-evidence. A separate scientific entry decision is required before
-Transformations and Coordinate Frames, predicates, topology, curves, surfaces,
-meshing, or the Geometry Primitives stage regression.
+Current first action: validate the isolated LA-only integration candidate with
+the clean four-cell regression. Preserve the qualified `3804e90` LA evidence,
+the blocked `6fa00bd` attempt, qualified `ededf65` Point/Vector evidence, and
+negative `b7f8fe9` selection-defect evidence. No later Geometry implementation
+is authorized by this integration work.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are

@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-fpr-b333755-evidence/prerequisites/numeric-contract/architecture/cells/gcc-debug/build",
+  "command": "/usr/bin/g++-13 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/bootstrap.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/bootstrap.cpp",
+  "output": "CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-fpr-b333755-evidence/prerequisites/numeric-contract/architecture/cells/gcc-debug/build",
+  "command": "/usr/bin/g++-13 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/numeric.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/src/core/numeric.cpp",
+  "output": "CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-fpr-b333755-evidence/prerequisites/numeric-contract/architecture/cells/gcc-debug/build",
+  "command": "/usr/bin/g++-13 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/apmesh_core_bootstrap_export.dir/experiments/bootstrap_export.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/bootstrap_export.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/bootstrap_export.cpp",
+  "output": "CMakeFiles/apmesh_core_bootstrap_export.dir/experiments/bootstrap_export.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-fpr-b333755-evidence/prerequisites/numeric-contract/architecture/cells/gcc-debug/build",
+  "command": "/usr/bin/g++-13 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/apmesh_core_numeric_contract_export.dir/experiments/numeric_contract_export.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/numeric_contract_export.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/experiments/numeric_contract_export.cpp",
+  "output": "CMakeFiles/apmesh_core_numeric_contract_export.dir/experiments/numeric_contract_export.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-fpr-b333755-evidence/prerequisites/numeric-contract/architecture/cells/gcc-debug/build",
+  "command": "/usr/bin/g++-13 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/apmesh_core_bootstrap_smoke.dir/tests/bootstrap_smoke.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/bootstrap_smoke.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/bootstrap_smoke.cpp",
+  "output": "CMakeFiles/apmesh_core_bootstrap_smoke.dir/tests/bootstrap_smoke.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-fpr-b333755-evidence/prerequisites/numeric-contract/architecture/cells/gcc-debug/build",
+  "command": "/usr/bin/g++-13 -I/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/include -g -std=c++23 -Wall -Wextra -Wpedantic -Werror -o CMakeFiles/apmesh_core_numeric_contract.dir/tests/numeric_contract.cpp.o -c /mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/numeric_contract.cpp",
+  "file": "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core/tests/numeric_contract.cpp",
+  "output": "CMakeFiles/apmesh_core_numeric_contract.dir/tests/numeric_contract.cpp.o"
+}
+]

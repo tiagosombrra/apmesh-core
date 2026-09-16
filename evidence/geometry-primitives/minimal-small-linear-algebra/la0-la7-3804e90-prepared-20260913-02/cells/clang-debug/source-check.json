@@ -1,0 +1,1 @@
+{"checks":{"math_header_has_no_geometry_include":"PASS","math_source_has_no_geometry_include":"PASS","no_inverse_solve_decomposition_eigen_or_predicate_api":"PASS","no_unsafe_floating_flags":"PASS","single_core_target_no_external_link":"PASS","transitive_module_dependencies":"PASS"},"kind":"minimal-small-linear-algebra-source-check","schema_version":1}

@@ -1,0 +1,72 @@
+Internal ctest changing into directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+UpdateCTestConfiguration  from :/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/DartConfiguration.tcl
+Parse Config file:/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/DartConfiguration.tcl
+UpdateCTestConfiguration  from :/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/DartConfiguration.tcl
+Parse Config file:/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/DartConfiguration.tcl
+Test project /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+
+1: Test command: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/apmesh_core_bootstrap_smoke
+1: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: bootstrap contract
+  Test  #1: apmesh_core.bootstrap_smoke
+
+2: Test command: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/apmesh_core_numeric_contract
+2: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: contract numeric
+  Test  #2: apmesh_core.numeric_contract
+
+3: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/numeric_contract_evidence_test.py" "--exporter" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/apmesh_core_numeric_contract_export" "--tool" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/numeric_contract_evidence.py" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/numeric_contract.json" "--compile-commands" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/compile_commands.json"
+3: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: contract numeric
+  Test  #3: apmesh_core.numeric_contract_evidence
+
+4: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/numeric_contract_runner_test.py" "--runner" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/run_numeric_contract_regression.py" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/numeric_contract.json" "--protocol" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/docs/decisions/FOUNDATION_NUMERIC_CONTRACT_QUALIFICATION.md" "--validator" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/numeric_contract_evidence.py" "--architecture-evidence" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md" "--architecture-runner" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/run_architecture_bootstrap_regression.py" "--architecture-profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/architecture_bootstrap.json" "--architecture-expected" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/expected/bootstrap_certificate.json" "--architecture-comparer" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/bootstrap_regression.py"
+4: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: contract numeric
+  Test  #4: apmesh_core.numeric_contract_runner
+
+5: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/reproducible_experiment_evidence_test.py" "--tool" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/reproducible_experiment_evidence.py" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/reproducible_experiment_contract.json"
+5: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: contract reproducibility
+  Test  #5: apmesh_core.reproducible_experiment_evidence
+
+6: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/reproducible_experiment_runner_test.py" "--runner" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/run_reproducible_experiment_contract.py" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/reproducible_experiment_contract.json" "--contract" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/docs/contracts/APMESH_CORE_REPRODUCIBLE_EXPERIMENT_CONTRACT.md" "--protocol" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/docs/decisions/FOUNDATION_REPRODUCIBLE_EXPERIMENT_QUALIFICATION.md" "--collector" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/reproducible_experiment_evidence.py"
+6: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: contract reproducibility
+  Test  #6: apmesh_core.reproducible_experiment_runner
+
+7: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/reproducible_experiment_retention_test.py" "--tool" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/retain_experiment_evidence.py" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/reproducible_experiment_contract.json"
+7: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: contract reproducibility
+  Test  #7: apmesh_core.reproducible_experiment_retention
+
+8: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/reproducible_experiment_negatives_test.py" "--tool" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/reproducible_experiment_negative.py" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/reproducible_experiment_contract.json"
+8: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: contract reproducibility
+  Test  #8: apmesh_core.reproducible_experiment_negatives
+
+9: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/foundation_end_to_end_evidence_test.py" "--tool" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/foundation_end_to_end_evidence.py" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/foundation_end_to_end.json" "--rec-profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/reproducible_experiment_contract.json"
+9: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: contract foundation reproducibility
+  Test  #9: apmesh_core.foundation_end_to_end_evidence
+
+10: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/bootstrap_export_test.py" "--exporter" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release/apmesh_core_bootstrap_export" "--expected" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/expected/bootstrap_certificate.json"
+10: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: bootstrap contract
+  Test #10: apmesh_core.bootstrap_export
+
+11: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/bootstrap_regression_tool_test.py" "--tool" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/bootstrap_regression.py" "--expected" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/expected/bootstrap_certificate.json" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/architecture_bootstrap.json" "--data-dir" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/data/bootstrap_regression"
+11: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: bootstrap contract
+  Test #11: apmesh_core.bootstrap_tool
+
+12: Test command: /usr/bin/python3 "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tests/architecture_bootstrap_runner_test.py" "--runner" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/run_architecture_bootstrap_regression.py" "--profile" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/profiles/architecture_bootstrap.json" "--protocol" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/docs/decisions/FOUNDATION_ARCHITECTURE_BOOTSTRAP_REGRESSION.md" "--expected" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/experiments/expected/bootstrap_certificate.json" "--comparer" "/mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/verification-source/tools/bootstrap_regression.py"
+12: Working Directory: /mnt/c/Users/tiago/Documents/dev/research/apmesh-core-foundation-postexec-b333755-r5/admission-inputs/build/gcc-release
+Labels: bootstrap contract
+  Test #12: apmesh_core.architecture_bootstrap_runner
+
+Total Tests: 12
