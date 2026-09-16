@@ -52,6 +52,8 @@ def main():
                 assert e.oracle(case)["error"]==expected
         bad=copy.deepcopy(profile);bad["cases"].pop()
         e.write_json(root/"bad-profile.json",bad);rejected(lambda:e.validate_profile(root/"bad-profile.json"))
+        bad=copy.deepcopy(profile);bad["limitations"][0]="Report-only infrastructure only; no manifest is prepared and no formal qualification is executed"
+        e.write_json(root/"bad-profile-lifecycle.json",bad);rejected(lambda:e.validate_profile(root/"bad-profile-lifecycle.json"))
     print("PASS: 142 input-bound cases, 12 independent focused exporter processes, oracle and mutation checks")
     return 0
 if __name__=="__main__":raise SystemExit(main())

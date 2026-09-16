@@ -261,9 +261,16 @@ GCC/libstdc++ or Clang/libc++ build toolchain from the executable's dynamic
 closure, recording the expected standard library as `present` or `not_needed`
 while continuing to reject unresolved, opposite, or undeclared libraries.
 Positive and negative focused contracts passed in all four build cells (16/16).
-A new independent admission decision is required before one new manifest with
-new external roots may be prepared. Cartesian Frames remains unqualified, and
-the cumulative Geometry Primitives regression remains unqualified.
+The manifest `c91ef37789e590f658455153f85cfc981646c8483ac395ebc796bd25d185a92f`
+was then prepared against `948a868`, but is retained as
+`BLOCKED_BY_PROFILE_LIFECYCLE_DESCRIPTION_DEFECT`: its sealed profile stated
+that no manifest was prepared, contradicting its own `PREPARED` lifecycle.
+It was not executed and no CF gate was interpreted. The lifecycle limitation
+now permits report-only preparation and execution while reserving qualification
+for an independent CF0-CF7 audit. A new independent admission decision is
+required before another manifest with new external roots may be prepared.
+Cartesian Frames remains unqualified, and the cumulative Geometry Primitives
+regression remains unqualified.
 
 ## Stage closure protocol
 

@@ -466,8 +466,15 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
   expected standard library as dynamic `present` or `not_needed`, while still
   rejecting unresolved, opposite, or undeclared libraries and retaining paths
   and hashes. Its focused positive/negative contracts pass in all four cells.
-  A new independent admission review is required before another manifest may be
-  prepared; Cartesian Frames remains unqualified.
+  The prepared manifest
+  `c91ef37789e590f658455153f85cfc981646c8483ac395ebc796bd25d185a92f` is
+  retained as `BLOCKED_BY_PROFILE_LIFECYCLE_DESCRIPTION_DEFECT`: its sealed
+  profile contradicted its own `PREPARED` state by stating that no manifest was
+  prepared. It was not executed and no CF gate was interpreted. The corrected
+  lifecycle limitation permits report-only preparation and execution while
+  reserving qualification for an independent CF0-CF7 audit. A new independent
+  admission review is required before another manifest may be prepared;
+  Cartesian Frames remains unqualified.
 
 #### Geometry Primitives Regression
 

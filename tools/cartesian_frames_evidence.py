@@ -21,6 +21,10 @@ OPERATIONS = {"identity","map","translation","roundtrip","origin","basis","expon
               "construct","affine","difference","dot","norm","type_separation"}
 HEX = re.compile(r"-?0x[0-9a-f]+(?:\.[0-9a-f]*)?p[+-][0-9]+")
 CELLS = ["gcc-debug","gcc-release","clang-debug","clang-release"]
+LIFECYCLE_LIMITATION = (
+    "Report-only infrastructure may prepare and execute evidence; only an independent "
+    "CF0-CF7 audit can qualify Cartesian Frames"
+)
 
 def require(ok: bool, reason: str) -> None:
     if not ok: raise EvidenceError(reason)
@@ -58,6 +62,7 @@ def validate_profile(path: pathlib.Path) -> dict[str,Any]:
     require_exact_keys(p,{"schema_version","kind","status","repetitions_per_cell","cells","gates","cases","negative_cases","scale_exponents","exact_prerequisite_tests","equivalence","limitations","certificate_fields","baselines"},"profile")
     require(p["schema_version"]==2 and p["kind"]=="cartesian-frames-qualification-profile", "profile schema")
     require(p["status"]=="report_only_infrastructure" and p["repetitions_per_cell"]==3, "profile lifecycle")
+    require(p["limitations"][0]==LIFECYCLE_LIMITATION, "profile lifecycle limitation")
     require(p["cells"]==[{"id":c,"compiler":"GCC 13" if c.startswith("gcc") else "Clang 18",
         "library":"libstdc++" if c.startswith("gcc") else "libc++",
         "build_type":"Debug" if c.endswith("debug") else "Release"} for c in CELLS], "matrix differs")

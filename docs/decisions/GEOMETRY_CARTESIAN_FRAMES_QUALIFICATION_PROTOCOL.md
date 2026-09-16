@@ -260,5 +260,11 @@ incorrectly required a dynamic `libstdc++` entry from every GCC executable.
 There was no retry and no CF-gate interpretation. The current amendment records
 `present` versus `not_needed`, while still rejecting unresolved, opposite, or
 undeclared libraries and preserving paths and hashes. Its positive and negative
-GCC/Clang contracts passed in all four build cells; a new independent admission
-is required before another manifest may be prepared.
+GCC/Clang contracts passed in all four build cells. The subsequently prepared
+manifest `c91ef37789e590f658455153f85cfc981646c8483ac395ebc796bd25d185a92f`
+is retained as `BLOCKED_BY_PROFILE_LIFECYCLE_DESCRIPTION_DEFECT`: its sealed
+profile stated that no manifest was prepared, contradicting its own `PREPARED`
+state. It was not executed and no CF gate was interpreted. The corrected
+lifecycle limitation permits report-only preparation and execution while
+reserving qualification for an independent CF0-CF7 audit. A new independent
+admission is required before another manifest may be prepared.

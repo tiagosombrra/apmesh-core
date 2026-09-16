@@ -85,7 +85,7 @@
     "signed_zero_policy": "normalize_to_positive"
   },
   "limitations": [
-    "Report-only infrastructure only; no manifest is prepared and no formal qualification is executed",
+    "Report-only infrastructure may prepare and execute evidence; only an independent CF0-CF7 audit can qualify Cartesian Frames",
     "WSL Ubuntu 24.04 GCC 13 and Clang 18 libc++ envelope only",
     "No general transformations, orientation, topology, curves, surfaces, meshes, parallelism, or native Windows claim"
   ],
