@@ -33,11 +33,14 @@ def main():
             r.git(source,*command)
         candidate=r.clean_candidate(source)
         control=root/"control";control.mkdir();evidence=root/"evidence"
-        env={"tools":{n:{"path":"/usr/bin/"+n,"version":"test"} for n in ("cmake","ctest","ninja","python3","g++-13","clang++-18","ldd","git")}}
+        env={"tools":{n:{"path":"/usr/bin/"+n,"version":"test"} for n in ("cmake","ctest","ninja","python3","g++-13","clang++-18","ldd","git")},
+             "os_release":"ID=ubuntu\nVERSION_ID=\"24.04\"\n","platform":"fixture",
+             "environment":{}}
         plan={"cells":r.command_plan(profile,source,env)}
         m={"schema_version":3,"state":"PREPARED","execution_requested":False,"candidate":candidate,
            "working_directory":str(source),"control_root":str(control),"evidence_root":str(evidence),
-           "environment":env,"plan":plan,"source_checks":r.source_checks(source),
+           "environment":env,"execution_environment":r.execution_environment_identity(env),
+           "plan":plan,"source_checks":r.source_checks(source),
            "inputs":r.input_identity(r.input_paths(source)),"limitations":profile["limitations"]}
         for name,value in (("prepared-manifest.json",m),("plan.json",plan),("source-checks.json",m["source_checks"]),
                            ("planned-inventory.json",r.planned_inventory(plan["cells"]))):r.write_json(control/name,value)

@@ -54,6 +54,10 @@ def bind_profile(tool, profile: dict, source: pathlib.Path, package: pathlib.Pat
         "candidate_commit": tool.read_json(package / "retention-manifest.json")["candidate_commit"],
         "retention_manifest_sha256": sha256(package / "retention-manifest.json"),
     }
+    profile["scope_policy"]["verified_retained_prefix"] = {
+        "path": package.relative_to(source).as_posix(),
+        "retention_manifest_sha256": sha256(package / "retention-manifest.json"),
+    }
     for row in profile["scope_policy"]["approved_support_paths"]:
         item = source / row["path"]
         if not item.is_file():
@@ -82,6 +86,7 @@ def main() -> int:
     tool = load_tool(pathlib.Path(arguments.tool))
     repository = pathlib.Path(arguments.profile).resolve().parents[2]
     package = repository / "evidence" / "foundation" / "reproducible-experiment-contract" / "rec-e0-e7-85d215a"
+    foundation_package = repository / "evidence" / "foundation" / "foundation-end-to-end" / "fnd0-fnd7-b333755"
     retained_verifications: list[tuple[pathlib.Path, pathlib.Path]] = []
 
     def record_retained_verification(observed_package: pathlib.Path, observed_profile: pathlib.Path) -> None:
@@ -93,11 +98,15 @@ def main() -> int:
         root = pathlib.Path(temporary)
         remote, source = root / "remote.git", root / "source"
         run(["git", "init", "--bare", str(remote)])
-        run(["git", "push", str(remote), "HEAD:refs/heads/foundation/test"], repository)
+        baseline_commit = tool.read_json(package / "retention-manifest.json")["candidate_commit"]
+        foundation_candidate = tool.read_json(foundation_package / "retention-manifest.json")["candidate_commit"]
+        run(["git", "push", str(remote), f"{baseline_commit}:refs/heads/foundation/accepted-baseline"], repository)
+        run(["git", "push", str(remote), f"{foundation_candidate}:refs/heads/foundation/test"], repository)
         run(["git", "-c", "core.longpaths=true", "clone", "--branch", "foundation/test", str(remote), str(source)])
 
+        source_package = source / "evidence" / "foundation" / "reproducible-experiment-contract" / "rec-e0-e7-85d215a"
         profile_path = source / "experiments" / "profiles" / "foundation_end_to_end.json"
-        profile = bind_profile(tool, copy.deepcopy(tool.read_json(pathlib.Path(arguments.profile))), source, package)
+        profile = bind_profile(tool, copy.deepcopy(tool.read_json(pathlib.Path(arguments.profile))), source, source_package)
         tool.write_json(profile_path, profile)
         run(["git", "add", "experiments/profiles/foundation_end_to_end.json"], source)
         run(["git", "-c", "user.name=Foundation Contract", "-c", "user.email=foundation@example.invalid",
@@ -106,29 +115,33 @@ def main() -> int:
 
         rec_profile = source / "experiments" / "profiles" / "reproducible_experiment_contract.json"
         control, evidence = root / "control", root / "evidence"
-        result = tool.preflight(profile_path, rec_profile, package, source, control, evidence)
+        result = tool.preflight(profile_path, rec_profile, source_package, source, control, evidence)
         if (result["state"] != tool.PENDING or result["execution_authorization"] is not False or
                 any(result["gates"][gate] != tool.PENDING for gate in tool.PREPARATION_GATES)):
-            raise RuntimeError("Foundation preflight did not retain audit-only readiness evidence")
-        if retained_verifications != [(package.resolve(), rec_profile.resolve())]:
+            blocked_scope = [row["path"] for row in result["scope_changes"]
+                             if row["classification"].startswith("BLOCKED")]
+            raise RuntimeError(
+                f"Foundation preflight did not retain audit-only readiness evidence: "
+                f"{result['gates']}; blocked_scope={blocked_scope[:5]}")
+        if retained_verifications != [(source_package.resolve(), rec_profile.resolve())]:
             raise RuntimeError("Foundation preflight did not request historical REC verification")
 
         require_rejection(
-            lambda: tool.qualify(profile_path, rec_profile, package, package, root / "unused-inputs.json", root / "unused-output"),
+            lambda: tool.qualify(profile_path, rec_profile, source_package, source_package, root / "unused-inputs.json", root / "unused-output"),
             "Foundation accepted the historical REC baseline as its current candidate")
 
         dirty = source / "preflight-dirty.txt"
         dirty.write_text("dirty\n", encoding="utf-8")
-        require_blocked(tool, "FPR0", profile_path, rec_profile, package, source, root / "dirty-control", root / "dirty-evidence")
+        require_blocked(tool, "FPR0", profile_path, rec_profile, source_package, source, root / "dirty-control", root / "dirty-evidence")
         dirty.unlink()
 
         invalid = copy.deepcopy(profile)
         invalid["qualified_authorities"][2]["sha256"] = "0" * 64
         invalid_path = root / "invalid-authority-profile.json"
         tool.write_json(invalid_path, invalid)
-        require_blocked(tool, "FPR1", invalid_path, rec_profile, package, source, root / "authority-control", root / "authority-evidence")
+        require_blocked(tool, "FPR1", invalid_path, rec_profile, source_package, source, root / "authority-control", root / "authority-evidence")
 
-        require_blocked(tool, "FPR5", profile_path, rec_profile, package, source, root / "same-root", root / "same-root")
+        require_blocked(tool, "FPR5", profile_path, rec_profile, source_package, source, root / "same-root", root / "same-root")
     return 0
 
 
