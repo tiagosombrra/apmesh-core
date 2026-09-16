@@ -55,6 +55,7 @@ def input_paths(source: pathlib.Path) -> dict[str,pathlib.Path]:
     tracked=git(source,"ls-files").decode().splitlines()
     fixed=[PROFILE,PROTOCOL,ENTRY,"CMakeLists.txt","CMakePresets.json",
            "tools/cartesian_frames_evidence.py","tools/run_cartesian_frames_qualification.py",
+           "tools/manifest-environment.py",
            "tools/experiment_runtime.py","experiments/cartesian_frames_export.cpp",
            "tests/coordinate_frames.cpp","tests/cartesian_frames_evidence_test.py",
            "tests/cartesian_frames_runner_test.py","tests/cartesian_frames_retention_test.py",
