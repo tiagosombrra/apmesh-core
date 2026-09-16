@@ -2,15 +2,18 @@
 """Focused lifecycle/selection contracts with disposable control data only."""
 import argparse
 import copy
+import os
 import pathlib
 import sys
 import tempfile
+from unittest.mock import patch
 
 def main():
     p=argparse.ArgumentParser()
     for n in ("runner","source-root","profile","protocol","validator","exporter"):p.add_argument("--"+n,required=True)
     a=p.parse_args();sys.path.insert(0,str(pathlib.Path(a.runner).parent))
     import run_cartesian_frames_qualification as r
+    import experiment_runtime as runtime
     from cartesian_frames_evidence import write_inputs
     source=pathlib.Path(a.source_root).resolve();profile=r.validate_profile(pathlib.Path(a.profile))
     r.source_checks(source)
@@ -19,6 +22,16 @@ def main():
         except (r.RuntimeErrorEvidence,KeyError,TypeError,ValueError,FileExistsError):return
         raise AssertionError("negative accepted")
     env={"tools":{n:{"path":"/usr/bin/"+n,"version":"development-test"} for n in ("cmake","ctest","ninja","python3","g++-13","clang++-18","ldd","git")}}
+    # A C++ compiler driver can be a symlink to the C driver.  Its invocation
+    # name is semantic: resolving the symlink would turn clang++ into clang.
+    with tempfile.TemporaryDirectory(prefix="cf-cxx-driver-contract-") as temp:
+        tool_dir=pathlib.Path(temp);target=tool_dir/"clang-driver";alias=tool_dir/"clang++-test"
+        target.write_text("#!/bin/sh\nprintf 'clang test driver\\n'\n",encoding="utf-8")
+        target.chmod(0o755);alias.symlink_to(target.name)
+        with patch.dict(os.environ,{"PATH":str(tool_dir)+os.pathsep+os.environ.get("PATH","")}):
+            driver=runtime.tool_version(alias.name)
+        assert pathlib.Path(driver["path"]).absolute()==alias.absolute()
+        assert pathlib.Path(driver["path"]).resolve()==target.resolve()
     plan={"cells":r.command_plan(profile,source,env)}
     assert len(plan["cells"])==4 and sum(c["stage"].startswith("certificate-") for cell in plan["cells"] for c in cell["commands"])==12
     good=r.json.dumps({"tests":[{"name":n,"command":["/usr/bin/true"]} for n in profile["exact_prerequisite_tests"]]})

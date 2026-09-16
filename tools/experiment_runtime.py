@@ -107,7 +107,10 @@ def tool_version(command: str) -> dict[str, str]:
     output = (completed.stdout or completed.stderr).splitlines()
     if not output:
         raise RuntimeErrorEvidence(f"empty tool version: {resolved}")
-    return {"path": str(pathlib.Path(resolved).resolve()), "version": output[0]}
+    # Keep the executable invocation path, rather than resolving symlinks.  In
+    # particular, clang++-18 and clang-18 may resolve to the same binary while
+    # selecting different driver behavior through argv[0].
+    return {"path": str(pathlib.Path(resolved).absolute()), "version": output[0]}
 
 
 def input_identity(paths: dict[str, pathlib.Path]) -> dict[str, dict[str, str]]:
