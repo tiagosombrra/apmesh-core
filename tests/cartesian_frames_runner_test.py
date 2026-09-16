@@ -65,8 +65,25 @@ def main():
     r.dependency_check(deps.stdout)
     rejects(lambda:r.dependency_check(deps.stdout.replace("/apmesh/math/linear_algebra.hpp","/missing.hpp")))
     runtime=subprocess.run(["/usr/bin/ldd",a.exporter],check=True,capture_output=True,text=True)
-    r.runtime_paths(runtime.stdout,cell)
-    rejects(lambda:r.runtime_paths(runtime.stdout+"\nlibunexpected.so => /tmp/libunexpected.so (0x0)",cell))
+    actual_runtime=r.runtime_provenance(runtime.stdout,cell)
+    assert actual_runtime["expected_standard_library"]==("libc++" if cell.startswith("clang") else "libstdc++")
+    assert actual_runtime["dynamic_standard_library"]=="present"
+    def ldd_text(*libraries):
+        rows=[f"\t{name} => /lib/x86_64-linux-gnu/{name} (0x0)" for name in libraries]
+        rows.append("\t/lib64/ld-linux-x86-64.so.2 (0x0)")
+        return "\n".join(rows)+"\n"
+    for selected,expected in ((ldd_text("libstdc++.so.6","libc.so.6"),"present"),
+                              (ldd_text("libc.so.6"),"not_needed")):
+        result=r.runtime_provenance(selected,"gcc-release")
+        assert result["expected_standard_library"]=="libstdc++" and result["dynamic_standard_library"]==expected
+    for selected,expected in ((ldd_text("libc++.so.1","libc++abi.so.1","libc.so.6"),"present"),
+                              (ldd_text("libc.so.6"),"not_needed")):
+        result=r.runtime_provenance(selected,"clang-release")
+        assert result["expected_standard_library"]=="libc++" and result["dynamic_standard_library"]==expected
+    rejects(lambda:r.runtime_provenance(ldd_text("libc++.so.1","libc.so.6"),"gcc-release"))
+    rejects(lambda:r.runtime_provenance(ldd_text("libstdc++.so.6","libc.so.6"),"clang-release"))
+    rejects(lambda:r.runtime_provenance("\tlibstdc++.so.6 => not found\n","gcc-release"))
+    rejects(lambda:r.runtime_provenance(ldd_text("libunexpected.so","libc.so.6"),"gcc-release"))
     with tempfile.TemporaryDirectory(prefix="cf-lifecycle-contract-") as temp:
         root=pathlib.Path(temp);control=root/"control";control.mkdir();evidence=root/"evidence"
         checks=r.source_checks(source)

@@ -251,10 +251,19 @@ not write below an uncreated `evidence/certificates/` directory; its terminal
 record has `retry_attempted=false` and no CF gate was interpreted. Commit
 `067df4d` creates the certificate and semantic output directories during the
 exclusive evidence claim and passed the focused lifecycle contract without
-changing production code or the scientific profile. A new independent admission
-decision is required before one new manifest with new external roots may be
-prepared. Cartesian Frames remains unqualified, and the cumulative Geometry
-Primitives regression remains unqualified.
+changing production code or the scientific profile. The subsequent formal
+attempt on `3248e1f` is retained as
+`BLOCKED_BY_RUNTIME_PROVENANCE_CLASSIFICATION_DEFECT`: its GCC Release Numeric
+Contract `ldd` command succeeded, but the runner incorrectly required every GCC
+executable to retain a dynamic `libstdc++` entry. No retry or CF-gate
+interpretation occurred. The current amendment distinguishes the declared
+GCC/libstdc++ or Clang/libc++ build toolchain from the executable's dynamic
+closure, recording the expected standard library as `present` or `not_needed`
+while continuing to reject unresolved, opposite, or undeclared libraries.
+Positive and negative focused contracts passed in all four build cells (16/16).
+A new independent admission decision is required before one new manifest with
+new external roots may be prepared. Cartesian Frames remains unqualified, and
+the cumulative Geometry Primitives regression remains unqualified.
 
 ## Stage closure protocol
 

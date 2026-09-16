@@ -96,6 +96,17 @@ test names and reject missing or additional selections. Broad labels and
 historical qualification runners are not admissible as the scientific
 definition of preservation.
 
+The standard-library column identifies the build toolchain, not a mandatory
+dynamic `DT_NEEDED` entry in every executable. Cache and compile-command
+evidence must prove the declared compiler and `-stdlib=libc++` policy. For each
+runtime executable, `ldd` must succeed, contain no unresolved or undeclared
+dependency, reject the opposite C++ standard library, and retain resolved paths
+and hashes. The expected dynamic standard library is recorded as `present` when
+observed or `not_needed` when the linker emitted no dynamic dependency on it.
+`not_needed` makes no static-link claim. Debug/Release runtime closures may
+differ under this rule; the difference remains diagnostic provenance rather
+than semantic certificate data.
+
 ## 5. Fixed evidence cases
 
 The profile must enumerate, not infer:
@@ -241,3 +252,13 @@ evidence claim, with a focused lifecycle contract. It changes neither production
 frame code nor the scientific profile. A new independent admission may now
 consider one new manifest with new external roots; no manifest is currently
 prepared and no scientific gate is closed.
+
+The subsequent formal attempt on `3248e1f` is retained as
+`BLOCKED_BY_RUNTIME_PROVENANCE_CLASSIFICATION_DEFECT`. Its GCC Release Numeric
+Contract `ldd` command succeeded with only `libc` and the loader, but the runner
+incorrectly required a dynamic `libstdc++` entry from every GCC executable.
+There was no retry and no CF-gate interpretation. The current amendment records
+`present` versus `not_needed`, while still rejecting unresolved, opposite, or
+undeclared libraries and preserving paths and hashes. Its positive and negative
+GCC/Clang contracts passed in all four build cells; a new independent admission
+is required before another manifest may be prepared.

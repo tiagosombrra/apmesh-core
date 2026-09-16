@@ -236,14 +236,19 @@ def validate_cache(build,cell,env,source):
     return validate_build_metadata((build/"CMakeCache.txt").read_text(),
         json.loads((build/"compile_commands.json").read_text()),build,cell,env,source)
 
-def runtime_paths(text,cell):
-    require("not found" not in text and text.strip(),"missing runtime dependency")
-    require(("libc++.so" in text and "libstdc++.so" not in text) if cell.startswith("clang")
-            else ("libstdc++.so" in text and "libc++.so" not in text),"runtime library differs")
+def runtime_provenance(text,cell):
+    require("not found" not in text.lower() and text.strip(),"missing runtime dependency")
     paths=re.findall(r"(?:=>\s*)?(/[^\s()]+)",text)
     allowed=re.compile(r"(lib(?:c|m|gcc_s|stdc\+\+|c\+\+|c\+\+abi|unwind)\.so(?:\.[0-9]+)*|ld-linux[^/]*\.so(?:\.[0-9]+)*)$")
-    require(paths and all(allowed.fullmatch(pathlib.Path(p).name) for p in paths),"unexpected runtime dependency")
-    return paths
+    require(paths and len(paths)==len(set(paths)) and all(allowed.fullmatch(pathlib.Path(p).name) for p in paths),"unexpected runtime dependency")
+    names=[pathlib.Path(path).name for path in paths]
+    has_libstdcpp=any(re.fullmatch(r"libstdc\+\+\.so(?:\.[0-9]+)*",name) for name in names)
+    has_libcpp=any(re.fullmatch(r"libc\+\+\.so(?:\.[0-9]+)*",name) for name in names)
+    clang=cell.startswith("clang")
+    require(not (has_libstdcpp if clang else has_libcpp),"opposite standard library dependency")
+    present=has_libcpp if clang else has_libstdcpp
+    return {"expected_standard_library":"libc++" if clang else "libstdc++",
+            "dynamic_standard_library":"present" if present else "not_needed","paths":paths}
 
 def execution_claim(control,evidence,manifest):
     evidence.mkdir() # exclusive creation prevents two executions of the same plan
@@ -305,11 +310,14 @@ def execute(args):
                 if item["stage"]=="object-dependencies":prereqs["dependency_direction"]=dependency_check(obs["stdout"]["text"])
                 if item["stage"].startswith("ldd-"):
                     exe=build/item["stage"][4:];text=obs["stdout"]["text"]
+                    runtime=runtime_provenance(text,cell)
                     deps=[]
-                    for absolute in runtime_paths(text,cell):
+                    for absolute in runtime["paths"]:
                         path=pathlib.Path(absolute);require(path.is_file(),"ldd dependency file absent")
                         deps.append({"path":str(path),"resolved_path":str(path.resolve()),"sha256":sha256_file(path)})
-                    dependencies.append({"executable":exe.name,"sha256":sha256_file(exe),"command_id":r["id"],"libraries":deps})
+                    dependencies.append({"executable":exe.name,"sha256":sha256_file(exe),"command_id":r["id"],
+                        "runtime":{"expected_standard_library":runtime["expected_standard_library"],
+                                   "dynamic_standard_library":runtime["dynamic_standard_library"]},"libraries":deps})
                 if item["stage"].startswith("certificate-"):
                     repeat=int(item["stage"].split("-")[-1]);cert=root/"certificates"/f"{cell}-{repeat}.json"
                     semantic=validate_certificate(profile,cert)
@@ -399,7 +407,10 @@ def verify_payload(package,verification_source=None):
         for d in deps:
             r,o=lookup[d["command_id"]];command_ok(r)
             require(pathlib.Path(r["argv"][-1]).name==d["executable"],"runtime command link")
-            require([x["path"] for x in d["libraries"]]==runtime_paths(o["stdout"]["text"],cell),"runtime library inventory")
+            runtime=runtime_provenance(o["stdout"]["text"],cell)
+            require(d["runtime"]=={"expected_standard_library":runtime["expected_standard_library"],
+                                   "dynamic_standard_library":runtime["dynamic_standard_library"]},"runtime classification differs")
+            require([x["path"] for x in d["libraries"]]==runtime["paths"],"runtime library inventory")
             require(all(re.fullmatch("[0-9a-f]{64}",x["sha256"]) for x in d["libraries"]),"runtime library provenance")
         exporter=next(d for d in deps if d["executable"]=="apmesh_core_cartesian_frames_export")
         require(all(e["executable_sha256"]==exporter["sha256"] for e in entries if e["cell"]==cell),"certificate binary differs")

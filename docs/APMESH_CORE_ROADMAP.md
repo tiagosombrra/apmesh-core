@@ -458,7 +458,15 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / UNQUALIFIED`
   no retry or CF-gate interpretation occurred. Commit `067df4d` creates the
   certificate and semantic output directories during the exclusive evidence
   claim and is limited to lifecycle infrastructure. A new independent admission
-  review is required before one new manifest with new external roots may be
+  review authorized one new attempt on `3248e1f`, which is retained as
+  `BLOCKED_BY_RUNTIME_PROVENANCE_CLASSIFICATION_DEFECT`: its GCC Release Numeric
+  Contract `ldd` command succeeded without a dynamic `libstdc++` dependency,
+  but the runner required that dependency from every GCC executable. No retry
+  or CF-gate interpretation occurred. The current amendment now records the
+  expected standard library as dynamic `present` or `not_needed`, while still
+  rejecting unresolved, opposite, or undeclared libraries and retaining paths
+  and hashes. Its focused positive/negative contracts pass in all four cells.
+  A new independent admission review is required before another manifest may be
   prepared; Cartesian Frames remains unqualified.
 
 #### Geometry Primitives Regression
