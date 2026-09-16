@@ -254,6 +254,18 @@ The retained limitations in section 8 remain unchanged. In particular, this
 closure does not qualify native Windows, geometry, topology, meshing,
 convergence, performance, parallel equivalence, or universal portability.
 
+### Durable retention audit (2026-09-16)
+
+The original post-execution package was located without reconstruction and
+retained byte-for-byte at
+`evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`. Its retention
+manifest declares 586 files and has SHA-256
+`bbd316c8084a6bb4fd862112288ee6d826870ca63589977e77d0453916a7b937`.
+Independent size and SHA-256 verification of every declared entry found zero
+missing or mismatched files. This audit restores repository traceability; it
+does not rerun the campaign or alter the FND0–FND7 decision.
+
 ## 11. Next bounded action
 
-Define the Geometry Primitives entry decision without implementing geometry.
+Preserve the qualified Foundation evidence while Geometry Primitives proceeds
+through independently bounded work units.

@@ -1,0 +1,23 @@
+[1/23] Building CXX object CMakeFiles/apmesh_core.math_header_isolation.dir/tests/math_header_isolation.cpp.o
+[2/23] Building CXX object CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o
+[3/23] Building CXX object CMakeFiles/apmesh_core.dir/src/math/linear_algebra.cpp.o
+[4/23] Building CXX object CMakeFiles/apmesh_core_bootstrap_smoke.dir/tests/bootstrap_smoke.cpp.o
+[5/23] Building CXX object CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o
+[6/23] Building CXX object CMakeFiles/apmesh_core_numeric_contract.dir/tests/numeric_contract.cpp.o
+[7/23] Building CXX object CMakeFiles/apmesh_core.dir/src/core/geometry.cpp.o
+[8/23] Building CXX object CMakeFiles/apmesh_core.geometry_primitives.dir/tests/geometry_primitives.cpp.o
+[9/23] Building CXX object CMakeFiles/apmesh_core_bootstrap_export.dir/experiments/bootstrap_export.cpp.o
+[10/23] Building CXX object CMakeFiles/apmesh_core.minimal_small_linear_algebra.dir/tests/minimal_small_linear_algebra.cpp.o
+[11/23] Linking CXX static library libapmesh_core.a
+[12/23] Building CXX object CMakeFiles/apmesh_core_numeric_contract_export.dir/experiments/numeric_contract_export.cpp.o
+[13/23] Building CXX object CMakeFiles/apmesh_core_geometry_point_vector_export.dir/experiments/geometry_point_vector_export.cpp.o
+[14/23] Linking CXX executable apmesh_core_bootstrap_export
+[15/23] Linking CXX executable apmesh_core_bootstrap_smoke
+[16/23] Linking CXX executable apmesh_core.math_header_isolation
+[17/23] Linking CXX executable apmesh_core_numeric_contract
+[18/23] Linking CXX executable apmesh_core_numeric_contract_export
+[19/23] Linking CXX executable apmesh_core.geometry_primitives
+[20/23] Linking CXX executable apmesh_core.minimal_small_linear_algebra
+[21/23] Building CXX object CMakeFiles/apmesh_core_minimal_small_linear_algebra_export.dir/experiments/minimal_small_linear_algebra_export.cpp.o
+[22/23] Linking CXX executable apmesh_core_geometry_point_vector_export
+[23/23] Linking CXX executable apmesh_core_minimal_small_linear_algebra_export

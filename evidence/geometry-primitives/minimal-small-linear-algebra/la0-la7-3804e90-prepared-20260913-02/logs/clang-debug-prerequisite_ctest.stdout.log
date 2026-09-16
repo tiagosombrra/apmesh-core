@@ -1,0 +1,46 @@
+Internal ctest changing into directory: /mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build
+Test project /mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build
+      Start  1: apmesh_core.bootstrap_smoke
+ 1/16 Test  #1: apmesh_core.bootstrap_smoke .................................   Passed    0.00 sec
+      Start  2: apmesh_core.numeric_contract
+ 2/16 Test  #2: apmesh_core.numeric_contract ................................   Passed    0.00 sec
+      Start  3: apmesh_core.geometry_primitives
+ 3/16 Test  #3: apmesh_core.geometry_primitives .............................   Passed    0.00 sec
+      Start  9: apmesh_core.geometry_point_vector_evidence
+ 4/16 Test  #9: apmesh_core.geometry_point_vector_evidence ..................   Passed    0.68 sec
+      Start 10: apmesh_core.geometry_point_vector_runner
+ 5/16 Test #10: apmesh_core.geometry_point_vector_runner ....................   Passed    0.27 sec
+      Start 11: apmesh_core.geometry_point_vector_retention
+ 6/16 Test #11: apmesh_core.geometry_point_vector_retention .................   Passed    0.16 sec
+      Start 12: apmesh_core.geometry_point_vector_foundation_preservation
+ 7/16 Test #12: apmesh_core.geometry_point_vector_foundation_preservation ...   Passed    0.10 sec
+      Start 13: apmesh_core.numeric_contract_evidence
+ 8/16 Test #13: apmesh_core.numeric_contract_evidence .......................   Passed    0.35 sec
+      Start 14: apmesh_core.numeric_contract_runner
+ 9/16 Test #14: apmesh_core.numeric_contract_runner .........................   Passed    0.36 sec
+      Start 15: apmesh_core.reproducible_experiment_evidence
+10/16 Test #15: apmesh_core.reproducible_experiment_evidence ................   Passed    0.23 sec
+      Start 16: apmesh_core.reproducible_experiment_runner
+11/16 Test #16: apmesh_core.reproducible_experiment_runner ..................   Passed    1.05 sec
+      Start 17: apmesh_core.reproducible_experiment_retention
+12/16 Test #17: apmesh_core.reproducible_experiment_retention ...............   Passed    1.88 sec
+      Start 18: apmesh_core.reproducible_experiment_negatives
+13/16 Test #18: apmesh_core.reproducible_experiment_negatives ...............   Passed    0.70 sec
+      Start 20: apmesh_core.bootstrap_export
+14/16 Test #20: apmesh_core.bootstrap_export ................................   Passed    0.06 sec
+      Start 21: apmesh_core.bootstrap_tool
+15/16 Test #21: apmesh_core.bootstrap_tool ..................................   Passed    0.65 sec
+      Start 22: apmesh_core.architecture_bootstrap_runner
+16/16 Test #22: apmesh_core.architecture_bootstrap_runner ...................   Passed    0.39 sec
+
+100% tests passed, 0 tests failed out of 16
+
+Label Time Summary:
+bootstrap                  =   1.11 sec*proc (4 tests)
+contract                   =   6.89 sec*proc (16 tests)
+foundation-preservation    =   5.68 sec*proc (11 tests)
+geometry                   =   1.21 sec*proc (5 tests)
+numeric                    =   0.71 sec*proc (3 tests)
+reproducibility            =   3.86 sec*proc (4 tests)
+
+Total Test time (real) =   7.03 sec

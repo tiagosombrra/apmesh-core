@@ -1,0 +1,1 @@
+{"schema_version":1,"kind":"numeric-contract-environment","double":{"radix":2,"digits":53,"is_iec559":true,"subnormal_supported":true,"round_style":"to_nearest"},"active_rounding":"to_nearest"}

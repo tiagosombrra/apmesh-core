@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-13
+Last updated: 2026-09-16
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: `geometry/minimal-small-linear-algebra-contract`
 
@@ -50,21 +50,26 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Audit admission of the implemented bounded Cartesian similarity frames. The
-entry decision authorizes concrete 2D/3D frames composed only of a finite
-origin, exact signed-permutation basis, and positive power-of-two scale, with
-distinct point/vector local-to-world and world-to-local mappings. General
-affine transforms, arbitrary rotations, inverses, predicates, topology, curves,
-surfaces, and meshing remain unauthorized. `CartesianFrame2` and
-`CartesianFrame3` now implement only this exact capability. Their focused
-analytic contract passed in the existing GCC 13 and Clang 18 libc++
-Debug/Release builds. This is implementation evidence only; no revision-bound frame
-qualification has started.**
+**Restore repository traceability before another Cartesian Frames admission.
+The original Foundation End-to-End and Minimal Small Linear Algebra evidence
+packages have been located and hash-verified for canonical retention. The
+oversized working branch must be separated into a Minimal Small Linear Algebra
+integration branch and a Cartesian Frames qualification branch. A current
+four-cell engineering regression must pass before that reorganization. The
+Cartesian Frames contract must also record that mathematical invertibility of
+a signed-permutation/power-of-two frame does not imply exact floating-point
+round-trip for every finite operand: subnormal inputs can underflow. General
+transforms, predicates, topology, curves, surfaces, and meshing remain
+unauthorized.**
 
 Minimal Small Linear Algebra is QUALIFIED on clean published candidate
 `3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
 24.04 GCC 13 / Clang 18 libc++ envelope. LA0-LA7 passed without production
 behavior change; the first `6fa00bd` attempt remains immutable BLOCKED evidence.
+The original 201-file retained package is preserved at
+`evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/`;
+its retention manifest has SHA-256
+`24894a2cf9875254862a27ac80582d2652a2543c891a59ed7920478d7c6aeb65`.
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -114,6 +119,10 @@ Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidat
 revision-bound evidence; the separate audit made the scientific closure
 decision. Historical REC evidence at `85d215a` remained a qualified comparison
 baseline and did not substitute for current-candidate FND2, FND4, or FND6.
+The original 586-file retained package is preserved at
+`evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`; its retention
+manifest has SHA-256
+`bbd316c8084a6bb4fd862112288ee6d826870ca63589977e77d0453916a7b937`.
 
 The retained limitations are unchanged: qualification is restricted to WSL
 Ubuntu 24.04 and makes no native-Windows, geometry, topology, meshing,
@@ -223,14 +232,13 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: audit the hardened report-only `CF0`–`CF7` profile,
-exporter, collector, comparer, revision-bound runner, retention checks, and
-focused tooling contracts fixed by
-`docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
-Preserve the qualified `3804e90` LA evidence, blocked `6fa00bd` attempt,
-qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
-selection-defect evidence. Reuse `tools/experiment_runtime.py`; do not prepare a
-manifest, execute the qualification, create general transformations, or start
+Current first action: complete the traceability audit and engineering
+regression, then separate qualified Minimal Small Linear Algebra from the
+still-unqualified Cartesian Frames work. Preserve the canonical Foundation,
+Point/Vector, and LA packages and every immutable blocked attempt. Before any
+new `CF0`–`CF7` manifest, add the preregistered subnormal-underflow adversarial
+case and make the bounded floating-point round-trip claim explicit. Do not
+prepare or execute a manifest, create general transformations, or start
 predicates, topology, curves, surfaces, meshing, or the cumulative regression.
 
 Decision progress: Foundation closure is complete. Qualification progress:
