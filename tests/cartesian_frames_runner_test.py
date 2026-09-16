@@ -21,7 +21,9 @@ def main():
         try:fn()
         except (r.RuntimeErrorEvidence,KeyError,TypeError,ValueError,FileExistsError):return
         raise AssertionError("negative accepted")
-    env={"tools":{n:{"path":"/usr/bin/"+n,"version":"development-test"} for n in ("cmake","ctest","ninja","python3","g++-13","clang++-18","ldd","git")}}
+    env={"tools":{n:{"path":"/usr/bin/"+n,"version":"development-test"} for n in ("cmake","ctest","ninja","python3","g++-13","clang++-18","ldd","git")},
+         "os_release":"development-test","platform":"development-test",
+         "environment":{key:None for key in r.ENV_KEYS}}
     # A C++ compiler driver can be a symlink to the C driver.  Its invocation
     # name is semantic: resolving the symlink would turn clang++ into clang.
     with tempfile.TemporaryDirectory(prefix="cf-cxx-driver-contract-") as temp:
@@ -42,6 +44,13 @@ def main():
     cell=next((part.name for part in (build,*build.parents) if part.name in r.CONFIGURATIONS),None)
     assert cell is not None
     actual_env=r.environment_identity()
+    executable_env=r.execution_environment_identity(actual_env)
+    transient_path=copy.deepcopy(actual_env);transient_path["environment"]["PATH"]="/transient/launcher/path"
+    assert r.execution_environment_identity(transient_path)==executable_env
+    changed_tool=copy.deepcopy(actual_env);changed_tool["tools"]["cmake"]["path"]="/toolchain/path-mismatch"
+    assert r.execution_environment_identity(changed_tool)!=executable_env
+    changed_flags=copy.deepcopy(actual_env);changed_flags["environment"]["CXXFLAGS"]="-Ddifferent-build"
+    assert r.execution_environment_identity(changed_flags)!=executable_env
     cache,commands=r.validate_cache(build,cell,actual_env,source)
     def compiler_cache(cache_type, value=None):
         rows=[]; replaced=False
@@ -102,7 +111,7 @@ def main():
         checks=r.source_checks(source)
         m={"schema_version":3,"state":"PREPARED","execution_requested":False,"candidate":{"commit":"1"*40},
            "working_directory":str(source),"control_root":str(control),"evidence_root":str(evidence),"environment":env,
-           "plan":plan,"source_checks":checks}
+           "execution_environment":r.execution_environment_identity(env),"plan":plan,"source_checks":checks}
         for name,obj in (("prepared-manifest.json",m),("plan.json",plan),("profile.json",profile),
                          ("source-checks.json",checks),("planned-inventory.json",r.planned_inventory(plan["cells"]))):
             r.write_json(control/name,obj)

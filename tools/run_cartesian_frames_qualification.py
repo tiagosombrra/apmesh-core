@@ -32,6 +32,7 @@ RUNTIME_EXECUTABLES=["apmesh_core_cartesian_frames_export","apmesh_core.coordina
 CONTROL_FILES=("prepared-manifest.json","plan.json","planned-inventory.json","profile.json","source-checks.json","case-inputs.txt")
 SUCCESS_FILES={"certificate-index.json","cross-cell-comparison.json","gate-summary.json","observed-inventories.json"}
 ENV_KEYS=("PATH","CC","CXX","CXXFLAGS","CFLAGS","LDFLAGS","LD_LIBRARY_PATH","CPATH","CPLUS_INCLUDE_PATH","CMAKE_PREFIX_PATH","LANG","LC_ALL")
+EXECUTION_ENV_KEYS=tuple(key for key in ENV_KEYS if key!="PATH")
 
 def git(source,*argv):
     r=subprocess.run(["git",*argv],cwd=source,capture_output=True,check=False)
@@ -72,6 +73,15 @@ def environment_identity():
     require(re.search(r"\b18\.",tools["clang++-18"]["version"]) is not None,"Clang major differs")
     return {"tools":tools,"os_release":release,"platform":platform.platform(),
             "environment":{k:os.environ.get(k) for k in ENV_KEYS}}
+
+def execution_environment_identity(identity):
+    """Return the sealed environment fields that can affect declared commands.
+
+    PATH remains descriptive provenance: every planned executable is absolute,
+    while PATH may contain launcher-specific transient entries.
+    """
+    return {"tools":identity["tools"],"os_release":identity["os_release"],"platform":identity["platform"],
+            "environment":{key:identity["environment"].get(key) for key in EXECUTION_ENV_KEYS}}
 
 def ctest_regex(names):return "^("+"|".join(re.escape(n) for n in names)+")$"
 
@@ -128,6 +138,7 @@ def seal_preparation(root):
 def validate_prepared(root,unused=True):
     m=read_json(root/"prepared-manifest.json");seal=read_json(root/"preparation-seal.json");state=read_json(root/"state.json")
     require(m["schema_version"]==3 and m["state"]=="PREPARED" and m["execution_requested"] is False,"PREPARED schema")
+    require(m["execution_environment"]==execution_environment_identity(m["environment"]),"execution environment identity differs")
     require(seal["files"]=={p:sha256_file(root/p) for p in CONTROL_FILES},"preparation seal mismatch")
     history=(root/"state-history.jsonl").read_bytes().splitlines(keepends=True)
     require(bool(history) and hashlib.sha256(history[0]).hexdigest()==seal["initial_history_sha256"],"initial history seal")
@@ -165,7 +176,8 @@ def prepare(args):
     plan={"cells":command_plan(profile,source,env)}
     m={"schema_version":3,"kind":"cartesian-frames-prepared-manifest","state":"PREPARED","execution_requested":False,
        "candidate":candidate,"working_directory":str(source),"control_root":str(control),"evidence_root":str(evidence),
-       "environment":env,"inputs":input_identity(input_paths(source)),"source_checks":checks,"plan":plan,
+       "environment":env,"execution_environment":execution_environment_identity(env),
+       "inputs":input_identity(input_paths(source)),"source_checks":checks,"plan":plan,
        "prepared_utc":utc_now(),"limitations":profile["limitations"]}
     control.mkdir()
     write_json(control/"prepared-manifest.json",m);write_json(control/"plan.json",plan)
@@ -284,7 +296,7 @@ def execute(args):
     control=pathlib.Path(args.output_root).resolve();m=validate_prepared(control)
     source=pathlib.Path(m["working_directory"]);root=pathlib.Path(m["evidence_root"])
     require(clean_candidate(source)==m["candidate"],"candidate changed after preparation")
-    require(environment_identity()==m["environment"],"execution environment changed")
+    require(execution_environment_identity(environment_identity())==m["execution_environment"],"execution environment changed")
     verify_input_identity(m["inputs"],input_paths(source));require(source_checks(source)==m["source_checks"],"reviewed source changed")
     profile=validate_profile(control/"profile.json")
     execution_claim(control,root,m);records=[];observations=[];index={"candidate_commit":m["candidate"]["commit"],"certificates":[]};inventories=[]
