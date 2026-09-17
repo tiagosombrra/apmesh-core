@@ -34,6 +34,24 @@ Independent size and SHA-256 verification of all 201 declared entries found
 zero missing or mismatched files. The 169 source-side build/cache artifacts not
 declared by the manifest were intentionally excluded as reproducible extras.
 
+## LA-only integration regression
+
+The isolated integration candidate
+`95258e9faaeaae89e801874fe1ce600e80285427` was then executed once in the same
+four-cell GCC/Clang Debug/Release envelope. It is clean and equals its published
+upstream. Its implementation, profile, and LA evidence tooling are unchanged
+from `3804e90`; no Cartesian Frame or later Geometry path is present.
+
+The audit found all 56 command records successful, 12 certificates (three per
+cell), 91 exact cases per certificate, 40 expected negative rejections, an
+identical cross-cell projection, detached verification `PASS`, and zero hash or
+size mismatches across the 201 retained entries. The compact canonical record is
+`evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-95258e9-integration-summary.json`.
+The full execution package remains external and is bound by the prepared-manifest
+SHA-256 `e361798fcb2e42732c906285ab790c9fdc71bb11321fd38ea901d653106e2999`
+and retention-manifest SHA-256
+`7517618fc84e5fd2b53897827ef436dda95b311e6a694ad3cb290e302a632be6`.
+
 ## Execution and audit
 
 The one authorized execution used GCC 13/libstdc++ and Clang 18/libc++, each
@@ -74,5 +92,7 @@ Primitives stage. The cumulative Geometry Primitives regression remains open.
 
 ## Next bounded action
 
-No implementation follows automatically. A separate scientific entry decision
-is required before Transformations and Coordinate Frames can begin.
+The qualified LA-only integration candidate may proceed to controlled review and
+integration into `main`. No later Geometry implementation follows automatically;
+a separate scientific entry decision is required before Transformations and
+Coordinate Frames can begin.

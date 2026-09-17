@@ -435,6 +435,14 @@ Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
   retention manifest
   `24894a2cf9875254862a27ac80582d2652a2543c891a59ed7920478d7c6aeb65`;
   reproducible build/cache extras were not imported.
+- LA-only integration regression (2026-09-16): clean published candidate
+  `95258e9` passed LA0-LA7 in the same four-cell envelope. All 56 commands
+  succeeded; 12 certificates, 40 expected negative rejections, identical
+  cross-cell projection, detached verification, and a 201-entry hash-verified
+  external retention package were audited. Only the compact canonical summary
+  is tracked at
+  `evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-95258e9-integration-summary.json`.
+  No production math, Geometry adapter, or later Geometry capability changed.
 
 #### Transformations and Coordinate Frames
 
@@ -662,9 +670,9 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current integration work: isolate the qualified Minimal Small Linear Algebra
-candidate from later Geometry work, then validate the isolated candidate on a
-clean four-cell regression before opening an integration PR.
+Current integration work: the isolated Minimal Small Linear Algebra candidate
+`95258e9` has passed the clean four-cell regression and awaits controlled
+integration review. No later Geometry work is included.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification

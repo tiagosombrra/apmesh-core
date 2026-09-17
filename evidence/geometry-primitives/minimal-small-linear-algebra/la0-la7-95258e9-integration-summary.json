@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "kind": "minimal-small-linear-algebra-integration-regression-summary",
+  "candidate_commit": "95258e9faaeaae89e801874fe1ce600e80285427",
+  "upstream_commit": "95258e9faaeaae89e801874fe1ce600e80285427",
+  "prepared_manifest_sha256": "e361798fcb2e42732c906285ab790c9fdc71bb11321fd38ea901d653106e2999",
+  "external_retention_manifest_sha256": "7517618fc84e5fd2b53897827ef436dda95b311e6a694ad3cb290e302a632be6",
+  "external_output_root": "C:\\Users\\tiago\\AppData\\Local\\Temp\\apmesh-core-la0-la7-95258e9-prepared-20260916",
+  "audit_decision": "PASS_WITH_RETAINED_LIMITATIONS",
+  "gates": {
+    "LA0": "PASS",
+    "LA1": "PASS",
+    "LA2": "PASS",
+    "LA3": "PASS",
+    "LA4": "PASS",
+    "LA5": "PASS",
+    "LA6": "PASS",
+    "LA7": "PASS"
+  },
+  "execution": {
+    "cells": ["gcc-debug", "gcc-release", "clang-debug", "clang-release"],
+    "repetitions_per_cell": 3,
+    "certificates": 12,
+    "cases_per_certificate": 91,
+    "command_records": 56,
+    "negative_rejections": 40
+  },
+  "integrity": {
+    "all_command_exit_codes_zero": true,
+    "timeouts": 0,
+    "launch_errors": 0,
+    "cross_cell_projection_equal": true,
+    "retained_entries": 201,
+    "retention_hash_mismatches": 0,
+    "detached_verification": "PASS"
+  },
+  "retained_limitations": [
+    "WSL Ubuntu 24.04 with GCC 13 and Clang 18 libc++ only",
+    "No native Windows, parallel, predicate, topology, curve, surface, or meshing qualification",
+    "Determinant observations retain no sign, rank, degeneracy, orientation, incidence, or topology claim"
+  ]
+}
