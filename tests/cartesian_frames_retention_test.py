@@ -4,6 +4,7 @@ import argparse
 import importlib.util
 import json
 import pathlib
+import subprocess
 import tempfile
 from unittest.mock import patch
 
@@ -16,14 +17,16 @@ def rejects(action, message: str) -> None:
     raise RuntimeError(message)
 
 
+def git(root: pathlib.Path, *arguments: str) -> None:
+    completed = subprocess.run(["git", *arguments], cwd=root, capture_output=True, text=True, check=False)
+    if completed.returncode != 0:
+        raise RuntimeError(f"git command failed: {' '.join(arguments)}: {completed.stderr}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--runner", required=True)
-    parser.add_argument("--source-root", required=True)
-    parser.add_argument("--profile", required=True)
-    parser.add_argument("--protocol", required=True)
-    parser.add_argument("--exporter", required=True)
-    parser.add_argument("--validator", required=True)
+    for name in ("runner", "source-root", "profile", "protocol", "exporter", "validator"):
+        parser.add_argument(f"--{name}", required=True)
     arguments = parser.parse_args()
     specification = importlib.util.spec_from_file_location("cartesian_frames_runner_retention", arguments.runner)
     if specification is None or specification.loader is None:
@@ -31,35 +34,66 @@ def main() -> int:
     runner = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(runner)
     profile = json.loads(pathlib.Path(arguments.profile).read_text(encoding="utf-8"))
-    if profile["retention_negative_cases"] != ["missing_retained_hash"]:
+    if profile["retention_negative_cases"] != ["missing_retained_hash", "rehashed_failure_records", "forged_detached_verification"]:
         raise RuntimeError("retention negative profile differs")
 
     with tempfile.TemporaryDirectory(prefix="apmesh-core-cf-retention-") as temporary:
-        root = pathlib.Path(temporary) / "evidence"
-        source = pathlib.Path(arguments.source_root).resolve()
-        candidate = {"commit": "0123456789abcdef0123456789abcdef01234567", "upstream_commit": "0123456789abcdef0123456789abcdef01234567", "tree_clean": True, "source_root": str(source), "source_inventory": []}
-        preparation = argparse.Namespace(source_root=str(source), profile=arguments.profile, protocol=arguments.protocol,
-                                         exporter=arguments.exporter, validator=arguments.validator, output_root=str(root))
+        temporary_root = pathlib.Path(temporary)
+        candidate_root = temporary_root / "candidate"
+        candidate_root.mkdir()
+        git(candidate_root, "init")
+        git(candidate_root, "config", "user.email", "retention@example.invalid")
+        git(candidate_root, "config", "user.name", "Retention Contract")
+        (candidate_root / "tracked.txt").write_text("detached verification source\n", encoding="utf-8")
+        git(candidate_root, "add", "tracked.txt")
+        git(candidate_root, "commit", "-m", "candidate")
+        candidate = runner.clean_candidate(candidate_root)
+        candidate["upstream_commit"] = candidate["commit"]
+        evidence_root = temporary_root / "evidence"
+        preparation = argparse.Namespace(source_root=arguments.source_root, profile=arguments.profile, protocol=arguments.protocol,
+                                         exporter=arguments.exporter, validator=arguments.validator, output_root=str(evidence_root))
         with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}):
             runner.prepare(preparation)
-        manifest = runner.read_json(root / "prepared-manifest.json")
-        runner.write_json(root / "command-records.json", {"schema_version": 1, "records": []})
-        runner.write_json(root / "observed-inventories.json", {"schema_version": 1, "inventories": []})
-        runner.write_state(root, "RUNNING", {"candidate_commit": candidate["commit"]})
-        runner.write_state(root, "EXECUTED_PENDING_AUDIT", {"candidate_commit": candidate["commit"]})
-        runner.write_json(root / "terminal-manifest.json", {"schema_version": 1, "kind": "cartesian-frames-terminal-manifest", "state": "EXECUTED_PENDING_AUDIT", "candidate": candidate, "prepared_manifest_sha256": runner.sha256_file(root / "prepared-manifest.json"), "command_records": "command-records.json", "inventories": "observed-inventories.json", "limitations": manifest["retained_limitations"]})
-        runner.write_json(root / "detached-verification.json", {"schema_version": 1, "kind": "cartesian-frames-detached-verification", "result": "PASS", "candidate_commit": candidate["commit"], "source_inventory_count": 0})
-        files = []
-        for path in sorted((path for path in root.rglob("*") if path.is_file()), key=lambda item: item.as_posix()):
-            relative = runner.relative_path(root, path)
-            files.append({"path": relative, "role": "retained-evidence", "sha256": runner.sha256_file(path), "size": path.stat().st_size})
-        runner.write_json(root / "retention-manifest.json", {"schema_version": 1, "kind": "cartesian-frames-retention", "candidate_commit": candidate["commit"], "prepared_manifest_sha256": runner.sha256_file(root / "prepared-manifest.json"), "required_paths": [entry["path"] for entry in files], "files": files})
-        verified = runner.verify_retention(root)
-        if verified["status"] != "PASS":
+        manifest = runner.read_json(evidence_root / "prepared-manifest.json")
+        runner.write_json(evidence_root / "execution-claim.json", {
+            "schema_version": 1, "kind": "cartesian-frames-execution-claim", "candidate_commit": candidate["commit"],
+            "prepared_manifest_sha256": runner.sha256_file(evidence_root / "prepared-manifest.json"), "pid": 1,
+            "started_utc": "2026-01-01T00:00:00+00:00",
+        })
+        records: list[dict] = []
+        runner.write_records(evidence_root, records)
+        runner.write_json(evidence_root / "failure.json", {
+            "schema_version": 1, "kind": "cartesian-frames-failure", "message": "intentional focused partial failure",
+            "records": records, "partial_certificate_slots": [],
+        })
+        runner.write_state(evidence_root, "RUNNING", {"candidate_commit": candidate["commit"]})
+        runner.write_state(evidence_root, "BLOCKED", {"candidate_commit": candidate["commit"], "closure_failure": True, "failure": "failure.json"})
+        runner.write_terminal(evidence_root, manifest, "BLOCKED", {"failure": "failure.json"})
+        runner.seal_output(evidence_root, manifest, runner.FAILURE_FILES)
+        if runner.verify_retention(evidence_root)["status"] != "PASS":
             raise RuntimeError("retention verification did not pass")
-        retained = root / files[0]["path"]
+
+        retained = evidence_root / "failure.json"
         retained.write_bytes(retained.read_bytes() + b"x")
-        rejects(lambda: runner.verify_retention(root), "missing retained hash mutation was accepted")
+        rejects(lambda: runner.verify_retention(evidence_root), "missing retained hash mutation was accepted")
+
+        runner.write_json(retained, {
+            "schema_version": 1, "kind": "cartesian-frames-failure", "message": "intentional focused partial failure",
+            "records": [{"id": "forged"}], "partial_certificate_slots": [],
+        })
+        runner.write_retention_inventory(evidence_root, manifest, runner.FAILURE_FILES)
+        rejects(lambda: runner.verify_retention(evidence_root), "rehashed semantic failure mutation was accepted")
+
+        runner.write_json(retained, {
+            "schema_version": 1, "kind": "cartesian-frames-failure", "message": "intentional focused partial failure",
+            "records": records, "partial_certificate_slots": [],
+        })
+        runner.write_retention_inventory(evidence_root, manifest, runner.FAILURE_FILES)
+        detached = runner.read_json(evidence_root / "detached-verification.json")
+        detached["source_inventory_count"] += 1
+        runner.write_json(evidence_root / "detached-verification.json", detached)
+        runner.write_retention_inventory(evidence_root, manifest, runner.FAILURE_FILES)
+        rejects(lambda: runner.verify_retention(evidence_root), "forged detached verification was accepted")
     return 0
 
 

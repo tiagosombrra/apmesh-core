@@ -56,8 +56,9 @@ implemented; formal qualification not started.** `CartesianFrame2` and
 `CartesianFrame3` are bounded to an exact signed-permutation basis, a finite
 origin, and a positive power-of-two scale. Their focused analytic contract and
 the profile, certificate/oracle, comparer, split negatives, clean/published
-candidate manifest creator, exact CTest allowlist planner, and retention
-contracts are implemented. No `PREPARED` manifest has been created.
+candidate manifest creator/consumer, exact CTest discovery and allowlist
+execution, terminal partial-failure retention, and detached-worktree retention
+verification are implemented. No `PREPARED` manifest has been created.
 They may map matching points and vectors between local and world coordinates;
 they do not authorize general transformations, tolerance-based validation,
 inversion, predicates, topology, curves, surfaces, or meshing. The entry

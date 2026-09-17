@@ -49,7 +49,11 @@ FIXED_CASES: dict[str, dict[str, Any]] = {
 }
 
 CERTIFICATE_NEGATIVE_CASES = ["duplicate_case", "unexpected_case", "forged_expected_value", "wrong_error_classification", "noncanonical_comparison_policy"]
-RETENTION_NEGATIVE_CASES = ["missing_retained_hash"]
+RETENTION_NEGATIVE_CASES = [
+    "missing_retained_hash",
+    "rehashed_failure_records",
+    "forged_detached_verification",
+]
 
 
 def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:

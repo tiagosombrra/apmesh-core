@@ -61,6 +61,16 @@ def main() -> int:
         with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}):
             runner.prepare(preparation)
             runner.validate_prepared(prepared, require_unconsumed=True)
+            loaded_root, loaded_manifest, loaded = runner.load_prepared(preparation)
+            if loaded_root != prepared.resolve() or loaded_manifest["candidate"] != candidate or loaded != loaded_profile:
+                raise RuntimeError("prepared manifest cannot be consumed unchanged")
+            (prepared / "execution-claim.json").write_text("{}", encoding="utf-8")
+            try:
+                runner.load_prepared(preparation)
+            except runner.RunnerError:
+                pass
+            else:
+                raise RuntimeError("runner accepted a consumed prepared manifest")
         if json.loads((prepared / "prepared-manifest.json").read_text(encoding="utf-8"))["execution_requested"] is not False:
             raise RuntimeError("prepared manifest enables execution")
     return 0

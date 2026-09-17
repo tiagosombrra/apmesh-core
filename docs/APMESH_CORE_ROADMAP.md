@@ -458,7 +458,9 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / CF0–CF7 ADMISSION INFRASTRUCTU
   native-Windows qualification.
 - The focused analytic contract passed on GCC 13 and Clang 18 libc++, in Debug
   and Release. The revision-bound CF0–CF7 protocol and admission
-  infrastructure are recorded at
+  infrastructure, including an immutable PREPARED consumer, exact CTest
+  discovery, terminal partial-failure records, and detached-worktree retention,
+  are recorded at
   `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`; neither
   has prepared or executed a formal qualification, and this evidence does not
   qualify the Geometry Primitives stage.

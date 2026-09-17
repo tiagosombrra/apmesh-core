@@ -36,7 +36,11 @@
     "duplicate_case", "unexpected_case", "forged_expected_value",
     "wrong_error_classification", "noncanonical_comparison_policy"
   ],
-  "retention_negative_cases": ["missing_retained_hash"],
+  "retention_negative_cases": [
+    "missing_retained_hash",
+    "rehashed_failure_records",
+    "forged_detached_verification"
+  ],
   "exact_prerequisite_tests": [
     "apmesh_core.bootstrap_smoke", "apmesh_core.bootstrap_export", "apmesh_core.bootstrap_tool",
     "apmesh_core.architecture_bootstrap_runner", "apmesh_core.numeric_contract",
