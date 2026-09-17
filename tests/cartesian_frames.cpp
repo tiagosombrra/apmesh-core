@@ -54,6 +54,16 @@ concept VectorWorldMappable = requires(const Frame& frame, const Vector& vector)
     frame.vector_to_world(vector);
 };
 
+template <typename Frame, typename Point>
+concept PointLocalMappable = requires(const Frame& frame, const Point& point) {
+    frame.point_to_local(point);
+};
+
+template <typename Frame, typename Vector>
+concept VectorLocalMappable = requires(const Frame& frame, const Vector& vector) {
+    frame.vector_to_local(vector);
+};
+
 template <typename Matrix, typename Point>
 concept MatrixAppliesToPoint = requires(const Matrix& matrix, const Point& point) {
     apmesh::core::apply(matrix, point);
@@ -70,6 +80,14 @@ int main() {
     static_assert(!VectorWorldMappable<CartesianFrame2, Vector3>);
     static_assert(VectorWorldMappable<CartesianFrame3, Vector3>);
     static_assert(!VectorWorldMappable<CartesianFrame3, Vector2>);
+    static_assert(PointLocalMappable<CartesianFrame2, Point2>);
+    static_assert(!PointLocalMappable<CartesianFrame2, Point3>);
+    static_assert(PointLocalMappable<CartesianFrame3, Point3>);
+    static_assert(!PointLocalMappable<CartesianFrame3, Point2>);
+    static_assert(VectorLocalMappable<CartesianFrame2, Vector2>);
+    static_assert(!VectorLocalMappable<CartesianFrame2, Vector3>);
+    static_assert(VectorLocalMappable<CartesianFrame3, Vector3>);
+    static_assert(!VectorLocalMappable<CartesianFrame3, Vector2>);
     static_assert(!MatrixAppliesToPoint<Mat2, Point2>);
     static_assert(!MatrixAppliesToPoint<Mat3, Point3>);
 
@@ -117,7 +135,17 @@ int main() {
                          "2D quarter-turn map differs") && passed;
         passed = require(mapped_point && frame2->point_to_local(*mapped_point) == local2 &&
                              mapped_vector && frame2->vector_to_local(*mapped_vector) == vector2,
-                         "2D round trip differs") && passed;
+                         "2D local-to-world round trip differs") && passed;
+        const auto world_point = Point2::make(17.0, -4.0);
+        const auto world_vector = Vector2::make(6.0, -10.0);
+        const auto local_point = world_point ? frame2->point_to_local(*world_point)
+                                             : std::expected<Point2, GeometryError>{std::unexpected{GeometryError::non_finite_input}};
+        const auto local_vector = world_vector ? frame2->vector_to_local(*world_vector)
+                                               : std::expected<Vector2, GeometryError>{std::unexpected{GeometryError::non_finite_input}};
+        passed = require(world_point && world_vector && local_point && local_vector &&
+                             frame2->point_to_world(*local_point) == world_point &&
+                             frame2->vector_to_world(*local_vector) == world_vector,
+                         "2D world-to-local round trip differs") && passed;
 
         const auto alternate_origin = Point2::make(-5.0, 7.0);
         const auto translated = alternate_origin
@@ -166,7 +194,17 @@ int main() {
                          "3D axis-cycle map differs") && passed;
         passed = require(mapped_point && frame3->point_to_local(*mapped_point) == local3 &&
                              mapped_vector && frame3->vector_to_local(*mapped_vector) == vector3,
-                         "3D round trip differs") && passed;
+                         "3D local-to-world round trip differs") && passed;
+        const auto world_point = Point3::make(7.0, 3.0, -5.0);
+        const auto world_vector = Vector3::make(2.0, -4.0, 8.0);
+        const auto local_point = world_point ? frame3->point_to_local(*world_point)
+                                             : std::expected<Point3, GeometryError>{std::unexpected{GeometryError::non_finite_input}};
+        const auto local_vector = world_vector ? frame3->vector_to_local(*world_vector)
+                                               : std::expected<Vector3, GeometryError>{std::unexpected{GeometryError::non_finite_input}};
+        passed = require(world_point && world_vector && local_point && local_vector &&
+                             frame3->point_to_world(*local_point) == world_point &&
+                             frame3->vector_to_world(*local_vector) == world_vector,
+                         "3D world-to-local round trip differs") && passed;
     }
 
     const auto reflection = Mat2::make({-1.0, 0.0, 0.0, 1.0});
