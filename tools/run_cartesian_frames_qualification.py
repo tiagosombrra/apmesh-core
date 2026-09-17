@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import hashlib
 import json
 import os
@@ -20,7 +21,7 @@ TOOL_ROOT = pathlib.Path(__file__).resolve().parent
 if str(TOOL_ROOT) not in sys.path:
     sys.path.insert(0, str(TOOL_ROOT))
 
-from cartesian_frames_evidence import EvidenceError, compare_certificates, validate_certificate, validate_profile, validate_source  # noqa: E402
+from cartesian_frames_evidence import EvidenceError, compare_certificates, validate_certificate, validate_negative_outcomes, validate_profile, validate_source  # noqa: E402
 from experiment_runtime import RuntimeErrorEvidence, clean_candidate, input_identity, read_json, relative_path, run_command, sha256_file, tool_version, utc_now, verify_input_identity, write_json, write_state  # noqa: E402
 
 BUILD_TIMEOUT_SECONDS = 300
@@ -97,9 +98,37 @@ def protocol_check(path: pathlib.Path) -> None:
 
 def environment_identity() -> dict[str, Any]:
     try:
-        return {"python": sys.version.splitlines()[0], "platform": platform.platform(), "cmake": tool_version("cmake"), "ctest": tool_version("ctest"), "ninja": tool_version("ninja"), "gcc": tool_version("g++-13"), "clang": tool_version("clang++-18"), "ldd": tool_version("ldd"), "observations": {name: os.environ.get(name, "") for name in ("LANG", "LC_ALL", "TZ")}}
+        return {
+            "python": tool_identity(sys.executable),
+            "platform": platform.platform(),
+            "cmake": tool_identity("cmake"),
+            "ctest": tool_identity("ctest"),
+            "ninja": tool_identity("ninja"),
+            "gcc": tool_identity("g++-13"),
+            "clang": tool_identity("clang++-18"),
+            "ldd": tool_identity("ldd"),
+            "observations": {name: os.environ.get(name, "") for name in ("LANG", "LC_ALL", "TZ")},
+        }
     except RuntimeErrorEvidence as error:
         raise fail(str(error)) from error
+
+
+def tool_identity(command: str) -> dict[str, str]:
+    resolved = shutil.which(command)
+    if resolved is None:
+        raise RuntimeErrorEvidence(f"required tool is unavailable: {command}")
+    invoked = pathlib.Path(resolved).absolute()
+    executable = invoked.resolve()
+    if not executable.is_file():
+        raise RuntimeErrorEvidence(f"required tool is not a regular file: {command}")
+    version = tool_version(command)["version"]
+    return {
+        "command": command,
+        "invocation_path": str(invoked),
+        "resolved_path": str(executable),
+        "sha256": sha256_file(executable),
+        "version": version,
+    }
 
 
 def ctest_regex(names: list[str]) -> str:
@@ -194,9 +223,7 @@ def prepare(arguments: argparse.Namespace) -> None:
     validate_prepared(output, require_unconsumed=True)
 
 
-def load_prepared(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any], dict[str, Any]]:
-    source, output = pathlib.Path(arguments.source_root).resolve(), pathlib.Path(arguments.output_root).resolve()
-    manifest = validate_prepared(output, require_unconsumed=True)
+def validate_execution_binding(arguments: argparse.Namespace, source: pathlib.Path, output: pathlib.Path, manifest: dict[str, Any]) -> dict[str, Any]:
     paths, profile = input_paths(arguments, source), validate_profile(canonical(source, "experiments/profiles/cartesian_frames.json", arguments.profile, "profile"))
     if manifest["candidate"] != published_candidate(source) or manifest["environment"] != environment_identity() or manifest["working_directory"] != str(source) or manifest["output_root"] != str(output):
         raise fail("prepared candidate or environment differs")
@@ -204,7 +231,13 @@ def load_prepared(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str
     plan = command_plan(profile, source)
     if manifest["limits_seconds"] != {"build": BUILD_TIMEOUT_SECONDS, "process": PROCESS_TIMEOUT_SECONDS, "overall": OVERALL_TIMEOUT_SECONDS} or manifest["plan"] != plan or manifest["planned_inventories"] != planned_inventories(profile, manifest["candidate"], plan) or manifest["gates"] != {gate: "NOT_EXECUTED" for gate in profile["gates"]} or manifest["retained_limitations"] != profile["limitations"] or read_json(output / "profile.json") != profile:
         raise fail("prepared manifest plan differs")
-    return output, manifest, profile
+    return profile
+
+
+def load_prepared(arguments: argparse.Namespace) -> tuple[pathlib.Path, dict[str, Any], dict[str, Any]]:
+    source, output = pathlib.Path(arguments.source_root).resolve(), pathlib.Path(arguments.output_root).resolve()
+    manifest = validate_prepared(output, require_unconsumed=True)
+    return output, manifest, validate_execution_binding(arguments, source, output, manifest)
 
 
 def replace_root(value: Any, output: pathlib.Path, repetition: int | None = None) -> Any:
@@ -216,6 +249,84 @@ def replace_root(value: Any, output: pathlib.Path, repetition: int | None = None
         value = value.replace("@OUTPUT_ROOT@", str(output))
         return value.replace("@REPETITION@", str(repetition)) if repetition is not None else value
     return value
+
+
+def planned_command_records(manifest: dict[str, Any], output: pathlib.Path) -> list[dict[str, Any]]:
+    """Return the exact command-record provenance expected from the sealed plan."""
+    planned: list[dict[str, Any]] = []
+
+    def append(cell: str, stage: str, argv: list[str], timeout_seconds: int) -> None:
+        planned.append({
+            "id": f"{cell}-{stage}",
+            "argv": argv,
+            "cwd": manifest["working_directory"],
+            "timeout_seconds": timeout_seconds,
+        })
+
+    for cell in manifest["plan"]:
+        name = cell["cell"]
+        for stage in ("source_check", "configure", "build"):
+            append(name, stage.replace("_", "-"), replace_root(cell[stage], output), BUILD_TIMEOUT_SECONDS)
+        append(name, "prerequisite-discovery", replace_root(cell["prerequisite_discovery"], output), PROCESS_TIMEOUT_SECONDS)
+        for stage in ("focused_ctest", "prerequisite_ctest"):
+            append(name, stage.replace("_", "-"), replace_root(cell[stage], output), BUILD_TIMEOUT_SECONDS)
+        for repetition in range(1, cell["repetitions"] + 1):
+            append(name, f"certificate-{repetition}", replace_root(cell["certificate"], output, repetition), PROCESS_TIMEOUT_SECONDS)
+            append(name, f"certificate-validation-{repetition}", replace_root(cell["certificate_validation"], output, repetition), PROCESS_TIMEOUT_SECONDS)
+        append(name, "negative-outcomes", replace_root(cell["negative_outcomes"], output), PROCESS_TIMEOUT_SECONDS)
+    for cell in manifest["plan"]:
+        for executable_name in cell["runtime_executables"]:
+            append(cell["cell"], f"ldd-{executable_name.replace('.', '_')}", ["ldd", str(output / "cells" / cell["cell"] / "build" / executable_name)], PROCESS_TIMEOUT_SECONDS)
+    return planned
+
+
+def parse_timestamp(value: Any, context: str) -> dt.datetime:
+    if not isinstance(value, str):
+        raise fail(f"{context} timestamp differs")
+    try:
+        parsed = dt.datetime.fromisoformat(value)
+    except ValueError as error:
+        raise fail(f"{context} timestamp differs") from error
+    if parsed.tzinfo is None:
+        raise fail(f"{context} timestamp lacks timezone")
+    return parsed
+
+
+def verify_command_records(root: pathlib.Path, manifest: dict[str, Any], state: str) -> list[dict[str, Any]]:
+    records_document = read_json(root / "command-records.json")
+    if set(records_document) != {"schema_version", "kind", "records"} or records_document.get("schema_version") != 2 or records_document.get("kind") != "cartesian-frames-command-records" or not isinstance(records_document.get("records"), list):
+        raise fail("command records differ")
+    records = records_document["records"]
+    expected = planned_command_records(manifest, root)
+    if len(records) > len(expected) or [row.get("id") if isinstance(row, dict) else None for row in records] != [row["id"] for row in expected[:len(records)]]:
+        raise fail("command record sequence differs from sealed plan")
+    if state == "EXECUTED_PENDING_AUDIT" and len(records) != len(expected):
+        raise fail("successful command record sequence is incomplete")
+    expected_keys = {"schema_version", "kind", "id", "argv", "cwd", "environment_delta", "started_utc", "ended_utc", "elapsed_seconds", "pid", "timeout_seconds", "timed_out", "exit_code", "launch_error", "stdout", "stderr"}
+    for index, (record, specification) in enumerate(zip(records, expected)):
+        if not isinstance(record, dict) or set(record) != expected_keys or record.get("schema_version") != 1 or record.get("kind") != "experiment-command-record" or record.get("id") != specification["id"] or record.get("argv") != specification["argv"] or record.get("cwd") != specification["cwd"] or record.get("environment_delta") != {} or record.get("timeout_seconds") != specification["timeout_seconds"]:
+            raise fail("command record provenance differs")
+        started, ended = parse_timestamp(record.get("started_utc"), record["id"]), parse_timestamp(record.get("ended_utc"), record["id"])
+        if started > ended or not isinstance(record.get("elapsed_seconds"), (int, float)) or isinstance(record.get("elapsed_seconds"), bool) or record["elapsed_seconds"] < 0:
+            raise fail("command record timing differs")
+        timed_out, launch_error = record.get("timed_out"), record.get("launch_error")
+        if not isinstance(timed_out, bool):
+            raise fail("command record timeout state differs")
+        if launch_error is None:
+            if not isinstance(record.get("pid"), int) or record["pid"] <= 0 or (timed_out and record.get("exit_code") is not None) or (not timed_out and not isinstance(record.get("exit_code"), int)):
+                raise fail("command record process state differs")
+        elif not isinstance(launch_error, str) or record.get("pid") is not None or record.get("exit_code") is not None or timed_out:
+            raise fail("command record launch failure differs")
+        for stream in ("stdout", "stderr"):
+            item = record.get(stream)
+            expected_path = f"logs/{record['id']}.{stream}.log"
+            if not isinstance(item, dict) or set(item) != {"path", "sha256"} or item.get("path") != expected_path or not isinstance(item.get("sha256"), str) or len(item["sha256"]) != 64 or not (root / expected_path).is_file() or sha256_file(root / expected_path) != item["sha256"]:
+                raise fail("command record log binding differs")
+        if index < len(records) - 1:
+            require_success(record, f"retained command {record['id']}")
+    if state == "EXECUTED_PENDING_AUDIT" and any(record["exit_code"] != 0 or record["timed_out"] or record["launch_error"] is not None for record in records):
+        raise fail("successful terminal includes failed command")
+    return records
 
 
 def require_success(record: dict[str, Any], context: str) -> None:
@@ -273,11 +384,15 @@ def verify_retention(root: pathlib.Path) -> dict[str, Any]:
     terminal_failure = terminal_base | {"failure"}
     if (terminal.get("state") == "EXECUTED_PENDING_AUDIT" and set(terminal) != terminal_success) or (terminal.get("state") == "BLOCKED" and not set(terminal).issubset(terminal_failure | {"retention_failure"})) or terminal.get("kind") != "cartesian-frames-terminal-manifest" or terminal.get("schema_version") != 2 or terminal.get("candidate") != manifest["candidate"] or terminal.get("prepared_manifest_sha256") != sha256_file(root / "prepared-manifest.json") or terminal.get("state") not in {"EXECUTED_PENDING_AUDIT", "BLOCKED"} or terminal.get("command_records") != "command-records.json" or terminal.get("retention_manifest") != "retention-manifest.json" or read_json(root / "state.json").get("state") != terminal.get("state"):
         raise fail("terminal manifest differs")
+    if terminal["state"] == "EXECUTED_PENDING_AUDIT" and (terminal.get("observed_inventories") != "observed-inventories.json" or terminal.get("certificate_index") != "certificate-index.json" or terminal.get("comparison") != "cross-cell-comparison.json" or terminal.get("gate_summary") != "gate-summary.json" or terminal.get("prerequisite_discovery") != "prerequisite-discovery.json"):
+        raise fail("successful terminal references differ")
     claim = read_json(root / "execution-claim.json")
-    if claim.get("kind") != "cartesian-frames-execution-claim" or claim.get("candidate_commit") != manifest["candidate"]["commit"] or claim.get("prepared_manifest_sha256") != sha256_file(root / "prepared-manifest.json") or not isinstance(claim.get("pid"), int) or claim["pid"] <= 0 or not isinstance(claim.get("started_utc"), str):
+    if set(claim) != {"schema_version", "kind", "candidate_commit", "prepared_manifest_sha256", "pid", "started_utc"} or claim.get("schema_version") != 1 or claim.get("kind") != "cartesian-frames-execution-claim" or claim.get("candidate_commit") != manifest["candidate"]["commit"] or claim.get("prepared_manifest_sha256") != sha256_file(root / "prepared-manifest.json") or not isinstance(claim.get("pid"), int) or claim["pid"] <= 0:
         raise fail("execution claim differs")
+    parse_timestamp(claim.get("started_utc"), "execution claim")
     expected = set(SUCCESS_FILES if terminal["state"] == "EXECUTED_PENDING_AUDIT" else FAILURE_FILES)
-    if terminal.get("retention_failure") is not None:
+    sealing_failed = terminal.get("retention_failure") is not None
+    if sealing_failed:
         if terminal["state"] != "BLOCKED" or terminal["retention_failure"] != "retention-error.json":
             raise fail("retention failure terminal differs")
         expected |= SEAL_FAILURE_FILES
@@ -292,37 +407,97 @@ def verify_retention(root: pathlib.Path) -> dict[str, Any]:
     actual = {relative_path(root, path) for path in root.rglob("*") if path.is_file() and "/build/" not in path.relative_to(root).as_posix()}
     if actual != listed:
         raise fail("retention file set differs")
-    records = read_json(root / "command-records.json")
-    if set(records) != {"schema_version", "kind", "records"} or records.get("schema_version") != 2 or records.get("kind") != "cartesian-frames-command-records" or not isinstance(records.get("records"), list) or len({row.get("id") for row in records["records"] if isinstance(row, dict)}) != len(records["records"]):
-        raise fail("command records differ")
-    for row in records["records"]:
-        if not isinstance(row, dict):
-            raise fail("command record differs")
-        for stream in ("stdout", "stderr"):
-            item = row.get(stream, {})
-            if item.get("path") not in listed or sha256_file(root / item["path"]) != item.get("sha256"):
-                raise fail("command log binding differs")
+    records = verify_command_records(root, manifest, terminal["state"])
+    record_by_id = {record["id"]: record for record in records}
     detached = read_json(root / "detached-verification.json")
-    observed = verify_detached_candidate(pathlib.Path(manifest["candidate"]["source_root"]), manifest["candidate"])
-    if detached != {"schema_version": 1, "kind": "cartesian-frames-detached-verification", **observed}:
-        raise fail("detached retention verification differs")
+    if sealing_failed:
+        error = read_json(root / "retention-error.json")
+        if set(error) != {"schema_version", "kind", "candidate_commit", "stage", "error_type", "message", "retry_attempted", "snapshots"} or error.get("schema_version") != 1 or error.get("kind") != "cartesian-frames-retention-failure" or error.get("candidate_commit") != manifest["candidate"]["commit"] or error.get("stage") not in {"detached-verification", "inventory", "verification"} or not isinstance(error.get("error_type"), str) or not error["error_type"] or not isinstance(error.get("message"), str) or not error["message"] or error.get("retry_attempted") is not False or not isinstance(error.get("snapshots"), dict):
+            raise fail("retention failure evidence differs")
+        for name, digest in error["snapshots"].items():
+            if name not in {"pre-seal-terminal.json", "pre-seal-detached.json", "pre-seal-retention.json"} or name not in listed or not isinstance(digest, str) or sha256_file(root / name) != digest:
+                raise fail("retention failure snapshot differs")
+        if detached != {"schema_version": 1, "kind": "cartesian-frames-detached-verification", "result": "BLOCKED", "candidate_commit": manifest["candidate"]["commit"], "retention_failure": "retention-error.json"}:
+            raise fail("sealed failure detached verification differs")
+    else:
+        observed = verify_detached_candidate(pathlib.Path(manifest["candidate"]["source_root"]), manifest["candidate"])
+        if detached != {"schema_version": 1, "kind": "cartesian-frames-detached-verification", **observed}:
+            raise fail("detached retention verification differs")
     conditions = {"always", "success" if terminal["state"] == "EXECUTED_PENDING_AUDIT" else "failure"}
-    if terminal.get("retention_failure") is not None:
+    if sealing_failed:
         conditions.add("seal-failure")
     required_artifacts = {row["path"] for row in manifest["planned_inventories"]["artifacts"] if row["required_when"] in conditions}
     if not required_artifacts.issubset(listed):
         raise fail("planned artifacts are incomplete")
     if terminal["state"] == "BLOCKED":
         failure = read_json(root / "failure.json")
-        if failure.get("kind") != "cartesian-frames-failure" or not failure.get("message") or failure.get("records") != records["records"] or not isinstance(failure.get("partial_certificate_slots"), list) or terminal.get("failure") != "failure.json":
+        if set(failure) != {"schema_version", "kind", "message", "records", "partial_certificate_slots"} or failure.get("schema_version") != 1 or failure.get("kind") != "cartesian-frames-failure" or not isinstance(failure.get("message"), str) or not failure["message"] or failure.get("records") != records or not isinstance(failure.get("partial_certificate_slots"), list) or terminal.get("failure") != "failure.json":
             raise fail("terminal failure evidence differs")
     else:
         profile = validate_profile(root / "profile.json")
+        if sha256_file(root / "profile.json") != manifest["inputs"]["profile"]["sha256"]:
+            raise fail("retained profile identity differs")
         if read_json(root / "cross-cell-comparison.json") != compare_certificates(profile, root / "certificate-index.json"):
             raise fail("cross-cell comparison recomputation differs")
-        for cell in manifest["plan"]:
-            if read_json(root / "cells" / cell["cell"] / "source-check.json") != validate_source(pathlib.Path(manifest["working_directory"])):
+        source_checks = read_json(root / "source-checks.json")
+        expected_cells = [cell["cell"] for cell in manifest["plan"]]
+        if set(source_checks) != {"schema_version", "kind", "cells"} or source_checks.get("schema_version") != 1 or source_checks.get("kind") != "cartesian-frames-source-checks" or not isinstance(source_checks.get("cells"), list) or [item.get("cell") if isinstance(item, dict) else None for item in source_checks["cells"]] != expected_cells:
+            raise fail("retained source check index differs")
+        discoveries = read_json(root / "prerequisite-discovery.json")
+        if set(discoveries) != {"schema_version", "kind", "cells"} or discoveries.get("schema_version") != 1 or discoveries.get("kind") != "cartesian-frames-prerequisite-discovery" or not isinstance(discoveries.get("cells"), list) or [item.get("cell") if isinstance(item, dict) else None for item in discoveries["cells"]] != expected_cells:
+            raise fail("retained prerequisite discovery differs")
+        inventories = read_json(root / "observed-inventories.json")
+        if set(inventories) != {"schema_version", "kind", "candidate_commit", "cells"} or inventories.get("schema_version") != 1 or inventories.get("kind") != "cartesian-frames-observed-inventories" or inventories.get("candidate_commit") != manifest["candidate"]["commit"] or not isinstance(inventories.get("cells"), list) or [item.get("cell") if isinstance(item, dict) else None for item in inventories["cells"]] != expected_cells:
+            raise fail("retained observed inventory differs")
+        for cell, source_entry, discovery, inventory in zip(manifest["plan"], source_checks["cells"], discoveries["cells"], inventories["cells"]):
+            name = cell["cell"]
+            source_path = f"cells/{name}/source-check.json"
+            if set(source_entry) != {"cell", "path", "sha256"} or source_entry.get("path") != source_path or source_entry.get("sha256") != sha256_file(root / source_path) or read_json(root / source_path) != validate_source(pathlib.Path(manifest["working_directory"])):
                 raise fail("retained source check differs")
+            discovery_id = f"{name}-prerequisite-discovery"
+            if set(discovery) != {"cell", "record_id", "discovered_allowlist"} or discovery.get("record_id") != discovery_id or discovery_id not in record_by_id or not isinstance(discovery.get("discovered_allowlist"), list):
+                raise fail("retained prerequisite discovery binding differs")
+            require_success(record_by_id[discovery_id], f"retained prerequisite discovery {name}")
+            discovered = discovered_test_names(record_by_id[discovery_id], root)
+            expected_allowlist = [item for item in discovered if item in profile["exact_prerequisite_tests"]]
+            if discovery["discovered_allowlist"] != expected_allowlist:
+                raise fail("retained prerequisite discovery result differs")
+            validate_prerequisite_discovery(expected_allowlist, profile["exact_prerequisite_tests"])
+            prerequisite_id = f"{name}-prerequisite-ctest"
+            if prerequisite_id not in record_by_id:
+                raise fail("retained prerequisite execution is absent")
+            require_success(record_by_id[prerequisite_id], f"retained prerequisite execution {name}")
+            if set(inventory) != {"cell", "compile_commands", "runtime_dependencies"} or set(inventory.get("compile_commands", {})) != {"path", "sha256"} or inventory["compile_commands"].get("path") != f"cells/{name}/compile_commands.json" or inventory["compile_commands"].get("sha256") != sha256_file(root / inventory["compile_commands"]["path"]):
+                raise fail("retained compile inventory differs")
+            compile_commands = read_json(root / inventory["compile_commands"]["path"])
+            if not isinstance(compile_commands, list) or not compile_commands:
+                raise fail("retained compile commands differ")
+            compiler = cell["compiler"]
+            if any(not isinstance(item, dict) or not isinstance(item.get("file"), str) or not isinstance(item.get("command"), str) or compiler not in item["command"] or not pathlib.Path(item["file"]).resolve().is_relative_to(pathlib.Path(manifest["working_directory"]).resolve()) for item in compile_commands):
+                raise fail("retained compile command provenance differs")
+            expected_dependencies = cell["runtime_executables"]
+            dependencies = inventory.get("runtime_dependencies")
+            if not isinstance(dependencies, list) or [item.get("executable") if isinstance(item, dict) else None for item in dependencies] != expected_dependencies:
+                raise fail("retained runtime inventory differs")
+            for dependency in dependencies:
+                executable = dependency["executable"]
+                record_id = f"{name}-ldd-{executable.replace('.', '_')}"
+                expected_path = f"cells/{name}/build/{executable}"
+                if set(dependency) != {"executable", "path", "sha256", "ldd_record_id", "ldd_stdout_sha256"} or dependency.get("path") != expected_path or dependency.get("ldd_record_id") != record_id or not isinstance(dependency.get("sha256"), str) or len(dependency["sha256"]) != 64 or record_id not in record_by_id:
+                    raise fail("retained runtime dependency binding differs")
+                record = record_by_id[record_id]
+                require_success(record, f"retained runtime dependency {record_id}")
+                if record["stdout"]["sha256"] != dependency.get("ldd_stdout_sha256") or "not found" in ((root / record["stdout"]["path"]).read_text(encoding="utf-8", errors="strict") + (root / record["stderr"]["path"]).read_text(encoding="utf-8", errors="strict")):
+                    raise fail("retained runtime dependency result differs")
+            negative_path = root / "negatives" / f"{name}.json"
+            negative_id = f"{name}-negative-outcomes"
+            if negative_id not in record_by_id:
+                raise fail("retained negative outcome command is absent")
+            require_success(record_by_id[negative_id], f"retained negative outcomes {name}")
+            validate_negative_outcomes(profile, negative_path)
+        expected_summary = {"schema_version": 1, "kind": "cartesian-frames-gate-summary", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "gates": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in profile["gates"]}, "limitations": manifest["retained_limitations"]}
+        if read_json(root / "gate-summary.json") != expected_summary:
+            raise fail("retained gate summary differs")
     return {"schema_version": 1, "kind": "cartesian-frames-retention-verification", "status": "PASS", "files": sorted(listed)}
 
 
@@ -354,13 +529,15 @@ def seal_output(output: pathlib.Path, manifest: dict[str, Any], required_paths: 
 
 
 def execute(arguments: argparse.Namespace) -> int:
-    output, manifest, profile = load_prepared(arguments)
+    source, output = pathlib.Path(arguments.source_root).resolve(), pathlib.Path(arguments.output_root).resolve()
+    manifest = validate_prepared(output, require_unconsumed=True)
     with (output / "execution-claim.json").open("x", encoding="utf-8") as stream:
         json.dump({"schema_version": 1, "kind": "cartesian-frames-execution-claim", "candidate_commit": manifest["candidate"]["commit"], "prepared_manifest_sha256": sha256_file(output / "prepared-manifest.json"), "pid": os.getpid(), "started_utc": utc_now()}, stream, sort_keys=True)
-    source, records, entries, discoveries = pathlib.Path(arguments.source_root).resolve(), [], [], []
-    write_state(output, "RUNNING", {"candidate_commit": manifest["candidate"]["commit"], "prepared_manifest_sha256": sha256_file(output / "prepared-manifest.json")})
+    records, entries, discoveries = [], [], []
     deadline = time.monotonic() + OVERALL_TIMEOUT_SECONDS
     try:
+        write_state(output, "RUNNING", {"candidate_commit": manifest["candidate"]["commit"], "prepared_manifest_sha256": sha256_file(output / "prepared-manifest.json")})
+        profile = validate_execution_binding(arguments, source, output, manifest)
         for cell in manifest["plan"]:
             for stage in ("source_check", "configure", "build"):
                 if time.monotonic() >= deadline:

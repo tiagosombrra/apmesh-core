@@ -73,8 +73,12 @@ The fixed profile, independent certificate exporter/oracle, comparer, split
 certificate/retention negatives, exact-allowlist planner and executor,
 immutable `PREPARED` manifest creator/consumer, terminal partial-failure path,
 and detached-worktree retention verifier are implemented. The creator binds a
-clean, published candidate, source/input inventories, a sealed plan, declared
-toolchain identity, and the four-cell outputs, but is not invoked by focused validation. Focused evidence
+clean, published candidate, source/input inventories, a sealed plan, the
+invoked and resolved toolchain paths with executable SHA-256, and the four-cell
+outputs. Retention recomputes the sealed command plan, exact CTest discovery
+and execution bindings, negatives, inventories, runtime-dependency observations,
+gate summary, and either successful detached verification or a sealed failure
+record. Focused evidence
 neither creates a manifest nor authorizes or claims a formal CF0–CF7 execution
 or scientific closure.
 

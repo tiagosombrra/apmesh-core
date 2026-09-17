@@ -57,8 +57,10 @@ implemented; formal qualification not started.** `CartesianFrame2` and
 origin, and a positive power-of-two scale. Their focused analytic contract and
 the profile, certificate/oracle, comparer, split negatives, clean/published
 candidate manifest creator/consumer, exact CTest discovery and allowlist
-execution, terminal partial-failure retention, and detached-worktree retention
-verification are implemented. No `PREPARED` manifest has been created.
+execution, terminal partial-failure retention, command-plan and derived-evidence
+recomputation, and detached-worktree retention verification are implemented.
+The toolchain record binds invoked/resolved executables and SHA-256. No
+`PREPARED` manifest has been created.
 They may map matching points and vectors between local and world coordinates;
 they do not authorize general transformations, tolerance-based validation,
 inversion, predicates, topology, curves, surfaces, or meshing. The entry

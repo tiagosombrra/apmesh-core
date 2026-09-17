@@ -39,7 +39,9 @@
   "retention_negative_cases": [
     "missing_retained_hash",
     "rehashed_failure_records",
-    "forged_detached_verification"
+    "forged_detached_verification",
+    "rehashed_command_provenance",
+    "sealed_failure_verification"
   ],
   "exact_prerequisite_tests": [
     "apmesh_core.bootstrap_smoke", "apmesh_core.bootstrap_export", "apmesh_core.bootstrap_tool",

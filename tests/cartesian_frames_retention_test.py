@@ -34,7 +34,7 @@ def main() -> int:
     runner = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(runner)
     profile = json.loads(pathlib.Path(arguments.profile).read_text(encoding="utf-8"))
-    if profile["retention_negative_cases"] != ["missing_retained_hash", "rehashed_failure_records", "forged_detached_verification"]:
+    if profile["retention_negative_cases"] != ["missing_retained_hash", "rehashed_failure_records", "forged_detached_verification", "rehashed_command_provenance", "sealed_failure_verification"]:
         raise RuntimeError("retention negative profile differs")
 
     with tempfile.TemporaryDirectory(prefix="apmesh-core-cf-retention-") as temporary:
@@ -88,12 +88,74 @@ def main() -> int:
             "schema_version": 1, "kind": "cartesian-frames-failure", "message": "intentional focused partial failure",
             "records": records, "partial_certificate_slots": [],
         })
+        specification = runner.planned_command_records(manifest, evidence_root)[0]
+        for stream in ("stdout", "stderr"):
+            path = evidence_root / f"logs/{specification['id']}.{stream}.log"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"")
+        command = {
+            "schema_version": 1, "kind": "experiment-command-record", "id": specification["id"],
+            "argv": specification["argv"], "cwd": specification["cwd"], "environment_delta": {},
+            "started_utc": "2026-01-01T00:00:00+00:00", "ended_utc": "2026-01-01T00:00:00+00:00",
+            "elapsed_seconds": 0.0, "pid": 1, "timeout_seconds": specification["timeout_seconds"],
+            "timed_out": False, "exit_code": 0, "launch_error": None,
+            "stdout": {"path": f"logs/{specification['id']}.stdout.log", "sha256": runner.sha256_file(evidence_root / f"logs/{specification['id']}.stdout.log")},
+            "stderr": {"path": f"logs/{specification['id']}.stderr.log", "sha256": runner.sha256_file(evidence_root / f"logs/{specification['id']}.stderr.log")},
+        }
+        records = [command]
+        runner.write_records(evidence_root, records)
+        runner.write_json(retained, {
+            "schema_version": 1, "kind": "cartesian-frames-failure", "message": "intentional focused partial failure",
+            "records": records, "partial_certificate_slots": [],
+        })
+        runner.write_retention_inventory(evidence_root, manifest, runner.FAILURE_FILES)
+        if runner.verify_retention(evidence_root)["status"] != "PASS":
+            raise RuntimeError("valid command provenance was rejected")
+        command["argv"] = ["forged-command"]
+        runner.write_records(evidence_root, records)
+        runner.write_json(retained, {
+            "schema_version": 1, "kind": "cartesian-frames-failure", "message": "intentional focused partial failure",
+            "records": records, "partial_certificate_slots": [],
+        })
+        runner.write_retention_inventory(evidence_root, manifest, runner.FAILURE_FILES)
+        rejects(lambda: runner.verify_retention(evidence_root), "coherently rehashed command provenance was accepted")
+
+        runner.write_json(retained, {
+            "schema_version": 1, "kind": "cartesian-frames-failure", "message": "intentional focused partial failure",
+            "records": [], "partial_certificate_slots": [],
+        })
+        records = []
+        runner.write_records(evidence_root, records)
         runner.write_retention_inventory(evidence_root, manifest, runner.FAILURE_FILES)
         detached = runner.read_json(evidence_root / "detached-verification.json")
         detached["source_inventory_count"] += 1
         runner.write_json(evidence_root / "detached-verification.json", detached)
         runner.write_retention_inventory(evidence_root, manifest, runner.FAILURE_FILES)
         rejects(lambda: runner.verify_retention(evidence_root), "forged detached verification was accepted")
+
+        sealed_failure_root = temporary_root / "sealed-failure"
+        sealed_preparation = argparse.Namespace(source_root=arguments.source_root, profile=arguments.profile, protocol=arguments.protocol,
+                                                 exporter=arguments.exporter, validator=arguments.validator, output_root=str(sealed_failure_root))
+        with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}):
+            runner.prepare(sealed_preparation)
+        sealed_manifest = runner.read_json(sealed_failure_root / "prepared-manifest.json")
+        runner.write_json(sealed_failure_root / "execution-claim.json", {
+            "schema_version": 1, "kind": "cartesian-frames-execution-claim", "candidate_commit": candidate["commit"],
+            "prepared_manifest_sha256": runner.sha256_file(sealed_failure_root / "prepared-manifest.json"), "pid": 1,
+            "started_utc": "2026-01-01T00:00:00+00:00",
+        })
+        runner.write_records(sealed_failure_root, [])
+        runner.write_json(sealed_failure_root / "failure.json", {
+            "schema_version": 1, "kind": "cartesian-frames-failure", "message": "intentional seal failure",
+            "records": [], "partial_certificate_slots": [],
+        })
+        runner.write_state(sealed_failure_root, "RUNNING", {"candidate_commit": candidate["commit"]})
+        runner.write_state(sealed_failure_root, "BLOCKED", {"candidate_commit": candidate["commit"], "closure_failure": True, "failure": "failure.json"})
+        runner.write_terminal(sealed_failure_root, sealed_manifest, "BLOCKED", {"failure": "failure.json"})
+        with patch.object(runner, "verify_detached_candidate", side_effect=runner.RunnerError("intentional detached seal failure")):
+            rejects(lambda: runner.seal_output(sealed_failure_root, sealed_manifest, runner.FAILURE_FILES), "seal failure was accepted")
+        if runner.verify_retention(sealed_failure_root)["status"] != "PASS":
+            raise RuntimeError("sealed failure retention was not independently verifiable")
     return 0
 
 

@@ -53,6 +53,12 @@ def main() -> int:
         outcomes = json.loads(negatives.read_text(encoding="utf-8"))["outcomes"]
         if outcomes != [{"id": item, "result": "REJECTED"} for item in profile["certificate_negative_cases"]]:
             raise RuntimeError("negative outcome evidence differs")
+        run([*common, "validate-negative-outcomes", "--outcomes", str(negatives)])
+        forged_outcomes = json.loads(negatives.read_text(encoding="utf-8"))
+        forged_outcomes["outcomes"][0]["result"] = "ACCEPTED"
+        forged_outcomes_path = root / "forged-negative-outcomes.json"
+        forged_outcomes_path.write_text(json.dumps(forged_outcomes), encoding="utf-8")
+        run([*common, "validate-negative-outcomes", "--outcomes", str(forged_outcomes_path)], expected=1)
 
         mutated = json.loads(certificate.read_text(encoding="utf-8"))
         next(item for item in mutated["cases"] if item["id"] == "frame2_duplicate_basis")["inputs"]["basis"][0] = "0x0p+0"

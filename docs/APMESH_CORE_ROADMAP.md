@@ -459,7 +459,8 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / CF0–CF7 ADMISSION INFRASTRUCTU
 - The focused analytic contract passed on GCC 13 and Clang 18 libc++, in Debug
   and Release. The revision-bound CF0–CF7 protocol and admission
   infrastructure, including an immutable PREPARED consumer, exact CTest
-  discovery, terminal partial-failure records, and detached-worktree retention,
+  discovery/execution binding, terminal partial-failure records, tool executable
+  identities, derived-evidence recomputation, and detached-worktree retention,
   are recorded at
   `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`; neither
   has prepared or executed a formal qualification, and this evidence does not

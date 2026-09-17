@@ -53,6 +53,8 @@ RETENTION_NEGATIVE_CASES = [
     "missing_retained_hash",
     "rehashed_failure_records",
     "forged_detached_verification",
+    "rehashed_command_provenance",
+    "sealed_failure_verification",
 ]
 
 
@@ -403,12 +405,24 @@ def negative_outcomes(profile: dict[str, Any], certificate: pathlib.Path, output
     write_json(output, {"schema_version": 1, "kind": "cartesian-frames-negative-outcomes", "outcomes": outcomes})
 
 
+def validate_negative_outcomes(profile: dict[str, Any], path: pathlib.Path) -> dict[str, Any]:
+    value = read_json(path)
+    if not isinstance(value, dict):
+        raise EvidenceError("negative outcomes are not an object")
+    require_keys(value, {"schema_version", "kind", "outcomes"}, "negative outcomes")
+    expected = [{"id": item, "result": "REJECTED"} for item in profile["certificate_negative_cases"]]
+    if value["schema_version"] != 1 or value["kind"] != "cartesian-frames-negative-outcomes" or value["outcomes"] != expected:
+        raise EvidenceError("negative outcomes differ")
+    return value
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--profile", required=True)
     commands = parser.add_subparsers(dest="command", required=True)
     source = commands.add_parser("validate-source"); source.add_argument("--source-root", required=True); source.add_argument("--output", required=True)
     certificate = commands.add_parser("validate-certificate"); certificate.add_argument("--certificate", required=True)
+    negative_validation = commands.add_parser("validate-negative-outcomes"); negative_validation.add_argument("--outcomes", required=True)
     compare = commands.add_parser("compare"); compare.add_argument("--index", required=True); compare.add_argument("--report", required=True)
     negatives = commands.add_parser("negative-outcomes"); negatives.add_argument("--certificate", required=True); negatives.add_argument("--output", required=True)
     collect = commands.add_parser("collect"); collect.add_argument("--index", required=True); collect.add_argument("--output", required=True)
@@ -419,6 +433,8 @@ def main() -> int:
             write_json(pathlib.Path(arguments.output), validate_source(pathlib.Path(arguments.source_root)))
         elif arguments.command == "validate-certificate":
             validate_certificate(profile, pathlib.Path(arguments.certificate))
+        elif arguments.command == "validate-negative-outcomes":
+            validate_negative_outcomes(profile, pathlib.Path(arguments.outcomes))
         elif arguments.command == "compare":
             comparison = compare_certificates(profile, pathlib.Path(arguments.index))
             pathlib.Path(arguments.report).write_text("# Cartesian Frames report-only comparison\n\nQualification: EVIDENCE_COLLECTED_PENDING_AUDIT\n", encoding="utf-8")

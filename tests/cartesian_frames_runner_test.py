@@ -30,6 +30,9 @@ def main() -> int:
         raise RuntimeError("runner module could not be loaded")
     runner = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(runner)
+    clang = runner.tool_identity("clang++-18")
+    if set(clang) != {"command", "invocation_path", "resolved_path", "sha256", "version"} or clang["command"] != "clang++-18" or pathlib.Path(clang["invocation_path"]).name != "clang++-18" or not pathlib.Path(clang["resolved_path"]).is_file() or len(clang["sha256"]) != 64 or not clang["version"]:
+        raise RuntimeError("C++ driver identity differs")
     common = [sys.executable, arguments.runner, "--source-root", arguments.source_root, "--profile", arguments.profile,
               "--protocol", arguments.protocol, "--exporter", arguments.exporter, "--validator", arguments.validator]
     with tempfile.TemporaryDirectory(prefix="apmesh-core-cf-runner-") as temporary:
@@ -73,6 +76,19 @@ def main() -> int:
                 raise RuntimeError("runner accepted a consumed prepared manifest")
         if json.loads((prepared / "prepared-manifest.json").read_text(encoding="utf-8"))["execution_requested"] is not False:
             raise RuntimeError("prepared manifest enables execution")
+        terminal_prepared = root / "terminal-prepared"
+        terminal_preparation = argparse.Namespace(source_root=arguments.source_root, profile=arguments.profile, protocol=arguments.protocol,
+                                                   exporter=arguments.exporter, validator=arguments.validator, output_root=str(terminal_prepared))
+        detached = {"result": "PASS", "candidate_commit": candidate["commit"], "source_inventory_count": 0}
+        with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}):
+            runner.prepare(terminal_preparation)
+            with patch.object(runner, "validate_execution_binding", side_effect=runner.RunnerError("intentional post-claim binding failure")), patch.object(runner, "verify_detached_candidate", return_value=detached):
+                if runner.execute(terminal_preparation) != 1:
+                    raise RuntimeError("post-claim binding failure was not terminal")
+                if runner.read_json(terminal_prepared / "state.json")["state"] != "BLOCKED" or not (terminal_prepared / "execution-claim.json").is_file() or not (terminal_prepared / "terminal-manifest.json").is_file():
+                    raise RuntimeError("post-claim binding failure was not retained")
+                if runner.verify_retention(terminal_prepared)["status"] != "PASS":
+                    raise RuntimeError("post-claim binding failure was not independently verifiable")
     return 0
 
 
