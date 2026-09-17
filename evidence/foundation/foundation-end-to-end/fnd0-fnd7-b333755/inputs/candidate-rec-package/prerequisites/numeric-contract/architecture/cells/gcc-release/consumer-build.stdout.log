@@ -1,0 +1,7 @@
+[1/7] Building CXX object CMakeFiles/apmesh_core_unrelated_target.dir/unrelated.cpp.o
+[2/7] Building CXX object CMakeFiles/apmesh_core_external_consumer.dir/main.cpp.o
+[3/7] Building CXX object apmesh-core-build/CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o
+[4/7] Linking CXX executable apmesh_core_unrelated_target
+[5/7] Building CXX object apmesh-core-build/CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o
+[6/7] Linking CXX static library apmesh-core-build/libapmesh_core.a
+[7/7] Linking CXX executable apmesh_core_external_consumer

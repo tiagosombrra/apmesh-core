@@ -1,0 +1,26 @@
+Internal ctest changing into directory: /mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build
+Test project /mnt/c/Users/tiago/Documents/apmesh-core-evidence/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/cells/clang-debug/build
+  Test  #1: apmesh_core.bootstrap_smoke
+  Test  #2: apmesh_core.numeric_contract
+  Test  #3: apmesh_core.geometry_primitives
+  Test  #4: apmesh_core.minimal_small_linear_algebra
+  Test  #5: apmesh_core.math_header_isolation
+  Test  #6: apmesh_core.minimal_small_linear_algebra_evidence
+  Test  #7: apmesh_core.minimal_small_linear_algebra_runner
+  Test  #8: apmesh_core.minimal_small_linear_algebra_retention
+  Test  #9: apmesh_core.geometry_point_vector_evidence
+  Test #10: apmesh_core.geometry_point_vector_runner
+  Test #11: apmesh_core.geometry_point_vector_retention
+  Test #12: apmesh_core.geometry_point_vector_foundation_preservation
+  Test #13: apmesh_core.numeric_contract_evidence
+  Test #14: apmesh_core.numeric_contract_runner
+  Test #15: apmesh_core.reproducible_experiment_evidence
+  Test #16: apmesh_core.reproducible_experiment_runner
+  Test #17: apmesh_core.reproducible_experiment_retention
+  Test #18: apmesh_core.reproducible_experiment_negatives
+  Test #19: apmesh_core.foundation_end_to_end_evidence
+  Test #20: apmesh_core.bootstrap_export
+  Test #21: apmesh_core.bootstrap_tool
+  Test #22: apmesh_core.architecture_bootstrap_runner
+
+Total Tests: 22

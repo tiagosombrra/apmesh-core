@@ -1,9 +1,10 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-10
+Last updated: 2026-09-16
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: `geometry/point-vector-semantics`
+Working branch: verify with Git; the LA-only integration regression is closed
+and awaits controlled integration review.
 
 ## Purpose
 
@@ -50,11 +51,37 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Record the qualified Point/Vector work unit and prepare its controlled integration review; do not start another Geometry component.**
+**Minimal Small Linear Algebra is QUALIFIED on clean published candidate
+`3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
+24.04 GCC 13 / Clang 18 libc++ envelope. LA0-LA7 passed after one revision-bound
+four-cell execution with three certificates per cell, exact prerequisite
+preservation, expected negative rejections, retention, and detached
+verification. The first `6fa00bd` attempt remains immutable BLOCKED evidence
+for underdeclared signed-zero equivalence. The correction changed evidence
+semantics only; production math and Geometry behavior are unchanged. The
+original 201-file retained package is preserved at
+`evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/`;
+its retention manifest has SHA-256
+`24894a2cf9875254862a27ac80582d2652a2543c891a59ed7920478d7c6aeb65`.
+The isolated LA-only integration candidate
+`95258e9faaeaae89e801874fe1ce600e80285427` passed its clean four-cell
+regression: LA0-LA7 passed, all 56 command records succeeded, all 40 negatives
+were rejected as expected, and the external 201-entry retention package passed
+hash verification. The compact canonical record is
+`evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-95258e9-integration-summary.json`.
+No later Geometry component is included.**
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
 focused four-cell contract; meshing remains unimplemented.
+
+PR #3 was squash-merged into `main` at
+`1ff6568c908ea144b903a70a2497c000a89e35eb`. Its tree is identical to the
+reviewed source head `b17067312b523e934c81d56b6cde7948f30ff93f`; both
+resolve to tree `bea6ffaa71877811daa98d1f69a299446b12f401`. The source
+branch was removed only after that identity was verified. Point and Vector
+Semantics therefore remains qualified and is now integrated into the canonical
+`main` history.
 
 Geometry Primitives entry is approved by
 `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`. The authorized first
@@ -92,6 +119,12 @@ Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidat
 revision-bound evidence; the separate audit made the scientific closure
 decision. Historical REC evidence at `85d215a` remained a qualified comparison
 baseline and did not substitute for current-candidate FND2, FND4, or FND6.
+The original 586-file source manifest is preserved in the canonical Foundation
+package at `evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`.
+The canonical package retains 560 non-rebuildable files; its manifest SHA-256
+is `ce873c59e663a570773469639a96e1f75587954adda0064d1a9d775773064040`.
+The hash-bound exclusion inventory records the 28 reproducible blobs
+(1,252,808 bytes) with their path, size, SHA-256, command, and provenance.
 
 The retained limitations are unchanged: qualification is restricted to WSL
 Ubuntu 24.04 and makes no native-Windows, geometry, topology, meshing,
@@ -186,31 +219,32 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
-3. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
-4. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
-5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
-6. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-7. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-8. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-9. `docs/research/REFERENCE_REGISTER.md`.
+3. `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`
+4. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
+5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
+6. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
+7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
+8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
+9. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+10. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+11. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+12. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: review the qualified Point/Vector branch for controlled
-integration. Do not begin Small Linear Algebra, transformations, predicates,
-topology, curves, surfaces, or meshing.
-
-1. Review the qualified `ededf65` Point/Vector package for integration into
-`main`. Preserve the `b7f8fe9` selection-defect evidence. Do not add matrices,
-transforms, predicates, topology, curves, surfaces, meshing, or the Geometry
-Primitives stage regression.
+Current first action: conduct controlled review and integration of the isolated
+LA-only candidate. Preserve the qualified `3804e90` LA evidence, the passed
+`95258e9` integration summary, the blocked `6fa00bd` attempt, qualified
+`ededf65` Point/Vector evidence, and negative `b7f8fe9` selection-defect
+evidence. No later Geometry implementation is authorized by this integration
+work.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
-INVESTIGATION with Point/Vector Semantics QUALIFIED. The remaining Geometry
-Primitives investigation problems and the cumulative stage regression remain
-unqualified; this work-unit closure does not qualify them.
+INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
+QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
+and the cumulative Geometry Primitives regression remain unqualified.
 
 ## Stage closure protocol
 

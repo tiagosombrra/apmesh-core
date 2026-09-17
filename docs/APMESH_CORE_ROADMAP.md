@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-08
+Last updated: 2026-09-16
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -298,12 +298,17 @@ retains four clean compiler/build cells, two replays per cell, 586 sealed files,
 and no dependency or contract-test finding. The only retained limitations are
 the declared WSL Ubuntu 24.04 envelope and the exclusion of geometry, topology,
 meshing, convergence, performance, parallel equivalence, and native Windows.
+The canonical retained package is
+`evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`; all 586 declared
+entries were recovered from the original package and verified by size and
+SHA-256 against retention manifest
+`bbd316c8084a6bb4fd862112288ee6d826870ca63589977e77d0453916a7b937`.
 
 Stage exit gate: all three contracts reviewed; minimal C++23 library builds from a clean checkout; one deterministic smoke experiment is fully reproducible from manifest to certificate and figure; Foundation End-to-End Regression passes.
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR QUALIFIED / WSL Ubuntu 24.04`
+Status: `IN INVESTIGATION / POINT-VECTOR AND SMALL LINEAR ALGEBRA QUALIFIED / WSL Ubuntu 24.04`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -333,6 +338,12 @@ verification. The separate audit qualified only Point and Vector Semantics in
 the declared WSL envelope. The decision and retained limitations are recorded
 in `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`.
 
+PR #3 integrated the reviewed Point/Vector package into `main` at
+`1ff6568c908ea144b903a70a2497c000a89e35eb`. The resulting tree is identical to
+the reviewed source head `b17067312b523e934c81d56b6cde7948f30ff93f`;
+both resolve to tree `bea6ffaa71877811daa98d1f69a299446b12f401`.
+The source branch was removed after this identity check.
+
 A first formal attempt on `b7f8fe9` remains retained as
 `BLOCKED_BY_CONTRACT_SELECTION_DEFECT`: its PV6 selector admitted a historical
 Foundation preflight self-test whose scope intentionally excludes later
@@ -347,9 +358,91 @@ reused or reclassified by the successful `ededf65` execution.
 
 #### Small Linear Algebra
 
-- Implement only operations justified by current scientific need (`Mat2`, `Mat3`, small eigensystems if needed later).
-- Verify against analytic matrices and conditioning cases.
-- Reassess whether a third-party library becomes materially advantageous before expanding scope.
+Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
+
+- Authority: `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`.
+- Candidate hypothesis: concrete fixed-size `Mat2` and `Mat3` value semantics,
+  finite construction, checked access, identity, transpose, matching
+  matrix-vector application, same-dimension composition, and an algebraic-only
+  determinant are sufficient for the next dependency.
+- Explicitly exclude dynamic matrices, inverses, solves, decompositions,
+  eigensystems, determinant predicates, transformations, topology, curves,
+  surfaces, meshing, and new dependencies.
+- Require independent analytic cases, explicit non-finite failure, preservation
+  of Foundation and Point/Vector semantics, and a later revision-bound
+  qualification before this investigation problem can close.
+- Amendment 1 fixes the one-way `math -> geometry` dependency, exact error
+  vocabulary, transpose identity `(A B)^T = B^T A^T`, and operation-specific
+  power-of-two scale laws without expanding the admitted capability.
+- The bounded implementation provides only `Mat2`, `Mat3`, their admitted
+  matrix-only operations, and one-way Geometry-side `Vector2`/`Vector3`
+  adapters. Focused `apmesh_core.minimal_small_linear_algebra` and
+  `apmesh_core.math_header_isolation` CTests passed on GCC 13 Debug and Clang
+  18 libc++ Debug in the declared WSL Ubuntu 24.04 envelope. This is focused
+  implementation evidence, not formal LA0-LA7 qualification.
+- The formal LA0-LA7 protocol is preregistered in
+  `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`.
+  It fixes one four-cell GCC/Clang Debug/Release matrix, three independent
+  semantic certificates per cell, exact prerequisite preservation, immutable
+  evidence, and a separate scientific audit. Its report-only profile, exporter,
+  runner, comparer, negative contracts, and retention verifier pass focused
+  GCC/Clang checks. At preregistration time, no manifest had been prepared and
+  no formal execution had started.
+- Admission correction package (2026-09-12): explicit permutation outputs and
+  bidirectional dimension rejection; named output fields including both scale
+  composition laws; planned source/runtime/artifact inventories; transitive and
+  compiler-observed dependencies; preparation seal and exclusive consumption;
+  real disposable-repository failure and retention negatives. Five focused
+  contracts pass on GCC 13 Debug and on Clang 18 libc++ Debug. Terminal
+  retention is also verified after relocation. The next step is admission
+  audit; this work adds no mathematical capability or qualification.
+- LA2/LA7 correction (2026-09-13): retain all matrix entries for the 39
+  non-finite constructor cases; enumerate eight certificate mutations with
+  baseline/validator hashes, exact rejection reasons, retained inputs, and
+  independent recomputation. The planned CLI and its retained command binding
+  are tested. Common terminal artifacts are required in both outcomes;
+  failure-only and sealing-failure artifacts have explicit conditions.
+  Detached-check, inventory-write, and verification failures retain the prior
+  terminal evidence and produce verifiable `BLOCKED` diagnostic archives,
+  without retrying success sealing or claiming detached success. Five focused
+  contracts pass in each GCC/Clang Debug build; the expanded runner contract
+  passes in both as well. Production math/geometry is unchanged. At that point,
+  manifest preparation and execution remained blocked pending admission audit.
+- First formal attempt (2026-09-13): the four-cell campaign on clean published
+  candidate `6fa00bd` completed, but scientific audit classified the attempt
+  `BLOCKED`. LA0, LA1, LA2, LA4, LA5, and LA6 are supported; LA3 and LA7 are
+  blocked because `mat2_quarter_turn_square` contains raw `0x0p+0` versus
+  `-0x0p+0` while the validator asserted `exact_match=true` without a declared
+  signed-zero canonicalization rule. The evidence remains immutable.
+- Signed-zero correction (2026-09-13): LA exact comparison is canonical numeric
+  hexadecimal comparison; both signed zeros normalize to `0x0p+0`, while raw
+  encodings remain diagnostic provenance. The evidence oracle, validator,
+  comparer, retention checks, schemas, and focused GCC/Clang contracts pass;
+  production code is unchanged. At the time of this correction, a new
+  revision-bound campaign still required an independent admission audit.
+- Qualification closure (2026-09-13): the one authorized revision-bound
+  four-cell execution on clean published candidate `3804e90` passed LA0-LA7.
+  It retained 12 semantically equivalent certificates, 40 expected negative
+  rejections, 56 successful command records, source/runtime inventories,
+  retention, and detached verification. The formal decision is recorded in
+  `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION.md`.
+  The blocked `6fa00bd` attempt remains negative evidence; neither production
+  math nor Geometry behavior changed.
+- Durable-retention audit (2026-09-16): the original package was located and
+  copied byte-for-byte to
+  `evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/`.
+  All 201 manifest-declared entries passed size and SHA-256 verification against
+  retention manifest
+  `24894a2cf9875254862a27ac80582d2652a2543c891a59ed7920478d7c6aeb65`;
+  reproducible build/cache extras were not imported.
+- LA-only integration regression (2026-09-16): clean published candidate
+  `95258e9` passed LA0-LA7 in the same four-cell envelope. All 56 commands
+  succeeded; 12 certificates, 40 expected negative rejections, identical
+  cross-cell projection, detached verification, and a 201-entry hash-verified
+  external retention package were audited. Only the compact canonical summary
+  is tracked at
+  `evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-95258e9-integration-summary.json`.
+  No production math, Geometry adapter, or later Geometry capability changed.
 
 #### Transformations and Coordinate Frames
 
@@ -577,7 +670,9 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current branch: `geometry/point-vector-semantics`.
+Current integration work: the isolated Minimal Small Linear Algebra candidate
+`95258e9` has passed the clean four-cell regression and awaits controlled
+integration review. No later Geometry work is included.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -588,7 +683,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — Exact Semantics Before Curves / Point and Vector Semantics qualified; no next Geometry component authorized**
+**Geometry Primitives — integrate qualified Minimal Small Linear Algebra**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -602,4 +697,13 @@ audit on `b333755`, with retained scope limitations. Point and Vector Semantics
 are QUALIFIED on `ededf65` only within the declared WSL Ubuntu 24.04 GCC 13 /
 Clang 18 libc++ envelope. Geometry Primitives remains IN INVESTIGATION: no
 matrix, transform, predicate, topology, curve, surface, or meshing algorithm
-is implemented or authorized by this qualification.
+is implemented or authorized by the Point/Vector qualification. PR #3 is
+integrated into `main` at `1ff6568`; its tree matches reviewed source head
+`b170673`. The bounded Minimal Small Linear Algebra Contract was accepted after
+Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
+`Mat2`/`Mat3` are QUALIFIED on `3804e90` in the declared WSL GCC/Clang
+Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
+evidence correction, without production behavior change. The first `6fa00bd`
+attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
+INVESTIGATION; Transformations and Coordinate Frames require a separate entry
+decision and are not started by this closure.

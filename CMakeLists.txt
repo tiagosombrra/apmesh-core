@@ -19,6 +19,7 @@ add_library(apmesh_core STATIC
     src/core/bootstrap.cpp
     src/core/geometry.cpp
     src/core/numeric.cpp
+    src/math/linear_algebra.cpp
 )
 add_library(apmesh::core ALIAS apmesh_core)
 
@@ -57,6 +58,12 @@ add_executable(apmesh_core_geometry_point_vector_export
 target_link_libraries(apmesh_core_geometry_point_vector_export PRIVATE apmesh::core)
 apmesh_apply_target_defaults(apmesh_core_geometry_point_vector_export)
 
+add_executable(apmesh_core_minimal_small_linear_algebra_export
+    experiments/minimal_small_linear_algebra_export.cpp
+)
+target_link_libraries(apmesh_core_minimal_small_linear_algebra_export PRIVATE apmesh::core)
+apmesh_apply_target_defaults(apmesh_core_minimal_small_linear_algebra_export)
+
 include(CTest)
 if(BUILD_TESTING)
     find_package(Python3 3.10 COMPONENTS Interpreter REQUIRED)
@@ -82,6 +89,54 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.geometry_primitives)
 
     add_test(NAME apmesh_core.geometry_primitives COMMAND apmesh_core.geometry_primitives)
+    add_executable(apmesh_core.minimal_small_linear_algebra
+        tests/minimal_small_linear_algebra.cpp
+    )
+    target_link_libraries(apmesh_core.minimal_small_linear_algebra PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.minimal_small_linear_algebra)
+
+    add_test(
+        NAME apmesh_core.minimal_small_linear_algebra
+        COMMAND apmesh_core.minimal_small_linear_algebra
+    )
+    add_executable(apmesh_core.math_header_isolation
+        tests/math_header_isolation.cpp
+    )
+    target_link_libraries(apmesh_core.math_header_isolation PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.math_header_isolation)
+
+    add_test(
+        NAME apmesh_core.math_header_isolation
+        COMMAND apmesh_core.math_header_isolation
+    )
+    add_test(
+        NAME apmesh_core.minimal_small_linear_algebra_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/minimal_small_linear_algebra_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_minimal_small_linear_algebra_export>
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/minimal_small_linear_algebra.json
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/minimal_small_linear_algebra_evidence.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+    add_test(
+        NAME apmesh_core.minimal_small_linear_algebra_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/minimal_small_linear_algebra_runner_test.py
+            --build-root ${CMAKE_CURRENT_BINARY_DIR}
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_minimal_small_linear_algebra_qualification.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/minimal_small_linear_algebra.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md
+    )
+    add_test(
+        NAME apmesh_core.minimal_small_linear_algebra_retention
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/minimal_small_linear_algebra_retention_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_minimal_small_linear_algebra_qualification.py
+    )
     add_test(
         NAME apmesh_core.geometry_point_vector_evidence
         COMMAND
@@ -237,6 +292,14 @@ if(BUILD_TESTING)
         apmesh_core.geometry_point_vector_retention
         apmesh_core.geometry_point_vector_foundation_preservation
         PROPERTIES LABELS "geometry;contract"
+    )
+    set_tests_properties(
+        apmesh_core.minimal_small_linear_algebra
+        apmesh_core.math_header_isolation
+        apmesh_core.minimal_small_linear_algebra_evidence
+        apmesh_core.minimal_small_linear_algebra_runner
+        apmesh_core.minimal_small_linear_algebra_retention
+        PROPERTIES LABELS "math;geometry;contract"
     )
     set_tests_properties(
         apmesh_core.reproducible_experiment_evidence

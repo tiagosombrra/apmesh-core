@@ -1,0 +1,11 @@
+[1/11] Building CXX object CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o
+[2/11] Building CXX object CMakeFiles/apmesh_core_bootstrap_smoke.dir/tests/bootstrap_smoke.cpp.o
+[3/11] Building CXX object CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o
+[4/11] Building CXX object CMakeFiles/apmesh_core_numeric_contract.dir/tests/numeric_contract.cpp.o
+[5/11] Building CXX object CMakeFiles/apmesh_core_bootstrap_export.dir/experiments/bootstrap_export.cpp.o
+[6/11] Linking CXX static library libapmesh_core.a
+[7/11] Building CXX object CMakeFiles/apmesh_core_numeric_contract_export.dir/experiments/numeric_contract_export.cpp.o
+[8/11] Linking CXX executable apmesh_core_bootstrap_export
+[9/11] Linking CXX executable apmesh_core_bootstrap_smoke
+[10/11] Linking CXX executable apmesh_core_numeric_contract
+[11/11] Linking CXX executable apmesh_core_numeric_contract_export

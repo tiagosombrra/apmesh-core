@@ -1,5 +1,7 @@
 #pragma once
 
+#include "apmesh/math/linear_algebra.hpp"
+
 #include <expected>
 
 namespace apmesh::core {
@@ -108,5 +110,12 @@ private:
 [[nodiscard]] std::expected<double, GeometryError> norm(const Vector3& vector) noexcept;
 [[nodiscard]] std::expected<Vector2, GeometryError> normalize(const Vector2& vector) noexcept;
 [[nodiscard]] std::expected<Vector3, GeometryError> normalize(const Vector3& vector) noexcept;
+
+[[nodiscard]] std::expected<Vector2, GeometryError> apply(
+    const Mat2& matrix,
+    const Vector2& vector) noexcept;
+[[nodiscard]] std::expected<Vector3, GeometryError> apply(
+    const Mat3& matrix,
+    const Vector3& vector) noexcept;
 
 } // namespace apmesh::core

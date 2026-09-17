@@ -1,0 +1,7 @@
+[1/7] Building CXX object CMakeFiles/apmesh_core.dir/src/core/numeric.cpp.o
+[2/7] Building CXX object CMakeFiles/apmesh_core.dir/src/core/bootstrap.cpp.o
+[3/7] Building CXX object CMakeFiles/apmesh_core_numeric_contract.dir/tests/numeric_contract.cpp.o
+[4/7] Linking CXX static library libapmesh_core.a
+[5/7] Linking CXX executable apmesh_core_numeric_contract
+[6/7] Building CXX object CMakeFiles/apmesh_core_numeric_contract_export.dir/experiments/numeric_contract_export.cpp.o
+[7/7] Linking CXX executable apmesh_core_numeric_contract_export

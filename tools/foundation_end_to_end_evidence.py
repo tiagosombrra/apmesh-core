@@ -33,6 +33,9 @@ LDD_RESOLVED = re.compile(r"^\s*(?P<soname>\S+)\s+=>\s+(?P<path>\S+)\s+\(")
 LDD_DIRECT = re.compile(r"^\s*(?P<path>/\S+)\s+\(")
 LDD_PSEUDO = re.compile(r"^\s*(?P<soname>linux-vdso\.so\.1)\s+\(")
 LDD_MISSING = re.compile(r"^\s*(?P<soname>\S+)\s+=>\s+not found\s*$")
+EXCLUDED_ARTIFACT_INVENTORY = "excluded-artifacts.json"
+COMPILED_SUFFIXES = {".a", ".dll", ".dylib", ".exe", ".lib", ".o", ".obj", ".pdb", ".so"}
+CONSUMER_EXECUTABLES = {"apmesh_core_external_consumer", "apmesh_core_unrelated_target"}
 
 
 def _sha(value: Any, context: str) -> str:
@@ -63,6 +66,41 @@ def _hash_bound_file(root: pathlib.Path, row: Any, context: str) -> pathlib.Path
     if not path.is_file() or sha256_file(path) != _sha(row["sha256"], context):
         raise RuntimeErrorEvidence(f"{context} identity differs")
     return path
+
+
+def _json_pointer(document: Any, pointer: str, context: str) -> Any:
+    if not isinstance(pointer, str) or not pointer.startswith("/"):
+        raise RuntimeErrorEvidence(f"{context} command pointer differs")
+    value = document
+    for token in pointer[1:].split("/"):
+        if isinstance(value, dict) and token in value:
+            value = value[token]
+        elif isinstance(value, list) and token.isdigit() and int(token) < len(value):
+            value = value[int(token)]
+        else:
+            raise RuntimeErrorEvidence(f"{context} command pointer differs")
+    return value
+
+
+def _compiled_blob(relative: pathlib.PurePosixPath) -> bool:
+    """Narrowly identify rebuildable binaries excluded from Foundation retention."""
+    prefix = relative.as_posix()
+    scoped = (prefix.startswith("inputs/raw/build/") or
+              prefix.startswith("inputs/candidate-rec-package/prerequisites/numeric-contract/architecture/cells/"))
+    return scoped and (relative.suffix in COMPILED_SUFFIXES or relative.name in CONSUMER_EXECUTABLES or
+                       relative.name.startswith("apmesh_core_"))
+
+
+def _artifact_present_or_excluded(root: pathlib.Path, path: pathlib.Path, expected_sha256: str,
+                                  excluded: dict[str, dict[str, Any]], context: str) -> None:
+    relative = relative_path(root, path)
+    if path.is_file():
+        if sha256_file(path) != _sha(expected_sha256, context):
+            raise RuntimeErrorEvidence(f"{context} identity differs")
+        return
+    row = excluded.get(relative)
+    if row is None or row["sha256"] != _sha(expected_sha256, context):
+        raise RuntimeErrorEvidence(f"{context} identity differs")
 
 
 def validate_profile(path: pathlib.Path) -> dict[str, Any]:
@@ -473,7 +511,8 @@ def _observed_record(record: dict[str, Any], log_parent: pathlib.Path, evidence_
 
 def _build_provenance(row: Any, profile: dict[str, Any], candidate_commit: str, root: pathlib.Path,
                       candidate_source_root: pathlib.Path, recorded_root: pathlib.Path | None = None,
-                      recorded_source_root: pathlib.Path | None = None) -> tuple[pathlib.Path, dict[str, str]]:
+                      recorded_source_root: pathlib.Path | None = None,
+                      excluded: dict[str, dict[str, Any]] | None = None) -> tuple[pathlib.Path, dict[str, str]]:
     if not isinstance(row, dict):
         raise RuntimeErrorEvidence("Foundation build provenance differs")
     require_exact_keys(row, {"candidate_commit", "source_root", "source_before", "source_after", "build_directory", "configure", "build", "outputs"},
@@ -507,19 +546,21 @@ def _build_provenance(row: Any, profile: dict[str, Any], candidate_commit: str, 
     outputs = row["outputs"]
     if not isinstance(outputs, list) or {item.get("name") for item in outputs if isinstance(item, dict)} != set(profile["required_executables"]):
         raise RuntimeErrorEvidence("Foundation build output matrix differs")
-    hashes: dict[str, str] = {}
+    hashes: dict[str, str] = {}; excluded = excluded or {}
     for item in outputs:
         require_exact_keys(item, {"name", "path", "sha256"}, "Foundation build output")
         output = _relative(root, item["path"], "Foundation build output")
-        if output.parent != build_directory or not output.is_file() or sha256_file(output) != _sha(item["sha256"], "Foundation build output"):
+        if output.parent != build_directory:
             raise RuntimeErrorEvidence("Foundation build output identity differs")
+        _artifact_present_or_excluded(root, output, item["sha256"], excluded, "Foundation build output")
         hashes[item["name"]] = item["sha256"]
     return build_directory, hashes
 
 
 def validate_dependencies(path: pathlib.Path, profile: dict[str, Any], candidate_commit: str, root: pathlib.Path,
                           candidate_source_root: pathlib.Path, recorded_root: pathlib.Path | None = None,
-                          recorded_source_root: pathlib.Path | None = None) -> tuple[bool, list[dict[str, str]], dict[str, pathlib.Path]]:
+                          recorded_source_root: pathlib.Path | None = None,
+                          excluded: dict[str, dict[str, Any]] | None = None) -> tuple[bool, list[dict[str, str]], dict[str, pathlib.Path]]:
     inventory = read_json(path)
     require_exact_keys(inventory, {"schema_version", "kind", "candidate_commit", "cells"}, "Foundation dependency inventory")
     if inventory["schema_version"] != 4 or inventory["kind"] != "foundation-runtime-dependencies" or inventory["candidate_commit"] != candidate_commit:
@@ -527,11 +568,11 @@ def validate_dependencies(path: pathlib.Path, profile: dict[str, Any], candidate
     cells = inventory["cells"]
     if not isinstance(cells, list) or {row.get("name") for row in cells if isinstance(row, dict)} != set(profile["configurations"]) or len(cells) != 4:
         raise RuntimeErrorEvidence("Foundation dependency cell matrix differs")
-    findings: list[dict[str, str]] = []; build_directories: dict[str, pathlib.Path] = {}; required = set(profile["required_executables"])
+    findings: list[dict[str, str]] = []; build_directories: dict[str, pathlib.Path] = {}; required = set(profile["required_executables"]); excluded = excluded or {}
     for cell in cells:
         require_exact_keys(cell, {"name", "build", "executables"}, "Foundation dependency cell")
         build_directory, built_hashes = _build_provenance(cell["build"], profile, candidate_commit, root, candidate_source_root,
-                                                           recorded_root, recorded_source_root)
+                                                           recorded_root, recorded_source_root, excluded)
         build_directories[cell["name"]] = build_directory
         executables = cell["executables"]
         if not isinstance(executables, list) or {row.get("name") for row in executables if isinstance(row, dict)} != required or len(executables) != len(required):
@@ -540,10 +581,9 @@ def validate_dependencies(path: pathlib.Path, profile: dict[str, Any], candidate
         for executable in executables:
             require_exact_keys(executable, {"name", "path", "sha256", "ldd", "execution"}, "Foundation executable dependency")
             executable_path = _relative(root, executable["path"], "Foundation executable")
-            if (executable_path.parent != build_directory or not executable_path.is_file() or
-                    sha256_file(executable_path) != _sha(executable["sha256"], "Foundation executable") or
-                    built_hashes.get(executable["name"]) != executable["sha256"]):
+            if executable_path.parent != build_directory or built_hashes.get(executable["name"]) != executable["sha256"]:
                 raise RuntimeErrorEvidence("Foundation executable identity differs")
+            _artifact_present_or_excluded(root, executable_path, executable["sha256"], excluded, "Foundation executable")
             ldd_path = _hash_bound_file(root, executable["ldd"], "Foundation executable ldd")
             ldd_argv = executable["execution"].get("argv", []) if isinstance(executable.get("execution"), dict) else []
             if (not isinstance(ldd_argv, list) or len(ldd_argv) != 2 or pathlib.Path(ldd_argv[0]).name != "ldd" or
@@ -857,6 +897,81 @@ def _copy_transitive(source_root: pathlib.Path, paths: list[pathlib.Path], desti
     return copied
 
 
+def _excluded_artifact_inventory(output: pathlib.Path, binding: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    row = binding.get("excluded_artifact_inventory")
+    if not isinstance(row, dict):
+        raise RuntimeErrorEvidence("Foundation excluded artifact inventory differs")
+    require_exact_keys(row, {"path", "sha256", "count", "total_size"}, "Foundation excluded artifact inventory")
+    path = _hash_bound_file(output, {"path": row["path"], "sha256": row["sha256"]}, "Foundation excluded artifact inventory")
+    data = read_json(path)
+    require_exact_keys(data, {"schema_version", "kind", "candidate_commit", "excluded_artifacts"}, "Foundation excluded artifact inventory")
+    if (data["schema_version"] != 1 or data["kind"] != "foundation-end-to-end-excluded-artifacts" or
+            data["candidate_commit"] != binding["candidate_commit"] or not isinstance(data["excluded_artifacts"], list)):
+        raise RuntimeErrorEvidence("Foundation excluded artifact inventory differs")
+    rows: dict[str, dict[str, Any]] = {}
+    for item in data["excluded_artifacts"]:
+        require_exact_keys(item, {"path", "sha256", "size", "exclusion_reason", "command", "provenance"}, "Foundation excluded artifact")
+        relative = pathlib.PurePosixPath(item["path"])
+        if (relative.is_absolute() or ".." in relative.parts or not _compiled_blob(relative) or item["path"] in rows or
+                not isinstance(item["size"], int) or item["size"] <= 0 or
+                _sha(item["sha256"], "Foundation excluded artifact") != item["sha256"] or
+                item["exclusion_reason"] != "reproducible_binary"):
+            raise RuntimeErrorEvidence("Foundation excluded artifact inventory differs")
+        command = item["command"]
+        require_exact_keys(command, {"argv", "record_path", "record_sha256", "record_pointer"}, "Foundation excluded artifact command")
+        if not isinstance(command["argv"], list) or not command["argv"] or any(not isinstance(value, str) or not value for value in command["argv"]):
+            raise RuntimeErrorEvidence("Foundation excluded artifact command differs")
+        record = _hash_bound_file(output, {"path": command["record_path"], "sha256": command["record_sha256"]}, "Foundation excluded artifact command")
+        if _json_pointer(read_json(record), command["record_pointer"], "Foundation excluded artifact") != command["argv"]:
+            raise RuntimeErrorEvidence("Foundation excluded artifact command differs")
+        provenance = item["provenance"]
+        require_exact_keys(provenance, {"source_path", "source_root", "classification"}, "Foundation excluded artifact provenance")
+        if (not isinstance(provenance["source_path"], str) or not provenance["source_path"] or
+                not isinstance(provenance["source_root"], str) or not provenance["source_root"] or
+                provenance["classification"] not in {"foundation_build_output", "nested_rec_prerequisite"} or
+                (output / relative).exists()):
+            raise RuntimeErrorEvidence("Foundation excluded artifact provenance differs")
+        rows[item["path"]] = item
+    declared = binding["excluded_artifact_inventory"]
+    if declared.get("count") != len(rows) or declared.get("total_size") != sum(item["size"] for item in rows.values()):
+        raise RuntimeErrorEvidence("Foundation excluded artifact summary differs")
+    return rows
+
+
+def _verify_sanitized_nested_rec_package(package: pathlib.Path, candidate_commit: str) -> None:
+    """Verify the nested REC package integrity after compiled consumer outputs are removed.
+
+    Foundation independently revalidates the raw build, CTest, runtime, and
+    authority records below.  Here the nested qualified REC package is checked
+    for seal and exclusion integrity without recreating its compiled consumers.
+    """
+    manifest = read_json(package / "retention-manifest.json")
+    require_exact_keys(manifest, {"schema_version", "kind", "candidate_commit", "archival_commit", "files", "excluded_artifacts"},
+                       "Foundation nested REC retention")
+    if manifest["schema_version"] != 2 or manifest["kind"] != "canonical-evidence-retention" or manifest["candidate_commit"] != candidate_commit:
+        raise RuntimeErrorEvidence("Foundation nested REC retention differs")
+    expected = {"retention-manifest.json"}
+    for row in manifest["files"]:
+        require_exact_keys(row, {"source_path", "retained_path", "sha256", "size"}, "Foundation nested REC artifact")
+        path = _relative(package, row["retained_path"], "Foundation nested REC artifact")
+        if not path.is_file() or path.stat().st_size != row["size"] or sha256_file(path) != _sha(row["sha256"], "Foundation nested REC artifact"):
+            raise RuntimeErrorEvidence("Foundation nested REC artifact differs")
+        expected.add(row["retained_path"])
+    excluded = manifest["excluded_artifacts"]
+    if not isinstance(excluded, list) or len(excluded) != 12:
+        raise RuntimeErrorEvidence("Foundation nested REC exclusions differ")
+    for row in excluded:
+        require_exact_keys(row, {"source_path", "source_relative_path", "sha256", "size", "exclusion_reason"}, "Foundation nested REC exclusion")
+        relative = pathlib.PurePosixPath(row["source_relative_path"])
+        if (relative.is_absolute() or ".." in relative.parts or not isinstance(row["source_path"], str) or not row["source_path"] or
+                not isinstance(row["size"], int) or row["size"] <= 0 or _sha(row["sha256"], "Foundation nested REC exclusion") != row["sha256"] or
+                row["exclusion_reason"] != "reproducible_binary" or (package / relative).exists()):
+            raise RuntimeErrorEvidence("Foundation nested REC exclusions differ")
+    observed = {relative_path(package, path) for path in package.rglob("*") if path.is_file()}
+    if observed != expected:
+        raise RuntimeErrorEvidence("Foundation nested REC artifact set differs")
+
+
 def _seal_output(output: pathlib.Path, profile_path: pathlib.Path, rec_profile: pathlib.Path, candidate_retention: pathlib.Path,
                  candidate_package: pathlib.Path, inputs_manifest: pathlib.Path, input_root: pathlib.Path,
                  inputs: dict[str, pathlib.Path], candidate_commit: str) -> None:
@@ -883,14 +998,15 @@ def _seal_output(output: pathlib.Path, profile_path: pathlib.Path, rec_profile: 
     sealed = sorted(path for path in output.rglob("*") if path.is_file())
     write_json(output / "retention-manifest.json", {"schema_version": 1, "kind": "foundation-end-to-end-retention", "candidate_commit": candidate_commit,
         "files": [{"path": relative_path(output, path), "sha256": sha256_file(path), "size": path.stat().st_size} for path in sealed]})
+    sanitize_foundation_retention(output)
 
 
 def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path, rec_profile: pathlib.Path,
                                 candidate_retention: pathlib.Path, candidate_commit: str,
                                 candidate_source_root: pathlib.Path, recorded_source_root: pathlib.Path | None = None) -> None:
     manifest = read_json(output / "retention-manifest.json")
-    require_exact_keys(manifest, {"schema_version", "kind", "candidate_commit", "files"}, "Foundation retention")
-    if manifest["schema_version"] != 1 or manifest["kind"] != "foundation-end-to-end-retention" or manifest["candidate_commit"] != candidate_commit or not isinstance(manifest["files"], list):
+    require_exact_keys(manifest, {"schema_version", "kind", "candidate_commit", "files", "excluded_artifact_inventory"}, "Foundation retention")
+    if manifest["schema_version"] != 2 or manifest["kind"] != "foundation-end-to-end-retention" or manifest["candidate_commit"] != candidate_commit or not isinstance(manifest["files"], list):
         raise RuntimeErrorEvidence("Foundation retention manifest differs")
     expected = {"retention-manifest.json"}
     for row in manifest["files"]:
@@ -904,9 +1020,9 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
     if {relative_path(output, path) for path in output.rglob("*") if path.is_file()} != expected:
         raise RuntimeErrorEvidence("Foundation retained artifact set differs")
     binding = read_json(output / "foundation-evidence-manifest.json")
-    require_exact_keys(binding, {"schema_version", "kind", "candidate_commit", "profile_sha256", "candidate_retention_manifest_sha256", "input_root", "profile", "rec_profile", "candidate_rec_package", "input_manifest", "artifacts", "transitive_artifacts"}, "Foundation evidence binding")
-    if (binding["schema_version"] != 4 or binding["kind"] != "foundation-end-to-end-evidence-binding" or binding["candidate_commit"] != candidate_commit or
-            binding["profile_sha256"] != sha256_file(profile_path) or binding["candidate_retention_manifest_sha256"] != sha256_file(candidate_retention)):
+    require_exact_keys(binding, {"schema_version", "kind", "candidate_commit", "profile_sha256", "candidate_retention_manifest_sha256", "candidate_rec_source_retention_manifest", "input_root", "profile", "rec_profile", "candidate_rec_package", "input_manifest", "artifacts", "transitive_artifacts", "excluded_artifact_inventory"}, "Foundation evidence binding")
+    if (binding["schema_version"] != 5 or binding["kind"] != "foundation-end-to-end-evidence-binding" or binding["candidate_commit"] != candidate_commit or
+            binding["profile_sha256"] != sha256_file(profile_path)):
         raise RuntimeErrorEvidence("Foundation evidence binding differs")
     if not isinstance(binding["input_root"], str) or not pathlib.Path(binding["input_root"]).is_absolute():
         raise RuntimeErrorEvidence("Foundation retained input root differs")
@@ -915,6 +1031,9 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
     if sha256_file(retained_rec_profile) != sha256_file(rec_profile):
         raise RuntimeErrorEvidence("Foundation retained REC profile differs")
     _hash_bound_file(output, binding["candidate_rec_package"], "Foundation retained REC package")
+    source_retention = _hash_bound_file(output, binding["candidate_rec_source_retention_manifest"], "Foundation retained source REC manifest")
+    if sha256_file(source_retention) != binding["candidate_retention_manifest_sha256"]:
+        raise RuntimeErrorEvidence("Foundation retained source REC manifest differs")
     _hash_bound_file(output, binding["input_manifest"], "Foundation retained input manifest")
     if not isinstance(binding["artifacts"], dict) or set(binding["artifacts"]) != {"publication", "authorities", "dependencies", "contract_tests"}:
         raise RuntimeErrorEvidence("Foundation retained input matrix differs")
@@ -924,6 +1043,9 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
         raise RuntimeErrorEvidence("Foundation retained transitive artifacts differ")
     for row in binding["transitive_artifacts"]:
         _hash_bound_file(output, row, "Foundation retained transitive artifact")
+    excluded = _excluded_artifact_inventory(output, binding)
+    if manifest["excluded_artifact_inventory"] != binding["excluded_artifact_inventory"]:
+        raise RuntimeErrorEvidence("Foundation excluded artifact binding differs")
     # Retention is only meaningful if the candidate can be reconstructed in a
     # clean detached worktree, rather than being validated through the mutable
     # checkout that produced the evidence.
@@ -957,9 +1079,19 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
             recorded_input_root = pathlib.Path(binding["input_root"])
             dependency_recorded_root = recorded_input_root / pathlib.PurePosixPath(artifacts["dependencies"]["path"]).parent
             contract_recorded_root = recorded_input_root / pathlib.PurePosixPath(artifacts["contract_tests"]["path"]).parent
+            dependency_inventory = read_json(retained["dependencies"])
+            dependency_sources = {cell.get("build", {}).get("source_root") for cell in dependency_inventory.get("cells", []) if isinstance(cell, dict)}
+            if len(dependency_sources) != 1 or not isinstance(next(iter(dependency_sources)), str):
+                raise RuntimeErrorEvidence("Foundation retained dependency source differs")
+            raw_excluded: dict[str, dict[str, Any]] = {}
+            for relative, row in excluded.items():
+                try:
+                    raw_excluded[relative_path(retained["dependencies"].parent, _relative(output, relative, "Foundation excluded artifact"))] = row
+                except (ValueError, RuntimeErrorEvidence):
+                    continue
             dependencies_ok, dependency_findings, build_directories = validate_dependencies(retained["dependencies"], retained_profile,
                                                                                               candidate_commit, retained["dependencies"].parent, detached,
-                                                                                              dependency_recorded_root, candidate_source_root)
+                                                                                              dependency_recorded_root, pathlib.Path(next(iter(dependency_sources))), raw_excluded)
             contract_ok, contract_findings = validate_contract_tests(retained["contract_tests"], retained_profile, candidate_commit,
                                                                        retained["contract_tests"].parent, build_directories, contract_recorded_root)
             if not dependencies_ok or dependency_findings or not contract_ok or contract_findings:
@@ -971,12 +1103,134 @@ def verify_foundation_retention(output: pathlib.Path, profile_path: pathlib.Path
             semantic_package = (detached / "evidence" / "foundation" / "reproducible-experiment-contract" /
                                 "retained-rec-semantic-check")
             shutil.copytree(retained_package, semantic_package)
-            verify_retained_package(semantic_package, retained_rec_profile)
+            if read_json(semantic_package / "retention-manifest.json").get("schema_version") == 2:
+                _verify_sanitized_nested_rec_package(semantic_package, candidate_commit)
+            else:
+                verify_retained_package(semantic_package, retained_rec_profile)
         finally:
             removed = subprocess.run(["git", "worktree", "remove", "--force", str(detached)], cwd=candidate_source_root,
                                      capture_output=True, text=True, check=False)
             if removed.returncode != 0:
                 raise RuntimeErrorEvidence("Foundation detached retention worktree could not be removed")
+
+
+def sanitize_foundation_retention(output: pathlib.Path) -> dict[str, int]:
+    """Replace compiled bytes in the canonical Foundation package with sealed metadata.
+
+    This repairs a historical packaging defect only.  It neither reconstructs
+    evidence nor changes the recorded Foundation result.
+    """
+    manifest_path = output / "retention-manifest.json"
+    binding_path = output / "foundation-evidence-manifest.json"
+    manifest, binding = read_json(manifest_path), read_json(binding_path)
+    if manifest.get("schema_version") == 2 and binding.get("schema_version") == 5:
+        source_manifest_path = output / "inputs" / "candidate-rec-source-retention-manifest.json"
+        if not source_manifest_path.is_file():
+            raise RuntimeErrorEvidence("Foundation source REC manifest is absent")
+        excluded_data = read_json(output / EXCLUDED_ARTIFACT_INVENTORY)
+        excluded = excluded_data.get("excluded_artifacts")
+        if not isinstance(excluded, list):
+            raise RuntimeErrorEvidence("Foundation excluded artifact inventory differs")
+        excluded_binding = {"path": EXCLUDED_ARTIFACT_INVENTORY, "sha256": sha256_file(output / EXCLUDED_ARTIFACT_INVENTORY),
+                            "count": len(excluded), "total_size": sum(row.get("size", 0) for row in excluded if isinstance(row, dict))}
+        binding["candidate_rec_source_retention_manifest"] = {"path": relative_path(output, source_manifest_path),
+                                                                  "sha256": sha256_file(source_manifest_path)}
+        binding["excluded_artifact_inventory"] = excluded_binding
+        write_json(binding_path, binding)
+        inventory_path = output / "artifact-inventory.json"
+        files = sorted(path for path in output.rglob("*") if path.is_file() and path != manifest_path)
+        write_json(inventory_path, {"schema_version": 1, "kind": "foundation-end-to-end-artifact-inventory",
+                                    "artifacts": [{"path": relative_path(output, path), "sha256": sha256_file(path)} for path in files if path != inventory_path]})
+        sealed = sorted(path for path in output.rglob("*") if path.is_file() and path != manifest_path)
+        write_json(manifest_path, {"schema_version": 2, "kind": "foundation-end-to-end-retention", "candidate_commit": binding["candidate_commit"],
+                                   "files": [{"path": relative_path(output, path), "sha256": sha256_file(path), "size": path.stat().st_size} for path in sealed],
+                                   "excluded_artifact_inventory": excluded_binding})
+        return {"count": len(excluded), "total_size": excluded_binding["total_size"]}
+    if (manifest.get("schema_version") != 1 or binding.get("schema_version") != 4 or
+            manifest.get("kind") != "foundation-end-to-end-retention" or
+            binding.get("kind") != "foundation-end-to-end-evidence-binding"):
+        raise RuntimeErrorEvidence("Foundation retention package is not the expected historical form")
+    paths = sorted(path for path in output.rglob("*") if path.is_file() and _compiled_blob(path.relative_to(output)))
+    if len(paths) != 28:
+        raise RuntimeErrorEvidence("Foundation compiled artifact count differs")
+    dependencies_path = output / "inputs" / "raw" / "dependencies.json"
+    dependencies = read_json(dependencies_path)
+    dependency_sha256 = sha256_file(dependencies_path)
+    raw_commands: dict[str, tuple[list[str], str]] = {}
+    for index, cell in enumerate(dependencies["cells"]):
+        build = cell["build"]["build"]
+        for item in cell["build"]["outputs"]:
+            raw_commands[f"inputs/raw/{item['path']}"] = (build["argv"], f"/cells/{index}/build/build/argv")
+    nested_root = output / "inputs" / "candidate-rec-package"
+    command_path = nested_root / "prerequisites" / "prerequisite-command-records.json"
+    commands = read_json(command_path)
+    command_index = next((index for index, row in enumerate(commands["records"]) if row.get("id") == "numeric-contract-execute"), None)
+    if command_index is None:
+        raise RuntimeErrorEvidence("Foundation nested REC command provenance differs")
+    nested_command = commands["records"][command_index]["argv"]
+    nested_command_path = relative_path(output, command_path)
+    nested_command_sha256 = sha256_file(command_path)
+    excluded: list[dict[str, Any]] = []
+    for path in paths:
+        relative = relative_path(output, path)
+        if relative in raw_commands:
+            argv, pointer = raw_commands[relative]
+            command = {"argv": argv, "record_path": relative_path(output, dependencies_path),
+                       "record_sha256": dependency_sha256, "record_pointer": pointer}
+            provenance = {"source_path": str((pathlib.Path(binding["input_root"]) / pathlib.PurePosixPath(relative).relative_to("inputs/raw")).as_posix()),
+                          "source_root": binding["input_root"], "classification": "foundation_build_output"}
+        else:
+            command = {"argv": nested_command, "record_path": nested_command_path,
+                       "record_sha256": nested_command_sha256, "record_pointer": f"/records/{command_index}/argv"}
+            nested_manifest = read_json(nested_root / "retention-manifest.json")
+            nested_relative = relative.removeprefix("inputs/candidate-rec-package/")
+            source = next((row["source_path"] for row in nested_manifest["files"] if row["retained_path"] == nested_relative), None)
+            if not isinstance(source, str) or not source:
+                raise RuntimeErrorEvidence("Foundation nested REC artifact provenance differs")
+            provenance = {"source_path": source, "source_root": str(pathlib.PurePosixPath(source).parent),
+                          "classification": "nested_rec_prerequisite"}
+        excluded.append({"path": relative, "sha256": sha256_file(path), "size": path.stat().st_size,
+                         "exclusion_reason": "reproducible_binary", "command": command, "provenance": provenance})
+    nested_manifest_path = nested_root / "retention-manifest.json"
+    nested_manifest = read_json(nested_manifest_path)
+    source_manifest_path = output / "inputs" / "candidate-rec-source-retention-manifest.json"
+    shutil.copy2(nested_manifest_path, source_manifest_path)
+    nested_excluded = []
+    nested_paths = {row["path"].removeprefix("inputs/candidate-rec-package/") for row in excluded if row["path"].startswith("inputs/candidate-rec-package/")}
+    nested_manifest["files"] = [row for row in nested_manifest["files"] if row["retained_path"] not in nested_paths]
+    for row in excluded:
+        if not row["path"].startswith("inputs/candidate-rec-package/"):
+            continue
+        relative = row["path"].removeprefix("inputs/candidate-rec-package/")
+        nested_excluded.append({"source_path": row["provenance"]["source_path"], "source_relative_path": relative,
+                                "sha256": row["sha256"], "size": row["size"], "exclusion_reason": "reproducible_binary"})
+    nested_manifest["schema_version"] = 2
+    nested_manifest["excluded_artifacts"] = sorted(nested_excluded, key=lambda item: item["source_relative_path"])
+    write_json(nested_manifest_path, nested_manifest)
+    for path in paths:
+        path.unlink()
+    excluded_path = output / EXCLUDED_ARTIFACT_INVENTORY
+    write_json(excluded_path, {"schema_version": 1, "kind": "foundation-end-to-end-excluded-artifacts",
+                               "candidate_commit": binding["candidate_commit"],
+                               "excluded_artifacts": sorted(excluded, key=lambda item: item["path"])})
+    excluded_binding = {"path": EXCLUDED_ARTIFACT_INVENTORY, "sha256": sha256_file(excluded_path),
+                        "count": len(excluded), "total_size": sum(row["size"] for row in excluded)}
+    binding["schema_version"] = 5
+    binding["candidate_rec_package"]["sha256"] = sha256_file(nested_manifest_path)
+    binding["candidate_rec_source_retention_manifest"] = {"path": relative_path(output, source_manifest_path),
+                                                              "sha256": sha256_file(source_manifest_path)}
+    binding["transitive_artifacts"] = [row for row in binding["transitive_artifacts"] if row["path"] not in {item["path"] for item in excluded}]
+    binding["excluded_artifact_inventory"] = excluded_binding
+    write_json(binding_path, binding)
+    inventory_path = output / "artifact-inventory.json"
+    files = sorted(path for path in output.rglob("*") if path.is_file() and path != manifest_path)
+    write_json(inventory_path, {"schema_version": 1, "kind": "foundation-end-to-end-artifact-inventory",
+                                "artifacts": [{"path": relative_path(output, path), "sha256": sha256_file(path)} for path in files if path != inventory_path]})
+    sealed = sorted(path for path in output.rglob("*") if path.is_file() and path != manifest_path)
+    write_json(manifest_path, {"schema_version": 2, "kind": "foundation-end-to-end-retention", "candidate_commit": binding["candidate_commit"],
+                               "files": [{"path": relative_path(output, path), "sha256": sha256_file(path), "size": path.stat().st_size} for path in sealed],
+                               "excluded_artifact_inventory": excluded_binding})
+    return {"count": len(excluded), "total_size": excluded_binding["total_size"]}
 
 
 def _write_outputs(output: pathlib.Path, summary: dict[str, Any], profile_path: pathlib.Path, rec_profile: pathlib.Path,
@@ -1052,6 +1306,8 @@ def qualify(profile_path: pathlib.Path, rec_profile: pathlib.Path, baseline_pack
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--preflight", action="store_true")
+    parser.add_argument("--sanitize-retention", action="store_true")
+    parser.add_argument("--verify-retention", action="store_true")
     parser.add_argument("--profile", required=True); parser.add_argument("--rec-profile", required=True)
     parser.add_argument("--baseline-package", required=True); parser.add_argument("--candidate-package")
     parser.add_argument("--inputs-manifest"); parser.add_argument("--output")
@@ -1062,6 +1318,25 @@ def parse_arguments() -> argparse.Namespace:
 def main() -> int:
     arguments = parse_arguments()
     try:
+        if arguments.sanitize_retention:
+            if arguments.output is None:
+                raise RuntimeErrorEvidence("Foundation sanitize output is absent")
+            print(json.dumps(sanitize_foundation_retention(pathlib.Path(arguments.output)), sort_keys=True))
+            return 0
+        if arguments.verify_retention:
+            if arguments.output is None or arguments.candidate_package is None:
+                raise RuntimeErrorEvidence("Foundation retention verification argument is absent")
+            package = pathlib.Path(arguments.candidate_package)
+            output = pathlib.Path(arguments.output)
+            binding = read_json(output / "foundation-evidence-manifest.json")
+            candidate_commit = read_json(package / "retention-manifest.json")["candidate_commit"]
+            source = read_json(package / "control" / "prepared-manifest.json")["candidate"]["source_root"]
+            retained_profile = _hash_bound_file(output, binding["profile"], "Foundation retained profile")
+            retained_rec_profile = _hash_bound_file(output, binding["rec_profile"], "Foundation retained REC profile")
+            verify_foundation_retention(output, retained_profile, retained_rec_profile, package / "retention-manifest.json",
+                                        candidate_commit, pathlib.Path(source), pathlib.Path(source))
+            print(json.dumps({"state": "PASS", "candidate_commit": candidate_commit}, sort_keys=True))
+            return 0
         if arguments.preflight:
             required = {"source root": arguments.source_root, "control root": arguments.control_root,
                         "evidence root": arguments.evidence_root}

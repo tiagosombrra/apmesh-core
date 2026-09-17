@@ -215,4 +215,40 @@ std::expected<Vector3, GeometryError> normalize(const Vector3& vector) noexcept 
     return vector / *length;
 }
 
+std::expected<Vector2, GeometryError> apply(
+    const Mat2& matrix,
+    const Vector2& vector) noexcept {
+    const auto m00 = matrix.at(0, 0);
+    const auto m01 = matrix.at(0, 1);
+    const auto m10 = matrix.at(1, 0);
+    const auto m11 = matrix.at(1, 1);
+    if (!m00 || !m01 || !m10 || !m11) {
+        return std::unexpected{GeometryError::non_finite_result};
+    }
+    return finite_geometry_result(Vector2::make(
+        *m00 * vector.x() + *m01 * vector.y(),
+        *m10 * vector.x() + *m11 * vector.y()));
+}
+
+std::expected<Vector3, GeometryError> apply(
+    const Mat3& matrix,
+    const Vector3& vector) noexcept {
+    const auto m00 = matrix.at(0, 0);
+    const auto m01 = matrix.at(0, 1);
+    const auto m02 = matrix.at(0, 2);
+    const auto m10 = matrix.at(1, 0);
+    const auto m11 = matrix.at(1, 1);
+    const auto m12 = matrix.at(1, 2);
+    const auto m20 = matrix.at(2, 0);
+    const auto m21 = matrix.at(2, 1);
+    const auto m22 = matrix.at(2, 2);
+    if (!m00 || !m01 || !m02 || !m10 || !m11 || !m12 || !m20 || !m21 || !m22) {
+        return std::unexpected{GeometryError::non_finite_result};
+    }
+    return finite_geometry_result(Vector3::make(
+        *m00 * vector.x() + *m01 * vector.y() + *m02 * vector.z(),
+        *m10 * vector.x() + *m11 * vector.y() + *m12 * vector.z(),
+        *m20 * vector.x() + *m21 * vector.y() + *m22 * vector.z()));
+}
+
 } // namespace apmesh::core
