@@ -119,10 +119,12 @@ Foundation End-to-End closed with FND0–FND7 `PASS` on clean published candidat
 revision-bound evidence; the separate audit made the scientific closure
 decision. Historical REC evidence at `85d215a` remained a qualified comparison
 baseline and did not substitute for current-candidate FND2, FND4, or FND6.
-The original 586-file retained package is preserved at
-`evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`; its retention
-manifest has SHA-256
-`bbd316c8084a6bb4fd862112288ee6d826870ca63589977e77d0453916a7b937`.
+The original 586-file source manifest is preserved in the canonical Foundation
+package at `evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`.
+The canonical package retains 560 non-rebuildable files; its manifest SHA-256
+is `ce873c59e663a570773469639a96e1f75587954adda0064d1a9d775773064040`.
+The hash-bound exclusion inventory records the 28 reproducible blobs
+(1,252,808 bytes) with their path, size, SHA-256, command, and provenance.
 
 The retained limitations are unchanged: qualification is restricted to WSL
 Ubuntu 24.04 and makes no native-Windows, geometry, topology, meshing,

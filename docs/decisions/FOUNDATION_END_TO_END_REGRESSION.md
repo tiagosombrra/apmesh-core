@@ -256,14 +256,24 @@ convergence, performance, parallel equivalence, or universal portability.
 
 ### Durable retention audit (2026-09-16)
 
-The original post-execution package was located without reconstruction and
-retained byte-for-byte at
-`evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/`. Its retention
-manifest declares 586 files and has SHA-256
+The original post-execution package was located without reconstruction. Its
+586-file retention manifest is preserved as source provenance at
+`evidence/foundation/foundation-end-to-end/fnd0-fnd7-b333755/` and has SHA-256
 `bbd316c8084a6bb4fd862112288ee6d826870ca63589977e77d0453916a7b937`.
 Independent size and SHA-256 verification of every declared entry found zero
 missing or mismatched files. This audit restores repository traceability; it
 does not rerun the campaign or alter the FND0–FND7 decision.
+
+### Canonical packaging correction (2026-09-16)
+
+The 586-file manifest above is retained as the historical source manifest, not
+as the current canonical byte set. The canonical package now retains 560
+non-rebuildable files under retention-manifest SHA-256
+`ce873c59e663a570773469639a96e1f75587954adda0064d1a9d775773064040`.
+Exactly 28 compiled blobs (1,252,808 bytes) are excluded from Git and recorded
+in hash-bound `excluded-artifacts.json` with their path, size, SHA-256,
+producing command, and source provenance. Detached-worktree verification
+passed; this packaging correction does not change FND0-FND7.
 
 ## 11. Next bounded action
 
