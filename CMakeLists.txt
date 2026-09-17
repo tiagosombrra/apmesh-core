@@ -58,6 +58,12 @@ add_executable(apmesh_core_geometry_point_vector_export
 target_link_libraries(apmesh_core_geometry_point_vector_export PRIVATE apmesh::core)
 apmesh_apply_target_defaults(apmesh_core_geometry_point_vector_export)
 
+add_executable(apmesh_core_cartesian_frames_export
+    experiments/cartesian_frames_export.cpp
+)
+target_link_libraries(apmesh_core_cartesian_frames_export PRIVATE apmesh::core)
+apmesh_apply_target_defaults(apmesh_core_cartesian_frames_export)
+
 add_executable(apmesh_core_minimal_small_linear_algebra_export
     experiments/minimal_small_linear_algebra_export.cpp
 )
@@ -96,6 +102,40 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.cartesian_frames)
 
     add_test(NAME apmesh_core.cartesian_frames COMMAND apmesh_core.cartesian_frames)
+    add_test(
+        NAME apmesh_core.cartesian_frames_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/cartesian_frames_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_cartesian_frames_export>
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/cartesian_frames_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/cartesian_frames.json
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+    add_test(
+        NAME apmesh_core.cartesian_frames_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/cartesian_frames_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_cartesian_frames_qualification.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/cartesian_frames.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/cartesian_frames_export.cpp
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/cartesian_frames_evidence.py
+    )
+    add_test(
+        NAME apmesh_core.cartesian_frames_retention
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/cartesian_frames_retention_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_cartesian_frames_qualification.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/cartesian_frames.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/cartesian_frames_export.cpp
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/cartesian_frames_evidence.py
+    )
     add_executable(apmesh_core.minimal_small_linear_algebra
         tests/minimal_small_linear_algebra.cpp
     )
@@ -295,6 +335,9 @@ if(BUILD_TESTING)
     set_tests_properties(
         apmesh_core.geometry_primitives
         apmesh_core.cartesian_frames
+        apmesh_core.cartesian_frames_evidence
+        apmesh_core.cartesian_frames_runner
+        apmesh_core.cartesian_frames_retention
         apmesh_core.geometry_point_vector_evidence
         apmesh_core.geometry_point_vector_runner
         apmesh_core.geometry_point_vector_retention

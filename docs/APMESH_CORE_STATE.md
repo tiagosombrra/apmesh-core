@@ -51,15 +51,25 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Cartesian Similarity Frames — implemented; focused contracts passed; not
-qualified.** `CartesianFrame2` and `CartesianFrame3` are bounded to an exact
-signed-permutation basis, a finite origin, and a positive power-of-two scale.
-Their focused analytic contract passed on GCC 13 and Clang 18 libc++, in Debug
-and Release. They may map matching points and vectors between local and world
-coordinates; they do not authorize general transformations, tolerance-based
-validation, inversion, predicates, topology, curves, surfaces, or meshing. The
-entry decision is recorded in
-`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
+**Cartesian Similarity Frames — CF0–CF7 protocol and admission infrastructure
+implemented; formal qualification not started.** `CartesianFrame2` and
+`CartesianFrame3` are bounded to an exact signed-permutation basis, a finite
+origin, and a positive power-of-two scale. Their focused analytic contract and
+the profile, certificate/oracle, comparer, split negatives, clean/published
+candidate manifest creator, exact CTest allowlist planner, and retention
+contracts are implemented. No `PREPARED` manifest has been created.
+They may map matching points and vectors between local and world coordinates;
+they do not authorize general transformations, tolerance-based validation,
+inversion, predicates, topology, curves, surfaces, or meshing. The entry
+decision and fixed qualification boundary are recorded in
+`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
+and `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
+
+PR #5 was squash-merged into `main` at
+`12afa394af24c8f0627b12e3697010735826a9a1`. Its tree is identical to reviewed
+source head `5c96593780b88f9e297253e600ccf5b5f2ba1c95`; both resolve to tree
+`8597575861c4573c850fb6e30e193e610674ce5c`. The source branch was removed only
+after that identity was verified.
 
 Minimal Small Linear Algebra remains `QUALIFIED` on clean published candidate
 `3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
@@ -222,19 +232,22 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
 8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
 9. `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
-10. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-11. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-12. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-13. `docs/research/REFERENCE_REGISTER.md`.
+10. `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`
+11. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+12. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+13. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+14. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: review the bounded Cartesian Similarity Frames package
-before any separate qualification decision. Preserve the qualified `3804e90`
-LA evidence, the passed `95258e9` integration summary, the blocked `6fa00bd`
-attempt, qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
-selection-defect evidence. No excluded transformation or later Geometry
-capability is authorized.
+Current first action: audit the completed CF0–CF7 admission infrastructure fixed by
+`docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md` before any
+separate decision about invoking manifest preparation. Preserve the qualified `3804e90`
+LA evidence, passed `95258e9` integration summary, blocked `6fa00bd` attempt,
+qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
+selection-defect evidence. Do not change Cartesian Frames behavior, prepare a
+manifest, execute the formal qualification, or authorize an excluded
+transformation or later Geometry capability.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are

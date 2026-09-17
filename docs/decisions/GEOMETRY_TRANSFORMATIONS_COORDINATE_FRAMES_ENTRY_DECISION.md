@@ -107,8 +107,23 @@ post-merge integration of Minimal Small Linear Algebra at `main` commit
 its focused analytic contract now pass on GCC 13 and Clang 18 libc++, in Debug
 and Release. This is not a qualification claim.
 
+## Qualification admission
+
+The post-merge audit of `main` at
+`12afa394af24c8f0627b12e3697010735826a9a1` confirmed that the reviewed source
+tree was preserved exactly and that the bounded implementation remains inside
+this decision. No implementation correction or scope expansion is required.
+
+The revision-bound qualification protocol and its admission infrastructure,
+including a clean/published-candidate `PREPARED` creator,
+are recorded in
+`docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`. Their
+focused contracts pass in the declared four-cell envelope. That evidence does
+not qualify the implementation, authorize a manifest, or start a campaign.
+
 ## Next bounded action
 
-Review the bounded implementation package before any separate decision about
-qualification. No qualification infrastructure or excluded capability is
-authorized by this decision.
+Audit the completed CF0–CF7 admission infrastructure against the pre-registered
+protocol before any separate decision about invoking manifest preparation. No excluded
+capability, manifest preparation, or formal execution is authorized by this
+decision.

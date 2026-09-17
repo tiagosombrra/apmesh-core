@@ -446,7 +446,7 @@ Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
 
 #### Transformations and Coordinate Frames
 
-Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED`
+Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / CF0–CF7 ADMISSION INFRASTRUCTURE IMPLEMENTED / NOT QUALIFIED`
 
 - Authority:
   `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
@@ -457,8 +457,11 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED`
   approximate validation, predicates, topology, curves, surfaces, meshes, and
   native-Windows qualification.
 - The focused analytic contract passed on GCC 13 and Clang 18 libc++, in Debug
-  and Release. No CF0–CF7 qualification protocol exists yet; this evidence does
-  not qualify the Geometry Primitives stage.
+  and Release. The revision-bound CF0–CF7 protocol and admission
+  infrastructure are recorded at
+  `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`; neither
+  has prepared or executed a formal qualification, and this evidence does not
+  qualify the Geometry Primitives stage.
 
 #### Geometry Primitives Regression
 
@@ -680,12 +683,13 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Minimal Small Linear Algebra was squash-merged after controlled review into
-`main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`; its resulting tree is
-identical to the reviewed integration candidate. The next bounded work unit is
-Cartesian Similarity Frames; its bounded implementation and focused analytic
-contract now pass on GCC 13 and Clang 18 libc++, in Debug and Release. It is
-not qualified.
+Cartesian Similarity Frames was squash-merged after controlled review into
+`main` at `12afa394af24c8f0627b12e3697010735826a9a1`; its resulting tree is
+identical to reviewed source head `5c96593780b88f9e297253e600ccf5b5f2ba1c95`.
+Its bounded implementation, focused analytic contract, and CF0–CF7 admission
+infrastructure pass their focused contracts on GCC 13 and Clang 18 libc++, in
+Debug and Release. The protocol is pre-registered but not prepared or executed;
+Cartesian Similarity Frames is not qualified.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -719,5 +723,6 @@ Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
 evidence correction, without production behavior change. The first `6fa00bd`
 attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
 INVESTIGATION. The Cartesian Similarity Frames entry decision is accepted, but
-only its bounded implementation and focused analytic contract have completed;
-no qualification has started.
+its bounded implementation, focused analytic contract, protocol
+pre-registration, and admission infrastructure have completed; no manifest
+preparation or qualification execution has started.
