@@ -2,6 +2,7 @@
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import pathlib
 import subprocess
@@ -15,6 +16,14 @@ def run(command: list[str], expected: int = 0) -> None:
         raise RuntimeError(f"unexpected exit {completed.returncode}: {' '.join(command)}\n{completed.stderr}")
 
 
+def rejects(action, message: str) -> None:
+    try:
+        action()
+    except Exception:
+        return
+    raise RuntimeError(message)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--exporter", required=True)
@@ -22,6 +31,11 @@ def main() -> int:
     parser.add_argument("--profile", required=True)
     parser.add_argument("--source-root", required=True)
     arguments = parser.parse_args()
+    specification = importlib.util.spec_from_file_location("cartesian_frames_evidence", arguments.tool)
+    if specification is None or specification.loader is None:
+        raise RuntimeError("evidence module could not be loaded")
+    evidence = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(evidence)
 
     with tempfile.TemporaryDirectory(prefix="apmesh-core-cf-evidence-") as temporary:
         root = pathlib.Path(temporary)
@@ -44,6 +58,21 @@ def main() -> int:
         run([*common, "compare", "--index", str(index), "--report", str(report)])
         if "Qualification: EVIDENCE_COLLECTED_PENDING_AUDIT" not in report.read_text(encoding="utf-8"):
             raise RuntimeError("report-only comparer claims scientific closure")
+        per_cell = root / "per-cell-comparisons.json"
+        per_cell.write_text(json.dumps(evidence.compare_per_cell_certificates(profile, index)), encoding="utf-8")
+        evidence.validate_per_cell_comparisons(profile, index, per_cell)
+        per_cell_value = json.loads(per_cell.read_text(encoding="utf-8"))
+        if [item["cell"] for item in per_cell_value["cells"]] != [cell["id"] for cell in profile["cells"]]:
+            raise RuntimeError("per-cell comparison coverage differs")
+        per_cell_value["cells"][0]["status"] = "FORGED"
+        per_cell.write_text(json.dumps(per_cell_value), encoding="utf-8")
+        rejects(lambda: evidence.validate_per_cell_comparisons(profile, index, per_cell), "forged per-cell comparison was accepted")
+        summary = evidence.gate_summary(profile, profile["limitations"])
+        summary_markdown = root / "gate-summary.md"
+        summary_markdown.write_text(evidence.render_gate_summary_markdown(summary), encoding="utf-8")
+        evidence.validate_gate_summary_markdown(summary, summary_markdown)
+        summary_markdown.write_text("forged summary\n", encoding="utf-8")
+        rejects(lambda: evidence.validate_gate_summary_markdown(summary, summary_markdown), "forged Markdown gate summary was accepted")
         collected = root / "collected.json"
         run([*common, "collect", "--index", str(index), "--output", str(collected)])
         if json.loads(collected.read_text(encoding="utf-8"))["status"] != "EVIDENCE_COLLECTED_PENDING_AUDIT":

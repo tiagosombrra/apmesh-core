@@ -460,7 +460,8 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / CF0–CF7 ADMISSION INFRASTRUCTU
   and Release. The revision-bound CF0–CF7 protocol and admission
   infrastructure, including an immutable PREPARED consumer, exact CTest
   discovery/execution binding, terminal partial-failure records, tool executable
-  identities, derived-evidence recomputation, and detached-worktree retention,
+  identities, explicit per-cell/cross-cell and JSON/Markdown derived-evidence
+  recomputation, and detached-worktree retention,
   are recorded at
   `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`; neither
   has prepared or executed a formal qualification, and this evidence does not

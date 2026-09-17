@@ -47,9 +47,22 @@ def main() -> int:
         planned = json.loads(plan.read_text(encoding="utf-8"))
         if planned["execution_requested"] is not False or len(planned["cells"]) != 4 or set(planned["gates"].values()) != {"NOT_EXECUTED"}:
             raise RuntimeError("runner plan differs")
+        loaded_profile = json.loads(pathlib.Path(arguments.profile).read_text(encoding="utf-8"))
+        inventory = runner.planned_inventories(loaded_profile, {"commit": "0123456789abcdef0123456789abcdef01234567", "source_inventory": []}, planned["cells"])
+        required = {"per-cell-comparisons.json", "gate-summary.md"}
+        if not required.issubset({entry["path"] for entry in inventory["artifacts"]}):
+            raise RuntimeError("planned CF7 artifacts are absent")
+        terminal = dict(runner.SUCCESS_TERMINAL_REFERENCES)
+        runner.validate_success_terminal_references(terminal)
+        terminal["gate_summary_markdown"] = "forged-summary.md"
+        try:
+            runner.validate_success_terminal_references(terminal)
+        except runner.RunnerError:
+            pass
+        else:
+            raise RuntimeError("runner accepted a forged Markdown summary reference")
         if any(path.name.endswith("manifest.json") for path in root.iterdir()):
             raise RuntimeError("runner created a manifest")
-        loaded_profile = json.loads(pathlib.Path(arguments.profile).read_text(encoding="utf-8"))
         runner.validate_prerequisite_discovery(loaded_profile["exact_prerequisite_tests"], loaded_profile["exact_prerequisite_tests"])
         try:
             runner.validate_prerequisite_discovery(loaded_profile["exact_prerequisite_tests"][:-1], loaded_profile["exact_prerequisite_tests"])

@@ -21,7 +21,7 @@ TOOL_ROOT = pathlib.Path(__file__).resolve().parent
 if str(TOOL_ROOT) not in sys.path:
     sys.path.insert(0, str(TOOL_ROOT))
 
-from cartesian_frames_evidence import EvidenceError, compare_certificates, validate_certificate, validate_negative_outcomes, validate_profile, validate_source  # noqa: E402
+from cartesian_frames_evidence import EvidenceError, compare_certificates, compare_per_cell_certificates, gate_summary, render_gate_summary_markdown, validate_certificate, validate_gate_summary_markdown, validate_negative_outcomes, validate_per_cell_comparisons, validate_profile, validate_source  # noqa: E402
 from experiment_runtime import RuntimeErrorEvidence, clean_candidate, input_identity, read_json, relative_path, run_command, sha256_file, tool_version, utc_now, verify_input_identity, write_json, write_state  # noqa: E402
 
 BUILD_TIMEOUT_SECONDS = 300
@@ -29,10 +29,19 @@ PROCESS_TIMEOUT_SECONDS = 45
 OVERALL_TIMEOUT_SECONDS = 1800
 FOCUSED_TESTS = ["apmesh_core.cartesian_frames", "apmesh_core.cartesian_frames_evidence", "apmesh_core.cartesian_frames_runner", "apmesh_core.cartesian_frames_retention"]
 CONFIGURATIONS = {"gcc-debug": ("g++-13", False), "gcc-release": ("g++-13", False), "clang-debug": ("clang++-18", True), "clang-release": ("clang++-18", True)}
-SUCCESS_FILES = {"profile.json", "preparation-seal.json", "execution-claim.json", "planned-inventories.json", "prepared-manifest.json", "plan.json", "state.json", "state-history.jsonl", "command-records.json", "source-checks.json", "prerequisite-discovery.json", "observed-inventories.json", "certificate-index.json", "cross-cell-comparison.json", "gate-summary.json", "terminal-manifest.json", "detached-verification.json", "retention-manifest.json"}
+SUCCESS_FILES = {"profile.json", "preparation-seal.json", "execution-claim.json", "planned-inventories.json", "prepared-manifest.json", "plan.json", "state.json", "state-history.jsonl", "command-records.json", "source-checks.json", "prerequisite-discovery.json", "observed-inventories.json", "certificate-index.json", "per-cell-comparisons.json", "cross-cell-comparison.json", "gate-summary.json", "gate-summary.md", "terminal-manifest.json", "detached-verification.json", "retention-manifest.json"}
 FAILURE_FILES = {"profile.json", "preparation-seal.json", "execution-claim.json", "planned-inventories.json", "prepared-manifest.json", "plan.json", "state.json", "state-history.jsonl", "command-records.json", "failure.json", "terminal-manifest.json", "detached-verification.json", "retention-manifest.json"}
 SEAL_FAILURE_FILES = {"retention-error.json", "pre-seal-terminal.json"}
 PREPARATION_FILES = ("prepared-manifest.json", "plan.json", "planned-inventories.json", "profile.json")
+SUCCESS_TERMINAL_REFERENCES = {
+    "observed_inventories": "observed-inventories.json",
+    "certificate_index": "certificate-index.json",
+    "per_cell_comparison": "per-cell-comparisons.json",
+    "comparison": "cross-cell-comparison.json",
+    "gate_summary": "gate-summary.json",
+    "gate_summary_markdown": "gate-summary.md",
+    "prerequisite_discovery": "prerequisite-discovery.json",
+}
 
 
 class RunnerError(RuntimeError):
@@ -376,16 +385,21 @@ def write_retention_inventory(output: pathlib.Path, manifest: dict[str, Any], re
     write_json(output / "retention-manifest.json", {"schema_version": 2, "kind": "cartesian-frames-retention", "candidate_commit": manifest["candidate"]["commit"], "prepared_manifest_sha256": sha256_file(output / "prepared-manifest.json"), "required_paths": sorted(required_paths), "files": [{"path": relative_path(output, path), "sha256": sha256_file(path), "size": path.stat().st_size} for path in files]})
 
 
+def validate_success_terminal_references(terminal: dict[str, Any]) -> None:
+    if any(terminal.get(key) != value for key, value in SUCCESS_TERMINAL_REFERENCES.items()):
+        raise fail("successful terminal references differ")
+
+
 def verify_retention(root: pathlib.Path) -> dict[str, Any]:
     manifest = validate_prepared(root, require_unconsumed=False)
     terminal, retention = read_json(root / "terminal-manifest.json"), read_json(root / "retention-manifest.json")
     terminal_base = {"schema_version", "kind", "state", "candidate", "prepared_manifest_sha256", "command_records", "observed_inventories", "retention_manifest"}
-    terminal_success = terminal_base | {"certificate_index", "comparison", "gate_summary", "prerequisite_discovery"}
+    terminal_success = terminal_base | {"certificate_index", "per_cell_comparison", "comparison", "gate_summary", "gate_summary_markdown", "prerequisite_discovery"}
     terminal_failure = terminal_base | {"failure"}
     if (terminal.get("state") == "EXECUTED_PENDING_AUDIT" and set(terminal) != terminal_success) or (terminal.get("state") == "BLOCKED" and not set(terminal).issubset(terminal_failure | {"retention_failure"})) or terminal.get("kind") != "cartesian-frames-terminal-manifest" or terminal.get("schema_version") != 2 or terminal.get("candidate") != manifest["candidate"] or terminal.get("prepared_manifest_sha256") != sha256_file(root / "prepared-manifest.json") or terminal.get("state") not in {"EXECUTED_PENDING_AUDIT", "BLOCKED"} or terminal.get("command_records") != "command-records.json" or terminal.get("retention_manifest") != "retention-manifest.json" or read_json(root / "state.json").get("state") != terminal.get("state"):
         raise fail("terminal manifest differs")
-    if terminal["state"] == "EXECUTED_PENDING_AUDIT" and (terminal.get("observed_inventories") != "observed-inventories.json" or terminal.get("certificate_index") != "certificate-index.json" or terminal.get("comparison") != "cross-cell-comparison.json" or terminal.get("gate_summary") != "gate-summary.json" or terminal.get("prerequisite_discovery") != "prerequisite-discovery.json"):
-        raise fail("successful terminal references differ")
+    if terminal["state"] == "EXECUTED_PENDING_AUDIT":
+        validate_success_terminal_references(terminal)
     claim = read_json(root / "execution-claim.json")
     if set(claim) != {"schema_version", "kind", "candidate_commit", "prepared_manifest_sha256", "pid", "started_utc"} or claim.get("schema_version") != 1 or claim.get("kind") != "cartesian-frames-execution-claim" or claim.get("candidate_commit") != manifest["candidate"]["commit"] or claim.get("prepared_manifest_sha256") != sha256_file(root / "prepared-manifest.json") or not isinstance(claim.get("pid"), int) or claim["pid"] <= 0:
         raise fail("execution claim differs")
@@ -437,6 +451,7 @@ def verify_retention(root: pathlib.Path) -> dict[str, Any]:
         profile = validate_profile(root / "profile.json")
         if sha256_file(root / "profile.json") != manifest["inputs"]["profile"]["sha256"]:
             raise fail("retained profile identity differs")
+        validate_per_cell_comparisons(profile, root / "certificate-index.json", root / "per-cell-comparisons.json")
         if read_json(root / "cross-cell-comparison.json") != compare_certificates(profile, root / "certificate-index.json"):
             raise fail("cross-cell comparison recomputation differs")
         source_checks = read_json(root / "source-checks.json")
@@ -495,9 +510,10 @@ def verify_retention(root: pathlib.Path) -> dict[str, Any]:
                 raise fail("retained negative outcome command is absent")
             require_success(record_by_id[negative_id], f"retained negative outcomes {name}")
             validate_negative_outcomes(profile, negative_path)
-        expected_summary = {"schema_version": 1, "kind": "cartesian-frames-gate-summary", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "gates": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in profile["gates"]}, "limitations": manifest["retained_limitations"]}
+        expected_summary = gate_summary(profile, manifest["retained_limitations"])
         if read_json(root / "gate-summary.json") != expected_summary:
             raise fail("retained gate summary differs")
+        validate_gate_summary_markdown(expected_summary, root / "gate-summary.md")
     return {"schema_version": 1, "kind": "cartesian-frames-retention-verification", "status": "PASS", "files": sorted(listed)}
 
 
@@ -586,9 +602,12 @@ def execute(arguments: argparse.Namespace) -> int:
         write_json(output / "prerequisite-discovery.json", {"schema_version": 1, "kind": "cartesian-frames-prerequisite-discovery", "cells": discoveries})
         write_json(output / "observed-inventories.json", {"schema_version": 1, "kind": "cartesian-frames-observed-inventories", "candidate_commit": manifest["candidate"]["commit"], "cells": inventories})
         write_json(output / "certificate-index.json", {"schema_version": 1, "kind": "cartesian-frames-certificate-index", "entries": entries})
+        write_json(output / "per-cell-comparisons.json", compare_per_cell_certificates(profile, output / "certificate-index.json"))
         write_json(output / "cross-cell-comparison.json", compare_certificates(profile, output / "certificate-index.json"))
-        write_json(output / "gate-summary.json", {"schema_version": 1, "kind": "cartesian-frames-gate-summary", "state": "EVIDENCE_COLLECTED_PENDING_AUDIT", "gates": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in profile["gates"]}, "limitations": manifest["retained_limitations"]})
-        write_terminal(output, manifest, "EXECUTED_PENDING_AUDIT", {"certificate_index": "certificate-index.json", "comparison": "cross-cell-comparison.json", "gate_summary": "gate-summary.json", "prerequisite_discovery": "prerequisite-discovery.json"})
+        summary = gate_summary(profile, manifest["retained_limitations"])
+        write_json(output / "gate-summary.json", summary)
+        (output / "gate-summary.md").write_text(render_gate_summary_markdown(summary), encoding="utf-8")
+        write_terminal(output, manifest, "EXECUTED_PENDING_AUDIT", SUCCESS_TERMINAL_REFERENCES)
         write_state(output, "EXECUTED_PENDING_AUDIT", {"candidate_commit": manifest["candidate"]["commit"], "comparison": "cross-cell-comparison.json"})
         seal_output(output, manifest, SUCCESS_FILES)
         return 0

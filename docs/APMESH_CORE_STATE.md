@@ -58,7 +58,9 @@ origin, and a positive power-of-two scale. Their focused analytic contract and
 the profile, certificate/oracle, comparer, split negatives, clean/published
 candidate manifest creator/consumer, exact CTest discovery and allowlist
 execution, terminal partial-failure retention, command-plan and derived-evidence
-recomputation, and detached-worktree retention verification are implemented.
+recomputation (including explicit per-cell/cross-cell comparisons and paired
+JSON/Markdown gate summaries), and detached-worktree retention verification are
+implemented.
 The toolchain record binds invoked/resolved executables and SHA-256. No
 `PREPARED` manifest has been created.
 They may map matching points and vectors between local and world coordinates;

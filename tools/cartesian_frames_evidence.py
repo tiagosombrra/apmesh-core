@@ -355,31 +355,100 @@ def validate_source(source_root: pathlib.Path) -> dict[str, str]:
     }
 
 
-def compare_certificates(profile: dict[str, Any], index_path: pathlib.Path) -> dict[str, Any]:
+def certificate_projections(profile: dict[str, Any], index_path: pathlib.Path) -> dict[tuple[str, int], dict[str, Any]]:
     index = read_json(index_path)
     if not isinstance(index, dict):
         raise EvidenceError("certificate index is not an object")
     require_keys(index, {"schema_version", "kind", "entries"}, "certificate index")
     if index["schema_version"] != 1 or index["kind"] != "cartesian-frames-certificate-index" or not isinstance(index["entries"], list):
         raise EvidenceError("certificate index identity differs")
-    expected_slots = [{"cell": cell["id"], "repetition": repetition} for cell in profile["cells"] for repetition in range(1, 4)]
-    slots: list[dict[str, Any]] = []
-    baseline: dict[str, Any] | None = None
+    expected_slots = [{"cell": cell["id"], "repetition": repetition} for cell in profile["cells"] for repetition in range(1, profile["repetitions_per_cell"] + 1)]
+    projections: dict[tuple[str, int], dict[str, Any]] = {}
     for entry in index["entries"]:
         if not isinstance(entry, dict) or set(entry) != {"cell", "repetition", "path", "sha256"}:
             raise EvidenceError("certificate index entry differs")
+        if not isinstance(entry["cell"], str) or not isinstance(entry["repetition"], int):
+            raise EvidenceError("certificate index slot differs")
         certificate = (index_path.parent / entry["path"]).resolve()
         if not certificate.is_file() or sha256(certificate) != entry["sha256"]:
             raise EvidenceError("certificate index hash differs")
-        projection = validate_certificate(profile, certificate)
-        if baseline is None:
-            baseline = projection
-        elif projection != baseline:
-            raise EvidenceError("cross-cell semantic projection differs")
-        slots.append({"cell": entry["cell"], "repetition": entry["repetition"]})
-    if sorted(slots, key=lambda item: (item["cell"], item["repetition"])) != sorted(expected_slots, key=lambda item: (item["cell"], item["repetition"])):
+        slot = (entry["cell"], entry["repetition"])
+        if slot in projections:
+            raise EvidenceError("certificate index contains a duplicate slot")
+        projections[slot] = validate_certificate(profile, certificate)
+    if set(projections) != {(item["cell"], item["repetition"]) for item in expected_slots}:
         raise EvidenceError("certificate index slots differ")
+    return projections
+
+
+def compare_per_cell_certificates(profile: dict[str, Any], index_path: pathlib.Path) -> dict[str, Any]:
+    projections = certificate_projections(profile, index_path)
+    cells: list[dict[str, Any]] = []
+    for cell in profile["cells"]:
+        name = cell["id"]
+        baseline = projections[(name, 1)]
+        repetitions = list(range(1, profile["repetitions_per_cell"] + 1))
+        if any(projections[(name, repetition)] != baseline for repetition in repetitions[1:]):
+            raise EvidenceError("per-cell semantic projection differs")
+        cells.append({
+            "cell": name,
+            "baseline_repetition": 1,
+            "compared_repetitions": repetitions[1:],
+            "status": "EVIDENCE_COLLECTED_PENDING_AUDIT",
+        })
+    return {
+        "schema_version": 1,
+        "kind": "cartesian-frames-per-cell-comparisons",
+        "status": "EVIDENCE_COLLECTED_PENDING_AUDIT",
+        "cells": cells,
+    }
+
+
+def compare_certificates(profile: dict[str, Any], index_path: pathlib.Path) -> dict[str, Any]:
+    projections = certificate_projections(profile, index_path)
+    expected_slots = [{"cell": cell["id"], "repetition": repetition} for cell in profile["cells"] for repetition in range(1, profile["repetitions_per_cell"] + 1)]
+    baseline = projections[(expected_slots[0]["cell"], expected_slots[0]["repetition"])]
+    if any(projections[(slot["cell"], slot["repetition"])] != baseline for slot in expected_slots[1:]):
+        raise EvidenceError("cross-cell semantic projection differs")
     return {"schema_version": 1, "kind": "cartesian-frames-cross-cell-comparison", "status": "EVIDENCE_COLLECTED_PENDING_AUDIT", "slots": expected_slots}
+
+
+def gate_summary(profile: dict[str, Any], limitations: list[str]) -> dict[str, Any]:
+    return {
+        "schema_version": 1,
+        "kind": "cartesian-frames-gate-summary",
+        "state": "EVIDENCE_COLLECTED_PENDING_AUDIT",
+        "gates": {gate: "EVIDENCE_COLLECTED_PENDING_AUDIT" for gate in profile["gates"]},
+        "limitations": limitations,
+    }
+
+
+def render_gate_summary_markdown(summary: dict[str, Any]) -> str:
+    if not isinstance(summary, dict) or set(summary) != {"schema_version", "kind", "state", "gates", "limitations"} or summary.get("schema_version") != 1 or summary.get("kind") != "cartesian-frames-gate-summary" or summary.get("state") != "EVIDENCE_COLLECTED_PENDING_AUDIT" or not isinstance(summary.get("gates"), dict) or not isinstance(summary.get("limitations"), list):
+        raise EvidenceError("gate summary differs")
+    rows = "\n".join(f"| `{gate}` | `{state}` |" for gate, state in summary["gates"].items())
+    limitations = "\n".join(f"- {item}" for item in summary["limitations"])
+    return (
+        "# Cartesian Frames gate summary\n\n"
+        "Status: `EVIDENCE_COLLECTED_PENDING_AUDIT`\n\n"
+        "| Gate | Evidence state |\n"
+        "| --- | --- |\n"
+        f"{rows}\n\n"
+        "## Retained limitations\n\n"
+        f"{limitations}\n"
+    )
+
+
+def validate_per_cell_comparisons(profile: dict[str, Any], index_path: pathlib.Path, comparison_path: pathlib.Path) -> dict[str, Any]:
+    expected = compare_per_cell_certificates(profile, index_path)
+    if read_json(comparison_path) != expected:
+        raise EvidenceError("per-cell comparison recomputation differs")
+    return expected
+
+
+def validate_gate_summary_markdown(summary: dict[str, Any], path: pathlib.Path) -> None:
+    if path.read_text(encoding="utf-8") != render_gate_summary_markdown(summary):
+        raise EvidenceError("gate summary Markdown differs")
 
 
 def negative_outcomes(profile: dict[str, Any], certificate: pathlib.Path, output: pathlib.Path) -> None:

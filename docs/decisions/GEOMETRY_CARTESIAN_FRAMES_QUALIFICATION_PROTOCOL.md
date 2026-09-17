@@ -77,7 +77,8 @@ clean, published candidate, source/input inventories, a sealed plan, the
 invoked and resolved toolchain paths with executable SHA-256, and the four-cell
 outputs. Retention recomputes the sealed command plan, exact CTest discovery
 and execution bindings, negatives, inventories, runtime-dependency observations,
-gate summary, and either successful detached verification or a sealed failure
+per-cell and cross-cell comparisons, and the paired JSON/Markdown gate summary,
+and either successful detached verification or a sealed failure
 record. Focused evidence
 neither creates a manifest nor authorizes or claims a formal CF0–CF7 execution
 or scientific closure.
