@@ -1,10 +1,10 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-16
+Last updated: 2026-09-17
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: verify with Git; the LA-only integration regression is closed
-and awaits controlled integration review.
+Working branch: verify with Git; Minimal Small Linear Algebra is integrated into
+`main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`.
 
 ## Purpose
 
@@ -51,25 +51,21 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Minimal Small Linear Algebra is QUALIFIED on clean published candidate
+**Cartesian Similarity Frames — implemented; focused contracts passed; not
+qualified.** `CartesianFrame2` and `CartesianFrame3` are bounded to an exact
+signed-permutation basis, a finite origin, and a positive power-of-two scale.
+Their focused analytic contract passed on GCC 13 and Clang 18 libc++, in Debug
+and Release. They may map matching points and vectors between local and world
+coordinates; they do not authorize general transformations, tolerance-based
+validation, inversion, predicates, topology, curves, surfaces, or meshing. The
+entry decision is recorded in
+`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
+
+Minimal Small Linear Algebra remains `QUALIFIED` on clean published candidate
 `3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
-24.04 GCC 13 / Clang 18 libc++ envelope. LA0-LA7 passed after one revision-bound
-four-cell execution with three certificates per cell, exact prerequisite
-preservation, expected negative rejections, retention, and detached
-verification. The first `6fa00bd` attempt remains immutable BLOCKED evidence
-for underdeclared signed-zero equivalence. The correction changed evidence
-semantics only; production math and Geometry behavior are unchanged. The
-original 201-file retained package is preserved at
-`evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-3804e90-prepared-20260913-02/`;
-its retention manifest has SHA-256
-`24894a2cf9875254862a27ac80582d2652a2543c891a59ed7920478d7c6aeb65`.
-The isolated LA-only integration candidate
-`95258e9faaeaae89e801874fe1ce600e80285427` passed its clean four-cell
-regression: LA0-LA7 passed, all 56 command records succeeded, all 40 negatives
-were rejected as expected, and the external 201-entry retention package passed
-hash verification. The compact canonical record is
-`evidence/geometry-primitives/minimal-small-linear-algebra/la0-la7-95258e9-integration-summary.json`.
-No later Geometry component is included.**
+24.04 GCC 13 / Clang 18 libc++ envelope. Its LA-only integration regression on
+`95258e9faaeaae89e801874fe1ce600e80285427` passed before its reviewed squash
+merge into `main` as `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`.
 
 Foundation is `QUALIFIED` at 100% within the declared WSL Ubuntu 24.04
 envelope. Bounded point/vector geometry is implemented and has passed its
@@ -225,19 +221,20 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 6. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
 7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
 8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
-9. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-10. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-11. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-12. `docs/research/REFERENCE_REGISTER.md`.
+9. `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
+10. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+11. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+12. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+13. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: conduct controlled review and integration of the isolated
-LA-only candidate. Preserve the qualified `3804e90` LA evidence, the passed
-`95258e9` integration summary, the blocked `6fa00bd` attempt, qualified
-`ededf65` Point/Vector evidence, and negative `b7f8fe9` selection-defect
-evidence. No later Geometry implementation is authorized by this integration
-work.
+Current first action: review the bounded Cartesian Similarity Frames package
+before any separate qualification decision. Preserve the qualified `3804e90`
+LA evidence, the passed `95258e9` integration summary, the blocked `6fa00bd`
+attempt, qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
+selection-defect evidence. No excluded transformation or later Geometry
+capability is authorized.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
