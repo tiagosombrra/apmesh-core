@@ -446,9 +446,19 @@ Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
 
 #### Transformations and Coordinate Frames
 
-- Define transformations required by later curve/surface verification.
-- Verify invariance/equivariance properties under translation, rotation, and scale where mathematically appropriate.
-- Produce transformation regression certificates.
+Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED`
+
+- Authority:
+  `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
+- The first bounded capability is `CartesianFrame2`/`CartesianFrame3`: finite
+  origin, exact signed-permutation `Mat2`/`Mat3` basis, positive power-of-two
+  scale, and local/world maps that keep points distinct from vectors.
+- Exclude general affine transforms, arbitrary-angle rotation, general inverse,
+  approximate validation, predicates, topology, curves, surfaces, meshes, and
+  native-Windows qualification.
+- The focused analytic contract passed on GCC 13 and Clang 18 libc++, in Debug
+  and Release. No CF0–CF7 qualification protocol exists yet; this evidence does
+  not qualify the Geometry Primitives stage.
 
 #### Geometry Primitives Regression
 
@@ -670,9 +680,12 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current integration work: the isolated Minimal Small Linear Algebra candidate
-`95258e9` has passed the clean four-cell regression and awaits controlled
-integration review. No later Geometry work is included.
+Minimal Small Linear Algebra was squash-merged after controlled review into
+`main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`; its resulting tree is
+identical to the reviewed integration candidate. The next bounded work unit is
+Cartesian Similarity Frames; its bounded implementation and focused analytic
+contract now pass on GCC 13 and Clang 18 libc++, in Debug and Release. It is
+not qualified.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -683,7 +696,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — integrate qualified Minimal Small Linear Algebra**
+**Geometry Primitives — bounded Cartesian Similarity Frames**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -705,5 +718,6 @@ Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
 evidence correction, without production behavior change. The first `6fa00bd`
 attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
-INVESTIGATION; Transformations and Coordinate Frames require a separate entry
-decision and are not started by this closure.
+INVESTIGATION. The Cartesian Similarity Frames entry decision is accepted, but
+only its bounded implementation and focused analytic contract have completed;
+no qualification has started.

@@ -12,6 +12,8 @@ enum class GeometryError {
     division_by_zero,
     zero_length,
     indeterminate,
+    invalid_frame,
+    scale_out_of_range,
 };
 
 class Vector2 {
@@ -80,6 +82,88 @@ private:
     double x_;
     double y_;
     double z_;
+};
+
+class CartesianFrame2 {
+public:
+    [[nodiscard]] static std::expected<CartesianFrame2, GeometryError> make(
+        const Point2& origin,
+        const Mat2& basis,
+        int scale_exponent) noexcept;
+    [[nodiscard]] static CartesianFrame2 identity() noexcept;
+
+    [[nodiscard]] const Point2& origin() const noexcept;
+    [[nodiscard]] const Mat2& basis() const noexcept;
+    [[nodiscard]] int scale_exponent() const noexcept;
+
+    [[nodiscard]] std::expected<Point2, GeometryError> point_to_world(
+        const Point2& point) const noexcept;
+    [[nodiscard]] std::expected<Vector2, GeometryError> vector_to_world(
+        const Vector2& vector) const noexcept;
+    [[nodiscard]] std::expected<Point2, GeometryError> point_to_local(
+        const Point2& point) const noexcept;
+    [[nodiscard]] std::expected<Vector2, GeometryError> vector_to_local(
+        const Vector2& vector) const noexcept;
+
+private:
+    constexpr CartesianFrame2(
+        const Point2& origin,
+        const Mat2& basis,
+        const int scale_exponent,
+        const double scale,
+        const double inverse_scale) noexcept
+        : origin_(origin),
+          basis_(basis),
+          scale_exponent_(scale_exponent),
+          scale_(scale),
+          inverse_scale_(inverse_scale) {}
+
+    Point2 origin_;
+    Mat2 basis_;
+    int scale_exponent_;
+    double scale_;
+    double inverse_scale_;
+};
+
+class CartesianFrame3 {
+public:
+    [[nodiscard]] static std::expected<CartesianFrame3, GeometryError> make(
+        const Point3& origin,
+        const Mat3& basis,
+        int scale_exponent) noexcept;
+    [[nodiscard]] static CartesianFrame3 identity() noexcept;
+
+    [[nodiscard]] const Point3& origin() const noexcept;
+    [[nodiscard]] const Mat3& basis() const noexcept;
+    [[nodiscard]] int scale_exponent() const noexcept;
+
+    [[nodiscard]] std::expected<Point3, GeometryError> point_to_world(
+        const Point3& point) const noexcept;
+    [[nodiscard]] std::expected<Vector3, GeometryError> vector_to_world(
+        const Vector3& vector) const noexcept;
+    [[nodiscard]] std::expected<Point3, GeometryError> point_to_local(
+        const Point3& point) const noexcept;
+    [[nodiscard]] std::expected<Vector3, GeometryError> vector_to_local(
+        const Vector3& vector) const noexcept;
+
+private:
+    constexpr CartesianFrame3(
+        const Point3& origin,
+        const Mat3& basis,
+        const int scale_exponent,
+        const double scale,
+        const double inverse_scale) noexcept
+        : origin_(origin),
+          basis_(basis),
+          scale_exponent_(scale_exponent),
+          scale_(scale),
+          inverse_scale_(inverse_scale) {}
+
+    Point3 origin_;
+    Mat3 basis_;
+    int scale_exponent_;
+    double scale_;
+    double inverse_scale_;
 };
 
 [[nodiscard]] Vector2 operator-(const Vector2& vector) noexcept;
