@@ -37,6 +37,17 @@ def main() -> int:
               "--protocol", arguments.protocol, "--exporter", arguments.exporter, "--validator", arguments.validator]
     with tempfile.TemporaryDirectory(prefix="apmesh-core-cf-runner-") as temporary:
         root = pathlib.Path(temporary)
+        compile_commands = root / "compile_commands.json"
+        compile_commands.write_text('[{"file":"source.cpp","command":"clang++-18 -c source.cpp"}]', encoding="utf-8")
+        if runner.read_compile_commands(compile_commands) != [{"file": "source.cpp", "command": "clang++-18 -c source.cpp"}]:
+            raise RuntimeError("compile command list reader differs")
+        compile_commands.write_text('{"file":"source.cpp"}', encoding="utf-8")
+        try:
+            runner.read_compile_commands(compile_commands)
+        except runner.RunnerError:
+            pass
+        else:
+            raise RuntimeError("compile command reader accepted an object")
         checked = root / "self-check.json"
         run([*common, "self-check", "--output", str(checked)])
         result = json.loads(checked.read_text(encoding="utf-8"))

@@ -52,6 +52,28 @@ def fail(message: str) -> RunnerError:
     return RunnerError(message)
 
 
+def _reject_duplicate_compile_command_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise fail("duplicate key in compile command inventory")
+        result[key] = value
+    return result
+
+
+def read_compile_commands(path: pathlib.Path) -> list[dict[str, Any]]:
+    try:
+        value = json.loads(
+            path.read_text(encoding="utf-8"),
+            object_pairs_hook=_reject_duplicate_compile_command_keys,
+        )
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise fail(f"invalid compile command inventory: {path}") from error
+    if not isinstance(value, list):
+        raise fail(f"compile command inventory must be a JSON list: {path}")
+    return value
+
+
 def canonical(source: pathlib.Path, relative: str, supplied: str, label: str) -> pathlib.Path:
     expected, actual = (source / relative).resolve(), pathlib.Path(supplied).resolve()
     if expected != actual:
@@ -484,7 +506,7 @@ def verify_retention(root: pathlib.Path) -> dict[str, Any]:
             require_success(record_by_id[prerequisite_id], f"retained prerequisite execution {name}")
             if set(inventory) != {"cell", "compile_commands", "runtime_dependencies"} or set(inventory.get("compile_commands", {})) != {"path", "sha256"} or inventory["compile_commands"].get("path") != f"cells/{name}/compile_commands.json" or inventory["compile_commands"].get("sha256") != sha256_file(root / inventory["compile_commands"]["path"]):
                 raise fail("retained compile inventory differs")
-            compile_commands = read_json(root / inventory["compile_commands"]["path"])
+            compile_commands = read_compile_commands(root / inventory["compile_commands"]["path"])
             if not isinstance(compile_commands, list) or not compile_commands:
                 raise fail("retained compile commands differ")
             compiler = cell["compiler"]
