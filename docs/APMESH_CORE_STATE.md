@@ -66,7 +66,16 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Cartesian Similarity Frames — QUALIFIED / CF0–CF7 PASS / candidate
+**Geometry Primitives Cumulative Regression — PRE-REGISTERED / NOT PREPARED /
+NOT EXECUTED.** The bounded GPR0-GPR7 protocol qualifies only the joint
+Point/Vector, Minimal Small Linear Algebra, and Cartesian Similarity Frames
+capability already integrated in post-merge `main` baseline
+`ca20ad64cd0dd14b869225dae73401ad2b93464c`. It authorizes no new production
+type or behavior. The next implementation unit is limited to one reusable
+stage-level profile and report-only evidence workflow plus focused development
+contracts; formal manifest preparation and execution remain blocked.
+
+Cartesian Similarity Frames is **QUALIFIED / CF0–CF7 PASS / candidate
 `8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and
 Clang 18 libc++.** `CartesianFrame2` and `CartesianFrame3` remain bounded to
 an exact signed-permutation basis, finite origin, and positive power-of-two
@@ -89,6 +98,13 @@ PR #5 was squash-merged into `main` at
 source head `5c96593780b88f9e297253e600ccf5b5f2ba1c95`; both resolve to tree
 `8597575861c4573c850fb6e30e193e610674ce5c`. The source branch was removed only
 after that identity was verified.
+
+PR #6 was squash-merged into `main` at
+`ca20ad64cd0dd14b869225dae73401ad2b93464c`. Local `main`, `origin/main`, and
+`HEAD` were aligned at that commit with clean tree
+`01154f434aaffe8e2b5b57710f21a38efbe95d8d`. The merge added the bounded
+Cartesian Frames qualification record and evidence infrastructure; it did not
+change the already integrated production implementation.
 
 Minimal Small Linear Algebra remains `QUALIFIED` on clean published candidate
 `3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
@@ -252,26 +268,31 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
 9. `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
 10. `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`
-11. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-12. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-13. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-14. `docs/research/REFERENCE_REGISTER.md`.
+11. `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`
+12. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+13. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+14. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+15. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
 Cartesian Similarity Frames is closed as a bounded qualified component.
 Preserve the immutable `e69e804` schema-defect attempt, qualified `3804e90`
 LA evidence, passed `95258e9` integration summary, qualified `ededf65`
-Point/Vector evidence, and negative `b7f8fe9` selection-defect evidence. No
-subsequent Geometry component or cumulative Geometry Primitives regression is
-started by this record; each requires a separate bounded decision.
+Point/Vector evidence, and negative `b7f8fe9` selection-defect evidence. The
+single cumulative Geometry Primitives regression is preregistered at
+`docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`. Only
+its smallest reusable profile and report-only evidence workflow plus focused
+development contracts may be implemented next; no formal manifest or campaign
+is authorized yet.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics, Minimal Small Linear Algebra, and
 Cartesian Similarity Frames QUALIFIED in the declared WSL envelope. The
-cumulative Geometry Primitives regression remains unqualified.
+cumulative Geometry Primitives regression is preregistered but remains
+unprepared, unexecuted, and unqualified.
 
 ## Stage closure protocol
 

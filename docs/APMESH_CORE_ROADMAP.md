@@ -349,7 +349,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR AND SMALL LINEAR ALGEBRA QUALIFIED / WSL Ubuntu 24.04`
+Status: `IN INVESTIGATION / POINT-VECTOR, SMALL LINEAR ALGEBRA, AND CARTESIAN FRAMES QUALIFIED / CUMULATIVE REGRESSION PRE-REGISTERED / WSL Ubuntu 24.04`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -516,10 +516,18 @@ Status: `QUALIFIED / CF0–CF7 PASS / candidate 8e6b587 / WSL Ubuntu 24.04`
 
 #### Geometry Primitives Regression
 
-- Rerun all primitive analytic tests across the declared scale envelope.
-- Rerun Foundation regression.
-- Regenerate numeric error summaries and transformation figures.
-- Verify deterministic results and no change in accepted semantics.
+- Authority:
+  `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`.
+- Run one revision-bound cumulative campaign over Point/Vector, Minimal Small
+  Linear Algebra, and Cartesian Similarity Frames on the same clean candidate.
+- Exercise the sealed semantic CTest allowlist and integrated analytic cases
+  across the declared four-cell WSL compiler/build matrix.
+- Verify finite-state and error preservation, exact admitted compositions,
+  scale and signed-zero semantics, repeatability, cross-cell equivalence,
+  Foundation preservation, isolation from topology, and retained-evidence
+  integrity through GPR0-GPR7.
+- Produce compact numerical tables and certificates. A spatial figure is not
+  required for these algebraic value types and coordinate maps.
 
 Stage exit gate: primitive operations are analytically verified across the declared scale envelope, have no topology semantics, and Geometry Primitives Regression passes.
 
@@ -752,7 +760,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — no subsequent component authorized**
+**Geometry Primitives — cumulative stage regression pre-registered**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -764,9 +772,9 @@ qualified on candidate `85d215a`; that historical evidence remains the accepted
 comparison baseline. Foundation End-to-End passed its post-execution FND0–FND7
 audit on `b333755`, with retained scope limitations. Point and Vector Semantics
 are QUALIFIED on `ededf65` only within the declared WSL Ubuntu 24.04 GCC 13 /
-Clang 18 libc++ envelope. Geometry Primitives remains IN INVESTIGATION: no
-matrix, transform, predicate, topology, curve, surface, or meshing algorithm
-is implemented or authorized by the Point/Vector qualification. PR #3 is
+Clang 18 libc++ envelope. That Point/Vector qualification alone authorized no
+matrix, transform, predicate, topology, curve, surface, or meshing algorithm.
+PR #3 is
 integrated into `main` at `1ff6568`; its tree matches reviewed source head
 `b170673`. The bounded Minimal Small Linear Algebra Contract was accepted after
 Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
@@ -777,5 +785,7 @@ attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
 INVESTIGATION. Cartesian Similarity Frames is QUALIFIED on `8e6b587` inside
 the declared WSL GCC/Clang envelope after CF0–CF7 passed. Its historical
 `e69e804` execution remains immutable blocked tooling evidence; it was not
-used as a gate result. No subsequent Geometry component or cumulative stage
-regression is authorized by this status record.
+used as a gate result. The single cumulative Geometry Primitives regression is
+pre-registered in
+`docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`; its
+tooling, manifest, execution, and scientific result remain pending.
