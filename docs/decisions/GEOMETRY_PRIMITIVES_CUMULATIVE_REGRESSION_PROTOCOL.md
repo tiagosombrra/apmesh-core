@@ -236,12 +236,14 @@ execution, or qualification result. The bounded development package now adds
 only `experiments/profiles/geometry_primitives_cumulative.json`, the
 experimental cumulative exporter, the report-only
 `tools/geometry_primitives_cumulative_evidence.py` validator/collector, and
-`tools/run_geometry_primitives_cumulative.py` preparation-only runner. Focused
-contracts pass in GCC 13 Debug and Clang 18 libc++ Debug. The runner seals and
-validates, but does not execute, a `PREPARED` manifest; no formal execution or
-gate result exists.
+`tools/run_geometry_primitives_cumulative.py` revision-bound runner. Focused
+contracts pass in GCC 13 Debug and Clang 18 libc++ Debug, including immutable
+preparation and retained synthetic success and partial failure. The runner consumes one
+sealed manifest, records commands, comparisons, dependencies, terminal state,
+and retention, but no formal GPR execution or gate result exists.
 
 ## 13. Next bounded action
 
-Prepare and independently review one external `PREPARED` manifest bound to the
-published candidate. The four-cell campaign remains unauthorized.
+Publish the execution runner, then prepare and independently review one new
+external `PREPARED` manifest bound to that published candidate. The four-cell
+campaign remains unauthorized.

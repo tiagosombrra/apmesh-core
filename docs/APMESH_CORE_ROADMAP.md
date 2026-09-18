@@ -788,6 +788,7 @@ the declared WSL GCC/Clang envelope after CF0–CF7 passed. Its historical
 used as a gate result. The single cumulative Geometry Primitives regression is
 pre-registered in
 `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`; its
-report-only workflow and revision-bound preparation runner passed focused
-GCC/Clang development contracts. Its external `PREPARED` manifest, execution,
-and scientific result remain pending.
+report-only workflow and revision-bound execution runner passed focused
+GCC/Clang development contracts, including retained synthetic success and
+partial failure. A new
+external `PREPARED` manifest, execution, and scientific result remain pending.

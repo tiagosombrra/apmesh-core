@@ -127,6 +127,7 @@ if(BUILD_TESTING)
             --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/geometry_primitives_cumulative.json
             --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md
             --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/geometry_primitives_cumulative_export.cpp
+            --certificate-exporter $<TARGET_FILE:apmesh_core_geometry_primitives_cumulative_export>
             --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_primitives_cumulative_evidence.py
     )
     add_test(
