@@ -1,7 +1,7 @@
 # Geometry Primitives — Cartesian Similarity Frames Entry Decision
 
-Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED
-Date: 2026-09-17
+Status: QUALIFIED / CF0–CF7 PASS / candidate 8e6b587 / WSL Ubuntu 24.04
+Date: 2026-09-18
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Prerequisites: Foundation `QUALIFIED`; Point/Vector Semantics `QUALIFIED`;
 Minimal Small Linear Algebra `QUALIFIED`
@@ -104,11 +104,29 @@ are unexplained. Such a finding requires a new scientific decision.
 The bounded Cartesian similarity-frame work unit was accepted after the
 post-merge integration of Minimal Small Linear Algebra at `main` commit
 `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`. The bounded implementation and
-its focused analytic contract now pass on GCC 13 and Clang 18 libc++, in Debug
-and Release. This is not a qualification claim.
+its focused analytic contract pass on GCC 13 and Clang 18 libc++, in Debug and
+Release. Formal qualification is limited to the CF0–CF7 record below.
+
+## Qualification admission
+
+The post-merge audit of `main` at
+`12afa394af24c8f0627b12e3697010735826a9a1` confirmed that the reviewed source
+tree was preserved exactly and that the bounded implementation remains inside
+this decision. No implementation correction or scope expansion is required.
+
+The revision-bound qualification protocol and its admission infrastructure,
+including a clean/published-candidate `PREPARED` creator, are recorded in
+`docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`. Their
+replacement manifest bound to clean published candidate
+`8e6b5872072bb8077731b5879d1c5b751e375087` was executed once in the declared
+four-cell envelope. The audited CF0–CF7 result is `PASS`: twelve identical
+semantic certificates, exact prerequisite preservation, and detached-verified
+canonical retention. This qualifies only the bounded Cartesian Similarity
+Frames capability. It does not close Geometry Primitives or authorize a
+broader transformation capability.
 
 ## Next bounded action
 
-Review the bounded implementation package before any separate decision about
-qualification. No qualification infrastructure or excluded capability is
-authorized by this decision.
+No further Cartesian Frames manifest, execution, or scope extension is
+authorized by this decision. A later Geometry Primitives component or the
+cumulative stage regression requires a separate bounded decision.

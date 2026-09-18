@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-17
+Last updated: 2026-09-18
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: verify with Git; Minimal Small Linear Algebra is integrated into
 `main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`.
@@ -40,6 +40,21 @@ The greenfield implementation must eventually be usable as a library inside a la
 13. Mutable global scientific state and universal global tolerances are forbidden.
 14. Scientific/domain failures must be explicit and diagnosable; silent fallbacks are forbidden.
 15. Generated results must be reproducible from declared inputs, revision, environment, and experiment manifest.
+16. Small components close with focused analytic contracts and may integrate as
+    implemented but unqualified; formal qualification occurs cumulatively at
+    scientific-stage exit.
+17. Formal manifests and four-cell campaigns are not created per value type
+    unless a separate scientific decision proves that the claim cannot wait for
+    stage closure.
+18. Ordinary work targets at least 50% scientific/C++ implementation, at most
+    35% focused validation/tooling, and at most 15% documentation/governance.
+19. One reusable stage-level evidence workflow is preferred over new runners,
+    collectors, comparers, and schemas for each component.
+20. A mechanical tooling defect gets one focused regression contract without a
+    new scientific decision cycle; two consecutive mechanical failures stop the
+    standalone campaign before any third execution.
+21. Documentation records current authority and terminal evidence without
+    creating a chronological micro-record for each implementation step.
 
 ## Current active stage
 
@@ -51,15 +66,29 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Cartesian Similarity Frames — implemented; focused contracts passed; not
-qualified.** `CartesianFrame2` and `CartesianFrame3` are bounded to an exact
-signed-permutation basis, a finite origin, and a positive power-of-two scale.
-Their focused analytic contract passed on GCC 13 and Clang 18 libc++, in Debug
-and Release. They may map matching points and vectors between local and world
-coordinates; they do not authorize general transformations, tolerance-based
-validation, inversion, predicates, topology, curves, surfaces, or meshing. The
-entry decision is recorded in
-`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
+**Cartesian Similarity Frames — QUALIFIED / CF0–CF7 PASS / candidate
+`8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and
+Clang 18 libc++.** `CartesianFrame2` and `CartesianFrame3` remain bounded to
+an exact signed-permutation basis, finite origin, and positive power-of-two
+scale. The replacement revision-bound execution produced twelve identical
+semantic certificates across four compiler/build cells and three repetitions,
+with 1,696 unique exact cases per certificate, exact prerequisite preservation,
+and a detached-verified 168-file canonical retention package. The earlier
+`e69e804` package remains immutable
+`BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT` evidence; it is not a defect in
+Cartesian Frames behavior and was not overwritten. This qualification covers
+only matching point/vector local-world mappings within the declared envelope;
+it does not authorize general transformations, tolerance-based validation,
+inversion, predicates, topology, curves, surfaces, or meshing. The entry
+decision and fixed qualification record are in
+`docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
+and `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
+
+PR #5 was squash-merged into `main` at
+`12afa394af24c8f0627b12e3697010735826a9a1`. Its tree is identical to reviewed
+source head `5c96593780b88f9e297253e600ccf5b5f2ba1c95`; both resolve to tree
+`8597575861c4573c850fb6e30e193e610674ce5c`. The source branch was removed only
+after that identity was verified.
 
 Minimal Small Linear Algebra remains `QUALIFIED` on clean published candidate
 `3804e903f56a226d38319fd44255b5832639815d` within the declared WSL Ubuntu
@@ -222,26 +251,27 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
 8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
 9. `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
-10. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-11. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-12. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-13. `docs/research/REFERENCE_REGISTER.md`.
+10. `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`
+11. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+12. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+13. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+14. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
-Current first action: review the bounded Cartesian Similarity Frames package
-before any separate qualification decision. Preserve the qualified `3804e90`
-LA evidence, the passed `95258e9` integration summary, the blocked `6fa00bd`
-attempt, qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
-selection-defect evidence. No excluded transformation or later Geometry
-capability is authorized.
+Cartesian Similarity Frames is closed as a bounded qualified component.
+Preserve the immutable `e69e804` schema-defect attempt, qualified `3804e90`
+LA evidence, passed `95258e9` integration summary, qualified `ededf65`
+Point/Vector evidence, and negative `b7f8fe9` selection-defect evidence. No
+subsequent Geometry component or cumulative Geometry Primitives regression is
+started by this record; each requires a separate bounded decision.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
-INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
-QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
-and the cumulative Geometry Primitives regression remain unqualified.
+INVESTIGATION with Point/Vector Semantics, Minimal Small Linear Algebra, and
+Cartesian Similarity Frames QUALIFIED in the declared WSL envelope. The
+cumulative Geometry Primitives regression remains unqualified.
 
 ## Stage closure protocol
 

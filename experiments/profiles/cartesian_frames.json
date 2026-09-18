@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "kind": "cartesian-frames-qualification-profile",
+  "repetitions_per_cell": 3,
+  "cells": [
+    {"id": "gcc-debug", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Debug"},
+    {"id": "gcc-release", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Release"},
+    {"id": "clang-debug", "compiler": "Clang 18", "library": "libc++", "build_type": "Debug"},
+    {"id": "clang-release", "compiler": "Clang 18", "library": "libc++", "build_type": "Release"}
+  ],
+  "gates": ["CF0", "CF1", "CF2", "CF3", "CF4", "CF5", "CF6", "CF7"],
+  "scale_exponents": [-8, -1, 0, 1, 8],
+  "boundary_scale_exponents": [-1075, -1024, -1023, 1023, 1024, -2147483648],
+  "accepted_boundary_cases": ["frame2_scale_m1023", "frame3_scale_p1023"],
+  "basis_enumeration": {
+    "2": {"permutations": [[0, 1], [1, 0]], "sign_patterns": [[1, 1], [1, -1], [-1, 1], [-1, -1]]},
+    "3": {"permutations": [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]], "sign_patterns": [[1, 1, 1], [1, 1, -1], [1, -1, 1], [1, -1, -1], [-1, 1, 1], [-1, 1, -1], [-1, -1, 1], [-1, -1, -1]]}
+  },
+  "operations": [
+    "point_to_world", "vector_to_world",
+    "point_local_world_round_trip", "vector_local_world_round_trip",
+    "point_world_local_round_trip", "vector_world_local_round_trip"
+  ],
+  "fixtures": {
+    "2": {"origin": ["0x1p+3", "-0x1p+4"], "point": ["0x1p+0", "-0x1p+1"], "vector": ["0x1p+1", "-0x1p+2"]},
+    "3": {"origin": ["0x1p+3", "-0x1p+4", "0x1p+5"], "point": ["0x1p+0", "-0x1p+1", "0x1p+2"], "vector": ["0x1p+1", "-0x1p+2", "0x1p+3"]}
+  },
+  "adversarial_cases": [
+    "frame2_duplicate_basis", "frame3_duplicate_basis",
+    "frame2_non_unit_basis", "frame3_missing_basis",
+    "point2_nan", "point3_nan", "mat2_nan", "mat3_nan",
+    "frame2_scale_m1075", "frame2_scale_m1024", "frame2_scale_p1024", "frame3_scale_int_min",
+    "frame2_overflow_point", "frame3_overflow_vector"
+  ],
+  "certificate_negative_cases": [
+    "duplicate_case", "unexpected_case", "forged_expected_value",
+    "wrong_error_classification", "noncanonical_comparison_policy"
+  ],
+  "retention_negative_cases": [
+    "missing_retained_hash",
+    "rehashed_failure_records",
+    "forged_detached_verification",
+    "rehashed_command_provenance",
+    "sealed_failure_verification"
+  ],
+  "exact_prerequisite_tests": [
+    "apmesh_core.bootstrap_smoke", "apmesh_core.bootstrap_export", "apmesh_core.bootstrap_tool",
+    "apmesh_core.architecture_bootstrap_runner", "apmesh_core.numeric_contract",
+    "apmesh_core.numeric_contract_evidence", "apmesh_core.numeric_contract_runner",
+    "apmesh_core.reproducible_experiment_evidence", "apmesh_core.reproducible_experiment_runner",
+    "apmesh_core.reproducible_experiment_retention", "apmesh_core.reproducible_experiment_negatives",
+    "apmesh_core.geometry_primitives", "apmesh_core.geometry_point_vector_evidence",
+    "apmesh_core.geometry_point_vector_runner", "apmesh_core.geometry_point_vector_retention",
+    "apmesh_core.geometry_point_vector_foundation_preservation",
+    "apmesh_core.minimal_small_linear_algebra", "apmesh_core.math_header_isolation",
+    "apmesh_core.minimal_small_linear_algebra_evidence", "apmesh_core.minimal_small_linear_algebra_runner",
+    "apmesh_core.minimal_small_linear_algebra_retention"
+  ],
+  "equivalence": {"rule": "exact_hex", "signed_zero_policy": "normalize_to_positive", "proximity_policy": null},
+  "volatile_fields": ["cell", "compiler", "library", "build_type", "path", "pid", "timestamp", "duration", "artifact_hash"],
+  "limitations": [
+    "WSL Ubuntu 24.04 GCC 13 and Clang 18 libc++ envelope only",
+    "Only preregistered exactly representable cases; no universal finite-double invertibility claim",
+    "No native Windows, parallel, predicate, topology, curve, surface, or meshing qualification",
+    "Reflecting bases have value-map semantics only; no orientation or handedness claim"
+  ]
+}

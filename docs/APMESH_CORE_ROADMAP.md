@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-16
+Last updated: 2026-09-18
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -96,6 +96,47 @@ Every meaningful change must update at least one status entry in this roadmap. A
 - retained limitations/blockers.
 
 This is intended to make the repository self-sufficient for continuation in a new work session without relying on historical discussion.
+
+### 2.7 Implementation-first qualification rule
+
+Scientific rigor is applied at the level of the claim being made, not by giving
+every small value type its own formal campaign. Evidence has three levels:
+
+1. **Component development** — implementation plus focused unit, analytic,
+   negative, and header/dependency contracts. Passing evidence permits review
+   and integration with status `IMPLEMENTED / FOCUSED CONTRACTS PASS`; it does
+   not permit a `QUALIFIED` claim.
+2. **Investigation integration** — the coherent group of components is tested
+   together against its declared scientific invariants and prerequisite
+   contracts. This may use a second compiler or configuration when the
+   investigation has a real portability or numeric-semantic risk, but it does
+   not require a new manifest framework per class.
+3. **Scientific-stage qualification** — one revision-bound cumulative campaign,
+   retained evidence package, and scientific audit close the stage. Formal
+   manifests, four-cell matrices, detached retention, and publication-grade
+   reports belong here unless an explicit scientific decision explains why an
+   earlier standalone claim cannot safely wait for stage closure.
+
+During ordinary implementation work, the target active-effort distribution is
+at least 50% scientific/C++ implementation, at most 35% focused validation and
+tooling, and at most 15% documentation/governance. Stage-closing campaigns are
+the declared exception because validation is their primary output. If support
+work exceeds its limit, the work unit stops and its evidence design is
+simplified before more tooling is added.
+
+One reusable experiment runtime and stage-level runner are preferred over
+component-specific launchers, collectors, comparers, and schemas. A mechanical
+tooling defect that does not change implementation, hypotheses, expectations,
+or acceptance receives one focused regression contract and resumes without a
+new scientific decision cycle. Two consecutive mechanical failures in the same
+formal campaign trigger a tooling stop: no third execution is allowed until the
+workflow is simplified or deferred to the cumulative stage regression.
+
+Documentation records current authority, terminal evidence, retained
+limitations, and stage decisions. It does not create a new protocol, decision
+record, or chronological narrative for every implementation step. Small
+components may be integrated before formal stage qualification when their
+focused contracts pass and their status remains explicitly unqualified.
 
 ## 3. Technology baseline
 
@@ -446,7 +487,7 @@ Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
 
 #### Transformations and Coordinate Frames
 
-Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED`
+Status: `QUALIFIED / CF0–CF7 PASS / candidate 8e6b587 / WSL Ubuntu 24.04`
 
 - Authority:
   `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
@@ -457,8 +498,21 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED`
   approximate validation, predicates, topology, curves, surfaces, meshes, and
   native-Windows qualification.
 - The focused analytic contract passed on GCC 13 and Clang 18 libc++, in Debug
-  and Release. No CF0–CF7 qualification protocol exists yet; this evidence does
-  not qualify the Geometry Primitives stage.
+  and Release. The revision-bound CF0–CF7 protocol and admission
+  infrastructure, including an immutable PREPARED consumer, exact CTest
+  discovery/execution binding, terminal partial-failure records, tool executable
+  identities, explicit per-cell/cross-cell and JSON/Markdown derived-evidence
+  recomputation, and detached-worktree retention,
+  are recorded at
+  `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
+  The replacement manifest for clean published candidate `8e6b587` was
+  executed once at a distinct external root and audited `PASS` for CF0–CF7:
+  twelve identical semantic certificates, exact prerequisite preservation,
+  60 zero-exit command records, and detached-verified canonical retention.
+  The earlier `e69e804` package remains immutable
+  `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT` tooling evidence. Cartesian
+  Similarity Frames alone is qualified; Geometry Primitives remains `IN
+  INVESTIGATION` until its cumulative stage regression passes.
 
 #### Geometry Primitives Regression
 
@@ -680,12 +734,14 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Minimal Small Linear Algebra was squash-merged after controlled review into
-`main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`; its resulting tree is
-identical to the reviewed integration candidate. The next bounded work unit is
-Cartesian Similarity Frames; its bounded implementation and focused analytic
-contract now pass on GCC 13 and Clang 18 libc++, in Debug and Release. It is
-not qualified.
+Cartesian Similarity Frames was squash-merged into `main` at
+`12afa394af24c8f0627b12e3697010735826a9a1`. Its replacement qualification on
+clean published candidate `8e6b587` passed CF0–CF7 in the declared WSL GCC 13
+and Clang 18 libc++ envelope. The audited package comprises four build cells,
+three repetitions per cell, 1,696 exact cases per certificate, exact
+cross-cell equivalence, prerequisite preservation, and detached-verified
+retention. The historical `e69e804` schema-defect package is retained as
+negative tooling evidence and does not reduce this bounded qualification.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -696,7 +752,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — bounded Cartesian Similarity Frames**
+**Geometry Primitives — no subsequent component authorized**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -718,6 +774,8 @@ Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
 evidence correction, without production behavior change. The first `6fa00bd`
 attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
-INVESTIGATION. The Cartesian Similarity Frames entry decision is accepted, but
-only its bounded implementation and focused analytic contract have completed;
-no qualification has started.
+INVESTIGATION. Cartesian Similarity Frames is QUALIFIED on `8e6b587` inside
+the declared WSL GCC/Clang envelope after CF0–CF7 passed. Its historical
+`e69e804` execution remains immutable blocked tooling evidence; it was not
+used as a gate result. No subsequent Geometry component or cumulative stage
+regression is authorized by this status record.
