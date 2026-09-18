@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-17
+Last updated: 2026-09-18
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: verify with Git; Minimal Small Linear Algebra is integrated into
 `main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`.
@@ -40,6 +40,21 @@ The greenfield implementation must eventually be usable as a library inside a la
 13. Mutable global scientific state and universal global tolerances are forbidden.
 14. Scientific/domain failures must be explicit and diagnosable; silent fallbacks are forbidden.
 15. Generated results must be reproducible from declared inputs, revision, environment, and experiment manifest.
+16. Small components close with focused analytic contracts and may integrate as
+    implemented but unqualified; formal qualification occurs cumulatively at
+    scientific-stage exit.
+17. Formal manifests and four-cell campaigns are not created per value type
+    unless a separate scientific decision proves that the claim cannot wait for
+    stage closure.
+18. Ordinary work targets at least 50% scientific/C++ implementation, at most
+    35% focused validation/tooling, and at most 15% documentation/governance.
+19. One reusable stage-level evidence workflow is preferred over new runners,
+    collectors, comparers, and schemas for each component.
+20. A mechanical tooling defect gets one focused regression contract without a
+    new scientific decision cycle; two consecutive mechanical failures stop the
+    standalone campaign before any third execution.
+21. Documentation records current authority and terminal evidence without
+    creating a chronological micro-record for each implementation step.
 
 ## Current active stage
 
@@ -67,10 +82,10 @@ retained as `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT`: CMake correctly
 produced a JSON list, but the retention path used an object-only JSON reader.
 The terminal package remains immutable; it is tooling-failure evidence, not a
 gate decision or a defect in Cartesian Frames behavior. Commit `e999dcf` adds
-the list-specific strict reader and focused positive/negative contract. Because
-the runner and authority inputs changed, another scientific admission and a
-new output root are required before one new `PREPARED` manifest may be created.
-No replacement manifest has been prepared or executed.
+the list-specific strict reader and focused positive/negative contract. This
+governance decision authorizes one new `PREPARED` manifest, after review and
+publication, at a new output root and bound to the resulting clean revision.
+No replacement manifest has yet been prepared or executed.
 They may map matching points and vectors between local and world coordinates;
 they do not authorize general transformations, tolerance-based validation,
 inversion, predicates, topology, curves, surfaces, or meshing. The entry
@@ -253,14 +268,17 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: audit the published `e999dcf` correction against
-`docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md` before any
-separate decision about creating a new manifest. Preserve the immutable
-`e69e804` schema-defect attempt, qualified `3804e90` LA evidence, passed
-`95258e9` integration summary, qualified `ededf65` Point/Vector evidence, and
-negative `b7f8fe9` selection-defect evidence. Do not change Cartesian Frames
-behavior, create a manifest, execute the formal qualification, or authorize an
-excluded transformation or later Geometry capability.
+Current first action: after this governance change is reviewed and published,
+prepare and execute exactly one replacement CF0–CF7 manifest from a clean
+revision and distinct output root. Preserve the immutable `e69e804`
+schema-defect attempt, qualified `3804e90` LA evidence, passed `95258e9`
+integration summary, qualified `ededf65` Point/Vector evidence, and negative
+`b7f8fe9` selection-defect evidence. No additional admission microcycle is
+required because the implementation, hypothesis, expectations, and acceptance
+rules are unchanged. A second mechanical failure ends the standalone CF
+campaign without a third execution and defers formal closure to the cumulative
+Geometry Primitives regression. Do not change Cartesian Frames behavior or
+authorize an excluded transformation or later Geometry capability.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are

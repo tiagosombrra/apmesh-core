@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-16
+Last updated: 2026-09-18
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -96,6 +96,47 @@ Every meaningful change must update at least one status entry in this roadmap. A
 - retained limitations/blockers.
 
 This is intended to make the repository self-sufficient for continuation in a new work session without relying on historical discussion.
+
+### 2.7 Implementation-first qualification rule
+
+Scientific rigor is applied at the level of the claim being made, not by giving
+every small value type its own formal campaign. Evidence has three levels:
+
+1. **Component development** — implementation plus focused unit, analytic,
+   negative, and header/dependency contracts. Passing evidence permits review
+   and integration with status `IMPLEMENTED / FOCUSED CONTRACTS PASS`; it does
+   not permit a `QUALIFIED` claim.
+2. **Investigation integration** — the coherent group of components is tested
+   together against its declared scientific invariants and prerequisite
+   contracts. This may use a second compiler or configuration when the
+   investigation has a real portability or numeric-semantic risk, but it does
+   not require a new manifest framework per class.
+3. **Scientific-stage qualification** — one revision-bound cumulative campaign,
+   retained evidence package, and scientific audit close the stage. Formal
+   manifests, four-cell matrices, detached retention, and publication-grade
+   reports belong here unless an explicit scientific decision explains why an
+   earlier standalone claim cannot safely wait for stage closure.
+
+During ordinary implementation work, the target active-effort distribution is
+at least 50% scientific/C++ implementation, at most 35% focused validation and
+tooling, and at most 15% documentation/governance. Stage-closing campaigns are
+the declared exception because validation is their primary output. If support
+work exceeds its limit, the work unit stops and its evidence design is
+simplified before more tooling is added.
+
+One reusable experiment runtime and stage-level runner are preferred over
+component-specific launchers, collectors, comparers, and schemas. A mechanical
+tooling defect that does not change implementation, hypotheses, expectations,
+or acceptance receives one focused regression contract and resumes without a
+new scientific decision cycle. Two consecutive mechanical failures in the same
+formal campaign trigger a tooling stop: no third execution is allowed until the
+workflow is simplified or deferred to the cumulative stage regression.
+
+Documentation records current authority, terminal evidence, retained
+limitations, and stage decisions. It does not create a new protocol, decision
+record, or chronological narrative for every implementation step. Small
+components may be integrated before formal stage qualification when their
+focused contracts pass and their status remains explicitly unqualified.
 
 ## 3. Technology baseline
 
@@ -469,8 +510,9 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / CF0–CF7 ADMISSION INFRASTRUCTU
   list while the retention path required an object. Commit `e999dcf` corrects
   that reader and adds a focused positive/negative contract. The blocked
   package remains immutable and does not evaluate CF0–CF7 or qualify the
-  Geometry Primitives stage. A new admission and distinct output root are
-  required before any replacement manifest.
+  Geometry Primitives stage. Under the transition fixed by Section 2.7, one
+  replacement manifest at a distinct output root is authorized after this
+  governance change is reviewed and published.
 
 #### Geometry Primitives Regression
 
@@ -700,9 +742,19 @@ infrastructure pass their focused contracts on GCC 13 and Clang 18 libc++, in
 Debug and Release. The `e69e804` manifest was prepared and consumed once; its
 terminal package is retained as `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT`,
 not as a CF0–CF7 result. Commit `e999dcf` corrects the object-versus-list
-reader mismatch under a focused positive/negative contract. The protocol
-therefore requires a new revision-bound admission before a distinct manifest
-may be created; Cartesian Similarity Frames remains unqualified.
+reader mismatch under a focused positive/negative contract. This governance
+decision authorizes one new revision-bound manifest at a distinct output root
+after publication; Cartesian Similarity Frames remains unqualified.
+
+This existing CF0–CF7 work is the final transitional component-level formal
+campaign. After the governance change is reviewed and published, exactly one
+replacement manifest and execution may complete it without another admission
+microcycle, because the scientific hypothesis, implementation, expectations,
+and acceptance rules are unchanged. If that execution encounters another
+mechanical tooling failure, the standalone CF campaign stops: its evidence is
+preserved, no third execution is created, and formal Cartesian Frames closure
+is deferred to the cumulative Geometry Primitives regression. A scientific or
+implementation failure remains subject to an explicit scientific decision.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -740,5 +792,9 @@ its bounded implementation, focused analytic contract, protocol
 pre-registration, and admission infrastructure have completed. Its sole
 `e69e804` execution is immutable blocked tooling evidence; `e999dcf` corrects
 the compile-command schema defect without changing Cartesian Frames behavior.
-No replacement manifest has been prepared or executed, and a new
-revision-bound admission remains required.
+No replacement manifest has been prepared or executed. This governance
+decision authorizes exactly one after publication without another admission
+microcycle. Under the implementation-first governance, this is the last
+standalone component campaign. Subsequent Geometry work prioritizes coherent
+C++ capabilities and focused contracts; the next formal manifest/campaign is
+the cumulative Geometry Primitives stage gate.
