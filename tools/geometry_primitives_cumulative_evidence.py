@@ -41,6 +41,11 @@ AUTHORITIES = [
     "docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md",
     "docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md",
 ]
+LIMITATIONS = [
+    "WSL Ubuntu 24.04 GCC 13/libstdc++ and Clang 18/libc++ only",
+    "Evidence collection is report-only; PREPARED and execution do not decide a scientific result",
+    "No native Windows, parallel, predicate, topology, curve, surface, or meshing qualification",
+]
 NON_CLAIMS = ["orientation", "predicate", "coincidence", "incidence", "topology"]
 NEGATIVES = [
     "duplicate_case", "forged_integrated_result", "wrong_error_classification",
@@ -112,7 +117,7 @@ def validate_profile(path: pathlib.Path) -> dict[str, Any]:
         fail("profile semantic coverage differs")
     if profile["certificate_negative_cases"] != NEGATIVES or profile["authority_paths"] != AUTHORITIES:
         fail("profile authority or negative coverage differs")
-    if not all(isinstance(profile[field], list) for field in ("volatile_fields", "limitations")):
+    if not isinstance(profile["volatile_fields"], list) or profile["limitations"] != LIMITATIONS:
         fail("profile list field differs")
     return profile
 

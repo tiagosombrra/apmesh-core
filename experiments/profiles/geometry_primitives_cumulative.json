@@ -41,7 +41,7 @@
   "volatile_fields": ["cell", "compiler", "library", "build_type", "path", "pid", "timestamp", "duration", "artifact_hash"],
   "limitations": [
     "WSL Ubuntu 24.04 GCC 13/libstdc++ and Clang 18/libc++ only",
-    "Report-only development workflow; no prepared manifest or formal execution",
+    "Evidence collection is report-only; PREPARED and execution do not decide a scientific result",
     "No native Windows, parallel, predicate, topology, curve, surface, or meshing qualification"
   ]
 }

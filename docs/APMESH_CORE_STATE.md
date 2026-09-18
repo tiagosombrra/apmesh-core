@@ -66,8 +66,8 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Geometry Primitives Cumulative Regression — PRE-REGISTERED / EXECUTION
-RUNNER IMPLEMENTED / NOT PREPARED / NOT EXECUTED.** The bounded GPR0-GPR7
+**Geometry Primitives Cumulative Regression — PRE-REGISTERED / FIRST MANIFEST
+BLOCKED / NOT EXECUTED.** The bounded GPR0-GPR7
 protocol qualifies only the joint
 Point/Vector, Minimal Small Linear Algebra, and Cartesian Similarity Frames
 capability already integrated in post-merge `main` baseline
@@ -77,8 +77,12 @@ report-only validator/collector pass focused GCC 13 Debug and Clang 18 libc++
 Debug contracts. The revision-bound runner seals preparation, consumes one
 manifest exactly once, retains either terminal outcome, and leaves every gate
 pending scientific audit. Its focused contracts cover immutable preparation and
-retained synthetic success and partial failure. A new manifest for the published runner
-revision has not yet been created and execution remains unauthorized.
+retained synthetic success and partial failure. The first external manifest,
+`a890b988559eb041c63104a45e0edbd66d6a9c07fdb912a45896bbe9ded81711`, is
+immutable `BLOCKED_BY_STALE_LIMITATION_CONTRACT`: it was never executed because
+its sealed limitations contradicted the `PREPARED` state. The correction is
+limited to the profile contract; a new manifest for the published correction
+is still required and execution remains unauthorized.
 
 Cartesian Similarity Frames is **QUALIFIED / CF0–CF7 PASS / candidate
 `8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and

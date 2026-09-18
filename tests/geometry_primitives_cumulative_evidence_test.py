@@ -30,6 +30,12 @@ def main() -> int:
         run([*common, "validate-certificate", "--certificate", str(certificate)])
 
         profile = json.loads(pathlib.Path(arguments.profile).read_text(encoding="utf-8"))
+        forged_profile = dict(profile)
+        forged_profile["limitations"] = list(profile["limitations"])
+        forged_profile["limitations"][1] = "Report-only development workflow; no prepared manifest or formal execution"
+        forged_profile_path = root / "stale-limitations-profile.json"
+        forged_profile_path.write_text(json.dumps(forged_profile), encoding="utf-8")
+        run([sys.executable, arguments.tool, "--profile", str(forged_profile_path), "validate-profile"], expected=1)
         entries = []
         for cell in profile["cells"]:
             for repetition in range(1, profile["repetitions_per_cell"] + 1):

@@ -790,5 +790,6 @@ pre-registered in
 `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`; its
 report-only workflow and revision-bound execution runner passed focused
 GCC/Clang development contracts, including retained synthetic success and
-partial failure. A new
+partial failure. Its first external manifest is immutable
+`BLOCKED_BY_STALE_LIMITATION_CONTRACT` evidence and was never executed. A new
 external `PREPARED` manifest, execution, and scientific result remain pending.

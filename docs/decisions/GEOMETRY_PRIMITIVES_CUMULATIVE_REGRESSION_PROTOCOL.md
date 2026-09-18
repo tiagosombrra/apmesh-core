@@ -1,6 +1,6 @@
 # Geometry Primitives - Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / NOT PREPARED / NOT EXECUTED
+Status: PRE-REGISTERED / FIRST MANIFEST BLOCKED / NOT EXECUTED
 Date: 2026-09-18
 Stage: Geometry Primitives - Exact Semantics Before Curves
 Post-merge baseline: `ca20ad64cd0dd14b869225dae73401ad2b93464c`
@@ -242,8 +242,15 @@ preparation and retained synthetic success and partial failure. The runner consu
 sealed manifest, records commands, comparisons, dependencies, terminal state,
 and retention, but no formal GPR execution or gate result exists.
 
+The first external manifest,
+`a890b988559eb041c63104a45e0edbd66d6a9c07fdb912a45896bbe9ded81711`, is
+retained as immutable `BLOCKED_BY_STALE_LIMITATION_CONTRACT` evidence. Its
+sealed profile said that no prepared manifest existed, contradicting its own
+`PREPARED` lifecycle state. It was not executed and does not affect any
+component qualification or GPR gate.
+
 ## 13. Next bounded action
 
-Publish the execution runner, then prepare and independently review one new
-external `PREPARED` manifest bound to that published candidate. The four-cell
-campaign remains unauthorized.
+Publish the bounded profile correction, then prepare and independently review
+one new external `PREPARED` manifest bound to that published candidate. The
+four-cell campaign remains unauthorized.
