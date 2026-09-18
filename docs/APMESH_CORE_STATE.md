@@ -66,14 +66,15 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Geometry Primitives Cumulative Regression — PRE-REGISTERED / NOT PREPARED /
-NOT EXECUTED.** The bounded GPR0-GPR7 protocol qualifies only the joint
+**Geometry Primitives Cumulative Regression — PRE-REGISTERED / REPORT-ONLY
+WORKFLOW IMPLEMENTED / NOT PREPARED / NOT EXECUTED.** The bounded GPR0-GPR7
+protocol qualifies only the joint
 Point/Vector, Minimal Small Linear Algebra, and Cartesian Similarity Frames
 capability already integrated in post-merge `main` baseline
 `ca20ad64cd0dd14b869225dae73401ad2b93464c`. It authorizes no new production
-type or behavior. The next implementation unit is limited to one reusable
-stage-level profile and report-only evidence workflow plus focused development
-contracts; formal manifest preparation and execution remain blocked.
+type or behavior. The reusable profile, experimental integrated exporter, and
+report-only validator/collector pass focused GCC 13 Debug and Clang 18 libc++
+Debug contracts. Formal manifest preparation and execution remain blocked.
 
 Cartesian Similarity Frames is **QUALIFIED / CF0–CF7 PASS / candidate
 `8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and
@@ -282,9 +283,8 @@ LA evidence, passed `95258e9` integration summary, qualified `ededf65`
 Point/Vector evidence, and negative `b7f8fe9` selection-defect evidence. The
 single cumulative Geometry Primitives regression is preregistered at
 `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`. Only
-its smallest reusable profile and report-only evidence workflow plus focused
-development contracts may be implemented next; no formal manifest or campaign
-is authorized yet.
+its report-only development workflow is implemented and passing focused
+contracts. No formal manifest or campaign is authorized yet.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
@@ -292,7 +292,8 @@ qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
 INVESTIGATION with Point/Vector Semantics, Minimal Small Linear Algebra, and
 Cartesian Similarity Frames QUALIFIED in the declared WSL envelope. The
 cumulative Geometry Primitives regression is preregistered but remains
-unprepared, unexecuted, and unqualified.
+unprepared, unexecuted, and unqualified; its report-only workflow is
+implemented and has focused GCC/Clang evidence only.
 
 ## Stage closure protocol
 

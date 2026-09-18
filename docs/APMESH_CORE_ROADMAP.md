@@ -349,7 +349,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR, SMALL LINEAR ALGEBRA, AND CARTESIAN FRAMES QUALIFIED / CUMULATIVE REGRESSION PRE-REGISTERED / WSL Ubuntu 24.04`
+Status: `IN INVESTIGATION / POINT-VECTOR, SMALL LINEAR ALGEBRA, AND CARTESIAN FRAMES QUALIFIED / CUMULATIVE REPORT-ONLY WORKFLOW IMPLEMENTED / WSL Ubuntu 24.04`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -788,4 +788,5 @@ the declared WSL GCC/Clang envelope after CF0–CF7 passed. Its historical
 used as a gate result. The single cumulative Geometry Primitives regression is
 pre-registered in
 `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`; its
-tooling, manifest, execution, and scientific result remain pending.
+report-only workflow passed focused GCC/Clang development contracts. Its
+manifest, execution, and scientific result remain pending.

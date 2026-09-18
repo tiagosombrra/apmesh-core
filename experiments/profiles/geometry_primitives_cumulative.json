@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "kind": "geometry-primitives-cumulative-regression-profile",
+  "repetitions_per_cell": 3,
+  "cells": [
+    {"id": "gcc-debug", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Debug"},
+    {"id": "gcc-release", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Release"},
+    {"id": "clang-debug", "compiler": "Clang 18", "library": "libc++", "build_type": "Debug"},
+    {"id": "clang-release", "compiler": "Clang 18", "library": "libc++", "build_type": "Release"}
+  ],
+  "gates": ["GPR0", "GPR1", "GPR2", "GPR3", "GPR4", "GPR5", "GPR6", "GPR7"],
+  "semantic_ctest_allowlist": [
+    "apmesh_core.bootstrap_smoke",
+    "apmesh_core.numeric_contract",
+    "apmesh_core.geometry_primitives",
+    "apmesh_core.minimal_small_linear_algebra",
+    "apmesh_core.math_header_isolation",
+    "apmesh_core.cartesian_frames"
+  ],
+  "cases": [
+    "frame2_affine_difference", "frame3_affine_difference",
+    "frame2_point_round_trip", "frame3_point_round_trip",
+    "mat2_compose_apply", "mat3_compose_apply",
+    "mat2_transpose_composition", "mat3_transpose_composition",
+    "frame2_identity_point", "frame2_signed_zero_vector",
+    "frame2_invalid_basis", "vector2_zero_normalize",
+    "frame2_scale_out_of_range", "vector2_nonfinite_construction",
+    "mat2_vector_overflow"
+  ],
+  "certificate_negative_cases": [
+    "duplicate_case", "forged_integrated_result", "wrong_error_classification",
+    "noncanonical_signed_zero", "undeclared_topology_claim"
+  ],
+  "authority_paths": [
+    "docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md",
+    "docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md",
+    "docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION.md",
+    "docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md",
+    "docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md"
+  ],
+  "volatile_fields": ["cell", "compiler", "library", "build_type", "path", "pid", "timestamp", "duration", "artifact_hash"],
+  "limitations": [
+    "WSL Ubuntu 24.04 GCC 13/libstdc++ and Clang 18/libc++ only",
+    "Report-only development workflow; no prepared manifest or formal execution",
+    "No native Windows, parallel, predicate, topology, curve, surface, or meshing qualification"
+  ]
+}

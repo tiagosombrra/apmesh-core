@@ -231,11 +231,16 @@ topological configuration whose meaning is clearer in a figure.
   qualifications remain intact unless the evidence specifically contradicts
   one of them.
 
-The protocol is now preregistered. No profile, tooling, manifest, execution, or
-qualification result is created by this document.
+At preregistration, this document created no profile, tooling, manifest,
+execution, or qualification result. The bounded development package now adds
+only `experiments/profiles/geometry_primitives_cumulative.json`, the
+experimental cumulative exporter, and the report-only
+`tools/geometry_primitives_cumulative_evidence.py` validator/collector. Its
+focused contract passes in GCC 13 Debug and Clang 18 libc++ Debug. It creates
+neither a `PREPARED` manifest nor a formal execution or gate result.
 
 ## 13. Next bounded action
 
-Implement the smallest reusable stage-level profile and report-only evidence
-workflow needed to express this protocol, then run only its focused development
-contracts. Do not prepare a formal manifest or execute the four-cell campaign.
+Review and publish the report-only development package. A separate bounded
+implementation unit may add manifest preparation and execution only after that
+package is accepted; the four-cell campaign remains unauthorized.

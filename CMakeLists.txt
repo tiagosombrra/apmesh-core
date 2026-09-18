@@ -64,6 +64,12 @@ add_executable(apmesh_core_cartesian_frames_export
 target_link_libraries(apmesh_core_cartesian_frames_export PRIVATE apmesh::core)
 apmesh_apply_target_defaults(apmesh_core_cartesian_frames_export)
 
+add_executable(apmesh_core_geometry_primitives_cumulative_export
+    experiments/geometry_primitives_cumulative_export.cpp
+)
+target_link_libraries(apmesh_core_geometry_primitives_cumulative_export PRIVATE apmesh::core)
+apmesh_apply_target_defaults(apmesh_core_geometry_primitives_cumulative_export)
+
 add_executable(apmesh_core_minimal_small_linear_algebra_export
     experiments/minimal_small_linear_algebra_export.cpp
 )
@@ -102,6 +108,15 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.cartesian_frames)
 
     add_test(NAME apmesh_core.cartesian_frames COMMAND apmesh_core.cartesian_frames)
+    add_test(
+        NAME apmesh_core.geometry_primitives_cumulative_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_primitives_cumulative_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_geometry_primitives_cumulative_export>
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_primitives_cumulative_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/geometry_primitives_cumulative.json
+    )
     add_test(
         NAME apmesh_core.cartesian_frames_evidence
         COMMAND
@@ -334,6 +349,7 @@ if(BUILD_TESTING)
     )
     set_tests_properties(
         apmesh_core.geometry_primitives
+        apmesh_core.geometry_primitives_cumulative_evidence
         apmesh_core.cartesian_frames
         apmesh_core.cartesian_frames_evidence
         apmesh_core.cartesian_frames_runner
