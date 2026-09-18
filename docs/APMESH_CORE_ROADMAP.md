@@ -463,9 +463,14 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / CF0–CF7 ADMISSION INFRASTRUCTU
   identities, explicit per-cell/cross-cell and JSON/Markdown derived-evidence
   recomputation, and detached-worktree retention,
   are recorded at
-  `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`; neither
-  has prepared or executed a formal qualification, and this evidence does not
-  qualify the Geometry Primitives stage.
+  `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
+  The sole formal attempt consumed the `e69e804` manifest once and is retained
+  as `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT`: CMake emitted its valid JSON
+  list while the retention path required an object. Commit `e999dcf` corrects
+  that reader and adds a focused positive/negative contract. The blocked
+  package remains immutable and does not evaluate CF0–CF7 or qualify the
+  Geometry Primitives stage. A new admission and distinct output root are
+  required before any replacement manifest.
 
 #### Geometry Primitives Regression
 
@@ -692,8 +697,12 @@ Cartesian Similarity Frames was squash-merged after controlled review into
 identical to reviewed source head `5c96593780b88f9e297253e600ccf5b5f2ba1c95`.
 Its bounded implementation, focused analytic contract, and CF0–CF7 admission
 infrastructure pass their focused contracts on GCC 13 and Clang 18 libc++, in
-Debug and Release. The protocol is pre-registered but not prepared or executed;
-Cartesian Similarity Frames is not qualified.
+Debug and Release. The `e69e804` manifest was prepared and consumed once; its
+terminal package is retained as `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT`,
+not as a CF0–CF7 result. Commit `e999dcf` corrects the object-versus-list
+reader mismatch under a focused positive/negative contract. The protocol
+therefore requires a new revision-bound admission before a distinct manifest
+may be created; Cartesian Similarity Frames remains unqualified.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -726,7 +735,10 @@ Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
 evidence correction, without production behavior change. The first `6fa00bd`
 attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
-INVESTIGATION. The Cartesian Similarity Frames entry decision is accepted, but
+INVESTIGATION. The Cartesian Similarity Frames entry decision is accepted, and
 its bounded implementation, focused analytic contract, protocol
-pre-registration, and admission infrastructure have completed; no manifest
-preparation or qualification execution has started.
+pre-registration, and admission infrastructure have completed. Its sole
+`e69e804` execution is immutable blocked tooling evidence; `e999dcf` corrects
+the compile-command schema defect without changing Cartesian Frames behavior.
+No replacement manifest has been prepared or executed, and a new
+revision-bound admission remains required.

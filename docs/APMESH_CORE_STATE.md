@@ -52,7 +52,8 @@ Current active investigation problem:
 Current executable work unit:
 
 **Cartesian Similarity Frames — CF0–CF7 protocol and admission infrastructure
-implemented; formal qualification not started.** `CartesianFrame2` and
+implemented; one formal attempt is retained as blocked; a new revision-bound
+admission is required.** `CartesianFrame2` and
 `CartesianFrame3` are bounded to an exact signed-permutation basis, a finite
 origin, and a positive power-of-two scale. Their focused analytic contract and
 the profile, certificate/oracle, comparer, split negatives, clean/published
@@ -60,9 +61,16 @@ candidate manifest creator/consumer, exact CTest discovery and allowlist
 execution, terminal partial-failure retention, command-plan and derived-evidence
 recomputation (including explicit per-cell/cross-cell comparisons and paired
 JSON/Markdown gate summaries), and detached-worktree retention verification are
-implemented.
-The toolchain record binds invoked/resolved executables and SHA-256. No
-`PREPARED` manifest has been created.
+implemented. The toolchain record binds invoked/resolved executables and
+SHA-256. The sole `PREPARED` manifest for `e69e804` was consumed once and
+retained as `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT`: CMake correctly
+produced a JSON list, but the retention path used an object-only JSON reader.
+The terminal package remains immutable; it is tooling-failure evidence, not a
+gate decision or a defect in Cartesian Frames behavior. Commit `e999dcf` adds
+the list-specific strict reader and focused positive/negative contract. Because
+the runner and authority inputs changed, another scientific admission and a
+new output root are required before one new `PREPARED` manifest may be created.
+No replacement manifest has been prepared or executed.
 They may map matching points and vectors between local and world coordinates;
 they do not authorize general transformations, tolerance-based validation,
 inversion, predicates, topology, curves, surfaces, or meshing. The entry
@@ -245,14 +253,14 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: audit the completed CF0–CF7 admission infrastructure fixed by
+Current first action: audit the published `e999dcf` correction against
 `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md` before any
-separate decision about invoking manifest preparation. Preserve the qualified `3804e90`
-LA evidence, passed `95258e9` integration summary, blocked `6fa00bd` attempt,
-qualified `ededf65` Point/Vector evidence, and negative `b7f8fe9`
-selection-defect evidence. Do not change Cartesian Frames behavior, prepare a
-manifest, execute the formal qualification, or authorize an excluded
-transformation or later Geometry capability.
+separate decision about creating a new manifest. Preserve the immutable
+`e69e804` schema-defect attempt, qualified `3804e90` LA evidence, passed
+`95258e9` integration summary, qualified `ededf65` Point/Vector evidence, and
+negative `b7f8fe9` selection-defect evidence. Do not change Cartesian Frames
+behavior, create a manifest, execute the formal qualification, or authorize an
+excluded transformation or later Geometry capability.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
