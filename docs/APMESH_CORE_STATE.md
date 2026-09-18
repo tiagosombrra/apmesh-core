@@ -66,30 +66,21 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Cartesian Similarity Frames — CF0–CF7 protocol and admission infrastructure
-implemented; one formal attempt is retained as blocked; a new revision-bound
-admission is required.** `CartesianFrame2` and
-`CartesianFrame3` are bounded to an exact signed-permutation basis, a finite
-origin, and a positive power-of-two scale. Their focused analytic contract and
-the profile, certificate/oracle, comparer, split negatives, clean/published
-candidate manifest creator/consumer, exact CTest discovery and allowlist
-execution, terminal partial-failure retention, command-plan and derived-evidence
-recomputation (including explicit per-cell/cross-cell comparisons and paired
-JSON/Markdown gate summaries), and detached-worktree retention verification are
-implemented. The toolchain record binds invoked/resolved executables and
-SHA-256. The sole `PREPARED` manifest for `e69e804` was consumed once and
-retained as `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT`: CMake correctly
-produced a JSON list, but the retention path used an object-only JSON reader.
-The terminal package remains immutable; it is tooling-failure evidence, not a
-gate decision or a defect in Cartesian Frames behavior. Commit `e999dcf` adds
-the list-specific strict reader and focused positive/negative contract. This
-governance decision authorizes one new `PREPARED` manifest, after review and
-publication, at a new output root and bound to the resulting clean revision.
-No replacement manifest has yet been prepared or executed.
-They may map matching points and vectors between local and world coordinates;
-they do not authorize general transformations, tolerance-based validation,
+**Cartesian Similarity Frames — QUALIFIED / CF0–CF7 PASS / candidate
+`8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and
+Clang 18 libc++.** `CartesianFrame2` and `CartesianFrame3` remain bounded to
+an exact signed-permutation basis, finite origin, and positive power-of-two
+scale. The replacement revision-bound execution produced twelve identical
+semantic certificates across four compiler/build cells and three repetitions,
+with 1,696 unique exact cases per certificate, exact prerequisite preservation,
+and a detached-verified 168-file canonical retention package. The earlier
+`e69e804` package remains immutable
+`BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT` evidence; it is not a defect in
+Cartesian Frames behavior and was not overwritten. This qualification covers
+only matching point/vector local-world mappings within the declared envelope;
+it does not authorize general transformations, tolerance-based validation,
 inversion, predicates, topology, curves, surfaces, or meshing. The entry
-decision and fixed qualification boundary are recorded in
+decision and fixed qualification record are in
 `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
 and `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
 
@@ -268,24 +259,19 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Current first action: after this governance change is reviewed and published,
-prepare and execute exactly one replacement CF0–CF7 manifest from a clean
-revision and distinct output root. Preserve the immutable `e69e804`
-schema-defect attempt, qualified `3804e90` LA evidence, passed `95258e9`
-integration summary, qualified `ededf65` Point/Vector evidence, and negative
-`b7f8fe9` selection-defect evidence. No additional admission microcycle is
-required because the implementation, hypothesis, expectations, and acceptance
-rules are unchanged. A second mechanical failure ends the standalone CF
-campaign without a third execution and defers formal closure to the cumulative
-Geometry Primitives regression. Do not change Cartesian Frames behavior or
-authorize an excluded transformation or later Geometry capability.
+Cartesian Similarity Frames is closed as a bounded qualified component.
+Preserve the immutable `e69e804` schema-defect attempt, qualified `3804e90`
+LA evidence, passed `95258e9` integration summary, qualified `ededf65`
+Point/Vector evidence, and negative `b7f8fe9` selection-defect evidence. No
+subsequent Geometry component or cumulative Geometry Primitives regression is
+started by this record; each requires a separate bounded decision.
 
 Decision progress: Foundation closure is complete. Qualification progress:
 Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
 qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
-INVESTIGATION with Point/Vector Semantics and Minimal Small Linear Algebra
-QUALIFIED in the declared WSL envelope. Transformations and Coordinate Frames
-and the cumulative Geometry Primitives regression remain unqualified.
+INVESTIGATION with Point/Vector Semantics, Minimal Small Linear Algebra, and
+Cartesian Similarity Frames QUALIFIED in the declared WSL envelope. The
+cumulative Geometry Primitives regression remains unqualified.
 
 ## Stage closure protocol
 

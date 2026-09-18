@@ -487,7 +487,7 @@ Status: `QUALIFIED / LA0-LA7 PASS / WSL Ubuntu 24.04`
 
 #### Transformations and Coordinate Frames
 
-Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / CF0–CF7 ADMISSION INFRASTRUCTURE IMPLEMENTED / NOT QUALIFIED`
+Status: `QUALIFIED / CF0–CF7 PASS / candidate 8e6b587 / WSL Ubuntu 24.04`
 
 - Authority:
   `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`.
@@ -505,14 +505,14 @@ Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / CF0–CF7 ADMISSION INFRASTRUCTU
   recomputation, and detached-worktree retention,
   are recorded at
   `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
-  The sole formal attempt consumed the `e69e804` manifest once and is retained
-  as `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT`: CMake emitted its valid JSON
-  list while the retention path required an object. Commit `e999dcf` corrects
-  that reader and adds a focused positive/negative contract. The blocked
-  package remains immutable and does not evaluate CF0–CF7 or qualify the
-  Geometry Primitives stage. Under the transition fixed by Section 2.7, one
-  replacement manifest at a distinct output root is authorized after this
-  governance change is reviewed and published.
+  The replacement manifest for clean published candidate `8e6b587` was
+  executed once at a distinct external root and audited `PASS` for CF0–CF7:
+  twelve identical semantic certificates, exact prerequisite preservation,
+  60 zero-exit command records, and detached-verified canonical retention.
+  The earlier `e69e804` package remains immutable
+  `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT` tooling evidence. Cartesian
+  Similarity Frames alone is qualified; Geometry Primitives remains `IN
+  INVESTIGATION` until its cumulative stage regression passes.
 
 #### Geometry Primitives Regression
 
@@ -734,27 +734,14 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Cartesian Similarity Frames was squash-merged after controlled review into
-`main` at `12afa394af24c8f0627b12e3697010735826a9a1`; its resulting tree is
-identical to reviewed source head `5c96593780b88f9e297253e600ccf5b5f2ba1c95`.
-Its bounded implementation, focused analytic contract, and CF0–CF7 admission
-infrastructure pass their focused contracts on GCC 13 and Clang 18 libc++, in
-Debug and Release. The `e69e804` manifest was prepared and consumed once; its
-terminal package is retained as `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT`,
-not as a CF0–CF7 result. Commit `e999dcf` corrects the object-versus-list
-reader mismatch under a focused positive/negative contract. This governance
-decision authorizes one new revision-bound manifest at a distinct output root
-after publication; Cartesian Similarity Frames remains unqualified.
-
-This existing CF0–CF7 work is the final transitional component-level formal
-campaign. After the governance change is reviewed and published, exactly one
-replacement manifest and execution may complete it without another admission
-microcycle, because the scientific hypothesis, implementation, expectations,
-and acceptance rules are unchanged. If that execution encounters another
-mechanical tooling failure, the standalone CF campaign stops: its evidence is
-preserved, no third execution is created, and formal Cartesian Frames closure
-is deferred to the cumulative Geometry Primitives regression. A scientific or
-implementation failure remains subject to an explicit scientific decision.
+Cartesian Similarity Frames was squash-merged into `main` at
+`12afa394af24c8f0627b12e3697010735826a9a1`. Its replacement qualification on
+clean published candidate `8e6b587` passed CF0–CF7 in the declared WSL GCC 13
+and Clang 18 libc++ envelope. The audited package comprises four build cells,
+three repetitions per cell, 1,696 exact cases per certificate, exact
+cross-cell equivalence, prerequisite preservation, and detached-verified
+retention. The historical `e69e804` schema-defect package is retained as
+negative tooling evidence and does not reduce this bounded qualification.
 
 Foundation closed with FND0–FND7 `PASS` on clean published candidate
 `b333755442b934c490abaecda886dd2a40e981ca`. The report-only qualification
@@ -765,7 +752,7 @@ for current-candidate FND2, FND4, or FND6 evidence.
 
 Current active investigation:
 
-**Geometry Primitives — bounded Cartesian Similarity Frames**
+**Geometry Primitives — no subsequent component authorized**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -787,14 +774,8 @@ Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
 evidence correction, without production behavior change. The first `6fa00bd`
 attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
-INVESTIGATION. The Cartesian Similarity Frames entry decision is accepted, and
-its bounded implementation, focused analytic contract, protocol
-pre-registration, and admission infrastructure have completed. Its sole
-`e69e804` execution is immutable blocked tooling evidence; `e999dcf` corrects
-the compile-command schema defect without changing Cartesian Frames behavior.
-No replacement manifest has been prepared or executed. This governance
-decision authorizes exactly one after publication without another admission
-microcycle. Under the implementation-first governance, this is the last
-standalone component campaign. Subsequent Geometry work prioritizes coherent
-C++ capabilities and focused contracts; the next formal manifest/campaign is
-the cumulative Geometry Primitives stage gate.
+INVESTIGATION. Cartesian Similarity Frames is QUALIFIED on `8e6b587` inside
+the declared WSL GCC/Clang envelope after CF0–CF7 passed. Its historical
+`e69e804` execution remains immutable blocked tooling evidence; it was not
+used as a gate result. No subsequent Geometry component or cumulative stage
+regression is authorized by this status record.

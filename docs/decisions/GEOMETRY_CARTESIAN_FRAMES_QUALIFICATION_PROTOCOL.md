@@ -1,7 +1,7 @@
 # Geometry Primitives — Cartesian Frames Qualification Protocol
 
-Status: PRE-REGISTERED / REPORT-ONLY INFRASTRUCTURE IMPLEMENTED / CF0–CF7 NOT EXECUTED
-Date: 2026-09-17
+Status: QUALIFIED / CF0–CF7 PASS / candidate 8e6b587 / WSL Ubuntu 24.04
+Date: 2026-09-18
 Stage: Geometry Primitives — Exact Semantics Before Curves
 Work unit: Qualify Cartesian Similarity Frames
 Entry authority:
@@ -184,6 +184,23 @@ expected, or unclassified claim data is `BLOCKED`, not equivalent.
 Overall `PASS` requires CF0–CF7 to pass together. No gate may be inferred from
 another gate, a global test count, successful preparation, or collector status.
 
+## 7.1 Audited qualification record
+
+The replacement manifest bound to clean, published candidate
+`8e6b5872072bb8077731b5879d1c5b751e375087` was prepared at a distinct
+external root and executed once. Its prepared-manifest SHA-256 is
+`24895c1975b0ffb67c2ee60fe57c7b79a14370b143499f41f5a0b01c0b37bdbe`.
+The audited terminal package contains twelve certificates from the fixed
+four-cell, three-repetition matrix; 1,696 unique exact cases per certificate;
+the exact prerequisite allowlist in every cell; 60 zero-exit command records;
+and a 168-file hash-verified canonical retention package with detached
+verification `PASS`. CF0–CF7 therefore pass together within the fixed claim
+and retained limitations of this protocol.
+
+The earlier `e69e804` attempt remains immutable
+`BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT` evidence. It neither contributes
+to nor is overwritten by this qualified replacement execution.
+
 ## 8. Stop and failure policy
 
 The qualification is `BLOCKED` if any required command fails, evidence is
@@ -241,7 +258,6 @@ remain unqualified.
 
 ## 11. Next bounded action
 
-Audit the completed CF0–CF7 admission infrastructure against this fixed
-protocol before any separate decision about invoking the manifest creator. No manifest,
-formal execution, excluded capability, or change to `CartesianFrame2`,
-`CartesianFrame3`, their errors, or their focused contract is authorized.
+No further Cartesian Frames execution, implementation change, or extension is
+authorized by this protocol. A subsequent Geometry Primitives component or the
+cumulative stage regression requires a separate bounded decision.
