@@ -118,6 +118,18 @@ if(BUILD_TESTING)
             --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/geometry_primitives_cumulative.json
     )
     add_test(
+        NAME apmesh_core.geometry_primitives_cumulative_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/geometry_primitives_cumulative_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_geometry_primitives_cumulative.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/geometry_primitives_cumulative.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/geometry_primitives_cumulative_export.cpp
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_primitives_cumulative_evidence.py
+    )
+    add_test(
         NAME apmesh_core.cartesian_frames_evidence
         COMMAND
             ${Python3_EXECUTABLE}
@@ -350,6 +362,7 @@ if(BUILD_TESTING)
     set_tests_properties(
         apmesh_core.geometry_primitives
         apmesh_core.geometry_primitives_cumulative_evidence
+        apmesh_core.geometry_primitives_cumulative_runner
         apmesh_core.cartesian_frames
         apmesh_core.cartesian_frames_evidence
         apmesh_core.cartesian_frames_runner

@@ -234,13 +234,14 @@ topological configuration whose meaning is clearer in a figure.
 At preregistration, this document created no profile, tooling, manifest,
 execution, or qualification result. The bounded development package now adds
 only `experiments/profiles/geometry_primitives_cumulative.json`, the
-experimental cumulative exporter, and the report-only
-`tools/geometry_primitives_cumulative_evidence.py` validator/collector. Its
-focused contract passes in GCC 13 Debug and Clang 18 libc++ Debug. It creates
-neither a `PREPARED` manifest nor a formal execution or gate result.
+experimental cumulative exporter, the report-only
+`tools/geometry_primitives_cumulative_evidence.py` validator/collector, and
+`tools/run_geometry_primitives_cumulative.py` preparation-only runner. Focused
+contracts pass in GCC 13 Debug and Clang 18 libc++ Debug. The runner seals and
+validates, but does not execute, a `PREPARED` manifest; no formal execution or
+gate result exists.
 
 ## 13. Next bounded action
 
-Review and publish the report-only development package. A separate bounded
-implementation unit may add manifest preparation and execution only after that
-package is accepted; the four-cell campaign remains unauthorized.
+Prepare and independently review one external `PREPARED` manifest bound to the
+published candidate. The four-cell campaign remains unauthorized.

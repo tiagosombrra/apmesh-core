@@ -67,14 +67,16 @@ Current active investigation problem:
 Current executable work unit:
 
 **Geometry Primitives Cumulative Regression — PRE-REGISTERED / REPORT-ONLY
-WORKFLOW IMPLEMENTED / NOT PREPARED / NOT EXECUTED.** The bounded GPR0-GPR7
+TOOLING IMPLEMENTED / NOT PREPARED / NOT EXECUTED.** The bounded GPR0-GPR7
 protocol qualifies only the joint
 Point/Vector, Minimal Small Linear Algebra, and Cartesian Similarity Frames
 capability already integrated in post-merge `main` baseline
 `ca20ad64cd0dd14b869225dae73401ad2b93464c`. It authorizes no new production
 type or behavior. The reusable profile, experimental integrated exporter, and
 report-only validator/collector pass focused GCC 13 Debug and Clang 18 libc++
-Debug contracts. Formal manifest preparation and execution remain blocked.
+Debug contracts. The revision-bound runner can create and validate a sealed
+external `PREPARED` manifest only; it exposes no execution command. No formal
+manifest has yet been created and execution remains unauthorized.
 
 Cartesian Similarity Frames is **QUALIFIED / CF0–CF7 PASS / candidate
 `8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and
