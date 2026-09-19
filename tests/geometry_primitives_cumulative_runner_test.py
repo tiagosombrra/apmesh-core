@@ -39,6 +39,9 @@ def main() -> int:
     profile = json.loads(pathlib.Path(arguments.profile).read_text(encoding="utf-8"))
     if sorted(runner.declared_allowlist(source, profile["semantic_ctest_allowlist"])) != sorted(profile["semantic_ctest_allowlist"]):
         raise RuntimeError("declared allowlist differs")
+    expression = runner.ctest_regex(profile["semantic_ctest_allowlist"])
+    if "(?:" in expression or not expression.startswith("^(") or not expression.endswith(")$"):
+        raise RuntimeError("semantic CTest expression is not CTest-compatible")
     common = [sys.executable, arguments.runner, "--source-root", arguments.source_root, "--profile", arguments.profile, "--protocol", arguments.protocol, "--exporter", arguments.exporter, "--validator", arguments.validator]
     with tempfile.TemporaryDirectory(prefix="apmesh-core-gpr-runner-") as temporary:
         root = pathlib.Path(temporary)
@@ -56,6 +59,14 @@ def main() -> int:
         discovery_log.write_text("Test #1 alpha\nprefix Test #2: beta\nTest 2: gamma\nTest #3:\ndelta\n", encoding="utf-8")
         if runner.discovered_tests_from_log(discovery, discovery_record):
             raise RuntimeError("malformed CTest discovery was accepted")
+        semantic_record = {"stdout": {"path": "logs/semantic.stdout.log"}, "stderr": {"path": "logs/semantic.stderr.log"}}
+        semantic_stdout, semantic_stderr = discovery / semantic_record["stdout"]["path"], discovery / semantic_record["stderr"]["path"]
+        semantic_stdout.write_text("\n".join(f" {index}/6 Test #{index}: {name} .... Passed 0.00 sec" for index, name in enumerate(profile["semantic_ctest_allowlist"], 1)), encoding="utf-8")
+        semantic_stderr.write_text("", encoding="utf-8")
+        runner.require_exact_semantic_ctest_execution(discovery, semantic_record, profile["semantic_ctest_allowlist"])
+        semantic_stdout.write_text("RegularExpression::compile(): ?+* follows nothing.\n", encoding="utf-8")
+        semantic_stderr.write_text("No tests were found!!!\n", encoding="utf-8")
+        rejects(lambda: runner.require_exact_semantic_ctest_execution(discovery, semantic_record, profile["semantic_ctest_allowlist"]), "empty semantic CTest selection was accepted")
         candidate = {"commit": "0123456789abcdef0123456789abcdef01234567", "upstream_commit": "0123456789abcdef0123456789abcdef01234567", "post_merge_baseline": runner.POST_MERGE_BASELINE, "tree_clean": True, "source_root": str(source), "source_inventory": []}
         output = root / "prepared"
         prepared = argparse.Namespace(source_root=arguments.source_root, profile=arguments.profile, protocol=arguments.protocol, exporter=arguments.exporter, validator=arguments.validator, output_root=str(output))
@@ -108,6 +119,8 @@ def main() -> int:
             stdout.write_bytes(b""); stderr.write_bytes(b"")
             if "ctest-discovery" in record_id:
                 stdout.write_text("\n".join(f"  Test  #{index}: {name}" for index, name in enumerate(profile["semantic_ctest_allowlist"], 1)), encoding="utf-8")
+            if "semantic-ctest" in record_id:
+                stdout.write_text("\n".join(f" {index}/6 Test #{index}: {name} .... Passed 0.00 sec" for index, name in enumerate(profile["semantic_ctest_allowlist"], 1)), encoding="utf-8")
             if "certificate-" in record_id and "validation" not in record_id:
                 destination = pathlib.Path(argv[-1])
                 if not destination.parent.is_dir():

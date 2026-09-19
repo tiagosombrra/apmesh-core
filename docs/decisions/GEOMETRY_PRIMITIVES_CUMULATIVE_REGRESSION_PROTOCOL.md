@@ -1,6 +1,6 @@
 # Geometry Primitives - Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / THIRD MANIFEST BLOCKED / GATES NOT EXECUTED
+Status: PRE-REGISTERED / FOURTH MANIFEST BLOCKED / GATES NOT EXECUTED
 Date: 2026-09-18
 Stage: Geometry Primitives - Exact Semantics Before Curves
 Post-merge baseline: `ca20ad64cd0dd14b869225dae73401ad2b93464c`
@@ -264,8 +264,20 @@ succeeded; the first certificate producer then returned its documented
 output-open failure because the runner had not created `certificates/`. No
 certificate, gate, or component qualification was reached.
 
+The fourth external manifest,
+`f36a8fa1801eca6f992d7cb46f11b34c9d088abec8df769568cf3bb7f41dff5b`, bound
+to candidate `8811a00`, is immutable
+`BLOCKED_BY_SEMANTIC_CTEST_REGEX_DEFECT` evidence. Its twelve semantic
+certificates, negative outcomes, comparisons, and retention package are
+preserved, but every sealed semantic CTest command used an unsupported
+non-capturing regular-expression group. CTest reported the expression error
+and selected no tests while returning exit code zero. Therefore the required
+allowlist was not exercised in any cell; GPR6 and GPR7 cannot pass and no
+component qualification is affected.
+
 ## 13. Next bounded action
 
-Publish the bounded output-directory initialization correction, then prepare and
-independently review one new external `PREPARED` manifest bound to that
-published candidate. The four-cell campaign remains unauthorized.
+Publish the bounded semantic-CTest selection correction with focused positive
+and negative contracts. Then prepare and independently review one new external
+`PREPARED` manifest bound to that published candidate. The four-cell campaign
+remains unauthorized.

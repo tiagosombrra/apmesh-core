@@ -110,7 +110,10 @@ def protocol_check(path: pathlib.Path) -> None:
 
 
 def ctest_regex(names: list[str]) -> str:
-    return "^(?:" + "|".join(re.escape(name) for name in names) + ")$"
+    # CTest uses a POSIX-style regular-expression implementation: non-capturing
+    # groups (?:...) are not supported and can otherwise yield exit code zero
+    # while selecting no tests.
+    return "^(" + "|".join(re.escape(name) for name in names) + ")$"
 
 
 def command_plan(profile: dict[str, Any], source: pathlib.Path, declared: list[str]) -> list[dict[str, Any]]:
@@ -217,6 +220,17 @@ def require_success(record: dict[str, Any], context: str) -> None:
 def discovered_tests_from_log(output: pathlib.Path, record: dict[str, Any]) -> list[str]:
     text = (output / record["stdout"]["path"]).read_text(encoding="utf-8", errors="strict")
     return re.findall(r"^[ \t]*Test[ \t]+#\d+:[ \t]+([^\s]+)[ \t]*$", text, flags=re.MULTILINE)
+
+
+def require_exact_semantic_ctest_execution(output: pathlib.Path, record: dict[str, Any], expected: list[str]) -> None:
+    stdout = (output / record["stdout"]["path"]).read_text(encoding="utf-8", errors="strict")
+    stderr = (output / record["stderr"]["path"]).read_text(encoding="utf-8", errors="strict")
+    combined = stdout + stderr
+    if any(marker in combined for marker in ("RegularExpression::compile():", "Error in compile.", "No tests were found!!!")):
+        raise fail("semantic CTest selection is invalid or empty")
+    observed = re.findall(r"^[ \t]*\d+/\d+[ \t]+Test[ \t]+#\d+:[ \t]+([^\s]+).*\bPassed\b.*$", stdout, flags=re.MULTILINE)
+    if sorted(observed) != sorted(expected) or len(observed) != len(set(observed)):
+        raise fail("semantic CTest execution differs from the sealed allowlist")
 
 
 def write_records(output: pathlib.Path, records: list[dict[str, Any]]) -> None:
@@ -345,6 +359,8 @@ def execute(arguments: argparse.Namespace) -> int:
                     if sorted(selected) != sorted(manifest["declared_semantic_ctest_allowlist"]) or len(selected) != len(set(selected)):
                         raise fail("observed semantic CTest allowlist differs")
                     discoveries.append({"cell": name, "record_id": record["id"], "discovered_allowlist": selected})
+                if stage == "semantic_ctest":
+                    require_exact_semantic_ctest_execution(output, record, manifest["declared_semantic_ctest_allowlist"])
             for repetition in range(1, cell["repetitions"] + 1):
                 for stage in ("certificate", "certificate_validation"):
                     record = run_command(replace_root(cell[stage], output, repetition), source, output / "logs", f"{name}-{stage.replace('_', '-')}-{repetition}", PROCESS_TIMEOUT_SECONDS)

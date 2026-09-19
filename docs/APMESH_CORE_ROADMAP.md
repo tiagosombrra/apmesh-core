@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-18
+Last updated: 2026-09-19
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -797,5 +797,10 @@ evidence: build and CTest discovery passed, but no semantic CTest or certificate
 was reached. Its third external manifest is immutable
 `BLOCKED_BY_EVIDENCE_OUTPUT_DIRECTORY_DEFECT` evidence: GCC Debug configure,
 build, discovery, and semantic CTest passed, but the certificate producer could
-not open an output below the uncreated `certificates/` directory. A new external
-`PREPARED` manifest, execution, and scientific result remain pending.
+not open an output below the uncreated `certificates/` directory. Its fourth
+external manifest, `f36a8fa1801eca6f992d7cb46f11b34c9d088abec8df769568cf3bb7f41dff5b`,
+is immutable `BLOCKED_BY_SEMANTIC_CTEST_REGEX_DEFECT` evidence: the four CTest
+commands used an unsupported non-capturing regex group, selected no tests, and
+still returned zero. Its certificates remain diagnostic evidence only; GPR6 and
+GPR7 are not satisfied. A new external `PREPARED` manifest, execution, and
+scientific result remain pending.

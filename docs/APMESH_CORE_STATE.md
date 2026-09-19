@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-18
+Last updated: 2026-09-19
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: verify with Git; Minimal Small Linear Algebra is integrated into
 `main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`.
@@ -66,7 +66,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Geometry Primitives Cumulative Regression — PRE-REGISTERED / THIRD MANIFEST
+**Geometry Primitives Cumulative Regression — PRE-REGISTERED / FOURTH MANIFEST
 BLOCKED / GATES NOT EXECUTED.** The bounded GPR0-GPR7
 protocol qualifies only the joint
 Point/Vector, Minimal Small Linear Algebra, and Cartesian Similarity Frames
@@ -97,6 +97,16 @@ but the first certificate producer could not open its output because the runner
 had not created `certificates/`. The correction is limited to runner output
 directory initialization; no certificate, gate, or component qualification was
 reached. A new manifest is required and execution remains unauthorized.
+
+Current correction status: a fourth external manifest,
+`f36a8fa1801eca6f992d7cb46f11b34c9d088abec8df769568cf3bb7f41dff5b`, bound
+to clean candidate `8811a00`, is immutable
+`BLOCKED_BY_SEMANTIC_CTEST_REGEX_DEFECT` evidence. It retained twelve
+cross-cell-equivalent certificates, negative evidence, and detached retention,
+but all four semantic CTest commands used an unsupported `(?:...)` group. CTest
+selected no tests while returning zero; consequently GPR6 prerequisite
+preservation and GPR7 closure are not evidenced. This is a runner defect, not
+a production or component-qualification regression.
 
 Cartesian Similarity Frames is **QUALIFIED / CF0–CF7 PASS / candidate
 `8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and
