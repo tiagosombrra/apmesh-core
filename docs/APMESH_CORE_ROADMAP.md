@@ -511,8 +511,8 @@ Status: `QUALIFIED / CF0–CF7 PASS / candidate 8e6b587 / WSL Ubuntu 24.04`
   60 zero-exit command records, and detached-verified canonical retention.
   The earlier `e69e804` package remains immutable
   `BLOCKED_BY_COMPILE_COMMANDS_SCHEMA_DEFECT` tooling evidence. Cartesian
-  Similarity Frames alone is qualified; Geometry Primitives remains `IN
-  INVESTIGATION` until its cumulative stage regression passes.
+  Similarity Frames alone was qualified at that point; the later cumulative
+  Geometry Primitives regression is recorded below as the stage-closing result.
 
 #### Geometry Primitives Regression
 
@@ -758,9 +758,9 @@ retention evidence; the separate audit made the scientific decision. Historical
 REC evidence at `85d215a` remained a comparison baseline and did not substitute
 for current-candidate FND2, FND4, or FND6 evidence.
 
-Current active investigation:
+Current stage result:
 
-**Geometry Primitives — cumulative stage regression pre-registered**
+**Geometry Primitives: QUALIFIED / GPR0—GPR7 PASS**
 
 NQ-R1 on candidate `74fede5` remains retained as negative evidence: it lacked
 explicit `min()` and `lowest()` classification evidence. NQ-R2 supplied only
@@ -781,8 +781,7 @@ Amendment 1 resolved its dependency, error, transpose, and scale ambiguities.
 `Mat2`/`Mat3` are QUALIFIED on `3804e90` in the declared WSL GCC/Clang
 Debug/Release envelope: LA0-LA7 passed following the canonical signed-zero
 evidence correction, without production behavior change. The first `6fa00bd`
-attempt remains immutable BLOCKED evidence. Geometry Primitives remains IN
-INVESTIGATION. Cartesian Similarity Frames is QUALIFIED on `8e6b587` inside
+attempt remains immutable BLOCKED evidence. Cartesian Similarity Frames is QUALIFIED on `8e6b587` inside
 the declared WSL GCC/Clang envelope after CF0–CF7 passed. Its historical
 `e69e804` execution remains immutable blocked tooling evidence; it was not
 used as a gate result. The single cumulative Geometry Primitives regression is
@@ -801,6 +800,14 @@ not open an output below the uncreated `certificates/` directory. Its fourth
 external manifest, `f36a8fa1801eca6f992d7cb46f11b34c9d088abec8df769568cf3bb7f41dff5b`,
 is immutable `BLOCKED_BY_SEMANTIC_CTEST_REGEX_DEFECT` evidence: the four CTest
 commands used an unsupported non-capturing regex group, selected no tests, and
-still returned zero. Its certificates remain diagnostic evidence only; GPR6 and
-GPR7 are not satisfied. A new external `PREPARED` manifest, execution, and
-scientific result remain pending.
+still returned zero. Its certificates remain diagnostic evidence only.
+
+The fifth external manifest,
+`a39069569625bbc16637d2078bddb2e91c654840782ad0c4026fc9b75ef42718`,
+bound candidate `2f22ffd`, executed once and was independently audited
+`PASS` for GPR0—GPR7: the sealed six-test allowlist passed in all four
+cells, twelve certificates had equal semantic projections, twenty negative
+checks and the dependency inventories passed, and detached retention was
+verified. Geometry Primitives is QUALIFIED only in the declared WSL Ubuntu
+24.04 GCC 13 / Clang 18 libc++ envelope. Topological Model remains NOT STARTED
+and requires a separate entry decision.

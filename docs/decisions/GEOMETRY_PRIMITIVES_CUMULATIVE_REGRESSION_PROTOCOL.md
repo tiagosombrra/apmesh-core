@@ -1,7 +1,7 @@
 # Geometry Primitives - Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / FOURTH MANIFEST BLOCKED / GATES NOT EXECUTED
-Date: 2026-09-18
+Status: QUALIFIED / GPR0-GPR7 PASS
+Date: 2026-09-19
 Stage: Geometry Primitives - Exact Semantics Before Curves
 Post-merge baseline: `ca20ad64cd0dd14b869225dae73401ad2b93464c`
 
@@ -275,9 +275,19 @@ and selected no tests while returning exit code zero. Therefore the required
 allowlist was not exercised in any cell; GPR6 and GPR7 cannot pass and no
 component qualification is affected.
 
+The fifth external manifest,
+`a39069569625bbc16637d2078bddb2e91c654840782ad0c4026fc9b75ef42718`, bound
+to clean published candidate `2f22ffd`, was executed once and audited as
+`PASS` for GPR0-GPR7. The four WSL Ubuntu 24.04 GCC 13/libstdc++ and Clang
+18/libc++ Debug/Release cells each executed the six sealed CTests and produced
+three certificates. All 52 command records succeeded; the twelve certificates
+had identical scientific projections; the 20 negative outcomes were rejected;
+there were no excluded production dependencies or unresolved runtime libraries;
+and detached retention verification passed. The evidence collector remains
+report-only: the scientific closure is this separate audit decision.
+
 ## 13. Next bounded action
 
-Publish the bounded semantic-CTest selection correction with focused positive
-and negative contracts. Then prepare and independently review one new external
-`PREPARED` manifest bound to that published candidate. The four-cell campaign
-remains unauthorized.
+Geometry Primitives is `QUALIFIED` only in the declared WSL envelope. A new,
+separate scientific entry decision may consider Topological Model; no topology
+implementation or next-stage campaign is authorized automatically.

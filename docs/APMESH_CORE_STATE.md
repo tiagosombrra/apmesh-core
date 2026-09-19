@@ -60,14 +60,13 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 **Geometry Primitives — Exact Semantics Before Curves**
 
-Current active investigation problem:
+Current stage decision:
 
 **Geometry Primitives — Exact Semantics Before Curves**
 
-Current executable work unit:
+Current closure evidence:
 
-**Geometry Primitives Cumulative Regression — PRE-REGISTERED / FOURTH MANIFEST
-BLOCKED / GATES NOT EXECUTED.** The bounded GPR0-GPR7
+**Geometry Primitives: QUALIFIED / GPR0-GPR7 PASS.** The bounded GPR0-GPR7
 protocol qualifies only the joint
 Point/Vector, Minimal Small Linear Algebra, and Cartesian Similarity Frames
 capability already integrated in post-merge `main` baseline
@@ -107,6 +106,15 @@ but all four semantic CTest commands used an unsupported `(?:...)` group. CTest
 selected no tests while returning zero; consequently GPR6 prerequisite
 preservation and GPR7 closure are not evidenced. This is a runner defect, not
 a production or component-qualification regression.
+
+The fifth external manifest,
+`a39069569625bbc16637d2078bddb2e91c654840782ad0c4026fc9b75ef42718`, bound
+to clean published candidate `2f22ffd`, executed once and passed the separate
+GPR0-GPR7 audit. All four GCC/Clang Debug/Release cells ran the exact sealed
+six-test allowlist and produced three certificates each. The 52 command
+records, 12 certificate hashes, 20 negative rejections, dependency/runtime
+inventories, and detached retention verification all passed. Geometry Primitives
+is QUALIFIED only in the declared WSL Ubuntu 24.04 envelope.
 
 Cartesian Similarity Frames is **QUALIFIED / CF0–CF7 PASS / candidate
 `8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and
@@ -309,23 +317,14 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Cartesian Similarity Frames is closed as a bounded qualified component.
-Preserve the immutable `e69e804` schema-defect attempt, qualified `3804e90`
-LA evidence, passed `95258e9` integration summary, qualified `ededf65`
-Point/Vector evidence, and negative `b7f8fe9` selection-defect evidence. The
-single cumulative Geometry Primitives regression is preregistered at
-`docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`. Only
-its report-only development workflow is implemented and passing focused
-contracts. No formal manifest or campaign is authorized yet.
+Geometry Primitives is QUALIFIED on candidate `2f22ffd` after the audited
+GPR0-GPR7 campaign. Preserve the immutable historical blocked attempts and the
+fifth manifest/retention package as the stage evidence. Foundation and Geometry
+Primitives are now qualified only in their declared WSL envelope.
 
-Decision progress: Foundation closure is complete. Qualification progress:
-Architecture, Numeric, Reproducible Experiment, and Foundation End-to-End are
-qualified. Foundation is QUALIFIED at 100%; Geometry Primitives is IN
-INVESTIGATION with Point/Vector Semantics, Minimal Small Linear Algebra, and
-Cartesian Similarity Frames QUALIFIED in the declared WSL envelope. The
-cumulative Geometry Primitives regression is preregistered but remains
-unprepared, unexecuted, and unqualified; its report-only workflow is
-implemented and has focused GCC/Clang evidence only.
+No executable work unit is active. A separate scientific entry decision may
+consider Topological Model; no topology implementation, campaign, or branch is
+authorized by this closure.
 
 ## Stage closure protocol
 
