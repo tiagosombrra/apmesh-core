@@ -349,7 +349,7 @@ Stage exit gate: all three contracts reviewed; minimal C++23 library builds from
 
 ### Geometry Primitives — Exact Semantics Before Curves
 
-Status: `IN INVESTIGATION / POINT-VECTOR, SMALL LINEAR ALGEBRA, AND CARTESIAN FRAMES QUALIFIED / CUMULATIVE REPORT-ONLY WORKFLOW IMPLEMENTED / WSL Ubuntu 24.04`
+Status: `QUALIFIED / GPR0-GPR7 PASS / candidate 2f22ffd / WSL Ubuntu 24.04`
 
 Goal: establish independently verifiable spatial primitives without mesh-generation dependencies.
 
@@ -533,9 +533,18 @@ Stage exit gate: primitive operations are analytically verified across the decla
 
 ### Topological Model — Explicit Identity and Incidence
 
-Status: `NOT STARTED`
+Status: `IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED`
 
 Goal: represent the patch complex without inferring topology from geometry.
+
+Entry authority:
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. The first bounded work
+unit is limited to strong `VertexId`/`EdgeId` semantics, explicit edge
+endpoints, oriented edge uses, deterministic mutable construction, and atomic
+finalization into an immutable topology model. It authorizes no curve, patch,
+surface, face-cycle, manifold, welding, serialization, or meshing behavior.
+The complete stage requirements below remain mandatory later work and are not
+reduced by this entry decision.
 
 #### Vertex and Edge Identity
 
@@ -809,5 +818,15 @@ bound candidate `2f22ffd`, executed once and was independently audited
 cells, twelve certificates had equal semantic projections, twenty negative
 checks and the dependency inventories passed, and detached retention was
 verified. Geometry Primitives is QUALIFIED only in the declared WSL Ubuntu
-24.04 GCC 13 / Clang 18 libc++ envelope. Topological Model remains NOT STARTED
-and requires a separate entry decision.
+24.04 GCC 13 / Clang 18 libc++ envelope.
+
+Current active stage:
+
+**Topological Model - IN INVESTIGATION / ENTRY DECISION APPROVED**
+
+The accepted first work unit is the Identity and Oriented Edge Incidence
+Kernel defined in
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. Implementation, focused
+contracts, qualification infrastructure, and a formal campaign have not
+started. Face/patch incidence, manifold and non-manifold fans, curve/surface
+associations, canonical topology serialization, and meshing remain blocked.

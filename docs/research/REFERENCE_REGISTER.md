@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-06
+Last updated: 2026-09-19
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -337,6 +337,47 @@ Project relevance:
 The Geometry Primitives entry decision combines this interface evidence with
 the existing IEEE 754, Goldberg, Higham, and Shewchuk references. Raw vector
 operations do not qualify robust predicate signs or topological decisions.
+
+## Topological model
+
+### CGAL Halfedge Data Structures - oriented incidence vocabulary
+
+Status: `FOUNDATIONAL` for the bounded Topological Model entry, reviewed
+2026-09-19.
+
+Official reference:
+https://doc.cgal.org/latest/HalfedgeDS/index.html
+
+Project relevance:
+
+- supports an oriented edge-use vocabulary with an explicit opposite
+  orientation and incidence relations;
+- demonstrates that incidence storage can be separated from higher-level
+  algorithms;
+- does not require AP Mesh to adopt CGAL, its storage representation, paired
+  halfedges, or a two-manifold surface assumption.
+
+### Open CASCADE TopoDS_Shape - identity and orientation separation
+
+Status: `FOUNDATIONAL` for the bounded Topological Model entry, reviewed
+2026-09-19.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_topo_d_s___shape.html
+
+Project relevance:
+
+- provides a mature B-rep example in which underlying topological identity is
+  distinct from the orientation of a use of that identity;
+- supports keeping edge identity stable while orientation belongs to an
+  `EdgeUse`;
+- does not admit Open CASCADE as a dependency, import its B-rep hierarchy, or
+  qualify patch, manifold, curve, surface, or CAD semantics.
+
+The bounded entry decision uses these references only to support identity and
+orientation separation. The first work unit deliberately defers halfedge face
+cycles, complete patch incidence, non-manifold fans, and canonical topology
+serialization.
 
 ## Curves, surfaces, and meshing — pending focused reviews
 

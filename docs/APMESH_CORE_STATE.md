@@ -58,13 +58,19 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 ## Current active stage
 
-**Geometry Primitives — Exact Semantics Before Curves**
+**Topological Model — Explicit Identity and Incidence**
 
 Current stage decision:
 
-**Geometry Primitives — Exact Semantics Before Curves**
+**Identity and Oriented Edge Incidence Kernel — ACCEPTED FOR BOUNDED
+IMPLEMENTATION / IMPLEMENTATION NOT STARTED.** The entry decision authorizes
+only strong `VertexId`/`EdgeId` semantics, explicit edge endpoints, oriented
+edge uses, deterministic mutable construction, and atomic finalization into an
+immutable topology model. It authorizes no face/patch cycle, manifold or
+non-manifold classification, coordinate welding, curve/surface association,
+canonical serialization, qualification infrastructure, or campaign.
 
-Current closure evidence:
+Current prerequisite closure evidence:
 
 **Geometry Primitives: QUALIFIED / GPR0-GPR7 PASS.** The bounded GPR0-GPR7
 protocol qualifies only the joint
@@ -310,21 +316,25 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 9. `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
 10. `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`
 11. `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`
-12. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-13. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-14. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-15. `docs/research/REFERENCE_REGISTER.md`.
+12. `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`
+13. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+14. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+15. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+16. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
 Geometry Primitives is QUALIFIED on candidate `2f22ffd` after the audited
 GPR0-GPR7 campaign. Preserve the immutable historical blocked attempts and the
 fifth manifest/retention package as the stage evidence. Foundation and Geometry
-Primitives are now qualified only in their declared WSL envelope.
+Primitives remain qualified only in their declared WSL envelope.
 
-No executable work unit is active. A separate scientific entry decision may
-consider Topological Model; no topology implementation, campaign, or branch is
-authorized by this closure.
+The next executable work unit is the bounded Identity and Oriented Edge
+Incidence Kernel defined by
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. Implement only the
+authorized topology kernel and focused contracts. Do not introduce faces,
+patches, curves, manifold classification, canonical serialization, formal
+qualification infrastructure, or a campaign.
 
 ## Stage closure protocol
 
