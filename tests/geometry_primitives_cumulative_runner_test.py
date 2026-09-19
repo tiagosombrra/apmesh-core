@@ -46,6 +46,16 @@ def main() -> int:
         result = subprocess.run([*common, "self-check", "--output", str(self_check)], capture_output=True, text=True, check=False)
         if result.returncode != 0 or json.loads(self_check.read_text(encoding="utf-8"))["execution_requested"] is not False:
             raise RuntimeError("runner self-check differs")
+        discovery = root / "discovery"
+        (discovery / "logs").mkdir(parents=True)
+        discovery_record = {"stdout": {"path": "logs/ctest.stdout.log"}}
+        discovery_log = discovery / discovery_record["stdout"]["path"]
+        discovery_log.write_text("  Test #1: alpha\n  Test  #2: beta\n Test    #10: gamma\n", encoding="utf-8")
+        if runner.discovered_tests_from_log(discovery, discovery_record) != ["alpha", "beta", "gamma"]:
+            raise RuntimeError("variable CTest spacing was not accepted")
+        discovery_log.write_text("Test #1 alpha\nprefix Test #2: beta\nTest 2: gamma\nTest #3:\ndelta\n", encoding="utf-8")
+        if runner.discovered_tests_from_log(discovery, discovery_record):
+            raise RuntimeError("malformed CTest discovery was accepted")
         candidate = {"commit": "0123456789abcdef0123456789abcdef01234567", "upstream_commit": "0123456789abcdef0123456789abcdef01234567", "post_merge_baseline": runner.POST_MERGE_BASELINE, "tree_clean": True, "source_root": str(source), "source_inventory": []}
         output = root / "prepared"
         prepared = argparse.Namespace(source_root=arguments.source_root, profile=arguments.profile, protocol=arguments.protocol, exporter=arguments.exporter, validator=arguments.validator, output_root=str(output))
@@ -97,7 +107,7 @@ def main() -> int:
             stdout, stderr = logs_root / f"{record_id}.stdout.log", logs_root / f"{record_id}.stderr.log"
             stdout.write_bytes(b""); stderr.write_bytes(b"")
             if "ctest-discovery" in record_id:
-                stdout.write_text("\n".join(f"  Test #{index}: {name}" for index, name in enumerate(profile["semantic_ctest_allowlist"], 1)), encoding="utf-8")
+                stdout.write_text("\n".join(f"  Test  #{index}: {name}" for index, name in enumerate(profile["semantic_ctest_allowlist"], 1)), encoding="utf-8")
             if "certificate-" in record_id and "validation" not in record_id:
                 destination = pathlib.Path(argv[-1]); destination.parent.mkdir(parents=True, exist_ok=True)
                 completed = subprocess.run([arguments.certificate_exporter, "certificate", str(destination)], capture_output=True, text=True, check=False)

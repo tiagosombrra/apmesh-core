@@ -1,6 +1,6 @@
 # Geometry Primitives - Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / FIRST MANIFEST BLOCKED / NOT EXECUTED
+Status: PRE-REGISTERED / SECOND MANIFEST BLOCKED / GATES NOT EXECUTED
 Date: 2026-09-18
 Stage: Geometry Primitives - Exact Semantics Before Curves
 Post-merge baseline: `ca20ad64cd0dd14b869225dae73401ad2b93464c`
@@ -249,8 +249,15 @@ sealed profile said that no prepared manifest existed, contradicting its own
 `PREPARED` lifecycle state. It was not executed and does not affect any
 component qualification or GPR gate.
 
+The second external manifest,
+`ad999a236cf68f537dd5d6bc159885c2e9404a50e824622f867ac24df59b9aa2`, is
+retained as immutable `BLOCKED_BY_CTEST_DISCOVERY_PARSER_DEFECT` evidence.
+Its configure, build, and CTest discovery commands succeeded; a spacing-sensitive
+runner parser then rejected the valid CTest listing before semantic CTests or
+certificates ran. It does not affect any component qualification or GPR gate.
+
 ## 13. Next bounded action
 
-Publish the bounded profile correction, then prepare and independently review
-one new external `PREPARED` manifest bound to that published candidate. The
-four-cell campaign remains unauthorized.
+Publish the bounded CTest-discovery parser correction, then prepare and
+independently review one new external `PREPARED` manifest bound to that
+published candidate. The four-cell campaign remains unauthorized.

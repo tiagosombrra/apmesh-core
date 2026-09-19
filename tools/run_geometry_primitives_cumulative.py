@@ -216,7 +216,7 @@ def require_success(record: dict[str, Any], context: str) -> None:
 
 def discovered_tests_from_log(output: pathlib.Path, record: dict[str, Any]) -> list[str]:
     text = (output / record["stdout"]["path"]).read_text(encoding="utf-8", errors="strict")
-    return re.findall(r"Test #\d+: ([^\s]+)", text)
+    return re.findall(r"^[ \t]*Test[ \t]+#\d+:[ \t]+([^\s]+)[ \t]*$", text, flags=re.MULTILINE)
 
 
 def write_records(output: pathlib.Path, records: list[dict[str, Any]]) -> None:

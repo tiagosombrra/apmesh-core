@@ -66,8 +66,8 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Geometry Primitives Cumulative Regression — PRE-REGISTERED / FIRST MANIFEST
-BLOCKED / NOT EXECUTED.** The bounded GPR0-GPR7
+**Geometry Primitives Cumulative Regression — PRE-REGISTERED / SECOND MANIFEST
+BLOCKED / GATES NOT EXECUTED.** The bounded GPR0-GPR7
 protocol qualifies only the joint
 Point/Vector, Minimal Small Linear Algebra, and Cartesian Similarity Frames
 capability already integrated in post-merge `main` baseline
@@ -81,8 +81,13 @@ retained synthetic success and partial failure. The first external manifest,
 `a890b988559eb041c63104a45e0edbd66d6a9c07fdb912a45896bbe9ded81711`, is
 immutable `BLOCKED_BY_STALE_LIMITATION_CONTRACT`: it was never executed because
 its sealed limitations contradicted the `PREPARED` state. The correction is
-limited to the profile contract; a new manifest for the published correction
-is still required and execution remains unauthorized.
+limited to the profile contract and remains immutable. The second external
+manifest, `ad999a236cf68f537dd5d6bc159885c2e9404a50e824622f867ac24df59b9aa2`,
+is immutable `BLOCKED_BY_CTEST_DISCOVERY_PARSER_DEFECT`: configure, build, and
+CTest discovery succeeded, but a spacing-sensitive parser rejected the valid
+CTest listing before semantic tests or certificates ran. The correction is
+limited to runner tooling; a new manifest is required and execution remains
+unauthorized.
 
 Cartesian Similarity Frames is **QUALIFIED / CF0–CF7 PASS / candidate
 `8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and

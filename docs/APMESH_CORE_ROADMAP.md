@@ -791,5 +791,8 @@ pre-registered in
 report-only workflow and revision-bound execution runner passed focused
 GCC/Clang development contracts, including retained synthetic success and
 partial failure. Its first external manifest is immutable
-`BLOCKED_BY_STALE_LIMITATION_CONTRACT` evidence and was never executed. A new
-external `PREPARED` manifest, execution, and scientific result remain pending.
+`BLOCKED_BY_STALE_LIMITATION_CONTRACT` evidence and was never executed. Its
+second external manifest is immutable `BLOCKED_BY_CTEST_DISCOVERY_PARSER_DEFECT`
+evidence: build and CTest discovery passed, but no semantic CTest or certificate
+was reached. A new external `PREPARED` manifest, execution, and scientific
+result remain pending.
