@@ -794,5 +794,8 @@ partial failure. Its first external manifest is immutable
 `BLOCKED_BY_STALE_LIMITATION_CONTRACT` evidence and was never executed. Its
 second external manifest is immutable `BLOCKED_BY_CTEST_DISCOVERY_PARSER_DEFECT`
 evidence: build and CTest discovery passed, but no semantic CTest or certificate
-was reached. A new external `PREPARED` manifest, execution, and scientific
-result remain pending.
+was reached. Its third external manifest is immutable
+`BLOCKED_BY_EVIDENCE_OUTPUT_DIRECTORY_DEFECT` evidence: GCC Debug configure,
+build, discovery, and semantic CTest passed, but the certificate producer could
+not open an output below the uncreated `certificates/` directory. A new external
+`PREPARED` manifest, execution, and scientific result remain pending.

@@ -66,7 +66,7 @@ Current active investigation problem:
 
 Current executable work unit:
 
-**Geometry Primitives Cumulative Regression — PRE-REGISTERED / SECOND MANIFEST
+**Geometry Primitives Cumulative Regression — PRE-REGISTERED / THIRD MANIFEST
 BLOCKED / GATES NOT EXECUTED.** The bounded GPR0-GPR7
 protocol qualifies only the joint
 Point/Vector, Minimal Small Linear Algebra, and Cartesian Similarity Frames
@@ -88,6 +88,15 @@ CTest discovery succeeded, but a spacing-sensitive parser rejected the valid
 CTest listing before semantic tests or certificates ran. The correction is
 limited to runner tooling; a new manifest is required and execution remains
 unauthorized.
+
+The third external manifest,
+`16bac9f16868ccd98c3a437cb524098fa0671b86a60d532010a837ebcb14e9bf`, is
+immutable `BLOCKED_BY_EVIDENCE_OUTPUT_DIRECTORY_DEFECT` evidence. Its GCC
+Debug configure, build, CTest discovery, and semantic CTest commands succeeded,
+but the first certificate producer could not open its output because the runner
+had not created `certificates/`. The correction is limited to runner output
+directory initialization; no certificate, gate, or component qualification was
+reached. A new manifest is required and execution remains unauthorized.
 
 Cartesian Similarity Frames is **QUALIFIED / CF0–CF7 PASS / candidate
 `8e6b5872072bb8077731b5879d1c5b751e375087` / WSL Ubuntu 24.04 GCC 13 and

@@ -331,6 +331,8 @@ def execute(arguments: argparse.Namespace) -> int:
         profile = validate_execution_binding(arguments, source, output, manifest)
         write_json(output / "execution-claim.json", {"schema_version": 1, "kind": "geometry-primitives-cumulative-execution-claim", "candidate_commit": manifest["candidate"]["commit"], "prepared_manifest_sha256": sha256_file(output / "prepared-manifest.json"), "pid": os.getpid(), "started_utc": utc_now()})
         write_state(output, "RUNNING", {"candidate_commit": manifest["candidate"]["commit"]})
+        (output / "certificates").mkdir(parents=True, exist_ok=True)
+        (output / "negatives").mkdir(parents=True, exist_ok=True)
         discoveries, inventories = [], []
         for cell in manifest["plan"]:
             name = cell["cell"]

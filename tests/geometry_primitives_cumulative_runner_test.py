@@ -109,12 +109,16 @@ def main() -> int:
             if "ctest-discovery" in record_id:
                 stdout.write_text("\n".join(f"  Test  #{index}: {name}" for index, name in enumerate(profile["semantic_ctest_allowlist"], 1)), encoding="utf-8")
             if "certificate-" in record_id and "validation" not in record_id:
-                destination = pathlib.Path(argv[-1]); destination.parent.mkdir(parents=True, exist_ok=True)
+                destination = pathlib.Path(argv[-1])
+                if not destination.parent.is_dir():
+                    raise RuntimeError("runner did not create certificate output directory")
                 completed = subprocess.run([arguments.certificate_exporter, "certificate", str(destination)], capture_output=True, text=True, check=False)
                 if completed.returncode != 0:
                     raise RuntimeError(completed.stderr)
             if "negative-outcomes" in record_id:
-                destination = pathlib.Path(argv[-1]); destination.parent.mkdir(parents=True, exist_ok=True)
+                destination = pathlib.Path(argv[-1])
+                if not destination.parent.is_dir():
+                    raise RuntimeError("runner did not create negative-output directory")
                 destination.write_text(json.dumps({"schema_version": 1, "kind": "geometry-primitives-cumulative-negative-outcomes", "outcomes": [{"id": item, "result": "REJECTED"} for item in profile["certificate_negative_cases"]]}), encoding="utf-8")
             if "configure" in record_id:
                 build = succeeded / "cells" / record_id.removesuffix("-configure") / "build"; build.mkdir(parents=True, exist_ok=True)

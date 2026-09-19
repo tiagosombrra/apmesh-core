@@ -1,6 +1,6 @@
 # Geometry Primitives - Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / SECOND MANIFEST BLOCKED / GATES NOT EXECUTED
+Status: PRE-REGISTERED / THIRD MANIFEST BLOCKED / GATES NOT EXECUTED
 Date: 2026-09-18
 Stage: Geometry Primitives - Exact Semantics Before Curves
 Post-merge baseline: `ca20ad64cd0dd14b869225dae73401ad2b93464c`
@@ -256,8 +256,16 @@ Its configure, build, and CTest discovery commands succeeded; a spacing-sensitiv
 runner parser then rejected the valid CTest listing before semantic CTests or
 certificates ran. It does not affect any component qualification or GPR gate.
 
+The third external manifest,
+`16bac9f16868ccd98c3a437cb524098fa0671b86a60d532010a837ebcb14e9bf`, is
+retained as immutable `BLOCKED_BY_EVIDENCE_OUTPUT_DIRECTORY_DEFECT` evidence.
+Its GCC Debug configure, build, CTest discovery, and semantic CTest commands
+succeeded; the first certificate producer then returned its documented
+output-open failure because the runner had not created `certificates/`. No
+certificate, gate, or component qualification was reached.
+
 ## 13. Next bounded action
 
-Publish the bounded CTest-discovery parser correction, then prepare and
+Publish the bounded output-directory initialization correction, then prepare and
 independently review one new external `PREPARED` manifest bound to that
 published candidate. The four-cell campaign remains unauthorized.
