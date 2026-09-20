@@ -168,65 +168,39 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Implement Cubic Bézier Differential Evaluation and Pointwise Speed —
-VALIDATED_UNMERGED.**
+**None. Cubic Bézier Differential Evaluation and Pointwise Speed is closed.**
 
-Active branch: `curve/cubic-bezier-differential-evaluation`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`.
+1. implementation PR #52 merged as
+   `1b1da2893168e5f3da3fb98595809d7210f49f6b`;
+2. final PR FAST `35544348814`: PASS;
+3. final PR INTEGRATION `35544348767`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. post-merge FAST `35544417439`: PASS;
+5. post-merge INTEGRATION `35544417474`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+6. first derivative, second derivative and pointwise speed are integrated for
+   `CubicBezier2` and `CubicBezier3`;
+7. the focused differential contract and curve public-header isolation pass;
+8. Curve Representation remains unqualified;
+9. no global regularity, curvature, arc length, discretization, quadrilateral
+   or parallel capability was introduced.
 
-Implemented scope:
-
-1. `CubicBezier2::first_derivative(t)` and
-   `CubicBezier3::first_derivative(t)` evaluate the quadratic Bézier
-   hodograph;
-2. `second_derivative(t)` evaluates the linear derivative of that hodograph;
-3. `speed(t)` uses the already qualified stable Euclidean vector norm;
-4. derivative-control construction remains in Bézier/Bernstein form and
-   reports non-finite arithmetic explicitly;
-5. zero derivative and zero pointwise speed remain valid data;
-6. the existing finite/domain parameter errors are preserved exactly;
-7. the focused `apmesh_core.curve_differential` contract covers 2D/3D
-   endpoint formulas, constant/linear/quadratic/genuine cubic fixtures,
-   stationary points, reversal, translation, admitted frames, overflow,
-   small nonzero derivatives, invalid parameters, signed zero and
-   determinism;
-8. the public-header isolation contract covers the new API.
-
-Validation:
-
-- PR #52 FAST `35544242913`: PASS;
-- PR #52 INTEGRATION `35544242911`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug;
-- the existing cubic value/evaluation contracts and selected qualified
-  prerequisites remained passing.
-
-Scientific boundary:
-
-- no interval-wide regularity classification or root certification;
-- no unit tangent, curvature/torsion or Frenet frame;
-- no arc-length integration or parameter inversion;
-- no subdivision/discretization;
-- no rational/spline/arbitrary-degree representation;
-- no topology ownership;
-- no quadrilateral or parallel capability.
-
-Result if integrated:
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
+No work item is active.
 
 ## Next admissible work item after closure
 
-After PR #52 is merged, post-merge FAST/INTEGRATION pass, and this implementation
-checkpoint is closed, open one separate bounded decision for:
+Open one separate bounded scientific decision for:
 
 **Global Cubic Regularity Certification.**
 
-That decision must investigate a mathematically complete interval-wide method
-for establishing whether `B'(t) != 0` for every `t∈[0,1]`. It must not use
-sampling or a global speed epsilon.
+The decision must define a mathematically complete interval-wide method for
+determining whether `B'(t) != 0` for every `t∈[0,1]`, including endpoint
+cases and simultaneous roots of the vector-valued quadratic hodograph.
 
-Arc Length and Parameter Mapping remains blocked until the differential work
-unit is integrated and the regularity boundary has a separate explicit
-decision.
+The decision must explicitly reject dense sampling and a context-free speed
+epsilon as certification methods.
+
+No implementation belongs to this closure checkpoint.
 
