@@ -175,11 +175,18 @@ int main() {
 
     const auto dd20 = curve2.second_derivative(0.0);
     const auto dd21 = curve2.second_derivative(1.0);
+    const auto dd30 = curve3.second_derivative(0.0);
+    const auto dd31 = curve3.second_derivative(1.0);
     const auto expected_dd20 = Vector2::make(12.0, -12.0);
     const auto expected_dd21 = Vector2::make(-12.0, -12.0);
+    const auto expected_dd30 = Vector3::make(6.0, -30.0, -36.0);
+    const auto expected_dd31 = Vector3::make(-6.0, 24.0, 48.0);
     passed = require(dd20 && dd21 && expected_dd20 && expected_dd21 &&
                          *dd20 == *expected_dd20 && *dd21 == *expected_dd21,
                      "2D endpoint second derivatives differ") && passed;
+    passed = require(dd30 && dd31 && expected_dd30 && expected_dd31 &&
+                         *dd30 == *expected_dd30 && *dd31 == *expected_dd31,
+                     "3D endpoint second derivatives differ") && passed;
 
     const auto constant_point2 = Point2::make(-3.0, 5.0);
     const auto constant_point3 = Point3::make(2.0, -4.0, 8.0);
@@ -251,40 +258,59 @@ int main() {
     for (const double parameter : {0.125, 0.25, 0.5, 0.75, 0.875}) {
         const auto first2 = curve2.first_derivative(parameter);
         const auto second2 = curve2.second_derivative(parameter);
+        const auto speed2 = curve2.speed(parameter);
         const long double t = static_cast<long double>(parameter);
         const auto& controls2 = curve2.control_points();
+        const long double first2_x =
+            first_reference(controls2, t, &Point2::x);
+        const long double first2_y =
+            first_reference(controls2, t, &Point2::y);
         passed = require(
-                     first2 && second2 &&
-                         close_vector(
-                             *first2,
-                             first_reference(controls2, t, &Point2::x),
-                             first_reference(controls2, t, &Point2::y),
-                             16.0) &&
+                     first2 && second2 && speed2 &&
+                         close_vector(*first2, first2_x, first2_y, 16.0) &&
                          close_vector(
                              *second2,
                              second_reference(controls2, t, &Point2::x),
                              second_reference(controls2, t, &Point2::y),
-                             32.0),
+                             32.0) &&
+                         close_scalar(
+                             *speed2,
+                             std::sqrt(first2_x * first2_x + first2_y * first2_y),
+                             16.0),
                      "2D genuine cubic differential reference differs") &&
                  passed;
 
         const auto first3 = curve3.first_derivative(parameter);
         const auto second3 = curve3.second_derivative(parameter);
+        const auto speed3 = curve3.speed(parameter);
         const auto& controls3 = curve3.control_points();
+        const long double first3_x =
+            first_reference(controls3, t, &Point3::x);
+        const long double first3_y =
+            first_reference(controls3, t, &Point3::y);
+        const long double first3_z =
+            first_reference(controls3, t, &Point3::z);
         passed = require(
-                     first3 && second3 &&
+                     first3 && second3 && speed3 &&
                          close_vector(
                              *first3,
-                             first_reference(controls3, t, &Point3::x),
-                             first_reference(controls3, t, &Point3::y),
-                             first_reference(controls3, t, &Point3::z),
+                             first3_x,
+                             first3_y,
+                             first3_z,
                              32.0) &&
                          close_vector(
                              *second3,
                              second_reference(controls3, t, &Point3::x),
                              second_reference(controls3, t, &Point3::y),
                              second_reference(controls3, t, &Point3::z),
-                             64.0),
+                             64.0) &&
+                         close_scalar(
+                             *speed3,
+                             std::sqrt(
+                                 first3_x * first3_x +
+                                 first3_y * first3_y +
+                                 first3_z * first3_z),
+                             32.0),
                      "3D genuine cubic differential reference differs") &&
                  passed;
     }
@@ -304,6 +330,23 @@ int main() {
                          stationary_first->y() == 0.0 &&
                          *stationary_speed == 0.0,
                      "interior stationary point was not preserved") && passed;
+
+    const auto s30 = Point3::make(0.0, 0.0, 0.0);
+    const auto s31 = Point3::make(1.0, 0.0, 0.0);
+    const auto s32 = Point3::make(1.0, 0.0, 0.0);
+    const auto s33 = Point3::make(0.0, 0.0, 0.0);
+    if (!s30 || !s31 || !s32 || !s33) {
+        return 1;
+    }
+    const CubicBezier3 stationary3{*s30, *s31, *s32, *s33};
+    const auto stationary_first3 = stationary3.first_derivative(0.5);
+    const auto stationary_speed3 = stationary3.speed(0.5);
+    passed = require(stationary_first3 && stationary_speed3 &&
+                         stationary_first3->x() == 0.0 &&
+                         stationary_first3->y() == 0.0 &&
+                         stationary_first3->z() == 0.0 &&
+                         *stationary_speed3 == 0.0,
+                     "3D interior stationary point was not preserved") && passed;
 
     const CubicBezier2 endpoint_stationary{*p20, *p20, *p22, *p23};
     const auto endpoint_stationary_first =
