@@ -253,24 +253,29 @@ new external runner-temp output root, retains the sealed PREPARED package, and
 contains no formal `execute` path. Consecutive mechanical quoting failures in
 runs `35516864464` and `35516972035` triggered the required tooling stop.
 After simplifying the shell invocation, run `35517077819` passed the complete
-focused tooling inventory in GCC 13 Debug and Clang 18/libc++ Debug. The
-preparation workflow itself has not been dispatched and no formal cloud manifest
-has yet been prepared.
+focused tooling inventory in GCC 13 Debug and Clang 18/libc++ Debug.
+
+The workflow was formally dispatched once in run `35524700979` on canonical
+`main` candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`. It retained
+artifact `10609500629`, archive SHA-256
+`2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`.
+The package audit in
+`docs/audits/2026-09-20-topological-model-tmr-preparation-audit.md` passed.
+The package remains unconsumed, `execution_requested=false`, and all
+TMR0-TMR7 gates remain `NOT_EXECUTED`.
 
 ## 13. Next bounded action
 
-The reusable report-only TMR0–TMR7 tooling, fail-closed cloud identity binding,
-exact cloud tool plan, and manual preparation-only workflow are implemented.
-Focused/static tooling validation passed in run `35517077819`. No formal
-manifest has been prepared and the TMR campaign has not executed.
+The first formal PREPARED package exists and its independent preparation audit
+passed. It is bound to candidate
+`e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, preparation run
+`35524700979`, and artifact `10609500629`. The package is unconsumed:
+`execution_requested=false`, no execution claim/command records/terminal
+manifest exist, and TMR0-TMR7 remain `NOT_EXECUTED`.
 
-The preparation-only workflow was integrated by PR #20 as
-`d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST run
-`35519501704` and INTEGRATION run `35519501663` passed. The workflow has not
-been dispatched.
-
-The next bounded action is one explicit manual dispatch of
-`Topological Model TMR Preparation` on canonical `main`. That dispatch may
-produce and retain one sealed PREPARED package only. The package must then be
-audited before any separate authorization to invoke `execute`; no execution is
-authorized by this protocol checkpoint.
+The next bounded action is to implement the smallest manual execution-only
+GitHub Actions path that restores this exact artifact to its sealed output root,
+checks out the exact candidate, revalidates the PREPARED binding, and invokes
+`execute` at most once. That workflow must be integrated and focused/static
+validated without being dispatched in the same change. Formal execution remains
+separately gated.
