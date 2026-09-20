@@ -248,26 +248,37 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after diagnosis integration:
 
-**Open one separately authorized diagnosis of the Topological Model TMR
-protocol/runner repetition-cardinality mismatch.**
+**Open one focused mechanical correction work item for the TMR runner
+repetition scope and stable protocol guard.**
 
-The first formal campaign is closed as a scientific `BLOCKED` result. PR #30
-integrated the terminal audit as
-`83a135127302ca328bf49e3e71fbb8ac2e16da2b`; post-merge FAST
-`35529230596` and INTEGRATION `35529230618` passed.
+The bounded diagnosis is complete in
+`docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`.
+It confirms no production-topology defect and no scientific acceptance-criteria
+change.
 
-The diagnosis is constrained to understanding and specifying the evidence
-cardinality defect. It must determine the exact repetition scope of
-discovery/build/semantic CTest/certificate operations, define the minimal
-tooling correction and required focused contracts, and state the conditions
-for a new PREPARED package.
+Required future execution shape:
 
-It must not prepare, authorize, or execute another formal TMR campaign.
-The first campaign's immutable claim remains consumed, TMR0–TMR5 remain PASS,
-TMR6–TMR7 remain BLOCKED, and Topological Model remains
-`IN INVESTIGATION / NOT QUALIFIED`.
+- configure once per cell;
+- for each of two repetitions per cell: build, CTest discovery, exact
+  seven-test semantic CTest, certificate production, certificate validation;
+- negative outcomes, dependency inventory, runtime dependency inspection and
+  compile-command retention once per cell;
+- exactly 56 command records across four cells, including eight semantic CTest
+  records and 56 individual semantic test executions.
+
+The diagnosis also found a second mechanical defect: `protocol_check()`
+requires the transient literal heading `## 13. Next bounded action`. After
+the terminal audit legitimately renamed Section 13, diagnosis-time TMR tooling
+run `35529611062` failed in both GCC and Clang cells before configuration
+with `protocol is not the pre-registered TMR0-TMR7 authority`. That run
+created no PREPARED package, claim, or scientific evidence.
+
+The correction work item may modify only runner/protocol-guard behavior,
+planned inventories, focused tests, and the minimum documentation required to
+enforce this diagnosed contract. It must not modify production topology C++,
+prepare a new formal package, authorize execution, or run a formal campaign.
 
 
 ## Current active stage
