@@ -244,6 +244,10 @@ int main() {
         return 1;
     }
     const CubicBezier2 quadratic_equivalent{*q0, *q1, *q2, *q3};
+    const auto expected_quadratic_second = Vector2::make(12.0, 0.0);
+    if (!expected_quadratic_second) {
+        return 1;
+    }
     for (const double parameter : {0.0, 0.25, 0.5, 0.75, 1.0}) {
         const auto first = quadratic_equivalent.first_derivative(parameter);
         const auto second = quadratic_equivalent.second_derivative(parameter);
@@ -251,7 +255,7 @@ int main() {
             3.0L + 12.0L * static_cast<long double>(parameter);
         passed = require(first && second &&
                              close_vector(*first, expected_first, 0.0L, 16.0) &&
-                             *second == *Vector2::make(12.0, 0.0),
+                             *second == *expected_quadratic_second,
                          "quadratic-equivalent differential reference differs") && passed;
     }
 
