@@ -5,13 +5,13 @@ on:
     branches:
       - main
     paths:
-      - "experiments/authorizations/topological-model-tmr-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd.json"
+      - "experiments/authorizations/topological-model-tmr-*.json"
 
 permissions:
   contents: read
 
 concurrency:
-  group: topology-tmr-authorization-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd
+  group: topology-tmr-authorization
   cancel-in-progress: false
 
 jobs:
@@ -24,11 +24,10 @@ jobs:
       candidate: ${{ steps.authorization.outputs.candidate }}
       preparation_run_id: ${{ steps.authorization.outputs.preparation_run_id }}
       prepared_artifact_id: ${{ steps.authorization.outputs.prepared_artifact_id }}
+      prepared_artifact_sha256: ${{ steps.authorization.outputs.prepared_artifact_sha256 }}
       prepared_manifest_sha256: ${{ steps.authorization.outputs.prepared_manifest_sha256 }}
       preparation_seal_sha256: ${{ steps.authorization.outputs.preparation_seal_sha256 }}
       claim_tag: ${{ steps.authorization.outputs.claim_tag }}
-    env:
-      TMR_AUTHORIZATION_FILE: experiments/authorizations/topological-model-tmr-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd.json
 
     steps:
       - name: Check out protected-main authorization commit
@@ -45,23 +44,37 @@ jobs:
           test -z "$(git status --porcelain)"
 
       - name: Require one newly added immutable authorization record
+        id: authorization_path
         shell: bash
         env:
           BEFORE_SHA: ${{ github.event.before }}
         run: |
           set -euo pipefail
           git cat-file -e "${BEFORE_SHA}^{commit}"
-          observed="$(git diff --name-status "${BEFORE_SHA}" "${GITHUB_SHA}" -- "${TMR_AUTHORIZATION_FILE}")"
-          expected="$(printf 'A\t%s' "${TMR_AUTHORIZATION_FILE}")"
-          if [ "${observed}" != "${expected}" ]; then
-            echo "BLOCKED: execution authorization must be introduced exactly once as a new file" >&2
-            printf 'observed=%q\nexpected=%q\n' "${observed}" "${expected}" >&2
+          observed="$(git diff --name-status "${BEFORE_SHA}" "${GITHUB_SHA}" -- experiments/authorizations)"
+          count="$(printf '%s\n' "${observed}" | sed '/^$/d' | wc -l)"
+          if [ "${count}" -ne 1 ]; then
+            echo "BLOCKED: exactly one authorization file must change" >&2
+            printf 'observed=%q\n' "${observed}" >&2
             exit 2
           fi
+          status="${observed%%$'\t'*}"
+          path="${observed#*$'\t'}"
+          if [ "${status}" != "A" ]; then
+            echo "BLOCKED: authorization must be introduced exactly once as a new file" >&2
+            exit 2
+          fi
+          if [[ ! "${path}" =~ ^experiments/authorizations/topological-model-tmr-[0-9a-f]{64}\.json$ ]]; then
+            echo "BLOCKED: authorization filename is outside the admitted manifest-hash namespace" >&2
+            exit 2
+          fi
+          printf 'authorization_file=%s\n' "${path}" >> "${GITHUB_OUTPUT}"
 
       - name: Validate exact audited PREPARED authorization
         id: authorization
         shell: bash
+        env:
+          TMR_AUTHORIZATION_FILE: ${{ steps.authorization_path.outputs.authorization_file }}
         run: |
           set -euo pipefail
           /usr/bin/python3 tools/topological_model_tmr_authorization.py \
@@ -94,5 +107,6 @@ jobs:
       candidate: ${{ needs.authorize.outputs.candidate }}
       preparation_run_id: ${{ needs.authorize.outputs.preparation_run_id }}
       prepared_artifact_id: ${{ needs.authorize.outputs.prepared_artifact_id }}
+      prepared_artifact_sha256: ${{ needs.authorize.outputs.prepared_artifact_sha256 }}
       prepared_manifest_sha256: ${{ needs.authorize.outputs.prepared_manifest_sha256 }}
       preparation_seal_sha256: ${{ needs.authorize.outputs.preparation_seal_sha256 }}
