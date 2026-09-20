@@ -20,6 +20,7 @@ add_library(apmesh_core STATIC
     src/core/geometry.cpp
     src/core/numeric.cpp
     src/math/linear_algebra.cpp
+    src/topology/topology.cpp
 )
 add_library(apmesh::core ALIAS apmesh_core)
 
@@ -108,6 +109,13 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.cartesian_frames)
 
     add_test(NAME apmesh_core.cartesian_frames COMMAND apmesh_core.cartesian_frames)
+    add_executable(apmesh_core.topological_model
+        tests/topological_model.cpp
+    )
+    target_link_libraries(apmesh_core.topological_model PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.topological_model)
+
+    add_test(NAME apmesh_core.topological_model COMMAND apmesh_core.topological_model)
     add_test(
         NAME apmesh_core.geometry_primitives_cumulative_evidence
         COMMAND
@@ -381,6 +389,10 @@ if(BUILD_TESTING)
         apmesh_core.minimal_small_linear_algebra_runner
         apmesh_core.minimal_small_linear_algebra_retention
         PROPERTIES LABELS "math;geometry;contract"
+    )
+    set_tests_properties(
+        apmesh_core.topological_model
+        PROPERTIES LABELS "topology;contract"
     )
     set_tests_properties(
         apmesh_core.reproducible_experiment_evidence

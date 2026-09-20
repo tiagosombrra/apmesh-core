@@ -546,6 +546,14 @@ surface, face-cycle, manifold, welding, serialization, or meshing behavior.
 The complete stage requirements below remain mandatory later work and are not
 reduced by this entry decision.
 
+The bounded candidate implements only
+`include/apmesh/topology/topology.hpp`, `src/topology/topology.cpp`, and the
+focused `apmesh_core.topological_model` CTest. Its GCC 13 Debug and Clang 18
+libc++ Debug focused contracts pass in the declared WSL Ubuntu 24.04 envelope.
+This is implementation evidence only: no stage qualification, face/patch
+incidence, manifold behavior, canonical serialization, or formal campaign is
+authorized by this result.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, `CurveId`, `PatchId`, `SurfaceId` types.

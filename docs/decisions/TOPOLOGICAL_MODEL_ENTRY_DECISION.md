@@ -216,8 +216,23 @@ Topological Model moves from `NOT STARTED` to `IN INVESTIGATION / ENTRY
 DECISION APPROVED`. Foundation and Geometry Primitives remain qualified and are
 not reopened by this documentation-only decision.
 
+## Implementation result
+
+The bounded candidate adds only
+`include/apmesh/topology/topology.hpp`, `src/topology/topology.cpp`, and
+`tests/topological_model.cpp`, with one `topology;contract` CTest registration.
+It implements the authorized strong IDs, builder-local construction handles,
+edge endpoint records, oriented uses, deterministic allocation, atomic
+finalization, and read-only model queries. The focused contract passed in the
+declared WSL Ubuntu 24.04 GCC 13 Debug and Clang 18/libc++ Debug builds.
+
+This is focused implementation evidence only. It does not qualify the
+Topological Model stage, native Windows, Release builds, face/patch incidence,
+manifold behavior, canonical serialization, or any later geometry/meshing
+capability.
+
 ## Next bounded action
 
-Implement only the Identity and Oriented Edge Incidence Kernel and its focused
-contracts. Do not implement faces, patches, curves, manifold classification,
-canonical serialization, qualification infrastructure, or a formal campaign.
+Review the bounded implementation package before publication. Do not extend it
+to faces, patches, curves, manifold classification, canonical serialization,
+qualification infrastructure, or a formal campaign.

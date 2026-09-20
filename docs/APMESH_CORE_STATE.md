@@ -62,11 +62,12 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 Current stage decision:
 
-**Identity and Oriented Edge Incidence Kernel — ACCEPTED FOR BOUNDED
-IMPLEMENTATION / IMPLEMENTATION NOT STARTED.** The entry decision authorizes
-only strong `VertexId`/`EdgeId` semantics, explicit edge endpoints, oriented
-edge uses, deterministic mutable construction, and atomic finalization into an
-immutable topology model. It authorizes no face/patch cycle, manifold or
+**Identity and Oriented Edge Incidence Kernel — IMPLEMENTED / FOCUSED CONTRACT
+PASS / NOT QUALIFIED.** The bounded candidate implements only strong
+`VertexId`/`EdgeId` semantics, explicit edge endpoints, oriented edge uses,
+deterministic mutable construction, and atomic finalization into an immutable
+topology model. Its focused CTest passed in WSL Ubuntu 24.04 GCC 13 Debug and
+Clang 18/libc++ Debug. It authorizes no face/patch cycle, manifold or
 non-manifold classification, coordinate welding, curve/surface association,
 canonical serialization, qualification infrastructure, or campaign.
 
@@ -329,12 +330,12 @@ GPR0-GPR7 campaign. Preserve the immutable historical blocked attempts and the
 fifth manifest/retention package as the stage evidence. Foundation and Geometry
 Primitives remain qualified only in their declared WSL envelope.
 
-The next executable work unit is the bounded Identity and Oriented Edge
-Incidence Kernel defined by
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. Implement only the
-authorized topology kernel and focused contracts. Do not introduce faces,
-patches, curves, manifold classification, canonical serialization, formal
-qualification infrastructure, or a campaign.
+Review the bounded Identity and Oriented Edge Incidence Kernel defined by
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` before publication. Its
+focused GCC 13 Debug and Clang 18/libc++ Debug contract passes, but Topological
+Model remains unqualified. Do not introduce faces, patches, curves, manifold
+classification, canonical serialization, formal qualification infrastructure,
+or a campaign.
 
 ## Stage closure protocol
 
