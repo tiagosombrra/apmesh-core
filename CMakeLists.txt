@@ -206,19 +206,10 @@ if(BUILD_TESTING)
             --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_primitives_cumulative_evidence.py
     )
     add_test(
-        NAME apmesh_core.topological_model_cumulative_evidence
+        NAME apmesh_core.topological_model_cumulative_tooling
         COMMAND
             ${Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/tests/topological_model_cumulative_evidence_test.py
-            --exporter $<TARGET_FILE:apmesh_core_topological_model_cumulative_export>
-            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/topological_model_cumulative_evidence.py
-            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/topological_model_cumulative.json
-    )
-    add_test(
-        NAME apmesh_core.topological_model_cumulative_runner
-        COMMAND
-            ${Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/tests/topological_model_cumulative_runner_test.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/topological_model_cumulative_tooling_test.py
             --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_topological_model_cumulative.py
             --source-root ${CMAKE_CURRENT_SOURCE_DIR}
             --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/topological_model_cumulative.json
@@ -447,8 +438,7 @@ if(BUILD_TESTING)
         PROPERTIES LABELS "geometry;contract;qualification;tooling"
     )
     set_tests_properties(
-        apmesh_core.topological_model_cumulative_evidence
-        apmesh_core.topological_model_cumulative_runner
+        apmesh_core.topological_model_cumulative_tooling
         PROPERTIES LABELS "topology;contract;qualification;tooling"
     )
     set_tests_properties(
