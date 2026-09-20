@@ -547,3 +547,10 @@ The next permitted scientific transition after audit integration and closure
 is one separate entry decision for **Curve Representation — Continuous Geometry
 Before Discretization**. No curve implementation begins automatically.
 
+PR #44 integrated the corrected terminal audit as
+`bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`. Post-merge FAST
+`35534347597` and INTEGRATION `35534347623` passed. The Topological Model
+qualification checkpoint is closed. This protocol now serves as historical
+qualification authority; the sole permitted continuation is the separate Curve
+Representation entry decision.
+
