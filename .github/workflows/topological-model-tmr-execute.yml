@@ -1,0 +1,179 @@
+name: Topological Model TMR Execution
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: topology-tmr-execution-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd
+  cancel-in-progress: false
+
+jobs:
+  execute:
+    name: Execute sealed TMR package once
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      TMR_CANDIDATE: e5eda2663d6ff4b93ce1205660ff04d432acb9c0
+      TMR_PREPARATION_RUN_ID: "35524700979"
+      TMR_PREPARED_ARTIFACT_ID: "10609500629"
+      TMR_PREPARED_MANIFEST_SHA256: d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd
+      TMR_PREPARATION_SEAL_SHA256: 982e1441f08bc3f11c3cffcf73113ce69a07e2066924ad01442b3ab94eeeb71e
+      TMR_CLAIM_TAG: tmr-execution-claim-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd
+
+    steps:
+      - name: Require canonical main dispatch
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_REF}" != "refs/heads/main" ]; then
+            echo "BLOCKED: formal TMR execution dispatch is restricted to main" >&2
+            exit 2
+          fi
+
+      - name: Check out exact prepared candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: e5eda2663d6ff4b93ce1205660ff04d432acb9c0
+          fetch-depth: 0
+
+      - name: Reconstruct sealed published-candidate identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${TMR_CANDIDATE}"
+          test -z "$(git status --porcelain)"
+          git merge-base --is-ancestor "${TMR_CANDIDATE}" origin/main
+          git update-ref refs/remotes/origin/tmr-prepared-candidate "${TMR_CANDIDATE}"
+          git switch -c tmr-execution-candidate "${TMR_CANDIDATE}"
+          git branch --set-upstream-to=origin/tmr-prepared-candidate tmr-execution-candidate
+          test "$(git rev-parse HEAD)" = "${TMR_CANDIDATE}"
+          test "$(git rev-parse '@{upstream}')" = "${TMR_CANDIDATE}"
+          test -z "$(git status --porcelain)"
+
+      - name: Install admitted cloud toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            cmake=3.28.3-1build7 \
+            ninja-build=1.11.1-2 \
+            g++-13=13.3.0-6ubuntu2~24.04.1 \
+            clang-18=1:18.1.3-1ubuntu1 \
+            libc++-18-dev=1:18.1.3-1ubuntu1 \
+            libc++abi-18-dev=1:18.1.3-1ubuntu1
+
+      - name: Restore exact audited PREPARED package
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          artifact-ids: "10609500629"
+          path: ${{ runner.temp }}/apmesh-tmr-prepared
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: "35524700979"
+
+      - name: Revalidate exact PREPARED binding before claim
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-tmr-prepared
+        run: |
+          set -euo pipefail
+          test "$(sha256sum "${OUTPUT_ROOT}/prepared-manifest.json" | awk '{print $1}')" = "${TMR_PREPARED_MANIFEST_SHA256}"
+          test "$(sha256sum "${OUTPUT_ROOT}/preparation-seal.json" | awk '{print $1}')" = "${TMR_PREPARATION_SEAL_SHA256}"
+          /usr/bin/python3 tools/run_topological_model_cumulative.py \
+            --source-root . \
+            --profile experiments/profiles/topological_model_cumulative.json \
+            --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md \
+            --exporter experiments/topological_model_cumulative_export.cpp \
+            --validator tools/topological_model_cumulative_evidence.py \
+            validate-prepared \
+            --output-root "${OUTPUT_ROOT}"
+          /usr/bin/python3 - "${OUTPUT_ROOT}/prepared-manifest.json" "${TMR_CANDIDATE}" <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          manifest = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+          if manifest["candidate"]["commit"] != sys.argv[2]:
+              raise SystemExit("prepared candidate differs")
+          if manifest["state"] != "PREPARED" or manifest["execution_requested"] is not False:
+              raise SystemExit("prepared lifecycle differs")
+          if set(manifest["gates"].values()) != {"NOT_EXECUTED"}:
+              raise SystemExit("prepared manifest already claims a TMR gate")
+          PY
+          test ! -e "${OUTPUT_ROOT}/execution-claim.json"
+          test ! -e "${OUTPUT_ROOT}/terminal-manifest.json"
+          test ! -e "${OUTPUT_ROOT}/command-records.json"
+
+      - name: Acquire immutable one-time execution claim
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin "refs/tags/${TMR_CLAIM_TAG}" >/dev/null 2>&1; then
+            echo "BLOCKED: this PREPARED manifest already has an execution claim" >&2
+            exit 2
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${TMR_CLAIM_TAG}" "${TMR_CANDIDATE}" \
+            -m "TMR execution claim; prepared_run=${TMR_PREPARATION_RUN_ID}; prepared_manifest=${TMR_PREPARED_MANIFEST_SHA256}; workflow_run=${GITHUB_RUN_ID}"
+          git push origin "refs/tags/${TMR_CLAIM_TAG}"
+          test "$(git ls-remote --tags origin "refs/tags/${TMR_CLAIM_TAG}^{}" | awk '{print $1}')" = "${TMR_CANDIDATE}"
+
+      - name: Execute sealed TMR package exactly once
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-tmr-prepared
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 tools/run_topological_model_cumulative.py \
+            --source-root . \
+            --profile experiments/profiles/topological_model_cumulative.json \
+            --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md \
+            --exporter experiments/topological_model_cumulative_export.cpp \
+            --validator tools/topological_model_cumulative_evidence.py \
+            execute \
+            --output-root "${OUTPUT_ROOT}"
+
+      - name: Remove reproducible build trees
+        if: always()
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-tmr-prepared
+        run: |
+          set -euo pipefail
+          if [ -d "${OUTPUT_ROOT}/cells" ]; then
+            find "${OUTPUT_ROOT}/cells" -mindepth 2 -maxdepth 2 -type d -name build -prune -exec rm -rf {} +
+          fi
+
+      - name: Verify retained terminal package
+        if: always()
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-tmr-prepared
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 tools/run_topological_model_cumulative.py \
+            --source-root . \
+            --profile experiments/profiles/topological_model_cumulative.json \
+            --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md \
+            --exporter experiments/topological_model_cumulative_export.cpp \
+            --validator tools/topological_model_cumulative_evidence.py \
+            verify-retention \
+            --output-root "${OUTPUT_ROOT}"
+
+      - name: Retain terminal TMR package
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: tmr-terminal-e5eda266-${{ github.run_id }}
+          path: ${{ runner.temp }}/apmesh-tmr-prepared
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
+          overwrite: false

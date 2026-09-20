@@ -572,7 +572,8 @@ CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
 FOCUSED TOOLING CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED /
 FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED /
 PREPARATION-ONLY WORKFLOW IMPLEMENTED / STATIC CONTRACT PASS / PREPARED /
-PREPARATION AUDIT PASS / NOT EXECUTED / STAGE UNQUALIFIED`
+PREPARATION AUDIT PASS / EXECUTION-ONLY WORKFLOW IMPLEMENTED /
+STATIC CONTRACT PASS / NOT DISPATCHED / NOT EXECUTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -1030,6 +1031,17 @@ PR #23 integrated the preparation audit as
 `b3d8130cdf75230ef7b71693d2325e5473091857`; post-merge FAST
 `35525181361` and INTEGRATION `35525181462` passed.
 
-The next bounded scientific action is to implement a manual execution-only
-workflow bound to that exact audited artifact/candidate. It must be integrated
-and validated without dispatching formal execution in the same change.
+A manual execution-only workflow is now implemented for the exact audited
+artifact/candidate. It restores artifact ID `10609500629` directly to the
+sealed output root, revalidates the full PREPARED binding, creates an immutable
+manifest-hash execution-claim tag only after preflight, exposes exactly one
+`execute` invocation, prunes reproducible build trees, verifies retention,
+and uploads terminal evidence. A pre-existing claim blocks execution; once a
+claim is created, failure consumes the attempt and there is no retry path.
+Focused/static run `35525736120` passed in GCC 13 Debug and Clang 18/libc++
+Debug. No claim or formal execution occurred.
+
+After integration and post-merge validation, the next bounded scientific action
+is one explicit manual dispatch of `Topological Model TMR Execution`, followed
+by independent audit of the retained terminal package before any TMR0-TMR7
+decision.

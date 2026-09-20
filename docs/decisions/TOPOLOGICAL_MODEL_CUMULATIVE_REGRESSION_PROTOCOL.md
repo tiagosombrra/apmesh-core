@@ -186,6 +186,11 @@ CTest, historical package, another gate, or successful process exit alone.
 - Missing evidence, hash drift, zero selected tests, partial execution,
   unsealed input, or retention failure is `BLOCKED`, never partial `PASS`.
 - Retry, rescue tuning, relaxed acceptance, and hidden fallback are forbidden.
+- The cloud execution wrapper must create one immutable repository claim keyed
+  by the prepared-manifest SHA-256 only after the complete PREPARED binding
+  preflight passes and before invoking `execute`. A pre-existing claim blocks
+  execution. Once the claim is created, any later failure consumes the one
+  formal attempt; no second dispatch is authorized.
 
 ## 11. Required retained outputs
 
@@ -277,9 +282,18 @@ PR #23 integrated the preparation audit as
 `b3d8130cdf75230ef7b71693d2325e5473091857`; post-merge FAST
 `35525181361` and INTEGRATION `35525181462` passed.
 
-The next bounded action is to implement the smallest manual execution-only
-GitHub Actions path that restores this exact artifact to its sealed output root,
-checks out the exact candidate, revalidates the PREPARED binding, and invokes
-`execute` at most once. That workflow must be integrated and focused/static
-validated without being dispatched in the same change. Formal execution remains
-separately gated.
+The one-shot manual execution wrapper is implemented and its focused/static
+contracts passed in run `35525736120` for both GCC 13 Debug and Clang 18
+libc++ Debug. It binds candidate
+`e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, preparation run
+`35524700979`, artifact ID `10609500629`, prepared-manifest/seal hashes,
+and the exact sealed output path. It runs the complete existing execution
+binding preflight before creating the immutable manifest-hash claim tag, then
+exposes one `execute` invocation and retained terminal evidence. No claim tag
+or formal execution has occurred.
+
+After integration and ordinary post-merge validation, the next bounded action
+is one explicit manual dispatch of `Topological Model TMR Execution` on
+canonical `main`. That dispatch consumes the formal attempt. The resulting
+terminal package must be audited before any TMR0-TMR7 gate or stage
+qualification decision.
