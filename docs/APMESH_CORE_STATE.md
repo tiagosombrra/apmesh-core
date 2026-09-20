@@ -61,6 +61,55 @@ The greenfield implementation must eventually be usable as a library inside a la
     explicit scientific-stage closure. Qualification tooling is opt-in and its
     historical evidence remains preserved without running by default.
 
+## Current repository checkpoint
+
+Canonical integration baseline before this audit:
+
+- repository: `tiagosombrra/apmesh-core`;
+- visibility: `PUBLIC`;
+- canonical branch: `main`;
+- accepted `main` revision: `b6e4459b4de0b8376eaf4c41848949f7e69fd312`;
+- GitHub Actions FAST on that revision: `PASS`, run `35510340606`;
+- open scientific stage: **Topological Model — Explicit Identity and Incidence**;
+- stage status: production bounded scope implemented, focused contracts pass,
+  cumulative TMR0--TMR7 pre-registered, stage unqualified.
+
+Current Topological Model completion lanes:
+
+| Lane | Completion | Current basis |
+| --- | ---: | --- |
+| Production implementation | 100% | Five authorized bounded topology work units implemented. |
+| Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
+| Stage-regression / qualification tooling | 0% | TMR report-only workflow/profile/exporter/comparer/runner not implemented. |
+| Formal evidence execution | 0% | No TMR manifest prepared and no TMR campaign executed. |
+| Closure audit / documentation | 0% | Stage cannot close before TMR0--TMR7 terminal audit. |
+
+Current cloud-execution infrastructure:
+
+| Capability | Completion | Status |
+| --- | ---: | --- |
+| FAST | 100% | GitHub-hosted Ubuntu 24.04, GCC 13 Debug; `main` PASS. |
+| Major semantic regression | 50% | Reusable four-cell workflow is under audit and must pass before acceptance. |
+| INTEGRATION | 0% | Not yet implemented in GitHub Actions. |
+| QUALIFICATION environment | 0% | Reproducible cloud qualification envelope not yet admitted. |
+
+Current audit execution work-class allocation:
+
+- Implementation: **0%**;
+- Tests/validation: **55%**;
+- Evidence/experiments: **15%**;
+- Documentation/governance: **30%**.
+
+These percentages describe this audit execution's work distribution, not
+scientific completion. The independent completion lanes above are the
+authoritative stage-progress view.
+
+Exact next admissible action: complete the repository/public-cloud baseline
+audit by obtaining a terminal PASS from the four-cell Major Semantic Regression
+workflow, audit its jobs/logs against the current semantic test inventory, and
+record the terminal audit checkpoint in Git before resuming INTEGRATION or TMR
+implementation.
+
 ## Current active stage
 
 **Topological Model — Explicit Identity and Incidence**
