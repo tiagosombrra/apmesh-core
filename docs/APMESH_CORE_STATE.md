@@ -248,28 +248,33 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after correction integration:
+Exact next bounded scientific action:
 
-**Merge and close the focused TMR repetition-cardinality correction; then
-prepare one new formal TMR package from the corrected clean candidate.**
+**Prepare exactly one new formal Topological Model TMR PREPARED package from
+the corrected clean `main` candidate, then stop for independent preparation
+audit.**
 
-The correction is implemented on
-`topology/tmr-repetition-cardinality-correction`. It preserves one configure
-per cell and executes build, CTest discovery, the exact seven-test semantic
-CTest, certificate production, and certificate validation once in each of two
-repetitions. The synthetic runner contract proves the diagnosed 56-command
-cardinality and fail-fast behavior in the second repetition.
+The focused repetition-cardinality correction was integrated by PR #35 as
+`6df723b68d265e2e3081a774d7312aa227fdcef6`.
 
-Final TMR Tooling run `35530368208` passed in GCC 13 Debug and Clang
-18/libc++ Debug. An intermediate run `35530318107` failed only because the
-new focused test used an over-broad certificate-ID prefix; commit
-`3a49376d9caafe80daaadeb0e1fa1c700cec0a89` corrected that assertion without
-changing runner behavior.
+Validation:
 
-No production topology C++, scientific profile, TMR acceptance criterion,
-formal PREPARED package, execution authorization, or formal campaign changed.
-Topological Model therefore remains `IN INVESTIGATION / NOT QUALIFIED`
-until a newly prepared future campaign satisfies TMR0–TMR7.
+- final corrected-branch TMR Tooling `35530579354`: PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug;
+- PR FAST `35530643533`: PASS;
+- PR INTEGRATION `35530643582`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge INTEGRATION `35530685060`: PASS in both cells;
+- post-merge FAST `35530685096`: PASS.
+
+The corrected runner now enforces exactly 56 command records for a successful
+four-cell × two-repetition campaign, including eight build, eight discovery,
+eight semantic CTest, eight certificate and eight certificate-validation
+records.
+
+Topological Model remains `IN INVESTIGATION / NOT QUALIFIED`. The next
+preparation is evidence preparation only: it must not execute the campaign,
+create an execution claim, or decide TMR0–TMR7.
 
 
 ## Current active stage
