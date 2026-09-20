@@ -68,10 +68,10 @@ Canonical integration baseline before this audit:
 - repository: `tiagosombrra/apmesh-core`;
 - visibility: `PUBLIC`;
 - canonical branch: `main`;
-- accepted functional `main` baseline after INTEGRATION closure: `ae8ca45d861c27c643e022cb61318db5b22737f9`;
-- post-merge GitHub Actions FAST on that baseline: `PASS`, run `35512303620`;
-- post-merge GitHub Actions INTEGRATION on that baseline: `PASS`, run `35512303629`;
-- final pre-merge Major Semantic Regression on tree-equivalent candidate `cf8d548b0e8fbc04050feb92e414b75265506184`: `PASS`, run `35512093405`;
+- accepted functional `main` baseline after cloud QUALIFICATION-environment admission: `0a7095d431e4bea3c9c73e75d22df2e713c7a8ab`;
+- post-merge GitHub Actions FAST on that baseline: `PASS`, run `35513658207`;
+- post-merge GitHub Actions INTEGRATION on that baseline: `PASS`, run `35513658197`;
+- final pre-merge Major Semantic Regression on tree-equivalent candidate `6a934de6e8f6fae35e6c38ec45b9b1f23b170acb`: `PASS`, run `35513567930`;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - stage status: production bounded scope implemented, focused contracts pass,
   cumulative TMR0--TMR7 pre-registered, stage unqualified.
@@ -91,9 +91,9 @@ Current cloud-execution infrastructure:
 | Capability | Completion | Status |
 | --- | ---: | --- |
 | FAST | 100% | GitHub-hosted Ubuntu 24.04, GCC 13 Debug; `main` PASS. |
-| Major semantic regression | 100% | Four-cell GitHub-hosted Ubuntu 24.04 regression PASS on `main` in run `35510879978`. |
+| Major semantic regression | 100% | Final cloud-environment boundary regression PASS in run `35513567930`; merged tree is identical to the reviewed candidate tree. |
 | INTEGRATION | 100% | GCC 13 Debug and Clang 18/libc++ Debug required checks PASS; closure audit recorded in `docs/audits/2026-09-20-cloud-integration-closure.md`. |
-| QUALIFICATION environment | 100% | CQE0-CQE7 PASS on run `35513051098`; distinct cloud envelope admitted, with no WSL-equivalence claim. |
+| QUALIFICATION environment | 100% | CQE0-CQE7 PASS; final candidate revalidation PASS in run `35513250315`, then squash-merged with identical tree. |
 
 Current cloud QUALIFICATION-environment execution work-class allocation:
 
@@ -115,8 +115,10 @@ C++ change.
 `main` is protected by active repository ruleset `23728711`
 (`main-protection`). The ruleset targets the default branch, has no bypass
 actors, requires pull requests, linear history, resolved review conversations,
-and the GitHub Actions check `GCC 13 Debug / FAST` with strict up-to-date branch
-semantics; it blocks deletion and non-fast-forward updates. Allowed merge
+and all three ordinary pre-merge checks — `GCC 13 Debug / FAST`,
+`GCC 13 Debug / INTEGRATION`, and `Clang 18 libc++ Debug / INTEGRATION` — with
+strict up-to-date branch semantics; it blocks deletion and non-fast-forward
+updates. Allowed merge
 methods are squash and rebase, with zero required approvals. GitHub currently
 reports `require_extra_approval_for_unattributed_changes=true`; with zero
 required approvals this setting has no effect on the present workflow.
@@ -134,8 +136,10 @@ warning after pinning `actions/checkout` v7.0.1 by commit SHA. The closure audit
 is `docs/audits/2026-09-20-cloud-integration-closure.md`.
 
 Cloud QUALIFICATION-environment admission is accepted at **100%**. CQE0-CQE7
-passed in run `35513051098` on functional candidate
-`952695f0456f095e4f7204d34a7652738dbd75da`. The admitted envelope pins GitHub
+passed in run `35513051098`; the final PR head
+`6a934de6e8f6fae35e6c38ec45b9b1f23b170acb` was revalidated by the four-cell
+Qualification Environment run `35513250315` and by Major Semantic Regression
+run `35513567930`. The admitted envelope pins GitHub
 runner image `ubuntu-24.04` version `20260907.300.1`, exact Ubuntu
 compiler/library packages, and `/usr/bin` CMake 3.28.3 / Ninja 1.11.1. All
 four Debug/Release GCC/Clang cells matched environment identity, discovered the
@@ -143,6 +147,12 @@ exact seven-test semantic inventory, kept qualification tooling OFF, and passed
 7/7 semantic tests. The first run `35512991310` is retained as the single
 mechanical `BLOCKED_BY_CMAKE_CACHE_TYPE_ASSERTION` attempt. Full audit:
 `docs/audits/2026-09-20-cloud-qualification-environment-admission.md`.
+
+PR #13 was squash-merged to `0a7095d431e4bea3c9c73e75d22df2e713c7a8ab`.
+Its tree `7144943abc7ffd861b92587217a112c0edf6f9b4` is byte-identical to the final
+reviewed PR head tree, so the final pre-merge Qualification Environment and Major
+Semantic Regression results remain bound to the merged functional content.
+Post-merge FAST run `35513658207` and INTEGRATION run `35513658197` both passed.
 
 The cloud envelope is distinct from the historical WSL qualification envelope;
 no equivalence is claimed. Exact next scientific action: implement the smallest
