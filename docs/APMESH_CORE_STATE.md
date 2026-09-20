@@ -250,30 +250,25 @@ This does **not** qualify the Topological Model stage.
 
 Exact next bounded scientific action:
 
-**Integrate the terminal scientific audit that classifies the first formal TMR
-campaign as `BLOCKED`; after its merge and post-merge validation, open one
-separately authorized diagnosis of the protocol/runner repetition-cardinality
-mismatch.**
+**Open one separately authorized diagnosis of the Topological Model TMR
+protocol/runner repetition-cardinality mismatch.**
 
-PR #29 merged the exact `EXECUTE_ONCE` authorization as
-`8a6eafc02d5e69f467e2badfea0b571e253b84bd`. The protected-main
-authorization workflow run `35528077223` completed successfully, created the
-immutable manifest-hash claim, consumed the PREPARED package exactly once, and
-retained terminal artifact `10610497080` with SHA-256
-`b332b8dde2e8651f4dd66339875378a53c9d4390400afd0d869b54969a2bf983`.
-Post-merge FAST `35528077113` and INTEGRATION `35528077120` passed.
+The first formal campaign is closed as a scientific `BLOCKED` result. PR #30
+integrated the terminal audit as
+`83a135127302ca328bf49e3e71fbb8ac2e16da2b`; post-merge FAST
+`35529230596` and INTEGRATION `35529230618` passed.
 
-Independent terminal audit found TMR0–TMR5 `PASS`, TMR6–TMR7 `BLOCKED`,
-overall `BLOCKED`. The blocker is evidence cardinality: the sealed protocol
-requires the exact seven-test semantic allowlist in both repetitions of each
-cell, but the sealed runner executed semantic CTest once per cell and repeated
-only certificate generation/validation. All observed semantic executions are
-7/7 PASS. No production-semantic contradiction is currently evidenced.
+The diagnosis is constrained to understanding and specifying the evidence
+cardinality defect. It must determine the exact repetition scope of
+discovery/build/semantic CTest/certificate operations, define the minimal
+tooling correction and required focused contracts, and state the conditions
+for a new PREPARED package.
 
-The immutable execution claim exists and the formal attempt is consumed.
-No rerun, replacement authorization, rescue execution, or retroactive
-acceptance-criterion relaxation is authorized. Topological Model remains
+It must not prepare, authorize, or execute another formal TMR campaign.
+The first campaign's immutable claim remains consumed, TMR0–TMR5 remain PASS,
+TMR6–TMR7 remain BLOCKED, and Topological Model remains
 `IN INVESTIGATION / NOT QUALIFIED`.
+
 
 ## Current active stage
 

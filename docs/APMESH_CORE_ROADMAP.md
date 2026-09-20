@@ -644,6 +644,13 @@ no observed production-semantic contradiction. A new campaign is forbidden
 until a separately authorized diagnosis resolves the protocol/runner
 repetition-cardinality mismatch.
 
+PR #30 integrated this terminal audit as
+`83a135127302ca328bf49e3e71fbb8ac2e16da2b`. Post-merge FAST
+`35529230596` and INTEGRATION `35529230618` passed. The next bounded work
+is therefore the separately authorized repetition-cardinality diagnosis; no
+curve work, runner correction, preparation, or new formal execution is yet
+authorized.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,
