@@ -87,7 +87,12 @@ writing.
 | First formal TMR terminal audit | MERGED / BLOCKED | `docs/tmr-terminal-audit-blocked`; PR #30 | terminal package independently audited; TMR0-TMR5 PASS; TMR6-TMR7 BLOCKED; 4 semantic CTest records observed vs 8 required by sealed protocol | no retry/rescue; no production-semantic contradiction shown |
 | TMR repetition-cardinality diagnosis | MERGED | `topology/tmr-repetition-cardinality-diagnosis`; PR #33 | diagnosis established 56-command future execution shape and stable protocol-guard requirement | diagnosis only; no campaign |
 | TMR repetition-cardinality correction | MERGED | `topology/tmr-repetition-cardinality-correction`; PR #35 | final TMR Tooling `35530579354` PASS; PR FAST `35530643533`; PR INTEGRATION `35530643582`; post-merge FAST/INTEGRATION PASS | tooling-only; no production C++; no campaign |
-| Corrected formal TMR preparation and audit | VALIDATED_UNMERGED / PREPARED | workflow run `35531261000`; branch `docs/tmr-corrected-preparation-audit` | artifact `10611054028`; ZIP SHA-256 `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`; manifest `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`; audit PASS | PREPARED only; 56-command plan; no claim/execute; authorization binding still points to first package |
+| Corrected formal TMR preparation and audit | MERGED / PREPARED / HISTORICAL | workflow run `35531261000`; audit PR #37 | artifact `10611054028`; ZIP SHA-256 `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`; manifest `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`; audit PASS | preparation-only historical authority consumed by the second formal campaign |
+| Generic TMR authorization binding | MERGED | `topology/tmr-generic-authorization-binding`; PR #39 | final TMR Tooling `35532329855` PASS; PR/post-merge FAST+INTEGRATION PASS | infrastructure only; no authorization or execution |
+| Whole-commit authorization isolation guard | MERGED | `topology/tmr-authorization-whole-commit-guard`; PR #41 | final TMR Tooling `35532708479` PASS; post-merge FAST `35533347184`; INTEGRATION `35533347164` | controller proves exactly one changed path in the entire authorization commit |
+| Second exact TMR execution authorization | MERGED / CONSUMED | `topology/tmr-second-execution-authorization`; PR #43 | one file / 14 lines; TMR Tooling `35533565419` PASS; PR FAST `35533616076`; INTEGRATION `35533616391`; merged `cddd959574ed6a677ac755a5b329d53a9cfe32ec` | exact second `EXECUTE_ONCE` event; no reuse |
+| Second formal TMR execution | EXECUTED / ATTEMPT CONSUMED | protected-main run `35533702004` | complete authorization/preflight PASS; immutable claim created; execute PASS; retention PASS; artifact `10612032787`, SHA-256 `dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8` | process success is not itself qualification |
+| Corrected terminal scientific audit | VALIDATED_UNMERGED / PASS | `docs/tmr-corrected-terminal-audit-pass` | TMR0–TMR7 independently recomputed PASS; 56 command records; eight semantic repetitions; eight byte-identical certificates; exact retention | integration pending; qualification scoped to admitted cloud environment |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
 
 ## Relevant branch classification
@@ -144,44 +149,67 @@ writing.
   EXECUTE_ONCE record or campaign execution.
 - `docs/tmr-generic-authorization-closure`: **CLOSURE-ONLY**; records PR #39
   integration and post-merge validation.
+- `topology/tmr-authorization-whole-commit-guard`: **MERGED / HISTORICAL**
+  via PR #41; complete-commit isolation guard for formal authorization.
+- `docs/tmr-whole-commit-guard-closure`: **MERGED / HISTORICAL** via PR #42.
+- `topology/tmr-second-execution-authorization`: **MERGED / CONSUMED**
+  via PR #43; exact second manifest-bound `EXECUTE_ONCE` record only.
+- `docs/tmr-corrected-terminal-audit-pass`: **ACTIVE /
+  VALIDATED_UNMERGED**; independent second terminal scientific audit.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The whole-commit authorization guard correction is closed.**
+**Integrate the corrected second TMR terminal scientific audit —
+VALIDATED_UNMERGED / PASS.**
 
-Closure evidence:
+Active branch: `docs/tmr-corrected-terminal-audit-pass`.
 
-1. final branch-head TMR Tooling `35532708479`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-2. correction PR #41 FAST `35533302056`: PASS;
-3. correction PR #41 INTEGRATION `35533302046`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. PR #41 squash-merged as
-   `d4a3a2da64c84ec922e881e899a153287593b79c`;
-5. post-merge FAST `35533347184`: PASS;
-6. post-merge INTEGRATION `35533347164`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. the protected-main controller now proves that the complete authorization
-   commit changes exactly one path, newly added in the manifest-hash
-   authorization namespace;
-8. no `EXECUTE_ONCE` record, execution claim or second formal campaign has
-   yet occurred.
+Formal campaign evidence:
 
-No work item is active.
+1. authorization PR #43 merged as
+   `cddd959574ed6a677ac755a5b329d53a9cfe32ec`;
+2. protected-main authorization/execution run `35533702004`: PASS;
+3. immutable claim
+   `tmr-execution-claim-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+4. claim object `5f0b693780a681b6ceb9d17afb7c6c83fde72847`, targeting candidate
+   `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
+5. terminal artifact `10612032787`, independently recomputed SHA-256
+   `dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8`;
+6. post-authorization FAST `35533701748`: PASS;
+7. post-authorization INTEGRATION `35533701754`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug.
+
+Independent terminal audit:
+
+- lifecycle `PREPARED → RUNNING → EXECUTED_PENDING_AUDIT`;
+- exact retained set: 146 files, 145 retention-hashed entries + manifest;
+- 56/56 unique command records, all exit 0, no timeout/launch error;
+- 112/112 planned command logs retained;
+- eight CTest discovery records;
+- eight exact semantic CTest records, each 7/7 PASS;
+- 56 individual semantic test executions;
+- eight retained certificates, byte-identical, SHA-256
+  `e574cc589e2dc75c2ffd218af7336bbdc6202b6e2dcf4fe035a5f4e8d4a791a5`;
+- all declared negative outcomes rejected;
+- dependency/runtime/compile inventories complete;
+- detached verification PASS;
+- TMR0–TMR7: **PASS**;
+- overall: **PASS**;
+- Topological Model: **QUALIFIED in the exact admitted cloud envelope**.
+
+No WSL/cloud equivalence is claimed. No curve implementation is authorized by
+this audit alone.
 
 ## Next admissible work item after closure
 
-Create one separate exact `EXECUTE_ONCE` authorization-record PR containing
-only:
+After this terminal audit is merged, required post-merge FAST/INTEGRATION pass,
+and the audit checkpoint is closed, open one separate **scientific entry
+decision for Curve Representation — Continuous Geometry Before
+Discretization**.
 
-`experiments/authorizations/topological-model-tmr-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa.json`
-
-The record must bind the already audited second PREPARED package exactly.
-Because the controller now validates the whole commit, the authorization branch
-and PR must contain no other repository change.
-
-Merging that one-file PR to protected `main` is the formal authorization
-event and will trigger the one-shot executor.
+That entry decision must define the first bounded curve investigation problem,
+its explicit exclusions, expected evidence, and stage-entry preconditions
+before any curve production implementation begins.
 
