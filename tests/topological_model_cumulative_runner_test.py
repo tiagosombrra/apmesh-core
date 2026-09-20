@@ -609,7 +609,7 @@ def main() -> int:
                 observed = {
                     record_id
                     for record_id in cell_ids
-                    if record_id.startswith(f"{cell_id}-{stage}-")
+                    if record_id in expected
                 }
                 if observed != expected:
                     raise RuntimeError(
