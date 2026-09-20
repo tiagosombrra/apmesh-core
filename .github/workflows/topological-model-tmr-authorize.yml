@@ -1,0 +1,98 @@
+name: Topological Model TMR Authorization
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "experiments/authorizations/topological-model-tmr-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd.json"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: topology-tmr-authorization-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd
+  cancel-in-progress: false
+
+jobs:
+  authorize:
+    name: Validate committed EXECUTE_ONCE authorization
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      authorization_file: ${{ steps.authorization.outputs.authorization_file }}
+      candidate: ${{ steps.authorization.outputs.candidate }}
+      preparation_run_id: ${{ steps.authorization.outputs.preparation_run_id }}
+      prepared_artifact_id: ${{ steps.authorization.outputs.prepared_artifact_id }}
+      prepared_manifest_sha256: ${{ steps.authorization.outputs.prepared_manifest_sha256 }}
+      preparation_seal_sha256: ${{ steps.authorization.outputs.preparation_seal_sha256 }}
+      claim_tag: ${{ steps.authorization.outputs.claim_tag }}
+    env:
+      TMR_AUTHORIZATION_FILE: experiments/authorizations/topological-model-tmr-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd.json
+
+    steps:
+      - name: Check out protected-main authorization commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Require canonical main authorization commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          test -z "$(git status --porcelain)"
+
+      - name: Require one newly added immutable authorization record
+        shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          git cat-file -e "${BEFORE_SHA}^{commit}"
+          observed="$(git diff --name-status "${BEFORE_SHA}" "${GITHUB_SHA}" -- "${TMR_AUTHORIZATION_FILE}")"
+          expected="$(printf 'A\t%s' "${TMR_AUTHORIZATION_FILE}")"
+          if [ "${observed}" != "${expected}" ]; then
+            echo "BLOCKED: execution authorization must be introduced exactly once as a new file" >&2
+            printf 'observed=%q\nexpected=%q\n' "${observed}" "${expected}" >&2
+            exit 2
+          fi
+
+      - name: Validate exact audited PREPARED authorization
+        id: authorization
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 tools/topological_model_tmr_authorization.py \
+            --source-root . \
+            validate \
+            --authorization "${TMR_AUTHORIZATION_FILE}" \
+            --github-output "${GITHUB_OUTPUT}"
+
+      - name: Require unclaimed PREPARED manifest
+        shell: bash
+        env:
+          TMR_CLAIM_TAG: ${{ steps.authorization.outputs.claim_tag }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin "refs/tags/${TMR_CLAIM_TAG}" >/dev/null 2>&1; then
+            echo "BLOCKED: execution claim already exists" >&2
+            exit 2
+          fi
+
+  execute:
+    name: Consume authorized PREPARED package once
+    needs: authorize
+    permissions:
+      actions: read
+      contents: write
+    uses: ./.github/workflows/topological-model-tmr-execute.yml
+    with:
+      authorization_file: ${{ needs.authorize.outputs.authorization_file }}
+      authorization_commit: ${{ github.sha }}
+      candidate: ${{ needs.authorize.outputs.candidate }}
+      preparation_run_id: ${{ needs.authorize.outputs.preparation_run_id }}
+      prepared_artifact_id: ${{ needs.authorize.outputs.prepared_artifact_id }}
+      prepared_manifest_sha256: ${{ needs.authorize.outputs.prepared_manifest_sha256 }}
+      preparation_seal_sha256: ${{ needs.authorize.outputs.preparation_seal_sha256 }}

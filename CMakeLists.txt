@@ -242,6 +242,20 @@ if(BUILD_TESTING)
             --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/topological-model-tmr-execute.yml
     )
     add_test(
+        NAME apmesh_core.topological_model_tmr_authorization
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/topological_model_tmr_authorization_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/topological_model_tmr_authorization.py
+    )
+    add_test(
+        NAME apmesh_core.topological_model_tmr_authorization_workflow
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/topological_model_tmr_authorization_workflow_test.py
+            --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/topological-model-tmr-authorize.yml
+    )
+    add_test(
         NAME apmesh_core.cartesian_frames_evidence
         COMMAND
             ${Python3_EXECUTABLE}
@@ -465,6 +479,8 @@ if(BUILD_TESTING)
         apmesh_core.topological_model_cumulative_runner
         apmesh_core.topological_model_cumulative_prepare_workflow
         apmesh_core.topological_model_cumulative_execute_workflow
+        apmesh_core.topological_model_tmr_authorization
+        apmesh_core.topological_model_tmr_authorization_workflow
         PROPERTIES LABELS "topology;contract;qualification;tooling"
     )
     set_tests_properties(

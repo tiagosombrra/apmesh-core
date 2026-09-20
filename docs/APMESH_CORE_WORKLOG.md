@@ -67,6 +67,7 @@ writing.
 | Preparation-only manual workflow | MERGED | technical lineage `topology/tmr-preparation-only-workflow` -> `topology/tmr-preparation-only-workflow-v2`; continuation branch `ci/tmr-preparation-workflow-simplification`; PR #20 | `35516864464` and `35516972035` retained mechanical quoting failures; corrected `35517077819` PASS; post-merge FAST `35519501704` PASS and INTEGRATION `35519501663` PASS | workflow integrated; formal dispatch recorded separately below |
 | First formal TMR preparation and package audit | MERGED | workflow run `35524700979`; audit branch `docs/tmr-prepared-package-audit`; PR #23 | run PASS; artifact `10609500629`; GitHub/archive SHA-256 `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`; preparation audit PASS; post-merge FAST `35525181361` PASS and INTEGRATION `35525181462` PASS | PREPARED only; `execution_requested=false`; TMR0-TMR7 `NOT_EXECUTED`; no execute |
 | One-shot manual TMR execution workflow | MERGED | `topology/tmr-execution-only-workflow`; PR #25 | focused/static runs `35525736120` and `35525847660` PASS in GCC 13 Debug and Clang 18/libc++ Debug; post-merge FAST `35525932108` PASS and INTEGRATION `35525932111` PASS; local Git upstream reconstruction contract verified | manual-only; exact candidate/artifact; preflight -> immutable claim tag -> one execute; no formal dispatch yet |
+| TMR authorization-as-code automation | VALIDATED_UNMERGED | `topology/tmr-authorization-as-code` | partial tooling runs `35527269611` and `35527350320` retained as mechanical implementation-contract failures; corrected run `35527446051` PASS in GCC 13 Debug and Clang 18/libc++ Debug across evidence, runner, preparation, reusable executor, authorization record, and authorization controller contracts | no authorization JSON yet; no claim; no formal execute |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
 
 ## Relevant branch classification
@@ -86,34 +87,71 @@ writing.
 - `topology/tmr-tooling-contract-correction`: **SUPERSEDED / HISTORICAL**.
 - `topology/tmr-execution-only-workflow`: **MERGED / HISTORICAL** via
   PR #25; one-shot manual execution wrapper for the audited PREPARED package.
+- `topology/tmr-authorization-as-code`: **ACTIVE / VALIDATED_UNMERGED**;
+  replaces the standalone execution click with a protected-main
+  authorization record plus reusable executor.
+- `ci/tmr-authorization-as-code`: **UNUSED / ZERO-CHANGE**; accidentally
+  created from the same closed checkpoint and explicitly excluded from
+  continuation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The one-shot manual TMR execution-workflow work item is closed.**
+**Replace the standalone manual TMR execution click with repository-resident
+authorization-as-code — VALIDATED_UNMERGED.**
 
-Closure evidence:
+Validated properties:
 
-1. PR #25 merged as `d7019fbff97989a79fd27fcb1915073881a53564`;
-2. post-merge FAST run `35525932108` passed;
-3. post-merge INTEGRATION run `35525932111` passed in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. no execution-claim tag exists yet;
-5. artifact `10609500629` remains unconsumed;
-6. no formal `execute` invocation, terminal package, or TMR0-TMR7 decision
-   exists.
+1. the audited PREPARED identity remains fixed to candidate
+   `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, preparation run
+   `35524700979`, artifact `10609500629`, prepared-manifest SHA-256
+   `d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd`,
+   and preparation-seal SHA-256
+   `982e1441f08bc3f11c3cffcf73113ce69a07e2066924ad01442b3ab94eeeb71e`;
+2. the executor is reusable-only through `workflow_call`; it exposes no
+   `workflow_dispatch`, push, PR, schedule, or workflow-run trigger;
+3. the authorization controller triggers only when the exact manifest-bound
+   JSON path is added to protected `main`;
+4. the controller requires that record to appear exactly once as a newly added
+   file, validates an exact closed schema, and rejects a pre-existing claim;
+5. the reusable executor independently checks the caller commit, revalidates
+   the committed authorization, then checks out the exact historical candidate;
+6. the original full PREPARED binding, immutable claim tag, single `execute`,
+   no-retry rule, retention verification, and terminal artifact remain intact;
+7. no actual `EXECUTE_ONCE` authorization JSON is part of this branch;
+8. no execution claim exists and no formal TMR execution has occurred;
+9. tooling run `35527446051` passed in both GCC 13 Debug and Clang 18/libc++
+   Debug across all six focused TMR tooling contracts.
 
-No formal-execution work item is active.
+Retained implementation-only failures:
+
+- run `35527269611`: the old static contract still required
+  `workflow_dispatch` after the executor had been converted to
+  `workflow_call`;
+- run `35527350320`: JavaScript file-writing absorbed shell continuation
+  backslashes, leaving valid but flattened shell and a mismatched static
+  contract;
+- both failures occurred before any scientific authorization, claim, or
+  `execute`; the corrected structured workflow passed in `35527446051`.
+
+Active implementation branch:
+`topology/tmr-authorization-as-code`.
+
+The zero-change branch `ci/tmr-authorization-as-code` remains explicitly
+non-active.
 
 ## Next admissible work item after closure
 
-After this workflow is merged, post-merge FAST/INTEGRATION pass, and the
-operational checkpoint is closed, dispatch **Topological Model TMR Execution**
-exactly once on canonical `main`.
+After this authorization-as-code mechanism is merged, post-merge
+FAST/INTEGRATION pass, the focused/static contracts remain green, and the work
+item is closed, create one **separate** exact `EXECUTE_ONCE` authorization
+record by pull request.
 
-That future dispatch may create the immutable execution-claim tag and consume
-artifact `10609500629` exactly once. After the run, stop and audit the retained
-terminal package before deciding TMR0-TMR7 or any Topological Model
-qualification. No second dispatch or retry is authorized.
+Merging that single record to protected `main` is the formal execution
+authorization event. The authorization controller will then call the reusable
+one-shot executor automatically. The resulting terminal package must be audited
+before deciding TMR0-TMR7 or any Topological Model qualification. No second
+authorization file, retry, rescue dispatch, or manual execution path is
+authorized.
 
