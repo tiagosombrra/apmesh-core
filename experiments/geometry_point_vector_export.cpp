@@ -56,6 +56,10 @@ std::string error_name(const GeometryError error) {
         return "zero_length";
     case GeometryError::indeterminate:
         return "indeterminate";
+    case GeometryError::invalid_frame:
+        return "invalid_frame";
+    case GeometryError::scale_out_of_range:
+        return "scale_out_of_range";
     }
     return "unknown";
 }
