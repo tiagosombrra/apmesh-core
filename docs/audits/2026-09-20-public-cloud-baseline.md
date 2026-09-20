@@ -37,12 +37,27 @@ PASS:
 - no TMR manifest or qualification execution was created;
 - current Topological Model limitations remain unchanged.
 
-Governance finding:
+Governance finding at baseline time:
 
-- the repository currently exposes no GitHub repository rulesets. This does not
-  invalidate the engineering regression, but branch/ruleset protection should
-  be configured before relying on required-status enforcement or accepting
-  external contributions.
+- the repository initially exposed no GitHub repository rulesets. This did not
+  invalidate the engineering regression but was retained as a governance gap.
+
+Resolution on 2026-09-20:
+
+- repository ruleset `23728711` (`main-protection`) is active and targets the
+  default branch;
+- bypass list is empty and the authenticated owner cannot bypass the ruleset;
+- deletion and non-fast-forward updates are blocked;
+- linear history is required;
+- pull requests are required, with squash/rebase as the only allowed merge
+  methods, zero required approvals, and resolved review conversations;
+- required status check is exactly `GCC 13 Debug / FAST` from GitHub Actions;
+- strict required-status semantics require the PR branch to be current with the
+  target branch before merge;
+- GitHub reports the public-preview flag
+  `require_extra_approval_for_unattributed_changes=true`; because the ruleset
+  requires zero approvals, GitHub documents that this flag has no effect on the
+  current workflow.
 
 ## CI baseline
 
