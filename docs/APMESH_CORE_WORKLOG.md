@@ -149,37 +149,42 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Correct the generic TMR authorization whole-commit guard — ACTIVE.**
+**Correct the generic TMR authorization whole-commit guard —
+VALIDATED_UNMERGED.**
 
 Active branch: `topology/tmr-authorization-whole-commit-guard`.
 
-During pre-authorization review, the integrated controller was found to compute
-its before→after diff with the pathspec `experiments/authorizations`. That
-correctly constrains authorization-file changes inside the directory, but it
-does not prove that the complete authorization commit contains no unrelated
-repository changes.
+Finding:
 
-This contradicts the already accepted generic-binding decision, which requires
-the entire protected-main authorization commit to add exactly one admitted
-authorization record and no other path.
+The generic controller initially computed its before→after diff with the
+`experiments/authorizations` pathspec. That proved the authorization-directory
+change but could hide unrelated paths in the same protected-main commit,
+contradicting the accepted generic-binding decision.
 
-Authorized scope:
+Correction:
 
-1. remove the authorization-directory pathspec from the controller diff;
-2. require the complete before→after commit diff to contain exactly one path;
-3. require that one path to be newly added and to match the manifest-hash
-   authorization namespace;
-4. strengthen the static controller contract so a future path-filtered diff
-   cannot satisfy it;
-5. preserve all other generic authorization, executor, claim, artifact,
-   PREPARED and scientific semantics;
-6. do not add `EXECUTE_ONCE`, create a claim or execute the campaign.
+1. controller now computes `git diff --name-status BEFORE AFTER` for the
+   complete commit without a pathspec;
+2. exactly one changed path is required;
+3. the path must be newly added;
+4. it must match the manifest-hash authorization namespace;
+5. the static controller contract explicitly rejects a path-filtered diff and
+   rejects `-- experiments/authorizations`;
+6. no other authorization/executor/PREPARED/scientific behavior changed.
+
+Validation:
+
+- TMR Tooling run `35532624980`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, including authorization controller, authorization record and reusable
+  executor contracts.
+
+No `EXECUTE_ONCE` record, claim or formal execution exists for the second
+package.
 
 ## Next admissible work item after closure
 
-After this focused guard correction is merged, TMR Tooling and ordinary
-post-merge checks pass, and its checkpoint is closed, create the previously
-authorized exact one-file `EXECUTE_ONCE` PR for the audited second PREPARED
-manifest
+After this whole-commit guard correction is merged, required post-merge checks
+pass, and its checkpoint is closed, create the exact one-file
+`EXECUTE_ONCE` authorization PR for the audited second PREPARED manifest
 `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`.
 
