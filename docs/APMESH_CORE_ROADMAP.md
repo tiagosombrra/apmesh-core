@@ -870,6 +870,13 @@ QUALIFIED**. Stage-level qualification remains deferred. After integration and
 closure, the next bounded transition is a separate Curve Derivatives and
 Regularity decision; derivative implementation does not begin automatically.
 
+PR #48 integrated the first curve work unit as
+`bde874311d9960c5fab7ce03b26b6cd5fbd61b34`. Final PR FAST
+`35541914952`, PR INTEGRATION `35541914958`, post-merge FAST
+`35541963486`, and post-merge INTEGRATION `35541963489` passed. The cubic
+value/evaluation checkpoint is closed. The sole next bounded transition is the
+separate Curve Derivatives and Regularity decision.
+
 #### Cubic Bezier Evaluation
 
 - Implement `CubicBezier2`/`CubicBezier3` value semantics from four
