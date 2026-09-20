@@ -108,8 +108,12 @@ must bind and retain, by declared identity and hash where applicable:
 The TMR preparation/runner path now binds this supplement, the cloud admission
 decision and audit, the machine-readable cloud profile/validator, and exact
 observations for all four declared cells. The binding fails closed on drift.
-Focused validation passed in GitHub Actions run `35516246789`. No manifest
-whose environment binding is weaker than Section 3 is authorized.
+Focused validation passed in GitHub Actions run `35516246789`. The launch
+plan additionally seals `/usr/bin/cmake`, `/usr/bin/ctest`,
+`/usr/bin/ninja`, `/usr/bin/g++-13`, and `/usr/bin/clang++-18` rather
+than relying on PATH resolution; focused validation passed in run
+`35516578411`. No manifest whose environment or planned-tool binding is
+weaker than Section 3 is authorized.
 
 ## 7. Decision effect
 

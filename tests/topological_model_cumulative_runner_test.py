@@ -106,6 +106,18 @@ def main() -> int:
             raise RuntimeError("runner repetition count differs")
         if len(self_check_value["declared_semantic_ctest_allowlist"]) != 7:
             raise RuntimeError("runner semantic allowlist cardinality differs")
+        for cell in self_check_value["plan"]["cells"]:
+            expected_compiler = "/usr/bin/g++-13" if cell["cell"].startswith("gcc-") else "/usr/bin/clang++-18"
+            if cell["configure"][0] != "/usr/bin/cmake" or cell["build"][0] != "/usr/bin/cmake":
+                raise RuntimeError("runner does not seal the admitted CMake path")
+            if cell["ctest_discovery"][0] != "/usr/bin/ctest" or cell["semantic_ctest"][0] != "/usr/bin/ctest":
+                raise RuntimeError("runner does not seal the CTest path from the admitted CMake package")
+            if cell["dependency_inventory"][0] != "/usr/bin/ninja":
+                raise RuntimeError("runner does not seal the admitted Ninja path")
+            if f"-DCMAKE_MAKE_PROGRAM=/usr/bin/ninja" not in cell["configure"]:
+                raise RuntimeError("runner configure does not bind the admitted Ninja path")
+            if f"-DCMAKE_CXX_COMPILER={expected_compiler}" not in cell["configure"] or cell["compiler"] != expected_compiler:
+                raise RuntimeError("runner does not seal the admitted compiler path")
         discovery = root / "discovery"
         (discovery / "logs").mkdir(parents=True)
         discovery_record = {"stdout": {"path": "logs/ctest.stdout.log"}}

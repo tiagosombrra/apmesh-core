@@ -1,6 +1,6 @@
 # Topological Model — Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED / FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / NOT PREPARED / NOT EXECUTED
+Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED / FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED / NOT PREPARED / NOT EXECUTED
 Date: 2026-09-20
 Stage: Topological Model — Explicit Identity and Incidence
 
@@ -243,8 +243,10 @@ image, package, compiler/library, architecture, and build-tool identities fixed
 by the supplement. The bounded validation passed in GitHub Actions run
 `35516246789` for both GCC 13 Debug and Clang 18/libc++ Debug focused tooling
 cells. Run `35516204233` is retained as a mechanical protocol-guard failure
-that stopped before environment evaluation. No formal cloud manifest has yet
-been prepared.
+that stopped before environment evaluation. The formal launch plan now uses
+the admitted absolute tool paths instead of PATH-resolved aliases; focused
+GCC/Clang Debug validation passed in run `35516578411`. No formal cloud
+manifest has yet been prepared.
 
 ## 13. Next bounded action
 

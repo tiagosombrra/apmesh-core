@@ -85,7 +85,11 @@ Current repository continuation checkpoint:
   `967072efdee49af04b06c3f73b2b89fcb66f874c`, run `35516246789`, exact
   admitted cloud identity plus focused GCC/Clang Debug tooling contracts PASS;
   prior run `35516204233` is retained as a mechanical protocol-guard failure
-  before environment evaluation.
+  before environment evaluation;
+- formal TMR launch-plan tool paths are now sealed to the admitted absolute
+  cloud paths (`/usr/bin/cmake`, `/usr/bin/ctest`, `/usr/bin/ninja`,
+  `/usr/bin/g++-13`, `/usr/bin/clang++-18`); focused GCC/Clang Debug
+  validation PASS in run `35516578411` on candidate `84149dc1cb7181fd18760927f76a51e1c3b1ce6d`.
 
 Current Topological Model completion lanes:
 
@@ -93,7 +97,7 @@ Current Topological Model completion lanes:
 | --- | ---: | --- |
 | Production implementation | 100% | Five authorized bounded topology work units implemented. |
 | Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
-| Stage-regression / qualification tooling | 100% | Report-only profile/exporter/comparer/runner and opt-in workflow implemented; exact cloud identity is now fail-closed in preparation/execution binding; focused GCC/Clang Debug contracts PASS in run `35516246789`. |
+| Stage-regression / qualification tooling | 100% | Report-only profile/exporter/comparer/runner and opt-in workflow implemented; exact cloud identity is fail-closed and the formal launch plan uses only admitted absolute tool paths; focused validation PASS in runs `35516246789` and `35516578411`. |
 | Formal evidence execution | 0% | No TMR manifest prepared and no TMR campaign executed. |
 | Closure audit / documentation | 0% | Stage cannot close before TMR0--TMR7 terminal audit. |
 
@@ -283,10 +287,13 @@ focused tooling contracts passed in GitHub Actions run `35514834796`. The
 cloud execution envelope is explicitly bound by
 `docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`.
 The preparation/runner path now fails closed on that exact identity; run
-`35516246789` passed both focused GCC/Clang Debug cells. Run `35516204233`
-is retained as the single mechanical protocol-guard failure that occurred
-before environment evaluation. No formal manifest was prepared, no four-cell
-TMR campaign was executed, and no TMR gate or qualification result exists.
+`35516246789` passed both focused GCC/Clang Debug cells. The launch plan also
+seals the admitted absolute compiler/build-tool paths rather than resolving them
+through `PATH`; run `35516578411` passed both focused cells. Run
+`35516204233` is retained as the single mechanical protocol-guard failure
+that occurred before environment evaluation. No formal manifest was prepared,
+no four-cell TMR campaign was executed, and no TMR gate or qualification result
+exists.
 
 Current prerequisite closure evidence:
 

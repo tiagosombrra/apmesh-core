@@ -105,8 +105,43 @@ def tool_identity(command: str) -> dict[str, str]:
     return {"command": command, "invocation_path": str(invoked), "resolved_path": str(executable), "sha256": sha256_file(executable), "version": version}
 
 
-def environment_identity() -> dict[str, Any]:
-    return {"python": tool_identity(sys.executable), "cmake": tool_identity("cmake"), "ctest": tool_identity("ctest"), "ninja": tool_identity("ninja"), "gcc": tool_identity("g++-13"), "clang": tool_identity("clang++-18"), "ldd": tool_identity("ldd"), "observations": {name: os.environ.get(name, "") for name in ("LANG", "LC_ALL", "TZ")}}
+def cloud_tool_paths(source: pathlib.Path) -> dict[str, str]:
+    cloud_profile = read_json(source / INPUT_PATHS["cloud_profile"])
+    tools = cloud_profile.get("tools")
+    if not isinstance(tools, dict):
+        raise fail("cloud qualification environment tool map differs")
+    try:
+        cmake = tools["cmake"]["path"]
+        ninja = tools["ninja"]["path"]
+        gcc = tools["gcc"]["path"]
+        clang = tools["clang"]["path"]
+    except (KeyError, TypeError) as error:
+        raise fail("cloud qualification environment tool paths differ") from error
+    paths = {
+        "cmake": cmake,
+        "ctest": str(pathlib.Path(cmake).with_name("ctest")),
+        "ninja": ninja,
+        "gcc": gcc,
+        "clang": clang,
+        "ldd": "/usr/bin/ldd",
+    }
+    if any(not pathlib.Path(path).is_absolute() for path in paths.values()):
+        raise fail("cloud qualification environment tool path is not absolute")
+    return paths
+
+
+def environment_identity(source: pathlib.Path) -> dict[str, Any]:
+    paths = cloud_tool_paths(source)
+    return {
+        "python": tool_identity(sys.executable),
+        "cmake": tool_identity(paths["cmake"]),
+        "ctest": tool_identity(paths["ctest"]),
+        "ninja": tool_identity(paths["ninja"]),
+        "gcc": tool_identity(paths["gcc"]),
+        "clang": tool_identity(paths["clang"]),
+        "ldd": tool_identity(paths["ldd"]),
+        "observations": {name: os.environ.get(name, "") for name in ("LANG", "LC_ALL", "TZ")},
+    }
 
 
 def cloud_environment_binding(paths: dict[str, pathlib.Path], profile: dict[str, Any]) -> dict[str, Any]:
@@ -173,11 +208,36 @@ def ctest_regex(names: list[str]) -> str:
 
 def command_plan(profile: dict[str, Any], source: pathlib.Path, declared: list[str]) -> list[dict[str, Any]]:
     targets = ["apmesh_core", "apmesh_core_bootstrap_smoke", "apmesh_core_numeric_contract", "apmesh_core.geometry_primitives", "apmesh_core.minimal_small_linear_algebra", "apmesh_core.math_header_isolation", "apmesh_core.cartesian_frames", "apmesh_core.topological_model", "apmesh_core_topological_model_cumulative_export"]
+    tools = cloud_tool_paths(source)
     plan = []
     for cell in profile["cells"]:
-        compiler, libcxx = ("g++-13", False) if cell["id"].startswith("gcc-") else ("clang++-18", True)
+        compiler, libcxx = (tools["gcc"], False) if cell["id"].startswith("gcc-") else (tools["clang"], True)
         build = f"@OUTPUT_ROOT@/cells/{cell['id']}/build"
-        plan.append({"cell": cell["id"], "compiler": compiler, "library": cell["library"], "build_type": cell["build_type"], "repetitions": profile["repetitions_per_cell"], "configure": ["cmake", "-S", str(source), "-B", build, "-G", "Ninja", f"-DCMAKE_CXX_COMPILER={compiler}", f"-DCMAKE_BUILD_TYPE={cell['build_type']}", f"-DAPMESH_USE_LIBCXX={'ON' if libcxx else 'OFF'}", "-DBUILD_TESTING=ON", "-DAPMESH_ENABLE_QUALIFICATION_TESTS=ON", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"], "build": ["cmake", "--build", build, "--target", *targets], "ctest_discovery": ["ctest", "--test-dir", build, "-N"], "semantic_ctest": ["ctest", "--test-dir", build, "--output-on-failure", "-R", ctest_regex(declared)], "certificate": [f"{build}/apmesh_core_topological_model_cumulative_export", "certificate", f"@OUTPUT_ROOT@/certificates/{cell['id']}-@REPETITION@.json"], "certificate_validation": [sys.executable, str(source / INPUT_PATHS["validator"]), "--profile", str(source / INPUT_PATHS["profile"]), "validate-certificate", "--certificate", f"@OUTPUT_ROOT@/certificates/{cell['id']}-@REPETITION@.json"], "negative_outcomes": [sys.executable, str(source / INPUT_PATHS["validator"]), "--profile", str(source / INPUT_PATHS["profile"]), "negative-outcomes", "--output", f"@OUTPUT_ROOT@/negatives/{cell['id']}.json"], "dependency_inventory": ["ninja", "-C", build, "-t", "deps"], "runtime_dependencies": [f"{build}/apmesh_core_topological_model_cumulative_export"]})
+        plan.append({
+            "cell": cell["id"],
+            "compiler": compiler,
+            "library": cell["library"],
+            "build_type": cell["build_type"],
+            "repetitions": profile["repetitions_per_cell"],
+            "configure": [
+                tools["cmake"], "-S", str(source), "-B", build, "-G", "Ninja",
+                f"-DCMAKE_MAKE_PROGRAM={tools['ninja']}",
+                f"-DCMAKE_CXX_COMPILER={compiler}",
+                f"-DCMAKE_BUILD_TYPE={cell['build_type']}",
+                f"-DAPMESH_USE_LIBCXX={'ON' if libcxx else 'OFF'}",
+                "-DBUILD_TESTING=ON",
+                "-DAPMESH_ENABLE_QUALIFICATION_TESTS=ON",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            ],
+            "build": [tools["cmake"], "--build", build, "--target", *targets],
+            "ctest_discovery": [tools["ctest"], "--test-dir", build, "-N"],
+            "semantic_ctest": [tools["ctest"], "--test-dir", build, "--output-on-failure", "-R", ctest_regex(declared)],
+            "certificate": [f"{build}/apmesh_core_topological_model_cumulative_export", "certificate", f"@OUTPUT_ROOT@/certificates/{cell['id']}-@REPETITION@.json"],
+            "certificate_validation": [sys.executable, str(source / INPUT_PATHS["validator"]), "--profile", str(source / INPUT_PATHS["profile"]), "validate-certificate", "--certificate", f"@OUTPUT_ROOT@/certificates/{cell['id']}-@REPETITION@.json"],
+            "negative_outcomes": [sys.executable, str(source / INPUT_PATHS["validator"]), "--profile", str(source / INPUT_PATHS["profile"]), "negative-outcomes", "--output", f"@OUTPUT_ROOT@/negatives/{cell['id']}.json"],
+            "dependency_inventory": [tools["ninja"], "-C", build, "-t", "deps"],
+            "runtime_dependencies": [f"{build}/apmesh_core_topological_model_cumulative_export"],
+        })
     return plan
 
 
@@ -230,7 +290,7 @@ def validate_execution_binding(arguments: argparse.Namespace, source: pathlib.Pa
     paths, profile, candidate = input_paths(arguments, source), None, published_candidate(source)
     profile = validate_profile(paths["profile"])
     protocol_check(paths["protocol"])
-    if manifest["candidate"] != candidate or manifest["environment"] != environment_identity() or manifest["working_directory"] != str(source) or manifest["output_root"] != str(output):
+    if manifest["candidate"] != candidate or manifest["environment"] != environment_identity(source) or manifest["working_directory"] != str(source) or manifest["output_root"] != str(output):
         raise fail("prepared candidate or environment differs")
     verify_input_identity(manifest["inputs"], paths)
     if manifest["cloud_environment"] != cloud_environment_binding(paths, profile):
@@ -253,7 +313,7 @@ def prepare(arguments: argparse.Namespace) -> None:
     declared = declared_allowlist(source, profile["semantic_ctest_allowlist"])
     plan = command_plan(profile, source, declared)
     output.mkdir(parents=True); shutil.copyfile(paths["profile"], output / "profile.json")
-    manifest = {"schema_version": 1, "kind": "topological-model-cumulative-prepared-manifest", "state": "PREPARED", "execution_requested": False, "candidate": candidate, "inputs": input_identity(paths), "environment": environment_identity(), "cloud_environment": cloud_binding, "working_directory": str(source), "output_root": str(output), "limits_seconds": {"build": BUILD_TIMEOUT_SECONDS, "process": PROCESS_TIMEOUT_SECONDS, "overall": OVERALL_TIMEOUT_SECONDS}, "declared_semantic_ctest_allowlist": declared, "plan": plan, "planned_inventories": planned_inventories(profile, candidate, plan), "gates": {gate: "NOT_EXECUTED" for gate in profile["gates"]}, "retained_limitations": profile["limitations"], "prepared_utc": utc_now()}
+    manifest = {"schema_version": 1, "kind": "topological-model-cumulative-prepared-manifest", "state": "PREPARED", "execution_requested": False, "candidate": candidate, "inputs": input_identity(paths), "environment": environment_identity(source), "cloud_environment": cloud_binding, "working_directory": str(source), "output_root": str(output), "limits_seconds": {"build": BUILD_TIMEOUT_SECONDS, "process": PROCESS_TIMEOUT_SECONDS, "overall": OVERALL_TIMEOUT_SECONDS}, "declared_semantic_ctest_allowlist": declared, "plan": plan, "planned_inventories": planned_inventories(profile, candidate, plan), "gates": {gate: "NOT_EXECUTED" for gate in profile["gates"]}, "retained_limitations": profile["limitations"], "prepared_utc": utc_now()}
     write_json(output / "prepared-manifest.json", manifest)
     write_json(output / "plan.json", {"schema_version": 1, "kind": "topological-model-cumulative-launch-plan", "execution_requested": False, "cells": plan, "gates": manifest["gates"], "limitations": manifest["retained_limitations"]})
     write_json(output / "planned-inventories.json", manifest["planned_inventories"])
