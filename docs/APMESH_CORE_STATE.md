@@ -132,12 +132,13 @@ Current Topological Model completion lanes:
 
 | Lane | Completion | Current basis |
 | --- | ---: | --- |
-| Production implementation | 100% | Five authorized bounded topology work units implemented. |
+| Production implementation | 100% | Five authorized bounded topology work units implemented; no production-semantic defect is shown by the blocked campaign. |
 | Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
-| Stage-regression / qualification tooling | 100% | Report-only profile/exporter/comparer/runner, fail-closed cloud binding, exact admitted tool plan, preparation workflow, exact authorization validator/controller, and reusable one-shot executor are implemented; authorization-as-code focused/static validation PASS in run `35527446051`. |
-| Formal evidence preparation | 100% | Run `35524700979` produced the first sealed PREPARED package for candidate `e5eda266`; independent preparation audit PASS; artifact remains unconsumed. |
-| Formal evidence execution | 0% | No `execute` invocation, command records, terminal manifest, TMR evidence campaign, or gate decision exists. |
-| Closure audit / documentation | 0% | Stage cannot close before formal execution and TMR0--TMR7 terminal scientific audit. |
+| Stage-regression / qualification tooling | 100% implemented, correction pending | The complete preparation/authorization/execution/retention path exists and ran once; diagnosis is required because runner repetition cardinality does not satisfy the sealed protocol. |
+| Formal evidence preparation | 100% for first attempt | Run `35524700979` produced the audited PREPARED package, later consumed exactly once by the authorized formal campaign. |
+| Formal evidence execution | 100% for first attempt | Run `35528077223` executed once and retained the terminal package; the attempt is immutable and consumed. |
+| Terminal scientific audit | 100% | TMR0–TMR5 PASS; TMR6–TMR7 BLOCKED; overall BLOCKED. |
+| Stage qualification | 0% closed | Topological Model remains NOT QUALIFIED until a future newly prepared campaign satisfies TMR0–TMR7. |
 
 Current cloud-execution infrastructure:
 
@@ -249,20 +250,30 @@ This does **not** qualify the Topological Model stage.
 
 Exact next bounded scientific action:
 
-**Create one separate exact `EXECUTE_ONCE` authorization record by pull
-request. Its merge to protected `main` is the formal execution authorization
-event and automatically calls the reusable Topological Model TMR executor.**
+**Integrate the terminal scientific audit that classifies the first formal TMR
+campaign as `BLOCKED`; after its merge and post-merge validation, open one
+separately authorized diagnosis of the protocol/runner repetition-cardinality
+mismatch.**
 
-Authorization-as-code is integrated by PR #27 as
-`7bf2d409556c8318db72b86ef0d85253aa0583ec`. Final focused/static tooling
-run `35527563934` passed in GCC 13 Debug and Clang 18/libc++ Debug; required
-PR FAST `35527616244` and INTEGRATION `35527616258` passed; post-merge
-FAST `35527668634` and INTEGRATION `35527668624` passed. The
-authorization-as-code work item is closed in `docs/APMESH_CORE_WORKLOG.md`.
+PR #29 merged the exact `EXECUTE_ONCE` authorization as
+`8a6eafc02d5e69f467e2badfea0b571e253b84bd`. The protected-main
+authorization workflow run `35528077223` completed successfully, created the
+immutable manifest-hash claim, consumed the PREPARED package exactly once, and
+retained terminal artifact `10610497080` with SHA-256
+`b332b8dde2e8651f4dd66339875378a53c9d4390400afd0d869b54969a2bf983`.
+Post-merge FAST `35528077113` and INTEGRATION `35528077120` passed.
 
-The audited PREPARED package remains unconsumed, no `EXECUTE_ONCE`
-authorization record exists, no execution-claim tag exists, no formal TMR
-execution has occurred, and Topological Model remains unqualified.
+Independent terminal audit found TMR0–TMR5 `PASS`, TMR6–TMR7 `BLOCKED`,
+overall `BLOCKED`. The blocker is evidence cardinality: the sealed protocol
+requires the exact seven-test semantic allowlist in both repetitions of each
+cell, but the sealed runner executed semantic CTest once per cell and repeated
+only certificate generation/validation. All observed semantic executions are
+7/7 PASS. No production-semantic contradiction is currently evidenced.
+
+The immutable execution claim exists and the formal attempt is consumed.
+No rerun, replacement authorization, rescue execution, or retroactive
+acceptance-criterion relaxation is authorized. Topological Model remains
+`IN INVESTIGATION / NOT QUALIFIED`.
 
 ## Current active stage
 
@@ -317,42 +328,46 @@ the forward-only canonical `apmesh-topology-v1` snapshot. Focused GCC 13 Debug
 and Clang 18/libc++ Debug CTests passed. This adds no repair, deserialization,
 adjacency, pairing, manifold policy, geometry, or embedded cryptography.
 
-**Topological Model Cumulative Regression — PRE-REGISTERED / REPORT-ONLY
-TOOLING IMPLEMENTED / FOCUSED TOOLING CONTRACTS PASS / PREPARED /
-PREPARATION AUDIT PASS / AUTHORIZATION-AS-CODE VALIDATED / NOT AUTHORIZED /
-NOT EXECUTED.** The single stage-exit protocol is fixed in
-`docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`. It uses
-four GCC/Clang Debug/Release cells, two repetitions per cell, the exact seven-
-test prerequisite/topology allowlist, and TMR0–TMR7. The reusable report-only
-profile, exporter, independent validator/comparer, revision-bound runner, and
-opt-in focused workflow now exist. Their GCC 13 Debug and Clang 18/libc++ Debug
-focused tooling contracts passed in GitHub Actions run `35514834796`. The
-cloud execution envelope is explicitly bound by
-`docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`.
-The preparation/runner path fails closed on that exact identity; run
-`35516246789` passed both focused GCC/Clang Debug cells. The launch plan seals
-the admitted absolute compiler/build-tool paths rather than resolving them
-through `PATH`; run `35516578411` passed both focused cells. The manual
-preparation-only workflow is structurally constrained and passed focused
-validation in run `35517077819` after the required tooling stop and
-simplification following mechanical runs `35516864464` and `35516972035`.
-Run `35516204233` remains the earlier cloud-binding protocol-guard failure.
+**Topological Model Cumulative Regression — FORMAL EXECUTION CONSUMED /
+TERMINAL AUDIT COMPLETE / TMR0-TMR5 PASS / TMR6-TMR7 BLOCKED /
+OVERALL BLOCKED / NOT QUALIFIED.** The stage-exit protocol remains fixed in
+`docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`.
+
 Formal preparation run `35524700979` produced artifact `10609500629` for
-candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`. Independent audit of
-the retained package, seal, lifecycle, cloud identity, fixed plan, 1534-file
-candidate inventory, 123 planned artifacts, and all twelve critical input hashes
-passed. The package remains unconsumed with `execution_requested=false` and
-TMR0--TMR7 `NOT_EXECUTED`. The execution path is being strengthened from a
-standalone manual dispatch to repository-resident authorization-as-code: an
-exact `EXECUTE_ONCE` JSON record must be newly added to protected `main`,
-the controller validates that record and rejects an existing claim, and the
-reusable executor independently revalidates the caller commit and authorization
-before checking out the exact historical candidate. The original full PREPARED
-binding, immutable manifest-hash claim, single `execute`, no-retry rule, and
-terminal retention remain intact. Focused/static tooling run `35527446051`
-passed all six TMR tooling contracts in both GCC/Clang cells. No authorization
-record, claim tag, four-cell TMR execution, terminal result, gate decision, or
-qualification result exists.
+candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`; its independent
+preparation audit passed. Authorization-as-code was integrated by PR #27. PR
+#29 then added the exact manifest-bound `EXECUTE_ONCE` record and merged as
+`8a6eafc02d5e69f467e2badfea0b571e253b84bd`.
+
+Run `35528077223` revalidated the authorization, candidate and PREPARED
+binding, created the immutable execution claim, executed the sealed package
+exactly once, verified retention, and retained terminal artifact `10610497080`.
+The terminal package contains 122 retained paths, 44/44 successful command
+records, eight byte-identical topology certificates, complete retained negative
+outcomes, dependency/compile inventories, and detached verification of the
+1534-file candidate inventory.
+
+Independent audit in
+`docs/audits/2026-09-20-topological-model-tmr-terminal-audit.md` records:
+TMR0 identity/scope PASS; TMR1 construction/immutability PASS; TMR2 incidence
+bijection PASS; TMR3 structural recomputation PASS; TMR4 canonical snapshot
+PASS; TMR5 repeat/cross-cell equivalence PASS; TMR6 prerequisite
+preservation/isolation BLOCKED; TMR7 evidence integrity/closure BLOCKED.
+
+The TMR6/TMR7 blocker is not an observed topology failure. Section 7 of the
+sealed protocol requires each of four cells to execute the exact seven-test
+semantic allowlist once in each of two repetitions. Eight semantic CTest
+records (56 individual test executions) were therefore required; the runner
+retained four semantic CTest records (28 individual executions), all 7/7 PASS.
+Its repetition loop covered certificate production/validation but not semantic
+CTest. Missing per-repetition evidence cannot be filled after the consumed
+attempt or accepted retroactively.
+
+The next admissible scientific work after this audit checkpoint is merged is a
+bounded diagnosis of that protocol/runner cardinality mismatch only. It may
+determine a minimal tooling correction and requirements for a new preparation,
+but it may not prepare or execute a new campaign inside the diagnosis work
+item.
 
 Current prerequisite closure evidence:
 
