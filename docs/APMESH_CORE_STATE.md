@@ -248,26 +248,28 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after correction integration:
 
-**Open one focused mechanical correction work item for the TMR runner
-repetition scope and stable protocol guard.**
+**Merge and close the focused TMR repetition-cardinality correction; then
+prepare one new formal TMR package from the corrected clean candidate.**
 
-The repetition-cardinality diagnosis is integrated by PR #33 as
-`da47c01da9cfcabafca4638c02006be8f1372aea`. Required PR FAST
-`35529950706` and INTEGRATION `35529950569` passed. Post-merge FAST
-`35529991911` and INTEGRATION `35529991909` also passed.
+The correction is implemented on
+`topology/tmr-repetition-cardinality-correction`. It preserves one configure
+per cell and executes build, CTest discovery, the exact seven-test semantic
+CTest, certificate production, and certificate validation once in each of two
+repetitions. The synthetic runner contract proves the diagnosed 56-command
+cardinality and fail-fast behavior in the second repetition.
 
-Diagnosis-time TMR Tooling run `35529933344` failed in both cells at the
-already diagnosed transient Section-13-title guard, before configuration of
-focused tooling and without creating a PREPARED package, claim, or scientific
-evidence.
+Final TMR Tooling run `35530368208` passed in GCC 13 Debug and Clang
+18/libc++ Debug. An intermediate run `35530318107` failed only because the
+new focused test used an over-broad certificate-ID prefix; commit
+`3a49376d9caafe80daaadeb0e1fa1c700cec0a89` corrected that assertion without
+changing runner behavior.
 
-The closed diagnosis requires a future corrected execution shape of exactly 56
-command records over four cells × two repetitions. The correction work item is
-tooling-only and must not modify production topology C++, scientific
-acceptance criteria, prepare a formal package, authorize execution, or run a
-formal campaign.
+No production topology C++, scientific profile, TMR acceptance criterion,
+formal PREPARED package, execution authorization, or formal campaign changed.
+Topological Model therefore remains `IN INVESTIGATION / NOT QUALIFIED`
+until a newly prepared future campaign satisfies TMR0–TMR7.
 
 
 ## Current active stage
