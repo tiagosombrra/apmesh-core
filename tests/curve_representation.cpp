@@ -225,7 +225,7 @@ int main() {
     if (!translation) {
         return 1;
     }
-    std::array<Point2, 4> translated_controls{};
+    auto translated_controls = curve2.control_points();
     for (std::size_t index = 0; index < translated_controls.size(); ++index) {
         const auto translated = curve2.control_points()[index] + *translation;
         if (!translated) {
@@ -259,7 +259,7 @@ int main() {
     if (!frame2) {
         return 1;
     }
-    std::array<Point2, 4> framed_controls{};
+    auto framed_controls = curve2.control_points();
     for (std::size_t index = 0; index < framed_controls.size(); ++index) {
         const auto mapped = frame2->point_to_world(curve2.control_points()[index]);
         if (!mapped) {
@@ -295,7 +295,7 @@ int main() {
     if (!frame3) {
         return 1;
     }
-    std::array<Point3, 4> framed_controls3{};
+    auto framed_controls3 = curve3.control_points();
     for (std::size_t index = 0; index < framed_controls3.size(); ++index) {
         const auto mapped = frame3->point_to_world(curve3.control_points()[index]);
         if (!mapped) {
