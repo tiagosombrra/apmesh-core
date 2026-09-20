@@ -137,7 +137,7 @@ modify or requalify C++, tests, tooling, thresholds, or the Numeric Contract.
 
 The revision-bound Numeric Contract manifest is:
 
-- path: `C:\Users\tiago\AppData\Local\Temp\apmesh-core-numeric-contract-prepared-20260905-181000-1939d248\manifest.json`;
+- path: externally retained `apmesh-core-numeric-contract-prepared-20260905-181000-1939d248/manifest.json`;
 - SHA-256: `ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`;
 - audited dependency decision: `BLOCKED`.
 
@@ -179,7 +179,7 @@ Architecture Contract regression.
 
 The revision-bound evidence is:
 
-- manifest: `C:\Users\tiago\AppData\Local\Temp\apmesh-core-nq-r1-531d0795e1a94e1e9f43a99a578f63ce\manifest.json`;
+- manifest identifier: `apmesh-core-nq-r1-531d0795e1a94e1e9f43a99a578f63ce/manifest.json`;
 - manifest SHA-256: `bcc39af9b75a7bd6fe1a0b02607f617372dd9bd62d8014ea69d31a097eed2a9f`;
 - comparison report SHA-256: `6f254659716d2c737fd715a20e85030987ff62eedda972d947ba84d7e7af652d`;
 - Architecture Contract manifest SHA-256: `db57bb80cde8aea24d6b598e97f4f41b6572b817cd56b3c2a83d6ef2e1346977`;
