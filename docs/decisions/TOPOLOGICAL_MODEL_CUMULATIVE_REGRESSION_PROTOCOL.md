@@ -452,3 +452,9 @@ After integration and checkpoint closure, the only permitted continuation is a
 separate one-file `EXECUTE_ONCE` authorization PR for the audited second
 PREPARED manifest
 `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`.
+
+PR #39 integrated the generic authorization binding as
+`3b5febcbda49977e834708344f561e6cba074fbf`; post-merge FAST
+`35532410672` and INTEGRATION `35532410659` passed. The infrastructure
+checkpoint is closed. The exact one-file second-package `EXECUTE_ONCE`
+authorization is now the sole permitted continuation.

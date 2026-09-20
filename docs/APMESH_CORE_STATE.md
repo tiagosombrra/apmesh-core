@@ -248,29 +248,31 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after generic authorization-binding integration:
+Exact next bounded scientific action:
 
 **Create one separate exact `EXECUTE_ONCE` authorization-record PR for the
 audited second Topological Model TMR PREPARED package.**
 
-The generic authorization infrastructure is implemented on
-`topology/tmr-generic-authorization-binding` and validated by TMR Tooling run
-`35532220165`, PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+The generic authorization infrastructure was integrated by PR #39 as
+`3b5febcbda49977e834708344f561e6cba074fbf`.
 
-The mechanism now derives campaign identity from a closed authorization record,
-requires the integrated machine-readable PREPARED audit, checks the exact
-GitHub artifact digest/provenance before download, revalidates the package
-before claim, and derives the immutable claim from the manifest hash.
+Validation:
 
-No scientific TMR criterion changes. No execution is authorized by the
-infrastructure work itself.
+- final TMR Tooling `35532329855`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- PR FAST `35532379951`: PASS;
+- PR INTEGRATION `35532379945`: PASS;
+- post-merge FAST `35532410672`: PASS;
+- post-merge INTEGRATION `35532410659`: PASS.
 
-After its merge and checkpoint closure, the only admissible authorization
-record is the one-file manifest-bound record for
-`f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`.
+The audited second manifest
+`f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`
+remains unclaimed. The next PR must contain only its exact repository-resident
+authorization record. Merging that one-file PR to protected `main` will
+trigger the generic authorization controller and reusable one-shot executor.
 
-Topological Model remains `IN INVESTIGATION / NOT QUALIFIED` until a future
-terminal audit decides TMR0–TMR7.
+Topological Model remains `IN INVESTIGATION / NOT QUALIFIED` until terminal
+TMR0–TMR7 audit.
 
 
 ## Current active stage

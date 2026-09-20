@@ -727,6 +727,14 @@ manifest hash. TMR Tooling run `35532220165` passed in GCC 13 Debug and
 Clang 18/libc++ Debug. No `EXECUTE_ONCE` record has been added by this work
 item.
 
+PR #39 integrated the generic binding as
+`3b5febcbda49977e834708344f561e6cba074fbf`. Final branch-head TMR Tooling
+`35532329855`, PR FAST `35532379951`, PR INTEGRATION `35532379945`,
+post-merge FAST `35532410672`, and post-merge INTEGRATION
+`35532410659` all passed. The sole next bounded work is now the exact
+one-file `EXECUTE_ONCE` authorization for the audited second PREPARED
+manifest.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,

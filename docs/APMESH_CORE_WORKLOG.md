@@ -139,72 +139,46 @@ writing.
   independent audit of the second PREPARED package only.
 - `docs/tmr-corrected-preparation-audit-closure`: **CLOSURE-ONLY**; records
   PR #37 integration and post-merge validation.
-- `topology/tmr-generic-authorization-binding`: **ACTIVE /
-  VALIDATED_UNMERGED**; generic manifest-bound authorization infrastructure
-  only; no EXECUTE_ONCE record or campaign execution.
+- `topology/tmr-generic-authorization-binding`: **MERGED / HISTORICAL**
+  via PR #39; generic manifest-bound authorization infrastructure only; no
+  EXECUTE_ONCE record or campaign execution.
+- `docs/tmr-generic-authorization-closure`: **CLOSURE-ONLY**; records PR #39
+  integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Generalize the repository-resident TMR authorization binding —
-VALIDATED_UNMERGED.**
+**None. The generic TMR authorization-binding infrastructure is closed.**
 
-Active branch: `topology/tmr-generic-authorization-binding`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/TOPOLOGICAL_MODEL_TMR_GENERIC_AUTHORIZATION_BINDING_DECISION.md`.
+1. generic binding decision:
+   `docs/decisions/TOPOLOGICAL_MODEL_TMR_GENERIC_AUTHORIZATION_BINDING_DECISION.md`;
+2. final branch-head TMR Tooling `35532329855`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+3. PR #39 FAST `35532379951`: PASS;
+4. PR #39 INTEGRATION `35532379945`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. PR #39 squash-merged as
+   `3b5febcbda49977e834708344f561e6cba074fbf`;
+6. post-merge FAST `35532410672`: PASS;
+7. post-merge INTEGRATION `35532410659`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+8. no authorization record, execution claim or formal campaign was created by
+   the infrastructure work item;
+9. the audited second PREPARED package remains unconsumed.
 
-Implemented invariants:
-
-1. authorization remains one explicit repository-resident `EXECUTE_ONCE`
-   record;
-2. authorization filename is manifest-hash-derived;
-3. schema remains closed and fail-closed;
-4. new campaigns bind a machine-readable PREPARED audit structurally;
-5. the protected-main controller requires the complete authorization commit to
-   add exactly one admitted authorization file and no other repository change;
-6. candidate/run/artifact/digest/manifest/seal values are propagated only from
-   the validated record;
-7. claim tag and execution concurrency are derived from the prepared-manifest
-   SHA-256;
-8. the reusable executor revalidates the committed authorization;
-9. artifact metadata is checked against GitHub before download, including exact
-   artifact SHA-256, run, candidate and `main` provenance;
-10. the restored package is independently revalidated before claim creation;
-11. no campaign-specific first-package candidate/run/artifact/manifest/seal
-    constant remains in the controller or executor;
-12. terminal retention remains fail-closed and manifest-bound.
-
-Validation:
-
-- intermediate TMR Tooling runs `35532036957` and `35532118323` failed
-  only because the then-current focused authorization test still referenced the
-  historical hardcoded `EXPECTED` object;
-- those failures were mechanical test-contract mismatches and created no
-  PREPARED package, authorization, claim or scientific execution;
-- final TMR Tooling run `35532220165`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, including generic authorization-record, authorization-
-  controller and reusable-executor contracts.
-
-Scientific boundary:
-
-- no production topology C++ changed;
-- no TMR matrix, repetitions, allowlist, cases, gates or acceptance criteria
-  changed;
-- the audited second PREPARED package remains unchanged and unconsumed;
-- this work item does not add `EXECUTE_ONCE`, create a claim or execute the
-  campaign.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After the generic authorization-binding PR is merged, post-merge
-FAST/INTEGRATION pass, and its checkpoint is closed, create one separate exact
-authorization-record PR containing **only**:
+Create one separate exact `EXECUTE_ONCE` authorization-record PR containing
+only:
 
 `experiments/authorizations/topological-model-tmr-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa.json`
 
-The record must bind the audited second PREPARED package exactly:
+The record must bind exactly:
 
 - candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
 - preparation run `35531261000`;
@@ -215,9 +189,12 @@ The record must bind the audited second PREPARED package exactly:
   `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
 - preparation-seal SHA-256
   `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
-- machine-readable preparation audit
-  `docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.json`.
+- preparation audit
+  `docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.json`;
+- execution workflow
+  `.github/workflows/topological-model-tmr-execute.yml`;
+- `terminal_audit_required=true`.
 
-Merging that one-file PR to protected `main` will be the formal execution
-authorization event and will invoke the generic one-shot executor.
+The PR must contain no other repository change. Its merge to protected `main`
+will be the formal execution authorization event.
 
