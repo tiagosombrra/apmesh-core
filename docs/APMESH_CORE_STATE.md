@@ -248,33 +248,43 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after corrected PREPARED audit integration:
 
-**Prepare exactly one new formal Topological Model TMR PREPARED package from
-the corrected clean `main` candidate, then stop for independent preparation
-audit.**
+**Open one bounded authorization-binding work item for the audited second TMR
+PREPARED package.**
 
-The focused repetition-cardinality correction was integrated by PR #35 as
-`6df723b68d265e2e3081a774d7312aa227fdcef6`.
+The second formal preparation completed in run `35531261000` on canonical
+`main` candidate
+`37f9af77f38e12af0a92d3c0f57f1ad31a218144`.
 
-Validation:
+Independent audit:
 
-- final corrected-branch TMR Tooling `35530579354`: PASS in GCC 13 Debug and
-  Clang 18/libc++ Debug;
-- PR FAST `35530643533`: PASS;
-- PR INTEGRATION `35530643582`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug;
-- post-merge INTEGRATION `35530685060`: PASS in both cells;
-- post-merge FAST `35530685096`: PASS.
+- artifact ID `10611054028`;
+- ZIP SHA-256
+  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
+- prepared-manifest SHA-256
+  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+- preparation-seal SHA-256
+  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
+- 1546 retained source paths exactly match the 1546-blob GitHub candidate
+  tree;
+- 12/12 critical candidate input hashes matched;
+- all four admitted cloud observations PASS;
+- corrected planned execution shape contains exactly 56 unique command records
+  and 112 command logs;
+- lifecycle `PREPARED`, `execution_requested=false`, TMR0–TMR7
+  `NOT_EXECUTED`;
+- no execution claim, command records, terminal manifest or certificate index.
 
-The corrected runner now enforces exactly 56 command records for a successful
-four-cell × two-repetition campaign, including eight build, eight discovery,
-eight semantic CTest, eight certificate and eight certificate-validation
-records.
+Audit decision:
+**PASS / PREPARED / NOT EXECUTED.**
 
-Topological Model remains `IN INVESTIGATION / NOT QUALIFIED`. The next
-preparation is evidence preparation only: it must not execute the campaign,
-create an execution claim, or decide TMR0–TMR7.
+The current authorization-as-code validator/controller/reusable executor are
+still explicitly bound to the consumed first package. Therefore no
+`EXECUTE_ONCE` for the new manifest is authorized until a separate bounded
+binding/generalization work item is merged, validated and closed.
+
+Topological Model remains `IN INVESTIGATION / NOT QUALIFIED`.
 
 
 ## Current active stage
