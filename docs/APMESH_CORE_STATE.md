@@ -248,31 +248,24 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after whole-commit guard integration:
 
-**Create one separate exact `EXECUTE_ONCE` authorization-record PR for the
-audited second Topological Model TMR PREPARED package.**
+**Create the exact one-file `EXECUTE_ONCE` authorization PR for the audited
+second Topological Model TMR PREPARED package.**
 
-The generic authorization infrastructure was integrated by PR #39 as
-`3b5febcbda49977e834708344f561e6cba074fbf`.
+A pre-authorization review found and corrected one mechanical governance gap in
+the generic controller: its commit diff was path-filtered to the authorization
+directory. The corrected controller now proves that the entire protected-main
+authorization commit changes exactly one path, that the path is newly added,
+and that it is the manifest-hash authorization record.
 
-Validation:
+TMR Tooling run `35532624980` passed in GCC 13 Debug and Clang 18/libc++
+Debug. No scientific criterion, PREPARED package, authorization, claim or
+formal execution changed.
 
-- final TMR Tooling `35532329855`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug;
-- PR FAST `35532379951`: PASS;
-- PR INTEGRATION `35532379945`: PASS;
-- post-merge FAST `35532410672`: PASS;
-- post-merge INTEGRATION `35532410659`: PASS.
-
-The audited second manifest
+The audited second manifest remains
 `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`
-remains unclaimed. The next PR must contain only its exact repository-resident
-authorization record. Merging that one-file PR to protected `main` will
-trigger the generic authorization controller and reusable one-shot executor.
-
-Topological Model remains `IN INVESTIGATION / NOT QUALIFIED` until terminal
-TMR0–TMR7 audit.
+and unclaimed.
 
 
 ## Current active stage
