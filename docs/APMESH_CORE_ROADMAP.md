@@ -958,8 +958,21 @@ seven-test semantic inventory, both checks are required by
 Regression is manual and reserved for explicit major phase boundaries; final
 functional-candidate run `35512093405` passed GCC/Clang Debug/Release after
 the checkout runtime deprecation was removed by pinning the official
-`actions/checkout` v7.0.1 commit. The next infrastructure action is to define
-and validate a reproducible cloud QUALIFICATION environment without yet
-declaring equivalence to the historical WSL qualification envelope. The next
-bounded scientific action remains the smallest reusable report-only TMR0–TMR7
-workflow. No further production topology concept is authorized.
+`actions/checkout` v7.0.1 commit.
+
+The cloud QUALIFICATION-environment transition is accepted at 100% through
+`docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md` and
+`docs/audits/2026-09-20-cloud-qualification-environment-admission.md`.
+CQE0–CQE7 passed in run `35513051098` on candidate `952695f`: all four
+GCC/Clang Debug/Release cells matched the pinned GitHub Ubuntu 24.04 image and
+declared package/tool identities, kept qualification tooling OFF, discovered
+the exact seven-test semantic inventory, retained per-cell artifacts, and
+passed 7/7 tests. The first run `35512991310` is retained as the single
+mechanical `BLOCKED_BY_CMAKE_CACHE_TYPE_ASSERTION` attempt. The admitted cloud
+envelope is explicitly distinct from the historical WSL qualification envelope
+and fails closed on runner-image or package drift.
+
+The next bounded scientific action is the smallest reusable report-only
+TMR0–TMR7 workflow. Before any formal TMR execution in the cloud, the
+pre-registered Topological Model protocol must explicitly name the admitted
+cloud envelope. No further production topology concept is authorized.

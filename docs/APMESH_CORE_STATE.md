@@ -93,13 +93,13 @@ Current cloud-execution infrastructure:
 | FAST | 100% | GitHub-hosted Ubuntu 24.04, GCC 13 Debug; `main` PASS. |
 | Major semantic regression | 100% | Four-cell GitHub-hosted Ubuntu 24.04 regression PASS on `main` in run `35510879978`. |
 | INTEGRATION | 100% | GCC 13 Debug and Clang 18/libc++ Debug required checks PASS; closure audit recorded in `docs/audits/2026-09-20-cloud-integration-closure.md`. |
-| QUALIFICATION environment | 0% | Reproducible cloud qualification envelope not yet admitted. |
+| QUALIFICATION environment | 100% | CQE0-CQE7 PASS on run `35513051098`; distinct cloud envelope admitted, with no WSL-equivalence claim. |
 
-Current INTEGRATION execution work-class allocation:
+Current cloud QUALIFICATION-environment execution work-class allocation:
 
 - Implementation: **0%**;
-- Tests/validation: **70%**;
-- Evidence/experiments: **5%**;
+- Tests/validation: **50%**;
+- Evidence/experiments: **25%**;
 - Documentation/governance: **25%**.
 
 These percentages describe this audit execution's work distribution, not
@@ -133,11 +133,22 @@ Debug/Release GCC/Clang cells with 7/7 semantic tests and no Node.js 20 checkout
 warning after pinning `actions/checkout` v7.0.1 by commit SHA. The closure audit
 is `docs/audits/2026-09-20-cloud-integration-closure.md`.
 
-Exact next admissible infrastructure action: define and validate the
-reproducible cloud QUALIFICATION environment without yet treating it as
-scientifically equivalent to the historical WSL qualification envelope. The
-next scientific Topological Model action remains the smallest reusable
-report-only TMR0--TMR7 workflow.
+Cloud QUALIFICATION-environment admission is accepted at **100%**. CQE0-CQE7
+passed in run `35513051098` on functional candidate
+`952695f0456f095e4f7204d34a7652738dbd75da`. The admitted envelope pins GitHub
+runner image `ubuntu-24.04` version `20260907.300.1`, exact Ubuntu
+compiler/library packages, and `/usr/bin` CMake 3.28.3 / Ninja 1.11.1. All
+four Debug/Release GCC/Clang cells matched environment identity, discovered the
+exact seven-test semantic inventory, kept qualification tooling OFF, and passed
+7/7 semantic tests. The first run `35512991310` is retained as the single
+mechanical `BLOCKED_BY_CMAKE_CACHE_TYPE_ASSERTION` attempt. Full audit:
+`docs/audits/2026-09-20-cloud-qualification-environment-admission.md`.
+
+The cloud envelope is distinct from the historical WSL qualification envelope;
+no equivalence is claimed. Exact next scientific action: implement the smallest
+reusable report-only TMR0--TMR7 workflow. Before formal TMR cloud execution, the
+TMR protocol must explicitly name the admitted cloud envelope. No manifest is
+prepared and no formal campaign is authorized yet.
 
 ## Current active stage
 
