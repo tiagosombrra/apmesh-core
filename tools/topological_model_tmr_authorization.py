@@ -33,7 +33,7 @@ AUDIT_STATUS = "PASS / PREPARED / NOT EXECUTED"
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _COMMIT = re.compile(r"^[0-9a-f]{40}$")
 _AUDIT_PATH = re.compile(
-    r"^docs/audits/[A-Za-z0-9._-]+topological-model-tmr[A-Za-z0-9._-]*preparation-audit\.md$"
+    r"^docs/audits/[A-Za-z0-9._-]+topological-model-tmr[A-Za-z0-9._-]*preparation-audit\.(?:json|md)$"
 )
 
 
@@ -45,14 +45,18 @@ def fail(message: str) -> AuthorizationError:
     return AuthorizationError(message)
 
 
-def read_json(path: pathlib.Path) -> dict[str, Any]:
+def read_object(path: pathlib.Path, label: str) -> dict[str, Any]:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
-        raise fail(f"authorization JSON could not be read: {error}") from error
+        raise fail(f"{label} JSON could not be read: {error}") from error
     if not isinstance(value, dict):
-        raise fail("authorization root must be a JSON object")
+        raise fail(f"{label} root must be a JSON object")
     return value
+
+
+def read_json(path: pathlib.Path) -> dict[str, Any]:
+    return read_object(path, "authorization")
 
 
 def require_sha256(value: Any, field: str) -> str:
@@ -67,8 +71,57 @@ def require_positive_int(value: Any, field: str) -> int:
     return value
 
 
-def audit_required_tokens(value: dict[str, Any]) -> tuple[str, ...]:
-    return (
+def validate_machine_readable_audit(
+    audit: pathlib.Path,
+    value: dict[str, Any],
+) -> None:
+    observed = read_object(audit, "preparation audit")
+    preparation = observed.get("preparation")
+    execution_absence = observed.get("execution_absence")
+    if not isinstance(preparation, dict) or not isinstance(execution_absence, dict):
+        raise fail("preparation audit structure differs")
+
+    expected = {
+        "decision": "PASS",
+        "lifecycle_state": "PREPARED",
+        "execution_requested": False,
+        "candidate_commit": value["candidate"],
+        "formal_execution_authorized": False,
+    }
+    for key, item in expected.items():
+        if observed.get(key) != item:
+            raise fail(f"preparation audit field differs: {key}")
+
+    preparation_expected = {
+        "run_id": value["preparation_run_id"],
+        "artifact_id": value["prepared_artifact_id"],
+        "artifact_sha256": value["prepared_artifact_sha256"],
+        "prepared_manifest_sha256": value["prepared_manifest_sha256"],
+        "preparation_seal_sha256": value["preparation_seal_sha256"],
+    }
+    for key, item in preparation_expected.items():
+        if preparation.get(key) != item:
+            raise fail(f"preparation audit binding differs: preparation.{key}")
+
+    absence_expected = {
+        "execution_claim": False,
+        "terminal_manifest": False,
+        "command_records": False,
+        "certificate_index": False,
+        "failure_record": False,
+        "all_gates": "NOT_EXECUTED",
+    }
+    for key, item in absence_expected.items():
+        if execution_absence.get(key) != item:
+            raise fail(f"preparation audit execution absence differs: {key}")
+
+
+def validate_legacy_markdown_audit(
+    audit: pathlib.Path,
+    value: dict[str, Any],
+) -> None:
+    content = audit.read_text(encoding="utf-8")
+    required = (
         AUDIT_STATUS,
         value["candidate"],
         str(value["preparation_run_id"]),
@@ -77,6 +130,8 @@ def audit_required_tokens(value: dict[str, Any]) -> tuple[str, ...]:
         value["prepared_manifest_sha256"],
         value["preparation_seal_sha256"],
     )
+    if any(token not in content for token in required):
+        raise fail("legacy preparation audit does not bind the exact authorized PREPARED identity")
 
 
 def validate_audit(root: pathlib.Path, value: dict[str, Any]) -> None:
@@ -89,10 +144,10 @@ def validate_audit(root: pathlib.Path, value: dict[str, Any]) -> None:
     if audit.parent != audit_root or not audit.is_file():
         raise fail("preparation audit authority is absent or outside docs/audits")
 
-    content = audit.read_text(encoding="utf-8")
-    missing = [token for token in audit_required_tokens(value) if token not in content]
-    if missing:
-        raise fail("preparation audit does not bind the exact authorized PREPARED identity")
+    if audit.suffix == ".json":
+        validate_machine_readable_audit(audit, value)
+    else:
+        validate_legacy_markdown_audit(audit, value)
 
 
 def validate_authorization(
