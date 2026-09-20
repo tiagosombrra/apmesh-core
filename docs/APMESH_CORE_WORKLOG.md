@@ -144,47 +144,53 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The corrected second PREPARED-package audit is closed.**
+**Generalize the repository-resident TMR authorization binding — ACTIVE.**
 
-Closure evidence:
+Active branch: `topology/tmr-generic-authorization-binding`.
 
-1. preparation run `35531261000` produced the second corrected PREPARED
-   package for candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
-2. independent audit decision:
-   **PASS / PREPARED / NOT EXECUTED**;
-3. audit PR #37 merged as
-   `1f004a06aa9c6c72e4053b23c67ce514e322369d`;
-4. PR #37 FAST `35531688595`: PASS;
-5. PR #37 INTEGRATION `35531688584`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. post-merge INTEGRATION `35531732329`: PASS in both cells;
-7. post-merge FAST `35531732270`: PASS;
-8. the audited package remains PREPARED and unconsumed; no execution claim or
-   terminal evidence exists for it.
+Authorized scope:
 
-No work item is active.
+1. preserve authorization-as-code as the explicit human authorization event;
+2. allow a newly added manifest-hash-named authorization JSON to carry the
+   exact audited PREPARED identity instead of recompiling hardcoded campaign
+   constants into the validator/controller/executor;
+3. keep a closed authorization schema and exact filename =
+   prepared-manifest SHA-256;
+4. require the referenced integrated preparation audit to exist and contain
+   the exact candidate/run/artifact/manifest/seal identity plus
+   `PASS / PREPARED / NOT EXECUTED`;
+5. make the controller discover exactly one newly added authorization record
+   on protected `main` and reject modification/replacement/multiple records;
+6. derive the immutable claim tag from the prepared-manifest hash;
+7. make the reusable executor revalidate the committed authorization before
+   candidate checkout and independently revalidate the downloaded PREPARED
+   manifest/seal before claim creation;
+8. preserve no-retry semantics, terminal retention and fail-closed behavior;
+9. strengthen static/focused contracts for generic package binding and
+   historical consumed-package rejection through the claim;
+10. do **not** add the second `EXECUTE_ONCE` record in this work item;
+11. do **not** create an execution claim or run a formal campaign;
+12. do **not** modify production topology C++ or TMR scientific
+    matrix/allowlist/cases/gates.
 
-## Next admissible work item after closure
-
-Open one bounded authorization-binding/generalization work item for the audited
-second PREPARED package.
-
-The work item must preserve the one-shot repository-resident authorization
-model and fail-closed execution semantics while making the exact audited second
-package admissible:
+Target second-package identity remains:
 
 - candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
 - preparation run `35531261000`;
-- artifact ID `10611054028`;
-- artifact ZIP SHA-256
+- artifact `10611054028`;
+- artifact SHA-256
   `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
-- prepared-manifest SHA-256
-  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
-- preparation-seal SHA-256
-  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
-- preparation audit
-  `docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.md`.
+- manifest `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+- seal `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`.
 
-That work item must not add `EXECUTE_ONCE`, create a claim, or execute the
-campaign.
+## Next admissible work item after closure
+
+After this generic authorization-binding mechanism is merged, focused TMR
+Tooling and ordinary post-merge checks pass, and its checkpoint is closed,
+create one separate exact `EXECUTE_ONCE` authorization-record PR for the
+audited second PREPARED package.
+
+Merging that future record to protected `main` will be the formal execution
+authorization event. No authorization record belongs to this infrastructure
+work item.
 
