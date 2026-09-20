@@ -393,3 +393,8 @@ The first work unit is closed at **IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT
 QUALIFIED**. The next bounded transition is a separate scientific decision for
 Curve Derivatives and Regularity. No derivative implementation is authorized by
 this checkpoint.
+
+That separate decision is now being specified in
+`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`. It deliberately
+separates first/second derivative and pointwise-speed evaluation from the
+stronger interval-wide global-regularity certification problem.
