@@ -112,58 +112,53 @@ writing.
   continuation.
 - `topology/tmr-execution-authorization`: **MERGED / HISTORICAL** via PR #29;
   contained only the exact manifest-bound `EXECUTE_ONCE` authorization.
-- `docs/tmr-terminal-audit-blocked`: **ACTIVE / VALIDATED_UNMERGED**;
+- `docs/tmr-terminal-audit-blocked`: **MERGED / HISTORICAL** via PR #30;
   contains the independent terminal scientific audit and repository status
   synchronization for the consumed first formal TMR campaign.
+- `docs/tmr-terminal-audit-checkpoint`: **ACTIVE / VALIDATED_UNMERGED**;
+  closes the audit-integration checkpoint only; no scientific/tooling change.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Integrate the first formal TMR terminal scientific audit — VALIDATED_UNMERGED /
-BLOCKED SCIENTIFIC RESULT.**
+**Close the merged first-TMR terminal-audit checkpoint — VALIDATED_UNMERGED.**
 
-Active branch: `docs/tmr-terminal-audit-blocked`.
+Active branch: `docs/tmr-terminal-audit-checkpoint`.
 
-Authorized scope:
+Closure evidence already on `main`:
 
-1. retain the exact first-campaign terminal package and immutable execution
-   claim without mutation;
-2. record PR #29 and run `35528077223` as the consumed one-shot formal
-   attempt;
-3. record independent gate decisions TMR0–TMR5 `PASS`, TMR6–TMR7
-   `BLOCKED`, overall `BLOCKED`;
-4. record the exact blocker: four semantic CTest command records exist while
-   the sealed four-cell/two-repetition protocol requires eight;
-5. synchronize STATE, ROADMAP, WORKLOG and the active TMR protocol;
-6. apply the roadmap-order correction that Quad-Dominant Extension precedes
-   Parallel Equivalence;
-7. do not modify production C++, runner/tooling behavior, protocol acceptance
-   criteria, the consumed authorization, or retained evidence;
-8. do not prepare or execute another TMR campaign.
+1. PR #30 merged the terminal Markdown/JSON audit and synchronized
+   STATE/ROADMAP/WORKLOG/protocol as
+   `83a135127302ca328bf49e3e71fbb8ac2e16da2b`;
+2. PR #30 pre-merge FAST `35529145010` passed;
+3. PR #30 pre-merge INTEGRATION `35529144962` passed in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+4. post-merge FAST `35529230596` passed;
+5. post-merge INTEGRATION `35529230618` passed in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+6. the authoritative scientific result remains TMR0–TMR5 `PASS`,
+   TMR6–TMR7 `BLOCKED`, overall `BLOCKED`;
+7. the consumed execution claim and terminal evidence remain immutable.
 
-The branch contains the retained Markdown/JSON terminal audit and status
-synchronization only. A separate diagnosis work item is not active yet.
+This checkpoint performs documentation/continuity closure only. It does not
+modify production C++, runner/tooling behavior, protocol acceptance criteria,
+or scientific evidence.
 
 ## Next admissible work item after closure
 
-After this audit/status checkpoint is merged, post-merge FAST/INTEGRATION pass,
-and the repository documents are authoritative on `main`, open exactly one
-bounded diagnosis work item for the protocol/runner repetition-cardinality
-mismatch.
+Open exactly one bounded diagnosis work item for the protocol/runner
+repetition-cardinality mismatch.
 
-That diagnosis must answer, from the sealed protocol and runner:
+The diagnosis must determine:
 
-1. which operations are repetition-scoped — discovery, build, semantic CTest,
-   certificate production/validation, or a strict subset;
-2. the exact required command/evidence cardinality for four cells × two
-   repetitions;
-3. the minimal runner/profile/inventory/test correction needed to enforce that
-   cardinality;
-4. whether the current protocol wording needs clarification without weakening
-   the original acceptance claim; and
-5. the requirements for a **new** PREPARED package and future one-shot campaign.
+1. which operations are repetition-scoped by the sealed protocol;
+2. the exact four-cell × two-repetition command/evidence cardinality;
+3. the minimal runner/profile/inventory/test correction;
+4. whether wording clarification is needed without weakening the original
+   scientific acceptance claim; and
+5. requirements for a new PREPARED package and future formal campaign.
 
-The diagnosis work item must not prepare, authorize, or execute a new campaign.
-The consumed manifest/claim remain immutable and no retry/rescue is permitted.
+The diagnosis must not prepare, authorize, or execute a new campaign. No retry
+or rescue of the consumed first attempt is permitted.
 
