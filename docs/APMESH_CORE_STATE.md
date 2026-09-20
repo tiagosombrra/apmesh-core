@@ -3,8 +3,8 @@
 Status: ACTIVE
 Last updated: 2026-09-20
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Working branch: verify with Git; Minimal Small Linear Algebra is integrated into
-`main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`.
+Repository state: verify the active branch and revision with Git before
+continuation. `main` is the canonical integration branch.
 
 ## Purpose
 
@@ -289,8 +289,8 @@ on candidate `236d290a20227f0abd646073499c0d3e20a19f8e` passed the formal audit:
 N0--N7 all pass. The Numeric Contract is `QUALIFIED` inside the declared WSL
 Ubuntu 24.04 GCC 13/Clang 18 envelope.
 
-Evidence status: the revision-bound NQ-R1 manifest at
-`C:\Users\tiago\AppData\Local\Temp\apmesh-core-nq-r1-531d0795e1a94e1e9f43a99a578f63ce\manifest.json`
+Evidence status: the revision-bound NQ-R1 manifest identified as
+`apmesh-core-nq-r1-531d0795e1a94e1e9f43a99a578f63ce/manifest.json`
 with SHA-256
 `bcc39af9b75a7bd6fe1a0b02607f617372dd9bd62d8014ea69d31a097eed2a9f`
 was audited as N0/N1/N3–N7 `PASS` and N2 `BLOCKED`. The earlier N0/N1 `PASS`,
