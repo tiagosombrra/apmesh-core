@@ -831,8 +831,8 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `IN INVESTIGATION / ENTRY DECISION APPROVED /
-IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED`
+Status: `IN INVESTIGATION / CUBIC VALUE-EVALUATION IMPLEMENTED /
+FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
 
@@ -858,6 +858,17 @@ PR #46 integrated the entry authority as
 `35536324878`, and post-merge INTEGRATION `35536324875` passed. The entry
 checkpoint is closed. The sole next work item is the bounded cubic
 representation/evaluation implementation.
+
+The implementation branch is
+`curve/cubic-bezier-value-evaluation`. It remains limited to the fixed cubic
+value/evaluation contract. FAST `35541613233` and INTEGRATION
+`35541613216` passed, with both new curve contracts and all selected
+prerequisite semantic tests passing in GCC 13 Debug and Clang 18/libc++ Debug.
+
+The work-unit result is **IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT
+QUALIFIED**. Stage-level qualification remains deferred. After integration and
+closure, the next bounded transition is a separate Curve Derivatives and
+Regularity decision; derivative implementation does not begin automatically.
 
 #### Cubic Bezier Evaluation
 

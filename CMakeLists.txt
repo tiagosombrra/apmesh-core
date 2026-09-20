@@ -30,6 +30,7 @@ add_library(apmesh_core STATIC
     src/core/bootstrap.cpp
     src/core/geometry.cpp
     src/core/numeric.cpp
+    src/geometry/curve.cpp
     src/math/linear_algebra.cpp
     src/topology/topology.cpp
 )
@@ -133,6 +134,28 @@ if(BUILD_TESTING)
 
     add_test(NAME apmesh_core.topological_model COMMAND apmesh_core.topological_model)
 
+    add_executable(apmesh_core.curve_representation
+        tests/curve_representation.cpp
+    )
+    target_link_libraries(apmesh_core.curve_representation PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.curve_representation)
+
+    add_test(
+        NAME apmesh_core.curve_representation
+        COMMAND apmesh_core.curve_representation
+    )
+
+    add_executable(apmesh_core.curve_header_isolation
+        tests/curve_header_isolation.cpp
+    )
+    target_link_libraries(apmesh_core.curve_header_isolation PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.curve_header_isolation)
+
+    add_test(
+        NAME apmesh_core.curve_header_isolation
+        COMMAND apmesh_core.curve_header_isolation
+    )
+
     add_executable(apmesh_core.minimal_small_linear_algebra
         tests/minimal_small_linear_algebra.cpp
     )
@@ -178,6 +201,14 @@ if(BUILD_TESTING)
     set_tests_properties(
         apmesh_core.topological_model
         PROPERTIES LABELS "topology;contract;focused-contract;fast;integration;qualification"
+    )
+    set_tests_properties(
+        apmesh_core.curve_representation
+        PROPERTIES LABELS "curve;geometry;contract;focused-contract;direct-semantic;fast;integration"
+    )
+    set_tests_properties(
+        apmesh_core.curve_header_isolation
+        PROPERTIES LABELS "curve;geometry;contract;focused-contract;fast;integration"
     )
 
     if(APMESH_ENABLE_QUALIFICATION_TESTS)

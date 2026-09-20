@@ -250,44 +250,44 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after cubic work-unit integration:
 
-**Implement Polynomial Cubic Bézier Value Representation and Evaluation only.**
+**Close Polynomial Cubic Bézier Value Representation and Evaluation, then open
+one separate Curve Derivatives and Regularity decision.**
 
-The Curve Representation entry decision was integrated by PR #46 as
-`c76e2946c8c9ffec658e4c8aa146f1abdca62f33`.
+The bounded cubic work unit is implemented on
+`curve/cubic-bezier-value-evaluation`.
 
-Validation:
+Focused evidence on branch head
+`2da0d55b1d0404c108449fb15ae8b0f528a6c3f0`:
 
-- PR FAST `35536256853`: PASS;
-- PR INTEGRATION `35536256854`: PASS;
-- post-merge FAST `35536324878`: PASS;
-- post-merge INTEGRATION `35536324875`: PASS.
+- FAST `35541613233`: PASS, GCC 13 Debug, 9/9 selected tests;
+- INTEGRATION `35541613216`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 9/9 selected tests in each cell.
 
-The bounded implementation remains exactly:
+The implementation satisfies the fixed value/evaluation scope only:
+four ordered control points, `[0,1]`, de Casteljau/`std::lerp`, exact
+endpoints, reversal, explicit parameter failure and deterministic focused
+evidence.
 
-- immutable `CubicBezier2`/`CubicBezier3`;
-- four ordered qualified control points;
-- parameter domain `[0,1]`;
-- de Casteljau evaluation using component-wise `std::lerp`;
-- geometric reversal;
-- explicit non-finite/out-of-domain parameter failures;
-- focused GCC/Clang validation and prerequisite preservation.
+Scientific status remains
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED**.
 
-No derivative, regularity, arc length, rational curve, topology ownership,
-discretization, quadrilateral, or parallel capability is authorized.
+No derivative, regularity, curvature, arc length, rational curve, topology
+ownership, discretization, quadrilateral or parallel capability is authorized
+by this result.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
-IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED**
+IN INVESTIGATION / CUBIC VALUE-EVALUATION IMPLEMENTED /
+FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 
 Current entry decision:
 
-**Polynomial Cubic Bézier Value Representation and Evaluation — AUTHORIZED /
-NOT IMPLEMENTED.** The bounded work unit introduces only immutable 2D/3D cubic
+**Polynomial Cubic Bézier Value Representation and Evaluation — IMPLEMENTED /
+FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.** The bounded work unit introduces only immutable 2D/3D cubic
 polynomial Bézier geometry with four ordered control points, evaluation on the
 closed normalized domain `[0,1]` by de Casteljau/`std::lerp`, exact
 endpoints, reversal, explicit parameter failures, and focused analytic evidence.

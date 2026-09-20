@@ -168,30 +168,55 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Curve Representation entry decision is closed.**
+**Polynomial Cubic Bézier Value Representation and Evaluation —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/cubic-bezier-value-evaluation`.
 
-1. PR #46 merged as
-   `c76e2946c8c9ffec658e4c8aa146f1abdca62f33`;
-2. PR FAST `35536256853`: PASS;
-3. PR INTEGRATION `35536256854`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-4. post-merge FAST `35536324878`: PASS;
-5. post-merge INTEGRATION `35536324875`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. no curve production implementation was included in the decision work item.
+Implemented bounded surface:
 
-No work item is active.
+- new `include/apmesh/geometry/curve.hpp`;
+- new `src/geometry/curve.cpp`;
+- immutable `CubicBezier2` and `CubicBezier3`;
+- exactly four ordered qualified control points;
+- `evaluate(t)` only for finite `t∈[0,1]`;
+- recursive component-wise de Casteljau evaluation using `std::lerp`;
+- exact endpoint semantics;
+- geometric reversal by reversing control-point order;
+- explicit `CurveError::non_finite_parameter`,
+  `parameter_out_of_domain`, and defensive `non_finite_result`;
+- focused 2D/3D analytic/adversarial contract and public-header isolation
+  contract;
+- CMake integration into the existing `apmesh::core` target only.
+
+Focused validation:
+
+- FAST `35541613233`: PASS, GCC 13 Debug, 9/9 selected tests;
+- INTEGRATION `35541613216`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 9/9 selected tests in each cell;
+- `apmesh_core.curve_representation`: PASS in all required cells;
+- `apmesh_core.curve_header_isolation`: PASS in all required cells;
+- Numeric, Geometry Primitives, Cartesian Frames, Topological Model, Minimal
+  Small Linear Algebra and Math Header Isolation prerequisite tests all PASS.
+
+Explicitly absent: derivatives, regularity, curvature, arc length,
+rational/arbitrary-degree curves, topology ownership, discretization,
+quadrilateral meshing and parallel execution.
+
+Scientific status:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
 
 ## Next admissible work item after closure
 
-Implement exactly one work unit:
+After this implementation PR is merged, post-merge FAST/INTEGRATION pass, and
+its checkpoint is closed, open one separate bounded scientific decision for:
 
-**Polynomial Cubic Bézier Value Representation and Evaluation.**
+**Curve Derivatives and Regularity.**
 
-The implementation must remain within
-`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md` and reach
-`IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED` before any derivative,
-regularity, arc-length, discretization, quadrilateral, or parallel work opens.
+That next decision must define first/second derivative semantics, zero-speed /
+regularity classification, error semantics, reversal relations, analytic
+fixtures and explicit exclusions before any derivative production code begins.
+
+Arc length, curvature, discretization, quadrilateral meshing and parallel
+execution remain closed.
 
