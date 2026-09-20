@@ -74,7 +74,10 @@ jobs:
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "${TMR_AUTHORIZATION_COMMIT}"
           test -z "$(git status --porcelain)"
-          /usr/bin/python3 tools/topological_model_tmr_authorization.py             --source-root .             validate             --authorization "${TMR_AUTHORIZATION_FILE}"
+          /usr/bin/python3 tools/topological_model_tmr_authorization.py \
+            --source-root . \
+            validate \
+            --authorization "${TMR_AUTHORIZATION_FILE}"
 
       - name: Check out exact prepared candidate
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -101,7 +104,13 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update
-          sudo apt-get install --yes --no-install-recommends             cmake=3.28.3-1build7             ninja-build=1.11.1-2             g++-13=13.3.0-6ubuntu2~24.04.1             clang-18=1:18.1.3-1ubuntu1             libc++-18-dev=1:18.1.3-1ubuntu1             libc++abi-18-dev=1:18.1.3-1ubuntu1
+          sudo apt-get install --yes --no-install-recommends \
+            cmake=3.28.3-1build7 \
+            ninja-build=1.11.1-2 \
+            g++-13=13.3.0-6ubuntu2~24.04.1 \
+            clang-18=1:18.1.3-1ubuntu1 \
+            libc++-18-dev=1:18.1.3-1ubuntu1 \
+            libc++abi-18-dev=1:18.1.3-1ubuntu1
 
       - name: Restore exact audited PREPARED package
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
@@ -121,7 +130,14 @@ jobs:
           set -euo pipefail
           test "$(sha256sum "${OUTPUT_ROOT}/prepared-manifest.json" | awk '{print $1}')" = "${TMR_PREPARED_MANIFEST_SHA256}"
           test "$(sha256sum "${OUTPUT_ROOT}/preparation-seal.json" | awk '{print $1}')" = "${TMR_PREPARATION_SEAL_SHA256}"
-          /usr/bin/python3 tools/run_topological_model_cumulative.py             --source-root .             --profile experiments/profiles/topological_model_cumulative.json             --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md             --exporter experiments/topological_model_cumulative_export.cpp             --validator tools/topological_model_cumulative_evidence.py             validate-prepared             --output-root "${OUTPUT_ROOT}"
+          /usr/bin/python3 tools/run_topological_model_cumulative.py \
+            --source-root . \
+            --profile experiments/profiles/topological_model_cumulative.json \
+            --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md \
+            --exporter experiments/topological_model_cumulative_export.cpp \
+            --validator tools/topological_model_cumulative_evidence.py \
+            validate-prepared \
+            --output-root "${OUTPUT_ROOT}"
           /usr/bin/python3 - "${OUTPUT_ROOT}/prepared-manifest.json" "${TMR_CANDIDATE}" <<'PY'
           import json
           import pathlib
@@ -149,7 +165,8 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag -a "${TMR_CLAIM_TAG}" "${TMR_CANDIDATE}"             -m "TMR execution claim; authorization_commit=${TMR_AUTHORIZATION_COMMIT}; authorization_file=${TMR_AUTHORIZATION_FILE}; prepared_run=${TMR_PREPARATION_RUN_ID}; prepared_manifest=${TMR_PREPARED_MANIFEST_SHA256}; workflow_run=${GITHUB_RUN_ID}"
+          git tag -a "${TMR_CLAIM_TAG}" "${TMR_CANDIDATE}" \
+            -m "TMR execution claim; authorization_commit=${TMR_AUTHORIZATION_COMMIT}; authorization_file=${TMR_AUTHORIZATION_FILE}; prepared_run=${TMR_PREPARATION_RUN_ID}; prepared_manifest=${TMR_PREPARED_MANIFEST_SHA256}; workflow_run=${GITHUB_RUN_ID}"
           git push origin "refs/tags/${TMR_CLAIM_TAG}"
           test "$(git ls-remote --tags origin "refs/tags/${TMR_CLAIM_TAG}^{}" | awk '{print $1}')" = "${TMR_CANDIDATE}"
 
@@ -159,7 +176,14 @@ jobs:
           OUTPUT_ROOT: ${{ runner.temp }}/apmesh-tmr-prepared
         run: |
           set -euo pipefail
-          /usr/bin/python3 tools/run_topological_model_cumulative.py             --source-root .             --profile experiments/profiles/topological_model_cumulative.json             --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md             --exporter experiments/topological_model_cumulative_export.cpp             --validator tools/topological_model_cumulative_evidence.py             execute             --output-root "${OUTPUT_ROOT}"
+          /usr/bin/python3 tools/run_topological_model_cumulative.py \
+            --source-root . \
+            --profile experiments/profiles/topological_model_cumulative.json \
+            --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md \
+            --exporter experiments/topological_model_cumulative_export.cpp \
+            --validator tools/topological_model_cumulative_evidence.py \
+            execute \
+            --output-root "${OUTPUT_ROOT}"
 
       - name: Remove reproducible build trees
         if: always()
@@ -179,7 +203,14 @@ jobs:
           OUTPUT_ROOT: ${{ runner.temp }}/apmesh-tmr-prepared
         run: |
           set -euo pipefail
-          /usr/bin/python3 tools/run_topological_model_cumulative.py             --source-root .             --profile experiments/profiles/topological_model_cumulative.json             --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md             --exporter experiments/topological_model_cumulative_export.cpp             --validator tools/topological_model_cumulative_evidence.py             verify-retention             --output-root "${OUTPUT_ROOT}"
+          /usr/bin/python3 tools/run_topological_model_cumulative.py \
+            --source-root . \
+            --profile experiments/profiles/topological_model_cumulative.json \
+            --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md \
+            --exporter experiments/topological_model_cumulative_export.cpp \
+            --validator tools/topological_model_cumulative_evidence.py \
+            verify-retention \
+            --output-root "${OUTPUT_ROOT}"
 
       - name: Retain terminal TMR package
         if: always()
