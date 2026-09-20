@@ -1,0 +1,95 @@
+name: Topological Model TMR Preparation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: topology-tmr-preparation
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    name: Prepare sealed TMR manifest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out canonical candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Require canonical main dispatch
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${GITHUB_REF}" != "refs/heads/main" ]; then
+            echo "BLOCKED: formal TMR preparation is restricted to main" >&2
+            exit 2
+          fi
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          test "$(git rev-parse '@{upstream}')" = "${GITHUB_SHA}"
+
+      - name: Install admitted cloud toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            cmake=3.28.3-1build7 \
+            ninja-build=1.11.1-2 \
+            g++-13=13.3.0-6ubuntu2~24.04.1 \
+            clang-18=1:18.1.3-1ubuntu1 \
+            libc++-18-dev=1:18.1.3-1ubuntu1 \
+            libc++abi-18-dev=1:18.1.3-1ubuntu1
+
+      - name: Prepare sealed package without execution
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-tmr-prepared
+        run: |
+          set -euo pipefail
+          test ! -e "${OUTPUT_ROOT}"
+          /usr/bin/python3 tools/run_topological_model_cumulative.py \
+            --source-root . \
+            --profile experiments/profiles/topological_model_cumulative.json \
+            --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md \
+            --exporter experiments/topological_model_cumulative_export.cpp \
+            --validator tools/topological_model_cumulative_evidence.py \
+            prepare \
+            --output-root "${OUTPUT_ROOT}"
+          /usr/bin/python3 tools/run_topological_model_cumulative.py \
+            --source-root . \
+            --profile experiments/profiles/topological_model_cumulative.json \
+            --protocol docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md \
+            --exporter experiments/topological_model_cumulative_export.cpp \
+            --validator tools/topological_model_cumulative_evidence.py \
+            validate-prepared \
+            --output-root "${OUTPUT_ROOT}"
+          /usr/bin/python3 - "${OUTPUT_ROOT}/prepared-manifest.json" <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          manifest = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+          if manifest["state"] != "PREPARED" or manifest["execution_requested"] is not False:
+              raise SystemExit("prepared manifest state differs")
+          if set(manifest["gates"].values()) != {"NOT_EXECUTED"}:
+              raise SystemExit("prepared manifest claims a TMR gate")
+          PY
+          test ! -e "${OUTPUT_ROOT}/execution-claim.json"
+          test ! -e "${OUTPUT_ROOT}/terminal-manifest.json"
+          test ! -e "${OUTPUT_ROOT}/command-records.json"
+
+      - name: Retain sealed PREPARED package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: tmr-prepared-${{ github.sha }}
+          path: ${{ runner.temp }}/apmesh-tmr-prepared
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
+          overwrite: false

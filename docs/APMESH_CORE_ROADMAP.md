@@ -571,6 +571,7 @@ IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
 CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
 FOCUSED TOOLING CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED /
 FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED /
+PREPARATION-ONLY WORKFLOW IMPLEMENTED / STATIC CONTRACT PASS / NOT DISPATCHED /
 NOT PREPARED / NOT EXECUTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
@@ -996,17 +997,27 @@ fails closed on runner-image or package drift.
 The report-only TMR0–TMR7 workflow and focused tooling contracts are implemented
 without production C++ changes. The accepted cloud-environment supplement binds
 the exact admitted GitHub-hosted Ubuntu 24.04 envelope, and the existing TMR
-preparation/runner path now fails closed on that identity. Focused GCC 13 Debug
-and Clang 18/libc++ Debug validation passed in run `35516246789`; run
+preparation/runner path fails closed on that identity. Focused GCC 13 Debug and
+Clang 18/libc++ Debug validation passed in run `35516246789`; run
 `35516204233` is retained as a mechanical protocol-guard failure before any
-environment evaluation. A subsequent audit found that the launch plan still
-used PATH-resolved tool names after validating absolute cloud paths. The plan
-now seals the admitted `/usr/bin` CMake/CTest/Ninja and compiler paths, with
-focused GCC/Clang Debug PASS in run `35516578411`. No formal manifest has
-been prepared and no TMR campaign has executed.
+environment evaluation. The formal launch plan seals the admitted `/usr/bin`
+CMake/CTest/Ninja and compiler paths, with focused GCC/Clang Debug PASS in run
+`35516578411`.
 
-The next bounded scientific action is a preparation-only GitHub Actions path
-that can, under explicit manual dispatch, invoke the existing `prepare`
-command into a new external runner-temp directory and retain the sealed PREPARED
-package. The workflow itself must be integrated without dispatching it, expose
-no execution step, and add no production topology concept.
+A manual preparation-only GitHub Actions workflow is now implemented. It is
+restricted to explicit `workflow_dispatch` on canonical `main`, invokes only
+`prepare` plus `validate-prepared`, writes to a new runner-temporary output
+root, retains the sealed package with a pinned artifact action, rejects any
+execution/terminal evidence, and contains no `execute` path. Runs
+`35516864464` and `35516972035` exposed consecutive mechanical quoting
+defects in the surrounding tooling workflow. The tooling stop was honored; the
+shell invocation was simplified before the next attempt. Run `35517077819`
+then passed the report-only evidence, runner, and preparation-workflow contracts
+in both GCC 13 Debug and Clang 18/libc++ Debug. The preparation workflow itself
+has not been dispatched, so no formal manifest exists and no TMR campaign has
+executed.
+
+After integration and post-merge validation, the next bounded scientific action
+is to dispatch the preparation-only workflow exactly once on canonical `main`,
+retain the resulting PREPARED artifact, and audit that sealed package before
+authorizing any formal execution.

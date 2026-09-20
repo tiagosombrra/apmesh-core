@@ -228,6 +228,13 @@ if(BUILD_TESTING)
             --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/topological_model_cumulative_evidence.py
     )
     add_test(
+        NAME apmesh_core.topological_model_cumulative_prepare_workflow
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/topological_model_cumulative_prepare_workflow_test.py
+            --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/topological-model-tmr-prepare.yml
+    )
+    add_test(
         NAME apmesh_core.cartesian_frames_evidence
         COMMAND
             ${Python3_EXECUTABLE}
@@ -449,6 +456,7 @@ if(BUILD_TESTING)
     set_tests_properties(
         apmesh_core.topological_model_cumulative_evidence
         apmesh_core.topological_model_cumulative_runner
+        apmesh_core.topological_model_cumulative_prepare_workflow
         PROPERTIES LABELS "topology;contract;qualification;tooling"
     )
     set_tests_properties(
