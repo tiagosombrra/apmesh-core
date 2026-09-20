@@ -75,6 +75,9 @@ The greenfield implementation must eventually be usable as a library inside a la
     before writing. Chat memory is never authoritative for branch or run state.
 26. Historical/superseded branches must be classified in the worklog and may
     not be silently treated as active.
+27. Do not embed the ledger's own eventual `main` commit SHA as authoritative
+    state. Live `main` identity is always re-audited remotely; documentation
+    records stable closed-work-item anchors instead.
 
 ## Current repository checkpoint
 

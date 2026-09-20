@@ -37,13 +37,17 @@ writing.
 8. A formal scientific preparation/execution action is recorded separately from
    tooling implementation. Tooling validation must never be described as a
    formal campaign attempt.
+9. Do not store a self-referential "current main SHA" in this ledger. The live
+   `main` revision is always obtained from the remote audit. Persist only stable
+   anchors such as closed work-item merge revisions, PRs, and completed runs.
 
-## Current canonical baseline
+## Last closed work-item anchor
 
-- `main`: `d9297ffad4f503b4ea11b056885749fff5872201`;
-- PR #20: merged;
+- preparation-workflow integration merge: `d9297ffad4f503b4ea11b056885749fff5872201`, PR #20;
 - post-merge FAST: run `35519501704`, PASS;
 - post-merge INTEGRATION: run `35519501663`, PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- operational closure checkpoint: PR #21 merged; its live revision is obtained
+  from the remote audit rather than embedded here;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - formal TMR manifest: **none**;
 - formal TMR execution: **none**;
@@ -65,8 +69,9 @@ writing.
 - `ci/tmr-preparation-workflow-simplification`: **MERGED / HISTORICAL** via
   PR #20; contains the integrated preparation-only workflow lineage and the
   first operational-continuity checkpoint.
-- `topology/tmr-preparation-only-workflow-v2`: **SUPERSEDED BY ACTIVE
-  CONTINUATION BRANCH**; validated technical ancestor, run `35517077819`.
+- `topology/tmr-preparation-only-workflow-v2`: **SUPERSEDED / HISTORICAL
+  TECHNICAL ANCESTOR**; validated in run `35517077819` and integrated through
+  the PR #20 continuation lineage.
 - `topology/tmr-preparation-only-workflow`: **BLOCKED_RETAINED /
   SUPERSEDED**; retains mechanical quoting failures.
 - `topology/tmr-exact-tool-path-plan`: **MERGED / HISTORICAL** via PR #19.
@@ -93,7 +98,6 @@ Closure evidence:
 No implementation branch for the next scientific action is active.
 
 ## Next admissible work item after closure
-
 
 One explicit manual dispatch of `Topological Model TMR Preparation` from
 canonical `main`.
