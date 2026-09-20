@@ -168,40 +168,51 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Polynomial Cubic Bézier Value Representation and Evaluation is
-closed.**
+**Curve Derivatives and Regularity — bounded scientific decision — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/derivatives-regularity-decision`.
 
-1. PR #48 merged as
-   `bde874311d9960c5fab7ce03b26b6cd5fbd61b34`;
-2. final PR FAST `35541914952`: PASS;
-3. final PR INTEGRATION `35541914958`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35541963486`: PASS;
-5. post-merge INTEGRATION `35541963489`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. both curve focused contracts and all selected prerequisite semantic tests
-   pass;
-7. no derivative, regularity, curvature, arc length, discretization, quad or
-   parallel capability was introduced.
+The decision must separate three claims that must not be conflated:
 
-Scientific status:
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
+1. exact mathematical first/second derivative definitions for the fixed cubic
+   polynomial Bézier representation;
+2. numerically explicit evaluation of derivative vectors and pointwise speed at
+   one supplied finite parameter in `[0,1]`;
+3. global regularity over the complete interval, which is a strictly stronger
+   claim and is not authorized by finite sampling or by this first derivative
+   work unit.
 
-No work item is active.
+Proposed first bounded derivative work unit:
+
+**Cubic Bézier Differential Evaluation and Pointwise Speed.**
+
+Its decision scope may authorize:
+
+- first derivative evaluation as the quadratic Bézier hodograph;
+- second derivative evaluation as the linear derivative of that hodograph;
+- pointwise speed as the qualified Euclidean norm of the evaluated first
+  derivative;
+- exact endpoint derivative fixtures;
+- reversal identities for first and second derivatives;
+- translation invariance and admitted-frame covariance of derivative vectors;
+- constant/linear-equivalent/zero-speed point fixtures;
+- explicit parameter and non-finite-result failures;
+- deterministic focused GCC/Clang validation.
+
+It must not authorize:
+
+- a public or scientific `is_regular()` claim over the complete interval;
+- root isolation or certification that `B'(t) != 0` for every `t`;
+- curvature, tangent normalization, Frenet frames, arc length/integration,
+  inverse parameter mapping, discretization, surfaces, meshing,
+  quadrilateral construction or parallel execution.
+
+No production curve code belongs to this decision work item.
 
 ## Next admissible work item after closure
 
-Open one separate bounded scientific decision for:
-
-**Curve Derivatives and Regularity.**
-
-That decision must define first/second derivative semantics, pointwise and/or
-global zero-speed regularity claims, finite/error semantics, reversal relations,
-analytic/adversarial fixtures, prerequisite preservation and explicit
-nonclaims before derivative production code begins.
-
-Arc length, curvature, discretization, quadrilateral meshing and parallel
-execution remain closed.
+After this derivative/regularity decision is merged, ordinary post-merge
+FAST/INTEGRATION pass, and its checkpoint is closed, implement exactly the
+bounded **Cubic Bézier Differential Evaluation and Pointwise Speed** work unit
+defined by the accepted decision.
 
