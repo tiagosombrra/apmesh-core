@@ -1,0 +1,47 @@
+name: FAST
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fast-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gcc-debug:
+    name: GCC 13 Debug / FAST
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install declared FAST toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes g++-13 ninja-build
+
+      - name: Record toolchain versions
+        run: |
+          cmake --version
+          g++-13 --version
+          ninja --version
+
+      - name: Configure
+        run: cmake --preset gcc-debug
+
+      - name: Build
+        run: cmake --build --preset gcc-debug --parallel
+
+      - name: Run FAST contracts
+        run: ctest --preset fast
