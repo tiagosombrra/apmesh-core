@@ -91,7 +91,7 @@ Current cloud-execution infrastructure:
 | --- | ---: | --- |
 | FAST | 100% | GitHub-hosted Ubuntu 24.04, GCC 13 Debug; `main` PASS. |
 | Major semantic regression | 100% | Four-cell GitHub-hosted Ubuntu 24.04 regression PASS on `main` in run `35510879978`. |
-| INTEGRATION | 50% | Workflow implemented for GCC 13 Debug and Clang 18/libc++ Debug; candidate CI validation pending. |
+| INTEGRATION | 100% | GCC 13 Debug and Clang 18/libc++ Debug required checks PASS; closure audit recorded in `docs/audits/2026-09-20-cloud-integration-closure.md`. |
 | QUALIFICATION environment | 0% | Reproducible cloud qualification envelope not yet admitted. |
 
 Current INTEGRATION execution work-class allocation:
@@ -120,13 +120,20 @@ methods are squash and rebase, with zero required approvals. GitHub currently
 reports `require_extra_approval_for_unattributed_changes=true`; with zero
 required approvals this setting has no effect on the present workflow.
 
-Current infrastructure action: validate the new compact GitHub Actions
-INTEGRATION profile for GCC 13 Debug and Clang 18/libc++ Debug, audit the exact
-seven-test semantic selection in both cells, then require the two INTEGRATION
-checks in the `main-protection` ruleset before declaring cloud INTEGRATION
-complete. The reusable Major Semantic Regression is now manual and reserved for
-explicit major phase boundaries. The next scientific Topological Model action
-remains the smallest reusable report-only TMR0--TMR7 workflow.
+Cloud INTEGRATION is accepted at **100%**. On functional candidate
+`cf8d548b0e8fbc04050feb92e414b75265506184`, FAST run `35512003523` and
+INTEGRATION run `35512003550` passed; both INTEGRATION cells executed the exact
+seven-test semantic inventory. The `main-protection` ruleset requires FAST plus
+both INTEGRATION checks. Final major-boundary run `35512093405` passed all four
+Debug/Release GCC/Clang cells with 7/7 semantic tests and no Node.js 20 checkout
+warning after pinning `actions/checkout` v7.0.1 by commit SHA. The closure audit
+is `docs/audits/2026-09-20-cloud-integration-closure.md`.
+
+Exact next admissible infrastructure action: define and validate the
+reproducible cloud QUALIFICATION environment without yet treating it as
+scientifically equivalent to the historical WSL qualification envelope. The
+next scientific Topological Model action remains the smallest reusable
+report-only TMR0--TMR7 workflow.
 
 ## Current active stage
 
