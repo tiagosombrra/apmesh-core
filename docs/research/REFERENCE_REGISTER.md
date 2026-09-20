@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-19
+Last updated: 2026-09-20
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -462,3 +462,100 @@ When an external implementation/library is considered as a dependency, the revie
 - portability;
 - reproducibility implications;
 - whether it is used as implementation, independent oracle/reference, or both.
+
+
+## Curve representation
+
+### Farin 2002 — Curves and Surfaces for CAGD
+
+Status: `FOUNDATIONAL` for Curve Representation entry, reviewed 2026-09-20.
+
+Gerald Farin. *Curves and Surfaces for CAGD: A Practical Guide*, 5th ed.,
+Morgan Kaufmann / Academic Press, 2002. ISBN 978-1-55860-737-8.
+
+Publisher entry:
+https://www.sciencedirect.com/book/9781558607378/curves-and-surfaces-for-cagd
+
+Project relevance:
+
+- chapters on the de Casteljau algorithm and Bernstein-form Bézier curves
+  provide the mathematical/CAGD basis for recursive evaluation;
+- supports beginning with direct control-point interpolation rather than an
+  unnecessary power-basis conversion;
+- does not require arbitrary-degree, rational, spline, derivative, or
+  integration capability in the first work unit.
+
+### Farouki and Rajan 1987 — Numerical condition of Bernstein form
+
+Status: `FOUNDATIONAL` for the first Bézier evaluator, reviewed 2026-09-20.
+
+Rida T. Farouki and V. T. Rajan. *On the numerical condition of polynomials in
+Bernstein form*. Computer Aided Geometric Design 4(3), 191–216, 1987.
+DOI: 10.1016/0167-8396(87)90012-4.
+
+Publisher entry:
+https://www.sciencedirect.com/science/article/pii/0167839687900124
+
+Project relevance:
+
+- documents favorable numerical properties of Bernstein-form computation in
+  geometric design;
+- supports retaining the curve in Bernstein/Bézier form for the first
+  evaluator;
+- does not prove that every Bernstein algorithm is unconditionally stable, so
+  explicit adversarial floating-point evidence remains required.
+
+### CGAL Bézier curve traits — control-point and parameter semantics
+
+Status: `FOUNDATIONAL` interface/reference evidence for Curve Representation
+entry, reviewed 2026-09-20.
+
+Official reference:
+https://doc.cgal.org/latest/Arrangement_on_surface_2/classCGAL_1_1Arr__Bezier__curve__traits__2_1_1Curve__2.html
+
+Project relevance:
+
+- mature computational-geometry example of a Bézier curve defined by ordered
+  control points and evaluated by a parameter;
+- documents the normalized Bézier parameter interval and endpoint/control-point
+  relationship;
+- CGAL is not admitted as a dependency or numerical oracle.
+
+### Open CASCADE Bézier geometry — 2D/3D and rational separation
+
+Status: `FOUNDATIONAL` interface/reference evidence for Curve Representation
+entry, reviewed 2026-09-20.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom___bezier_curve.html
+- https://dev.opencascade.org/doc/refman/html/class_geom2d___bezier_curve.html
+
+Project relevance:
+
+- provides mature CAD examples of separate 2D and 3D Bézier geometry;
+- documents control-point representation and parameter range `[0,1]`;
+- distinguishes polynomial/non-rational curves from weighted rational curves;
+- does not admit Open CASCADE, arbitrary degree, weights, or CAD ownership into
+  the first AP Mesh work unit.
+
+### C++ `std::lerp` — finite linear interpolation contract
+
+Status: `FOUNDATIONAL` engineering/numeric primitive for the first de
+Casteljau evaluator, reviewed 2026-09-20.
+
+C++ draft:
+https://eel.is/c++draft/numerics
+
+Reference:
+https://en.cppreference.com/cpp/numeric/lerp
+
+Project relevance:
+
+- for finite endpoints, the standard requires exact return of the first/second
+  endpoint for `t==0`/`t==1`;
+- for finite endpoints and `t∈[0,1]`, the returned interpolation is finite;
+- supports component-wise de Casteljau interpolation without the avoidable
+  overflow behavior of naïve `a + t*(b-a)` on extreme opposite-sign values;
+- the standard-library guarantee is a primitive contract, not by itself a
+  scientific qualification of curve evaluation.
