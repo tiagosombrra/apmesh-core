@@ -149,42 +149,39 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Correct the generic TMR authorization whole-commit guard —
-VALIDATED_UNMERGED.**
+**None. The whole-commit authorization guard correction is closed.**
 
-Active branch: `topology/tmr-authorization-whole-commit-guard`.
+Closure evidence:
 
-Finding:
+1. final branch-head TMR Tooling `35532708479`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+2. correction PR #41 FAST `35533302056`: PASS;
+3. correction PR #41 INTEGRATION `35533302046`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+4. PR #41 squash-merged as
+   `d4a3a2da64c84ec922e881e899a153287593b79c`;
+5. post-merge FAST `35533347184`: PASS;
+6. post-merge INTEGRATION `35533347164`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. the protected-main controller now proves that the complete authorization
+   commit changes exactly one path, newly added in the manifest-hash
+   authorization namespace;
+8. no `EXECUTE_ONCE` record, execution claim or second formal campaign has
+   yet occurred.
 
-The generic controller initially computed its before→after diff with the
-`experiments/authorizations` pathspec. That proved the authorization-directory
-change but could hide unrelated paths in the same protected-main commit,
-contradicting the accepted generic-binding decision.
-
-Correction:
-
-1. controller now computes `git diff --name-status BEFORE AFTER` for the
-   complete commit without a pathspec;
-2. exactly one changed path is required;
-3. the path must be newly added;
-4. it must match the manifest-hash authorization namespace;
-5. the static controller contract explicitly rejects a path-filtered diff and
-   rejects `-- experiments/authorizations`;
-6. no other authorization/executor/PREPARED/scientific behavior changed.
-
-Validation:
-
-- TMR Tooling run `35532624980`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, including authorization controller, authorization record and reusable
-  executor contracts.
-
-No `EXECUTE_ONCE` record, claim or formal execution exists for the second
-package.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this whole-commit guard correction is merged, required post-merge checks
-pass, and its checkpoint is closed, create the exact one-file
-`EXECUTE_ONCE` authorization PR for the audited second PREPARED manifest
-`f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`.
+Create one separate exact `EXECUTE_ONCE` authorization-record PR containing
+only:
+
+`experiments/authorizations/topological-model-tmr-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa.json`
+
+The record must bind the already audited second PREPARED package exactly.
+Because the controller now validates the whole commit, the authorization branch
+and PR must contain no other repository change.
+
+Merging that one-file PR to protected `main` is the formal authorization
+event and will trigger the one-shot executor.
 
