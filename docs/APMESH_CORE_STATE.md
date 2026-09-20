@@ -118,8 +118,15 @@ Current repository continuation checkpoint:
   was simplified, and run `35517077819` passed in both focused cells.
   PR #20 integrated the workflow as
   `d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST
-  `35519501704` and INTEGRATION `35519501663` passed. The preparation
-  workflow itself has never been dispatched.
+  `35519501704` and INTEGRATION `35519501663` passed.
+- first formal preparation: run `35524700979`, workflow_dispatch on canonical
+  `main` candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, PASS;
+  retained artifact `10609500629`, archive SHA-256
+  `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`;
+  preparation audit PASS in
+  `docs/audits/2026-09-20-topological-model-tmr-preparation-audit.md`;
+  package remains unconsumed, with `execution_requested=false` and TMR0--TMR7
+  all `NOT_EXECUTED`.
 
 Current Topological Model completion lanes:
 
@@ -128,8 +135,9 @@ Current Topological Model completion lanes:
 | Production implementation | 100% | Five authorized bounded topology work units implemented. |
 | Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
 | Stage-regression / qualification tooling | 100% | Report-only profile/exporter/comparer/runner, fail-closed cloud binding, exact admitted tool plan, and manual preparation-only workflow are implemented; focused/static validation PASS in runs `35516246789`, `35516578411`, and `35517077819`. |
-| Formal evidence execution | 0% | No TMR manifest prepared and no TMR campaign executed. |
-| Closure audit / documentation | 0% | Stage cannot close before TMR0--TMR7 terminal audit. |
+| Formal evidence preparation | 100% | Run `35524700979` produced the first sealed PREPARED package for candidate `e5eda266`; independent preparation audit PASS; artifact remains unconsumed. |
+| Formal evidence execution | 0% | No `execute` invocation, command records, terminal manifest, TMR evidence campaign, or gate decision exists. |
+| Closure audit / documentation | 0% | Stage cannot close before formal execution and TMR0--TMR7 terminal scientific audit. |
 
 Current cloud-execution infrastructure:
 
@@ -140,7 +148,7 @@ Current cloud-execution infrastructure:
 | INTEGRATION | 100% | GCC 13 Debug and Clang 18/libc++ Debug required checks PASS; closure audit recorded in `docs/audits/2026-09-20-cloud-integration-closure.md`. |
 | QUALIFICATION environment | 100% | CQE0-CQE7 PASS; final candidate revalidation PASS in run `35513250315`, then squash-merged with identical tree. |
 
-Current TMR preparation-workflow tooling work-class allocation:
+Current TMR preparation and audit work-class allocation:
 
 - Implementation: **25%**;
 - Tests/validation: **45%**;
@@ -239,20 +247,18 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after integration of the PREPARED-package
+audit:
 
-**Dispatch `Topological Model TMR Preparation` exactly once on canonical
-`main` to produce the first sealed cloud PREPARED package, retain its artifact,
-and audit that package before authorizing any execution.**
+**Implement the smallest manual execution-only GitHub Actions path that consumes
+the exact audited PREPARED artifact from run `35524700979`, checks out
+candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, revalidates the sealed
+binding, and exposes one explicit `execute` path.**
 
-That action may create one formal manifest with `execution_requested=false`
-and every TMR0--TMR7 gate `NOT_EXECUTED`. It must not invoke `execute`, must
-not produce an execution claim or terminal scientific result, and must not
-qualify the Topological Model stage.
-
-Operational precondition: the integration work item is closed in
-`docs/APMESH_CORE_WORKLOG.md`; no implementation branch for the preparation
-dispatch is active yet.
+That implementation step must be integrated and focused/static validated
+without dispatching formal execution in the same change. The audited package
+must remain unconsumed; TMR0--TMR7 remain `NOT_EXECUTED`; Topological Model
+remains unqualified.
 
 ## Current active stage
 
@@ -308,8 +314,8 @@ and Clang 18/libc++ Debug CTests passed. This adds no repair, deserialization,
 adjacency, pairing, manifold policy, geometry, or embedded cryptography.
 
 **Topological Model Cumulative Regression — PRE-REGISTERED / REPORT-ONLY
-TOOLING IMPLEMENTED / FOCUSED TOOLING CONTRACTS PASS / NOT PREPARED / NOT
-EXECUTED.** The single stage-exit protocol is fixed in
+TOOLING IMPLEMENTED / FOCUSED TOOLING CONTRACTS PASS / PREPARED /
+PREPARATION AUDIT PASS / NOT EXECUTED.** The single stage-exit protocol is fixed in
 `docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`. It uses
 four GCC/Clang Debug/Release cells, two repetitions per cell, the exact seven-
 test prerequisite/topology allowlist, and TMR0–TMR7. The reusable report-only
@@ -326,8 +332,13 @@ preparation-only workflow is structurally constrained and passed focused
 validation in run `35517077819` after the required tooling stop and
 simplification following mechanical runs `35516864464` and `35516972035`.
 Run `35516204233` remains the earlier cloud-binding protocol-guard failure.
-No formal manifest was prepared, no four-cell TMR campaign was executed, and no
-TMR gate or qualification result exists.
+Formal preparation run `35524700979` produced artifact `10609500629` for
+candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`. Independent audit of
+the retained package, seal, lifecycle, cloud identity, fixed plan, 1534-file
+candidate inventory, 123 planned artifacts, and all twelve critical input hashes
+passed. The package remains unconsumed with `execution_requested=false` and
+TMR0--TMR7 `NOT_EXECUTED`. No four-cell TMR execution, terminal result, gate
+decision, or qualification result exists.
 
 Current prerequisite closure evidence:
 
