@@ -264,9 +264,13 @@ exact cloud tool plan, and manual preparation-only workflow are implemented.
 Focused/static tooling validation passed in run `35517077819`. No formal
 manifest has been prepared and the TMR campaign has not executed.
 
-After this workflow is integrated and the merged revision passes ordinary
-FAST/INTEGRATION checks, the next bounded action is one explicit manual dispatch
-of `Topological Model TMR Preparation` on canonical `main`. That dispatch may
+The preparation-only workflow was integrated by PR #20 as
+`d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST run
+`35519501704` and INTEGRATION run `35519501663` passed. The workflow has not
+been dispatched.
+
+The next bounded action is one explicit manual dispatch of
+`Topological Model TMR Preparation` on canonical `main`. That dispatch may
 produce and retain one sealed PREPARED package only. The package must then be
 audited before any separate authorization to invoke `execute`; no execution is
 authorized by this protocol checkpoint.
