@@ -1026,6 +1026,10 @@ artifacts, and all twelve critical input hashes passed. The package remains
 unconsumed with `execution_requested=false`; TMR0-TMR7 remain
 `NOT_EXECUTED`.
 
+PR #23 integrated the preparation audit as
+`b3d8130cdf75230ef7b71693d2325e5473091857`; post-merge FAST
+`35525181361` and INTEGRATION `35525181462` passed.
+
 The next bounded scientific action is to implement a manual execution-only
 workflow bound to that exact audited artifact/candidate. It must be integrated
 and validated without dispatching formal execution in the same change.
