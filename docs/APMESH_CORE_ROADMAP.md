@@ -1017,7 +1017,12 @@ in both GCC 13 Debug and Clang 18/libc++ Debug. The preparation workflow itself
 has not been dispatched, so no formal manifest exists and no TMR campaign has
 executed.
 
-After integration and post-merge validation, the next bounded scientific action
-is to dispatch the preparation-only workflow exactly once on canonical `main`,
-retain the resulting PREPARED artifact, and audit that sealed package before
-authorizing any formal execution.
+PR #20 integrated the preparation-only workflow as
+`d9297ffad4f503b4ea11b056885749fff5872201`. Post-merge FAST run
+`35519501704` and INTEGRATION run `35519501663` passed. The preparation
+workflow remains undispatched, so no formal PREPARED package or TMR execution
+exists.
+
+The next bounded scientific action is one explicit manual dispatch of the
+preparation-only workflow on canonical `main`, followed by audit of the sealed
+PREPARED artifact before any formal execution authorization.
