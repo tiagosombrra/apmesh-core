@@ -1,6 +1,6 @@
 # Topological Model - Bounded Entry Decision
 
-Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED
+Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / IMMUTABLE SNAPSHOT CONTRACT ACCEPTED / STAGE UNQUALIFIED
 Date: 2026-09-19
 Stage: Topological Model - Explicit Identity and Incidence
 Prerequisites: Foundation `QUALIFIED`; Geometry Primitives `QUALIFIED` on
@@ -604,9 +604,184 @@ This is focused implementation evidence only. It does not qualify Topological
 Model or authorize any excluded classification, geometry, serialization, or
 formal campaign.
 
+The package was published on `main` at
+`b009d22e20e4c7a9714da49ece6d51af64112527`. The publication audit confirmed
+that the signature is derived from the existing incidence sequence, covers all
+five structural classes, preserves the underlying order, stores no second
+incidence relation, and introduces no adjacency, pairing, or manifold API.
+
+### Closure handoff
+
+The required next bounded decision is the fifth contract below. The fourth
+contract itself does not authorize adjacency, pairing, acceptance changes,
+manifold/boundary labels, geometry, serialization, qualification tooling, or a
+formal campaign.
+
+## Fifth bounded contract: Immutable Topology Consistency and Canonical Snapshot
+
+### Decision
+
+The deterministic structural-signature package is accepted as published at
+`b009d22e20e4c7a9714da49ece6d51af64112527`. Authorize one bounded
+implementation work unit named **Immutable Topology Consistency and Canonical
+Snapshot**.
+
+This work unit consolidates the authoritative model already implemented. It
+may revalidate the complete identity and incidence relation during
+finalization, expose a read-only consistency summary, and emit one canonical
+byte sequence suitable for later experiment hashing. It must not introduce a
+second model representation, topology repair, deserialization, geometric
+inference, or a semantic manifold policy.
+
+This is the final planned production consolidation before defining the
+Topological Model cumulative regression. Any additional production concept
+requires a new scientific decision justified by a concrete regression need.
+
+### Authoritative model and consistency obligations
+
+The authoritative topology remains exactly:
+
+- vertices in model-local `VertexId` order;
+- edges in model-local `EdgeId` order with exact endpoint identities;
+- faces in model-local `FaceId` order;
+- boundary loops in declared face order; and
+- edge uses in declared loop order with exact edge identity and orientation.
+
+Reverse edge-use incidence and structural signatures remain derived views.
+They are not independent authorities.
+
+Successful finalization must establish all of the following atomically:
+
+1. vertex, edge, and face IDs are valid, dense, entity-kind-local, and equal to
+   their deterministic storage positions;
+2. every edge endpoint resolves to an existing vertex;
+3. every face has at least one non-empty, exactly closed boundary loop;
+4. every edge use resolves to an existing edge and a valid orientation;
+5. the reverse incidence relation is a bijection with all authoritative
+   face-boundary edge-use occurrences, preserving exact owner positions and
+   orientations;
+6. every structural signature exactly recomputes from its reverse-incidence
+   sequence; and
+7. no coordinate, pointer address, hash-container iteration, filesystem order,
+   locale, thread schedule, or geometry value participates in validation.
+
+The read-only consistency summary contains only deterministic counts:
+vertices, edges, faces, boundary loops, edge-use occurrences, and edge counts
+for each of the five structural classes. It makes no boundary, adjacency,
+manifold, shell, or geometry claim.
+
+Any inconsistency is `invalid_model`; validation never mutates, repairs,
+deduplicates, reorders, or partially returns a model.
+
+### Canonical snapshot contract
+
+The canonical snapshot is UTF-8 restricted to ASCII, uses exactly one ASCII
+space between fields, uses decimal unsigned integers without leading zeroes,
+uses lowercase keywords, uses `forward` and `reverse` for orientation, uses
+only LF (`0x0a`) line endings, and ends with one LF. Its schema identifier is
+`apmesh-topology-v1`.
+
+The exact record grammar and order are:
+
+```text
+apmesh-topology-v1
+vertices <count>
+vertex <vertex-id>
+...
+edges <count>
+edge <edge-id> <first-vertex-id> <second-vertex-id>
+...
+faces <count>
+face <face-id> <boundary-loop-count>
+loop <face-id> <loop-ordinal> <edge-use-count>
+use <face-id> <loop-ordinal> <use-ordinal> <edge-id> <forward|reverse>
+...
+```
+
+Entity collections use ascending model ID. Loop and use records preserve their
+declared order and zero-based ordinals. Count records are present even when
+zero. The snapshot contains only the authoritative forward model; derived
+reverse incidences and signatures must be recomputed rather than duplicated.
+
+Canonical here means byte-stable for the same AP Mesh model identity and
+declared construction order. It does not claim invariance under input
+permutation, ID renaming, graph isomorphism, face-orientation reversal, or
+topological equivalence.
+
+Experiments may compute SHA-256 over the exact snapshot bytes. The core does
+not embed a cryptographic library or make the digest part of topological
+identity.
+
+### Required focused FAST cases
+
+Focused tests must cover:
+
+- the exact empty-model snapshot and zero consistency counts;
+- vertices, parallel edges, reversed endpoint order, and a self-loop;
+- one face, arbitrary positive valence, multiple loops, and repeated edge use;
+- unused, single-use, opposed two-use, co-oriented two-use, and multi-use
+  signature counts in the consistency summary;
+- a same-face opposed use and three-face multi-use without semantic relabeling;
+- independent equal construction producing byte-identical snapshots and equal
+  summaries;
+- changed insertion identity or declared orientation producing different
+  canonical bytes;
+- exact LF-only output, final newline, decimal spelling, and record order; and
+- preservation of the existing forward model, reverse incidences, signatures,
+  lookup failures, and transactional builder behavior.
+
+No standalone evidence framework, formal manifest, Release matrix, or
+qualification campaign is required for this implementation.
+
+### Explicit exclusions and stop conditions
+
+This contract does not authorize:
+
+- topology repair, normalization, welding, deduplication, deletion, or ID reuse;
+- snapshot parsing, deserialization, schema migration, or external-ID mapping;
+- adjacency, mate/opposite pairing, fan ordering, connected components, shells,
+  regions, or Euler operators;
+- boundary, manifold, non-manifold, seam, orientation-validity, or embedding
+  classification;
+- `PatchId`, curves, surfaces, trimming, geometry, meshing, or coordinate-based
+  inference;
+- a production SHA-256 implementation or use of a digest as entity identity;
+  or
+- Topological Model qualification or a formal campaign.
+
+Stop for a new scientific decision if implementation requires changing any
+accepted model input, interpreting a structural signature semantically,
+serializing derived state as a second authority, or adding any excluded
+topological or geometric concept.
+
+### Alternatives considered
+
+- **Serialize the derived reverse incidence and signatures:** rejected because
+  it creates duplicate authority and a divergence risk.
+- **Canonicalize up to graph isomorphism or input permutation:** rejected as a
+  different and substantially stronger claim than deterministic model
+  serialization.
+- **Embed SHA-256 in the core:** rejected because the canonical bytes are the
+  scientific input; experiment tooling can hash them without coupling topology
+  to cryptography.
+- **Add a deserializer now:** deferred because no accepted import/schema-
+  migration contract exists and stage regression needs only deterministic
+  emission.
+- **Chosen consistency check plus forward snapshot:** closes the remaining
+  production integrity and reproducibility obligations without expanding the
+  scientific topology model.
+
+### Effect on the roadmap
+
+Topological Model remains `IN INVESTIGATION / UNQUALIFIED`. Successful focused
+implementation will complete the planned production consolidation but will not
+qualify the stage. The next scientific action after focused PASS is to define
+one cumulative Topological Model Regression over the canonical fixtures and all
+qualified prerequisites.
+
 ## Next bounded action
 
-Require a new bounded topological decision before further implementation. Do
-not add adjacency, pairing, acceptance changes, manifold/boundary labels,
-geometry, serialization, qualification tooling, or a formal campaign under this
-completed contract.
+Implement only immutable topology consistency validation, the deterministic
+summary, canonical `apmesh-topology-v1` emission, and focused FAST cases. Do not
+add parsing, repair, semantic manifold/boundary classification, geometry,
+qualification tooling, or a formal campaign.

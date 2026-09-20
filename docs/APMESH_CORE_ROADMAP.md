@@ -545,7 +545,8 @@ Stage exit gate: primitive operations are analytically verified across the decla
 Status: `IN INVESTIGATION / IDENTITY AND ORIENTED EDGE KERNEL IMPLEMENTED /
 FOCUSED CONTRACT PASS / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
 EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED`
+STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
+IMMUTABLE SNAPSHOT CONTRACT ACCEPTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -586,8 +587,15 @@ The fourth bounded contract authorizes only a deterministic structural
 classification derived from those records. It records cardinality, orientation
 balance, distinct owners, and repetition without interpreting them as
 adjacency, pairing, boundary status, manifoldness, fan order, or geometry.
-Its focused GCC 13 Debug and Clang 18/libc++ Debug contract passes. A new
-bounded topological decision is required before further implementation.
+Its focused GCC 13 Debug and Clang 18/libc++ Debug contract passes. The fifth
+bounded contract below defines the authorized continuation.
+
+The fifth bounded contract consolidates the immutable model before cumulative
+regression. It authorizes full internal-consistency revalidation, a read-only
+summary, and a byte-exact canonical `apmesh-topology-v1` snapshot of the
+authoritative identity/incidence relation. It does not authorize repair,
+deserialization, adjacency, pairing, manifold policy, geometry, or a formal
+campaign. Implementation and focused evidence have not started.
 
 #### Vertex and Edge Identity
 
@@ -882,7 +890,8 @@ Current active stage:
 **Topological Model - IN INVESTIGATION / EDGE KERNEL IMPLEMENTED /
 FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
 EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED**
+STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
+IMMUTABLE SNAPSHOT CONTRACT ACCEPTED / STAGE UNQUALIFIED**
 
 The Identity and Oriented Edge Incidence Kernel defined in
 `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` is implemented and its
@@ -898,4 +907,5 @@ interpretation, geometry, serialization, or a formal campaign.
 Deterministic edge-incidence structural classification is also implemented and
 its focused GCC/Clang Debug contract passes. It does not convert structural
 signatures into adjacency, pairing, boundary, manifold, shell, or geometric
-claims; a new bounded decision is required before further implementation.
+claims. The next bounded work unit is immutable consistency validation and the
+canonical topology snapshot only.

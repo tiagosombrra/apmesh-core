@@ -103,8 +103,16 @@ distinct face and boundary-loop counts, forward/reverse counts, repeated-owner
 presence, and one of `unused`, `single_use`, `two_use_opposed`,
 `two_use_cooriented`, or `multi_use`. These are combinatorial observations, not
 boundary, adjacency, pairing, manifold, shell, or geometric conclusions. The
-focused GCC 13 Debug and Clang 18/libc++ Debug CTest passed; a new bounded
-topological decision is required before further production work.
+focused GCC 13 Debug and Clang 18/libc++ Debug CTest passed. The fifth bounded
+contract below defines the authorized continuation.
+
+**Immutable Topology Consistency and Canonical Snapshot — ACCEPTED FOR BOUNDED
+IMPLEMENTATION / NOT IMPLEMENTED / NOT QUALIFIED.** The next work unit may
+revalidate the complete authoritative topology at finalization, expose a
+read-only consistency summary, and emit the canonical `apmesh-topology-v1`
+snapshot defined by the fifth bounded contract. It may not add topology repair,
+deserialization, adjacency, pairing, manifold policy, geometry, or an embedded
+cryptographic implementation.
 
 Current prerequisite closure evidence:
 
@@ -368,11 +376,12 @@ Primitives remain qualified only in their declared WSL envelope.
 The bounded Identity and Oriented Edge Incidence Kernel, Face Identity and
 Ordered Boundary Cycles, and Deterministic Edge-Use Incidence Enumeration are
 implemented. Their focused GCC 13 Debug and Clang 18/libc++ Debug FAST contract
-passes, but Topological Model remains unqualified. The next bounded production
-work unit has implemented deterministic edge-incidence structural
+passes, but Topological Model remains unqualified. The fourth bounded work unit
+implemented deterministic edge-incidence structural
 classification as defined by the fourth contract in
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. A new bounded topological
-decision is required before further production work.
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. The next bounded work unit
+is Immutable Topology Consistency and Canonical Snapshot as defined by the
+fifth contract in that decision record.
 Do not implement curves, NURBS, surfaces, meshing, or a formal qualification
 campaign.
 
