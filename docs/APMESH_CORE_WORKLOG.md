@@ -91,29 +91,36 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The one-shot manual TMR execution-workflow work item is closed.**
+**Replace the standalone manual TMR execution click with repository-resident
+authorization-as-code — ACTIVE.**
 
-Closure evidence:
+Authorized scope:
 
-1. PR #25 merged as `d7019fbff97989a79fd27fcb1915073881a53564`;
-2. post-merge FAST run `35525932108` passed;
-3. post-merge INTEGRATION run `35525932111` passed in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. no execution-claim tag exists yet;
-5. artifact `10609500629` remains unconsumed;
-6. no formal `execute` invocation, terminal package, or TMR0-TMR7 decision
-   exists.
+1. preserve the exact audited PREPARED candidate/run/artifact/manifest/seal;
+2. replace direct `workflow_dispatch` execution with a reusable
+   `workflow_call` executor;
+3. add a protected-`main` authorization controller triggered only by a newly
+   added exact `EXECUTE_ONCE` authorization record;
+4. independently validate that record before invoking the executor;
+5. retain the existing immutable manifest-hash claim, single `execute`
+   invocation, no-retry rule, and terminal retention;
+6. add focused/static contracts for the authorization validator, controller,
+   and reusable executor;
+7. do **not** add the actual execution authorization record in this
+   implementation work item and do not execute TMR.
 
-No formal-execution work item is active.
+Active implementation branch:
+`topology/tmr-authorization-as-code`.
+
+The accidentally created zero-change branch `ci/tmr-authorization-as-code`
+is not active and must not be used as a continuation branch.
 
 ## Next admissible work item after closure
 
-After this workflow is merged, post-merge FAST/INTEGRATION pass, and the
-operational checkpoint is closed, dispatch **Topological Model TMR Execution**
-exactly once on canonical `main`.
-
-That future dispatch may create the immutable execution-claim tag and consume
-artifact `10609500629` exactly once. After the run, stop and audit the retained
-terminal package before deciding TMR0-TMR7 or any Topological Model
-qualification. No second dispatch or retry is authorized.
+After the authorization-as-code mechanism is merged, post-merge
+FAST/INTEGRATION and focused/static contracts pass, and this work item is
+closed, create one separate exact `EXECUTE_ONCE` authorization record by PR.
+Merging that record to protected `main` will automatically invoke the
+one-shot reusable TMR executor. The terminal package must then be audited before
+any TMR0-TMR7 or Topological Model qualification decision.
 
