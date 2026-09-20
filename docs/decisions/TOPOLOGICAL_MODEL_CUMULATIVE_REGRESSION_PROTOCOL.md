@@ -217,6 +217,27 @@ figure is required because this stage contains no geometric embedding.
 This pre-registration creates no profile, tooling, manifest, execution, gate
 result, or qualification claim.
 
+## 12.1 Cloud-environment transition note
+
+A distinct GitHub-hosted qualification environment was admitted after this
+protocol was pre-registered. Its authority is
+`docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md`, with closure
+audit in
+`docs/audits/2026-09-20-cloud-qualification-environment-admission.md`.
+
+This protocol has **not** yet been amended to replace its formal WSL execution
+scope. Therefore:
+
+- the report-only TMR0–TMR7 workflow may be implemented and tested against the
+  current repository without preparing or executing a formal campaign;
+- no formal TMR manifest may silently substitute the admitted cloud envelope
+  for the WSL envelope declared above;
+- before formal cloud execution, a bounded protocol amendment/supplement must
+  explicitly bind the admitted cloud image/tool identity and state the scope of
+  the resulting qualification claim; and
+- historical WSL qualification evidence remains historical WSL evidence and is
+  not reclassified as cloud evidence.
+
 ## 13. Next bounded action
 
 Implement the smallest reusable report-only TMR0–TMR7 workflow and its focused
