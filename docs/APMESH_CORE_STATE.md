@@ -250,37 +250,33 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after terminal-audit integration:
+Exact next bounded scientific action:
 
-**Close the corrected TMR terminal-audit checkpoint, then open one separate
-scientific entry decision for Curve Representation — Continuous Geometry Before
-Discretization.**
+**Open one separate scientific entry decision for Curve Representation —
+Continuous Geometry Before Discretization.**
 
-The second formal campaign was authorized by PR #43 and merged as
-`cddd959574ed6a677ac755a5b329d53a9cfe32ec`. Protected-main run
-`35533702004` validated the complete authorization and audited PREPARED
-binding, created the immutable manifest-hash claim, executed the sealed
-four-cell/two-repetition campaign exactly once, verified retention, and
-retained artifact `10612032787`.
+Topological Model qualification is closed on `main`.
 
-Independent terminal audit records:
+Integration evidence:
 
-- terminal ZIP SHA-256
-  `dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8`;
-- exact 56-command cardinality;
-- eight semantic CTest repetitions × seven exact tests = 56 individual
-  semantic test executions, all PASS;
-- eight byte-identical topology certificates;
-- complete negative/dependency/inventory evidence;
-- exact retention and detached verification;
-- TMR0–TMR7: **PASS**;
-- overall: **PASS**;
-- Topological Model: **QUALIFIED in the exact admitted GitHub-hosted Ubuntu
-  24.04 x86_64 cloud envelope**.
+- corrected terminal-audit PR #44 merged as
+  `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
+- PR FAST `35534295054`: PASS;
+- PR INTEGRATION `35534295078`: PASS;
+- post-merge FAST `35534347597`: PASS;
+- post-merge INTEGRATION `35534347623`: PASS.
 
-No WSL/cloud equivalence is claimed. Qualification does not automatically begin
-curve implementation. A separate Curve Representation entry decision is
-required first.
+Scientific status:
+
+- TMR0–TMR7: PASS;
+- overall: PASS;
+- Topological Model: QUALIFIED in the exact admitted GitHub-hosted Ubuntu
+  24.04 x86_64 cloud envelope;
+- WSL/cloud equivalence: not claimed.
+
+The next entry decision must bound the first continuous-curve investigation
+before production code is written. Curve implementation is not authorized by
+Topological Model qualification alone.
 
 
 ## Current active stage
