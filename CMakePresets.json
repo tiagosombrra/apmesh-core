@@ -12,6 +12,7 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/gcc-debug",
       "cacheVariables": {
+        "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
         "APMESH_USE_LIBCXX": "OFF",
         "BUILD_TESTING": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
@@ -25,6 +26,7 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/gcc-release",
       "cacheVariables": {
+        "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
         "APMESH_USE_LIBCXX": "OFF",
         "BUILD_TESTING": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
@@ -38,6 +40,7 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/clang-debug",
       "cacheVariables": {
+        "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
         "APMESH_USE_LIBCXX": "ON",
         "BUILD_TESTING": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
@@ -51,11 +54,21 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/clang-release",
       "cacheVariables": {
+        "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
         "APMESH_USE_LIBCXX": "ON",
         "BUILD_TESTING": "ON",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_CXX_COMPILER": "/usr/bin/clang++-18"
+      }
+    },
+    {
+      "name": "gcc-debug-qualification",
+      "displayName": "GCC 13 Debug with qualification tests",
+      "inherits": "gcc-debug",
+      "binaryDir": "${sourceDir}/build/gcc-debug-qualification",
+      "cacheVariables": {
+        "APMESH_ENABLE_QUALIFICATION_TESTS": "ON"
       }
     }
   ],
@@ -63,7 +76,8 @@
     { "name": "gcc-debug", "configurePreset": "gcc-debug" },
     { "name": "gcc-release", "configurePreset": "gcc-release" },
     { "name": "clang-debug", "configurePreset": "clang-debug" },
-    { "name": "clang-release", "configurePreset": "clang-release" }
+    { "name": "clang-release", "configurePreset": "clang-release" },
+    { "name": "gcc-debug-qualification", "configurePreset": "gcc-debug-qualification" }
   ],
   "testPresets": [
     {
@@ -90,6 +104,54 @@
     {
       "name": "clang-release",
       "configurePreset": "clang-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "fast",
+      "configurePreset": "gcc-debug",
+      "filter": {
+        "include": {
+          "label": "fast"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "integration-gcc-debug",
+      "configurePreset": "gcc-debug",
+      "filter": {
+        "include": {
+          "label": "integration"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "integration-clang-debug",
+      "configurePreset": "clang-debug",
+      "filter": {
+        "include": {
+          "label": "integration"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "qualification-gcc-debug",
+      "configurePreset": "gcc-debug-qualification",
+      "filter": {
+        "include": {
+          "label": "qualification"
+        }
+      },
       "output": {
         "outputOnFailure": true
       }

@@ -3,6 +3,17 @@ cmake_minimum_required(VERSION 3.25)
 project(apmesh_core LANGUAGES CXX)
 
 option(APMESH_USE_LIBCXX "Build apmesh::core with libc++" OFF)
+option(
+    APMESH_ENABLE_QUALIFICATION_TESTS
+    "Register scientific qualification and evidence tests"
+    OFF
+)
+
+include(CTest)
+
+if(APMESH_ENABLE_QUALIFICATION_TESTS AND NOT BUILD_TESTING)
+    message(FATAL_ERROR "APMESH_ENABLE_QUALIFICATION_TESTS requires BUILD_TESTING=ON")
+endif()
 
 function(apmesh_apply_target_defaults target)
     target_compile_features(${target} PRIVATE cxx_std_23)
@@ -41,46 +52,45 @@ if(APMESH_USE_LIBCXX)
     target_link_options(apmesh_core INTERFACE -stdlib=libc++)
 endif()
 
-add_executable(apmesh_core_bootstrap_export
-    experiments/bootstrap_export.cpp
-)
-target_link_libraries(apmesh_core_bootstrap_export PRIVATE apmesh::core)
-apmesh_apply_target_defaults(apmesh_core_bootstrap_export)
+if(BUILD_TESTING AND APMESH_ENABLE_QUALIFICATION_TESTS)
+    add_executable(apmesh_core_bootstrap_export
+        experiments/bootstrap_export.cpp
+    )
+    target_link_libraries(apmesh_core_bootstrap_export PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core_bootstrap_export)
 
-add_executable(apmesh_core_numeric_contract_export
-    experiments/numeric_contract_export.cpp
-)
-target_link_libraries(apmesh_core_numeric_contract_export PRIVATE apmesh::core)
-apmesh_apply_target_defaults(apmesh_core_numeric_contract_export)
+    add_executable(apmesh_core_numeric_contract_export
+        experiments/numeric_contract_export.cpp
+    )
+    target_link_libraries(apmesh_core_numeric_contract_export PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core_numeric_contract_export)
 
-add_executable(apmesh_core_geometry_point_vector_export
-    experiments/geometry_point_vector_export.cpp
-)
-target_link_libraries(apmesh_core_geometry_point_vector_export PRIVATE apmesh::core)
-apmesh_apply_target_defaults(apmesh_core_geometry_point_vector_export)
+    add_executable(apmesh_core_geometry_point_vector_export
+        experiments/geometry_point_vector_export.cpp
+    )
+    target_link_libraries(apmesh_core_geometry_point_vector_export PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core_geometry_point_vector_export)
 
-add_executable(apmesh_core_cartesian_frames_export
-    experiments/cartesian_frames_export.cpp
-)
-target_link_libraries(apmesh_core_cartesian_frames_export PRIVATE apmesh::core)
-apmesh_apply_target_defaults(apmesh_core_cartesian_frames_export)
+    add_executable(apmesh_core_cartesian_frames_export
+        experiments/cartesian_frames_export.cpp
+    )
+    target_link_libraries(apmesh_core_cartesian_frames_export PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core_cartesian_frames_export)
 
-add_executable(apmesh_core_geometry_primitives_cumulative_export
-    experiments/geometry_primitives_cumulative_export.cpp
-)
-target_link_libraries(apmesh_core_geometry_primitives_cumulative_export PRIVATE apmesh::core)
-apmesh_apply_target_defaults(apmesh_core_geometry_primitives_cumulative_export)
+    add_executable(apmesh_core_geometry_primitives_cumulative_export
+        experiments/geometry_primitives_cumulative_export.cpp
+    )
+    target_link_libraries(apmesh_core_geometry_primitives_cumulative_export PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core_geometry_primitives_cumulative_export)
 
-add_executable(apmesh_core_minimal_small_linear_algebra_export
-    experiments/minimal_small_linear_algebra_export.cpp
-)
-target_link_libraries(apmesh_core_minimal_small_linear_algebra_export PRIVATE apmesh::core)
-apmesh_apply_target_defaults(apmesh_core_minimal_small_linear_algebra_export)
+    add_executable(apmesh_core_minimal_small_linear_algebra_export
+        experiments/minimal_small_linear_algebra_export.cpp
+    )
+    target_link_libraries(apmesh_core_minimal_small_linear_algebra_export PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core_minimal_small_linear_algebra_export)
+endif()
 
-include(CTest)
 if(BUILD_TESTING)
-    find_package(Python3 3.10 COMPONENTS Interpreter REQUIRED)
-
     add_executable(apmesh_core_bootstrap_smoke
         tests/bootstrap_smoke.cpp
     )
@@ -116,6 +126,57 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.topological_model)
 
     add_test(NAME apmesh_core.topological_model COMMAND apmesh_core.topological_model)
+
+    add_executable(apmesh_core.minimal_small_linear_algebra
+        tests/minimal_small_linear_algebra.cpp
+    )
+    target_link_libraries(apmesh_core.minimal_small_linear_algebra PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.minimal_small_linear_algebra)
+
+    add_test(
+        NAME apmesh_core.minimal_small_linear_algebra
+        COMMAND apmesh_core.minimal_small_linear_algebra
+    )
+    add_executable(apmesh_core.math_header_isolation
+        tests/math_header_isolation.cpp
+    )
+    target_link_libraries(apmesh_core.math_header_isolation PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.math_header_isolation)
+
+    add_test(
+        NAME apmesh_core.math_header_isolation
+        COMMAND apmesh_core.math_header_isolation
+    )
+
+    set_tests_properties(
+        apmesh_core.bootstrap_smoke
+        PROPERTIES LABELS "bootstrap;contract;foundation-preservation;direct-semantic;fast;integration;qualification"
+    )
+    set_tests_properties(
+        apmesh_core.numeric_contract
+        PROPERTIES LABELS "numeric;contract;foundation-preservation;direct-semantic;fast;integration;qualification"
+    )
+    set_tests_properties(
+        apmesh_core.geometry_primitives
+        apmesh_core.cartesian_frames
+        PROPERTIES LABELS "geometry;contract;direct-semantic;fast;integration;qualification"
+    )
+    set_tests_properties(
+        apmesh_core.minimal_small_linear_algebra
+        PROPERTIES LABELS "math;geometry;contract;direct-semantic;fast;integration;qualification"
+    )
+    set_tests_properties(
+        apmesh_core.math_header_isolation
+        PROPERTIES LABELS "math;geometry;contract;focused-contract;fast;integration;qualification"
+    )
+    set_tests_properties(
+        apmesh_core.topological_model
+        PROPERTIES LABELS "topology;contract;focused-contract;fast;integration;qualification"
+    )
+
+    if(APMESH_ENABLE_QUALIFICATION_TESTS)
+        find_package(Python3 3.10 COMPONENTS Interpreter REQUIRED)
+
     add_test(
         NAME apmesh_core.geometry_primitives_cumulative_evidence
         COMMAND
@@ -171,26 +232,6 @@ if(BUILD_TESTING)
             --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md
             --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/cartesian_frames_export.cpp
             --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/cartesian_frames_evidence.py
-    )
-    add_executable(apmesh_core.minimal_small_linear_algebra
-        tests/minimal_small_linear_algebra.cpp
-    )
-    target_link_libraries(apmesh_core.minimal_small_linear_algebra PRIVATE apmesh::core)
-    apmesh_apply_target_defaults(apmesh_core.minimal_small_linear_algebra)
-
-    add_test(
-        NAME apmesh_core.minimal_small_linear_algebra
-        COMMAND apmesh_core.minimal_small_linear_algebra
-    )
-    add_executable(apmesh_core.math_header_isolation
-        tests/math_header_isolation.cpp
-    )
-    target_link_libraries(apmesh_core.math_header_isolation PRIVATE apmesh::core)
-    apmesh_apply_target_defaults(apmesh_core.math_header_isolation)
-
-    add_test(
-        NAME apmesh_core.math_header_isolation
-        COMMAND apmesh_core.math_header_isolation
     )
     add_test(
         NAME apmesh_core.minimal_small_linear_algebra_evidence
@@ -356,53 +397,47 @@ if(BUILD_TESTING)
             --comparer ${CMAKE_CURRENT_SOURCE_DIR}/tools/bootstrap_regression.py
     )
     set_tests_properties(
-        apmesh_core.bootstrap_smoke
         apmesh_core.bootstrap_export
         apmesh_core.bootstrap_tool
         apmesh_core.architecture_bootstrap_runner
-        PROPERTIES LABELS "bootstrap;contract;foundation-preservation"
+        PROPERTIES LABELS "bootstrap;contract;foundation-preservation;qualification;tooling"
     )
     set_tests_properties(
-        apmesh_core.numeric_contract
         apmesh_core.numeric_contract_evidence
         apmesh_core.numeric_contract_runner
-        PROPERTIES LABELS "numeric;contract;foundation-preservation"
+        PROPERTIES LABELS "numeric;contract;foundation-preservation;qualification;tooling"
     )
     set_tests_properties(
-        apmesh_core.geometry_primitives
         apmesh_core.geometry_primitives_cumulative_evidence
         apmesh_core.geometry_primitives_cumulative_runner
-        apmesh_core.cartesian_frames
         apmesh_core.cartesian_frames_evidence
         apmesh_core.cartesian_frames_runner
         apmesh_core.cartesian_frames_retention
         apmesh_core.geometry_point_vector_evidence
         apmesh_core.geometry_point_vector_runner
         apmesh_core.geometry_point_vector_retention
-        apmesh_core.geometry_point_vector_foundation_preservation
-        PROPERTIES LABELS "geometry;contract"
+        PROPERTIES LABELS "geometry;contract;qualification;tooling"
     )
     set_tests_properties(
-        apmesh_core.minimal_small_linear_algebra
-        apmesh_core.math_header_isolation
+        apmesh_core.geometry_point_vector_foundation_preservation
+        PROPERTIES LABELS "geometry;contract;qualification;stage-regression"
+    )
+    set_tests_properties(
         apmesh_core.minimal_small_linear_algebra_evidence
         apmesh_core.minimal_small_linear_algebra_runner
         apmesh_core.minimal_small_linear_algebra_retention
-        PROPERTIES LABELS "math;geometry;contract"
-    )
-    set_tests_properties(
-        apmesh_core.topological_model
-        PROPERTIES LABELS "topology;contract"
+        PROPERTIES LABELS "math;geometry;contract;qualification;tooling"
     )
     set_tests_properties(
         apmesh_core.reproducible_experiment_evidence
         apmesh_core.reproducible_experiment_runner
         apmesh_core.reproducible_experiment_retention
         apmesh_core.reproducible_experiment_negatives
-        PROPERTIES LABELS "reproducibility;contract;foundation-preservation"
+        PROPERTIES LABELS "reproducibility;contract;foundation-preservation;qualification;tooling"
     )
     set_tests_properties(
         apmesh_core.foundation_end_to_end_evidence
-        PROPERTIES LABELS "foundation;reproducibility;contract"
+        PROPERTIES LABELS "foundation;reproducibility;contract;qualification;stage-regression"
     )
+    endif()
 endif()
