@@ -54,6 +54,7 @@ def main() -> int:
     require(f'run-id: "{PREPARATION_RUN}"' in text, "workflow does not download from exact preparation run")
     require("github-token: ${{ secrets.GITHUB_TOKEN }}" in text, "cross-run artifact download lacks repository token")
     require("path: ${{ runner.temp }}/apmesh-tmr-prepared" in text, "prepared package restore path differs")
+    require("merge-multiple: true" in text, "artifact IDs are not merged directly into the sealed output root")
 
     require("validate-prepared \\" in text, "workflow does not preflight the complete PREPARED binding")
     require('sha256sum "${OUTPUT_ROOT}/prepared-manifest.json"' in text, "prepared manifest hash is not independently checked")
