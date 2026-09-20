@@ -402,6 +402,35 @@ Tooling `35530579354`, PR FAST `35530643533`, PR INTEGRATION
 `35530685096` all passed in their declared cells. The correction checkpoint
 is therefore closed.
 
-The next permitted formal action is preparation of one new PREPARED package
-from the corrected clean candidate. Preparation still does not authorize
-execution or decide any TMR gate.
+The second formal PREPARED package was created in run
+`35531261000` from corrected canonical `main` candidate
+`37f9af77f38e12af0a92d3c0f57f1ad31a218144`.
+
+Independent audit authority:
+`docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.md`.
+
+Audit decision: **PASS / PREPARED / NOT EXECUTED**.
+
+The audited binding is:
+
+- artifact ID `10611054028`;
+- artifact ZIP SHA-256
+  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
+- prepared-manifest SHA-256
+  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+- preparation-seal SHA-256
+  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`.
+
+The package is sealed to the corrected 56-command planned execution shape and
+contains no execution claim, command records, terminal manifest or TMR gate
+decision.
+
+The current authorization validator/controller/reusable executor remain bound
+to the consumed first package. The next permitted work is therefore one
+bounded authorization-binding/generalization change for this audited second
+package. That change must preserve the repository-resident one-shot,
+fail-closed model and must not itself add `EXECUTE_ONCE` or execute the
+campaign.
+
+Only after the authorization-binding work item is separately merged, validated
+and closed may a new exact `EXECUTE_ONCE` authorization record be introduced.

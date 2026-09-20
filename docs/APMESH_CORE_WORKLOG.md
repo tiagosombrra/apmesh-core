@@ -84,7 +84,10 @@ writing.
 | TMR authorization-as-code automation | MERGED | `topology/tmr-authorization-as-code`; PR #27 | partial tooling runs `35527269611` and `35527350320` retained as mechanical implementation-contract failures; corrected/final tooling runs `35527446051` and `35527563934` PASS in GCC 13 Debug and Clang 18/libc++ Debug; PR FAST `35527616244` PASS; PR INTEGRATION `35527616258` PASS; post-merge FAST `35527668634` PASS; post-merge INTEGRATION `35527668624` PASS | reusable-only executor + protected-main authorization controller integrated; no authorization JSON yet; no claim; no formal execute |
 | Exact TMR execution authorization | MERGED / CONSUMED | `topology/tmr-execution-authorization`; PR #29 | TMR tooling `35527984255` PASS in GCC/Clang; PR FAST `35528019065` PASS; PR INTEGRATION `35528019067` PASS; merged authorization commit `8a6eafc02d5e69f467e2badfea0b571e253b84bd` | exact `EXECUTE_ONCE` record merged once; no second authorization permitted |
 | First formal TMR execution | EXECUTED / ATTEMPT CONSUMED | protected-main run `35528077223` | authorization validation PASS; exact PREPARED binding PASS; immutable claim created; execute PASS; retention verification PASS; terminal artifact `10610497080` retained | workflow/process success is not scientific qualification |
-| First formal TMR terminal audit | VALIDATED_UNMERGED / BLOCKED | `docs/tmr-terminal-audit-blocked` | terminal package independently audited; TMR0-TMR5 PASS; TMR6-TMR7 BLOCKED; 4 semantic CTest records observed vs 8 required by sealed protocol | no retry/rescue; no production-semantic contradiction shown; diagnosis only after audit checkpoint merge |
+| First formal TMR terminal audit | MERGED / BLOCKED | `docs/tmr-terminal-audit-blocked`; PR #30 | terminal package independently audited; TMR0-TMR5 PASS; TMR6-TMR7 BLOCKED; 4 semantic CTest records observed vs 8 required by sealed protocol | no retry/rescue; no production-semantic contradiction shown |
+| TMR repetition-cardinality diagnosis | MERGED | `topology/tmr-repetition-cardinality-diagnosis`; PR #33 | diagnosis established 56-command future execution shape and stable protocol-guard requirement | diagnosis only; no campaign |
+| TMR repetition-cardinality correction | MERGED | `topology/tmr-repetition-cardinality-correction`; PR #35 | final TMR Tooling `35530579354` PASS; PR FAST `35530643533`; PR INTEGRATION `35530643582`; post-merge FAST/INTEGRATION PASS | tooling-only; no production C++; no campaign |
+| Corrected formal TMR preparation and audit | VALIDATED_UNMERGED / PREPARED | workflow run `35531261000`; branch `docs/tmr-corrected-preparation-audit` | artifact `10611054028`; ZIP SHA-256 `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`; manifest `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`; audit PASS | PREPARED only; 56-command plan; no claim/execute; authorization binding still points to first package |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
 
 ## Relevant branch classification
@@ -126,54 +129,78 @@ writing.
 - `docs/tmr-repetition-diagnosis-closure`: **CLOSURE-ONLY**; records PR #33
   integration and post-merge validation without opening a scientific work
   item.
+- `topology/tmr-repetition-cardinality-correction`: **MERGED / HISTORICAL**
+  via PR #35; implements the diagnosed 56-command repetition shape and stable
+  protocol guard.
+- `docs/tmr-repetition-correction-closure`: **MERGED / HISTORICAL** via
+  PR #36; closes the corrected-runner checkpoint and authorizes a new formal
+  preparation.
+- `docs/tmr-corrected-preparation-audit`: **ACTIVE /
+  VALIDATED_UNMERGED**; independent audit of the second PREPARED package only.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The TMR repetition-cardinality correction is closed.**
+**Integrate the corrected second TMR PREPARED-package audit —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `docs/tmr-corrected-preparation-audit`.
 
-1. diagnosis authority:
-   `docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`;
-2. corrected branch final TMR Tooling run `35530579354`: PASS in GCC 13 Debug
-   and Clang 18/libc++ Debug;
-3. correction PR #35 required FAST `35530643533`: PASS;
-4. correction PR #35 required INTEGRATION `35530643582`: PASS in GCC 13 Debug
-   and Clang 18/libc++ Debug;
-5. PR #35 squash-merged as
-   `6df723b68d265e2e3081a774d7312aa227fdcef6`;
-6. post-merge INTEGRATION `35530685060`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. post-merge FAST `35530685096`: PASS;
-8. no production topology C++, scientific profile, matrix, allowlist, cases or
-   TMR0–TMR7 acceptance criterion changed;
-9. no formal PREPARED package, new authorization, execution claim, or formal
-   campaign was created by the correction.
+Audited preparation:
 
-The corrected runner now enforces the diagnosed four-cell × two-repetition
-execution shape of exactly 56 command records.
+1. workflow run `35531261000`, event `workflow_dispatch`, branch `main`;
+2. candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
+3. artifact `10611054028`,
+   `tmr-prepared-37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
+4. artifact ZIP SHA-256
+   `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
+5. prepared-manifest SHA-256
+   `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+6. preparation-seal SHA-256
+   `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
+7. exact seven-file PREPARED archive, with no execution claim, command records,
+   terminal manifest, certificate index or failure record;
+8. candidate/upstream equality, clean-tree claim, 1546 retained source paths,
+   and 1546 GitHub tree blobs with identical path-list SHA-256
+   `1afa38a785143adaee41887b23f11e400dd538b73b1492dfae77ffa4d79c4e2a`;
+9. 12/12 critical input hashes independently recomputed against the exact
+   GitHub candidate and matched;
+10. all four admitted cloud observations PASS;
+11. corrected planned execution cardinality: 56 unique command records,
+    112 command logs, 14 commands per cell, eight semantic CTest records and
+    56 individual semantic test executions;
+12. lifecycle `PREPARED`, `execution_requested=false`, TMR0–TMR7 all
+    `NOT_EXECUTED`.
 
-No work item is active.
+Audit decision: **PASS / PREPARED / NOT EXECUTED.**
+
+The current authorization validator/controller/executor constants are still
+bound to the consumed first PREPARED package. No `EXECUTE_ONCE` for this
+second package is admissible yet.
 
 ## Next admissible work item after closure
 
-Prepare exactly one **new formal Topological Model TMR PREPARED package** from
-the clean corrected `main` candidate.
+After this preparation audit is merged, post-merge FAST/INTEGRATION pass, and
+the audit checkpoint is closed, open one bounded authorization-binding work
+item for the audited second PREPARED package.
 
-The new preparation must:
+That work item must preserve repository-resident one-shot authorization and
+fail-closed behavior while binding, directly or through a safely generalized
+mechanism, the exact audited identities:
 
-1. bind the corrected runner and planned inventories now on `main`;
-2. bind the exact admitted cloud qualification environment;
-3. bind the current clean candidate commit and tracked-source inventory;
-4. retain the same fixed four-cell × two-repetition matrix, seven-test semantic
-   allowlist, cases, TMR0–TMR7 gates, and acceptance criteria;
-5. produce a new PREPARED manifest, preparation seal, run ID, artifact ID and
-   hashes;
-6. contain no execution claim, command records or terminal manifest;
-7. be independently audited before any new `EXECUTE_ONCE` authorization.
+- candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
+- preparation run `35531261000`;
+- artifact ID `10611054028`;
+- artifact SHA-256
+  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
+- prepared-manifest SHA-256
+  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+- preparation-seal SHA-256
+  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
+- corrected preparation-audit authority.
 
-The first campaign's PREPARED package, authorization, immutable claim and
-terminal package remain historical and must not be reused, amended or retried.
+The binding work item must not itself add `EXECUTE_ONCE`, create a claim, or
+execute the campaign. Only after that mechanism is merged, validated and
+closed may a separate exact authorization-record PR be created.
 

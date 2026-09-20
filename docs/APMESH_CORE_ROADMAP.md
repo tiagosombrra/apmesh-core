@@ -685,9 +685,33 @@ PR #35 integrated the correction as
 INTEGRATION `35530685060` and FAST `35530685096` also passed. No
 production topology or scientific acceptance criterion changed.
 
-The next bounded work is now a new formal PREPARED package from the corrected
-clean candidate, followed by independent preparation audit. No execution is
-authorized by preparation.
+The corrected formal PREPARED package was created by run `35531261000`
+against canonical `main` candidate
+`37f9af77f38e12af0a92d3c0f57f1ad31a218144`.
+
+Independent preparation audit records **PASS / PREPARED / NOT EXECUTED**:
+
+- artifact `10611054028`;
+- ZIP SHA-256
+  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
+- manifest SHA-256
+  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+- seal SHA-256
+  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
+- exact 1546-file candidate inventory agreement;
+- 12/12 critical input hashes matched;
+- all cloud observations PASS;
+- corrected 56-command / 112-log planned campaign;
+- no execution claim or terminal evidence.
+
+Audit authority:
+`docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.md`.
+
+The next bounded work after audit integration is **not execution yet**. The
+existing repository-resident authorization machinery remains hard-bound to the
+consumed first PREPARED package. One separate authorization-binding/
+generalization work item must safely bind the audited second package before a
+new `EXECUTE_ONCE` record becomes admissible.
 
 #### Vertex and Edge Identity
 
