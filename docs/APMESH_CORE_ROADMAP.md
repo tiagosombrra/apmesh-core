@@ -545,7 +545,7 @@ Stage exit gate: primitive operations are analytically verified across the decla
 Status: `IN INVESTIGATION / IDENTITY AND ORIENTED EDGE KERNEL IMPLEMENTED /
 FOCUSED CONTRACT PASS / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
 EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-STRUCTURAL INCIDENCE CONTRACT ACCEPTED / STAGE UNQUALIFIED`
+STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -586,7 +586,8 @@ The fourth bounded contract authorizes only a deterministic structural
 classification derived from those records. It records cardinality, orientation
 balance, distinct owners, and repetition without interpreting them as
 adjacency, pairing, boundary status, manifoldness, fan order, or geometry.
-Implementation and focused evidence have not started.
+Its focused GCC 13 Debug and Clang 18/libc++ Debug contract passes. A new
+bounded topological decision is required before further implementation.
 
 #### Vertex and Edge Identity
 
@@ -881,7 +882,7 @@ Current active stage:
 **Topological Model - IN INVESTIGATION / EDGE KERNEL IMPLEMENTED /
 FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
 EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-STRUCTURAL INCIDENCE CONTRACT ACCEPTED / STAGE UNQUALIFIED**
+STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED**
 
 The Identity and Oriented Edge Incidence Kernel defined in
 `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` is implemented and its
@@ -894,6 +895,7 @@ The third bounded work unit implements deterministic immutable edge-use
 incidence enumeration. Its focused GCC 13 Debug and Clang 18/libc++ Debug
 evidence passes; it does not qualify the stage or authorize boundary/manifold
 interpretation, geometry, serialization, or a formal campaign.
-The next bounded work unit is deterministic edge-incidence structural
-classification only. It must not convert structural signatures into adjacency,
-pairing, boundary, manifold, shell, or geometric claims.
+Deterministic edge-incidence structural classification is also implemented and
+its focused GCC/Clang Debug contract passes. It does not convert structural
+signatures into adjacency, pairing, boundary, manifold, shell, or geometric
+claims; a new bounded decision is required before further implementation.

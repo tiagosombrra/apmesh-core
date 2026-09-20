@@ -96,13 +96,15 @@ must preserve every repeated occurrence and deterministic traversal order
 without inferring adjacency, pairing, boundary status, fan order, manifoldness,
 geometry, or persistent loop/use identity.
 
-**Deterministic Edge-Incidence Structural Classification — ACCEPTED FOR BOUNDED
-IMPLEMENTATION / NOT IMPLEMENTED / NOT QUALIFIED.** The next work unit may
-derive only the exact structural signature of each edge: occurrence count,
+**Deterministic Edge-Incidence Structural Classification — IMPLEMENTED /
+FOCUSED CONTRACT PASS / NOT QUALIFIED.** The implementation derives only the
+exact structural signature of each edge: occurrence count,
 distinct face and boundary-loop counts, forward/reverse counts, repeated-owner
 presence, and one of `unused`, `single_use`, `two_use_opposed`,
 `two_use_cooriented`, or `multi_use`. These are combinatorial observations, not
-boundary, adjacency, pairing, manifold, shell, or geometric conclusions.
+boundary, adjacency, pairing, manifold, shell, or geometric conclusions. The
+focused GCC 13 Debug and Clang 18/libc++ Debug CTest passed; a new bounded
+topological decision is required before further production work.
 
 Current prerequisite closure evidence:
 
@@ -367,9 +369,10 @@ The bounded Identity and Oriented Edge Incidence Kernel, Face Identity and
 Ordered Boundary Cycles, and Deterministic Edge-Use Incidence Enumeration are
 implemented. Their focused GCC 13 Debug and Clang 18/libc++ Debug FAST contract
 passes, but Topological Model remains unqualified. The next bounded production
-work unit is only deterministic edge-incidence structural classification as
-defined by the fourth contract in
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`.
+work unit has implemented deterministic edge-incidence structural
+classification as defined by the fourth contract in
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. A new bounded topological
+decision is required before further production work.
 Do not implement curves, NURBS, surfaces, meshing, or a formal qualification
 campaign.
 

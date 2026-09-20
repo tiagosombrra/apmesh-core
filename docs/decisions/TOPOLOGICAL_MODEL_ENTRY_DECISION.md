@@ -1,6 +1,6 @@
 # Topological Model - Bounded Entry Decision
 
-Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STRUCTURAL INCIDENCE CONTRACT ACCEPTED / STAGE UNQUALIFIED
+Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED
 Date: 2026-09-19
 Stage: Topological Model - Explicit Identity and Incidence
 Prerequisites: Foundation `QUALIFIED`; Geometry Primitives `QUALIFIED` on
@@ -591,9 +591,22 @@ contract creates the factual bridge from exact reverse incidence to a later,
 separately authorized consistency and manifold-classification policy. It does
 not close Immutable Validated Model or authorize Topological Model Regression.
 
+### Implementation result
+
+The implementation derives the signature directly from the existing immutable
+reverse incidence query and stores no second incidence relation. The focused
+`apmesh_core.topological_model` FAST CTest passed in WSL Ubuntu 24.04 GCC 13
+Debug and Clang 18/libc++ Debug. The evidence covers all five classes, exact
+counts, repeated owners, same-face opposed uses, multiple loops, three-face
+multi-use, invalid lookup, repeatability, and preservation of record order.
+
+This is focused implementation evidence only. It does not qualify Topological
+Model or authorize any excluded classification, geometry, serialization, or
+formal campaign.
+
 ## Next bounded action
 
-Implement only the deterministic edge-incidence structural signature and its
-focused FAST cases. Do not add adjacency, pairing, acceptance changes,
-manifold/boundary labels, geometry, serialization, qualification tooling, or a
-formal campaign.
+Require a new bounded topological decision before further implementation. Do
+not add adjacency, pairing, acceptance changes, manifold/boundary labels,
+geometry, serialization, qualification tooling, or a formal campaign under this
+completed contract.

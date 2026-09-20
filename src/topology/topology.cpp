@@ -192,6 +192,56 @@ void advance_identity(std::uint64_t& next) noexcept {
     return incidences;
 }
 
+[[nodiscard]] EdgeIncidenceSignature summarize_edge_incidences(
+    const std::span<const EdgeUseIncidence> incidences) noexcept {
+    EdgeIncidenceSignature signature{
+        .occurrence_count = incidences.size(),
+    };
+
+    for (std::size_t index = 0U; index < incidences.size(); ++index) {
+        const EdgeUseIncidence& incidence = incidences[index];
+        if (incidence.orientation == Orientation::forward) {
+            ++signature.forward_count;
+        } else {
+            ++signature.reverse_count;
+        }
+
+        bool seen_face = false;
+        bool seen_boundary = false;
+        for (std::size_t previous = 0U; previous < index; ++previous) {
+            const EdgeUseIncidence& prior = incidences[previous];
+            if (prior.face == incidence.face) {
+                seen_face = true;
+                signature.has_repeated_face = true;
+            }
+            if (prior.face == incidence.face &&
+                prior.boundary_loop_ordinal == incidence.boundary_loop_ordinal) {
+                seen_boundary = true;
+                signature.has_repeated_boundary = true;
+            }
+        }
+        if (!seen_face) {
+            ++signature.distinct_face_count;
+        }
+        if (!seen_boundary) {
+            ++signature.distinct_boundary_count;
+        }
+    }
+
+    if (signature.occurrence_count == 0U) {
+        signature.classification = EdgeIncidenceClass::unused;
+    } else if (signature.occurrence_count == 1U) {
+        signature.classification = EdgeIncidenceClass::single_use;
+    } else if (signature.occurrence_count == 2U) {
+        signature.classification = signature.forward_count == 1U && signature.reverse_count == 1U
+                                     ? EdgeIncidenceClass::two_use_opposed
+                                     : EdgeIncidenceClass::two_use_cooriented;
+    } else {
+        signature.classification = EdgeIncidenceClass::multi_use;
+    }
+    return signature;
+}
+
 } // namespace
 
 TopologyModel::TopologyModel(
@@ -236,6 +286,15 @@ TopologyModel::edge_use_incidences(const EdgeId id) const noexcept {
         return std::unexpected{TopologyError::invalid_edge_id};
     }
     return edge_use_incidences_[static_cast<std::size_t>(id.value() - 1U)];
+}
+
+std::expected<EdgeIncidenceSignature, TopologyError>
+TopologyModel::edge_incidence_signature(const EdgeId id) const noexcept {
+    const auto incidences = edge_use_incidences(id);
+    if (!incidences.has_value()) {
+        return std::unexpected{incidences.error()};
+    }
+    return summarize_edge_incidences(*incidences);
 }
 
 std::expected<OrientedEndpoints, TopologyError> TopologyModel::resolve(

@@ -159,6 +159,27 @@ struct EdgeUseIncidence {
     constexpr bool operator==(const EdgeUseIncidence&) const noexcept = default;
 };
 
+enum class EdgeIncidenceClass {
+    unused,
+    single_use,
+    two_use_opposed,
+    two_use_cooriented,
+    multi_use,
+};
+
+struct EdgeIncidenceSignature {
+    std::size_t occurrence_count{};
+    std::size_t distinct_face_count{};
+    std::size_t distinct_boundary_count{};
+    std::size_t forward_count{};
+    std::size_t reverse_count{};
+    bool has_repeated_face{};
+    bool has_repeated_boundary{};
+    EdgeIncidenceClass classification{EdgeIncidenceClass::unused};
+
+    constexpr bool operator==(const EdgeIncidenceSignature&) const noexcept = default;
+};
+
 class BoundaryLoop {
 public:
     [[nodiscard]] std::span<const EdgeUse> uses() const noexcept;
@@ -201,6 +222,8 @@ public:
     [[nodiscard]] std::expected<Face, TopologyError> face(FaceId id) const noexcept;
     [[nodiscard]] std::expected<std::span<const EdgeUseIncidence>, TopologyError>
     edge_use_incidences(EdgeId id) const noexcept;
+    [[nodiscard]] std::expected<EdgeIncidenceSignature, TopologyError>
+    edge_incidence_signature(EdgeId id) const noexcept;
     [[nodiscard]] std::expected<OrientedEndpoints, TopologyError> resolve(
         const EdgeUse& use) const noexcept;
 

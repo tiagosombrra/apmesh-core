@@ -14,6 +14,8 @@
 namespace {
 
 using apmesh::topology::EdgeId;
+using apmesh::topology::EdgeIncidenceClass;
+using apmesh::topology::EdgeIncidenceSignature;
 using apmesh::topology::EdgeUse;
 using apmesh::topology::EdgeUseIncidence;
 using apmesh::topology::FaceId;
@@ -44,6 +46,12 @@ template <typename Model>
 concept EnumeratesEdgeUseIncidences = requires(const Model& model, const EdgeId id) {
     { model.edge_use_incidences(id) }
         -> std::same_as<std::expected<std::span<const EdgeUseIncidence>, TopologyError>>;
+};
+
+template <typename Model>
+concept SummarizesEdgeIncidences = requires(const Model& model, const EdgeId id) {
+    { model.edge_incidence_signature(id) }
+        -> std::same_as<std::expected<EdgeIncidenceSignature, TopologyError>>;
 };
 
 bool require(const bool condition, const std::string_view message) {
@@ -97,6 +105,7 @@ int main() {
     static_assert(AddsEdge<TopologyBuilder, TopologyBuilder::VertexHandle>);
     static_assert(AddsFace<TopologyBuilder>);
     static_assert(EnumeratesEdgeUseIncidences<TopologyModel>);
+    static_assert(SummarizesEdgeIncidences<TopologyModel>);
     static_assert(!AddsEdge<TopologyBuilder, VertexId>);
     static_assert(!MutableTopologyModel<TopologyModel>);
 
@@ -344,6 +353,17 @@ int main() {
                  unused_parallel_incidences && unused_parallel_incidences->empty(),
                  "unused valid edge did not produce an empty incidence sequence") &&
              passed;
+    const auto unused_parallel_signature = parallel_edge && face_model
+                                               ? face_model->edge_incidence_signature(*parallel_edge)
+                                               : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                                     std::unexpected{TopologyError::invalid_edge_id}};
+    passed = require(
+                 unused_parallel_signature &&
+                     *unused_parallel_signature == EdgeIncidenceSignature{
+                         .classification = EdgeIncidenceClass::unused,
+                     },
+                 "unused edge signature differs from exact zero-incidence facts") &&
+             passed;
     const auto zero_incidences = face_model
                                      ? face_model->edge_use_incidences(EdgeId{})
                                      : std::expected<std::span<const EdgeUseIncidence>, TopologyError>{
@@ -352,6 +372,15 @@ int main() {
                  zero_incidences,
                  TopologyError::invalid_edge_id,
                  "zero edge identifier resolved in incidence lookup") &&
+             passed;
+    const auto zero_signature = face_model
+                                    ? face_model->edge_incidence_signature(EdgeId{})
+                                    : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                          std::unexpected{TopologyError::invalid_edge_id}};
+    passed = require_error(
+                 zero_signature,
+                 TopologyError::invalid_edge_id,
+                 "zero edge identifier resolved in signature lookup") &&
              passed;
     const auto first_edge_incidences = first_edge && face_model
                                            ? face_model->edge_use_incidences(*first_edge)
@@ -373,6 +402,26 @@ int main() {
                          .orientation = Orientation::forward,
                      },
                  "face edge-use incidence order or positional resolution differs") &&
+             passed;
+    const auto first_edge_signature = first_edge && face_model
+                                          ? face_model->edge_incidence_signature(*first_edge)
+                                          : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                                std::unexpected{TopologyError::invalid_edge_id}};
+    passed = require(
+                 first_edge_signature &&
+                     *first_edge_signature == EdgeIncidenceSignature{
+                         .occurrence_count = 2U,
+                         .distinct_face_count = 2U,
+                         .distinct_boundary_count = 2U,
+                         .forward_count = 2U,
+                         .reverse_count = 0U,
+                         .has_repeated_face = false,
+                         .has_repeated_boundary = false,
+                         .classification = EdgeIncidenceClass::two_use_cooriented,
+                     } && first_edge_incidences && first_edge_incidences->size() == 2U &&
+                     (*first_edge_incidences)[0U].face == *first_face &&
+                     (*first_edge_incidences)[1U].face == *second_face,
+                 "cooriented two-use signature or underlying incidence order differs") &&
              passed;
 
     TopologyBuilder loop_builder;
@@ -433,6 +482,24 @@ int main() {
                              .orientation = Orientation::forward,
                          },
                      "single edge-use incidence was not retained exactly") &&
+                 passed;
+        const auto self_loop_signature = self_loop_face_model
+                                             ? self_loop_face_model->edge_incidence_signature(*loop_edge)
+                                             : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                                   std::unexpected{TopologyError::invalid_edge_id}};
+        passed = require(
+                     self_loop_signature &&
+                         *self_loop_signature == EdgeIncidenceSignature{
+                             .occurrence_count = 1U,
+                             .distinct_face_count = 1U,
+                             .distinct_boundary_count = 1U,
+                             .forward_count = 1U,
+                             .reverse_count = 0U,
+                             .has_repeated_face = false,
+                             .has_repeated_boundary = false,
+                             .classification = EdgeIncidenceClass::single_use,
+                         },
+                     "single-use signature differs from exact incidence facts") &&
                  passed;
         const auto out_of_range_face = second_face
                                            ? self_loop_face_model->face(*second_face)
@@ -527,6 +594,20 @@ int main() {
                          same_incidences(*original_incidences, *reconstructed_incidences),
                      "independent construction did not reproduce edge-use incidence records") &&
                  passed;
+        const auto original_signature = first_edge && face_model
+                                            ? face_model->edge_incidence_signature(*first_edge)
+                                            : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                                  std::unexpected{TopologyError::invalid_edge_id}};
+        const auto reconstructed_signature = repeat_edge && repeated_construction_model
+                                                 ? repeated_construction_model->edge_incidence_signature(
+                                                       *repeat_edge)
+                                                 : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                                       std::unexpected{TopologyError::invalid_edge_id}};
+        passed = require(
+                     original_signature && reconstructed_signature &&
+                         *original_signature == *reconstructed_signature,
+                     "independent construction did not reproduce incidence signature") &&
+                 passed;
 
         const std::array<EdgeUse, 2U> repeated_edge_cycle{
             EdgeUse{.edge = *repeat_edge, .orientation = Orientation::forward},
@@ -594,6 +675,24 @@ int main() {
                          },
                      "repeated, opposite-orientation, or three-face incidences were coalesced") &&
                  passed;
+        const auto repeated_signature = repeated_face_model
+                                            ? repeated_face_model->edge_incidence_signature(*repeat_edge)
+                                            : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                                  std::unexpected{TopologyError::invalid_edge_id}};
+        passed = require(
+                     repeated_signature &&
+                         *repeated_signature == EdgeIncidenceSignature{
+                             .occurrence_count = 8U,
+                             .distinct_face_count = 5U,
+                             .distinct_boundary_count = 5U,
+                             .forward_count = 5U,
+                             .reverse_count = 3U,
+                             .has_repeated_face = true,
+                             .has_repeated_boundary = true,
+                             .classification = EdgeIncidenceClass::multi_use,
+                         },
+                     "multi-use signature lost repeated-owner or orientation facts") &&
+                 passed;
     }
 
     TopologyBuilder multi_loop_builder;
@@ -649,6 +748,64 @@ int main() {
                          (*first_loop_incidences)[1U].boundary_loop_ordinal == 1U,
                      "multiple boundary-loop incidences did not preserve loop ordinals") &&
                  passed;
+        const auto multi_loop_signature = multi_loop_model
+                                              ? multi_loop_model->edge_incidence_signature(*first_loop_edge)
+                                              : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                                    std::unexpected{TopologyError::invalid_edge_id}};
+        passed = require(
+                     multi_loop_signature &&
+                         *multi_loop_signature == EdgeIncidenceSignature{
+                             .occurrence_count = 2U,
+                             .distinct_face_count = 1U,
+                             .distinct_boundary_count = 2U,
+                             .forward_count = 2U,
+                             .reverse_count = 0U,
+                             .has_repeated_face = true,
+                             .has_repeated_boundary = false,
+                             .classification = EdgeIncidenceClass::two_use_cooriented,
+                         },
+                     "multiple-loop signature lost exact owner cardinalities") &&
+                 passed;
+    }
+
+    TopologyBuilder opposed_builder;
+    const auto opposed_vertex = opposed_builder.add_vertex();
+    const auto opposed_edge = opposed_vertex
+                                  ? opposed_builder.add_edge(*opposed_vertex, *opposed_vertex)
+                                  : std::expected<EdgeId, TopologyError>{
+                                        std::unexpected{TopologyError::invalid_vertex_handle}};
+    if (opposed_edge) {
+        const std::array<EdgeUse, 2U> opposed_cycle{
+            EdgeUse{.edge = *opposed_edge, .orientation = Orientation::forward},
+            EdgeUse{.edge = *opposed_edge, .orientation = Orientation::reverse},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> opposed_boundary{
+            std::span<const EdgeUse>{opposed_cycle},
+        };
+        const auto opposed_face = opposed_builder.add_face(opposed_boundary);
+        const auto opposed_model = opposed_builder.finalize();
+        const auto opposed_signature = opposed_model
+                                           ? opposed_model->edge_incidence_signature(*opposed_edge)
+                                           : std::expected<EdgeIncidenceSignature, TopologyError>{
+                                                 std::unexpected{TopologyError::invalid_edge_id}};
+        passed = require_value(opposed_face, "opposed two-use face construction failed") && passed;
+        passed = require_value(opposed_model, "opposed two-use finalization failed") && passed;
+        passed = require(
+                     opposed_signature &&
+                         *opposed_signature == EdgeIncidenceSignature{
+                             .occurrence_count = 2U,
+                             .distinct_face_count = 1U,
+                             .distinct_boundary_count = 1U,
+                             .forward_count = 1U,
+                             .reverse_count = 1U,
+                             .has_repeated_face = true,
+                             .has_repeated_boundary = true,
+                             .classification = EdgeIncidenceClass::two_use_opposed,
+                         },
+                     "opposed two-use signature differs from exact same-face facts") &&
+                 passed;
+    } else {
+        passed = false;
     }
 
     TopologyBuilder valence_builder;
