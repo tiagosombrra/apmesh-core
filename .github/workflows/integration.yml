@@ -1,0 +1,78 @@
+name: INTEGRATION
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: integration-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gcc-debug:
+    name: GCC 13 Debug / INTEGRATION
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install declared GCC toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes g++-13 ninja-build
+
+      - name: Record environment
+        run: |
+          uname -a
+          cmake --version
+          g++-13 --version
+          ninja --version
+
+      - name: Configure
+        run: cmake --preset gcc-debug
+
+      - name: Build
+        run: cmake --build --preset gcc-debug --parallel
+
+      - name: Run INTEGRATION contracts
+        run: ctest --preset integration-gcc-debug
+
+  clang-debug:
+    name: Clang 18 libc++ Debug / INTEGRATION
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install declared Clang/libc++ toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes clang-18 libc++-18-dev libc++abi-18-dev ninja-build
+
+      - name: Record environment
+        run: |
+          uname -a
+          cmake --version
+          clang++-18 --version
+          ninja --version
+
+      - name: Configure
+        run: cmake --preset clang-debug
+
+      - name: Build
+        run: cmake --build --preset clang-debug --parallel
+
+      - name: Run INTEGRATION contracts
+        run: ctest --preset integration-clang-debug
