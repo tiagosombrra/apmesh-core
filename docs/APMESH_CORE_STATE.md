@@ -252,31 +252,29 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Integrate the bounded Curve Derivatives and Regularity decision; do not
-implement derivative code in the decision work item.**
+**Implement Cubic Bézier Differential Evaluation and Pointwise Speed only.**
 
-Active decision authority:
-`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`.
+The Curve Derivatives and Regularity decision was integrated by PR #50 as
+`9c3caa35b580402fa0d7ce71412f3def7bbd8aa4`.
 
-The proposed first differential work unit is:
+Validation:
 
-**Cubic Bézier Differential Evaluation and Pointwise Speed.**
+- PR FAST `35542378763`: PASS;
+- PR INTEGRATION `35542378797`: PASS;
+- post-merge FAST `35542416703`: PASS;
+- post-merge INTEGRATION `35542416695`: PASS.
 
-It permits only:
+The implementation boundary is fixed to:
 
 - first derivative as the quadratic Bézier hodograph;
 - second derivative as the linear derivative of that hodograph;
-- pointwise speed from the qualified stable norm;
+- pointwise speed from the qualified stable Euclidean norm;
 - explicit parameter/non-finite-result failures;
-- reversal, translation and admitted-frame differential relations;
-- analytic pointwise zero-speed evidence.
+- focused reversal, translation, admitted-frame and analytic evidence.
 
-It explicitly does **not** permit a global `is_regular()` claim. A curve is
-globally regular only when its derivative is nonzero at every parameter in the
-domain; finite sampling cannot certify that condition.
-
-No derivative production code is authorized until this decision is integrated,
-validated and closed.
+Global interval regularity is not authorized. No `is_regular()`, root
+certification, unit tangent, curvature, arc length, discretization,
+quadrilateral or parallel capability may be introduced.
 
 
 ## Current active stage
@@ -292,7 +290,7 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 
 Current bounded decision:
 
-**Curve Derivatives and Regularity — DECISION ACTIVE / IMPLEMENTATION NOT
+**Curve Derivatives and Regularity — DECISION APPROVED / IMPLEMENTATION NOT
 STARTED.** The decision separates local differential evaluation from global
 regularity certification. Its first proposed work unit is Cubic Bézier
 Differential Evaluation and Pointwise Speed; interval-wide regularity,
