@@ -544,7 +544,8 @@ Stage exit gate: primitive operations are analytically verified across the decla
 
 Status: `IN INVESTIGATION / IDENTITY AND ORIENTED EDGE KERNEL IMPLEMENTED /
 FOCUSED CONTRACT PASS / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
-STAGE UNQUALIFIED`
+EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
+STRUCTURAL INCIDENCE CONTRACT ACCEPTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -573,6 +574,19 @@ loops without outer/inner semantics, and preserves repeated-edge and arbitrary
 face-incidence cases for later manifold classification. Its focused CTest passed
 in GCC 13 Debug and Clang 18/libc++ Debug for the declared risk cases. It does
 not qualify the stage or authorize any excluded topology/geometry behavior.
+
+The third bounded contract implements only deterministic immutable enumeration
+of the reverse relation from each edge to every stored face-boundary
+`EdgeUse` occurrence. Records preserve face identity, loop/use ordinals, and
+declared orientation without introducing loop/use identity, adjacency,
+pairing, manifold classification, geometry, serialization, or qualification.
+Its focused GCC 13 Debug and Clang 18/libc++ Debug contract passes.
+
+The fourth bounded contract authorizes only a deterministic structural
+classification derived from those records. It records cardinality, orientation
+balance, distinct owners, and repetition without interpreting them as
+adjacency, pairing, boundary status, manifoldness, fan order, or geometry.
+Implementation and focused evidence have not started.
 
 #### Vertex and Edge Identity
 
@@ -865,7 +879,9 @@ verified. Geometry Primitives is QUALIFIED only in the declared WSL Ubuntu
 Current active stage:
 
 **Topological Model - IN INVESTIGATION / EDGE KERNEL IMPLEMENTED /
-FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED**
+FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
+EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
+STRUCTURAL INCIDENCE CONTRACT ACCEPTED / STAGE UNQUALIFIED**
 
 The Identity and Oriented Edge Incidence Kernel defined in
 `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` is implemented and its
@@ -874,3 +890,10 @@ Boundary Cycles implementation is also complete and its focused GCC/Clang
 Debug contract passes. Neither result authorizes `PatchId`, curves, surfaces,
 outer/inner loop classification, manifold or non-manifold classification,
 canonical topology serialization, qualification infrastructure, or meshing.
+The third bounded work unit implements deterministic immutable edge-use
+incidence enumeration. Its focused GCC 13 Debug and Clang 18/libc++ Debug
+evidence passes; it does not qualify the stage or authorize boundary/manifold
+interpretation, geometry, serialization, or a formal campaign.
+The next bounded work unit is deterministic edge-incidence structural
+classification only. It must not convert structural signatures into adjacency,
+pairing, boundary, manifold, shell, or geometric claims.

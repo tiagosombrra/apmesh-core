@@ -1,6 +1,6 @@
 # Topological Model - Bounded Entry Decision
 
-Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED
+Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STRUCTURAL INCIDENCE CONTRACT ACCEPTED / STAGE UNQUALIFIED
 Date: 2026-09-19
 Stage: Topological Model - Explicit Identity and Incidence
 Prerequisites: Foundation `QUALIFIED`; Geometry Primitives `QUALIFIED` on
@@ -387,10 +387,213 @@ also `IMPLEMENTED / FOCUSED CONTRACT PASS / UNQUALIFIED`. Qualified prerequisite
 stages remain closed. Formal Topological Model qualification remains deferred
 until the stage's cumulative regression.
 
+## Third bounded contract: Deterministic Edge-Use Incidence Enumeration
+
+### Decision
+
+The Face Identity and Ordered Boundary Cycles contract is closed at
+`IMPLEMENTED / FOCUSED CONTRACT PASS / UNQUALIFIED`. The published focused
+contract now directly covers incorrect connected orientation, nonzero
+out-of-range `FaceId`, and repeatability across independent constructions.
+
+The bounded implementation **Deterministic Edge-Use Incidence Enumeration** adds an immutable factual record for
+each occurrence of an existing edge in a face boundary and a model query that
+enumerates those records deterministically. It must not classify the result as
+manifold, boundary, non-manifold, adjacent, paired, outer, inner, or geometric.
+
+This is the smallest next unit because the model already owns the forward
+relation `Face -> BoundaryLoop -> EdgeUse`, while later incidence validation
+requires the exact reverse relation `Edge -> EdgeUse occurrences`. The accepted
+CGAL, ISO 10303-42, and Open CASCADE references support explicit oriented-use
+incidence, but do not prescribe this storage layout or authorize a manifold
+policy. No new dependency or external oracle is introduced.
+
+### Bounded semantic model
+
+- An edge-use incidence record contains the owning `FaceId`, zero-based
+  boundary-loop ordinal, zero-based edge-use ordinal, and declared
+  `Orientation`.
+- Loop and use ordinals are positions in immutable face storage. They are not
+  `LoopId`, halfedge identity, or persistent identities outside the model.
+- Querying a valid edge returns every occurrence exactly once in deterministic
+  face-ID, loop-order, and use-order traversal.
+- A valid edge with no face use returns an empty result. An invalid or
+  out-of-range `EdgeId` fails explicitly.
+- Repeated occurrences of one edge in one loop, multiple loops of one face,
+  and occurrences in multiple faces remain distinct records and are never
+  deduplicated.
+- The record preserves the orientation declared by the corresponding
+  `EdgeUse`; it does not infer an opposite, mate, neighbor, side, or normal.
+- Finalization builds or validates the reverse incidence atomically and exposes
+  it read-only with the rest of `TopologyModel`.
+
+### Required invariants and focused cases
+
+1. The multiset of incidence records is in one-to-one correspondence with all
+   stored `EdgeUse` occurrences.
+2. Every record resolves to its exact owning face, loop position, use position,
+   edge identity, and orientation.
+3. Deterministic construction order produces deterministic incidence order.
+4. An unused valid edge produces an empty sequence; zero and out-of-range
+   edges produce `invalid_edge_id`.
+5. Repeated-edge, opposite-orientation, multiple-loop, and three-face cases
+   preserve all occurrences without classification or coalescing.
+6. Independent equal constructions reproduce identical incidence records.
+7. No coordinate, tolerance, geometry type, hash iteration, or pointer value
+   participates in enumeration or ordering.
+8. Existing vertex, edge, face, boundary-loop, and error behavior remains
+   unchanged.
+
+Focused FAST tests must exercise: unused edge, one occurrence, repeated edge in
+one loop, opposite orientations, multiple loops, three faces sharing one edge,
+invalid lookup, exact positional resolution, and independent repeatability.
+No formal manifest, component-specific evidence tooling, Release matrix, or
+qualification campaign is required.
+
+### Explicit exclusions and stop conditions
+
+This work unit does not authorize edge adjacency, face adjacency, mate/opposite
+pairing, manifold or non-manifold classification, boundary classification,
+fan ordering, connected components, shells, Euler operators, loop identity,
+canonical serialization/hash, `PatchId`, curves, surfaces, trimming, meshing,
+or coordinate-based inference.
+
+Stop for a new scientific decision if implementation requires any such
+classification, a persistent identity for an edge use or loop, geometric
+orientation, face--patch--surface ownership, or a change to existing identity
+and boundary-cycle semantics.
+
+### Effect on the roadmap
+
+Topological Model remains `IN INVESTIGATION / UNQUALIFIED`. This third bounded
+contract completes only factual reverse incidence needed before later
+consistency and classification decisions. It neither closes the Immutable
+Validated Model problem nor authorizes Topological Model Regression.
+
+### Closure handoff
+
+The required new bounded topological decision is the fourth contract below. The
+third contract itself does not authorize classification, geometry,
+serialization, qualification infrastructure, or a formal campaign.
+
+## Fourth bounded contract: Deterministic Edge-Incidence Structural Classification
+
+### Decision
+
+The Deterministic Edge-Use Incidence Enumeration contract is closed at
+`IMPLEMENTED / FOCUSED CONTRACT PASS / UNQUALIFIED`. Its reverse records are
+the sole input admitted by this fourth contract.
+
+Authorize one bounded implementation work unit named **Deterministic
+Edge-Incidence Structural Classification**. It may derive an immutable summary
+for each valid edge from its complete ordered incidence sequence. The summary
+describes only directly observable combinatorial facts; it does not decide
+adjacency, mate pairing, boundary membership, manifoldness, fan order, shell
+membership, embedding validity, or geometric orientation.
+
+This separation is necessary because cardinality and declared orientation are
+insufficient by themselves to establish every later topological claim. Two
+opposed uses may belong to distinct faces or to one seam face, repeated uses may
+occur within one loop, and a multi-use edge has no canonical cyclic fan order
+without additional structure. The structural signature therefore preserves
+those distinctions instead of collapsing them into a premature manifold label.
+
+### Bounded semantic model
+
+For each valid edge, the derived signature contains:
+
+- total occurrence count;
+- distinct owning-face count;
+- distinct owning-boundary count, where an owner is the pair `(FaceId,
+  boundary-loop ordinal)`;
+- forward and reverse occurrence counts;
+- whether any owning face or owning boundary contributes more than one
+  occurrence; and
+- exactly one structural class:
+  - `unused`: zero occurrences;
+  - `single_use`: one occurrence;
+  - `two_use_opposed`: exactly two occurrences with one forward and one reverse;
+  - `two_use_cooriented`: exactly two occurrences with equal orientation;
+  - `multi_use`: more than two occurrences.
+
+These names are exhaustive structural categories, not aliases for isolated,
+boundary, manifold, orientation-valid, orientation-invalid, non-manifold, seam,
+or adjacent. In particular, `two_use_opposed` does not distinguish two faces
+from a same-face seam; the ownership counts and repetition flags retain that
+fact separately.
+
+The signature is derived deterministically from immutable
+`edge_use_incidences(EdgeId)` results. It introduces no persistent identity,
+stored mate, adjacency edge, unordered traversal, tolerance, coordinate, or
+independent source of truth. Invalid and out-of-range `EdgeId` values retain
+the existing explicit `invalid_edge_id` failure.
+
+### Required invariants and focused FAST cases
+
+1. The five structural classes are mutually exclusive and exhaustive for every
+   valid edge.
+2. Total, forward, and reverse counts are exact and satisfy
+   `total = forward + reverse`.
+3. Distinct face and boundary-owner counts are computed from exact IDs and loop
+   ordinals, never from coordinates or pointer identity.
+4. Repeated ownership is reported without deduplication or rejection.
+5. Input incidence order does not change counts or class, while the underlying
+   ordered incidence sequence remains unchanged.
+6. Repeated equal model construction yields identical signatures.
+7. Existing model construction, face cycles, reverse incidence, lookup errors,
+   and acceptance behavior remain unchanged.
+
+Focused FAST tests must cover: unused, single-use, opposed two-use,
+co-oriented two-use, same-face seam, repeated use within one loop, multi-use by
+three faces, distinct face/boundary counts, invalid lookup, and independent
+repeatability. The test must also prove that classification does not mutate or
+reorder the underlying incidence records.
+
+No formal manifest, new evidence framework, Release matrix, or qualification
+campaign is required.
+
+### Explicit exclusions and stop conditions
+
+This contract does not authorize:
+
+- face adjacency or self-adjacency APIs;
+- mate/opposite pairing or pair identities;
+- boundary, manifold, non-manifold, seam, fan, shell, region, or connected-
+  component classification;
+- cyclic ordering of multi-use incidences;
+- rejection or repair based on any structural class;
+- loop/use persistent identity, canonical serialization/hash, geometry,
+  `PatchId`, curves, surfaces, trimming, meshing, or coordinate inference.
+
+Stop for a new scientific decision if implementation requires interpreting a
+signature as one of those excluded concepts, changing accepted model inputs,
+or introducing a second incidence store that can diverge from the existing
+reverse relation.
+
+### Alternatives considered
+
+- **Declare one use boundary, two uses manifold, and three or more uses
+  non-manifold:** rejected because it erases same-face seams, repeated owners,
+  and the assumptions needed to interpret cardinality.
+- **Create all pairwise face adjacencies:** rejected because a multi-use edge
+  has no authorized pairing or fan order and all-pairs expansion would invent a
+  relation not present in the model.
+- **Introduce persistent halfedge or mate identities:** deferred because the
+  current positional incidence records already preserve every fact required by
+  this work unit.
+- **Chosen structural signature:** provides deterministic, testable evidence
+  for the later classification decision without changing model admissibility.
+
+### Effect on the roadmap
+
+Topological Model remains `IN INVESTIGATION / UNQUALIFIED`. This fourth
+contract creates the factual bridge from exact reverse incidence to a later,
+separately authorized consistency and manifold-classification policy. It does
+not close Immutable Validated Model or authorize Topological Model Regression.
+
 ## Next bounded action
 
-No further production implementation is authorized by this decision. Review
-the bounded implementation for publication, then obtain a new scientific entry
-decision before any further Topological Model work. Do not introduce `PatchId`,
-curves, surfaces, manifold classification, qualification infrastructure, or a
+Implement only the deterministic edge-incidence structural signature and its
+focused FAST cases. Do not add adjacency, pairing, acceptance changes,
+manifold/boundary labels, geometry, serialization, qualification tooling, or a
 formal campaign.

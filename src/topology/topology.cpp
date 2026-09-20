@@ -169,13 +169,40 @@ void advance_identity(std::uint64_t& next) noexcept {
     return {};
 }
 
+[[nodiscard]] std::vector<std::vector<EdgeUseIncidence>> build_edge_use_incidences(
+    const std::vector<Edge>& edges,
+    const std::vector<Face>& faces) {
+    std::vector<std::vector<EdgeUseIncidence>> incidences(edges.size());
+    for (const Face& face : faces) {
+        const std::span<const BoundaryLoop> loops = face.boundary_loops();
+        for (std::size_t loop_index = 0U; loop_index < loops.size(); ++loop_index) {
+            const std::span<const EdgeUse> uses = loops[loop_index].uses();
+            for (std::size_t use_index = 0U; use_index < uses.size(); ++use_index) {
+                const EdgeUse& use = uses[use_index];
+                const std::size_t edge_index = static_cast<std::size_t>(use.edge.value() - 1U);
+                incidences[edge_index].push_back(EdgeUseIncidence{
+                    .face = face.id(),
+                    .boundary_loop_ordinal = loop_index,
+                    .edge_use_ordinal = use_index,
+                    .orientation = use.orientation,
+                });
+            }
+        }
+    }
+    return incidences;
+}
+
 } // namespace
 
 TopologyModel::TopologyModel(
     std::vector<Vertex> vertices,
     std::vector<Edge> edges,
-    std::vector<Face> faces) noexcept
-    : vertices_(std::move(vertices)), edges_(std::move(edges)), faces_(std::move(faces)) {}
+    std::vector<Face> faces,
+    std::vector<std::vector<EdgeUseIncidence>> edge_use_incidences) noexcept
+    : vertices_(std::move(vertices)),
+      edges_(std::move(edges)),
+      faces_(std::move(faces)),
+      edge_use_incidences_(std::move(edge_use_incidences)) {}
 
 std::span<const Vertex> TopologyModel::vertices() const noexcept {
     return vertices_;
@@ -201,6 +228,14 @@ std::expected<Face, TopologyError> TopologyModel::face(const FaceId id) const no
         return std::unexpected{TopologyError::invalid_face_id};
     }
     return faces_[static_cast<std::size_t>(id.value() - 1U)];
+}
+
+std::expected<std::span<const EdgeUseIncidence>, TopologyError>
+TopologyModel::edge_use_incidences(const EdgeId id) const noexcept {
+    if (!contains_edge(edges_, id)) {
+        return std::unexpected{TopologyError::invalid_edge_id};
+    }
+    return edge_use_incidences_[static_cast<std::size_t>(id.value() - 1U)];
 }
 
 std::expected<OrientedEndpoints, TopologyError> TopologyModel::resolve(
@@ -278,7 +313,12 @@ std::expected<TopologyModel, TopologyError> TopologyBuilder::finalize() const {
     if (const auto validation = validate(vertices_, edges_, faces_); !validation.has_value()) {
         return std::unexpected{validation.error()};
     }
-    return TopologyModel{vertices_, edges_, faces_};
+    return TopologyModel{
+        vertices_,
+        edges_,
+        faces_,
+        build_edge_use_incidences(edges_, faces_),
+    };
 }
 
 std::expected<EdgeUse, TopologyError> reverse(const EdgeUse& use) noexcept {

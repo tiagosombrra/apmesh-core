@@ -88,6 +88,22 @@ strong identity, transactional rejection, exact oriented closure, valence 1,
 Curves, surfaces, trimming evaluation, geometric winding, shells, manifold
 classification, meshing, and formal qualification remain excluded.
 
+**Deterministic Edge-Use Incidence Enumeration — IMPLEMENTED / FOCUSED CONTRACT
+PASS / NOT QUALIFIED.** Immutable factual records map
+each stored `EdgeUse` occurrence back to
+its `FaceId`, boundary-loop ordinal, use ordinal, and declared orientation. It
+must preserve every repeated occurrence and deterministic traversal order
+without inferring adjacency, pairing, boundary status, fan order, manifoldness,
+geometry, or persistent loop/use identity.
+
+**Deterministic Edge-Incidence Structural Classification — ACCEPTED FOR BOUNDED
+IMPLEMENTATION / NOT IMPLEMENTED / NOT QUALIFIED.** The next work unit may
+derive only the exact structural signature of each edge: occurrence count,
+distinct face and boundary-loop counts, forward/reverse counts, repeated-owner
+presence, and one of `unused`, `single_use`, `two_use_opposed`,
+`two_use_cooriented`, or `multi_use`. These are combinatorial observations, not
+boundary, adjacency, pairing, manifold, shell, or geometric conclusions.
+
 Current prerequisite closure evidence:
 
 **Geometry Primitives: QUALIFIED / GPR0-GPR7 PASS.** The bounded GPR0-GPR7
@@ -347,14 +363,13 @@ GPR0-GPR7 campaign. Preserve the immutable historical blocked attempts and the
 fifth manifest/retention package as the stage evidence. Foundation and Geometry
 Primitives remain qualified only in their declared WSL envelope.
 
-The bounded Identity and Oriented Edge Incidence Kernel is published on `main`
-at `fa38ba26cfe24d3541792b088e0c7891149e2542`. Its focused GCC 13 Debug and
-Clang 18/libc++ Debug contract passes, but Topological Model remains
-unqualified. The bounded contract distinguishing topological `FaceId` from
-future geometric `PatchId` and defining arbitrary-valence ordered `EdgeUse`
-boundary cycles is implemented. Its focused FAST contract passed in GCC 13
-Debug and Clang 18/libc++ Debug. The next topological production work unit
-requires a new bounded scientific entry decision.
+The bounded Identity and Oriented Edge Incidence Kernel, Face Identity and
+Ordered Boundary Cycles, and Deterministic Edge-Use Incidence Enumeration are
+implemented. Their focused GCC 13 Debug and Clang 18/libc++ Debug FAST contract
+passes, but Topological Model remains unqualified. The next bounded production
+work unit is only deterministic edge-incidence structural classification as
+defined by the fourth contract in
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`.
 Do not implement curves, NURBS, surfaces, meshing, or a formal qualification
 campaign.
 

@@ -15,6 +15,7 @@ namespace {
 
 using apmesh::topology::EdgeId;
 using apmesh::topology::EdgeUse;
+using apmesh::topology::EdgeUseIncidence;
 using apmesh::topology::FaceId;
 using apmesh::topology::Orientation;
 using apmesh::topology::TopologyBuilder;
@@ -39,6 +40,12 @@ concept AddsFace = requires(
     { builder.add_face(boundary_loops) } -> std::same_as<std::expected<FaceId, TopologyError>>;
 };
 
+template <typename Model>
+concept EnumeratesEdgeUseIncidences = requires(const Model& model, const EdgeId id) {
+    { model.edge_use_incidences(id) }
+        -> std::same_as<std::expected<std::span<const EdgeUseIncidence>, TopologyError>>;
+};
+
 bool require(const bool condition, const std::string_view message) {
     if (!condition) {
         std::cerr << message << '\n';
@@ -61,6 +68,20 @@ bool require_error(
     return require(!value.has_value() && value.error() == error, message);
 }
 
+bool same_incidences(
+    const std::span<const EdgeUseIncidence> first,
+    const std::span<const EdgeUseIncidence> second) {
+    if (first.size() != second.size()) {
+        return false;
+    }
+    for (std::size_t index = 0U; index < first.size(); ++index) {
+        if (first[index] != second[index]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 } // namespace
 
 int main() {
@@ -75,6 +96,7 @@ int main() {
     static_assert(!std::is_constructible_v<EdgeId, std::uint64_t>);
     static_assert(AddsEdge<TopologyBuilder, TopologyBuilder::VertexHandle>);
     static_assert(AddsFace<TopologyBuilder>);
+    static_assert(EnumeratesEdgeUseIncidences<TopologyModel>);
     static_assert(!AddsEdge<TopologyBuilder, VertexId>);
     static_assert(!MutableTopologyModel<TopologyModel>);
 
@@ -312,6 +334,46 @@ int main() {
                  TopologyError::invalid_face_id,
                  "zero face identifier resolved") &&
              passed;
+    const auto unused_parallel_incidences = parallel_edge && face_model
+                                                ? face_model->edge_use_incidences(*parallel_edge)
+                                                : std::expected<
+                                                      std::span<const EdgeUseIncidence>,
+                                                      TopologyError>{std::unexpected{
+                                                      TopologyError::invalid_edge_id}};
+    passed = require(
+                 unused_parallel_incidences && unused_parallel_incidences->empty(),
+                 "unused valid edge did not produce an empty incidence sequence") &&
+             passed;
+    const auto zero_incidences = face_model
+                                     ? face_model->edge_use_incidences(EdgeId{})
+                                     : std::expected<std::span<const EdgeUseIncidence>, TopologyError>{
+                                           std::unexpected{TopologyError::invalid_edge_id}};
+    passed = require_error(
+                 zero_incidences,
+                 TopologyError::invalid_edge_id,
+                 "zero edge identifier resolved in incidence lookup") &&
+             passed;
+    const auto first_edge_incidences = first_edge && face_model
+                                           ? face_model->edge_use_incidences(*first_edge)
+                                           : std::expected<
+                                                 std::span<const EdgeUseIncidence>,
+                                                 TopologyError>{std::unexpected{
+                                                 TopologyError::invalid_edge_id}};
+    passed = require(
+                 first_edge_incidences && first_edge_incidences->size() == 2U && first_face &&
+                     second_face && (*first_edge_incidences)[0U] == EdgeUseIncidence{
+                         .face = *first_face,
+                         .boundary_loop_ordinal = 0U,
+                         .edge_use_ordinal = 0U,
+                         .orientation = Orientation::forward,
+                     } && (*first_edge_incidences)[1U] == EdgeUseIncidence{
+                         .face = *second_face,
+                         .boundary_loop_ordinal = 0U,
+                         .edge_use_ordinal = 0U,
+                         .orientation = Orientation::forward,
+                     },
+                 "face edge-use incidence order or positional resolution differs") &&
+             passed;
 
     TopologyBuilder loop_builder;
     const auto loop_vertex = loop_builder.add_vertex();
@@ -355,6 +417,22 @@ int main() {
                          self_loop_face_model->faces().front().boundary_loops().front().uses().size() ==
                              1U,
                      "one-use self-loop boundary was not retained") &&
+                 passed;
+        const auto self_loop_incidences = self_loop_face_model
+                                              ? self_loop_face_model->edge_use_incidences(*loop_edge)
+                                              : std::expected<
+                                                    std::span<const EdgeUseIncidence>,
+                                                    TopologyError>{std::unexpected{
+                                                    TopologyError::invalid_edge_id}};
+        passed = require(
+                     self_loop_incidences && self_loop_face_id && self_loop_incidences->size() == 1U &&
+                         (*self_loop_incidences)[0U] == EdgeUseIncidence{
+                             .face = *self_loop_face_id,
+                             .boundary_loop_ordinal = 0U,
+                             .edge_use_ordinal = 0U,
+                             .orientation = Orientation::forward,
+                         },
+                     "single edge-use incidence was not retained exactly") &&
                  passed;
         const auto out_of_range_face = second_face
                                            ? self_loop_face_model->face(*second_face)
@@ -431,6 +509,24 @@ int main() {
                              face_model->faces()[1U].boundary_loops().front().uses().back(),
                      "independent construction did not reproduce face claim fields") &&
                  passed;
+        const auto original_incidences = first_edge && face_model
+                                             ? face_model->edge_use_incidences(*first_edge)
+                                             : std::expected<
+                                                   std::span<const EdgeUseIncidence>,
+                                                   TopologyError>{std::unexpected{
+                                                   TopologyError::invalid_edge_id}};
+        const auto reconstructed_incidences = repeat_edge && repeated_construction_model
+                                                  ? repeated_construction_model->edge_use_incidences(
+                                                        *repeat_edge)
+                                                  : std::expected<
+                                                        std::span<const EdgeUseIncidence>,
+                                                        TopologyError>{std::unexpected{
+                                                        TopologyError::invalid_edge_id}};
+        passed = require(
+                     original_incidences && reconstructed_incidences &&
+                         same_incidences(*original_incidences, *reconstructed_incidences),
+                     "independent construction did not reproduce edge-use incidence records") &&
+                 passed;
 
         const std::array<EdgeUse, 2U> repeated_edge_cycle{
             EdgeUse{.edge = *repeat_edge, .orientation = Orientation::forward},
@@ -466,6 +562,38 @@ int main() {
                              *repeat_edge,
                      "repeated edge or arbitrary face incidence was rejected") &&
                  passed;
+        const auto repeated_incidences = repeated_face_model && repeat_edge
+                                             ? repeated_face_model->edge_use_incidences(*repeat_edge)
+                                             : std::expected<
+                                                   std::span<const EdgeUseIncidence>,
+                                                   TopologyError>{std::unexpected{
+                                                   TopologyError::invalid_edge_id}};
+        passed = require(
+                     repeated_incidences && repeated_first_face && repeated_second_face &&
+                         repeated_third_face && repeated_incidences->size() == 8U &&
+                         (*repeated_incidences)[2U] == EdgeUseIncidence{
+                             .face = *repeated_first_face,
+                             .boundary_loop_ordinal = 0U,
+                             .edge_use_ordinal = 0U,
+                             .orientation = Orientation::forward,
+                         } && (*repeated_incidences)[3U] == EdgeUseIncidence{
+                             .face = *repeated_first_face,
+                             .boundary_loop_ordinal = 0U,
+                             .edge_use_ordinal = 1U,
+                             .orientation = Orientation::reverse,
+                         } && (*repeated_incidences)[6U] == EdgeUseIncidence{
+                             .face = *repeated_third_face,
+                             .boundary_loop_ordinal = 0U,
+                             .edge_use_ordinal = 0U,
+                             .orientation = Orientation::forward,
+                         } && (*repeated_incidences)[7U] == EdgeUseIncidence{
+                             .face = *repeated_third_face,
+                             .boundary_loop_ordinal = 0U,
+                             .edge_use_ordinal = 1U,
+                             .orientation = Orientation::reverse,
+                         },
+                     "repeated, opposite-orientation, or three-face incidences were coalesced") &&
+                 passed;
     }
 
     TopologyBuilder multi_loop_builder;
@@ -488,7 +616,7 @@ int main() {
             EdgeUse{.edge = *first_loop_edge, .orientation = Orientation::forward},
         };
         const std::array<EdgeUse, 1U> second_boundary{
-            EdgeUse{.edge = *second_loop_edge, .orientation = Orientation::forward},
+            EdgeUse{.edge = *first_loop_edge, .orientation = Orientation::forward},
         };
         const std::array<std::span<const EdgeUse>, 2U> multiple_boundaries{
             std::span<const EdgeUse>{first_boundary},
@@ -504,8 +632,22 @@ int main() {
                          multi_loop_model->faces().front().boundary_loops()[0U].uses().front().edge ==
                              *first_loop_edge &&
                          multi_loop_model->faces().front().boundary_loops()[1U].uses().front().edge ==
-                             *second_loop_edge,
+                             *first_loop_edge,
                      "multiple boundary loop order was not retained") &&
+                 passed;
+        const auto first_loop_incidences = multi_loop_model
+                                               ? multi_loop_model->edge_use_incidences(*first_loop_edge)
+                                               : std::expected<
+                                                     std::span<const EdgeUseIncidence>,
+                                                     TopologyError>{std::unexpected{
+                                                     TopologyError::invalid_edge_id}};
+        passed = require(
+                     first_loop_incidences && multi_loop_face && first_loop_incidences->size() == 2U &&
+                         (*first_loop_incidences)[0U].face == *multi_loop_face &&
+                         (*first_loop_incidences)[0U].boundary_loop_ordinal == 0U &&
+                         (*first_loop_incidences)[1U].face == *multi_loop_face &&
+                         (*first_loop_incidences)[1U].boundary_loop_ordinal == 1U,
+                     "multiple boundary-loop incidences did not preserve loop ordinals") &&
                  passed;
     }
 

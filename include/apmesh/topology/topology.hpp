@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <compare>
 #include <cstdint>
 #include <expected>
@@ -149,6 +150,15 @@ struct OrientedEndpoints {
     constexpr bool operator==(const OrientedEndpoints&) const noexcept = default;
 };
 
+struct EdgeUseIncidence {
+    FaceId face{};
+    std::size_t boundary_loop_ordinal{};
+    std::size_t edge_use_ordinal{};
+    Orientation orientation{Orientation::forward};
+
+    constexpr bool operator==(const EdgeUseIncidence&) const noexcept = default;
+};
+
 class BoundaryLoop {
 public:
     [[nodiscard]] std::span<const EdgeUse> uses() const noexcept;
@@ -189,6 +199,8 @@ public:
 
     [[nodiscard]] std::expected<Edge, TopologyError> edge(EdgeId id) const noexcept;
     [[nodiscard]] std::expected<Face, TopologyError> face(FaceId id) const noexcept;
+    [[nodiscard]] std::expected<std::span<const EdgeUseIncidence>, TopologyError>
+    edge_use_incidences(EdgeId id) const noexcept;
     [[nodiscard]] std::expected<OrientedEndpoints, TopologyError> resolve(
         const EdgeUse& use) const noexcept;
 
@@ -196,11 +208,13 @@ private:
     TopologyModel(
         std::vector<Vertex> vertices,
         std::vector<Edge> edges,
-        std::vector<Face> faces) noexcept;
+        std::vector<Face> faces,
+        std::vector<std::vector<EdgeUseIncidence>> edge_use_incidences) noexcept;
 
     std::vector<Vertex> vertices_;
     std::vector<Edge> edges_;
     std::vector<Face> faces_;
+    std::vector<std::vector<EdgeUseIncidence>> edge_use_incidences_;
 
     friend class TopologyBuilder;
 };
