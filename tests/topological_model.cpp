@@ -257,6 +257,19 @@ int main() {
                  "invalid boundary orientation was accepted") &&
              passed;
 
+    const std::array<EdgeUse, 2U> incorrectly_oriented_cycle{
+        forward,
+        EdgeUse{.edge = *reverse_edge, .orientation = Orientation::reverse},
+    };
+    const std::array<std::span<const EdgeUse>, 1U> incorrectly_oriented_face{
+        std::span<const EdgeUse>{incorrectly_oriented_cycle},
+    };
+    passed = require_error(
+                 builder.add_face(incorrectly_oriented_face),
+                 TopologyError::open_boundary_loop,
+                 "connected boundary with incorrect orientation was accepted") &&
+             passed;
+
     const std::array<EdgeUse, 2U> two_edge_cycle{
         forward,
         EdgeUse{.edge = *reverse_edge, .orientation = Orientation::forward},
@@ -343,6 +356,15 @@ int main() {
                              1U,
                      "one-use self-loop boundary was not retained") &&
                  passed;
+        const auto out_of_range_face = second_face
+                                           ? self_loop_face_model->face(*second_face)
+                                           : std::expected<apmesh::topology::Face, TopologyError>{
+                                                 std::unexpected{TopologyError::invalid_face_id}};
+        passed = require_error(
+                     out_of_range_face,
+                     TopologyError::invalid_face_id,
+                     "out-of-range face identifier resolved") &&
+                 passed;
     }
 
     TopologyBuilder repeat_builder;
@@ -370,7 +392,46 @@ int main() {
                  "repeated insertion sequence changed topology claim fields") &&
              passed;
 
-    if (repeat_edge && repeat_model) {
+    if (repeat_edge && repeat_reverse && repeat_model) {
+        const std::array<EdgeUse, 2U> repeated_construction_cycle{
+            EdgeUse{.edge = *repeat_edge, .orientation = Orientation::forward},
+            EdgeUse{.edge = *repeat_reverse, .orientation = Orientation::forward},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> repeated_construction_face{
+            std::span<const EdgeUse>{repeated_construction_cycle},
+        };
+        const auto repeated_construction_first = repeat_builder.add_face(repeated_construction_face);
+        const auto repeated_construction_second = repeat_builder.add_face(repeated_construction_face);
+        const auto repeated_construction_model = repeat_builder.finalize();
+        passed = require_value(
+                     repeated_construction_first,
+                     "repeated-construction first face failed") &&
+                 passed;
+        passed = require_value(
+                     repeated_construction_second,
+                     "repeated-construction second face failed") &&
+                 passed;
+        passed = require_value(
+                     repeated_construction_model,
+                     "repeated-construction finalization failed") &&
+                 passed;
+        passed = require(
+                     face_model && repeated_construction_first && repeated_construction_second &&
+                         repeated_construction_model &&
+                         repeated_construction_model->faces().size() == face_model->faces().size() &&
+                         repeated_construction_model->faces()[0U].id() == face_model->faces()[0U].id() &&
+                         repeated_construction_model->faces()[1U].id() == face_model->faces()[1U].id() &&
+                         repeated_construction_model->faces()[0U].boundary_loops().front().uses().front() ==
+                             face_model->faces()[0U].boundary_loops().front().uses().front() &&
+                         repeated_construction_model->faces()[0U].boundary_loops().front().uses().back() ==
+                             face_model->faces()[0U].boundary_loops().front().uses().back() &&
+                         repeated_construction_model->faces()[1U].boundary_loops().front().uses().front() ==
+                             face_model->faces()[1U].boundary_loops().front().uses().front() &&
+                         repeated_construction_model->faces()[1U].boundary_loops().front().uses().back() ==
+                             face_model->faces()[1U].boundary_loops().front().uses().back(),
+                     "independent construction did not reproduce face claim fields") &&
+                 passed;
+
         const std::array<EdgeUse, 2U> repeated_edge_cycle{
             EdgeUse{.edge = *repeat_edge, .orientation = Orientation::forward},
             EdgeUse{.edge = *repeat_edge, .orientation = Orientation::reverse},
@@ -400,8 +461,8 @@ int main() {
                  passed;
         passed = require(
                      repeated_first_face && repeated_second_face && repeated_third_face &&
-                         repeated_face_model && repeated_face_model->faces().size() == 3U &&
-                         repeated_face_model->faces().front().boundary_loops().front().uses().front().edge ==
+                         repeated_face_model && repeated_face_model->faces().size() == 5U &&
+                         repeated_face_model->faces()[2U].boundary_loops().front().uses().front().edge ==
                              *repeat_edge,
                      "repeated edge or arbitrary face incidence was rejected") &&
                  passed;

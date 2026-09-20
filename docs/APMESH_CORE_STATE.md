@@ -76,8 +76,8 @@ Clang 18/libc++ Debug. It authorizes no face/patch cycle, manifold or
 non-manifold classification, coordinate welding, curve/surface association,
 canonical serialization, qualification infrastructure, or campaign.
 
-**Face Identity and Ordered Boundary Cycles — ACCEPTED FOR BOUNDED
-IMPLEMENTATION / FOCUSED CONTRACT PASS / NOT QUALIFIED.** The amended active decision
+**Face Identity and Ordered Boundary Cycles — IMPLEMENTED /
+FOCUSED CONTRACT PASS / NOT QUALIFIED.** The amended active decision
 separates topological `FaceId` from future `PatchId`, defines one or more
 ordered non-empty closed `EdgeUse` cycles with arbitrary positive valence, and
 permits multiple loops without assigning outer/inner meaning. It admits
