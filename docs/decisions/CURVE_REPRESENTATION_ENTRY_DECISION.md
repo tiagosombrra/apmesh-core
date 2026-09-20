@@ -318,3 +318,21 @@ Evaluation** only.
 
 No derivative, arc-length, discretization, quadrilateral, or parallel work is
 authorized until the appropriate later bounded decision.
+
+## Integration checkpoint
+
+PR #46 integrated this entry decision as
+`c76e2946c8c9ffec658e4c8aa146f1abdca62f33`.
+
+Validation:
+
+- PR FAST `35536256853`: PASS;
+- PR INTEGRATION `35536256854`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35536324878`: PASS;
+- post-merge INTEGRATION `35536324875`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+The entry-decision checkpoint is closed. The sole next bounded work item is
+implementation of **Polynomial Cubic Bézier Value Representation and
+Evaluation** within the scope fixed above.

@@ -250,31 +250,32 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after entry-decision integration:
+Exact next bounded scientific action:
 
 **Implement Polynomial Cubic Bézier Value Representation and Evaluation only.**
 
-Entry authority:
-`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`.
+The Curve Representation entry decision was integrated by PR #46 as
+`c76e2946c8c9ffec658e4c8aa146f1abdca62f33`.
 
-Authorized first implementation scope:
+Validation:
 
-- immutable `CubicBezier2` and `CubicBezier3`;
+- PR FAST `35536256853`: PASS;
+- PR INTEGRATION `35536256854`: PASS;
+- post-merge FAST `35536324878`: PASS;
+- post-merge INTEGRATION `35536324875`: PASS.
+
+The bounded implementation remains exactly:
+
+- immutable `CubicBezier2`/`CubicBezier3`;
 - four ordered qualified control points;
-- exact `[0,1]` parameter domain;
+- parameter domain `[0,1]`;
 - de Casteljau evaluation using component-wise `std::lerp`;
 - geometric reversal;
-- explicit invalid-parameter failures;
-- focused GCC 13 Debug and Clang 18/libc++ Debug contracts;
-- preservation of accepted Numeric, Geometry, Cartesian Frames and Topological
-  Model semantics.
+- explicit non-finite/out-of-domain parameter failures;
+- focused GCC/Clang validation and prerequisite preservation.
 
-No derivatives, regularity, arc length, rational curves, topology ownership,
-discretization, quadrilateral meshing, or parallel execution are authorized by
-this entry decision.
-
-Topological Model remains QUALIFIED; Curve Representation is
-`IN INVESTIGATION / NOT QUALIFIED`.
+No derivative, regularity, arc length, rational curve, topology ownership,
+discretization, quadrilateral, or parallel capability is authorized.
 
 
 ## Current active stage
