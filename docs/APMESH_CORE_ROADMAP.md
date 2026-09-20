@@ -1041,7 +1041,11 @@ claim is created, failure consumes the attempt and there is no retry path.
 Focused/static run `35525736120` passed in GCC 13 Debug and Clang 18/libc++
 Debug. No claim or formal execution occurred.
 
-After integration and post-merge validation, the next bounded scientific action
-is one explicit manual dispatch of `Topological Model TMR Execution`, followed
-by independent audit of the retained terminal package before any TMR0-TMR7
-decision.
+PR #25 integrated the one-shot execution wrapper as
+`d7019fbff97989a79fd27fcb1915073881a53564`; post-merge FAST
+`35525932108` and INTEGRATION `35525932111` passed. No claim tag or formal
+execution exists.
+
+The next bounded scientific action is one explicit manual dispatch of
+`Topological Model TMR Execution`, followed by independent audit of the
+retained terminal package before any TMR0-TMR7 decision.
