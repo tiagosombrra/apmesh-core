@@ -718,6 +718,15 @@ PR #37 integrated the corrected preparation audit as
 `35531732329` and FAST `35531732270` passed. The next bounded work is now
 the authorization-binding/generalization change only.
 
+The generic authorization-binding implementation is now complete on
+`topology/tmr-generic-authorization-binding`. It preserves the one-file
+repository authorization event while removing campaign-specific constants from
+the controller/executor, structurally binds machine-readable PREPARED audits,
+checks GitHub artifact digest/provenance, and derives claim/concurrency from the
+manifest hash. TMR Tooling run `35532220165` passed in GCC 13 Debug and
+Clang 18/libc++ Debug. No `EXECUTE_ONCE` record has been added by this work
+item.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,
