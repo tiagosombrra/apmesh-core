@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "kind": "cloud-qualification-environment-profile",
+  "runner": {
+    "label": "ubuntu-24.04",
+    "image_os": "ubuntu24",
+    "image_version": "20260907.300.1",
+    "os_id": "ubuntu",
+    "os_version_id": "24.04",
+    "architecture": "x86_64"
+  },
+  "tools": {
+    "cmake": {
+      "path": "/usr/bin/cmake",
+      "version": "3.28.3",
+      "package": "cmake",
+      "package_version": "3.28.3-1build7"
+    },
+    "ninja": {
+      "path": "/usr/bin/ninja",
+      "version": "1.11.1",
+      "package": "ninja-build",
+      "package_version": "1.11.1-2"
+    },
+    "gcc": {
+      "path": "/usr/bin/g++-13",
+      "version": "13.3.0",
+      "package": "g++-13",
+      "package_version": "13.3.0-6ubuntu2~24.04.1"
+    },
+    "clang": {
+      "path": "/usr/bin/clang++-18",
+      "version": "18.1.3",
+      "package": "clang-18",
+      "package_version": "1:18.1.3-1ubuntu1"
+    },
+    "libcxx_dev": {
+      "package": "libc++-18-dev",
+      "package_version": "1:18.1.3-1ubuntu1"
+    },
+    "libcxxabi_dev": {
+      "package": "libc++abi-18-dev",
+      "package_version": "1:18.1.3-1ubuntu1"
+    }
+  },
+  "cells": [
+    {"id": "gcc-debug", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Debug"},
+    {"id": "gcc-release", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Release"},
+    {"id": "clang-debug", "compiler": "Clang 18", "library": "libc++", "build_type": "Debug"},
+    {"id": "clang-release", "compiler": "Clang 18", "library": "libc++", "build_type": "Release"}
+  ],
+  "semantic_ctest_allowlist": [
+    "apmesh_core.bootstrap_smoke",
+    "apmesh_core.numeric_contract",
+    "apmesh_core.geometry_primitives",
+    "apmesh_core.cartesian_frames",
+    "apmesh_core.topological_model",
+    "apmesh_core.minimal_small_linear_algebra",
+    "apmesh_core.math_header_isolation"
+  ],
+  "historical_wsl_reference": {
+    "os": "WSL Ubuntu 24.04",
+    "gcc": "13.3.0",
+    "clang": "18.1.3",
+    "libcxx": "18.1.3",
+    "cmake": "3.28.3",
+    "ninja": "1.11.1"
+  },
+  "limitations": [
+    "GitHub-hosted runner virtualization and kernel are distinct from the historical WSL envelope",
+    "The ubuntu-24.04 hosted-runner label is mutable; this profile fails closed when ImageVersion changes",
+    "Passing this profile admits only a bounded cloud environment candidate and does not establish scientific equivalence to WSL",
+    "Qualification tooling and TMR0-TMR7 formal execution remain disabled during environment admission"
+  ]
+}
