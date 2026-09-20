@@ -124,8 +124,16 @@ No TMR manifest is prepared by this change. No TMR command is executed. No
 TMR0–TMR7 gate is decided. No production C++ changes. Topological Model remains
 unqualified.
 
-The fail-closed cloud identity binding is implemented and focused validation
-passed in run `35516246789`. The next bounded action is a preparation-only
-GitHub Actions path using the existing runner. That workflow change must be
-integrated without dispatching it, must retain a future PREPARED package only
-when explicitly invoked, and must contain no formal execution step.
+The fail-closed cloud identity binding and exact planned tool paths are
+implemented. The manual preparation-only GitHub Actions path is also
+implemented and statically constrained to canonical-`main` manual dispatch,
+a new external runner-temp output root, PREPARED-only state, pinned artifact
+retention, and no formal execution step. Runs `35516864464` and
+`35516972035` are retained as consecutive mechanical quoting failures; the
+required tooling stop and simplification preceded the successful focused run
+`35517077819`.
+
+The preparation workflow itself has not been dispatched. After integration and
+ordinary post-merge validation, one manual preparation dispatch is admissible.
+Its resulting PREPARED package must be audited before any formal TMR execution
+is separately authorized.
