@@ -74,13 +74,18 @@ Current repository continuation checkpoint:
 - final pre-merge Major Semantic Regression on tree-equivalent candidate `6a934de6e8f6fae35e6c38ec45b9b1f23b170acb`: `PASS`, run `35513567930`;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - stage status: production bounded scope implemented, focused contracts pass,
-  cumulative TMR0--TMR7 report-only tooling implemented and focused-tooling
-  contracts pass; the admitted cloud envelope is now explicitly supplemented
-  into the TMR protocol; no formal TMR manifest or execution exists; stage
-  unqualified;
-- TMR tooling validation candidate: `ad8f6f379d2284b782cb93bf4e0a6f3b1aa61822`;
-  GitHub Actions run `35514834796`, GCC 13 Debug and Clang 18/libc++ Debug
-  focused tooling contracts PASS.
+  cumulative TMR0--TMR7 report-only tooling implemented, the admitted cloud
+  envelope explicitly supplemented, and the preparation/runner path now
+  fails closed on that cloud identity; no formal TMR manifest or execution
+  exists; stage unqualified;
+- TMR report-only tooling validation: candidate
+  `ad8f6f379d2284b782cb93bf4e0a6f3b1aa61822`, run `35514834796`, GCC 13
+  Debug and Clang 18/libc++ Debug PASS;
+- TMR cloud-identity binding validation: candidate
+  `967072efdee49af04b06c3f73b2b89fcb66f874c`, run `35516246789`, exact
+  admitted cloud identity plus focused GCC/Clang Debug tooling contracts PASS;
+  prior run `35516204233` is retained as a mechanical protocol-guard failure
+  before environment evaluation.
 
 Current Topological Model completion lanes:
 
@@ -88,7 +93,7 @@ Current Topological Model completion lanes:
 | --- | ---: | --- |
 | Production implementation | 100% | Five authorized bounded topology work units implemented. |
 | Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
-| Stage-regression / qualification tooling | 100% | Report-only profile/exporter/independent comparer/revision-bound runner and opt-in focused workflow implemented; GCC/Clang Debug tooling contracts PASS in run `35514834796`. |
+| Stage-regression / qualification tooling | 100% | Report-only profile/exporter/comparer/runner and opt-in workflow implemented; exact cloud identity is now fail-closed in preparation/execution binding; focused GCC/Clang Debug contracts PASS in run `35516246789`. |
 | Formal evidence execution | 0% | No TMR manifest prepared and no TMR campaign executed. |
 | Closure audit / documentation | 0% | Stage cannot close before TMR0--TMR7 terminal audit. |
 
@@ -101,10 +106,10 @@ Current cloud-execution infrastructure:
 | INTEGRATION | 100% | GCC 13 Debug and Clang 18/libc++ Debug required checks PASS; closure audit recorded in `docs/audits/2026-09-20-cloud-integration-closure.md`. |
 | QUALIFICATION environment | 100% | CQE0-CQE7 PASS; final candidate revalidation PASS in run `35513250315`, then squash-merged with identical tree. |
 
-Current TMR report-only tooling execution work-class allocation:
+Current TMR cloud-identity binding work-class allocation:
 
-- Implementation: **45%**;
-- Tests/validation: **30%**;
+- Implementation: **35%**;
+- Tests/validation: **40%**;
 - Evidence/experiments: **15%**;
 - Documentation/governance: **10%**.
 
@@ -200,17 +205,18 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after integration of the cloud-identity
+binding:
 
-**Add the smallest fail-closed cloud identity binding to the existing TMR
-preparation/runner path and focused contracts, using the accepted
-`docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`
-as authority.**
+**Add the smallest preparation-only GitHub Actions path for TMR that invokes the
+existing fail-closed runner `prepare` command only under explicit manual
+dispatch, writes to a new external runner-temp output root, and retains the
+sealed PREPARED package as an artifact.**
 
-That tooling-only step must prepare no formal TMR manifest, execute no TMR
-campaign, and change no production C++. Historical WSL evidence remains
-WSL-scoped; a future cloud campaign would establish a distinct cloud-scoped
-qualification claim.
+That workflow change must not be dispatched in the same change, must expose no
+formal `execute` step, must change no production C++, and must not decide any
+TMR0--TMR7 gate. Historical WSL evidence remains WSL-scoped; a future cloud
+campaign would establish a distinct cloud-scoped qualification claim.
 
 ## Current active stage
 
@@ -276,8 +282,11 @@ opt-in focused workflow now exist. Their GCC 13 Debug and Clang 18/libc++ Debug
 focused tooling contracts passed in GitHub Actions run `35514834796`. The
 cloud execution envelope is explicitly bound by
 `docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`.
-No formal manifest was prepared, no four-cell TMR campaign was executed, and no
-TMR gate or qualification result exists.
+The preparation/runner path now fails closed on that exact identity; run
+`35516246789` passed both focused GCC/Clang Debug cells. Run `35516204233`
+is retained as the single mechanical protocol-guard failure that occurred
+before environment evaluation. No formal manifest was prepared, no four-cell
+TMR campaign was executed, and no TMR gate or qualification result exists.
 
 Current prerequisite closure evidence:
 
