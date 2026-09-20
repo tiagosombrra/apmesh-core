@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "topological-model-tmr-execution-authorization",
+  "authorization": "EXECUTE_ONCE",
+  "candidate": "e5eda2663d6ff4b93ce1205660ff04d432acb9c0",
+  "preparation_run_id": 35524700979,
+  "prepared_artifact_id": 10609500629,
+  "prepared_artifact_sha256": "2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72",
+  "prepared_manifest_sha256": "d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd",
+  "preparation_seal_sha256": "982e1441f08bc3f11c3cffcf73113ce69a07e2066924ad01442b3ab94eeeb71e",
+  "preparation_audit": "docs/audits/2026-09-20-topological-model-tmr-preparation-audit.md",
+  "execution_workflow": ".github/workflows/topological-model-tmr-execute.yml",
+  "terminal_audit_required": true
+}
