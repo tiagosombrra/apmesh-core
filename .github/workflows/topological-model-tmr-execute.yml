@@ -20,7 +20,6 @@ jobs:
       TMR_CANDIDATE: e5eda2663d6ff4b93ce1205660ff04d432acb9c0
       TMR_PREPARATION_RUN_ID: "35524700979"
       TMR_PREPARED_ARTIFACT_ID: "10609500629"
-      TMR_PREPARED_ARTIFACT_NAME: tmr-prepared-e5eda2663d6ff4b93ce1205660ff04d432acb9c0
       TMR_PREPARED_MANIFEST_SHA256: d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd
       TMR_PREPARATION_SEAL_SHA256: 982e1441f08bc3f11c3cffcf73113ce69a07e2066924ad01442b3ab94eeeb71e
       TMR_CLAIM_TAG: tmr-execution-claim-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd
@@ -64,7 +63,7 @@ jobs:
       - name: Restore exact audited PREPARED package
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
-          name: tmr-prepared-e5eda2663d6ff4b93ce1205660ff04d432acb9c0
+          artifact-ids: "10609500629"
           path: ${{ runner.temp }}/apmesh-tmr-prepared
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
