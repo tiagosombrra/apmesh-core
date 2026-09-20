@@ -156,3 +156,40 @@ pre-registered TMR protocol must be explicitly supplemented or amended to name
 the admitted cloud envelope. The next bounded scientific implementation action
 remains the smallest reusable report-only TMR0-TMR7 workflow; no manifest is
 prepared and no formal campaign is executed by this admission audit.
+
+
+## Final candidate and post-merge verification
+
+After the admission audit text was recorded, the final PR head became
+`6a934de6e8f6fae35e6c38ec45b9b1f23b170acb`.
+
+That final candidate passed:
+
+- FAST;
+- both required INTEGRATION jobs;
+- all four Qualification Environment cells in run `35513250315`; and
+- the explicit major-boundary regression in run `35513567930`, with 7/7
+  semantic tests passing in GCC Debug, GCC Release, Clang/libc++ Debug, and
+  Clang/libc++ Release.
+
+Run `35513567930` contained no Node.js 20 checkout deprecation warning.
+
+PR #13 was squash-merged as
+`0a7095d431e4bea3c9c73e75d22df2e713c7a8ab`.
+
+The final reviewed PR head tree and merged commit tree are exactly equal:
+
+`7144943abc7ffd861b92587217a112c0edf6f9b4`.
+
+Therefore the final pre-merge environment-admission and major-regression
+results apply byte-for-byte to the merged functional content.
+
+Post-merge verification on `main`:
+
+- FAST run `35513658207`: **PASS**;
+- INTEGRATION run `35513658197`: **PASS**;
+- GCC 13 Debug INTEGRATION: **PASS**;
+- Clang 18/libc++ Debug INTEGRATION: **PASS**.
+
+No post-merge semantic or infrastructure contradiction was observed. The cloud
+qualification environment admission is therefore closed.
