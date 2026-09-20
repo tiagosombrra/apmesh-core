@@ -11,7 +11,11 @@ namespace apmesh::topology {
 enum class TopologyError {
     invalid_vertex_handle,
     invalid_edge_id,
+    invalid_face_id,
     invalid_orientation,
+    empty_face_boundary,
+    empty_boundary_loop,
+    open_boundary_loop,
     identity_exhausted,
     invalid_model,
 };
@@ -56,6 +60,28 @@ public:
 
 private:
     constexpr explicit EdgeId(const std::uint64_t value) noexcept : value_(value) {}
+
+    std::uint64_t value_{};
+
+    friend class TopologyBuilder;
+};
+
+class FaceId {
+public:
+    constexpr FaceId() noexcept = default;
+
+    [[nodiscard]] constexpr std::uint64_t value() const noexcept {
+        return value_;
+    }
+
+    [[nodiscard]] constexpr bool valid() const noexcept {
+        return value_ != 0U;
+    }
+
+    constexpr auto operator<=>(const FaceId&) const noexcept = default;
+
+private:
+    constexpr explicit FaceId(const std::uint64_t value) noexcept : value_(value) {}
 
     std::uint64_t value_{};
 
@@ -123,20 +149,58 @@ struct OrientedEndpoints {
     constexpr bool operator==(const OrientedEndpoints&) const noexcept = default;
 };
 
+class BoundaryLoop {
+public:
+    [[nodiscard]] std::span<const EdgeUse> uses() const noexcept;
+
+private:
+    explicit BoundaryLoop(std::vector<EdgeUse> uses) noexcept;
+
+    std::vector<EdgeUse> uses_;
+
+    friend class Face;
+    friend class TopologyBuilder;
+    friend class TopologyModel;
+};
+
+class Face {
+public:
+    [[nodiscard]] constexpr FaceId id() const noexcept {
+        return id_;
+    }
+
+    [[nodiscard]] std::span<const BoundaryLoop> boundary_loops() const noexcept;
+
+private:
+    Face(FaceId id, std::vector<BoundaryLoop> boundary_loops) noexcept;
+
+    FaceId id_{};
+    std::vector<BoundaryLoop> boundary_loops_;
+
+    friend class TopologyBuilder;
+    friend class TopologyModel;
+};
+
 class TopologyModel {
 public:
     [[nodiscard]] std::span<const Vertex> vertices() const noexcept;
     [[nodiscard]] std::span<const Edge> edges() const noexcept;
+    [[nodiscard]] std::span<const Face> faces() const noexcept;
 
     [[nodiscard]] std::expected<Edge, TopologyError> edge(EdgeId id) const noexcept;
+    [[nodiscard]] std::expected<Face, TopologyError> face(FaceId id) const noexcept;
     [[nodiscard]] std::expected<OrientedEndpoints, TopologyError> resolve(
         const EdgeUse& use) const noexcept;
 
 private:
-    TopologyModel(std::vector<Vertex> vertices, std::vector<Edge> edges) noexcept;
+    TopologyModel(
+        std::vector<Vertex> vertices,
+        std::vector<Edge> edges,
+        std::vector<Face> faces) noexcept;
 
     std::vector<Vertex> vertices_;
     std::vector<Edge> edges_;
+    std::vector<Face> faces_;
 
     friend class TopologyBuilder;
 };
@@ -171,6 +235,8 @@ public:
     [[nodiscard]] std::expected<EdgeId, TopologyError> add_edge(
         const VertexHandle& first,
         const VertexHandle& second);
+    [[nodiscard]] std::expected<FaceId, TopologyError> add_face(
+        std::span<const std::span<const EdgeUse>> boundary_loops);
     [[nodiscard]] std::expected<TopologyModel, TopologyError> finalize() const;
 
 private:
@@ -178,8 +244,10 @@ private:
 
     std::vector<Vertex> vertices_;
     std::vector<Edge> edges_;
+    std::vector<Face> faces_;
     std::uint64_t next_vertex_id_{1U};
     std::uint64_t next_edge_id_{1U};
+    std::uint64_t next_face_id_{1U};
 };
 
 [[nodiscard]] std::expected<EdgeUse, TopologyError> reverse(const EdgeUse& use) noexcept;

@@ -77,13 +77,16 @@ non-manifold classification, coordinate welding, curve/surface association,
 canonical serialization, qualification infrastructure, or campaign.
 
 **Face Identity and Ordered Boundary Cycles — ACCEPTED FOR BOUNDED
-IMPLEMENTATION / NOT IMPLEMENTED / NOT QUALIFIED.** The amended active decision
+IMPLEMENTATION / FOCUSED CONTRACT PASS / NOT QUALIFIED.** The amended active decision
 separates topological `FaceId` from future `PatchId`, defines one or more
 ordered non-empty closed `EdgeUse` cycles with arbitrary positive valence, and
 permits multiple loops without assigning outer/inner meaning. It admits
 repeated-edge and arbitrary face-incidence inputs without making a manifold
-claim. Curves, surfaces, trimming evaluation, geometric winding, shells,
-manifold classification, meshing, and formal qualification remain excluded.
+claim. The focused GCC 13 Debug and Clang 18/libc++ Debug CTest passed for
+strong identity, transactional rejection, exact oriented closure, valence 1,
+2, 3, and 5, repeated edges, multiple loops, and arbitrary face incidence.
+Curves, surfaces, trimming evaluation, geometric winding, shells, manifold
+classification, meshing, and formal qualification remain excluded.
 
 Current prerequisite closure evidence:
 
@@ -349,8 +352,9 @@ at `fa38ba26cfe24d3541792b088e0c7891149e2542`. Its focused GCC 13 Debug and
 Clang 18/libc++ Debug contract passes, but Topological Model remains
 unqualified. The bounded contract distinguishing topological `FaceId` from
 future geometric `PatchId` and defining arbitrary-valence ordered `EdgeUse`
-boundary cycles is now accepted. The next work unit is its bounded
-implementation plus focused FAST contracts.
+boundary cycles is implemented. Its focused FAST contract passed in GCC 13
+Debug and Clang 18/libc++ Debug. The next topological production work unit
+requires a new bounded scientific entry decision.
 Do not implement curves, NURBS, surfaces, meshing, or a formal qualification
 campaign.
 

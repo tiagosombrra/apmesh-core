@@ -1,10 +1,12 @@
 #include "apmesh/core/geometry.hpp"
 #include "apmesh/topology/topology.hpp"
 
+#include <array>
 #include <concepts>
 #include <cstdint>
 #include <expected>
 #include <iostream>
+#include <span>
 #include <string_view>
 #include <type_traits>
 #include <utility>
@@ -13,6 +15,7 @@ namespace {
 
 using apmesh::topology::EdgeId;
 using apmesh::topology::EdgeUse;
+using apmesh::topology::FaceId;
 using apmesh::topology::Orientation;
 using apmesh::topology::TopologyBuilder;
 using apmesh::topology::TopologyError;
@@ -27,6 +30,13 @@ concept AddsEdge = requires(Builder& builder, const Handle& first, const Handle&
 template <typename Model>
 concept MutableTopologyModel = requires(Model& model) {
     model.add_vertex();
+};
+
+template <typename Builder>
+concept AddsFace = requires(
+    Builder& builder,
+    const std::span<const std::span<const EdgeUse>> boundary_loops) {
+    { builder.add_face(boundary_loops) } -> std::same_as<std::expected<FaceId, TopologyError>>;
 };
 
 bool require(const bool condition, const std::string_view message) {
@@ -59,9 +69,12 @@ int main() {
     using apmesh::topology::reverse;
 
     static_assert(!std::same_as<VertexId, EdgeId>);
+    static_assert(!std::same_as<FaceId, VertexId>);
+    static_assert(!std::same_as<FaceId, EdgeId>);
     static_assert(!std::is_constructible_v<VertexId, std::uint64_t>);
     static_assert(!std::is_constructible_v<EdgeId, std::uint64_t>);
     static_assert(AddsEdge<TopologyBuilder, TopologyBuilder::VertexHandle>);
+    static_assert(AddsFace<TopologyBuilder>);
     static_assert(!AddsEdge<TopologyBuilder, VertexId>);
     static_assert(!MutableTopologyModel<TopologyModel>);
 
@@ -195,6 +208,98 @@ int main() {
                  "invalid orientation resolved") &&
              passed;
 
+    const std::array<std::span<const EdgeUse>, 0U> no_boundary_loops{};
+    passed = require_error(
+                 builder.add_face(no_boundary_loops),
+                 TopologyError::empty_face_boundary,
+                 "boundaryless face was accepted") &&
+             passed;
+
+    const std::array<EdgeUse, 0U> empty_loop{};
+    const std::array<std::span<const EdgeUse>, 1U> one_empty_loop{
+        std::span<const EdgeUse>{empty_loop},
+    };
+    passed = require_error(
+                 builder.add_face(one_empty_loop),
+                 TopologyError::empty_boundary_loop,
+                 "empty boundary loop was accepted") &&
+             passed;
+
+    const std::array<EdgeUse, 1U> open_loop{forward};
+    const std::array<std::span<const EdgeUse>, 1U> one_open_loop{
+        std::span<const EdgeUse>{open_loop},
+    };
+    passed = require_error(
+                 builder.add_face(one_open_loop),
+                 TopologyError::open_boundary_loop,
+                 "open boundary loop was accepted") &&
+             passed;
+
+    const std::array<EdgeUse, 1U> missing_edge_loop{
+        EdgeUse{.edge = EdgeId{}, .orientation = Orientation::forward},
+    };
+    const std::array<std::span<const EdgeUse>, 1U> one_missing_edge_loop{
+        std::span<const EdgeUse>{missing_edge_loop},
+    };
+    passed = require_error(
+                 builder.add_face(one_missing_edge_loop),
+                 TopologyError::invalid_edge_id,
+                 "missing boundary edge was accepted") &&
+             passed;
+
+    const std::array<EdgeUse, 1U> malformed_loop{malformed};
+    const std::array<std::span<const EdgeUse>, 1U> one_malformed_loop{
+        std::span<const EdgeUse>{malformed_loop},
+    };
+    passed = require_error(
+                 builder.add_face(one_malformed_loop),
+                 TopologyError::invalid_orientation,
+                 "invalid boundary orientation was accepted") &&
+             passed;
+
+    const std::array<EdgeUse, 2U> two_edge_cycle{
+        forward,
+        EdgeUse{.edge = *reverse_edge, .orientation = Orientation::forward},
+    };
+    const std::array<std::span<const EdgeUse>, 1U> two_edge_face{
+        std::span<const EdgeUse>{two_edge_cycle},
+    };
+    const auto first_face = builder.add_face(two_edge_face);
+    const auto second_face = builder.add_face(two_edge_face);
+    passed = require_value(first_face, "first face construction failed") && passed;
+    passed = require_value(second_face, "identical face construction failed") && passed;
+    passed = require(
+                 first_face && second_face && first_face->value() == 1U &&
+                     second_face->value() == 2U && *first_face != *second_face,
+                 "failed face insertion consumed identity or identical faces merged") &&
+             passed;
+
+    const auto face_model = builder.finalize();
+    passed = require_value(face_model, "face topology finalization failed") && passed;
+    passed = require(
+                 model->faces().empty() && face_model && face_model->faces().size() == 2U,
+                 "finalized topology mutability or face cardinality differs") &&
+             passed;
+    const auto stored_face = first_face && face_model
+                                 ? face_model->face(*first_face)
+                                 : std::expected<apmesh::topology::Face, TopologyError>{
+                                       std::unexpected{TopologyError::invalid_face_id}};
+    passed = require_value(stored_face, "stored face lookup failed") && passed;
+    passed = require(
+                 stored_face && stored_face->boundary_loops().size() == 1U &&
+                     stored_face->boundary_loops().front().uses().size() == 2U &&
+                     stored_face->boundary_loops().front().uses().front() == two_edge_cycle.front() &&
+                     stored_face->boundary_loops().front().uses().back() == two_edge_cycle.back(),
+                 "stored face boundary order differs") &&
+             passed;
+    passed = require_error(
+                 face_model ? face_model->face(FaceId{})
+                            : std::expected<apmesh::topology::Face, TopologyError>{
+                                  std::unexpected{TopologyError::invalid_face_id}},
+                 TopologyError::invalid_face_id,
+                 "zero face identifier resolved") &&
+             passed;
+
     TopologyBuilder loop_builder;
     const auto loop_vertex = loop_builder.add_vertex();
     const auto loop_edge = loop_vertex ? loop_builder.add_edge(*loop_vertex, *loop_vertex)
@@ -218,6 +323,25 @@ int main() {
                          loop_forward_endpoints->start == loop_vertex->id() &&
                          loop_forward_endpoints->end == loop_vertex->id(),
                      "self-loop was not retained as explicit topology") &&
+                 passed;
+
+        const std::array<EdgeUse, 1U> self_loop_cycle{loop_forward};
+        const std::array<std::span<const EdgeUse>, 1U> self_loop_face{
+            std::span<const EdgeUse>{self_loop_cycle},
+        };
+        const auto self_loop_face_id = loop_builder.add_face(self_loop_face);
+        const auto self_loop_face_model = loop_builder.finalize();
+        passed = require_value(self_loop_face_id, "self-loop face construction failed") && passed;
+        passed = require_value(
+                     self_loop_face_model,
+                     "self-loop face topology finalization failed") &&
+                 passed;
+        passed = require(
+                     self_loop_face_id && self_loop_face_model &&
+                         self_loop_face_model->faces().size() == 1U &&
+                         self_loop_face_model->faces().front().boundary_loops().front().uses().size() ==
+                             1U,
+                     "one-use self-loop boundary was not retained") &&
                  passed;
     }
 
@@ -245,6 +369,146 @@ int main() {
                      repeat_model->edges().size() == model->edges().size(),
                  "repeated insertion sequence changed topology claim fields") &&
              passed;
+
+    if (repeat_edge && repeat_model) {
+        const std::array<EdgeUse, 2U> repeated_edge_cycle{
+            EdgeUse{.edge = *repeat_edge, .orientation = Orientation::forward},
+            EdgeUse{.edge = *repeat_edge, .orientation = Orientation::reverse},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> repeated_edge_face{
+            std::span<const EdgeUse>{repeated_edge_cycle},
+        };
+        const auto repeated_first_face = repeat_builder.add_face(repeated_edge_face);
+        const auto repeated_second_face = repeat_builder.add_face(repeated_edge_face);
+        const auto repeated_third_face = repeat_builder.add_face(repeated_edge_face);
+        const auto repeated_face_model = repeat_builder.finalize();
+        passed = require_value(
+                     repeated_first_face,
+                     "repeated-edge first face construction failed") &&
+                 passed;
+        passed = require_value(
+                     repeated_second_face,
+                     "repeated-edge second face construction failed") &&
+                 passed;
+        passed = require_value(
+                     repeated_third_face,
+                     "repeated-edge third face construction failed") &&
+                 passed;
+        passed = require_value(
+                     repeated_face_model,
+                     "repeated-edge face topology finalization failed") &&
+                 passed;
+        passed = require(
+                     repeated_first_face && repeated_second_face && repeated_third_face &&
+                         repeated_face_model && repeated_face_model->faces().size() == 3U &&
+                         repeated_face_model->faces().front().boundary_loops().front().uses().front().edge ==
+                             *repeat_edge,
+                     "repeated edge or arbitrary face incidence was rejected") &&
+                 passed;
+    }
+
+    TopologyBuilder multi_loop_builder;
+    const auto first_loop_vertex = multi_loop_builder.add_vertex();
+    const auto second_loop_vertex = multi_loop_builder.add_vertex();
+    const auto first_loop_edge = first_loop_vertex
+                                     ? multi_loop_builder.add_edge(*first_loop_vertex, *first_loop_vertex)
+                                     : std::expected<EdgeId, TopologyError>{
+                                           std::unexpected{TopologyError::invalid_vertex_handle}};
+    const auto second_loop_edge = second_loop_vertex
+                                      ? multi_loop_builder.add_edge(*second_loop_vertex, *second_loop_vertex)
+                                      : std::expected<EdgeId, TopologyError>{
+                                            std::unexpected{TopologyError::invalid_vertex_handle}};
+    passed = require_value(first_loop_vertex, "first multiple-loop vertex construction failed") && passed;
+    passed = require_value(second_loop_vertex, "second multiple-loop vertex construction failed") && passed;
+    passed = require_value(first_loop_edge, "first multiple-loop edge construction failed") && passed;
+    passed = require_value(second_loop_edge, "second multiple-loop edge construction failed") && passed;
+    if (first_loop_edge && second_loop_edge) {
+        const std::array<EdgeUse, 1U> first_boundary{
+            EdgeUse{.edge = *first_loop_edge, .orientation = Orientation::forward},
+        };
+        const std::array<EdgeUse, 1U> second_boundary{
+            EdgeUse{.edge = *second_loop_edge, .orientation = Orientation::forward},
+        };
+        const std::array<std::span<const EdgeUse>, 2U> multiple_boundaries{
+            std::span<const EdgeUse>{first_boundary},
+            std::span<const EdgeUse>{second_boundary},
+        };
+        const auto multi_loop_face = multi_loop_builder.add_face(multiple_boundaries);
+        const auto multi_loop_model = multi_loop_builder.finalize();
+        passed = require_value(multi_loop_face, "multiple-loop face construction failed") && passed;
+        passed = require_value(multi_loop_model, "multiple-loop topology finalization failed") && passed;
+        passed = require(
+                     multi_loop_model && multi_loop_model->faces().size() == 1U &&
+                         multi_loop_model->faces().front().boundary_loops().size() == 2U &&
+                         multi_loop_model->faces().front().boundary_loops()[0U].uses().front().edge ==
+                             *first_loop_edge &&
+                         multi_loop_model->faces().front().boundary_loops()[1U].uses().front().edge ==
+                             *second_loop_edge,
+                     "multiple boundary loop order was not retained") &&
+                 passed;
+    }
+
+    TopologyBuilder valence_builder;
+    const auto valence_zero = valence_builder.add_vertex();
+    const auto valence_one = valence_builder.add_vertex();
+    const auto valence_two = valence_builder.add_vertex();
+    const auto valence_three = valence_builder.add_vertex();
+    const auto valence_four = valence_builder.add_vertex();
+    passed = require_value(valence_zero, "valence vertex zero construction failed") && passed;
+    passed = require_value(valence_one, "valence vertex one construction failed") && passed;
+    passed = require_value(valence_two, "valence vertex two construction failed") && passed;
+    passed = require_value(valence_three, "valence vertex three construction failed") && passed;
+    passed = require_value(valence_four, "valence vertex four construction failed") && passed;
+    if (valence_zero && valence_one && valence_two && valence_three && valence_four) {
+        const auto triangle_zero_one = valence_builder.add_edge(*valence_zero, *valence_one);
+        const auto triangle_one_two = valence_builder.add_edge(*valence_one, *valence_two);
+        const auto triangle_two_zero = valence_builder.add_edge(*valence_two, *valence_zero);
+        const auto pentagon_zero_one = valence_builder.add_edge(*valence_zero, *valence_one);
+        const auto pentagon_one_two = valence_builder.add_edge(*valence_one, *valence_two);
+        const auto pentagon_two_three = valence_builder.add_edge(*valence_two, *valence_three);
+        const auto pentagon_three_four = valence_builder.add_edge(*valence_three, *valence_four);
+        const auto pentagon_four_zero = valence_builder.add_edge(*valence_four, *valence_zero);
+        passed = require(
+                     triangle_zero_one && triangle_one_two && triangle_two_zero && pentagon_zero_one &&
+                         pentagon_one_two && pentagon_two_three && pentagon_three_four &&
+                         pentagon_four_zero,
+                     "valence edge construction failed") &&
+                 passed;
+        if (triangle_zero_one && triangle_one_two && triangle_two_zero && pentagon_zero_one &&
+            pentagon_one_two && pentagon_two_three && pentagon_three_four && pentagon_four_zero) {
+            const std::array<EdgeUse, 3U> triangle_cycle{
+                EdgeUse{.edge = *triangle_zero_one, .orientation = Orientation::forward},
+                EdgeUse{.edge = *triangle_one_two, .orientation = Orientation::forward},
+                EdgeUse{.edge = *triangle_two_zero, .orientation = Orientation::forward},
+            };
+            const std::array<EdgeUse, 5U> pentagon_cycle{
+                EdgeUse{.edge = *pentagon_zero_one, .orientation = Orientation::forward},
+                EdgeUse{.edge = *pentagon_one_two, .orientation = Orientation::forward},
+                EdgeUse{.edge = *pentagon_two_three, .orientation = Orientation::forward},
+                EdgeUse{.edge = *pentagon_three_four, .orientation = Orientation::forward},
+                EdgeUse{.edge = *pentagon_four_zero, .orientation = Orientation::forward},
+            };
+            const std::array<std::span<const EdgeUse>, 1U> triangle_face{
+                std::span<const EdgeUse>{triangle_cycle},
+            };
+            const std::array<std::span<const EdgeUse>, 1U> pentagon_face{
+                std::span<const EdgeUse>{pentagon_cycle},
+            };
+            const auto triangle_id = valence_builder.add_face(triangle_face);
+            const auto pentagon_id = valence_builder.add_face(pentagon_face);
+            const auto valence_model = valence_builder.finalize();
+            passed = require_value(triangle_id, "triangular face construction failed") && passed;
+            passed = require_value(pentagon_id, "five-edge face construction failed") && passed;
+            passed = require_value(valence_model, "valence topology finalization failed") && passed;
+            passed = require(
+                         triangle_id && pentagon_id && valence_model &&
+                             valence_model->faces().size() == 2U &&
+                             valence_model->faces()[0U].boundary_loops().front().uses().size() == 3U &&
+                             valence_model->faces()[1U].boundary_loops().front().uses().size() == 5U,
+                         "arbitrary positive boundary valence was not retained") &&
+                     passed;
+        }
+    }
 
     return passed ? 0 : 1;
 }

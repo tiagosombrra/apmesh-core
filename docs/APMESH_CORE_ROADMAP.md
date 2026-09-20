@@ -543,7 +543,8 @@ Stage exit gate: primitive operations are analytically verified across the decla
 ### Topological Model — Explicit Identity and Incidence
 
 Status: `IN INVESTIGATION / IDENTITY AND ORIENTED EDGE KERNEL IMPLEMENTED /
-FOCUSED CONTRACT PASS / FACE-BOUNDARY CONTRACT ACCEPTED / STAGE UNQUALIFIED`
+FOCUSED CONTRACT PASS / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
+STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -564,13 +565,14 @@ This is implementation evidence only: no stage qualification, face/patch
 incidence, manifold behavior, canonical serialization, or formal campaign is
 authorized by this result.
 
-The second bounded contract in the same decision document authorizes only
+The second bounded contract in the same decision document implements only
 strong topological `FaceId`, ordered non-empty boundary loops of existing
 `EdgeUse` values, arbitrary positive valence, atomic builder insertion, and
 immutable lookup. It separates `FaceId` from future `PatchId`, permits multiple
 loops without outer/inner semantics, and preserves repeated-edge and arbitrary
-face-incidence cases for later manifold classification. It is documentation
-only: implementation and focused evidence have not started.
+face-incidence cases for later manifold classification. Its focused CTest passed
+in GCC 13 Debug and Clang 18/libc++ Debug for the declared risk cases. It does
+not qualify the stage or authorize any excluded topology/geometry behavior.
 
 #### Vertex and Edge Identity
 
@@ -863,12 +865,12 @@ verified. Geometry Primitives is QUALIFIED only in the declared WSL Ubuntu
 Current active stage:
 
 **Topological Model - IN INVESTIGATION / EDGE KERNEL IMPLEMENTED /
-FACE-BOUNDARY CONTRACT ACCEPTED / STAGE UNQUALIFIED**
+FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED**
 
 The Identity and Oriented Edge Incidence Kernel defined in
 `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` is implemented and its
-focused GCC/Clang Debug contracts pass. The same decision now authorizes the
-next bounded Face Identity and Ordered Boundary Cycles implementation. It does
-not authorize `PatchId`, curves, surfaces, outer/inner loop classification,
-manifold or non-manifold classification, canonical topology serialization,
-qualification infrastructure, or meshing.
+focused GCC/Clang Debug contracts pass. The bounded Face Identity and Ordered
+Boundary Cycles implementation is also complete and its focused GCC/Clang
+Debug contract passes. Neither result authorizes `PatchId`, curves, surfaces,
+outer/inner loop classification, manifold or non-manifold classification,
+canonical topology serialization, qualification infrastructure, or meshing.

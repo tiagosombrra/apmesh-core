@@ -1,6 +1,6 @@
 # Topological Model - Bounded Entry Decision
 
-Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY CONTRACT ACCEPTED FOR BOUNDED IMPLEMENTATION
+Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / STAGE UNQUALIFIED
 Date: 2026-09-19
 Stage: Topological Model - Explicit Identity and Incidence
 Prerequisites: Foundation `QUALIFIED`; Geometry Primitives `QUALIFIED` on
@@ -370,11 +370,12 @@ This bounded contract does not authorize:
 
 ### Admission and stop conditions
 
-Implementation may proceed only if it extends the existing topology kernel
-without changing accepted vertex/edge behavior and satisfies all focused cases
-above under the FAST profile. Stop for a new scientific decision if
-implementation requires geometric outer/inner classification, boundaryless
-faces, explicit loop identity, face orientation relative to a surface,
+The bounded implementation extends the existing topology kernel without
+changing accepted vertex/edge behavior. Its focused FAST CTest passed in GCC
+13 Debug and Clang 18/libc++ Debug for every declared risk case. Topological
+Model remains unqualified. Stop for a new scientific decision before any work
+requiring geometric outer/inner classification, boundaryless faces, explicit
+loop identity, face orientation relative to a surface,
 face--patch--surface ownership/cardinality, manifold restrictions, or a change
 to the existing edge identity/orientation semantics.
 
@@ -382,13 +383,14 @@ to the existing edge identity/orientation semantics.
 
 Topological Model remains `IN INVESTIGATION`. The first kernel remains
 `IMPLEMENTED / FOCUSED CONTRACT PASS / UNQUALIFIED`; this second work unit is
-`ACCEPTED FOR BOUNDED IMPLEMENTATION / NOT IMPLEMENTED`. Qualified prerequisite
+also `IMPLEMENTED / FOCUSED CONTRACT PASS / UNQUALIFIED`. Qualified prerequisite
 stages remain closed. Formal Topological Model qualification remains deferred
 until the stage's cumulative regression.
 
 ## Next bounded action
 
-Implement only `FaceId`, immutable face boundary-loop storage, atomic builder
-insertion, model lookup, and the focused risk cases declared above. Run FAST;
-do not introduce `PatchId`, curves, surfaces, manifold classification,
-qualification infrastructure, or a formal campaign.
+No further production implementation is authorized by this decision. Review
+the bounded implementation for publication, then obtain a new scientific entry
+decision before any further Topological Model work. Do not introduce `PatchId`,
+curves, surfaces, manifold classification, qualification infrastructure, or a
+formal campaign.
