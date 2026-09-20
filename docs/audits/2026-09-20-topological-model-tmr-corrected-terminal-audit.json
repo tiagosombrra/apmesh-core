@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "kind": "topological-model-tmr-corrected-terminal-audit",
+  "audit_date": "2026-09-20",
+  "decision": "PASS",
+  "stage_effect": "QUALIFIED_IN_ADMITTED_CLOUD_ENVIRONMENT",
+  "environment_equivalence_claim": false,
+  "candidate_commit": "37f9af77f38e12af0a92d3c0f57f1ad31a218144",
+  "authorization": {
+    "pr": 43,
+    "merge_commit": "cddd959574ed6a677ac755a5b329d53a9cfe32ec",
+    "authorization_file": "experiments/authorizations/topological-model-tmr-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa.json",
+    "prepared_manifest_sha256": "f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa"
+  },
+  "execution": {
+    "workflow_run_id": 35533702004,
+    "workflow_conclusion": "success",
+    "claim_tag": "tmr-execution-claim-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa",
+    "claim_tag_object_sha": "5f0b693780a681b6ceb9d17afb7c6c83fde72847",
+    "claim_target_commit": "37f9af77f38e12af0a92d3c0f57f1ad31a218144",
+    "claim_signed": false,
+    "claim_signature_limitation": "unsigned annotated Git tag; signature is not a protocol requirement",
+    "terminal_artifact_id": 10612032787,
+    "terminal_artifact_name": "tmr-terminal-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa-35533702004",
+    "terminal_artifact_sha256": "dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8",
+    "terminal_artifact_size_bytes": 260602
+  },
+  "post_authorization_main_checks": {
+    "fast": {
+      "run_id": 35533701748,
+      "status": "PASS"
+    },
+    "integration": {
+      "run_id": 35533701754,
+      "status": "PASS",
+      "cells": [
+        "GCC 13 Debug",
+        "Clang 18/libc++ Debug"
+      ]
+    }
+  },
+  "terminal_package": {
+    "lifecycle_state": "EXECUTED_PENDING_AUDIT",
+    "retained_file_count_including_retention_manifest": 146,
+    "retention_hashed_file_count": 145,
+    "retention_hashes_and_sizes_result": "PASS",
+    "retained_set_exact": true,
+    "build_trees_absent": true,
+    "detached_verification": "PASS",
+    "source_inventory_count": 1546,
+    "state_history": [
+      "PREPARED",
+      "RUNNING",
+      "EXECUTED_PENDING_AUDIT"
+    ],
+    "preparation_seal_still_matches": true,
+    "planned_success_artifact_set_matches_retained_set": true
+  },
+  "command_evidence": {
+    "command_record_count": 56,
+    "unique_command_record_count": 56,
+    "all_exit_zero": true,
+    "timeouts": 0,
+    "launch_errors": 0,
+    "command_records_per_cell": 14,
+    "configure_records": 4,
+    "build_records": 8,
+    "discovery_records": 8,
+    "semantic_ctest_records": 8,
+    "certificate_records": 8,
+    "certificate_validation_records": 8,
+    "negative_outcome_records": 4,
+    "dependency_inventory_records": 4,
+    "runtime_dependency_records": 4,
+    "retained_command_logs": 112,
+    "planned_command_logs": 112,
+    "command_log_inventory_exact": true
+  },
+  "semantic_execution": {
+    "repetitions": 8,
+    "tests_per_repetition": 7,
+    "individual_semantic_test_executions": 56,
+    "all_repetitions_exact_allowlist": true,
+    "all_repetitions_passed_7_of_7": true,
+    "allowlist": [
+      "apmesh_core.bootstrap_smoke",
+      "apmesh_core.numeric_contract",
+      "apmesh_core.geometry_primitives",
+      "apmesh_core.minimal_small_linear_algebra",
+      "apmesh_core.math_header_isolation",
+      "apmesh_core.cartesian_frames",
+      "apmesh_core.topological_model"
+    ]
+  },
+  "certificates": {
+    "count": 8,
+    "certificate_sha256": "e574cc589e2dc75c2ffd218af7336bbdc6202b6e2dcf4fe035a5f4e8d4a791a5",
+    "all_byte_identical": true,
+    "semantic_case_count": 13,
+    "per_cell_repeat_comparisons": "PASS",
+    "cross_cell_projection": "PASS"
+  },
+  "negative_and_isolation_evidence": {
+    "all_negative_cases_rejected": true,
+    "negative_cases": [
+      "duplicate_case",
+      "forged_snapshot",
+      "forged_incidence",
+      "forged_summary",
+      "undeclared_semantic_claim"
+    ],
+    "runtime_dependencies_resolved": true,
+    "topology_repo_local_dependencies": [
+      "src/topology/topology.cpp",
+      "include/apmesh/topology/topology.hpp"
+    ],
+    "excluded_topology_dependencies_observed": false
+  },
+  "gates": {
+    "TMR0": {
+      "decision": "PASS",
+      "basis": "candidate clean/published/revision-bound/hash-sealed; detached verification PASS; exact preparation/authorization/claim binding"
+    },
+    "TMR1": {
+      "decision": "PASS",
+      "basis": "strong identities, deterministic storage, atomic rejection/finalization, immutability/type contract verified in all eight certificates"
+    },
+    "TMR2": {
+      "decision": "PASS",
+      "basis": "incidence_bijection case proves exact forward/reverse occurrence bijection with exact face/loop/use/orientation"
+    },
+    "TMR3": {
+      "decision": "PASS",
+      "basis": "all five structural classes and consistency summary counts independently recompute identically"
+    },
+    "TMR4": {
+      "decision": "PASS",
+      "basis": "canonical snapshot schema/order/decimal/LF/final-newline/equality/controlled-difference cases match across all certificates"
+    },
+    "TMR5": {
+      "decision": "PASS",
+      "basis": "eight retained certificates are byte-identical and cross-cell semantic projection is identical"
+    },
+    "TMR6": {
+      "decision": "PASS",
+      "basis": "exact seven-test allowlist passes 7/7 in every one of eight repetitions; prerequisite tests pass; topology dependency isolation holds"
+    },
+    "TMR7": {
+      "decision": "PASS",
+      "basis": "56 commands, 112 logs, eight certificates, comparisons, inventories, negatives, detached verification, sealing and retention are complete and independently recomputable"
+    }
+  },
+  "overall": "PASS",
+  "topological_model_status": "QUALIFIED",
+  "qualification_scope": "exact admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope only",
+  "next_bounded_action": "After this terminal audit is merged and post-merge checks pass, close the audit checkpoint and open one separate scientific entry decision for Curve Representation. Do not begin curve implementation automatically."
+}
