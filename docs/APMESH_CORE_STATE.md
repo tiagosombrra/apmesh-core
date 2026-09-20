@@ -112,9 +112,11 @@ Current repository continuation checkpoint:
   PREPARED-state checks, pinned artifact retention, and no `execute` path.
   Runs `35516864464` and `35516972035` are retained as consecutive
   mechanical quoting failures; the tooling stop was honored, the shell command
-  was simplified, and the post-simplification run `35517077819` passed in
-  both GCC 13 Debug and Clang 18/libc++ Debug. The preparation workflow itself
-  has never been dispatched.
+  was simplified, and run `35517077819` passed in both focused cells.
+  PR #20 integrated the workflow as
+  `d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST
+  `35519501704` and INTEGRATION `35519501663` passed. The preparation
+  workflow itself has never been dispatched.
 
 Current Topological Model completion lanes:
 
@@ -234,8 +236,7 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after integration and post-merge validation
-of the preparation-only workflow:
+Exact next bounded scientific action:
 
 **Dispatch `Topological Model TMR Preparation` exactly once on canonical
 `main` to produce the first sealed cloud PREPARED package, retain its artifact,
@@ -245,6 +246,10 @@ That action may create one formal manifest with `execution_requested=false`
 and every TMR0--TMR7 gate `NOT_EXECUTED`. It must not invoke `execute`, must
 not produce an execution claim or terminal scientific result, and must not
 qualify the Topological Model stage.
+
+Operational precondition: the integration work item is closed in
+`docs/APMESH_CORE_WORKLOG.md`; no implementation branch for the preparation
+dispatch is active yet.
 
 ## Current active stage
 
