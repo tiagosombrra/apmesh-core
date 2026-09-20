@@ -1,6 +1,6 @@
 # Topological Model — Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / NOT PREPARED / NOT EXECUTED
+Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT PREPARED / NOT EXECUTED
 Date: 2026-09-20
 Stage: Topological Model — Explicit Identity and Incidence
 
@@ -214,8 +214,14 @@ figure is required because this stage contains no geometric embedding.
   and Geometry qualifications remain intact unless the evidence directly
   contradicts one of them.
 
-This pre-registration creates no profile, tooling, manifest, execution, gate
-result, or qualification claim.
+The bounded report-only profile, experimental exporter, independent
+validator/comparer, revision-bound runner, and opt-in focused tooling workflow
+are now implemented. Their GCC 13 Debug and Clang 18/libc++ Debug focused
+contracts passed on GitHub-hosted Ubuntu 24.04 in run `35514834796`.
+
+This tooling result creates no formal manifest, TMR execution, gate result, or
+qualification claim. It does not replace the execution environment declared by
+the fixed claim above.
 
 ## 12.1 Cloud-environment transition note
 
@@ -240,6 +246,15 @@ scope. Therefore:
 
 ## 13. Next bounded action
 
-Implement the smallest reusable report-only TMR0–TMR7 workflow and its focused
-contracts without changing production C++, preparing a manifest, or executing
-the formal campaign.
+The smallest reusable report-only TMR0–TMR7 workflow is implemented without a
+production C++ change. Its focused evidence and runner lifecycle contracts
+passed in GCC 13 Debug and Clang 18/libc++ Debug in GitHub Actions run
+`35514834796`. No formal manifest has been prepared and the TMR campaign has
+not executed.
+
+After this tooling change is integrated, the next bounded scientific action is
+a separate environment amendment/supplement to this protocol that explicitly
+binds the admitted GitHub-hosted Ubuntu 24.04 qualification environment to any
+future cloud TMR execution and states the exact scope of the resulting claim.
+That amendment/supplement must not prepare a TMR manifest or execute the formal
+campaign in the same change.
