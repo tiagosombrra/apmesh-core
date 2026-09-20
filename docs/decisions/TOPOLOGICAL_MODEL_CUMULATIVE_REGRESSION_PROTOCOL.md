@@ -191,6 +191,16 @@ CTest, historical package, another gate, or successful process exit alone.
   preflight passes and before invoking `execute`. A pre-existing claim blocks
   execution. Once the claim is created, any later failure consumes the one
   formal attempt; no second dispatch is authorized.
+- Formal execution authorization is repository-resident. The only admissible
+  authorization is the exact manifest-bound `EXECUTE_ONCE` JSON record
+  introduced as a newly added file by a separate pull request and merged to
+  protected `main`. Modification, replacement, deletion, a branch-only file,
+  or any direct manual execution trigger does not authorize execution.
+- The protected-main authorization controller must validate the closed
+  authorization schema, reject a pre-existing claim, and call a reusable-only
+  executor. The executor must independently bind the caller commit and
+  revalidate the committed authorization before checking out the historical
+  scientific candidate.
 
 ## 11. Required retained outputs
 
@@ -282,22 +292,33 @@ PR #23 integrated the preparation audit as
 `b3d8130cdf75230ef7b71693d2325e5473091857`; post-merge FAST
 `35525181361` and INTEGRATION `35525181462` passed.
 
-The one-shot manual execution wrapper is implemented and its focused/static
-contracts passed in run `35525736120` for both GCC 13 Debug and Clang 18
-libc++ Debug. It binds candidate
-`e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, preparation run
-`35524700979`, artifact ID `10609500629`, prepared-manifest/seal hashes,
-and the exact sealed output path. It runs the complete existing execution
-binding preflight before creating the immutable manifest-hash claim tag, then
-exposes one `execute` invocation and retained terminal evidence. No claim tag
-or formal execution has occurred.
-
-PR #25 integrated the execution wrapper as
+PR #25 integrated the original one-shot execution wrapper as
 `d7019fbff97989a79fd27fcb1915073881a53564`; post-merge FAST run
-`35525932108` and INTEGRATION run `35525932111` passed. No claim tag or
-formal execution exists.
+`35525932108` and INTEGRATION run `35525932111` passed. Its
+manifest-hash claim, full PREPARED preflight, single `execute`, no-retry rule,
+and retained terminal evidence remain authoritative.
 
-The next bounded action is one explicit manual dispatch of
-`Topological Model TMR Execution` on canonical `main`. That dispatch consumes
-the formal attempt. The resulting terminal package must be audited before any
-TMR0-TMR7 gate or stage qualification decision.
+The authorization boundary is now strengthened so the executor is reusable-only
+through `workflow_call` and exposes no direct `workflow_dispatch` path. A
+separate protected-main controller watches only the exact manifest-bound
+authorization filename. It requires that record to be newly added once,
+validates the exact candidate/preparation/artifact/manifest/seal/audit/workflow
+identity, rejects an existing claim, and then calls the reusable executor. The
+executor independently revalidates the authorization commit and JSON record
+before checking out candidate
+`e5eda2663d6ff4b93ce1205660ff04d432acb9c0`.
+
+Focused/static tooling run `35527446051` passed the report-only evidence,
+runner, preparation workflow, reusable executor, authorization-record validator,
+and authorization-controller contracts in both GCC 13 Debug and Clang 18
+libc++ Debug. Runs `35527269611` and `35527350320` are retained as
+implementation-only mechanical contract failures before that correction; they
+created no authorization, claim, or scientific execution.
+
+No `EXECUTE_ONCE` authorization record exists in the implementation work
+item. After authorization-as-code is integrated, post-merge validation passes,
+and the work item is operationally closed, the next bounded action is one
+separate pull request that adds the exact authorization record. Its merge to
+protected `main` automatically consumes the formal attempt through the
+reusable executor. The resulting terminal package must be independently audited
+before any TMR0-TMR7 gate or stage qualification decision.
