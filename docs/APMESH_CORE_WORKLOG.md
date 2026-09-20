@@ -168,7 +168,8 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Polynomial Cubic Bézier Value Representation and Evaluation — ACTIVE.**
+**Polynomial Cubic Bézier Value Representation and Evaluation —
+VALIDATED_UNMERGED.**
 
 Active branch: `curve/cubic-bezier-value-evaluation`.
 
@@ -180,7 +181,7 @@ Implemented bounded surface:
 - exactly four ordered qualified control points;
 - `evaluate(t)` only for finite `t∈[0,1]`;
 - recursive component-wise de Casteljau evaluation using `std::lerp`;
-- exact endpoint semantics inherited from `std::lerp`;
+- exact endpoint semantics;
 - geometric reversal by reversing control-point order;
 - explicit `CurveError::non_finite_parameter`,
   `parameter_out_of_domain`, and defensive `non_finite_result`;
@@ -188,14 +189,34 @@ Implemented bounded surface:
   contract;
 - CMake integration into the existing `apmesh::core` target only.
 
-Explicitly absent: derivatives, regularity, arc length, rational/arbitrary
-degree curves, topology ownership, discretization, quadrilateral meshing and
-parallel execution.
+Focused validation:
 
-Validation is pending PR FAST/INTEGRATION.
+- FAST `35541613233`: PASS, GCC 13 Debug, 9/9 selected tests;
+- INTEGRATION `35541613216`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 9/9 selected tests in each cell;
+- `apmesh_core.curve_representation`: PASS in all required cells;
+- `apmesh_core.curve_header_isolation`: PASS in all required cells;
+- Numeric, Geometry Primitives, Cartesian Frames, Topological Model, Minimal
+  Small Linear Algebra and Math Header Isolation prerequisite tests all PASS.
+
+Explicitly absent: derivatives, regularity, curvature, arc length,
+rational/arbitrary-degree curves, topology ownership, discretization,
+quadrilateral meshing and parallel execution.
+
+Scientific status:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
 
 ## Next admissible work item after closure
 
-None until this active cubic value/evaluation work item is validated, integrated,
-post-merge checked, and closed.
+After this implementation PR is merged, post-merge FAST/INTEGRATION pass, and
+its checkpoint is closed, open one separate bounded scientific decision for:
+
+**Curve Derivatives and Regularity.**
+
+That next decision must define first/second derivative semantics, zero-speed /
+regularity classification, error semantics, reversal relations, analytic
+fixtures and explicit exclusions before any derivative production code begins.
+
+Arc length, curvature, discretization, quadrilateral meshing and parallel
+execution remain closed.
 
