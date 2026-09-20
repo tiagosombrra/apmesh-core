@@ -131,9 +131,10 @@ def planned_inventories(profile: dict[str, Any], candidate: dict[str, Any], plan
     artifacts += [{"path": name, "role": "terminal-success", "required_when": "success"} for name in ("certificate-index.json", "per-cell-comparisons.json", "cross-cell-comparison.json", "observed-inventories.json", "gate-summary.json", "gate-summary.md")]
     artifacts += [{"path": "failure.json", "role": "terminal-failure", "required_when": "failure"}]
     for cell in plan:
-        for stage in ("configure", "build", "ctest-discovery", "semantic-ctest", "negative-outcomes", "dependency-inventory", "ldd-exporter"):
+        for stage in ("configure", "build", "ctest-discovery", "negative-outcomes", "dependency-inventory", "ldd-exporter"):
             artifacts += [{"path": f"logs/{cell['cell']}-{stage}.{stream}.log", "role": "command-log", "required_when": "executed"} for stream in ("stdout", "stderr")]
         for item in range(1, cell["repetitions"] + 1):
+            artifacts += [{"path": f"logs/{cell['cell']}-semantic-ctest-{item}.{stream}.log", "role": "command-log", "required_when": "executed"} for stream in ("stdout", "stderr")]
             artifacts += [{"path": f"certificates/{cell['cell']}-{item}.json", "role": "semantic-certificate", "required_when": "success"}]
             artifacts += [{"path": f"logs/{cell['cell']}-certificate-{item}.{stream}.log", "role": "command-log", "required_when": "executed"} for stream in ("stdout", "stderr")]
             artifacts += [{"path": f"logs/{cell['cell']}-certificate-validation-{item}.{stream}.log", "role": "command-log", "required_when": "executed"} for stream in ("stdout", "stderr")]
@@ -350,7 +351,7 @@ def execute(arguments: argparse.Namespace) -> int:
         discoveries, inventories = [], []
         for cell in manifest["plan"]:
             name = cell["cell"]
-            for stage in ("configure", "build", "ctest_discovery", "semantic_ctest"):
+            for stage in ("configure", "build", "ctest_discovery"):
                 record = run_command(replace_root(cell[stage], output), source, output / "logs", f"{name}-{stage.replace('_', '-')}", BUILD_TIMEOUT_SECONDS)
                 records.append(record); require_success(record, f"{name} {stage}")
                 if stage == "ctest_discovery":
@@ -359,9 +360,20 @@ def execute(arguments: argparse.Namespace) -> int:
                     if sorted(selected) != sorted(manifest["declared_semantic_ctest_allowlist"]) or len(selected) != len(set(selected)):
                         raise fail("observed semantic CTest allowlist differs")
                     discoveries.append({"cell": name, "record_id": record["id"], "discovered_allowlist": selected})
-                if stage == "semantic_ctest":
-                    require_exact_semantic_ctest_execution(output, record, manifest["declared_semantic_ctest_allowlist"])
             for repetition in range(1, cell["repetitions"] + 1):
+                semantic = run_command(
+                    replace_root(cell["semantic_ctest"], output, repetition),
+                    source,
+                    output / "logs",
+                    f"{name}-semantic-ctest-{repetition}",
+                    BUILD_TIMEOUT_SECONDS,
+                )
+                records.append(semantic); require_success(semantic, f"{name} semantic_ctest repetition {repetition}")
+                require_exact_semantic_ctest_execution(
+                    output,
+                    semantic,
+                    manifest["declared_semantic_ctest_allowlist"],
+                )
                 for stage in ("certificate", "certificate_validation"):
                     record = run_command(replace_root(cell[stage], output, repetition), source, output / "logs", f"{name}-{stage.replace('_', '-')}-{repetition}", PROCESS_TIMEOUT_SECONDS)
                     records.append(record); require_success(record, f"{name} {stage}")
