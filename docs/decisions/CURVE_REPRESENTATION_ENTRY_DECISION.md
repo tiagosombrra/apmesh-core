@@ -1,6 +1,6 @@
 # Curve Representation — Bounded Entry Decision
 
-Status: PROPOSED / REVIEW PENDING / IMPLEMENTATION NOT STARTED
+Status: ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
