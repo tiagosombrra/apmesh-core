@@ -120,65 +120,55 @@ writing.
 - `docs/tmr-terminal-audit-final-closure`: **MERGED / HISTORICAL** via PR #32;
   removed the final stale operational marker after PR #31; no scientific or
   tooling change.
-- `topology/tmr-repetition-cardinality-diagnosis`: **ACTIVE /
-  VALIDATED_UNMERGED**; diagnosis-only lineage, with no runner implementation
-  or formal campaign action.
+- `topology/tmr-repetition-cardinality-diagnosis`: **MERGED / HISTORICAL**
+  via PR #33; diagnosis-only lineage, with no runner implementation or formal
+  campaign action.
+- `docs/tmr-repetition-diagnosis-closure`: **CLOSURE-ONLY**; records PR #33
+  integration and post-merge validation without opening a scientific work
+  item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Diagnose the first TMR protocol/runner repetition-cardinality mismatch —
-VALIDATED_UNMERGED.**
+**None. The TMR repetition-cardinality diagnosis is closed.**
 
-Active branch: `topology/tmr-repetition-cardinality-diagnosis`.
+Closure evidence:
 
-Diagnosis authority:
-`docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`.
+1. diagnosis authority:
+   `docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`;
+2. diagnosis PR #33 merged as
+   `da47c01da9cfcabafca4638c02006be8f1372aea`;
+3. required PR FAST `35529950706` passed;
+4. required PR INTEGRATION `35529950569` passed in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. diagnosis-time TMR Tooling `35529933344` failed in both cells exactly at
+   the already diagnosed transient protocol-title guard, before any PREPARED
+   package or scientific execution;
+6. post-merge FAST `35529991911` passed;
+7. post-merge INTEGRATION `35529991909` passed in GCC 13 Debug and Clang
+   18/libc++ Debug;
+8. no production topology C++, runner behavior, preparation, authorization, or
+   formal campaign changed in the diagnosis.
 
-Validated conclusions:
-
-1. production topology defect: **not evidenced**;
-2. first-campaign evidence-cardinality defect: **confirmed**;
-3. profile repetition count is already correct at two per cell;
-4. configure is cell-scoped;
-5. build, CTest discovery, semantic CTest, certificate production and
-   certificate validation are repetition-scoped;
-6. negatives, dependency inventory, runtime dependency inspection and retained
-   compile commands are cell-scoped;
-7. required future command cardinality is 14 per cell / 56 total;
-8. the consumed campaign had 44 records and lacks exactly 12 second-repetition
-   records: four build, four discovery and four semantic CTest;
-9. a fresh configure/clean rebuild/distinct build directory per repetition is
-   not required by the original claim;
-10. `protocol_check()` has a second mechanical defect because it binds to a
-    transient Section 13 heading;
-11. diagnosis-time TMR tooling run `35529611062` failed in both cells at
-    protocol validation because of that stale heading guard; it created no
-    PREPARED package, claim, or scientific evidence;
-12. no scientific acceptance criterion or production C++ change is required;
-13. the consumed first campaign remains immutable and cannot be retried.
-
-No runner correction, preparation, authorization, or formal execution is part
-of this diagnosis branch.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this diagnosis is merged, ordinary post-merge validation passes, and the
-diagnosis checkpoint is authoritative on `main`, open one focused mechanical
-correction work item.
+Open one focused mechanical TMR correction work item implementing the closed
+diagnosis:
 
-That correction is limited to:
-
-1. moving build/discovery/semantic CTest into the existing per-repetition loop;
-2. retaining configure and cell-scoped inventories outside that loop;
-3. repetition-qualified record IDs and discovery observations;
-4. correcting planned log inventories;
-5. focused contracts proving exactly 56 records and fail-closed
+1. configure once per cell;
+2. build, CTest discovery, exact semantic CTest, certificate and certificate
+   validation once per declared repetition;
+3. cell + repetition-qualified record IDs and discovery evidence;
+4. matching planned retained-log cardinality;
+5. focused contracts proving exactly 56 command records and fail-closed
    second-repetition behavior;
-6. replacing the transient Section-13-title guard with stable protocol
+6. replace the transient Section-13-title guard with stable protocol
    invariants.
 
-It must not change production topology C++, the scientific matrix/allowlist/
-cases/gates, or prepare/authorize/execute a formal campaign.
+The correction must not modify production topology C++, scientific
+matrix/allowlist/cases/gates, prepare a formal manifest, authorize execution,
+or run a formal campaign.
 
