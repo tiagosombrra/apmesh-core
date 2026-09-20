@@ -154,62 +154,52 @@ writing.
 - `docs/tmr-whole-commit-guard-closure`: **MERGED / HISTORICAL** via PR #42.
 - `topology/tmr-second-execution-authorization`: **MERGED / CONSUMED**
   via PR #43; exact second manifest-bound `EXECUTE_ONCE` record only.
-- `docs/tmr-corrected-terminal-audit-pass`: **ACTIVE /
-  VALIDATED_UNMERGED**; independent second terminal scientific audit.
+- `docs/tmr-corrected-terminal-audit-pass`: **MERGED / HISTORICAL** via
+  PR #44; independent second terminal scientific audit, TMR0–TMR7 PASS.
+- `docs/topological-model-qualification-closure`: **CLOSURE-ONLY**; closes
+  the qualified Topological Model stage before any Curve Representation entry.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Integrate the corrected second TMR terminal scientific audit —
-VALIDATED_UNMERGED / PASS.**
+**None. Topological Model qualification is closed.**
 
-Active branch: `docs/tmr-corrected-terminal-audit-pass`.
+Closure evidence:
 
-Formal campaign evidence:
+1. corrected terminal audit PR #44 merged as
+   `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
+2. PR #44 FAST `35534295054`: PASS;
+3. PR #44 INTEGRATION `35534295078`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. post-merge FAST `35534347597`: PASS;
+5. post-merge INTEGRATION `35534347623`: PASS;
+6. authoritative terminal audit records TMR0–TMR7 PASS and overall PASS;
+7. Topological Model is QUALIFIED only in the exact admitted GitHub-hosted
+   Ubuntu 24.04 x86_64 cloud envelope;
+8. Foundation and Geometry qualifications remain intact;
+9. no WSL/cloud equivalence is claimed;
+10. no curve production implementation has begun.
 
-1. authorization PR #43 merged as
-   `cddd959574ed6a677ac755a5b329d53a9cfe32ec`;
-2. protected-main authorization/execution run `35533702004`: PASS;
-3. immutable claim
-   `tmr-execution-claim-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
-4. claim object `5f0b693780a681b6ceb9d17afb7c6c83fde72847`, targeting candidate
-   `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
-5. terminal artifact `10612032787`, independently recomputed SHA-256
-   `dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8`;
-6. post-authorization FAST `35533701748`: PASS;
-7. post-authorization INTEGRATION `35533701754`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug.
-
-Independent terminal audit:
-
-- lifecycle `PREPARED → RUNNING → EXECUTED_PENDING_AUDIT`;
-- exact retained set: 146 files, 145 retention-hashed entries + manifest;
-- 56/56 unique command records, all exit 0, no timeout/launch error;
-- 112/112 planned command logs retained;
-- eight CTest discovery records;
-- eight exact semantic CTest records, each 7/7 PASS;
-- 56 individual semantic test executions;
-- eight retained certificates, byte-identical, SHA-256
-  `e574cc589e2dc75c2ffd218af7336bbdc6202b6e2dcf4fe035a5f4e8d4a791a5`;
-- all declared negative outcomes rejected;
-- dependency/runtime/compile inventories complete;
-- detached verification PASS;
-- TMR0–TMR7: **PASS**;
-- overall: **PASS**;
-- Topological Model: **QUALIFIED in the exact admitted cloud envelope**.
-
-No WSL/cloud equivalence is claimed. No curve implementation is authorized by
-this audit alone.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this terminal audit is merged, required post-merge FAST/INTEGRATION pass,
-and the audit checkpoint is closed, open one separate **scientific entry
-decision for Curve Representation — Continuous Geometry Before
-Discretization**.
+Open one separate scientific entry-decision work item for:
 
-That entry decision must define the first bounded curve investigation problem,
-its explicit exclusions, expected evidence, and stage-entry preconditions
-before any curve production implementation begins.
+**Curve Representation — Continuous Geometry Before Discretization.**
+
+The entry decision must bound the first investigation problem before any
+production implementation. It should define:
+
+1. the exact continuous curve capability admitted first;
+2. explicit exclusions;
+3. analytic/reference evidence requirements;
+4. finite/error semantics;
+5. prerequisite preservation requirements;
+6. deterministic representation and reversal expectations;
+7. the focused contract required before any stage-level qualification tooling;
+8. the later stage-exit regression boundary.
+
+No curve implementation belongs to the closure checkpoint itself.
 
