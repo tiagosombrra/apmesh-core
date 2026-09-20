@@ -102,12 +102,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          /usr/bin/ctest             --test-dir "${{ matrix.build_dir }}"             --output-on-failure             -R '^apmesh_core\.topological_model_cumulative_runner
-
+          /usr/bin/ctest             --test-dir "${{ matrix.build_dir }}"             --output-on-failure             -R "^apmesh_core\.topological_model_cumulative_runner$"
 
       - name: Run preparation-only workflow contract
         shell: bash
         run: |
           set -euo pipefail
-          /usr/bin/ctest             --test-dir "${{ matrix.build_dir }}"             --output-on-failure             -R '^apmesh_core\.topological_model_cumulative_prepare_workflow
-
+          /usr/bin/ctest             --test-dir "${{ matrix.build_dir }}"             --output-on-failure             -R "^apmesh_core\.topological_model_cumulative_prepare_workflow$"
