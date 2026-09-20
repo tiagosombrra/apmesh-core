@@ -69,7 +69,7 @@ jobs:
             -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja
           grep -Fx "APMESH_ENABLE_QUALIFICATION_TESTS:BOOL=OFF" \
             "build/${{ matrix.preset }}/CMakeCache.txt"
-          grep -Fx "CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/ninja" \
+          grep -E "^CMAKE_MAKE_PROGRAM:[A-Z_]+=/usr/bin/ninja$" \
             "build/${{ matrix.preset }}/CMakeCache.txt"
 
       - name: Build
