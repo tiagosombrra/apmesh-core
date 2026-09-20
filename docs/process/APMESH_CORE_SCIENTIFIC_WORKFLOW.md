@@ -227,19 +227,111 @@ A figure must be reproducible by script/tool from recorded experiment outputs.
 
 Manual image editing must not alter scientific content.
 
-## 11. Local work-unit verification
+## 11. Validation profiles and local work-unit verification
 
-Before a work unit is classified:
+Validation cost follows the scientific scope of the claim. `BUILD_TESTING=ON`
+registers direct semantic and focused contract tests only. Qualification and
+evidence tooling is registered only when
+`APMESH_ENABLE_QUALIFICATION_TESTS=ON`; enabling it does not itself authorize a
+formal campaign.
 
-- compile with declared warnings/checks;
-- run focused tests;
-- run required analytic/adversarial fixtures;
-- check failure paths, not only successful inputs;
-- regenerate required metrics/figures;
-- inspect numeric diagnostics;
-- record unexpected differences.
+### Development / FAST
 
-A local PASS does not qualify the entire stage.
+Use GCC Debug, the direct semantic tests, the focused contract for the current
+capability, relevant bug reproducers, and `git diff --check`. The canonical
+entry point is:
+
+```text
+cmake --preset gcc-debug
+cmake --build --preset gcc-debug
+ctest --preset fast
+```
+
+FAST excludes historical evidence, runners, retention, detached verification,
+certificate matrices, and previous-stage qualification tooling. A passing FAST
+profile permits the status `IMPLEMENTED / FOCUSED CONTRACTS PASS /
+UNQUALIFIED`; it does not qualify the stage.
+
+### Integration
+
+Run the relevant FAST tests and compact cumulative semantic tests with GCC
+Debug and Clang/libc++ Debug. Add Release only when optimization, `NDEBUG`, or
+floating-point behavior is a declared risk. The standard Debug entry points
+are `ctest --preset integration-gcc-debug` and
+`ctest --preset integration-clang-debug`. Integration does not automatically
+create a manifest, retention package, or formal campaign.
+
+### Scientific-stage qualification
+
+Qualification is reserved for stage closure or an explicit earlier scientific
+decision. It may use the four compiler/build cells, independent repetitions,
+analytic/adversarial matrices, manifests, certificates, retention, detached
+verification, prerequisite regression, and scientific audit. Configure the
+tooling explicitly with `cmake --preset gcc-debug-qualification`; the
+`qualification-gcc-debug` test preset verifies registered contracts but is not
+a substitute for the stage protocol.
+
+During an ordinary bounded work unit:
+
+1. declare essential invariants and distinct risk classes;
+2. implement the smallest coherent capability;
+3. add focused tests for those risks and real bug reproducers;
+4. run FAST and correct defects;
+5. update roadmap/state only when scientific status changed;
+6. integrate as implemented and unqualified.
+
+Use table-driven tests when cases share a property. There is no minimum test
+count and no justification for combinatorial enumeration without a scientific
+hypothesis. Historical qualification remains valid until new evidence shows a
+contradiction; development work uses compact semantic prerequisite regression,
+not repeated historical campaigns.
+
+The ordinary-development effort guideline is 60--65% scientific/C++
+implementation, 25--30% focused validation/tooling, and about 10%
+documentation/governance. This is an anti-overengineering signal, not rigid
+accounting. Stage qualification is the explicit exception.
+
+### Current CTest inventory
+
+Cost is an order-of-magnitude estimate after the relevant targets are built.
+`Every` means ordinary changes, `Integrate` means investigation integration,
+and `Qualify` means scientific-stage qualification.
+
+| CTest | Class | Cost | Every | Integrate | Qualify |
+| --- | --- | --- | --- | --- | --- |
+| `apmesh_core.bootstrap_smoke` | A DIRECT_SEMANTIC | <1 s | yes | yes | yes |
+| `apmesh_core.numeric_contract` | A DIRECT_SEMANTIC | <1 s | yes | yes | yes |
+| `apmesh_core.geometry_primitives` | A DIRECT_SEMANTIC | <1 s | yes | yes | yes |
+| `apmesh_core.cartesian_frames` | A DIRECT_SEMANTIC | <1 s | yes | yes | yes |
+| `apmesh_core.topological_model` | B FOCUSED_CONTRACT | <1 s | yes | yes | yes |
+| `apmesh_core.minimal_small_linear_algebra` | A DIRECT_SEMANTIC | <1 s | yes | yes | yes |
+| `apmesh_core.math_header_isolation` | B FOCUSED_CONTRACT | <1 s | yes | yes | yes |
+| `apmesh_core.geometry_primitives_cumulative_evidence` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.geometry_primitives_cumulative_runner` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.cartesian_frames_evidence` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.cartesian_frames_runner` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.cartesian_frames_retention` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.minimal_small_linear_algebra_evidence` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.minimal_small_linear_algebra_runner` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.minimal_small_linear_algebra_retention` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.geometry_point_vector_evidence` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.geometry_point_vector_runner` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.geometry_point_vector_retention` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.geometry_point_vector_foundation_preservation` | E STAGE_REGRESSION | seconds--minutes | no | no | yes |
+| `apmesh_core.numeric_contract_evidence` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.numeric_contract_runner` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.reproducible_experiment_evidence` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.reproducible_experiment_runner` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.reproducible_experiment_retention` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+| `apmesh_core.reproducible_experiment_negatives` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.foundation_end_to_end_evidence` | E STAGE_REGRESSION | seconds--minutes | no | no | yes |
+| `apmesh_core.bootstrap_export` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.bootstrap_tool` | C QUALIFICATION_TOOLING | seconds | no | no | yes |
+| `apmesh_core.architecture_bootstrap_runner` | C QUALIFICATION_TOOLING | seconds--minutes | no | no | yes |
+
+There is currently no D HISTORICAL_EVIDENCE CTest. Historical packages and
+blocked attempts are retained as immutable repository evidence but are not
+executed by the development profile.
 
 ## 12. Mandatory end-of-stage cumulative regression
 

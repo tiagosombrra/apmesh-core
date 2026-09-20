@@ -118,11 +118,20 @@ every small value type its own formal campaign. Evidence has three levels:
    earlier standalone claim cannot safely wait for stage closure.
 
 During ordinary implementation work, the target active-effort distribution is
-at least 50% scientific/C++ implementation, at most 35% focused validation and
-tooling, and at most 15% documentation/governance. Stage-closing campaigns are
-the declared exception because validation is their primary output. If support
-work exceeds its limit, the work unit stops and its evidence design is
-simplified before more tooling is added.
+60--65% scientific/C++ implementation, 25--30% focused validation and tooling,
+and about 10% documentation/governance. This is an anti-overengineering signal,
+not rigid accounting. Stage-closing campaigns are the declared exception
+because validation is their primary output. If support work dominates an
+ordinary work unit, its evidence design is simplified before more tooling is
+added.
+
+The executable policy has three profiles: FAST for ordinary GCC Debug semantic
+and focused feedback; INTEGRATION for the relevant cumulative semantic tests on
+GCC Debug and Clang/libc++ Debug, with Release only for a declared risk; and
+QUALIFICATION for explicit scientific-stage closure. `BUILD_TESTING=ON`
+registers FAST/INTEGRATION tests. Historical evidence, runners, retention, and
+qualification tooling require `APMESH_ENABLE_QUALIFICATION_TESTS=ON`. Changing
+this execution policy does not reopen any qualified stage or weaken its claim.
 
 One reusable experiment runtime and stage-level runner are preferred over
 component-specific launchers, collectors, comparers, and schemas. A mechanical
@@ -533,7 +542,8 @@ Stage exit gate: primitive operations are analytically verified across the decla
 
 ### Topological Model — Explicit Identity and Incidence
 
-Status: `IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED`
+Status: `IN INVESTIGATION / IDENTITY AND ORIENTED EDGE KERNEL IMPLEMENTED /
+FOCUSED CONTRACT PASS / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 

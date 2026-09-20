@@ -46,8 +46,9 @@ The greenfield implementation must eventually be usable as a library inside a la
 17. Formal manifests and four-cell campaigns are not created per value type
     unless a separate scientific decision proves that the claim cannot wait for
     stage closure.
-18. Ordinary work targets at least 50% scientific/C++ implementation, at most
-    35% focused validation/tooling, and at most 15% documentation/governance.
+18. Ordinary work targets 60--65% scientific/C++ implementation, 25--30%
+    focused validation/tooling, and about 10% documentation/governance. This is
+    an anti-overengineering guideline rather than rigid accounting.
 19. One reusable stage-level evidence workflow is preferred over new runners,
     collectors, comparers, and schemas for each component.
 20. A mechanical tooling defect gets one focused regression contract without a
@@ -55,6 +56,10 @@ The greenfield implementation must eventually be usable as a library inside a la
     standalone campaign before any third execution.
 21. Documentation records current authority and terminal evidence without
     creating a chronological micro-record for each implementation step.
+22. Validation has three profiles: FAST for ordinary development, INTEGRATION
+    for coherent pre-merge semantic regression, and QUALIFICATION only for
+    explicit scientific-stage closure. Qualification tooling is opt-in and its
+    historical evidence remains preserved without running by default.
 
 ## Current active stage
 
@@ -330,12 +335,14 @@ GPR0-GPR7 campaign. Preserve the immutable historical blocked attempts and the
 fifth manifest/retention package as the stage evidence. Foundation and Geometry
 Primitives remain qualified only in their declared WSL envelope.
 
-Review the bounded Identity and Oriented Edge Incidence Kernel defined by
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` before publication. Its
-focused GCC 13 Debug and Clang 18/libc++ Debug contract passes, but Topological
-Model remains unqualified. Do not introduce faces, patches, curves, manifold
-classification, canonical serialization, formal qualification infrastructure,
-or a campaign.
+The bounded Identity and Oriented Edge Incidence Kernel is published on `main`
+at `fa38ba26cfe24d3541792b088e0c7891149e2542`. Its focused GCC 13 Debug and
+Clang 18/libc++ Debug contract passes, but Topological Model remains
+unqualified. The next bounded investigation must distinguish topological
+`FaceId` from future geometric `PatchId`, define ordered `EdgeUse` boundary
+cycles with arbitrary valence, and remain compatible with future trimmed
+surfaces without assuming four patch sides. Do not implement curves, NURBS,
+surfaces, meshing, or a formal qualification campaign.
 
 ## Stage closure protocol
 
