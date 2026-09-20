@@ -922,10 +922,17 @@ Implementation branch `curve/cubic-bezier-differential-evaluation` now
 provides first derivative, second derivative and pointwise speed for
 `CubicBezier2`/`CubicBezier3` within that exact boundary. PR #52 FAST
 `35544242913` passed; PR #52 INTEGRATION `35544242911` passed in GCC 13
-Debug and Clang 18/libc++ Debug. The work-unit candidate is therefore
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATION PENDING / NOT QUALIFIED**.
-After integration and closure, the next bounded transition is the separate
-Global Cubic Regularity Certification decision.
+Debug and Clang 18/libc++ Debug. The work unit was integrated by PR #52 as
+`1b1da2893168e5f3da3fb98595809d7210f49f6b`. Final PR FAST
+`35544348814`, PR INTEGRATION `35544348767`, post-merge FAST
+`35544417439`, and post-merge INTEGRATION `35544417474` all passed.
+
+The result is **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT
+QUALIFIED**.
+
+The next bounded transition is the separate **Global Cubic Regularity
+Certification** decision. No global regularity claim follows from pointwise
+speed sampling.
 
 #### Arc Length and Parameter Mapping
 
