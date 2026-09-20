@@ -379,6 +379,47 @@ orientation separation. The first work unit deliberately defers halfedge face
 cycles, complete patch incidence, non-manifold fans, and canonical topology
 serialization.
 
+### ISO 10303-42 face and face-bound schema - loop-bounded face vocabulary
+
+Status: `FOUNDATIONAL` for the bounded Face Identity and Boundary Cycles
+contract, reviewed 2026-09-19.
+
+Primary-standard rendering:
+https://steptools.com/stds/smrl/data/resource_docs/geometric_and_topological_representation/sys/5_schema.htm
+
+Project relevance:
+
+- distinguishes a topological face from its one-or-more loop bounds;
+- treats outer-bound classification as additional semantics and notes that a
+  unique outer bound is not always available on closed or partially closed
+  surfaces;
+- supports multiple boundary loops without forcing an early geometric
+  outer/inner decision;
+- does not make AP Mesh STEP-conformant or import the complete STEP validity,
+  manifold, geometry, or exchange schema.
+
+### Open CASCADE shape hierarchy - face, wire, edge, and vertex separation
+
+Status: `FOUNDATIONAL` for the bounded Face Identity and Boundary Cycles
+contract, reviewed 2026-09-19.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/_top_abs___shape_enum_8hxx.html
+
+Project relevance:
+
+- distinguishes face, wire, edge, and vertex as separate topological levels;
+- describes a wire as a connected edge sequence and a face as bounded by
+  closed wire data;
+- supports a generic face/loop model rather than a universal four-sided patch;
+- does not admit Open CASCADE as a dependency, storage model, or acceptance
+  oracle.
+
+The second bounded topology contract also reuses the existing CGAL reference
+for ordered oriented uses around a face. AP Mesh deliberately does not adopt
+paired-halfedge storage, a one-loop-only face restriction, or a two-manifold
+assumption.
+
 ## Curves, surfaces, and meshing — pending focused reviews
 
 These areas intentionally remain incomplete. References will be added only when the corresponding roadmap investigation becomes active.

@@ -1,6 +1,6 @@
 # Topological Model - Bounded Entry Decision
 
-Status: ACCEPTED FOR BOUNDED IMPLEMENTATION
+Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY CONTRACT ACCEPTED FOR BOUNDED IMPLEMENTATION
 Date: 2026-09-19
 Stage: Topological Model - Explicit Identity and Incidence
 Prerequisites: Foundation `QUALIFIED`; Geometry Primitives `QUALIFIED` on
@@ -231,8 +231,164 @@ Topological Model stage, native Windows, Release builds, face/patch incidence,
 manifold behavior, canonical serialization, or any later geometry/meshing
 capability.
 
+## Second bounded contract: Face Identity and Boundary Cycles
+
+### Decision
+
+Authorize one further bounded implementation work unit named **Face Identity
+and Ordered Boundary Cycles**.
+
+The work unit may add a strong topological `FaceId`, immutable face records,
+and one or more boundary loops represented as ordered non-empty sequences of
+existing `EdgeUse` values. It may validate only reference validity,
+orientation validity, and exact topological cycle closure. It must not attach
+Geometry, classify loops geometrically, assume four sides, or introduce
+`PatchId`, `SurfaceId`, curves, surfaces, shells, manifold classification, or
+meshing.
+
+This decision refines the Architecture Contract's explicitly unfrozen candidate
+terminology. `FaceId` is the identity of topological incidence. A future
+`PatchId` will identify a higher-level association involving topology and
+geometric data; it is not an alias for `FaceId`. The cardinality and ownership
+of that future association remain undecided. Foundation and Geometry
+Primitives are not reopened because no qualified runtime behavior or
+topology/geometry separation claim changes.
+
+### Sources and decision impact
+
+| Source | Supports | Does not establish | Decision impact |
+| --- | --- | --- | --- |
+| `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md` | Model-local strong identities, explicit edge-use orientation, and topology/geometry separation. | A frozen face, patch, or surface schema. | Introduce `FaceId` in topology while keeping `PatchId` and `SurfaceId` outside this work unit. |
+| [CGAL Halfedge Data Structures](https://doc.cgal.org/latest/HalfedgeDS/index.html) | Ordered oriented uses around a face can be expressed through successor incidence. | That AP Mesh needs paired halfedges, pointer-linked storage, a single loop per face, or two-manifold assumptions. | Preserve ordered boundary semantics without adopting CGAL storage. |
+| [ISO 10303-42 face and face-bound schema](https://steptools.com/stds/smrl/data/resource_docs/geometric_and_topological_representation/sys/5_schema.htm) | A face is bounded by one or more loops; an outer-bound distinction is additional semantics and may be unavailable for some closed/partially closed surfaces. | STEP conformance, its complete validity rules, or that geometric outer/inner classification is available now. | Permit multiple loops but leave outer/inner meaning to a later surface-aware work unit. |
+| [Open CASCADE topological shape kinds](https://dev.opencascade.org/doc/refman/html/_top_abs___shape_enum_8hxx.html) | Face, wire, edge, and vertex are distinct topological levels; a wire is an edge sequence and a face is bounded by closed wire data. | That Open CASCADE is a dependency or its hierarchy is the AP Mesh storage schema. | Keep face identity and loop structure explicit while retaining a small value-based model. |
+
+No third-party dependency or external acceptance oracle is admitted.
+
+### Bounded semantic model
+
+- `FaceId` follows the accepted model-local, entity-kind-local allocation
+  policy: zero invalid, sequential allocation from one, checked exhaustion,
+  and no reuse.
+- A boundary loop is an immutable value containing an ordered, non-empty
+  sequence of `EdgeUse` values. It has no independent identity in this work
+  unit.
+- A face contains a `FaceId` and an ordered, non-empty collection of boundary
+  loops. Loop collection order is preserved for deterministic inspection but
+  conveys no outer/inner, nesting, winding, or geometric-containment meaning.
+- For consecutive uses `u_i` and `u_(i+1)`, the oriented end vertex of `u_i`
+  equals the oriented start vertex of `u_(i+1)`. The last use closes onto the
+  first.
+- Boundary valence is arbitrary and positive. No four-edge or quadrilateral
+  assumption is permitted.
+- Repeated use of an underlying edge, parallel edges, a one-edge self-loop,
+  and reuse of an edge by multiple faces remain representable. This admission
+  makes no manifold, regularity, embedding, or mesh-validity claim.
+- Distinct successful face insertions receive distinct `FaceId` values even if
+  their declared boundary loops are identical.
+- Face construction is atomic. Invalid references, invalid orientation, an
+  empty face boundary, an empty loop, an open loop, or identity exhaustion
+  inserts no face and consumes no face identity.
+- Finalized face identities and boundary incidence are immutable and are
+  exposed in deterministic identity/insertion order.
+
+Boundaryless faces are deferred because their validity depends on future
+closed-surface and seam semantics. A later decision may admit them without
+changing the meaning of the bounded loop representation.
+
+### Required invariants
+
+For one model with vertex set `V`, edge set `E`, face set `F`, and declared
+boundary loops `B`:
+
+1. `FaceId` is strongly distinct from `VertexId`, `EdgeId`, and every future
+   geometry/domain identity kind.
+2. Every face ID is valid only in its owning model and obeys the accepted
+   deterministic allocation policy.
+3. Every `EdgeUse` in every loop references an edge in `E` and has a valid
+   orientation.
+4. Every loop contains at least one use and closes exactly by resolved vertex
+   identity, not by coordinates or tolerance.
+5. Loop closure is cyclic: every use's end equals the next use's start and the
+   last end equals the first start.
+6. A face in this bounded work unit contains at least one valid loop.
+7. Loop valence is not fixed and no `PatchSide` enumeration participates in
+   topology.
+8. Multiple loops carry no outer/inner or nesting semantics until a later
+   surface-aware contract.
+9. Repeated edge identities and arbitrary face incidence counts are not
+   rejected merely by multiplicity.
+10. Equal boundary declarations do not merge distinct face insertions.
+11. A failed face insertion is transactional and consumes no `FaceId`.
+12. Finalization remains all-or-nothing and the finalized model exposes no
+    mutation of face identity or boundary order.
+13. Repeating the same ordered construction reproduces face IDs, loop order,
+    and edge-use order exactly.
+14. No coordinate, distance, tolerance, pointer, hash iteration, curve,
+    surface, or parameter value participates in face identity or cycle closure.
+
+### Required focused risk cases
+
+| Risk class | Required observation |
+| --- | --- |
+| Strong identity | `FaceId` cannot substitute for vertex/edge identity; zero and out-of-range faces do not resolve. |
+| Non-four-sided valence | Valid triangular and five-edge cycles are accepted without a side enum. |
+| Orientation-dependent closure | A connected edge set closes only when each `EdgeUse` orientation produces matching consecutive vertex identities. |
+| Open chain | A non-closing sequence fails explicitly, inserts no face, and consumes no identity. |
+| Invalid use | Missing edge identity and invalid orientation fail transactionally. |
+| Empty input | Zero loops and an empty loop are rejected by the bounded admission policy. |
+| Self-loop boundary | One self-loop edge may form a one-use closed boundary without geometric inference. |
+| Seam-compatible repetition | A connected cycle may use the same underlying edge more than once, including opposite orientations, without duplicating edge identity. |
+| Multiple boundaries | Two independently closed loops are retained in declared order without outer/inner classification. |
+| Identical faces | Two equal boundary declarations receive distinct `FaceId` values. |
+| Arbitrary incidence | Three faces may reference one edge without premature manifold rejection. |
+| Immutability and repeatability | Finalized boundaries cannot mutate and equal construction sequences reproduce exact claim fields. |
+| Topology/patch separation | Production topology contains no `PatchId`, `SurfaceId`, Geometry include, coordinate, or four-side assumption. |
+
+Use table-driven focused tests where several valences share the same closure
+property. No formal manifest, certificate matrix, repeated four-cell campaign,
+or component-specific evidence tooling is required.
+
+### Explicit exclusions
+
+This bounded contract does not authorize:
+
+- `PatchId`, `CurveId`, `SurfaceId`, `LoopId`, shell, region, solid, or
+  topological face-use identities;
+- outer/inner loop classification, nesting, winding, parameter-space
+  orientation, trimming evaluation, or geometric intersection checks;
+- curve-on-surface, pcurve, seam pairing, curve ownership, surface ownership,
+  or face--patch--surface cardinality;
+- manifold, boundary-manifold, non-manifold, fan, shell, or connected-component
+  classification;
+- deletion, identity reuse, Euler operators, topology repair, welding,
+  snapping, or coordinate-based closure;
+- canonical serialization/hash, STEP import/export, CAD adapters, or any
+  claim of STEP/Open CASCADE/CGAL conformance;
+- meshing, discretization, sizing, acceptance, parallel execution, or formal
+  Topological Model qualification.
+
+### Admission and stop conditions
+
+Implementation may proceed only if it extends the existing topology kernel
+without changing accepted vertex/edge behavior and satisfies all focused cases
+above under the FAST profile. Stop for a new scientific decision if
+implementation requires geometric outer/inner classification, boundaryless
+faces, explicit loop identity, face orientation relative to a surface,
+face--patch--surface ownership/cardinality, manifold restrictions, or a change
+to the existing edge identity/orientation semantics.
+
+### Effect on the roadmap
+
+Topological Model remains `IN INVESTIGATION`. The first kernel remains
+`IMPLEMENTED / FOCUSED CONTRACT PASS / UNQUALIFIED`; this second work unit is
+`ACCEPTED FOR BOUNDED IMPLEMENTATION / NOT IMPLEMENTED`. Qualified prerequisite
+stages remain closed. Formal Topological Model qualification remains deferred
+until the stage's cumulative regression.
+
 ## Next bounded action
 
-Review the bounded implementation package before publication. Do not extend it
-to faces, patches, curves, manifold classification, canonical serialization,
+Implement only `FaceId`, immutable face boundary-loop storage, atomic builder
+insertion, model lookup, and the focused risk cases declared above. Run FAST;
+do not introduce `PatchId`, curves, surfaces, manifold classification,
 qualification infrastructure, or a formal campaign.

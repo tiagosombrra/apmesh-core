@@ -186,6 +186,11 @@ struct EdgeId {
     auto operator<=>(const EdgeId&) const = default;
 };
 
+struct FaceId {
+    std::uint64_t value{};
+    auto operator<=>(const FaceId&) const = default;
+};
+
 struct CurveId {
     std::uint64_t value{};
     auto operator<=>(const CurveId&) const = default;
@@ -243,16 +248,10 @@ struct EdgeUse {
 };
 ```
 
-Patch-side semantics use descriptive names rather than undocumented numeric slots. For an initial quadrilateral patch model, a candidate vocabulary is:
-
-```cpp
-enum class PatchSide {
-    v_min,
-    u_max,
-    v_max,
-    u_min
-};
-```
+Face boundaries are ordered cycles of `EdgeUse` values. Their valence is not
+fixed, and the core does not define a universal four-sided `PatchSide`
+enumeration. A later structured quadrilateral method may introduce local side
+names in its own bounded layer without changing generic topological incidence.
 
 ## 7. Geometry versus topological entity
 
@@ -263,14 +262,23 @@ Edge = topological entity
 Curve = continuous geometric representation
 ```
 
-A patch and its surface parameterization are separate concepts:
+A topological face, a future patch association, and its surface
+parameterization are separate concepts:
 
 ```text
-Patch = topological face-like entity in the patch complex
+Face = topological two-dimensional entity bounded by edge-use cycles
+Patch = future domain association between a face and geometric data
 Surface = continuous geometric parameterization
 ```
 
-This distinction is required for correct B-rep-style incidence, repeated/coincident geometry, future alternative parameterizations, and controlled reparameterization experiments.
+`FaceId` and `PatchId` are distinct identity kinds and have no implicit
+conversion or equality relation. The cardinality and ownership of future
+face--patch--surface associations remain deferred. This distinction is required
+for correct B-rep-style incidence, repeated/coincident geometry, future
+alternative parameterizations, trimmed surfaces, and controlled
+reparameterization experiments. It refines candidate terminology whose exact
+syntax was explicitly unfrozen; it does not change the qualified Foundation
+separation between topology and geometry.
 
 ## 8. Model construction and immutability
 

@@ -76,6 +76,15 @@ Clang 18/libc++ Debug. It authorizes no face/patch cycle, manifold or
 non-manifold classification, coordinate welding, curve/surface association,
 canonical serialization, qualification infrastructure, or campaign.
 
+**Face Identity and Ordered Boundary Cycles — ACCEPTED FOR BOUNDED
+IMPLEMENTATION / NOT IMPLEMENTED / NOT QUALIFIED.** The amended active decision
+separates topological `FaceId` from future `PatchId`, defines one or more
+ordered non-empty closed `EdgeUse` cycles with arbitrary positive valence, and
+permits multiple loops without assigning outer/inner meaning. It admits
+repeated-edge and arbitrary face-incidence inputs without making a manifold
+claim. Curves, surfaces, trimming evaluation, geometric winding, shells,
+manifold classification, meshing, and formal qualification remain excluded.
+
 Current prerequisite closure evidence:
 
 **Geometry Primitives: QUALIFIED / GPR0-GPR7 PASS.** The bounded GPR0-GPR7
@@ -338,11 +347,12 @@ Primitives remain qualified only in their declared WSL envelope.
 The bounded Identity and Oriented Edge Incidence Kernel is published on `main`
 at `fa38ba26cfe24d3541792b088e0c7891149e2542`. Its focused GCC 13 Debug and
 Clang 18/libc++ Debug contract passes, but Topological Model remains
-unqualified. The next bounded investigation must distinguish topological
-`FaceId` from future geometric `PatchId`, define ordered `EdgeUse` boundary
-cycles with arbitrary valence, and remain compatible with future trimmed
-surfaces without assuming four patch sides. Do not implement curves, NURBS,
-surfaces, meshing, or a formal qualification campaign.
+unqualified. The bounded contract distinguishing topological `FaceId` from
+future geometric `PatchId` and defining arbitrary-valence ordered `EdgeUse`
+boundary cycles is now accepted. The next work unit is its bounded
+implementation plus focused FAST contracts.
+Do not implement curves, NURBS, surfaces, meshing, or a formal qualification
+campaign.
 
 ## Stage closure protocol
 

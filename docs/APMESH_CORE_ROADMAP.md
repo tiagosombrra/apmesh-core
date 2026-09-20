@@ -543,7 +543,7 @@ Stage exit gate: primitive operations are analytically verified across the decla
 ### Topological Model — Explicit Identity and Incidence
 
 Status: `IN INVESTIGATION / IDENTITY AND ORIENTED EDGE KERNEL IMPLEMENTED /
-FOCUSED CONTRACT PASS / STAGE UNQUALIFIED`
+FOCUSED CONTRACT PASS / FACE-BOUNDARY CONTRACT ACCEPTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -564,9 +564,18 @@ This is implementation evidence only: no stage qualification, face/patch
 incidence, manifold behavior, canonical serialization, or formal campaign is
 authorized by this result.
 
+The second bounded contract in the same decision document authorizes only
+strong topological `FaceId`, ordered non-empty boundary loops of existing
+`EdgeUse` values, arbitrary positive valence, atomic builder insertion, and
+immutable lookup. It separates `FaceId` from future `PatchId`, permits multiple
+loops without outer/inner semantics, and preserves repeated-edge and arbitrary
+face-incidence cases for later manifold classification. It is documentation
+only: implementation and focused evidence have not started.
+
 #### Vertex and Edge Identity
 
-- Define strong `VertexId`, `EdgeId`, `CurveId`, `PatchId`, `SurfaceId` types.
+- Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,
+  patch, and surface identity remain separate future layers.
 - Establish that coincident coordinates do not imply shared identity.
 - Add adversarial coincident-but-disconnected tests.
 
@@ -575,6 +584,19 @@ authorized by this result.
 - Define explicit edge uses/coedges and forward/reverse orientation.
 - Verify manifold seams, reversed seams, and non-manifold fans.
 - Reject contradictory or incomplete incidence before model construction.
+
+#### Face Identity and Boundary Cycles
+
+- Represent a face with one or more ordered, closed `EdgeUse` cycles of
+  arbitrary positive valence.
+- Validate cycle closure using resolved vertex identity only; never coordinates
+  or tolerance.
+- Preserve multiple loops without premature outer/inner, trimming, winding, or
+  nesting semantics.
+- Keep `FaceId` strongly distinct from future `PatchId`; do not assume a
+  universal four-sided patch.
+- Admit repeated-edge and arbitrary face-incidence cases without prematurely
+  classifying manifoldness.
 
 #### Immutable Validated Model
 
@@ -840,11 +862,13 @@ verified. Geometry Primitives is QUALIFIED only in the declared WSL Ubuntu
 
 Current active stage:
 
-**Topological Model - IN INVESTIGATION / ENTRY DECISION APPROVED**
+**Topological Model - IN INVESTIGATION / EDGE KERNEL IMPLEMENTED /
+FACE-BOUNDARY CONTRACT ACCEPTED / STAGE UNQUALIFIED**
 
-The accepted first work unit is the Identity and Oriented Edge Incidence
-Kernel defined in
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. Implementation, focused
-contracts, qualification infrastructure, and a formal campaign have not
-started. Face/patch incidence, manifold and non-manifold fans, curve/surface
-associations, canonical topology serialization, and meshing remain blocked.
+The Identity and Oriented Edge Incidence Kernel defined in
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` is implemented and its
+focused GCC/Clang Debug contracts pass. The same decision now authorizes the
+next bounded Face Identity and Ordered Boundary Cycles implementation. It does
+not authorize `PatchId`, curves, surfaces, outer/inner loop classification,
+manifold or non-manifold classification, canonical topology serialization,
+qualification infrastructure, or meshing.
