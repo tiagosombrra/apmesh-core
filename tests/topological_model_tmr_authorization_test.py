@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Focused contract for the repository-resident TMR execution authorization."""
+"""Focused contract for generic repository-resident TMR execution authorization."""
 
 from __future__ import annotations
 
@@ -32,6 +32,33 @@ def expect_rejection(module, path: pathlib.Path, root: pathlib.Path) -> None:
     raise RuntimeError("invalid authorization was accepted")
 
 
+def audit_value(value: dict) -> dict:
+    return {
+        "schema_version": 1,
+        "kind": "topological-model-tmr-corrected-preparation-audit",
+        "decision": "PASS",
+        "lifecycle_state": "PREPARED",
+        "execution_requested": False,
+        "candidate_commit": value["candidate"],
+        "preparation": {
+            "run_id": value["preparation_run_id"],
+            "artifact_id": value["prepared_artifact_id"],
+            "artifact_sha256": value["prepared_artifact_sha256"],
+            "prepared_manifest_sha256": value["prepared_manifest_sha256"],
+            "preparation_seal_sha256": value["preparation_seal_sha256"],
+        },
+        "execution_absence": {
+            "execution_claim": False,
+            "terminal_manifest": False,
+            "command_records": False,
+            "certificate_index": False,
+            "failure_record": False,
+            "all_gates": "NOT_EXECUTED",
+        },
+        "formal_execution_authorized": False,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--tool", required=True)
@@ -42,20 +69,40 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="apmesh-tmr-authorization-") as temporary:
         root = pathlib.Path(temporary)
         authorization_dir = root / "experiments" / "authorizations"
-        audit = root / module.EXPECTED["preparation_audit"]
+        audit_dir = root / "docs" / "audits"
         authorization_dir.mkdir(parents=True)
-        audit.parent.mkdir(parents=True)
-        audit.write_text("prepared package audit authority\n", encoding="utf-8")
+        audit_dir.mkdir(parents=True)
 
-        manifest = module.EXPECTED["prepared_manifest_sha256"]
+        value = {
+            "schema_version": 1,
+            "kind": module.KIND,
+            "authorization": module.AUTHORIZATION,
+            "candidate": "1" * 40,
+            "preparation_run_id": 123456,
+            "prepared_artifact_id": 654321,
+            "prepared_artifact_sha256": "2" * 64,
+            "prepared_manifest_sha256": "3" * 64,
+            "preparation_seal_sha256": "4" * 64,
+            "preparation_audit": "docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.json",
+            "execution_workflow": module.EXECUTION_WORKFLOW,
+            "terminal_audit_required": True,
+        }
+
+        audit = root / value["preparation_audit"]
+        audit.write_text(
+            json.dumps(audit_value(value), indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+        manifest = value["prepared_manifest_sha256"]
         authorization = authorization_dir / f"topological-model-tmr-{manifest}.json"
         authorization.write_text(
-            json.dumps(module.EXPECTED, indent=2, sort_keys=True) + "\n",
+            json.dumps(value, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
         )
 
         observed = module.validate_authorization(authorization, root)
-        require(observed == module.EXPECTED, "valid authorization projection differs")
+        require(observed == value, "valid authorization projection differs")
 
         github_output = root / "github-output.txt"
         module.write_github_output(github_output, authorization, root, observed)
@@ -68,21 +115,25 @@ def main() -> int:
             == f"experiments/authorizations/topological-model-tmr-{manifest}.json",
             "authorization output path differs",
         )
-        require(rows["candidate"] == module.EXPECTED["candidate"], "candidate output differs")
+        require(rows["candidate"] == value["candidate"], "candidate output differs")
         require(
-            rows["preparation_run_id"] == str(module.EXPECTED["preparation_run_id"]),
+            rows["preparation_run_id"] == str(value["preparation_run_id"]),
             "preparation run output differs",
         )
         require(
-            rows["prepared_artifact_id"] == str(module.EXPECTED["prepared_artifact_id"]),
-            "artifact output differs",
+            rows["prepared_artifact_id"] == str(value["prepared_artifact_id"]),
+            "artifact id output differs",
+        )
+        require(
+            rows["prepared_artifact_sha256"] == value["prepared_artifact_sha256"],
+            "artifact digest output differs",
         )
         require(
             rows["prepared_manifest_sha256"] == manifest,
             "manifest output differs",
         )
         require(
-            rows["preparation_seal_sha256"] == module.EXPECTED["preparation_seal_sha256"],
+            rows["preparation_seal_sha256"] == value["preparation_seal_sha256"],
             "seal output differs",
         )
         require(
@@ -90,7 +141,7 @@ def main() -> int:
             "claim output differs",
         )
 
-        wrong_candidate = dict(module.EXPECTED)
+        wrong_candidate = dict(value)
         wrong_candidate["candidate"] = "0" * 40
         authorization.write_text(
             json.dumps(wrong_candidate, indent=2, sort_keys=True) + "\n",
@@ -98,7 +149,7 @@ def main() -> int:
         )
         expect_rejection(module, authorization, root)
 
-        extra = dict(module.EXPECTED)
+        extra = dict(value)
         extra["retry"] = True
         authorization.write_text(
             json.dumps(extra, indent=2, sort_keys=True) + "\n",
@@ -107,13 +158,37 @@ def main() -> int:
         expect_rejection(module, authorization, root)
 
         authorization.write_text(
-            json.dumps(module.EXPECTED, indent=2, sort_keys=True) + "\n",
+            json.dumps(value, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
         )
         wrong_name = authorization_dir / "topological-model-tmr-wrong.json"
         wrong_name.write_text(authorization.read_text(encoding="utf-8"), encoding="utf-8")
         expect_rejection(module, wrong_name, root)
 
+        bad_audit = audit_value(value)
+        bad_audit["preparation"]["artifact_sha256"] = "5" * 64
+        audit.write_text(
+            json.dumps(bad_audit, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        expect_rejection(module, authorization, root)
+
+        audit.write_text(
+            json.dumps(audit_value(value), indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        bad_audit = audit_value(value)
+        bad_audit["formal_execution_authorized"] = True
+        audit.write_text(
+            json.dumps(bad_audit, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        expect_rejection(module, authorization, root)
+
+        audit.write_text(
+            json.dumps(audit_value(value), indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
         audit.unlink()
         expect_rejection(module, authorization, root)
 
