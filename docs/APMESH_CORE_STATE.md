@@ -3,12 +3,18 @@
 Status: ACTIVE
 Last updated: 2026-09-20
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
-Repository state: verify the active branch and revision with Git before
-continuation. `main` is the canonical integration branch.
+Operational continuity ledger: `docs/APMESH_CORE_WORKLOG.md`
+Repository state: verify `main`, open PRs, relevant branches, ruleset, recent
+Actions, and the operational ledger before continuation. `main` is the
+canonical integration branch.
 
 ## Purpose
 
-This file is the compact continuation entry point for a new work session. Read this file first, then the authoritative roadmap, then the currently active contract/decision document. Historical discussion is not required to determine the next admissible action.
+This file is the compact scientific continuation entry point for a new work
+session. Read this file first, then `docs/APMESH_CORE_WORKLOG.md`, then the
+authoritative roadmap, then the currently active contract/decision document.
+The worklog is authoritative for branch/work-item/PR/run state. Historical
+discussion is not required to determine the next admissible action.
 
 ## Current strategic decision
 
@@ -60,6 +66,15 @@ The greenfield implementation must eventually be usable as a library inside a la
     for coherent pre-merge semantic regression, and QUALIFICATION only for
     explicit scientific-stage closure. Qualification tooling is opt-in and its
     historical evidence remains preserved without running by default.
+23. Operational continuity is persisted in `docs/APMESH_CORE_WORKLOG.md`.
+    Exactly one work item may be active/validated-unmerged at a time.
+24. Do not start the next work item until the current item is merged,
+    post-merge checks pass, and STATE/ROADMAP/WORKLOG plus active protocol
+    documents are synchronized on `main`.
+25. After any UI/session/tool interruption, reconcile the remote repository
+    before writing. Chat memory is never authoritative for branch or run state.
+26. Historical/superseded branches must be classified in the worklog and may
+    not be silently treated as active.
 
 ## Current repository checkpoint
 
