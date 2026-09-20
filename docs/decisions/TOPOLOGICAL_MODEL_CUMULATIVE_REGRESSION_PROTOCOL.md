@@ -334,10 +334,14 @@ This is not evidence of a production-semantic topology defect. It is a
 protocol/runner repetition-cardinality mismatch and leaves required TMR6/TMR7
 evidence incomplete. The protocol is not weakened retroactively.
 
-The next bounded action, after integration of the terminal audit checkpoint, is
-one separately authorized diagnosis of this mismatch. That diagnosis must
-determine the exact repetition scope of discovery/build/semantic CTest and
-certificate commands, the required command/evidence cardinality, the minimal
-tooling correction, and the requirements for a new PREPARED package. It must
-not prepare, authorize, or execute another formal campaign.
+PR #30 integrated the terminal audit as
+`83a135127302ca328bf49e3e71fbb8ac2e16da2b`; post-merge FAST
+`35529230596` and INTEGRATION `35529230618` passed.
+
+The next bounded action is one separately authorized diagnosis of this
+mismatch. That diagnosis must determine the exact repetition scope of
+discovery/build/semantic CTest and certificate commands, the required
+command/evidence cardinality, the minimal tooling correction, and the
+requirements for a new PREPARED package. It must not prepare, authorize, or
+execute another formal campaign.
 
