@@ -831,15 +831,38 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `NOT STARTED`
+Status: `IN INVESTIGATION / ENTRY DECISION APPROVED /
+IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
 
+Entry authority:
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`.
+
+The first bounded work unit is **Polynomial Cubic Bézier Value Representation
+and Evaluation**. It admits only immutable 2D/3D polynomial cubic Bézier value
+types, four ordered finite control points, normalized parameter domain
+`[0,1]`, recursive de Casteljau evaluation using component-wise
+`std::lerp`, exact endpoint semantics, geometric reversal, and focused
+analytic/adversarial evidence.
+
+It explicitly excludes derivatives, regularity, curvature, arc length,
+subdivision APIs, rational/arbitrary-degree splines, topology ownership,
+discretization, quadrilateral meshing, and parallel execution. Passing the
+focused contract will establish only `IMPLEMENTED / FOCUSED CONTRACTS PASS /
+NOT QUALIFIED`; stage qualification remains a later cumulative regression.
+
 #### Cubic Bezier Evaluation
 
-- Implement cubic Bezier evaluation from the mathematical definition.
-- Verify endpoint, affine-invariance, reversal, and analytic fixture properties.
-- Compare against independent high-precision/reference evaluation.
+- Implement `CubicBezier2`/`CubicBezier3` value semantics from four
+  ordered qualified points.
+- Evaluate only on `t∈[0,1]` by recursive de Casteljau interpolation in
+  Bernstein form; do not convert to the power basis.
+- Verify exact endpoints, reversal, translation/admitted-frame covariance,
+  degenerate control polygons, finite extreme-value fixtures, explicit
+  parameter failures, and deterministic repeatability.
+- Compare selected fixtures against independent exact/high-precision
+  expectations under explicit `ProximityPolicy`; no global epsilon.
 
 #### Curve Derivatives and Regularity
 
