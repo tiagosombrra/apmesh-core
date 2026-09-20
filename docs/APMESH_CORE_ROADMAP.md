@@ -713,6 +713,11 @@ consumed first PREPARED package. One separate authorization-binding/
 generalization work item must safely bind the audited second package before a
 new `EXECUTE_ONCE` record becomes admissible.
 
+PR #37 integrated the corrected preparation audit as
+`1f004a06aa9c6c72e4053b23c67ce514e322369d`. Post-merge INTEGRATION
+`35531732329` and FAST `35531732270` passed. The next bounded work is now
+the authorization-binding/generalization change only.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,
