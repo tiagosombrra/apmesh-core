@@ -1047,17 +1047,23 @@ PR #25 integrated the one-shot execution wrapper as
 `35525932108` and INTEGRATION `35525932111` passed. No claim tag or formal
 execution exists.
 
-The execution authorization path is now being strengthened from a standalone
-manual dispatch to authorization-as-code. The exact manifest-bound
-`EXECUTE_ONCE` record is introduced only by a separate pull request after
-the mechanism itself is integrated and closed. Its merge to protected `main`
+The execution authorization path is repository-resident
+authorization-as-code. The exact manifest-bound `EXECUTE_ONCE` record is
+introduced only by a separate pull request. Its merge to protected `main`
 triggers a controller that validates a newly added immutable record, rejects an
 existing execution claim, and calls the reusable one-shot executor. The executor
 independently revalidates the authorization commit before consuming the exact
-audited PREPARED package. Focused/static tooling run `35527446051` passed in
-both GCC 13 Debug and Clang 18/libc++ Debug.
+audited PREPARED package. Focused/static tooling runs `35527446051` and
+`35527563934` passed in both GCC 13 Debug and Clang 18/libc++ Debug.
 
-The next bounded scientific action after integration/closure is therefore one
-separate authorization-record PR. Merging that record becomes the execution
-authorization event; the resulting terminal package must then be independently
-audited before any TMR0-TMR7 decision.
+PR #27 integrated authorization-as-code as
+`7bf2d409556c8318db72b86ef0d85253aa0583ec`. Required PR FAST
+`35527616244` and INTEGRATION `35527616258` passed; post-merge FAST
+`35527668634` and INTEGRATION `35527668624` passed. No
+`EXECUTE_ONCE` record, execution claim, formal execution, or terminal package
+exists.
+
+The next bounded scientific action is one separate exact authorization-record
+PR. Merging that record becomes the formal execution authorization event; the
+resulting terminal package must then be independently audited before any
+TMR0-TMR7 decision.

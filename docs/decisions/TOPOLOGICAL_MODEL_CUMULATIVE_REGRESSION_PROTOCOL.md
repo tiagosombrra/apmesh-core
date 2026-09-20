@@ -315,10 +315,15 @@ libc++ Debug. Runs `35527269611` and `35527350320` are retained as
 implementation-only mechanical contract failures before that correction; they
 created no authorization, claim, or scientific execution.
 
-No `EXECUTE_ONCE` authorization record exists in the implementation work
-item. After authorization-as-code is integrated, post-merge validation passes,
-and the work item is operationally closed, the next bounded action is one
-separate pull request that adds the exact authorization record. Its merge to
-protected `main` automatically consumes the formal attempt through the
-reusable executor. The resulting terminal package must be independently audited
-before any TMR0-TMR7 gate or stage qualification decision.
+PR #27 integrated authorization-as-code as
+`7bf2d409556c8318db72b86ef0d85253aa0583ec`. Required PR FAST
+`35527616244` and INTEGRATION `35527616258` passed; post-merge FAST
+`35527668634` and INTEGRATION `35527668624` passed. No
+`EXECUTE_ONCE` authorization record, claim tag, or formal execution exists.
+
+The next bounded action is one separate pull request that adds the exact
+manifest-bound authorization record. Its merge to protected `main` is the
+formal execution authorization event and automatically consumes the one formal
+attempt through the reusable executor. The resulting terminal package must be
+independently audited before any TMR0-TMR7 gate or stage qualification
+decision.
