@@ -273,6 +273,10 @@ passed. It is bound to candidate
 `execution_requested=false`, no execution claim/command records/terminal
 manifest exist, and TMR0-TMR7 remain `NOT_EXECUTED`.
 
+PR #23 integrated the preparation audit as
+`b3d8130cdf75230ef7b71693d2325e5473091857`; post-merge FAST
+`35525181361` and INTEGRATION `35525181462` passed.
+
 The next bounded action is to implement the smallest manual execution-only
 GitHub Actions path that restores this exact artifact to its sealed output root,
 checks out the exact candidate, revalidates the PREPARED binding, and invokes

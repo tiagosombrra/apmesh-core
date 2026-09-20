@@ -247,8 +247,7 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after integration of the PREPARED-package
-audit:
+Exact next bounded scientific action:
 
 **Implement the smallest manual execution-only GitHub Actions path that consumes
 the exact audited PREPARED artifact from run `35524700979`, checks out
@@ -259,6 +258,10 @@ That implementation step must be integrated and focused/static validated
 without dispatching formal execution in the same change. The audited package
 must remain unconsumed; TMR0--TMR7 remain `NOT_EXECUTED`; Topological Model
 remains unqualified.
+
+Preparation-audit integration checkpoint: PR #23 merged as
+`b3d8130cdf75230ef7b71693d2325e5473091857`; post-merge FAST run
+`35525181361` and INTEGRATION run `35525181462` passed.
 
 ## Current active stage
 
