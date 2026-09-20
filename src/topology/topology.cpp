@@ -1,10 +1,13 @@
 #include "apmesh/topology/topology.hpp"
 
 #include <cstddef>
+#include <charconv>
 #include <cstdint>
 #include <expected>
 #include <limits>
 #include <span>
+#include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -242,6 +245,54 @@ void advance_identity(std::uint64_t& next) noexcept {
     return signature;
 }
 
+[[nodiscard]] bool same_edge_use_incidences(
+    const std::vector<std::vector<EdgeUseIncidence>>& first,
+    const std::vector<std::vector<EdgeUseIncidence>>& second) noexcept {
+    if (first.size() != second.size()) {
+        return false;
+    }
+    for (std::size_t edge_index = 0U; edge_index < first.size(); ++edge_index) {
+        if (first[edge_index] != second[edge_index]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+[[nodiscard]] std::expected<void, TopologyError> validate_complete_model(
+    const std::vector<Vertex>& vertices,
+    const std::vector<Edge>& edges,
+    const std::vector<Face>& faces,
+    const std::vector<std::vector<EdgeUseIncidence>>& edge_use_incidences) {
+    if (const auto authoritative_validation = validate(vertices, edges, faces);
+        !authoritative_validation.has_value()) {
+        return std::unexpected{TopologyError::invalid_model};
+    }
+
+    const auto recomputed_incidences = build_edge_use_incidences(edges, faces);
+    if (!same_edge_use_incidences(edge_use_incidences, recomputed_incidences)) {
+        return std::unexpected{TopologyError::invalid_model};
+    }
+
+    return {};
+}
+
+template <typename Unsigned>
+void append_unsigned_decimal(std::string& output, const Unsigned value) {
+    char buffer[32]{};
+    const auto conversion = std::to_chars(std::begin(buffer), std::end(buffer), value);
+    output.append(buffer, conversion.ptr);
+}
+
+void append_record_prefix(std::string& output, const std::string_view keyword) {
+    output.append(keyword);
+    output.push_back(' ');
+}
+
+void append_line_end(std::string& output) {
+    output.push_back('\n');
+}
+
 } // namespace
 
 TopologyModel::TopologyModel(
@@ -295,6 +346,120 @@ TopologyModel::edge_incidence_signature(const EdgeId id) const noexcept {
         return std::unexpected{incidences.error()};
     }
     return summarize_edge_incidences(*incidences);
+}
+
+std::expected<TopologyConsistencySummary, TopologyError>
+TopologyModel::consistency_summary() const {
+    if (const auto validation = validate_complete_model(
+            vertices_, edges_, faces_, edge_use_incidences_);
+        !validation.has_value()) {
+        return std::unexpected{validation.error()};
+    }
+
+    TopologyConsistencySummary summary{
+        .vertex_count = vertices_.size(),
+        .edge_count = edges_.size(),
+        .face_count = faces_.size(),
+    };
+
+    for (const Face& face : faces_) {
+        const std::span<const BoundaryLoop> loops = face.boundary_loops();
+        summary.boundary_loop_count += loops.size();
+        for (const BoundaryLoop& loop : loops) {
+            summary.edge_use_count += loop.uses().size();
+        }
+    }
+
+    for (const std::vector<EdgeUseIncidence>& incidences : edge_use_incidences_) {
+        switch (summarize_edge_incidences(incidences).classification) {
+        case EdgeIncidenceClass::unused:
+            ++summary.unused_edge_count;
+            break;
+        case EdgeIncidenceClass::single_use:
+            ++summary.single_use_edge_count;
+            break;
+        case EdgeIncidenceClass::two_use_opposed:
+            ++summary.two_use_opposed_edge_count;
+            break;
+        case EdgeIncidenceClass::two_use_cooriented:
+            ++summary.two_use_cooriented_edge_count;
+            break;
+        case EdgeIncidenceClass::multi_use:
+            ++summary.multi_use_edge_count;
+            break;
+        }
+    }
+
+    return summary;
+}
+
+std::expected<std::string, TopologyError> TopologyModel::canonical_snapshot() const {
+    if (!consistency_summary().has_value()) {
+        return std::unexpected{TopologyError::invalid_model};
+    }
+
+    std::string snapshot;
+    snapshot.append("apmesh-topology-v1\nvertices ");
+    append_unsigned_decimal(snapshot, vertices_.size());
+    append_line_end(snapshot);
+    for (const Vertex& vertex : vertices_) {
+        append_record_prefix(snapshot, "vertex");
+        append_unsigned_decimal(snapshot, vertex.id().value());
+        append_line_end(snapshot);
+    }
+
+    snapshot.append("edges ");
+    append_unsigned_decimal(snapshot, edges_.size());
+    append_line_end(snapshot);
+    for (const Edge& edge : edges_) {
+        append_record_prefix(snapshot, "edge");
+        append_unsigned_decimal(snapshot, edge.id().value());
+        snapshot.push_back(' ');
+        append_unsigned_decimal(snapshot, edge.first().value());
+        snapshot.push_back(' ');
+        append_unsigned_decimal(snapshot, edge.second().value());
+        append_line_end(snapshot);
+    }
+
+    snapshot.append("faces ");
+    append_unsigned_decimal(snapshot, faces_.size());
+    append_line_end(snapshot);
+    for (const Face& face : faces_) {
+        const std::span<const BoundaryLoop> loops = face.boundary_loops();
+        append_record_prefix(snapshot, "face");
+        append_unsigned_decimal(snapshot, face.id().value());
+        snapshot.push_back(' ');
+        append_unsigned_decimal(snapshot, loops.size());
+        append_line_end(snapshot);
+
+        for (std::size_t loop_index = 0U; loop_index < loops.size(); ++loop_index) {
+            const std::span<const EdgeUse> uses = loops[loop_index].uses();
+            append_record_prefix(snapshot, "loop");
+            append_unsigned_decimal(snapshot, face.id().value());
+            snapshot.push_back(' ');
+            append_unsigned_decimal(snapshot, loop_index);
+            snapshot.push_back(' ');
+            append_unsigned_decimal(snapshot, uses.size());
+            append_line_end(snapshot);
+
+            for (std::size_t use_index = 0U; use_index < uses.size(); ++use_index) {
+                const EdgeUse& use = uses[use_index];
+                append_record_prefix(snapshot, "use");
+                append_unsigned_decimal(snapshot, face.id().value());
+                snapshot.push_back(' ');
+                append_unsigned_decimal(snapshot, loop_index);
+                snapshot.push_back(' ');
+                append_unsigned_decimal(snapshot, use_index);
+                snapshot.push_back(' ');
+                append_unsigned_decimal(snapshot, use.edge.value());
+                snapshot.push_back(' ');
+                snapshot.append(use.orientation == Orientation::forward ? "forward" : "reverse");
+                append_line_end(snapshot);
+            }
+        }
+    }
+
+    return snapshot;
 }
 
 std::expected<OrientedEndpoints, TopologyError> TopologyModel::resolve(
@@ -372,11 +537,16 @@ std::expected<TopologyModel, TopologyError> TopologyBuilder::finalize() const {
     if (const auto validation = validate(vertices_, edges_, faces_); !validation.has_value()) {
         return std::unexpected{validation.error()};
     }
+    auto incidences = build_edge_use_incidences(edges_, faces_);
+    if (const auto validation = validate_complete_model(vertices_, edges_, faces_, incidences);
+        !validation.has_value()) {
+        return std::unexpected{validation.error()};
+    }
     return TopologyModel{
         vertices_,
         edges_,
         faces_,
-        build_edge_use_incidences(edges_, faces_),
+        std::move(incidences),
     };
 }
 

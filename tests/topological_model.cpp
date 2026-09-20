@@ -7,6 +7,7 @@
 #include <expected>
 #include <iostream>
 #include <span>
+#include <string>
 #include <string_view>
 #include <type_traits>
 #include <utility>
@@ -21,6 +22,7 @@ using apmesh::topology::EdgeUseIncidence;
 using apmesh::topology::FaceId;
 using apmesh::topology::Orientation;
 using apmesh::topology::TopologyBuilder;
+using apmesh::topology::TopologyConsistencySummary;
 using apmesh::topology::TopologyError;
 using apmesh::topology::TopologyModel;
 using apmesh::topology::VertexId;
@@ -52,6 +54,17 @@ template <typename Model>
 concept SummarizesEdgeIncidences = requires(const Model& model, const EdgeId id) {
     { model.edge_incidence_signature(id) }
         -> std::same_as<std::expected<EdgeIncidenceSignature, TopologyError>>;
+};
+
+template <typename Model>
+concept SummarizesTopologyConsistency = requires(const Model& model) {
+    { model.consistency_summary() }
+        -> std::same_as<std::expected<TopologyConsistencySummary, TopologyError>>;
+};
+
+template <typename Model>
+concept EmitsCanonicalTopologySnapshot = requires(const Model& model) {
+    { model.canonical_snapshot() } -> std::same_as<std::expected<std::string, TopologyError>>;
 };
 
 bool require(const bool condition, const std::string_view message) {
@@ -106,10 +119,32 @@ int main() {
     static_assert(AddsFace<TopologyBuilder>);
     static_assert(EnumeratesEdgeUseIncidences<TopologyModel>);
     static_assert(SummarizesEdgeIncidences<TopologyModel>);
+    static_assert(SummarizesTopologyConsistency<TopologyModel>);
+    static_assert(EmitsCanonicalTopologySnapshot<TopologyModel>);
     static_assert(!AddsEdge<TopologyBuilder, VertexId>);
     static_assert(!MutableTopologyModel<TopologyModel>);
 
     bool passed = true;
+
+    TopologyBuilder empty_builder;
+    const auto empty_model = empty_builder.finalize();
+    const auto empty_summary = empty_model
+                                   ? empty_model->consistency_summary()
+                                   : std::expected<TopologyConsistencySummary, TopologyError>{
+                                         std::unexpected{TopologyError::invalid_model}};
+    const auto empty_snapshot = empty_model
+                                    ? empty_model->canonical_snapshot()
+                                    : std::expected<std::string, TopologyError>{
+                                          std::unexpected{TopologyError::invalid_model}};
+    passed = require_value(empty_model, "empty topology finalization failed") && passed;
+    passed = require(
+                 empty_summary && *empty_summary == TopologyConsistencySummary{},
+                 "empty topology consistency counts differ") &&
+             passed;
+    passed = require(
+                 empty_snapshot && *empty_snapshot == "apmesh-topology-v1\nvertices 0\nedges 0\nfaces 0\n",
+                 "empty topology snapshot differs from the canonical bytes") &&
+             passed;
 
     TopologyBuilder builder;
     const auto first = builder.add_vertex();
@@ -342,6 +377,50 @@ int main() {
                                   std::unexpected{TopologyError::invalid_face_id}},
                  TopologyError::invalid_face_id,
                  "zero face identifier resolved") &&
+             passed;
+    const auto face_summary = face_model
+                                  ? face_model->consistency_summary()
+                                  : std::expected<TopologyConsistencySummary, TopologyError>{
+                                        std::unexpected{TopologyError::invalid_model}};
+    const auto face_snapshot = face_model
+                                   ? face_model->canonical_snapshot()
+                                   : std::expected<std::string, TopologyError>{
+                                         std::unexpected{TopologyError::invalid_model}};
+    passed = require(
+                 face_summary && *face_summary == TopologyConsistencySummary{
+                     .vertex_count = 2U,
+                     .edge_count = 3U,
+                     .face_count = 2U,
+                     .boundary_loop_count = 2U,
+                     .edge_use_count = 4U,
+                     .unused_edge_count = 1U,
+                     .two_use_cooriented_edge_count = 2U,
+                 },
+                 "topology consistency summary lost authoritative cardinalities") &&
+             passed;
+    const std::string expected_face_snapshot{
+        "apmesh-topology-v1\n"
+        "vertices 2\n"
+        "vertex 1\n"
+        "vertex 2\n"
+        "edges 3\n"
+        "edge 1 1 2\n"
+        "edge 2 1 2\n"
+        "edge 3 2 1\n"
+        "faces 2\n"
+        "face 1 1\n"
+        "loop 1 0 2\n"
+        "use 1 0 0 1 forward\n"
+        "use 1 0 1 3 forward\n"
+        "face 2 1\n"
+        "loop 2 0 2\n"
+        "use 2 0 0 1 forward\n"
+        "use 2 0 1 3 forward\n"};
+    passed = require(
+                 face_snapshot && *face_snapshot == expected_face_snapshot &&
+                     face_snapshot->find('\r') == std::string::npos &&
+                     face_snapshot->back() == '\n',
+                 "canonical snapshot record order or line endings differ") &&
              passed;
     const auto unused_parallel_incidences = parallel_edge && face_model
                                                 ? face_model->edge_use_incidences(*parallel_edge)
@@ -608,6 +687,28 @@ int main() {
                          *original_signature == *reconstructed_signature,
                      "independent construction did not reproduce incidence signature") &&
                  passed;
+        const auto original_summary = face_model
+                                          ? face_model->consistency_summary()
+                                          : std::expected<TopologyConsistencySummary, TopologyError>{
+                                                std::unexpected{TopologyError::invalid_model}};
+        const auto reconstructed_summary = repeated_construction_model
+                                               ? repeated_construction_model->consistency_summary()
+                                               : std::expected<TopologyConsistencySummary, TopologyError>{
+                                                     std::unexpected{TopologyError::invalid_model}};
+        const auto original_snapshot = face_model
+                                           ? face_model->canonical_snapshot()
+                                           : std::expected<std::string, TopologyError>{
+                                                 std::unexpected{TopologyError::invalid_model}};
+        const auto reconstructed_snapshot = repeated_construction_model
+                                                ? repeated_construction_model->canonical_snapshot()
+                                                : std::expected<std::string, TopologyError>{
+                                                      std::unexpected{TopologyError::invalid_model}};
+        passed = require(
+                     original_summary && reconstructed_summary && original_snapshot &&
+                         reconstructed_snapshot && *original_summary == *reconstructed_summary &&
+                         *original_snapshot == *reconstructed_snapshot,
+                     "independent equal construction did not preserve canonical summary or bytes") &&
+                 passed;
 
         const std::array<EdgeUse, 2U> repeated_edge_cycle{
             EdgeUse{.edge = *repeat_edge, .orientation = Orientation::forward},
@@ -868,6 +969,138 @@ int main() {
                          "arbitrary positive boundary valence was not retained") &&
                      passed;
         }
+    }
+
+    TopologyBuilder classification_builder;
+    const auto classification_vertex = classification_builder.add_vertex();
+    const auto unused_edge = classification_vertex
+                                 ? classification_builder.add_edge(*classification_vertex, *classification_vertex)
+                                 : std::expected<EdgeId, TopologyError>{
+                                       std::unexpected{TopologyError::invalid_vertex_handle}};
+    const auto single_edge = classification_vertex
+                                 ? classification_builder.add_edge(*classification_vertex, *classification_vertex)
+                                 : std::expected<EdgeId, TopologyError>{
+                                       std::unexpected{TopologyError::invalid_vertex_handle}};
+    const auto classification_opposed_edge = classification_vertex
+                                                 ? classification_builder.add_edge(
+                                                       *classification_vertex,
+                                                       *classification_vertex)
+                                                 : std::expected<EdgeId, TopologyError>{
+                                                       std::unexpected{TopologyError::invalid_vertex_handle}};
+    const auto cooriented_edge = classification_vertex
+                                     ? classification_builder.add_edge(*classification_vertex, *classification_vertex)
+                                     : std::expected<EdgeId, TopologyError>{
+                                           std::unexpected{TopologyError::invalid_vertex_handle}};
+    const auto multi_edge = classification_vertex
+                                ? classification_builder.add_edge(*classification_vertex, *classification_vertex)
+                                : std::expected<EdgeId, TopologyError>{
+                                      std::unexpected{TopologyError::invalid_vertex_handle}};
+    passed = require(
+                 classification_vertex && unused_edge && single_edge && classification_opposed_edge &&
+                     cooriented_edge && multi_edge,
+                 "classification-summary topology construction failed") &&
+             passed;
+    if (single_edge && classification_opposed_edge && cooriented_edge && multi_edge) {
+        const std::array<EdgeUse, 1U> single_cycle{
+            EdgeUse{.edge = *single_edge, .orientation = Orientation::forward},
+        };
+        const std::array<EdgeUse, 2U> opposed_cycle{
+            EdgeUse{.edge = *classification_opposed_edge, .orientation = Orientation::forward},
+            EdgeUse{.edge = *classification_opposed_edge, .orientation = Orientation::reverse},
+        };
+        const std::array<EdgeUse, 1U> cooriented_cycle{
+            EdgeUse{.edge = *cooriented_edge, .orientation = Orientation::forward},
+        };
+        const std::array<EdgeUse, 1U> multi_cycle{
+            EdgeUse{.edge = *multi_edge, .orientation = Orientation::forward},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> single_boundary{
+            std::span<const EdgeUse>{single_cycle},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> opposed_boundary{
+            std::span<const EdgeUse>{opposed_cycle},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> cooriented_boundary{
+            std::span<const EdgeUse>{cooriented_cycle},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> multi_boundary{
+            std::span<const EdgeUse>{multi_cycle},
+        };
+        const auto single_face = classification_builder.add_face(single_boundary);
+        const auto opposed_face = classification_builder.add_face(opposed_boundary);
+        const auto cooriented_first_face = classification_builder.add_face(cooriented_boundary);
+        const auto cooriented_second_face = classification_builder.add_face(cooriented_boundary);
+        const auto multi_first_face = classification_builder.add_face(multi_boundary);
+        const auto multi_second_face = classification_builder.add_face(multi_boundary);
+        const auto multi_third_face = classification_builder.add_face(multi_boundary);
+        const auto classification_model = classification_builder.finalize();
+        const auto classification_summary = classification_model
+                                                ? classification_model->consistency_summary()
+                                                : std::expected<TopologyConsistencySummary, TopologyError>{
+                                                      std::unexpected{TopologyError::invalid_model}};
+        passed = require(
+                     single_face && opposed_face && cooriented_first_face && cooriented_second_face &&
+                         multi_first_face && multi_second_face && multi_third_face && classification_summary &&
+                         *classification_summary == TopologyConsistencySummary{
+                             .vertex_count = 1U,
+                             .edge_count = 5U,
+                             .face_count = 7U,
+                             .boundary_loop_count = 7U,
+                             .edge_use_count = 8U,
+                             .unused_edge_count = 1U,
+                             .single_use_edge_count = 1U,
+                             .two_use_opposed_edge_count = 1U,
+                             .two_use_cooriented_edge_count = 1U,
+                             .multi_use_edge_count = 1U,
+                         },
+                     "consistency summary did not count all structural signature classes") &&
+                 passed;
+    }
+
+    TopologyBuilder forward_snapshot_builder;
+    TopologyBuilder reverse_snapshot_builder;
+    const auto forward_vertex = forward_snapshot_builder.add_vertex();
+    const auto reverse_vertex = reverse_snapshot_builder.add_vertex();
+    const auto forward_snapshot_edge = forward_vertex
+                                           ? forward_snapshot_builder.add_edge(*forward_vertex, *forward_vertex)
+                                           : std::expected<EdgeId, TopologyError>{
+                                                 std::unexpected{TopologyError::invalid_vertex_handle}};
+    const auto reverse_snapshot_edge = reverse_vertex
+                                           ? reverse_snapshot_builder.add_edge(*reverse_vertex, *reverse_vertex)
+                                           : std::expected<EdgeId, TopologyError>{
+                                                 std::unexpected{TopologyError::invalid_vertex_handle}};
+    if (forward_snapshot_edge && reverse_snapshot_edge) {
+        const std::array<EdgeUse, 1U> forward_cycle{
+            EdgeUse{.edge = *forward_snapshot_edge, .orientation = Orientation::forward},
+        };
+        const std::array<EdgeUse, 1U> reverse_cycle{
+            EdgeUse{.edge = *reverse_snapshot_edge, .orientation = Orientation::reverse},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> forward_boundary{
+            std::span<const EdgeUse>{forward_cycle},
+        };
+        const std::array<std::span<const EdgeUse>, 1U> reverse_boundary{
+            std::span<const EdgeUse>{reverse_cycle},
+        };
+        const auto forward_face = forward_snapshot_builder.add_face(forward_boundary);
+        const auto reverse_face = reverse_snapshot_builder.add_face(reverse_boundary);
+        const auto forward_snapshot_model = forward_snapshot_builder.finalize();
+        const auto reverse_snapshot_model = reverse_snapshot_builder.finalize();
+        const auto forward_snapshot = forward_snapshot_model
+                                          ? forward_snapshot_model->canonical_snapshot()
+                                          : std::expected<std::string, TopologyError>{
+                                                std::unexpected{TopologyError::invalid_model}};
+        const auto reverse_snapshot = reverse_snapshot_model
+                                          ? reverse_snapshot_model->canonical_snapshot()
+                                          : std::expected<std::string, TopologyError>{
+                                                std::unexpected{TopologyError::invalid_model}};
+        passed = require(
+                     forward_face && reverse_face && forward_snapshot && reverse_snapshot &&
+                         *forward_snapshot != *reverse_snapshot,
+                     "declared orientation did not change canonical snapshot bytes") &&
+                 passed;
+    } else {
+        passed = false;
     }
 
     return passed ? 0 : 1;

@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <expected>
 #include <span>
+#include <string>
 #include <vector>
 
 namespace apmesh::topology {
@@ -180,6 +181,21 @@ struct EdgeIncidenceSignature {
     constexpr bool operator==(const EdgeIncidenceSignature&) const noexcept = default;
 };
 
+struct TopologyConsistencySummary {
+    std::size_t vertex_count{};
+    std::size_t edge_count{};
+    std::size_t face_count{};
+    std::size_t boundary_loop_count{};
+    std::size_t edge_use_count{};
+    std::size_t unused_edge_count{};
+    std::size_t single_use_edge_count{};
+    std::size_t two_use_opposed_edge_count{};
+    std::size_t two_use_cooriented_edge_count{};
+    std::size_t multi_use_edge_count{};
+
+    constexpr bool operator==(const TopologyConsistencySummary&) const noexcept = default;
+};
+
 class BoundaryLoop {
 public:
     [[nodiscard]] std::span<const EdgeUse> uses() const noexcept;
@@ -224,6 +240,9 @@ public:
     edge_use_incidences(EdgeId id) const noexcept;
     [[nodiscard]] std::expected<EdgeIncidenceSignature, TopologyError>
     edge_incidence_signature(EdgeId id) const noexcept;
+    [[nodiscard]] std::expected<TopologyConsistencySummary, TopologyError>
+    consistency_summary() const;
+    [[nodiscard]] std::expected<std::string, TopologyError> canonical_snapshot() const;
     [[nodiscard]] std::expected<OrientedEndpoints, TopologyError> resolve(
         const EdgeUse& use) const noexcept;
 

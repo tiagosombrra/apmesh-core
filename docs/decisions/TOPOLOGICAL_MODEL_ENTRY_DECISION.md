@@ -1,6 +1,6 @@
 # Topological Model - Bounded Entry Decision
 
-Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / IMMUTABLE SNAPSHOT CONTRACT ACCEPTED / STAGE UNQUALIFIED
+Status: EDGE KERNEL IMPLEMENTED / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS / EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS / IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS / CUMULATIVE REGRESSION PRE-REGISTERED / STAGE UNQUALIFIED
 Date: 2026-09-19
 Stage: Topological Model - Explicit Identity and Incidence
 Prerequisites: Foundation `QUALIFIED`; Geometry Primitives `QUALIFIED` on
@@ -733,6 +733,18 @@ Focused tests must cover:
 No standalone evidence framework, formal manifest, Release matrix, or
 qualification campaign is required for this implementation.
 
+### Focused implementation evidence
+
+The bounded implementation adds only finalization-time complete validation,
+the read-only `TopologyConsistencySummary`, and canonical forward-model
+emission. The focused `apmesh_core.topological_model` CTest passed in WSL
+Ubuntu 24.04 with GCC 13 Debug and Clang 18/libc++ Debug. It covers the exact
+empty snapshot, record order and LF spelling, parallel/reversed/self-loop
+edges, multiple loops, repeated uses, all five structural-class counts,
+independent equal construction, and a declared-orientation byte difference.
+This is implementation evidence only: the Topological Model stage remains
+unqualified and no semantic topology claim was added.
+
 ### Explicit exclusions and stop conditions
 
 This contract does not authorize:
@@ -779,9 +791,13 @@ qualify the stage. The next scientific action after focused PASS is to define
 one cumulative Topological Model Regression over the canonical fixtures and all
 qualified prerequisites.
 
+That cumulative gate is now pre-registered in
+`docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`. Its
+TMR0–TMR7 decision remains `NOT PREPARED / NOT EXECUTED`; this record does not
+claim stage qualification.
+
 ## Next bounded action
 
-Implement only immutable topology consistency validation, the deterministic
-summary, canonical `apmesh-topology-v1` emission, and focused FAST cases. Do not
-add parsing, repair, semantic manifold/boundary classification, geometry,
-qualification tooling, or a formal campaign.
+Implement only the smallest reusable report-only TMR0–TMR7 workflow and its
+focused contracts. Do not change production C++, add new topology concepts,
+prepare a manifest, or execute the formal campaign.

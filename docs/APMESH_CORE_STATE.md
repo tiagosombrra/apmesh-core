@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-19
+Last updated: 2026-09-20
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Working branch: verify with Git; Minimal Small Linear Algebra is integrated into
 `main` at `ca51c333b5fcae33f05b5e25f6b0780ec195ad77`.
@@ -106,13 +106,20 @@ boundary, adjacency, pairing, manifold, shell, or geometric conclusions. The
 focused GCC 13 Debug and Clang 18/libc++ Debug CTest passed. The fifth bounded
 contract below defines the authorized continuation.
 
-**Immutable Topology Consistency and Canonical Snapshot — ACCEPTED FOR BOUNDED
-IMPLEMENTATION / NOT IMPLEMENTED / NOT QUALIFIED.** The next work unit may
-revalidate the complete authoritative topology at finalization, expose a
-read-only consistency summary, and emit the canonical `apmesh-topology-v1`
-snapshot defined by the fifth bounded contract. It may not add topology repair,
-deserialization, adjacency, pairing, manifold policy, geometry, or an embedded
-cryptographic implementation.
+**Immutable Topology Consistency and Canonical Snapshot — IMPLEMENTED /
+FOCUSED CONTRACT PASS / NOT QUALIFIED.** Finalization now revalidates the
+complete authoritative topology and its derived reverse incidence relation
+atomically. The immutable model exposes a deterministic count-only summary and
+the forward-only canonical `apmesh-topology-v1` snapshot. Focused GCC 13 Debug
+and Clang 18/libc++ Debug CTests passed. This adds no repair, deserialization,
+adjacency, pairing, manifold policy, geometry, or embedded cryptography.
+
+**Topological Model Cumulative Regression — PRE-REGISTERED / NOT PREPARED /
+NOT EXECUTED.** The single stage-exit protocol is fixed in
+`docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`. It uses
+four GCC/Clang Debug/Release cells, two repetitions per cell, the exact seven-
+test prerequisite/topology allowlist, and TMR0–TMR7. No profile, tooling,
+manifest, execution, or qualification result exists yet.
 
 Current prerequisite closure evidence:
 
@@ -361,10 +368,11 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 10. `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`
 11. `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`
 12. `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`
-13. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-14. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-15. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-16. `docs/research/REFERENCE_REGISTER.md`.
+13. `docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`
+14. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+15. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+16. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
+17. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
@@ -377,11 +385,13 @@ The bounded Identity and Oriented Edge Incidence Kernel, Face Identity and
 Ordered Boundary Cycles, and Deterministic Edge-Use Incidence Enumeration are
 implemented. Their focused GCC 13 Debug and Clang 18/libc++ Debug FAST contract
 passes, but Topological Model remains unqualified. The fourth bounded work unit
-implemented deterministic edge-incidence structural
-classification as defined by the fourth contract in
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. The next bounded work unit
-is Immutable Topology Consistency and Canonical Snapshot as defined by the
-fifth contract in that decision record.
+implemented deterministic edge-incidence structural classification and the
+fifth completed immutable consistency validation plus forward-only canonical
+snapshot emission, as defined by
+`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. The cumulative
+TMR0–TMR7 protocol is now pre-registered. The next action is to implement its
+smallest reusable report-only workflow; no further production topology concept
+is authorized.
 Do not implement curves, NURBS, surfaces, meshing, or a formal qualification
 campaign.
 

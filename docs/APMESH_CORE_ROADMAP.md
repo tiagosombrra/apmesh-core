@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-19
+Last updated: 2026-09-20
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -546,7 +546,8 @@ Status: `IN INVESTIGATION / IDENTITY AND ORIENTED EDGE KERNEL IMPLEMENTED /
 FOCUSED CONTRACT PASS / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
 EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-IMMUTABLE SNAPSHOT CONTRACT ACCEPTED / STAGE UNQUALIFIED`
+IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
+CUMULATIVE REGRESSION PRE-REGISTERED / NOT PREPARED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -591,11 +592,19 @@ Its focused GCC 13 Debug and Clang 18/libc++ Debug contract passes. The fifth
 bounded contract below defines the authorized continuation.
 
 The fifth bounded contract consolidates the immutable model before cumulative
-regression. It authorizes full internal-consistency revalidation, a read-only
-summary, and a byte-exact canonical `apmesh-topology-v1` snapshot of the
-authoritative identity/incidence relation. It does not authorize repair,
+regression. It now performs full internal-consistency revalidation, exposes a
+read-only count summary, and emits a byte-exact canonical `apmesh-topology-v1`
+snapshot of the authoritative identity/incidence relation. Its focused GCC 13
+Debug and Clang 18/libc++ Debug contracts pass. It does not authorize repair,
 deserialization, adjacency, pairing, manifold policy, geometry, or a formal
-campaign. Implementation and focused evidence have not started.
+campaign.
+
+The single stage-exit regression is pre-registered in
+`docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`. TMR0–TMR7
+bind the completed topology model, current-candidate Foundation/Geometry
+preservation, exact forward/reverse incidence, structural recomputation,
+canonical snapshot bytes, repeated/cross-cell determinism, and retained
+evidence integrity. No profile, tooling, manifest, or execution exists yet.
 
 #### Vertex and Edge Identity
 
@@ -631,9 +640,15 @@ campaign. Implementation and focused evidence have not started.
 
 #### Topological Model Regression
 
-- Rerun all topology fixtures including coincident-disconnected, reversed seam, manifold seam, and non-manifold fan.
-- Rerun Foundation and Geometry Primitives regressions.
-- Regenerate topology/incidence figures and canonical certificates.
+- Execute the single pre-registered TMR0–TMR7 workflow on the fixed four-cell,
+  two-repetition matrix.
+- Exercise exact identity, boundary-cycle, incidence, signature, consistency,
+  transactionality, and canonical-snapshot cases without semantic
+  boundary/manifold classification.
+- Preserve Foundation and Geometry through the exact current-candidate
+  semantic allowlist; do not relaunch their historical campaigns.
+- Retain canonical certificates and compact decision evidence. No figure is
+  required before a geometric embedding exists.
 - Verify that no coordinate proximity changes topological identity.
 
 Stage exit gate: canonical synthetic models reproduce declared topology exactly without coordinate-based welding, and Topological Model Regression passes.
@@ -891,7 +906,8 @@ Current active stage:
 FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
 EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-IMMUTABLE SNAPSHOT CONTRACT ACCEPTED / STAGE UNQUALIFIED**
+IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
+CUMULATIVE REGRESSION PRE-REGISTERED / NOT PREPARED / STAGE UNQUALIFIED**
 
 The Identity and Oriented Edge Incidence Kernel defined in
 `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` is implemented and its
@@ -904,8 +920,9 @@ The third bounded work unit implements deterministic immutable edge-use
 incidence enumeration. Its focused GCC 13 Debug and Clang 18/libc++ Debug
 evidence passes; it does not qualify the stage or authorize boundary/manifold
 interpretation, geometry, serialization, or a formal campaign.
-Deterministic edge-incidence structural classification is also implemented and
-its focused GCC/Clang Debug contract passes. It does not convert structural
-signatures into adjacency, pairing, boundary, manifold, shell, or geometric
-claims. The next bounded work unit is immutable consistency validation and the
-canonical topology snapshot only.
+Deterministic edge-incidence structural classification and immutable canonical
+snapshot emission are implemented, with focused GCC/Clang Debug contracts
+passing. Neither converts structural signatures into adjacency, pairing,
+boundary, manifold, shell, or geometric claims. The cumulative TMR0–TMR7
+protocol is pre-registered; the next bounded action is its smallest reusable
+report-only workflow. No further production topology concept is authorized.
