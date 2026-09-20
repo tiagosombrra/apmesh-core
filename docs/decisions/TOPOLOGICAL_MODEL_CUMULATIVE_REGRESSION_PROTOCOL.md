@@ -434,3 +434,9 @@ campaign.
 
 Only after the authorization-binding work item is separately merged, validated
 and closed may a new exact `EXECUTE_ONCE` authorization record be introduced.
+
+PR #37 integrated the corrected preparation audit as
+`1f004a06aa9c6c72e4053b23c67ce514e322369d`; post-merge INTEGRATION
+`35531732329` and FAST `35531732270` passed. The audit checkpoint is
+therefore closed. The authorization-binding/generalization work item is now the
+sole permitted continuation.
