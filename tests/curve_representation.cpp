@@ -156,6 +156,30 @@ int main() {
                          *midpoint2 == *expected_midpoint2,
                      "exact 2D midpoint differs") && passed;
 
+    const auto line0 = Point2::make(-4.0, 3.0);
+    const auto line1 = Point2::make(-1.0, 3.0);
+    const auto line2 = Point2::make(5.0, 3.0);
+    const auto line3 = Point2::make(8.0, 3.0);
+    if (!line0 || !line1 || !line2 || !line3) {
+        return 1;
+    }
+    const CubicBezier2 collinear_curve{*line0, *line1, *line2, *line3};
+    for (const double parameter : {0.25, 0.5, 0.75}) {
+        const auto value = collinear_curve.evaluate(parameter);
+        const long double t = static_cast<long double>(parameter);
+        const auto& controls = collinear_curve.control_points();
+        const long double expected_x =
+            bernstein_component(controls, t, &Point2::x);
+        const long double expected_y =
+            bernstein_component(controls, t, &Point2::y);
+        passed = require(
+                     value &&
+                         close_point(*value, expected_x, expected_y, 8.0) &&
+                         value->y() == 3.0,
+                     "collinear cubic Bernstein reference differs") &&
+                 passed;
+    }
+
     for (const double parameter : {0.25, 0.5, 0.75}) {
         const auto value = curve2.evaluate(parameter);
         const long double t = static_cast<long double>(parameter);
@@ -202,6 +226,11 @@ int main() {
     const std::array<Point2, 4> expected_reversed2{*p23, *p22, *p21, *p20};
     passed = require(reversed2.control_points() == expected_reversed2,
                      "2D reversal did not reverse control order") && passed;
+    const auto reversed_endpoint0 = reversed2.evaluate(0.0);
+    const auto reversed_endpoint1 = reversed2.evaluate(1.0);
+    passed = require(reversed_endpoint0 && *reversed_endpoint0 == *p23 &&
+                         reversed_endpoint1 && *reversed_endpoint1 == *p20,
+                     "2D reversal did not swap exact endpoints") && passed;
     passed = require(reversed2.reversed() == curve2,
                      "2D double reversal did not recover the curve") && passed;
     passed = require(curve3.reversed().reversed() == curve3,
