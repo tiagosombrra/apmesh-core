@@ -248,24 +248,33 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after whole-commit guard integration:
+Exact next bounded scientific action:
 
 **Create the exact one-file `EXECUTE_ONCE` authorization PR for the audited
 second Topological Model TMR PREPARED package.**
 
-A pre-authorization review found and corrected one mechanical governance gap in
-the generic controller: its commit diff was path-filtered to the authorization
-directory. The corrected controller now proves that the entire protected-main
-authorization commit changes exactly one path, that the path is newly added,
-and that it is the manifest-hash authorization record.
+The whole-commit authorization guard correction was integrated by PR #41 as
+`d4a3a2da64c84ec922e881e899a153287593b79c`.
 
-TMR Tooling run `35532624980` passed in GCC 13 Debug and Clang 18/libc++
-Debug. No scientific criterion, PREPARED package, authorization, claim or
-formal execution changed.
+Validation:
 
-The audited second manifest remains
+- final TMR Tooling `35532708479`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- PR FAST `35533302056`: PASS;
+- PR INTEGRATION `35533302046`: PASS;
+- post-merge FAST `35533347184`: PASS;
+- post-merge INTEGRATION `35533347164`: PASS.
+
+The audited second manifest
 `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`
-and unclaimed.
+remains unclaimed.
+
+The next authorization PR must contain exactly one newly added manifest-bound
+authorization file and no other repository change. Its merge to protected
+`main` will be the formal execution authorization event.
+
+Topological Model remains `IN INVESTIGATION / NOT QUALIFIED` until terminal
+TMR0–TMR7 audit.
 
 
 ## Current active stage
