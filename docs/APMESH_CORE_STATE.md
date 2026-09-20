@@ -90,7 +90,8 @@ Current repository continuation checkpoint:
 - post-merge GitHub Actions FAST on that baseline: `PASS`, run `35513658207`;
 - post-merge GitHub Actions INTEGRATION on that baseline: `PASS`, run `35513658197`;
 - final pre-merge Major Semantic Regression on tree-equivalent candidate `6a934de6e8f6fae35e6c38ec45b9b1f23b170acb`: `PASS`, run `35513567930`;
-- open scientific stage: **Topological Model — Explicit Identity and Incidence**;
+- open scientific stage: **Topological Model — Explicit Identity and Incidence — QUALIFIED /
+TMR0–TMR7 PASS**;
 - stage status: production bounded scope implemented, focused contracts pass,
   cumulative TMR0--TMR7 report-only tooling implemented, the admitted cloud
   envelope explicitly supplemented, the preparation/runner path fail-closed on
@@ -246,35 +247,40 @@ Accepted functional cloud-infrastructure baseline:
 
 Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
-This does **not** qualify the Topological Model stage.
+Infrastructure status alone does not qualify a scientific stage; the formal
+Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after terminal-audit integration:
 
-**Create the exact one-file `EXECUTE_ONCE` authorization PR for the audited
-second Topological Model TMR PREPARED package.**
+**Close the corrected TMR terminal-audit checkpoint, then open one separate
+scientific entry decision for Curve Representation — Continuous Geometry Before
+Discretization.**
 
-The whole-commit authorization guard correction was integrated by PR #41 as
-`d4a3a2da64c84ec922e881e899a153287593b79c`.
+The second formal campaign was authorized by PR #43 and merged as
+`cddd959574ed6a677ac755a5b329d53a9cfe32ec`. Protected-main run
+`35533702004` validated the complete authorization and audited PREPARED
+binding, created the immutable manifest-hash claim, executed the sealed
+four-cell/two-repetition campaign exactly once, verified retention, and
+retained artifact `10612032787`.
 
-Validation:
+Independent terminal audit records:
 
-- final TMR Tooling `35532708479`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug;
-- PR FAST `35533302056`: PASS;
-- PR INTEGRATION `35533302046`: PASS;
-- post-merge FAST `35533347184`: PASS;
-- post-merge INTEGRATION `35533347164`: PASS.
+- terminal ZIP SHA-256
+  `dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8`;
+- exact 56-command cardinality;
+- eight semantic CTest repetitions × seven exact tests = 56 individual
+  semantic test executions, all PASS;
+- eight byte-identical topology certificates;
+- complete negative/dependency/inventory evidence;
+- exact retention and detached verification;
+- TMR0–TMR7: **PASS**;
+- overall: **PASS**;
+- Topological Model: **QUALIFIED in the exact admitted GitHub-hosted Ubuntu
+  24.04 x86_64 cloud envelope**.
 
-The audited second manifest
-`f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`
-remains unclaimed.
-
-The next authorization PR must contain exactly one newly added manifest-bound
-authorization file and no other repository change. Its merge to protected
-`main` will be the formal execution authorization event.
-
-Topological Model remains `IN INVESTIGATION / NOT QUALIFIED` until terminal
-TMR0–TMR7 audit.
+No WSL/cloud equivalence is claimed. Qualification does not automatically begin
+curve implementation. A separate Curve Representation entry decision is
+required first.
 
 
 ## Current active stage
@@ -330,46 +336,62 @@ the forward-only canonical `apmesh-topology-v1` snapshot. Focused GCC 13 Debug
 and Clang 18/libc++ Debug CTests passed. This adds no repair, deserialization,
 adjacency, pairing, manifold policy, geometry, or embedded cryptography.
 
-**Topological Model Cumulative Regression — FORMAL EXECUTION CONSUMED /
-TERMINAL AUDIT COMPLETE / TMR0-TMR5 PASS / TMR6-TMR7 BLOCKED /
-OVERALL BLOCKED / NOT QUALIFIED.** The stage-exit protocol remains fixed in
+**Topological Model Cumulative Regression — SECOND FORMAL
+EXECUTION CONSUMED / TERMINAL AUDIT COMPLETE / TMR0–TMR7 PASS / OVERALL PASS /
+QUALIFIED.** The stage-exit protocol remains fixed in
 `docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`.
 
-Formal preparation run `35524700979` produced artifact `10609500629` for
-candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`; its independent
-preparation audit passed. Authorization-as-code was integrated by PR #27. PR
-#29 then added the exact manifest-bound `EXECUTE_ONCE` record and merged as
-`8a6eafc02d5e69f467e2badfea0b571e253b84bd`.
+The first formal campaign remains immutable historical negative evidence:
+run `35528077223` completed operationally, but its terminal audit recorded
+TMR0–TMR5 PASS and TMR6–TMR7 BLOCKED because only four semantic CTest records
+were retained instead of the required eight. That consumed attempt was not
+reinterpreted or rescued.
 
-Run `35528077223` revalidated the authorization, candidate and PREPARED
-binding, created the immutable execution claim, executed the sealed package
-exactly once, verified retention, and retained terminal artifact `10610497080`.
-The terminal package contains 122 retained paths, 44/44 successful command
-records, eight byte-identical topology certificates, complete retained negative
-outcomes, dependency/compile inventories, and detached verification of the
-1534-file candidate inventory.
+The bounded diagnosis and correction established the prospective exact
+four-cell/two-repetition execution shape of 56 command records. The corrected
+second PREPARED package was produced in run `35531261000` for candidate
+`37f9af77f38e12af0a92d3c0f57f1ad31a218144` and independently audited
+PASS / PREPARED / NOT EXECUTED.
+
+PR #43 merged the exact second manifest-bound `EXECUTE_ONCE` authorization as
+`cddd959574ed6a677ac755a5b329d53a9cfe32ec`. Run `35533702004`
+validated the full authorization commit, machine-readable preparation audit,
+artifact provenance and PREPARED binding; created immutable claim
+`tmr-execution-claim-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+and executed exactly once.
+
+Terminal artifact `10612032787` has independently recomputed archive
+SHA-256
+`dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8`.
 
 Independent audit in
-`docs/audits/2026-09-20-topological-model-tmr-terminal-audit.md` records:
-TMR0 identity/scope PASS; TMR1 construction/immutability PASS; TMR2 incidence
-bijection PASS; TMR3 structural recomputation PASS; TMR4 canonical snapshot
-PASS; TMR5 repeat/cross-cell equivalence PASS; TMR6 prerequisite
-preservation/isolation BLOCKED; TMR7 evidence integrity/closure BLOCKED.
+`docs/audits/2026-09-20-topological-model-tmr-corrected-terminal-audit.md`
+records:
 
-The TMR6/TMR7 blocker is not an observed topology failure. Section 7 of the
-sealed protocol requires each of four cells to execute the exact seven-test
-semantic allowlist once in each of two repetitions. Eight semantic CTest
-records (56 individual test executions) were therefore required; the runner
-retained four semantic CTest records (28 individual executions), all 7/7 PASS.
-Its repetition loop covered certificate production/validation but not semantic
-CTest. Missing per-repetition evidence cannot be filled after the consumed
-attempt or accepted retroactively.
+- TMR0 identity/scope PASS;
+- TMR1 construction/immutability PASS;
+- TMR2 incidence bijection PASS;
+- TMR3 structural recomputation PASS;
+- TMR4 canonical snapshot PASS;
+- TMR5 repeat/cross-cell equivalence PASS;
+- TMR6 prerequisite preservation/isolation PASS;
+- TMR7 evidence integrity/closure PASS;
+- overall PASS.
 
-The next admissible scientific work after this audit checkpoint is merged is a
-bounded diagnosis of that protocol/runner cardinality mismatch only. It may
-determine a minimal tooling correction and requirements for a new preparation,
-but it may not prepare or execute a new campaign inside the diagnosis work
-item.
+The corrected terminal package retains exactly 56 successful command records,
+112 planned/retained command logs, eight exact semantic CTest records with 7/7
+PASS in every repetition, eight byte-identical certificates, complete
+negative/dependency inventories, detached verification and exact retention.
+
+Per protocol decision effect, the Topological Model stage is therefore
+**QUALIFIED only in the exact formally admitted GitHub-hosted Ubuntu 24.04
+x86_64 cloud envelope**. This establishes no WSL/cloud equivalence and expands
+no claim beyond the declared topology contracts/nonclaims.
+
+The next scientific transition is not curve implementation itself. After this
+audit is integrated and closed, one separate entry decision may open Curve
+Representation — Continuous Geometry Before Discretization.
+
 
 Current prerequisite closure evidence:
 
