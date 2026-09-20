@@ -139,58 +139,85 @@ writing.
   independent audit of the second PREPARED package only.
 - `docs/tmr-corrected-preparation-audit-closure`: **CLOSURE-ONLY**; records
   PR #37 integration and post-merge validation.
+- `topology/tmr-generic-authorization-binding`: **ACTIVE /
+  VALIDATED_UNMERGED**; generic manifest-bound authorization infrastructure
+  only; no EXECUTE_ONCE record or campaign execution.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Generalize the repository-resident TMR authorization binding — ACTIVE.**
+**Generalize the repository-resident TMR authorization binding —
+VALIDATED_UNMERGED.**
 
 Active branch: `topology/tmr-generic-authorization-binding`.
 
-Authorized scope:
+Decision authority:
+`docs/decisions/TOPOLOGICAL_MODEL_TMR_GENERIC_AUTHORIZATION_BINDING_DECISION.md`.
 
-1. preserve authorization-as-code as the explicit human authorization event;
-2. allow a newly added manifest-hash-named authorization JSON to carry the
-   exact audited PREPARED identity instead of recompiling hardcoded campaign
-   constants into the validator/controller/executor;
-3. keep a closed authorization schema and exact filename =
-   prepared-manifest SHA-256;
-4. require the referenced integrated preparation audit to exist and contain
-   the exact candidate/run/artifact/manifest/seal identity plus
-   `PASS / PREPARED / NOT EXECUTED`;
-5. make the controller discover exactly one newly added authorization record
-   on protected `main` and reject modification/replacement/multiple records;
-6. derive the immutable claim tag from the prepared-manifest hash;
-7. make the reusable executor revalidate the committed authorization before
-   candidate checkout and independently revalidate the downloaded PREPARED
-   manifest/seal before claim creation;
-8. preserve no-retry semantics, terminal retention and fail-closed behavior;
-9. strengthen static/focused contracts for generic package binding and
-   historical consumed-package rejection through the claim;
-10. do **not** add the second `EXECUTE_ONCE` record in this work item;
-11. do **not** create an execution claim or run a formal campaign;
-12. do **not** modify production topology C++ or TMR scientific
-    matrix/allowlist/cases/gates.
+Implemented invariants:
 
-Target second-package identity remains:
+1. authorization remains one explicit repository-resident `EXECUTE_ONCE`
+   record;
+2. authorization filename is manifest-hash-derived;
+3. schema remains closed and fail-closed;
+4. new campaigns bind a machine-readable PREPARED audit structurally;
+5. the protected-main controller requires the complete authorization commit to
+   add exactly one admitted authorization file and no other repository change;
+6. candidate/run/artifact/digest/manifest/seal values are propagated only from
+   the validated record;
+7. claim tag and execution concurrency are derived from the prepared-manifest
+   SHA-256;
+8. the reusable executor revalidates the committed authorization;
+9. artifact metadata is checked against GitHub before download, including exact
+   artifact SHA-256, run, candidate and `main` provenance;
+10. the restored package is independently revalidated before claim creation;
+11. no campaign-specific first-package candidate/run/artifact/manifest/seal
+    constant remains in the controller or executor;
+12. terminal retention remains fail-closed and manifest-bound.
 
-- candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
-- preparation run `35531261000`;
-- artifact `10611054028`;
-- artifact SHA-256
-  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
-- manifest `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
-- seal `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`.
+Validation:
+
+- intermediate TMR Tooling runs `35532036957` and `35532118323` failed
+  only because the then-current focused authorization test still referenced the
+  historical hardcoded `EXPECTED` object;
+- those failures were mechanical test-contract mismatches and created no
+  PREPARED package, authorization, claim or scientific execution;
+- final TMR Tooling run `35532220165`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, including generic authorization-record, authorization-
+  controller and reusable-executor contracts.
+
+Scientific boundary:
+
+- no production topology C++ changed;
+- no TMR matrix, repetitions, allowlist, cases, gates or acceptance criteria
+  changed;
+- the audited second PREPARED package remains unchanged and unconsumed;
+- this work item does not add `EXECUTE_ONCE`, create a claim or execute the
+  campaign.
 
 ## Next admissible work item after closure
 
-After this generic authorization-binding mechanism is merged, focused TMR
-Tooling and ordinary post-merge checks pass, and its checkpoint is closed,
-create one separate exact `EXECUTE_ONCE` authorization-record PR for the
-audited second PREPARED package.
+After the generic authorization-binding PR is merged, post-merge
+FAST/INTEGRATION pass, and its checkpoint is closed, create one separate exact
+authorization-record PR containing **only**:
 
-Merging that future record to protected `main` will be the formal execution
-authorization event. No authorization record belongs to this infrastructure
-work item.
+`experiments/authorizations/topological-model-tmr-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa.json`
+
+The record must bind the audited second PREPARED package exactly:
+
+- candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
+- preparation run `35531261000`;
+- artifact ID `10611054028`;
+- artifact SHA-256
+  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
+- prepared-manifest SHA-256
+  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+- preparation-seal SHA-256
+  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
+- machine-readable preparation audit
+  `docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.json`.
+
+Merging that one-file PR to protected `main` will be the formal execution
+authorization event and will invoke the generic one-shot executor.
 
