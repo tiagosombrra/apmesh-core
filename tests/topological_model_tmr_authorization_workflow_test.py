@@ -34,7 +34,16 @@ def main() -> int:
 
     require('test "${GITHUB_REF}" = "refs/heads/main"' in text, "authorization is not restricted to main")
     require('test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"' in text, "authorization commit is not bound to the push SHA")
-    require('git diff --name-status "${BEFORE_SHA}" "${GITHUB_SHA}"' in text, "authorization addition is not whole-commit diff verified")
+    whole_diff = 'git diff --name-status "${BEFORE_SHA}" "${GITHUB_SHA}"'
+    require(whole_diff in text, "authorization addition is not whole-commit diff verified")
+    require(
+        whole_diff + " -- " not in text,
+        "authorization diff is path-filtered and may hide unrelated changes",
+    )
+    require(
+        "-- experiments/authorizations" not in text,
+        "authorization diff remains restricted to the authorization directory",
+    )
     require('if [ "${count}" -ne 1 ]' in text, "authorization commit may change multiple files")
     require('if [ "${status}" != "A" ]' in text, "authorization must be a newly added file")
     require("topological-model-tmr-[0-9a-f]{64}" in text, "authorization filename is not manifest-hash constrained")

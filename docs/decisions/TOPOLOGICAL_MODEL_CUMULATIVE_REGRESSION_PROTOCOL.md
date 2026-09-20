@@ -458,3 +458,10 @@ PR #39 integrated the generic authorization binding as
 `35532410672` and INTEGRATION `35532410659` passed. The infrastructure
 checkpoint is closed. The exact one-file second-package `EXECUTE_ONCE`
 authorization is now the sole permitted continuation.
+
+Before authorization, a mechanical review found that the integrated controller
+diff check was limited by an authorization-directory pathspec and therefore did
+not fully implement the already accepted whole-commit isolation rule. The
+focused correction removes the pathspec and strengthens the static contract.
+TMR Tooling run `35532624980` passed in both tooling cells. No execution is
+permitted until that correction is integrated and closed.

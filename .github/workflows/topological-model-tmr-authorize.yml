@@ -51,7 +51,7 @@ jobs:
         run: |
           set -euo pipefail
           git cat-file -e "${BEFORE_SHA}^{commit}"
-          observed="$(git diff --name-status "${BEFORE_SHA}" "${GITHUB_SHA}" -- experiments/authorizations)"
+          observed="$(git diff --name-status "${BEFORE_SHA}" "${GITHUB_SHA}")"
           count="$(printf '%s\n' "${observed}" | sed '/^$/d' | wc -l)"
           if [ "${count}" -ne 1 ]; then
             echo "BLOCKED: exactly one authorization file must change" >&2
