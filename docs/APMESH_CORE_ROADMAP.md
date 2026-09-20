@@ -570,8 +570,8 @@ STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
 CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
 FOCUSED TOOLING CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED /
-FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / NOT PREPARED /
-NOT EXECUTED / STAGE UNQUALIFIED`
+FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED /
+NOT PREPARED / NOT EXECUTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -999,8 +999,11 @@ the exact admitted GitHub-hosted Ubuntu 24.04 envelope, and the existing TMR
 preparation/runner path now fails closed on that identity. Focused GCC 13 Debug
 and Clang 18/libc++ Debug validation passed in run `35516246789`; run
 `35516204233` is retained as a mechanical protocol-guard failure before any
-environment evaluation. No formal manifest has been prepared and no TMR
-campaign has executed.
+environment evaluation. A subsequent audit found that the launch plan still
+used PATH-resolved tool names after validating absolute cloud paths. The plan
+now seals the admitted `/usr/bin` CMake/CTest/Ninja and compiler paths, with
+focused GCC/Clang Debug PASS in run `35516578411`. No formal manifest has
+been prepared and no TMR campaign has executed.
 
 The next bounded scientific action is a preparation-only GitHub Actions path
 that can, under explicit manual dispatch, invoke the existing `prepare`
