@@ -58,7 +58,16 @@ writing.
 - authorization-as-code post-merge FAST: run `35527668634`, PASS;
 - authorization-as-code post-merge INTEGRATION: run `35527668624`, PASS in
   GCC 13 Debug and Clang 18/libc++ Debug;
-- formal TMR execution: **none**;
+- exact formal execution authorization: PR #29 merged as
+  `8a6eafc02d5e69f467e2badfea0b571e253b84bd`;
+- formal TMR execution: run `35528077223`, process/workflow PASS, exact
+  one-shot attempt consumed;
+- terminal artifact: `10610497080`, SHA-256
+  `b332b8dde2e8651f4dd66339875378a53c9d4390400afd0d869b54969a2bf983`;
+- immutable execution claim:
+  `tmr-execution-claim-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd`;
+- terminal scientific audit: **TMR0-TMR5 PASS / TMR6-TMR7 BLOCKED /
+  OVERALL BLOCKED**;
 - Topological Model qualification: **not qualified**.
 
 ## Work-item ledger
@@ -73,6 +82,9 @@ writing.
 | First formal TMR preparation and package audit | MERGED | workflow run `35524700979`; audit branch `docs/tmr-prepared-package-audit`; PR #23 | run PASS; artifact `10609500629`; GitHub/archive SHA-256 `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`; preparation audit PASS; post-merge FAST `35525181361` PASS and INTEGRATION `35525181462` PASS | PREPARED only; `execution_requested=false`; TMR0-TMR7 `NOT_EXECUTED`; no execute |
 | One-shot manual TMR execution workflow | MERGED | `topology/tmr-execution-only-workflow`; PR #25 | focused/static runs `35525736120` and `35525847660` PASS in GCC 13 Debug and Clang 18/libc++ Debug; post-merge FAST `35525932108` PASS and INTEGRATION `35525932111` PASS; local Git upstream reconstruction contract verified | manual-only; exact candidate/artifact; preflight -> immutable claim tag -> one execute; no formal dispatch yet |
 | TMR authorization-as-code automation | MERGED | `topology/tmr-authorization-as-code`; PR #27 | partial tooling runs `35527269611` and `35527350320` retained as mechanical implementation-contract failures; corrected/final tooling runs `35527446051` and `35527563934` PASS in GCC 13 Debug and Clang 18/libc++ Debug; PR FAST `35527616244` PASS; PR INTEGRATION `35527616258` PASS; post-merge FAST `35527668634` PASS; post-merge INTEGRATION `35527668624` PASS | reusable-only executor + protected-main authorization controller integrated; no authorization JSON yet; no claim; no formal execute |
+| Exact TMR execution authorization | MERGED / CONSUMED | `topology/tmr-execution-authorization`; PR #29 | TMR tooling `35527984255` PASS in GCC/Clang; PR FAST `35528019065` PASS; PR INTEGRATION `35528019067` PASS; merged authorization commit `8a6eafc02d5e69f467e2badfea0b571e253b84bd` | exact `EXECUTE_ONCE` record merged once; no second authorization permitted |
+| First formal TMR execution | EXECUTED / ATTEMPT CONSUMED | protected-main run `35528077223` | authorization validation PASS; exact PREPARED binding PASS; immutable claim created; execute PASS; retention verification PASS; terminal artifact `10610497080` retained | workflow/process success is not scientific qualification |
+| First formal TMR terminal audit | VALIDATED_UNMERGED / BLOCKED | `docs/tmr-terminal-audit-blocked` | terminal package independently audited; TMR0-TMR5 PASS; TMR6-TMR7 BLOCKED; 4 semantic CTest records observed vs 8 required by sealed protocol | no retry/rescue; no production-semantic contradiction shown; diagnosis only after audit checkpoint merge |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
 
 ## Relevant branch classification
@@ -98,42 +110,60 @@ writing.
 - `ci/tmr-authorization-as-code`: **UNUSED / ZERO-CHANGE**; accidentally
   created from the same closed checkpoint and explicitly excluded from
   continuation.
+- `topology/tmr-execution-authorization`: **MERGED / HISTORICAL** via PR #29;
+  contained only the exact manifest-bound `EXECUTE_ONCE` authorization.
+- `docs/tmr-terminal-audit-blocked`: **ACTIVE / VALIDATED_UNMERGED**;
+  contains the independent terminal scientific audit and repository status
+  synchronization for the consumed first formal TMR campaign.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The TMR authorization-as-code implementation work item is closed.**
+**Integrate the first formal TMR terminal scientific audit — VALIDATED_UNMERGED /
+BLOCKED SCIENTIFIC RESULT.**
 
-Closure evidence:
+Active branch: `docs/tmr-terminal-audit-blocked`.
 
-1. PR #27 merged as `7bf2d409556c8318db72b86ef0d85253aa0583ec`;
-2. final focused/static tooling run `35527563934` passed in GCC 13 Debug and
-   Clang 18/libc++ Debug across all six TMR tooling contracts;
-3. required PR FAST `35527616244` and INTEGRATION `35527616258` passed;
-4. post-merge FAST `35527668634` passed;
-5. post-merge INTEGRATION `35527668624` passed in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-6. no exact `EXECUTE_ONCE` authorization JSON exists yet;
-7. no execution-claim tag, formal `execute`, terminal package, or TMR0-TMR7
-   decision exists.
+Authorized scope:
 
-No formal-execution authorization work item is active.
+1. retain the exact first-campaign terminal package and immutable execution
+   claim without mutation;
+2. record PR #29 and run `35528077223` as the consumed one-shot formal
+   attempt;
+3. record independent gate decisions TMR0–TMR5 `PASS`, TMR6–TMR7
+   `BLOCKED`, overall `BLOCKED`;
+4. record the exact blocker: four semantic CTest command records exist while
+   the sealed four-cell/two-repetition protocol requires eight;
+5. synchronize STATE, ROADMAP, WORKLOG and the active TMR protocol;
+6. apply the roadmap-order correction that Quad-Dominant Extension precedes
+   Parallel Equivalence;
+7. do not modify production C++, runner/tooling behavior, protocol acceptance
+   criteria, the consumed authorization, or retained evidence;
+8. do not prepare or execute another TMR campaign.
+
+The branch contains the retained Markdown/JSON terminal audit and status
+synchronization only. A separate diagnosis work item is not active yet.
 
 ## Next admissible work item after closure
 
-Create one separate exact manifest-bound `EXECUTE_ONCE` authorization record
-by pull request.
+After this audit/status checkpoint is merged, post-merge FAST/INTEGRATION pass,
+and the repository documents are authoritative on `main`, open exactly one
+bounded diagnosis work item for the protocol/runner repetition-cardinality
+mismatch.
 
-That PR may add **only** the authorization JSON required by
-`tools/topological_model_tmr_authorization.py` for the already-audited
-PREPARED package. After its ordinary protected-branch checks pass, merging the
-record to `main` is the formal execution authorization event. The
-`Topological Model TMR Authorization` controller will automatically call the
-reusable one-shot executor.
+That diagnosis must answer, from the sealed protocol and runner:
 
-After that merge, do not create a second authorization record and do not retry
-or manually dispatch execution. Stop after the terminal workflow completes and
-audit the retained terminal package before any TMR0-TMR7 or Topological Model
-qualification decision.
+1. which operations are repetition-scoped — discovery, build, semantic CTest,
+   certificate production/validation, or a strict subset;
+2. the exact required command/evidence cardinality for four cells × two
+   repetitions;
+3. the minimal runner/profile/inventory/test correction needed to enforce that
+   cardinality;
+4. whether the current protocol wording needs clarification without weakening
+   the original acceptance claim; and
+5. the requirements for a **new** PREPARED package and future one-shot campaign.
+
+The diagnosis work item must not prepare, authorize, or execute a new campaign.
+The consumed manifest/claim remain immutable and no retry/rescue is permitted.
 

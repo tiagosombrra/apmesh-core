@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "kind": "topological-model-tmr-terminal-audit",
+  "audited_utc": "2026-09-20",
+  "candidate_commit": "e5eda2663d6ff4b93ce1205660ff04d432acb9c0",
+  "authorization": {
+    "commit": "8a6eafc02d5e69f467e2badfea0b571e253b84bd",
+    "pull_request": 29,
+    "file": "experiments/authorizations/topological-model-tmr-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd.json"
+  },
+  "preparation": {
+    "run_id": 35524700979,
+    "artifact_id": 10609500629,
+    "prepared_manifest_sha256": "d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd",
+    "preparation_seal_sha256": "982e1441f08bc3f11c3cffcf73113ce69a07e2066924ad01442b3ab94eeeb71e"
+  },
+  "execution": {
+    "run_id": 35528077223,
+    "workflow_conclusion": "success",
+    "terminal_state": "EXECUTED_PENDING_AUDIT",
+    "claim_tag": "tmr-execution-claim-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd",
+    "claim_tag_object": "4fac06f3f518498768dce4bc4dc5b3ecb9bc7512",
+    "terminal_artifact_id": 10610497080,
+    "terminal_artifact_name": "tmr-terminal-e5eda266-35528077223",
+    "terminal_artifact_size_bytes": 247358,
+    "terminal_artifact_sha256": "b332b8dde2e8651f4dd66339875378a53c9d4390400afd0d869b54969a2bf983"
+  },
+  "retained_evidence": {
+    "actual_file_count": 122,
+    "retention_manifest_entries": 121,
+    "required_path_count": 122,
+    "retention_hash_and_size_verification": "PASS",
+    "preparation_seal_verification": "PASS",
+    "detached_candidate_verification": "PASS",
+    "detached_source_inventory_count": 1534,
+    "command_record_count": 44,
+    "command_records_successful": 44,
+    "certificate_count": 8,
+    "certificate_sha256": "e574cc589e2dc75c2ffd218af7336bbdc6202b6e2dcf4fe035a5f4e8d4a791a5",
+    "certificate_projections_equal": true,
+    "negative_outcomes": "PASS",
+    "build_trees_retained": false
+  },
+  "semantic_ctest_repetition_audit": {
+    "protocol_required_cells": 4,
+    "protocol_required_repetitions_per_cell": 2,
+    "protocol_required_semantic_ctest_records": 8,
+    "protocol_required_individual_test_executions": 56,
+    "observed_semantic_ctest_records": 4,
+    "observed_individual_test_executions": 28,
+    "observed_each_record_passed_tests": 7,
+    "observed_each_record_result": "7/7 PASS",
+    "defect": "The sealed runner executes discovery/build/semantic CTest once per cell; its repetition loop covers certificates only. Protocol Section 7 and TMR6 require the seven-test allowlist in every repetition."
+  },
+  "gates": {
+    "TMR0": {
+      "decision": "PASS",
+      "basis": "Candidate is clean, published, revision-bound, hash-sealed, detached-verified, and all candidate/input bindings agree."
+    },
+    "TMR1": {
+      "decision": "PASS",
+      "basis": "Eight identical certificates cover strong identities, exact order, transactional rejection/finalization, boundary valences, and immutable type contract."
+    },
+    "TMR2": {
+      "decision": "PASS",
+      "basis": "The incidence_bijection case records exact 3/3 forward-to-reverse correspondence with exact owner ordinals/orientation; repeated-owner and multi-use cases are retained."
+    },
+    "TMR3": {
+      "decision": "PASS",
+      "basis": "All five structural classes and consistency-summary counts are present and identical across all eight certificates."
+    },
+    "TMR4": {
+      "decision": "PASS",
+      "basis": "Canonical snapshot bytes, LF-only/final-LF policy, equal-construction equality, and controlled orientation/insertion differences match across all certificates."
+    },
+    "TMR5": {
+      "decision": "PASS",
+      "basis": "Eight certificates exist, all hashes match their index, and all eight certificate bytes/scientific projections are identical across four cells and two certificate repetitions."
+    },
+    "TMR6": {
+      "decision": "BLOCKED",
+      "basis": "Only four semantic CTest executions exist, one per cell. The pre-registered protocol requires the exact seven-test allowlist to pass in every one of two repetitions per cell, requiring eight semantic CTest records."
+    },
+    "TMR7": {
+      "decision": "BLOCKED",
+      "basis": "Retention/package integrity is mechanically complete, but protocol-required command/evidence coverage is incomplete because the per-repetition TMR6 semantic CTest evidence is absent."
+    }
+  },
+  "overall_decision": "BLOCKED",
+  "stage_decision": "IN_INVESTIGATION_NOT_QUALIFIED",
+  "prerequisite_effect": "Accepted Foundation and Geometry qualifications remain intact; the evidence gap does not contradict their scientific results.",
+  "retry_authorized": false,
+  "next_bounded_action": "Open one separately authorized diagnosis of the sealed runner/protocol repetition-cardinality mismatch. Do not rerun or rescue the consumed PREPARED manifest."
+}
