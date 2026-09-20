@@ -192,12 +192,12 @@ def protocol_check(path: pathlib.Path) -> None:
         "execution_requested=false",
         "detached-worktree verification",
         "TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md",
-        "fails closed",
-        "## 13. Next bounded action",
+        "Every cell must discover, build, and execute exactly once per repetition:",
+        "The exact seven-test allowlist passes in every repetition",
+        "Missing evidence, hash drift, zero selected tests, partial execution,",
     )
     if any(token not in content for token in required):
         raise fail("protocol is not the pre-registered TMR0-TMR7 authority")
-
 
 def ctest_regex(names: list[str]) -> str:
     # CTest uses a POSIX-style regular-expression implementation: non-capturing
@@ -246,15 +246,14 @@ def planned_inventories(profile: dict[str, Any], candidate: dict[str, Any], plan
     artifacts += [{"path": name, "role": "terminal-success", "required_when": "success"} for name in ("certificate-index.json", "per-cell-comparisons.json", "cross-cell-comparison.json", "observed-inventories.json", "gate-summary.json", "gate-summary.md")]
     artifacts += [{"path": "failure.json", "role": "terminal-failure", "required_when": "failure"}]
     for cell in plan:
-        for stage in ("configure", "build", "ctest-discovery", "semantic-ctest", "negative-outcomes", "dependency-inventory", "ldd-exporter"):
+        for stage in ("configure", "negative-outcomes", "dependency-inventory", "ldd-exporter"):
             artifacts += [{"path": f"logs/{cell['cell']}-{stage}.{stream}.log", "role": "command-log", "required_when": "executed"} for stream in ("stdout", "stderr")]
-        for item in range(1, cell["repetitions"] + 1):
-            artifacts += [{"path": f"certificates/{cell['cell']}-{item}.json", "role": "semantic-certificate", "required_when": "success"}]
-            artifacts += [{"path": f"logs/{cell['cell']}-certificate-{item}.{stream}.log", "role": "command-log", "required_when": "executed"} for stream in ("stdout", "stderr")]
-            artifacts += [{"path": f"logs/{cell['cell']}-certificate-validation-{item}.{stream}.log", "role": "command-log", "required_when": "executed"} for stream in ("stdout", "stderr")]
+        for repetition in range(1, cell["repetitions"] + 1):
+            for stage in ("build", "ctest-discovery", "semantic-ctest", "certificate", "certificate-validation"):
+                artifacts += [{"path": f"logs/{cell['cell']}-{stage}-{repetition}.{stream}.log", "role": "command-log", "required_when": "executed"} for stream in ("stdout", "stderr")]
+            artifacts += [{"path": f"certificates/{cell['cell']}-{repetition}.json", "role": "semantic-certificate", "required_when": "success"}]
         artifacts += [{"path": f"cells/{cell['cell']}/compile_commands.json", "role": "compile-command-inventory", "required_when": "success"}, {"path": f"negatives/{cell['cell']}.json", "role": "negative-outcomes", "required_when": "success"}]
     return {"schema_version": 1, "kind": "topological-model-cumulative-planned-inventories", "candidate_source_inventory": candidate["source_inventory"], "cells": [{"cell": cell["cell"], "repetitions": cell["repetitions"]} for cell in plan], "artifacts": artifacts}
-
 
 def preparation_seal(output: pathlib.Path) -> dict[str, Any]:
     initial = (output / "state-history.jsonl").read_bytes().splitlines(keepends=True)[0]
@@ -468,36 +467,98 @@ def execute(arguments: argparse.Namespace) -> int:
         discoveries, inventories = [], []
         for cell in manifest["plan"]:
             name = cell["cell"]
-            for stage in ("configure", "build", "ctest_discovery", "semantic_ctest"):
-                record = run_command(replace_root(cell[stage], output), source, output / "logs", f"{name}-{stage.replace('_', '-')}", BUILD_TIMEOUT_SECONDS)
-                records.append(record); require_success(record, f"{name} {stage}")
-                if stage == "ctest_discovery":
-                    observed = discovered_tests_from_log(output, record)
-                    selected = [item for item in observed if item in manifest["declared_semantic_ctest_allowlist"]]
-                    if sorted(selected) != sorted(manifest["declared_semantic_ctest_allowlist"]) or len(selected) != len(set(selected)):
-                        raise fail("observed semantic CTest allowlist differs")
-                    discoveries.append({"cell": name, "record_id": record["id"], "discovered_allowlist": selected})
-                if stage == "semantic_ctest":
-                    require_exact_semantic_ctest_execution(output, record, manifest["declared_semantic_ctest_allowlist"])
+
+            configure = run_command(
+                replace_root(cell["configure"], output),
+                source,
+                output / "logs",
+                f"{name}-configure",
+                BUILD_TIMEOUT_SECONDS,
+            )
+            records.append(configure)
+            require_success(configure, f"{name} configure")
+
             for repetition in range(1, cell["repetitions"] + 1):
-                for stage in ("certificate", "certificate_validation"):
-                    record = run_command(replace_root(cell[stage], output, repetition), source, output / "logs", f"{name}-{stage.replace('_', '-')}-{repetition}", PROCESS_TIMEOUT_SECONDS)
-                    records.append(record); require_success(record, f"{name} {stage}")
+                for stage in ("build", "ctest_discovery", "semantic_ctest", "certificate", "certificate_validation"):
+                    timeout = BUILD_TIMEOUT_SECONDS if stage in {"build", "ctest_discovery", "semantic_ctest"} else PROCESS_TIMEOUT_SECONDS
+                    record = run_command(
+                        replace_root(cell[stage], output, repetition),
+                        source,
+                        output / "logs",
+                        f"{name}-{stage.replace('_', '-')}-{repetition}",
+                        timeout,
+                    )
+                    records.append(record)
+                    require_success(record, f"{name} {stage} repetition {repetition}")
+
+                    if stage == "ctest_discovery":
+                        observed = discovered_tests_from_log(output, record)
+                        selected = [item for item in observed if item in manifest["declared_semantic_ctest_allowlist"]]
+                        if sorted(selected) != sorted(manifest["declared_semantic_ctest_allowlist"]) or len(selected) != len(set(selected)):
+                            raise fail("observed semantic CTest allowlist differs")
+                        discoveries.append({
+                            "cell": name,
+                            "repetition": repetition,
+                            "record_id": record["id"],
+                            "discovered_allowlist": selected,
+                        })
+
+                    if stage == "semantic_ctest":
+                        require_exact_semantic_ctest_execution(
+                            output,
+                            record,
+                            manifest["declared_semantic_ctest_allowlist"],
+                        )
+
                 certificate = output / "certificates" / f"{name}-{repetition}.json"
-                entries.append({"cell": name, "repetition": repetition, "path": relative_path(output, certificate), "sha256": sha256_file(certificate)})
+                entries.append({
+                    "cell": name,
+                    "repetition": repetition,
+                    "path": relative_path(output, certificate),
+                    "sha256": sha256_file(certificate),
+                })
+
             for stage, timeout in (("negative_outcomes", PROCESS_TIMEOUT_SECONDS), ("dependency_inventory", PROCESS_TIMEOUT_SECONDS)):
-                record = run_command(replace_root(cell[stage], output), source, output / "logs", f"{name}-{stage.replace('_', '-')}", timeout)
-                records.append(record); require_success(record, f"{name} {stage}")
+                record = run_command(
+                    replace_root(cell[stage], output),
+                    source,
+                    output / "logs",
+                    f"{name}-{stage.replace('_', '-')}",
+                    timeout,
+                )
+                records.append(record)
+                require_success(record, f"{name} {stage}")
+
             validate_negative_outcomes(profile, output / "negatives" / f"{name}.json")
-            runtime = run_command(["ldd", replace_root(cell["runtime_dependencies"][0], output)], source, output / "logs", f"{name}-ldd-exporter", PROCESS_TIMEOUT_SECONDS)
-            records.append(runtime); require_success(runtime, f"{name} runtime dependency")
+            runtime = run_command(
+                ["ldd", replace_root(cell["runtime_dependencies"][0], output)],
+                source,
+                output / "logs",
+                f"{name}-ldd-exporter",
+                PROCESS_TIMEOUT_SECONDS,
+            )
+            records.append(runtime)
+            require_success(runtime, f"{name} runtime dependency")
             if "not found" in ((output / runtime["stdout"]["path"]).read_text(encoding="utf-8") + (output / runtime["stderr"]["path"]).read_text(encoding="utf-8")):
                 raise fail("unresolved runtime dependency")
-            build = output / "cells" / name / "build"; compile_commands = build / "compile_commands.json"; retained = output / "cells" / name / "compile_commands.json"
+
+            build = output / "cells" / name / "build"
+            compile_commands = build / "compile_commands.json"
+            retained = output / "cells" / name / "compile_commands.json"
             if not compile_commands.is_file():
                 raise fail("compile command inventory is absent")
-            retained.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(compile_commands, retained)
-            inventories.append({"cell": name, "compile_commands": {"path": relative_path(output, retained), "sha256": sha256_file(retained)}, "dependency_record_id": records[-2]["id"], "runtime_record_id": runtime["id"]})
+            retained.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(compile_commands, retained)
+            inventories.append({
+                "cell": name,
+                "compile_commands": {
+                    "path": relative_path(output, retained),
+                    "sha256": sha256_file(retained),
+                },
+                "dependency_record_id": records[-2]["id"],
+                "runtime_record_id": runtime["id"],
+            })
+
         write_records(output, records)
         write_json(output / "certificate-index.json", {"schema_version": 1, "kind": "topological-model-cumulative-certificate-index", "entries": entries})
         write_json(output / "per-cell-comparisons.json", per_cell_comparisons(profile, entries, output))
@@ -523,7 +584,6 @@ def execute(arguments: argparse.Namespace) -> int:
         write_state(output, "BLOCKED", {"candidate_commit": manifest["candidate"]["commit"], "closure_failure": True, "failure": "failure.json"})
         seal_output(output, manifest, set(FAILURE_FILES))
         return 1
-
 
 def self_check(arguments: argparse.Namespace) -> dict[str, Any]:
     source = pathlib.Path(arguments.source_root).resolve(); paths = input_paths(arguments, source); profile = validate_profile(paths["profile"])

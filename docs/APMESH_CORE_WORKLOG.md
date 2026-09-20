@@ -131,44 +131,67 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The TMR repetition-cardinality diagnosis is closed.**
+**Correct TMR repetition cardinality and stable protocol validation —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `topology/tmr-repetition-cardinality-correction`.
 
-1. diagnosis authority:
-   `docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`;
-2. diagnosis PR #33 merged as
-   `da47c01da9cfcabafca4638c02006be8f1372aea`;
-3. required PR FAST `35529950706` passed;
-4. required PR INTEGRATION `35529950569` passed in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. diagnosis-time TMR Tooling `35529933344` failed in both cells exactly at
-   the already diagnosed transient protocol-title guard, before any PREPARED
-   package or scientific execution;
-6. post-merge FAST `35529991911` passed;
-7. post-merge INTEGRATION `35529991909` passed in GCC 13 Debug and Clang
-   18/libc++ Debug;
-8. no production topology C++, runner behavior, preparation, authorization, or
-   formal campaign changed in the diagnosis.
+Authority:
+`docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`.
 
-No work item is active.
+Implemented correction:
+
+1. each matrix cell is configured exactly once;
+2. each of its two repetitions now executes, in order:
+   build → CTest discovery → exact seven-test semantic CTest → certificate
+   production → certificate validation;
+3. every repetition-scoped command ID carries the repetition ordinal;
+4. discovery evidence records both cell and repetition;
+5. planned command logs now match the diagnosed 56-command execution shape
+   (112 stdout/stderr logs);
+6. focused synthetic execution asserts exactly 14 command records per cell /
+   56 total, eight discoveries, eight semantic CTest records, eight
+   certificates, and exact retained-log agreement;
+7. focused failure injection at `gcc-debug-semantic-ctest-2` proves fail-fast
+   behavior before the second certificate and before the next cell;
+8. `protocol_check()` now binds stable TMR scientific invariants instead of a
+   transient Section 13 heading.
+
+Validation history:
+
+- run `35530205757`: expected development failure before correction of the
+  stale protocol-title guard; no preparation or formal execution;
+- run `35530257656`: PASS in GCC 13 Debug and Clang 18/libc++ Debug after the
+  runner/guard correction;
+- run `35530318107`: mechanical focused-test assertion failure only; the new
+  test's certificate prefix also matched certificate-validation IDs;
+- commit `3a49376d9caafe80daaadeb0e1fa1c700cec0a89` corrected that test
+  assertion without changing runner behavior;
+- final TMR Tooling run `35530368208`: PASS in both GCC 13 Debug and Clang
+  18/libc++ Debug, including cloud identity validation, evidence contract,
+  reinforced runner contract, preparation/execution workflow contracts, and
+  authorization contracts.
+
+Scientific boundary:
+
+- no production topology C++ changed;
+- profile matrix, repetitions, allowlist, cases and TMR0–TMR7 acceptance
+  criteria are unchanged;
+- no formal PREPARED package was created;
+- no execution authorization or scientific campaign occurred;
+- the consumed first-campaign package, authorization and claim remain
+  immutable.
 
 ## Next admissible work item after closure
 
-Open one focused mechanical TMR correction work item implementing the closed
-diagnosis:
+After this focused correction is merged, required PR checks and post-merge
+FAST/INTEGRATION pass, and its checkpoint is closed on `main`, prepare one
+**new** formal TMR package from the resulting clean candidate.
 
-1. configure once per cell;
-2. build, CTest discovery, exact semantic CTest, certificate and certificate
-   validation once per declared repetition;
-3. cell + repetition-qualified record IDs and discovery evidence;
-4. matching planned retained-log cardinality;
-5. focused contracts proving exactly 56 command records and fail-closed
-   second-repetition behavior;
-6. replace the transient Section-13-title guard with stable protocol
-   invariants.
+That future preparation must bind the corrected runner and planned inventories,
+produce a new manifest/seal/hash/run/artifact identity, and be independently
+audited before any new `EXECUTE_ONCE` authorization.
 
-The correction must not modify production topology C++, scientific
-matrix/allowlist/cases/gates, prepare a formal manifest, authorize execution,
-or run a formal campaign.
+The consumed first PREPARED package, authorization, execution claim, and
+terminal evidence cannot be reused or amended.
 
