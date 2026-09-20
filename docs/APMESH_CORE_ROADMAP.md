@@ -570,7 +570,8 @@ STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
 CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
 FOCUSED TOOLING CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED /
-NOT PREPARED / NOT EXECUTED / STAGE UNQUALIFIED`
+FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / NOT PREPARED /
+NOT EXECUTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -993,13 +994,16 @@ is explicitly distinct from the historical WSL qualification envelope and
 fails closed on runner-image or package drift.
 
 The report-only TMR0–TMR7 workflow and focused tooling contracts are implemented
-without production C++ changes and passed the bounded GCC/Clang Debug tooling
-validation in run `35514834796`. The accepted cloud-environment supplement now
-binds the exact admitted GitHub-hosted Ubuntu 24.04 envelope to future formal
-TMR work. No formal manifest has been prepared and no TMR campaign has
-executed.
+without production C++ changes. The accepted cloud-environment supplement binds
+the exact admitted GitHub-hosted Ubuntu 24.04 envelope, and the existing TMR
+preparation/runner path now fails closed on that identity. Focused GCC 13 Debug
+and Clang 18/libc++ Debug validation passed in run `35516246789`; run
+`35516204233` is retained as a mechanical protocol-guard failure before any
+environment evaluation. No formal manifest has been prepared and no TMR
+campaign has executed.
 
-The next bounded scientific action is to make the existing TMR preparation and
-runner fail closed on that exact cloud identity and to validate only those
-focused tooling contracts. That step must not prepare a formal manifest, execute
-the TMR campaign, or add any production topology concept.
+The next bounded scientific action is a preparation-only GitHub Actions path
+that can, under explicit manual dispatch, invoke the existing `prepare`
+command into a new external runner-temp directory and retain the sealed PREPARED
+package. The workflow itself must be integrated without dispatching it, expose
+no execution step, and add no production topology concept.
