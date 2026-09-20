@@ -108,37 +108,39 @@ template <typename Vector>
 template <typename Point, typename Vector>
 [[nodiscard]] std::expected<std::array<Vector, 3>, CurveError>
 first_derivative_controls(const std::array<Point, 4>& points) noexcept {
-    std::array<Vector, 3> controls{};
-    for (std::size_t index = 0; index < controls.size(); ++index) {
-        const auto delta = points[index + 1] - points[index];
-        if (!delta.has_value()) {
-            return std::unexpected{CurveError::non_finite_result};
-        }
-        const auto scaled = scale_vector(*delta, 3.0);
-        if (!scaled.has_value()) {
-            return std::unexpected{scaled.error()};
-        }
-        controls[index] = *scaled;
+    const auto delta0 = points[1] - points[0];
+    const auto delta1 = points[2] - points[1];
+    const auto delta2 = points[3] - points[2];
+    if (!delta0 || !delta1 || !delta2) {
+        return std::unexpected{CurveError::non_finite_result};
     }
-    return controls;
+
+    const auto control0 = scale_vector(*delta0, 3.0);
+    const auto control1 = scale_vector(*delta1, 3.0);
+    const auto control2 = scale_vector(*delta2, 3.0);
+    if (!control0 || !control1 || !control2) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+
+    return std::array<Vector, 3>{*control0, *control1, *control2};
 }
 
 template <typename Vector>
 [[nodiscard]] std::expected<std::array<Vector, 2>, CurveError>
 second_derivative_controls(const std::array<Vector, 3>& first_controls) noexcept {
-    std::array<Vector, 2> controls{};
-    for (std::size_t index = 0; index < controls.size(); ++index) {
-        const auto delta = first_controls[index + 1] - first_controls[index];
-        if (!delta.has_value()) {
-            return std::unexpected{CurveError::non_finite_result};
-        }
-        const auto scaled = scale_vector(*delta, 2.0);
-        if (!scaled.has_value()) {
-            return std::unexpected{scaled.error()};
-        }
-        controls[index] = *scaled;
+    const auto delta0 = first_controls[1] - first_controls[0];
+    const auto delta1 = first_controls[2] - first_controls[1];
+    if (!delta0 || !delta1) {
+        return std::unexpected{CurveError::non_finite_result};
     }
-    return controls;
+
+    const auto control0 = scale_vector(*delta0, 2.0);
+    const auto control1 = scale_vector(*delta1, 2.0);
+    if (!control0 || !control1) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+
+    return std::array<Vector, 2>{*control0, *control1};
 }
 
 template <typename Vector>
