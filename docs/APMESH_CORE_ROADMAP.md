@@ -950,8 +950,16 @@ protocol is pre-registered.
 The repository/public-cloud transition audit passed on 2026-09-20. FAST and the
 reusable four-cell Major Semantic Regression passed on GitHub-hosted Ubuntu
 24.04 without production C++ change; the audit record is
-`docs/audits/2026-09-20-public-cloud-baseline.md`. The next infrastructure
-action is the compact INTEGRATION GitHub Actions profile for GCC 13 Debug and
-Clang 18/libc++ Debug. The next bounded scientific action remains the smallest
-reusable report-only TMR0–TMR7 workflow. No further production topology concept
-is authorized.
+`docs/audits/2026-09-20-public-cloud-baseline.md`. Cloud INTEGRATION is now
+accepted at 100%: GCC 13 Debug and Clang 18/libc++ Debug each passed the exact
+seven-test semantic inventory, both checks are required by
+`main-protection`, and the closure audit is
+`docs/audits/2026-09-20-cloud-integration-closure.md`. The Major Semantic
+Regression is manual and reserved for explicit major phase boundaries; final
+functional-candidate run `35512093405` passed GCC/Clang Debug/Release after
+the checkout runtime deprecation was removed by pinning the official
+`actions/checkout` v7.0.1 commit. The next infrastructure action is to define
+and validate a reproducible cloud QUALIFICATION environment without yet
+declaring equivalence to the historical WSL qualification envelope. The next
+bounded scientific action remains the smallest reusable report-only TMR0–TMR7
+workflow. No further production topology concept is authorized.

@@ -68,9 +68,9 @@ Canonical integration baseline before this audit:
 - repository: `tiagosombrra/apmesh-core`;
 - visibility: `PUBLIC`;
 - canonical branch: `main`;
-- accepted `main` revision: `c542a237d0bb08b9a2c9cba2ee731dd3b046afe0`;
-- GitHub Actions FAST on that revision: `PASS`, run `35510879988`;
-- Major Semantic Regression on that revision: `PASS`, run `35510879978`;
+- accepted `main` revision before INTEGRATION work: `4161b4b60c8430e4c9514a50fff34adddc24835d`;
+- GitHub Actions FAST on that revision: `PASS`, run `35511422966`;
+- Major Semantic Regression on that revision: `PASS`, run `35511422982`;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - stage status: production bounded scope implemented, focused contracts pass,
   cumulative TMR0--TMR7 pre-registered, stage unqualified.
@@ -91,15 +91,15 @@ Current cloud-execution infrastructure:
 | --- | ---: | --- |
 | FAST | 100% | GitHub-hosted Ubuntu 24.04, GCC 13 Debug; `main` PASS. |
 | Major semantic regression | 100% | Four-cell GitHub-hosted Ubuntu 24.04 regression PASS on `main` in run `35510879978`. |
-| INTEGRATION | 0% | Not yet implemented in GitHub Actions. |
+| INTEGRATION | 100% | GCC 13 Debug and Clang 18/libc++ Debug required checks PASS; closure audit recorded in `docs/audits/2026-09-20-cloud-integration-closure.md`. |
 | QUALIFICATION environment | 0% | Reproducible cloud qualification envelope not yet admitted. |
 
-Current governance execution work-class allocation:
+Current INTEGRATION execution work-class allocation:
 
 - Implementation: **0%**;
-- Tests/validation: **20%**;
-- Evidence/experiments: **10%**;
-- Documentation/governance: **70%**.
+- Tests/validation: **70%**;
+- Evidence/experiments: **5%**;
+- Documentation/governance: **25%**.
 
 These percentages describe this audit execution's work distribution, not
 scientific completion. The independent completion lanes above are the
@@ -120,10 +120,20 @@ methods are squash and rebase, with zero required approvals. GitHub currently
 reports `require_extra_approval_for_unattributed_changes=true`; with zero
 required approvals this setting has no effect on the present workflow.
 
-Exact next admissible action after this audit is integrated into `main`: add
-the compact GitHub Actions INTEGRATION profile for GCC 13 Debug and Clang
-18/libc++ Debug. The next scientific Topological Model action remains the
-smallest reusable report-only TMR0--TMR7 workflow.
+Cloud INTEGRATION is accepted at **100%**. On functional candidate
+`cf8d548b0e8fbc04050feb92e414b75265506184`, FAST run `35512003523` and
+INTEGRATION run `35512003550` passed; both INTEGRATION cells executed the exact
+seven-test semantic inventory. The `main-protection` ruleset requires FAST plus
+both INTEGRATION checks. Final major-boundary run `35512093405` passed all four
+Debug/Release GCC/Clang cells with 7/7 semantic tests and no Node.js 20 checkout
+warning after pinning `actions/checkout` v7.0.1 by commit SHA. The closure audit
+is `docs/audits/2026-09-20-cloud-integration-closure.md`.
+
+Exact next admissible infrastructure action: define and validate the
+reproducible cloud QUALIFICATION environment without yet treating it as
+scientifically equivalent to the historical WSL qualification envelope. The
+next scientific Topological Model action remains the smallest reusable
+report-only TMR0--TMR7 workflow.
 
 ## Current active stage
 
