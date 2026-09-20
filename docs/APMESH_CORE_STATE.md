@@ -68,8 +68,9 @@ Canonical integration baseline before this audit:
 - repository: `tiagosombrra/apmesh-core`;
 - visibility: `PUBLIC`;
 - canonical branch: `main`;
-- accepted `main` revision: `b6e4459b4de0b8376eaf4c41848949f7e69fd312`;
-- GitHub Actions FAST on that revision: `PASS`, run `35510340606`;
+- accepted `main` revision: `c542a237d0bb08b9a2c9cba2ee731dd3b046afe0`;
+- GitHub Actions FAST on that revision: `PASS`, run `35510879988`;
+- Major Semantic Regression on that revision: `PASS`, run `35510879978`;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - stage status: production bounded scope implemented, focused contracts pass,
   cumulative TMR0--TMR7 pre-registered, stage unqualified.
@@ -89,26 +90,35 @@ Current cloud-execution infrastructure:
 | Capability | Completion | Status |
 | --- | ---: | --- |
 | FAST | 100% | GitHub-hosted Ubuntu 24.04, GCC 13 Debug; `main` PASS. |
-| Major semantic regression | 100% | Four-cell GitHub-hosted Ubuntu 24.04 regression PASS in run `35510690848`. |
+| Major semantic regression | 100% | Four-cell GitHub-hosted Ubuntu 24.04 regression PASS on `main` in run `35510879978`. |
 | INTEGRATION | 0% | Not yet implemented in GitHub Actions. |
 | QUALIFICATION environment | 0% | Reproducible cloud qualification envelope not yet admitted. |
 
-Current audit execution work-class allocation:
+Current governance execution work-class allocation:
 
 - Implementation: **0%**;
-- Tests/validation: **55%**;
-- Evidence/experiments: **15%**;
-- Documentation/governance: **30%**.
+- Tests/validation: **20%**;
+- Evidence/experiments: **10%**;
+- Documentation/governance: **70%**.
 
 These percentages describe this audit execution's work distribution, not
 scientific completion. The independent completion lanes above are the
 authoritative stage-progress view.
 
 Accepted public/cloud engineering audit: `PASS`, recorded in
-`docs/audits/2026-09-20-public-cloud-baseline.md`. FAST run `35510690845`
-and four-cell Major Semantic Regression run `35510690848` passed on the audit
-candidate without production C++ change. The repository currently has no GitHub
-rulesets; this is a governance limitation, not a scientific regression.
+`docs/audits/2026-09-20-public-cloud-baseline.md`. The accepted `main` revision
+`c542a237d0bb08b9a2c9cba2ee731dd3b046afe0` passed FAST run `35510879988`
+and four-cell Major Semantic Regression run `35510879978` without production
+C++ change.
+
+`main` is protected by active repository ruleset `23728711`
+(`main-protection`). The ruleset targets the default branch, has no bypass
+actors, requires pull requests, linear history, resolved review conversations,
+and the GitHub Actions check `GCC 13 Debug / FAST` with strict up-to-date branch
+semantics; it blocks deletion and non-fast-forward updates. Allowed merge
+methods are squash and rebase, with zero required approvals. GitHub currently
+reports `require_extra_approval_for_unattributed_changes=true`; with zero
+required approvals this setting has no effect on the present workflow.
 
 Exact next admissible action after this audit is integrated into `main`: add
 the compact GitHub Actions INTEGRATION profile for GCC 13 Debug and Clang
