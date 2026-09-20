@@ -247,20 +247,22 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after integration of the
-authorization-as-code mechanism:
+Exact next bounded scientific action:
 
 **Create one separate exact `EXECUTE_ONCE` authorization record by pull
 request. Its merge to protected `main` is the formal execution authorization
 event and automatically calls the reusable Topological Model TMR executor.**
 
-The authorization-as-code implementation is validated in tooling run
-`35527446051` in both GCC 13 Debug and Clang 18/libc++ Debug. It is not
-admissible to add the authorization record until this implementation is merged,
-post-merge FAST/INTEGRATION pass, and the work item is closed in
-`docs/APMESH_CORE_WORKLOG.md`. The audited PREPARED package remains
-unconsumed, no execution-claim tag exists, no formal TMR execution has
-occurred, and Topological Model remains unqualified.
+Authorization-as-code is integrated by PR #27 as
+`7bf2d409556c8318db72b86ef0d85253aa0583ec`. Final focused/static tooling
+run `35527563934` passed in GCC 13 Debug and Clang 18/libc++ Debug; required
+PR FAST `35527616244` and INTEGRATION `35527616258` passed; post-merge
+FAST `35527668634` and INTEGRATION `35527668624` passed. The
+authorization-as-code work item is closed in `docs/APMESH_CORE_WORKLOG.md`.
+
+The audited PREPARED package remains unconsumed, no `EXECUTE_ONCE`
+authorization record exists, no execution-claim tag exists, no formal TMR
+execution has occurred, and Topological Model remains unqualified.
 
 ## Current active stage
 
