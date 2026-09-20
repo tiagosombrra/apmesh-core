@@ -3,7 +3,7 @@ name: Topological Model TMR Tooling
 on:
   push:
     branches:
-      - topology/tmr-report-only-workflow
+      - "topology/tmr-*"
   workflow_dispatch:
 
 permissions:
@@ -68,8 +68,7 @@ jobs:
 
           inventory = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
           expected = [
-              "apmesh_core.topological_model_cumulative_evidence",
-              "apmesh_core.topological_model_cumulative_runner",
+              "apmesh_core.topological_model_cumulative_tooling",
           ]
           observed = [test["name"] for test in inventory["tests"] if test["name"] in expected]
           if observed != expected:
