@@ -11,6 +11,8 @@ int main() {
     using apmesh::core::CurveError;
     using apmesh::core::Point2;
     using apmesh::core::Point3;
+    using apmesh::core::Vector2;
+    using apmesh::core::Vector3;
 
     static_assert(std::is_copy_constructible_v<CubicBezier2>);
     static_assert(std::is_copy_assignable_v<CubicBezier2>);
@@ -21,6 +23,24 @@ int main() {
     static_assert(std::same_as<
         decltype(std::declval<const CubicBezier3&>().evaluate(0.5)),
         std::expected<Point3, CurveError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().first_derivative(0.5)),
+        std::expected<Vector2, CurveError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().first_derivative(0.5)),
+        std::expected<Vector3, CurveError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().second_derivative(0.5)),
+        std::expected<Vector2, CurveError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().second_derivative(0.5)),
+        std::expected<Vector3, CurveError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().speed(0.5)),
+        std::expected<double, CurveError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().speed(0.5)),
+        std::expected<double, CurveError>>);
     static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().control_points()),
         const std::array<Point2, 4>&>);
@@ -37,7 +57,13 @@ int main() {
     const CubicBezier2 curve2{*point2, *point2, *point2, *point2};
     const CubicBezier3 curve3{*point3, *point3, *point3, *point3};
     return curve2.evaluate(0.5).has_value() &&
-                   curve3.evaluate(0.5).has_value()
+                   curve3.evaluate(0.5).has_value() &&
+                   curve2.first_derivative(0.5).has_value() &&
+                   curve3.first_derivative(0.5).has_value() &&
+                   curve2.second_derivative(0.5).has_value() &&
+                   curve3.second_derivative(0.5).has_value() &&
+                   curve2.speed(0.5).has_value() &&
+                   curve3.speed(0.5).has_value()
                ? 0
                : 1;
 }
