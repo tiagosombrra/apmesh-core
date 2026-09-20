@@ -168,54 +168,39 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Polynomial Cubic Bézier Value Representation and Evaluation —
-VALIDATED_UNMERGED.**
+**None. Polynomial Cubic Bézier Value Representation and Evaluation is
+closed.**
 
-Active branch: `curve/cubic-bezier-value-evaluation`.
+Closure evidence:
 
-Implemented bounded surface:
-
-- new `include/apmesh/geometry/curve.hpp`;
-- new `src/geometry/curve.cpp`;
-- immutable `CubicBezier2` and `CubicBezier3`;
-- exactly four ordered qualified control points;
-- `evaluate(t)` only for finite `t∈[0,1]`;
-- recursive component-wise de Casteljau evaluation using `std::lerp`;
-- exact endpoint semantics;
-- geometric reversal by reversing control-point order;
-- explicit `CurveError::non_finite_parameter`,
-  `parameter_out_of_domain`, and defensive `non_finite_result`;
-- focused 2D/3D analytic/adversarial contract and public-header isolation
-  contract;
-- CMake integration into the existing `apmesh::core` target only.
-
-Focused validation:
-
-- FAST `35541613233`: PASS, GCC 13 Debug, 9/9 selected tests;
-- INTEGRATION `35541613216`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 9/9 selected tests in each cell;
-- `apmesh_core.curve_representation`: PASS in all required cells;
-- `apmesh_core.curve_header_isolation`: PASS in all required cells;
-- Numeric, Geometry Primitives, Cartesian Frames, Topological Model, Minimal
-  Small Linear Algebra and Math Header Isolation prerequisite tests all PASS.
-
-Explicitly absent: derivatives, regularity, curvature, arc length,
-rational/arbitrary-degree curves, topology ownership, discretization,
-quadrilateral meshing and parallel execution.
+1. PR #48 merged as
+   `bde874311d9960c5fab7ce03b26b6cd5fbd61b34`;
+2. final PR FAST `35541914952`: PASS;
+3. final PR INTEGRATION `35541914958`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. post-merge FAST `35541963486`: PASS;
+5. post-merge INTEGRATION `35541963489`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+6. both curve focused contracts and all selected prerequisite semantic tests
+   pass;
+7. no derivative, regularity, curvature, arc length, discretization, quad or
+   parallel capability was introduced.
 
 Scientific status:
 **IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
 
+No work item is active.
+
 ## Next admissible work item after closure
 
-After this implementation PR is merged, post-merge FAST/INTEGRATION pass, and
-its checkpoint is closed, open one separate bounded scientific decision for:
+Open one separate bounded scientific decision for:
 
 **Curve Derivatives and Regularity.**
 
-That next decision must define first/second derivative semantics, zero-speed /
-regularity classification, error semantics, reversal relations, analytic
-fixtures and explicit exclusions before any derivative production code begins.
+That decision must define first/second derivative semantics, pointwise and/or
+global zero-speed regularity claims, finite/error semantics, reversal relations,
+analytic/adversarial fixtures, prerequisite preservation and explicit
+nonclaims before derivative production code begins.
 
 Arc length, curvature, discretization, quadrilateral meshing and parallel
 execution remain closed.
