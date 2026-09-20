@@ -671,15 +671,23 @@ PR #33 integrated the diagnosis as
 `35529991911` and INTEGRATION `35529991909` passed. The next bounded work
 is now the focused mechanical runner/protocol-guard correction only.
 
-That correction is implemented on
+That correction was implemented on
 `topology/tmr-repetition-cardinality-correction`. The runner now configures
 each cell once and executes build/discovery/semantic CTest/certificate/
 validation in each of the two repetitions, yielding the diagnosed 56-command
 shape. The stable protocol guard no longer depends on a transient section
-title. Final TMR Tooling run `35530368208` passed in GCC 13 Debug and Clang
-18/libc++ Debug. No production topology or scientific acceptance criterion
-changed. Formal preparation remains unauthorized until the correction PR is
-merged, post-merge checks pass, and its checkpoint is closed.
+title. Final branch-head TMR Tooling run `35530579354` passed in GCC 13 Debug
+and Clang 18/libc++ Debug.
+
+PR #35 integrated the correction as
+`6df723b68d265e2e3081a774d7312aa227fdcef6`. Required PR FAST
+`35530643533` and INTEGRATION `35530643582` passed; post-merge
+INTEGRATION `35530685060` and FAST `35530685096` also passed. No
+production topology or scientific acceptance criterion changed.
+
+The next bounded work is now a new formal PREPARED package from the corrected
+clean candidate, followed by independent preparation audit. No execution is
+authorized by preparation.
 
 #### Vertex and Edge Identity
 
