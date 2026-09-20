@@ -108,3 +108,23 @@ The next infrastructure problem is the reproducible cloud QUALIFICATION
 environment. The next scientific Topological Model work remains the smallest
 reusable report-only TMR0--TMR7 workflow. No new production topology concept is
 authorized by this closure.
+
+
+## Post-merge verification
+
+PR #11 was squash-merged as
+`ae8ca45d861c27c643e022cb61318db5b22737f9`.
+
+The merged commit tree is
+`781850bea922cadcb8a2eaa5168e15964f07e8f9`, exactly equal to the final
+reviewed PR head tree. Therefore the final pre-merge Major Semantic Regression
+run `35512093405` remains applicable to the merged functional content.
+
+Post-merge GitHub Actions on the accepted functional baseline:
+
+- FAST run `35512303620`: **PASS**;
+- INTEGRATION run `35512303629`: **PASS**;
+- GCC 13 Debug INTEGRATION: **PASS**;
+- Clang 18/libc++ Debug INTEGRATION: **PASS**.
+
+No post-merge semantic contradiction was observed.

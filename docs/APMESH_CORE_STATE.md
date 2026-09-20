@@ -68,9 +68,10 @@ Canonical integration baseline before this audit:
 - repository: `tiagosombrra/apmesh-core`;
 - visibility: `PUBLIC`;
 - canonical branch: `main`;
-- accepted `main` revision before INTEGRATION work: `4161b4b60c8430e4c9514a50fff34adddc24835d`;
-- GitHub Actions FAST on that revision: `PASS`, run `35511422966`;
-- Major Semantic Regression on that revision: `PASS`, run `35511422982`;
+- accepted functional `main` baseline after INTEGRATION closure: `ae8ca45d861c27c643e022cb61318db5b22737f9`;
+- post-merge GitHub Actions FAST on that baseline: `PASS`, run `35512303620`;
+- post-merge GitHub Actions INTEGRATION on that baseline: `PASS`, run `35512303629`;
+- final pre-merge Major Semantic Regression on tree-equivalent candidate `cf8d548b0e8fbc04050feb92e414b75265506184`: `PASS`, run `35512093405`;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - stage status: production bounded scope implemented, focused contracts pass,
   cumulative TMR0--TMR7 pre-registered, stage unqualified.
@@ -120,10 +121,13 @@ methods are squash and rebase, with zero required approvals. GitHub currently
 reports `require_extra_approval_for_unattributed_changes=true`; with zero
 required approvals this setting has no effect on the present workflow.
 
-Cloud INTEGRATION is accepted at **100%**. On functional candidate
-`cf8d548b0e8fbc04050feb92e414b75265506184`, FAST run `35512003523` and
-INTEGRATION run `35512003550` passed; both INTEGRATION cells executed the exact
-seven-test semantic inventory. The `main-protection` ruleset requires FAST plus
+Cloud INTEGRATION is accepted at **100%**. PR #11 was squash-merged to
+`ae8ca45d861c27c643e022cb61318db5b22737f9`. Its tree
+`781850bea922cadcb8a2eaa5168e15964f07e8f9` is byte-identical to the reviewed
+PR head tree, so the final pre-merge Major Semantic Regression remains bound to
+the merged functional content. Post-merge FAST run `35512303620` and
+INTEGRATION run `35512303629` both passed; both INTEGRATION cells executed the
+exact seven-test semantic inventory. The `main-protection` ruleset requires FAST plus
 both INTEGRATION checks. Final major-boundary run `35512093405` passed all four
 Debug/Release GCC/Clang cells with 7/7 semantic tests and no Node.js 20 checkout
 warning after pinning `actions/checkout` v7.0.1 by commit SHA. The closure audit
