@@ -131,67 +131,49 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Correct TMR repetition cardinality and stable protocol validation —
-VALIDATED_UNMERGED.**
+**None. The TMR repetition-cardinality correction is closed.**
 
-Active branch: `topology/tmr-repetition-cardinality-correction`.
+Closure evidence:
 
-Authority:
-`docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`.
+1. diagnosis authority:
+   `docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`;
+2. corrected branch final TMR Tooling run `35530579354`: PASS in GCC 13 Debug
+   and Clang 18/libc++ Debug;
+3. correction PR #35 required FAST `35530643533`: PASS;
+4. correction PR #35 required INTEGRATION `35530643582`: PASS in GCC 13 Debug
+   and Clang 18/libc++ Debug;
+5. PR #35 squash-merged as
+   `6df723b68d265e2e3081a774d7312aa227fdcef6`;
+6. post-merge INTEGRATION `35530685060`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. post-merge FAST `35530685096`: PASS;
+8. no production topology C++, scientific profile, matrix, allowlist, cases or
+   TMR0–TMR7 acceptance criterion changed;
+9. no formal PREPARED package, new authorization, execution claim, or formal
+   campaign was created by the correction.
 
-Implemented correction:
+The corrected runner now enforces the diagnosed four-cell × two-repetition
+execution shape of exactly 56 command records.
 
-1. each matrix cell is configured exactly once;
-2. each of its two repetitions now executes, in order:
-   build → CTest discovery → exact seven-test semantic CTest → certificate
-   production → certificate validation;
-3. every repetition-scoped command ID carries the repetition ordinal;
-4. discovery evidence records both cell and repetition;
-5. planned command logs now match the diagnosed 56-command execution shape
-   (112 stdout/stderr logs);
-6. focused synthetic execution asserts exactly 14 command records per cell /
-   56 total, eight discoveries, eight semantic CTest records, eight
-   certificates, and exact retained-log agreement;
-7. focused failure injection at `gcc-debug-semantic-ctest-2` proves fail-fast
-   behavior before the second certificate and before the next cell;
-8. `protocol_check()` now binds stable TMR scientific invariants instead of a
-   transient Section 13 heading.
-
-Validation history:
-
-- run `35530205757`: expected development failure before correction of the
-  stale protocol-title guard; no preparation or formal execution;
-- run `35530257656`: PASS in GCC 13 Debug and Clang 18/libc++ Debug after the
-  runner/guard correction;
-- run `35530318107`: mechanical focused-test assertion failure only; the new
-  test's certificate prefix also matched certificate-validation IDs;
-- commit `3a49376d9caafe80daaadeb0e1fa1c700cec0a89` corrected that test
-  assertion without changing runner behavior;
-- final TMR Tooling run `35530368208`: PASS in both GCC 13 Debug and Clang
-  18/libc++ Debug, including cloud identity validation, evidence contract,
-  reinforced runner contract, preparation/execution workflow contracts, and
-  authorization contracts.
-
-Scientific boundary:
-
-- no production topology C++ changed;
-- profile matrix, repetitions, allowlist, cases and TMR0–TMR7 acceptance
-  criteria are unchanged;
-- no formal PREPARED package was created;
-- no execution authorization or scientific campaign occurred;
-- the consumed first-campaign package, authorization and claim remain
-  immutable.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this focused correction is merged, required PR checks and post-merge
-FAST/INTEGRATION pass, and its checkpoint is closed on `main`, prepare one
-**new** formal TMR package from the resulting clean candidate.
+Prepare exactly one **new formal Topological Model TMR PREPARED package** from
+the clean corrected `main` candidate.
 
-That future preparation must bind the corrected runner and planned inventories,
-produce a new manifest/seal/hash/run/artifact identity, and be independently
-audited before any new `EXECUTE_ONCE` authorization.
+The new preparation must:
 
-The consumed first PREPARED package, authorization, execution claim, and
-terminal evidence cannot be reused or amended.
+1. bind the corrected runner and planned inventories now on `main`;
+2. bind the exact admitted cloud qualification environment;
+3. bind the current clean candidate commit and tracked-source inventory;
+4. retain the same fixed four-cell × two-repetition matrix, seven-test semantic
+   allowlist, cases, TMR0–TMR7 gates, and acceptance criteria;
+5. produce a new PREPARED manifest, preparation seal, run ID, artifact ID and
+   hashes;
+6. contain no execution claim, command records or terminal manifest;
+7. be independently audited before any new `EXECUTE_ONCE` authorization.
+
+The first campaign's PREPARED package, authorization, immutable claim and
+terminal package remain historical and must not be reused, amended or retried.
 
