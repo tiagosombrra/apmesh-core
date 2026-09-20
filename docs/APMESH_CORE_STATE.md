@@ -63,7 +63,7 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 ## Current repository checkpoint
 
-Canonical integration baseline before this audit:
+Current repository continuation checkpoint:
 
 - repository: `tiagosombrra/apmesh-core`;
 - visibility: `PUBLIC`;
@@ -159,6 +159,47 @@ no equivalence is claimed. Exact next scientific action: implement the smallest
 reusable report-only TMR0--TMR7 workflow. Before formal TMR cloud execution, the
 TMR protocol must explicitly name the admitted cloud envelope. No manifest is
 prepared and no formal campaign is authorized yet.
+
+## Session handoff
+
+This repository is sufficient to resume the project without prior chat history.
+
+Read in this order:
+
+1. `docs/APMESH_CORE_STATE.md`;
+2. `docs/APMESH_CORE_ROADMAP.md`;
+3. `docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`;
+4. `docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md`;
+5. the latest relevant audit under `docs/audits/`;
+6. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+
+Accepted functional cloud-infrastructure baseline:
+
+- PR #13 merged as `0a7095d431e4bea3c9c73e75d22df2e713c7a8ab`;
+- final reviewed PR tree and merged tree:
+  `7144943abc7ffd861b92587217a112c0edf6f9b4`;
+- final Qualification Environment revalidation: run `35513250315`, PASS;
+- final phase-boundary Major Semantic Regression: run `35513567930`,
+  four cells PASS, 7/7 semantic tests per cell;
+- post-merge FAST: run `35513658207`, PASS;
+- post-merge INTEGRATION: run `35513658197`, PASS;
+- subsequent documentation checkpoint on `main` was also validated by FAST run
+  `35513813548` and INTEGRATION run `35513813545`, both PASS.
+
+Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
+Regression availability, and the admitted cloud QUALIFICATION environment.
+This does **not** qualify the Topological Model stage.
+
+Exact next bounded scientific action:
+
+**Implement the smallest reusable report-only TMR0–TMR7 workflow and focused
+tooling contracts, without changing production C++, preparing a formal
+manifest, or executing the formal TMR campaign.**
+
+Before a future formal TMR campaign may run in GitHub Actions, the
+pre-registered Topological Model protocol must be explicitly amended or
+supplemented to name the admitted cloud envelope. Until that happens, its
+formal qualification decision remains scoped to the historical WSL envelope.
 
 ## Current active stage
 
