@@ -89,7 +89,7 @@ Current cloud-execution infrastructure:
 | Capability | Completion | Status |
 | --- | ---: | --- |
 | FAST | 100% | GitHub-hosted Ubuntu 24.04, GCC 13 Debug; `main` PASS. |
-| Major semantic regression | 50% | Reusable four-cell workflow is under audit and must pass before acceptance. |
+| Major semantic regression | 100% | Four-cell GitHub-hosted Ubuntu 24.04 regression PASS in run `35510690848`. |
 | INTEGRATION | 0% | Not yet implemented in GitHub Actions. |
 | QUALIFICATION environment | 0% | Reproducible cloud qualification envelope not yet admitted. |
 
@@ -104,11 +104,16 @@ These percentages describe this audit execution's work distribution, not
 scientific completion. The independent completion lanes above are the
 authoritative stage-progress view.
 
-Exact next admissible action: complete the repository/public-cloud baseline
-audit by obtaining a terminal PASS from the four-cell Major Semantic Regression
-workflow, audit its jobs/logs against the current semantic test inventory, and
-record the terminal audit checkpoint in Git before resuming INTEGRATION or TMR
-implementation.
+Accepted public/cloud engineering audit: `PASS`, recorded in
+`docs/audits/2026-09-20-public-cloud-baseline.md`. FAST run `35510690845`
+and four-cell Major Semantic Regression run `35510690848` passed on the audit
+candidate without production C++ change. The repository currently has no GitHub
+rulesets; this is a governance limitation, not a scientific regression.
+
+Exact next admissible action after this audit is integrated into `main`: add
+the compact GitHub Actions INTEGRATION profile for GCC 13 Debug and Clang
+18/libc++ Debug. The next scientific Topological Model action remains the
+smallest reusable report-only TMR0--TMR7 workflow.
 
 ## Current active stage
 
