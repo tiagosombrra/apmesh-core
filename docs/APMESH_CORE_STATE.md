@@ -250,32 +250,25 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after cubic work-unit integration:
+Exact next bounded scientific action:
 
-**Close Polynomial Cubic Bézier Value Representation and Evaluation, then open
-one separate Curve Derivatives and Regularity decision.**
+**Open one separate scientific decision for Curve Derivatives and Regularity.**
 
-The bounded cubic work unit is implemented on
-`curve/cubic-bezier-value-evaluation`.
+The first Curve Representation work unit was integrated by PR #48 as
+`bde874311d9960c5fab7ce03b26b6cd5fbd61b34`.
 
-Focused evidence on branch head
-`2da0d55b1d0404c108449fb15ae8b0f528a6c3f0`:
+Validation:
 
-- FAST `35541613233`: PASS, GCC 13 Debug, 9/9 selected tests;
-- INTEGRATION `35541613216`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 9/9 selected tests in each cell.
+- PR FAST `35541914952`: PASS;
+- PR INTEGRATION `35541914958`: PASS;
+- post-merge FAST `35541963486`: PASS;
+- post-merge INTEGRATION `35541963489`: PASS.
 
-The implementation satisfies the fixed value/evaluation scope only:
-four ordered control points, `[0,1]`, de Casteljau/`std::lerp`, exact
-endpoints, reversal, explicit parameter failure and deterministic focused
-evidence.
+Polynomial Cubic Bézier Value Representation and Evaluation is therefore
+closed at **IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED**.
 
-Scientific status remains
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED**.
-
-No derivative, regularity, curvature, arc length, rational curve, topology
-ownership, discretization, quadrilateral or parallel capability is authorized
-by this result.
+No derivative code may begin until a separate bounded decision fixes derivative
+and regularity semantics and evidence obligations.
 
 
 ## Current active stage
@@ -287,7 +280,7 @@ FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 Current entry decision:
 
 **Polynomial Cubic Bézier Value Representation and Evaluation — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.** The bounded work unit introduces only immutable 2D/3D cubic
+FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.** The bounded work unit introduces only immutable 2D/3D cubic
 polynomial Bézier geometry with four ordered control points, evaluation on the
 closed normalized domain `[0,1]` by de Casteljau/`std::lerp`, exact
 endpoints, reversal, explicit parameter failures, and focused analytic evidence.
