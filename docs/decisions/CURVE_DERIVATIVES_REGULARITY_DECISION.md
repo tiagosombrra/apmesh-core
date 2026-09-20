@@ -1,6 +1,6 @@
 # Curve Derivatives and Regularity — Bounded Decision
 
-Status: DECISION ACTIVE / IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED
+Status: DECISION APPROVED / IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -371,3 +371,24 @@ Representation stage. Arc length cannot open until derivative/speed semantics
 are integrated and closed.
 
 No curvature, discretization, quadrilateral, or parallel work is authorized.
+
+
+## Integration checkpoint
+
+PR #50 integrated this bounded decision as
+`9c3caa35b580402fa0d7ce71412f3def7bbd8aa4`.
+
+Validation:
+
+- PR FAST `35542378763`: PASS;
+- PR INTEGRATION `35542378797`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35542416703`: PASS;
+- post-merge INTEGRATION `35542416695`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+No production implementation was included in the decision work item.
+
+The decision checkpoint is closed. The sole next bounded work item is
+implementation of **Cubic Bézier Differential Evaluation and Pointwise Speed**
+within the scope fixed above.
