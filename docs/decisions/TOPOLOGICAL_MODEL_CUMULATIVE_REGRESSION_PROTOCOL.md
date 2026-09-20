@@ -1,6 +1,6 @@
 # Topological Model — Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED / FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED / NOT PREPARED / NOT EXECUTED
+Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED / FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED / PREPARATION-ONLY WORKFLOW IMPLEMENTED / STATIC CONTRACT PASS / NOT DISPATCHED / NOT PREPARED / NOT EXECUTED
 Date: 2026-09-20
 Stage: Topological Model — Explicit Identity and Incidence
 
@@ -245,18 +245,28 @@ by the supplement. The bounded validation passed in GitHub Actions run
 cells. Run `35516204233` is retained as a mechanical protocol-guard failure
 that stopped before environment evaluation. The formal launch plan now uses
 the admitted absolute tool paths instead of PATH-resolved aliases; focused
-GCC/Clang Debug validation passed in run `35516578411`. No formal cloud
-manifest has yet been prepared.
+GCC/Clang Debug validation passed in run `35516578411`.
+
+The manual preparation-only workflow is restricted to explicit dispatch on
+canonical `main`, invokes only `prepare` and `validate-prepared`, uses a
+new external runner-temp output root, retains the sealed PREPARED package, and
+contains no formal `execute` path. Consecutive mechanical quoting failures in
+runs `35516864464` and `35516972035` triggered the required tooling stop.
+After simplifying the shell invocation, run `35517077819` passed the complete
+focused tooling inventory in GCC 13 Debug and Clang 18/libc++ Debug. The
+preparation workflow itself has not been dispatched and no formal cloud manifest
+has yet been prepared.
 
 ## 13. Next bounded action
 
-The reusable report-only TMR0–TMR7 tooling and the fail-closed cloud identity
-binding are implemented. The binding and focused tooling contracts passed in
-GitHub Actions run `35516246789`; no formal manifest has been prepared and the
-TMR campaign has not executed.
+The reusable report-only TMR0–TMR7 tooling, fail-closed cloud identity binding,
+exact cloud tool plan, and manual preparation-only workflow are implemented.
+Focused/static tooling validation passed in run `35517077819`. No formal
+manifest has been prepared and the TMR campaign has not executed.
 
-The next bounded action is to add a preparation-only GitHub Actions path that
-uses the existing `prepare` command under explicit manual dispatch, writes the
-candidate package below a new external runner-temp root, and retains that sealed
-PREPARED package as an artifact. The workflow must be integrated without being
-dispatched in the same change and must expose no formal `execute` step.
+After this workflow is integrated and the merged revision passes ordinary
+FAST/INTEGRATION checks, the next bounded action is one explicit manual dispatch
+of `Topological Model TMR Preparation` on canonical `main`. That dispatch may
+produce and retain one sealed PREPARED package only. The package must then be
+audited before any separate authorization to invoke `execute`; no execution is
+authorized by this protocol checkpoint.
