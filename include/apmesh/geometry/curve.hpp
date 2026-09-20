@@ -24,6 +24,9 @@ public:
 
     [[nodiscard]] const std::array<Point2, 4>& control_points() const noexcept;
     [[nodiscard]] std::expected<Point2, CurveError> evaluate(double parameter) const noexcept;
+    [[nodiscard]] std::expected<Vector2, CurveError> first_derivative(double parameter) const noexcept;
+    [[nodiscard]] std::expected<Vector2, CurveError> second_derivative(double parameter) const noexcept;
+    [[nodiscard]] std::expected<double, CurveError> speed(double parameter) const noexcept;
     [[nodiscard]] CubicBezier2 reversed() const noexcept;
 
     [[nodiscard]] bool operator==(const CubicBezier2&) const noexcept = default;
@@ -43,6 +46,9 @@ public:
 
     [[nodiscard]] const std::array<Point3, 4>& control_points() const noexcept;
     [[nodiscard]] std::expected<Point3, CurveError> evaluate(double parameter) const noexcept;
+    [[nodiscard]] std::expected<Vector3, CurveError> first_derivative(double parameter) const noexcept;
+    [[nodiscard]] std::expected<Vector3, CurveError> second_derivative(double parameter) const noexcept;
+    [[nodiscard]] std::expected<double, CurveError> speed(double parameter) const noexcept;
     [[nodiscard]] CubicBezier3 reversed() const noexcept;
 
     [[nodiscard]] bool operator==(const CubicBezier3&) const noexcept = default;

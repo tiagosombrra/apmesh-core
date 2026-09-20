@@ -168,36 +168,65 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Curve Derivatives and Regularity decision is closed.**
+**Implement Cubic Bézier Differential Evaluation and Pointwise Speed —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/cubic-bezier-differential-evaluation`.
 
-1. PR #50 merged as
-   `9c3caa35b580402fa0d7ce71412f3def7bbd8aa4`;
-2. PR FAST `35542378763`: PASS;
-3. PR INTEGRATION `35542378797`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-4. post-merge FAST `35542416703`: PASS;
-5. post-merge INTEGRATION `35542416695`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. no derivative production code was included in the decision PR;
-7. global interval regularity remains explicitly outside the first differential
-   work unit.
+Decision authority:
+`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`.
 
-No work item is active.
+Implemented scope:
+
+1. `CubicBezier2::first_derivative(t)` and
+   `CubicBezier3::first_derivative(t)` evaluate the quadratic Bézier
+   hodograph;
+2. `second_derivative(t)` evaluates the linear derivative of that hodograph;
+3. `speed(t)` uses the already qualified stable Euclidean vector norm;
+4. derivative-control construction remains in Bézier/Bernstein form and
+   reports non-finite arithmetic explicitly;
+5. zero derivative and zero pointwise speed remain valid data;
+6. the existing finite/domain parameter errors are preserved exactly;
+7. the focused `apmesh_core.curve_differential` contract covers 2D/3D
+   endpoint formulas, constant/linear/quadratic/genuine cubic fixtures,
+   stationary points, reversal, translation, admitted frames, overflow,
+   small nonzero derivatives, invalid parameters, signed zero and
+   determinism;
+8. the public-header isolation contract covers the new API.
+
+Validation:
+
+- PR #52 FAST `35544242913`: PASS;
+- PR #52 INTEGRATION `35544242911`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- the existing cubic value/evaluation contracts and selected qualified
+  prerequisites remained passing.
+
+Scientific boundary:
+
+- no interval-wide regularity classification or root certification;
+- no unit tangent, curvature/torsion or Frenet frame;
+- no arc-length integration or parameter inversion;
+- no subdivision/discretization;
+- no rational/spline/arbitrary-degree representation;
+- no topology ownership;
+- no quadrilateral or parallel capability.
+
+Result if integrated:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
 
 ## Next admissible work item after closure
 
-Implement exactly one work unit:
+After PR #52 is merged, post-merge FAST/INTEGRATION pass, and this implementation
+checkpoint is closed, open one separate bounded decision for:
 
-**Cubic Bézier Differential Evaluation and Pointwise Speed.**
+**Global Cubic Regularity Certification.**
 
-The implementation must remain inside
-`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md` and may add only
-first derivative, second derivative and pointwise speed semantics plus focused
-evidence.
+That decision must investigate a mathematically complete interval-wide method
+for establishing whether `B'(t) != 0` for every `t∈[0,1]`. It must not use
+sampling or a global speed epsilon.
 
-It must not add global `is_regular()`, derivative-root certification, unit
-tangent, curvature, arc length, discretization, quadrilateral or parallel
-capability.
+Arc Length and Parameter Mapping remains blocked until the differential work
+unit is integrated and the regularity boundary has a separate explicit
+decision.
 
