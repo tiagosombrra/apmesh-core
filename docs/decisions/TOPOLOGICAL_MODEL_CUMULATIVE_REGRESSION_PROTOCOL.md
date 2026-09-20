@@ -465,3 +465,10 @@ not fully implement the already accepted whole-commit isolation rule. The
 focused correction removes the pathspec and strengthens the static contract.
 TMR Tooling run `35532624980` passed in both tooling cells. No execution is
 permitted until that correction is integrated and closed.
+
+PR #41 integrated the whole-commit guard as
+`d4a3a2da64c84ec922e881e899a153287593b79c`. Final TMR Tooling
+`35532708479`, post-merge FAST `35533347184`, and post-merge INTEGRATION
+`35533347164` passed. The correction checkpoint is closed. The exact one-file
+second-package `EXECUTE_ONCE` authorization is now the sole permitted
+continuation.
