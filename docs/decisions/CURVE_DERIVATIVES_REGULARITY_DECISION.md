@@ -1,6 +1,6 @@
 # Curve Derivatives and Regularity — Bounded Decision
 
-Status: DECISION APPROVED / IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED
+Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATION PENDING / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -392,3 +392,37 @@ No production implementation was included in the decision work item.
 The decision checkpoint is closed. The sole next bounded work item is
 implementation of **Cubic Bézier Differential Evaluation and Pointwise Speed**
 within the scope fixed above.
+
+
+## Implementation candidate
+
+Branch:
+`curve/cubic-bezier-differential-evaluation`.
+
+The bounded candidate adds only:
+
+- first-derivative evaluation as the quadratic cubic-Bézier hodograph;
+- second-derivative evaluation as the linear derivative of that hodograph;
+- pointwise speed through the qualified stable vector norm;
+- focused 2D/3D differential evidence and public-header isolation.
+
+Production does not convert to the power basis and does not use finite
+differences.
+
+Focused validation on PR #52:
+
+- FAST `35544242913`: PASS;
+- INTEGRATION `35544242911`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The complete required focused case table is represented in
+`tests/curve_differential.cpp`, while the original
+`tests/curve_representation.cpp` remains a separate regression authority for
+value/evaluation semantics.
+
+This evidence supports only:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
+
+No global regularity result, arc-length result or Curve Representation
+qualification follows from this implementation candidate.
