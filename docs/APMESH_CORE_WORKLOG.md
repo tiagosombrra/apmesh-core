@@ -168,36 +168,43 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Curve Derivatives and Regularity decision is closed.**
+**Implement Cubic Bézier Differential Evaluation and Pointwise Speed — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/cubic-bezier-differential-evaluation`.
 
-1. PR #50 merged as
-   `9c3caa35b580402fa0d7ce71412f3def7bbd8aa4`;
-2. PR FAST `35542378763`: PASS;
-3. PR INTEGRATION `35542378797`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-4. post-merge FAST `35542416703`: PASS;
-5. post-merge INTEGRATION `35542416695`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. no derivative production code was included in the decision PR;
-7. global interval regularity remains explicitly outside the first differential
-   work unit.
+Decision authority:
+`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`.
 
-No work item is active.
+Authorized scope:
+
+1. add first-derivative evaluation for `CubicBezier2` and `CubicBezier3`;
+2. implement the derivative as the quadratic Bézier hodograph determined by
+   `3(P1-P0)`, `3(P2-P1)`, `3(P3-P2)`;
+3. add second-derivative evaluation as the derivative of that quadratic
+   hodograph;
+4. add pointwise speed as the qualified stable Euclidean norm of the first
+   derivative;
+5. reuse the exact existing parameter-domain semantics and explicit
+   `CurveError` failure model;
+6. preserve reversal, translation and admitted Cartesian-frame covariance;
+7. add focused analytic/adversarial evidence for 2D and 3D;
+8. preserve existing curve value/evaluation behavior and all qualified
+   Foundation, Geometry and Topological Model prerequisites.
+
+Explicit exclusions:
+
+- no interval-wide `is_regular()` or root certification;
+- no unit tangent or Frenet frame;
+- no curvature/torsion;
+- no arc-length integration or inverse arc length;
+- no adaptive subdivision/discretization;
+- no rational/spline/arbitrary-degree curve support;
+- no topology ownership/association;
+- no quadrilateral or parallel capability.
 
 ## Next admissible work item after closure
 
-Implement exactly one work unit:
-
-**Cubic Bézier Differential Evaluation and Pointwise Speed.**
-
-The implementation must remain inside
-`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md` and may add only
-first derivative, second derivative and pointwise speed semantics plus focused
-evidence.
-
-It must not add global `is_regular()`, derivative-root certification, unit
-tangent, curvature, arc length, discretization, quadrilateral or parallel
-capability.
+After this implementation is integrated and focused/post-merge validation
+passes, close its checkpoint and open the next bounded Curve Representation
+decision only. Do not infer global interval regularity from pointwise speed.
 
