@@ -222,9 +222,12 @@ figure is required because this stage contains no geometric embedding.
 
 ## 12. Decision effect
 
-- `PASS`: Topological Model becomes `QUALIFIED` only in the declared WSL
-  envelope. A separate scientific entry decision may then open Curve
-  Representation; no curve implementation begins automatically.
+- `PASS`: Topological Model becomes `QUALIFIED` only in the exact environment
+  formally admitted for that campaign. Historical WSL qualification evidence
+  remains WSL-scoped; a cloud campaign may qualify only the separately admitted
+  cloud envelope and does not establish WSL/cloud equivalence. A separate
+  scientific entry decision may then open Curve Representation; no curve
+  implementation begins automatically.
 - `BLOCKED`: Topological Model remains `IN INVESTIGATION`; accepted Foundation
   and Geometry qualifications remain intact unless the evidence directly
   contradicts one of them.
@@ -279,51 +282,62 @@ The package audit in
 The package remains unconsumed, `execution_requested=false`, and all
 TMR0-TMR7 gates remain `NOT_EXECUTED`.
 
-## 13. Next bounded action
+## 13. First formal execution result and next bounded action
 
-The first formal PREPARED package exists and its independent preparation audit
-passed. It is bound to candidate
+The first formal PREPARED package was bound to candidate
 `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, preparation run
-`35524700979`, and artifact `10609500629`. The package is unconsumed:
-`execution_requested=false`, no execution claim/command records/terminal
-manifest exist, and TMR0-TMR7 remain `NOT_EXECUTED`.
+`35524700979`, artifact `10609500629`, prepared-manifest SHA-256
+`d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd`,
+and preparation-seal SHA-256
+`982e1441f08bc3f11c3cffcf73113ce69a07e2066924ad01442b3ab94eeeb71e`.
 
-PR #23 integrated the preparation audit as
-`b3d8130cdf75230ef7b71693d2325e5473091857`; post-merge FAST
-`35525181361` and INTEGRATION `35525181462` passed.
+PR #29 merged the exact manifest-bound `EXECUTE_ONCE` authorization as
+`8a6eafc02d5e69f467e2badfea0b571e253b84bd`. Protected-main run
+`35528077223` validated that authorization, restored and revalidated the
+PREPARED package, created the immutable manifest-hash claim, invoked
+`execute` exactly once, verified retention, and retained terminal artifact
+`10610497080` with archive SHA-256
+`b332b8dde2e8651f4dd66339875378a53c9d4390400afd0d869b54969a2bf983`.
 
-PR #25 integrated the original one-shot execution wrapper as
-`d7019fbff97989a79fd27fcb1915073881a53564`; post-merge FAST run
-`35525932108` and INTEGRATION run `35525932111` passed. Its
-manifest-hash claim, full PREPARED preflight, single `execute`, no-retry rule,
-and retained terminal evidence remain authoritative.
+The execution claim is consumed and no second authorization, rerun, rescue
+dispatch, or after-the-fact evidence completion is authorized for that
+campaign.
 
-The authorization boundary is now strengthened so the executor is reusable-only
-through `workflow_call` and exposes no direct `workflow_dispatch` path. A
-separate protected-main controller watches only the exact manifest-bound
-authorization filename. It requires that record to be newly added once,
-validates the exact candidate/preparation/artifact/manifest/seal/audit/workflow
-identity, rejects an existing claim, and then calls the reusable executor. The
-executor independently revalidates the authorization commit and JSON record
-before checking out candidate
-`e5eda2663d6ff4b93ce1205660ff04d432acb9c0`.
+Independent terminal audit is retained in:
 
-Focused/static tooling run `35527446051` passed the report-only evidence,
-runner, preparation workflow, reusable executor, authorization-record validator,
-and authorization-controller contracts in both GCC 13 Debug and Clang 18
-libc++ Debug. Runs `35527269611` and `35527350320` are retained as
-implementation-only mechanical contract failures before that correction; they
-created no authorization, claim, or scientific execution.
+- `docs/audits/2026-09-20-topological-model-tmr-terminal-audit.md`;
+- `docs/audits/2026-09-20-topological-model-tmr-terminal-audit.json`.
 
-PR #27 integrated authorization-as-code as
-`7bf2d409556c8318db72b86ef0d85253aa0583ec`. Required PR FAST
-`35527616244` and INTEGRATION `35527616258` passed; post-merge FAST
-`35527668634` and INTEGRATION `35527668624` passed. No
-`EXECUTE_ONCE` authorization record, claim tag, or formal execution exists.
+Audit decision:
 
-The next bounded action is one separate pull request that adds the exact
-manifest-bound authorization record. Its merge to protected `main` is the
-formal execution authorization event and automatically consumes the one formal
-attempt through the reusable executor. The resulting terminal package must be
-independently audited before any TMR0-TMR7 gate or stage qualification
-decision.
+- TMR0: `PASS`;
+- TMR1: `PASS`;
+- TMR2: `PASS`;
+- TMR3: `PASS`;
+- TMR4: `PASS`;
+- TMR5: `PASS`;
+- TMR6: `BLOCKED`;
+- TMR7: `BLOCKED`;
+- overall: `BLOCKED`;
+- Topological Model: `IN INVESTIGATION / NOT QUALIFIED`.
+
+The blocking observation is evidence cardinality. Section 7 requires every
+cell to discover, build, and execute the exact seven-test semantic allowlist
+once per repetition, and TMR6 requires that allowlist to pass in every
+repetition. The fixed matrix has four cells and two repetitions per cell.
+Therefore eight semantic CTest records are required. The terminal package
+contains four semantic CTest records, one per cell; each observed record is
+7/7 PASS. The sealed runner repeats certificate production/validation but not
+semantic CTest.
+
+This is not evidence of a production-semantic topology defect. It is a
+protocol/runner repetition-cardinality mismatch and leaves required TMR6/TMR7
+evidence incomplete. The protocol is not weakened retroactively.
+
+The next bounded action, after integration of the terminal audit checkpoint, is
+one separately authorized diagnosis of this mismatch. That diagnosis must
+determine the exact repetition scope of discovery/build/semantic CTest and
+certificate commands, the required command/evidence cardinality, the minimal
+tooling correction, and the requirements for a new PREPARED package. It must
+not prepare, authorize, or execute another formal campaign.
+
