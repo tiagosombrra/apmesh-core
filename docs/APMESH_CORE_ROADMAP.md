@@ -665,6 +665,12 @@ is one focused mechanical correction of the repetition scope, inventories,
 focused contracts, and stable protocol guard. No formal preparation or
 execution is authorized by that correction.
 
+PR #33 integrated the diagnosis as
+`da47c01da9cfcabafca4638c02006be8f1372aea`. Required PR FAST
+`35529950706` and INTEGRATION `35529950569` passed; post-merge FAST
+`35529991911` and INTEGRATION `35529991909` passed. The next bounded work
+is now the focused mechanical runner/protocol-guard correction only.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,

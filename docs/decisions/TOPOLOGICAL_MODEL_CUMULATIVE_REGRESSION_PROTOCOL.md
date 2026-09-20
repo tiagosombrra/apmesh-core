@@ -387,3 +387,10 @@ command records:
 
 The scientific matrix, repetitions, semantic allowlist, topology cases, TMR0-
 TMR7 gates, failure policy, and acceptance criteria are unchanged.
+
+The diagnosis establishing this prospective interpretation was integrated by
+PR #33 as `da47c01da9cfcabafca4638c02006be8f1372aea`. Post-merge FAST
+`35529991911` and INTEGRATION `35529991909` passed. The next permitted
+change is the focused mechanical runner/protocol-guard correction; a new
+formal preparation remains unauthorized until that correction is separately
+merged, validated, and closed.

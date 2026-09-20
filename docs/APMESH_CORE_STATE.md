@@ -248,37 +248,26 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after diagnosis integration:
+Exact next bounded scientific action:
 
 **Open one focused mechanical correction work item for the TMR runner
 repetition scope and stable protocol guard.**
 
-The bounded diagnosis is complete in
-`docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`.
-It confirms no production-topology defect and no scientific acceptance-criteria
-change.
+The repetition-cardinality diagnosis is integrated by PR #33 as
+`da47c01da9cfcabafca4638c02006be8f1372aea`. Required PR FAST
+`35529950706` and INTEGRATION `35529950569` passed. Post-merge FAST
+`35529991911` and INTEGRATION `35529991909` also passed.
 
-Required future execution shape:
+Diagnosis-time TMR Tooling run `35529933344` failed in both cells at the
+already diagnosed transient Section-13-title guard, before configuration of
+focused tooling and without creating a PREPARED package, claim, or scientific
+evidence.
 
-- configure once per cell;
-- for each of two repetitions per cell: build, CTest discovery, exact
-  seven-test semantic CTest, certificate production, certificate validation;
-- negative outcomes, dependency inventory, runtime dependency inspection and
-  compile-command retention once per cell;
-- exactly 56 command records across four cells, including eight semantic CTest
-  records and 56 individual semantic test executions.
-
-The diagnosis also found a second mechanical defect: `protocol_check()`
-requires the transient literal heading `## 13. Next bounded action`. After
-the terminal audit legitimately renamed Section 13, diagnosis-time TMR tooling
-run `35529611062` failed in both GCC and Clang cells before configuration
-with `protocol is not the pre-registered TMR0-TMR7 authority`. That run
-created no PREPARED package, claim, or scientific evidence.
-
-The correction work item may modify only runner/protocol-guard behavior,
-planned inventories, focused tests, and the minimum documentation required to
-enforce this diagnosed contract. It must not modify production topology C++,
-prepare a new formal package, authorize execution, or run a formal campaign.
+The closed diagnosis requires a future corrected execution shape of exactly 56
+command records over four cells × two repetitions. The correction work item is
+tooling-only and must not modify production topology C++, scientific
+acceptance criteria, prepare a formal package, authorize execution, or run a
+formal campaign.
 
 
 ## Current active stage
