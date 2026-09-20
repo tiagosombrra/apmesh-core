@@ -115,35 +115,33 @@ writing.
 - `docs/tmr-terminal-audit-blocked`: **MERGED / HISTORICAL** via PR #30;
   contains the independent terminal scientific audit and repository status
   synchronization for the consumed first formal TMR campaign.
-- `docs/tmr-terminal-audit-checkpoint`: **ACTIVE / VALIDATED_UNMERGED**;
+- `docs/tmr-terminal-audit-checkpoint`: **MERGED / HISTORICAL** via PR #31;
   closes the audit-integration checkpoint only; no scientific/tooling change.
+- `docs/tmr-terminal-audit-final-closure`: **ACTIVE / CLOSURE-ONLY**;
+  removes the final stale operational marker after PR #31; no scientific or
+  tooling change.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Close the merged first-TMR terminal-audit checkpoint — VALIDATED_UNMERGED.**
+**None. The first formal TMR terminal-audit checkpoint is closed.**
 
-Active branch: `docs/tmr-terminal-audit-checkpoint`.
+Closure evidence:
 
-Closure evidence already on `main`:
-
-1. PR #30 merged the terminal Markdown/JSON audit and synchronized
-   STATE/ROADMAP/WORKLOG/protocol as
+1. terminal audit integration PR #30 merged as
    `83a135127302ca328bf49e3e71fbb8ac2e16da2b`;
-2. PR #30 pre-merge FAST `35529145010` passed;
-3. PR #30 pre-merge INTEGRATION `35529144962` passed in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. post-merge FAST `35529230596` passed;
-5. post-merge INTEGRATION `35529230618` passed in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-6. the authoritative scientific result remains TMR0–TMR5 `PASS`,
+2. PR #30 post-merge FAST `35529230596` and INTEGRATION `35529230618`
+   passed;
+3. continuity checkpoint PR #31 merged as
+   `bfc2a63e6f30dc290478b33524bc88d4dc664bf0`;
+4. PR #31 post-merge FAST `35529420125` and INTEGRATION `35529420121`
+   passed;
+5. the authoritative scientific result remains TMR0–TMR5 `PASS`,
    TMR6–TMR7 `BLOCKED`, overall `BLOCKED`;
-7. the consumed execution claim and terminal evidence remain immutable.
-
-This checkpoint performs documentation/continuity closure only. It does not
-modify production C++, runner/tooling behavior, protocol acceptance criteria,
-or scientific evidence.
+6. the first formal execution claim remains consumed and immutable;
+7. no diagnosis, runner correction, preparation, or new formal campaign is
+   active.
 
 ## Next admissible work item after closure
 
