@@ -133,10 +133,16 @@ retention, and no formal execution step. Runs `35516864464` and
 required tooling stop and simplification preceded the successful focused run
 `35517077819`.
 
-The preparation workflow itself has not been dispatched. PR #20 integrated it
-as `d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST run
+PR #20 integrated the preparation-only workflow as
+`d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST run
 `35519501704` and INTEGRATION run `35519501663` passed.
 
-One manual preparation dispatch is now admissible. Its resulting PREPARED
-package must be audited before any formal TMR execution is separately
-authorized.
+Formal preparation run `35524700979` then produced artifact `10609500629`
+for candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`. The retained package
+records the exact admitted cloud identity in all four cells and passed the
+independent preparation audit in
+`docs/audits/2026-09-20-topological-model-tmr-preparation-audit.md`.
+It remains unconsumed and no TMR gate has been executed or decided.
+
+A later execution workflow must restore and consume this exact PREPARED package;
+environment, candidate, input, path, or plan drift remains fail-closed.

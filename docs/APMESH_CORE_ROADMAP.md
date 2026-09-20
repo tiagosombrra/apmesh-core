@@ -571,8 +571,8 @@ IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
 CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
 FOCUSED TOOLING CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED /
 FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED /
-PREPARATION-ONLY WORKFLOW IMPLEMENTED / STATIC CONTRACT PASS / NOT DISPATCHED /
-NOT PREPARED / NOT EXECUTED / STAGE UNQUALIFIED`
+PREPARATION-ONLY WORKFLOW IMPLEMENTED / STATIC CONTRACT PASS / PREPARED /
+PREPARATION AUDIT PASS / NOT EXECUTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -1004,25 +1004,28 @@ environment evaluation. The formal launch plan seals the admitted `/usr/bin`
 CMake/CTest/Ninja and compiler paths, with focused GCC/Clang Debug PASS in run
 `35516578411`.
 
-A manual preparation-only GitHub Actions workflow is now implemented. It is
+A manual preparation-only GitHub Actions workflow is implemented. It is
 restricted to explicit `workflow_dispatch` on canonical `main`, invokes only
 `prepare` plus `validate-prepared`, writes to a new runner-temporary output
 root, retains the sealed package with a pinned artifact action, rejects any
 execution/terminal evidence, and contains no `execute` path. Runs
 `35516864464` and `35516972035` exposed consecutive mechanical quoting
-defects in the surrounding tooling workflow. The tooling stop was honored; the
-shell invocation was simplified before the next attempt. Run `35517077819`
-then passed the report-only evidence, runner, and preparation-workflow contracts
-in both GCC 13 Debug and Clang 18/libc++ Debug. The preparation workflow itself
-has not been dispatched, so no formal manifest exists and no TMR campaign has
-executed.
+defects in the surrounding tooling workflow. The tooling stop was honored; run
+`35517077819` then passed the complete focused/static contracts. PR #20
+integrated the workflow as
+`d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST
+`35519501704` and INTEGRATION `35519501663` passed.
 
-PR #20 integrated the preparation-only workflow as
-`d9297ffad4f503b4ea11b056885749fff5872201`. Post-merge FAST run
-`35519501704` and INTEGRATION run `35519501663` passed. The preparation
-workflow remains undispatched, so no formal PREPARED package or TMR execution
-exists.
+Formal preparation run `35524700979` was dispatched once on canonical
+`main` and produced retained artifact `10609500629` for candidate
+`e5eda2663d6ff4b93ce1205660ff04d432acb9c0`. The package has GitHub/archive
+SHA-256 `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`.
+Independent audit of the package seal, lifecycle, candidate, cloud identity,
+four-cell/two-repetition plan, 1534-file source inventory, 123 planned retained
+artifacts, and all twelve critical input hashes passed. The package remains
+unconsumed with `execution_requested=false`; TMR0-TMR7 remain
+`NOT_EXECUTED`.
 
-The next bounded scientific action is one explicit manual dispatch of the
-preparation-only workflow on canonical `main`, followed by audit of the sealed
-PREPARED artifact before any formal execution authorization.
+The next bounded scientific action is to implement a manual execution-only
+workflow bound to that exact audited artifact/candidate. It must be integrated
+and validated without dispatching formal execution in the same change.

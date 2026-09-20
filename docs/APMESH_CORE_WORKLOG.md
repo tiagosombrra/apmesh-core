@@ -49,7 +49,10 @@ writing.
 - operational closure checkpoint: PR #21 merged; its live revision is obtained
   from the remote audit rather than embedded here;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
-- formal TMR manifest: **none**;
+- first formal TMR PREPARED package: run `35524700979`, candidate
+  `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, artifact `10609500629`;
+- preparation audit: **PASS**, recorded in
+  `docs/audits/2026-09-20-topological-model-tmr-preparation-audit.md`;
 - formal TMR execution: **none**;
 - Topological Model qualification: **not qualified**.
 
@@ -61,7 +64,8 @@ writing.
 | Cloud environment supplement | MERGED | `docs/tmr-cloud-environment-supplement` / PR #17 | FAST/INTEGRATION merged checkpoint PASS | protocol/documentation only |
 | Fail-closed cloud identity binding | MERGED | `topology/tmr-cloud-identity-binding` / PR #18 | run `35516246789` PASS; `35516204233` retained mechanical protocol-guard failure | no formal manifest, no TMR execution |
 | Exact admitted cloud tool paths | MERGED | `topology/tmr-exact-tool-path-plan` / PR #19 | run `35516578411` PASS; post-merge FAST/INTEGRATION PASS | no formal manifest, no TMR execution |
-| Preparation-only manual workflow | MERGED | technical lineage `topology/tmr-preparation-only-workflow` -> `topology/tmr-preparation-only-workflow-v2`; continuation branch `ci/tmr-preparation-workflow-simplification`; PR #20 | `35516864464` and `35516972035` retained mechanical quoting failures; corrected `35517077819` PASS; post-merge FAST `35519501704` PASS and INTEGRATION `35519501663` PASS | workflow itself has never been dispatched; no PREPARED package exists |
+| Preparation-only manual workflow | MERGED | technical lineage `topology/tmr-preparation-only-workflow` -> `topology/tmr-preparation-only-workflow-v2`; continuation branch `ci/tmr-preparation-workflow-simplification`; PR #20 | `35516864464` and `35516972035` retained mechanical quoting failures; corrected `35517077819` PASS; post-merge FAST `35519501704` PASS and INTEGRATION `35519501663` PASS | workflow integrated; formal dispatch recorded separately below |
+| First formal TMR preparation and package audit | VALIDATED_UNMERGED | workflow run `35524700979`; audit branch `docs/tmr-prepared-package-audit` | run PASS; artifact `10609500629`; GitHub/archive SHA-256 `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`; preparation audit PASS | PREPARED only; `execution_requested=false`; TMR0-TMR7 `NOT_EXECUTED`; no execute |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
 
 ## Relevant branch classification
@@ -84,24 +88,33 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The preparation-only workflow integration work item is closed.**
+**Record and integrate the first formal TMR PREPARED-package audit —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Audit result:
 
-1. PR #20 merged as `d9297ffad4f503b4ea11b056885749fff5872201`;
-2. required PR FAST and both INTEGRATION checks passed;
-3. post-merge FAST run `35519501704` passed;
-4. post-merge INTEGRATION run `35519501663` passed in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-5. the preparation workflow remains undispatched and no PREPARED package exists.
+1. preparation run `35524700979` completed successfully on canonical `main`;
+2. candidate is `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`;
+3. artifact `10609500629` is retained with SHA-256
+   `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`;
+4. the package is `PREPARED`, `execution_requested=false`, and TMR0-TMR7
+   are all `NOT_EXECUTED`;
+5. seal, lifecycle, candidate, cloud identity, plan, inventories, and all twelve
+   critical input hashes independently audit PASS;
+6. no execution claim, command records, or terminal manifest exists.
 
-No implementation branch for the next scientific action is active.
+This work item closes only after the audit PR merges, post-merge FAST and
+INTEGRATION pass, and the merged WORKLOG/STATE checkpoint is reconciled.
 
 ## Next admissible work item after closure
 
-One explicit manual dispatch of `Topological Model TMR Preparation` from
-canonical `main`.
+Implement the smallest manual **execution-only** GitHub Actions path for the
+audited PREPARED artifact from run `35524700979`.
 
-That future action may create one sealed PREPARED package with
-`execution_requested=false` and all TMR0-TMR7 gates `NOT_EXECUTED`. It must
-then stop for audit. Formal `execute` remains unauthorized.
+That future workflow must restore artifact `10609500629` to the exact sealed
+output root, check out candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`,
+revalidate the complete PREPARED binding, expose only one explicit manual
+execution path, and be integrated/validated without dispatching it in the same
+change. Formal TMR execution remains unauthorized until that work item is
+separately closed.
+
