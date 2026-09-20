@@ -158,48 +158,48 @@ writing.
   PR #44; independent second terminal scientific audit, TMR0–TMR7 PASS.
 - `docs/topological-model-qualification-closure`: **CLOSURE-ONLY**; closes
   the qualified Topological Model stage before any Curve Representation entry.
+- `curve/continuous-representation-entry-decision`: **ACTIVE /
+  VALIDATED_UNMERGED**; literature-backed bounded entry decision only; no
+  curve production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Topological Model qualification is closed.**
+**Curve Representation — bounded scientific entry decision —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/continuous-representation-entry-decision`.
 
-1. corrected terminal audit PR #44 merged as
-   `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
-2. PR #44 FAST `35534295054`: PASS;
-3. PR #44 INTEGRATION `35534295078`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35534347597`: PASS;
-5. post-merge INTEGRATION `35534347623`: PASS;
-6. authoritative terminal audit records TMR0–TMR7 PASS and overall PASS;
-7. Topological Model is QUALIFIED only in the exact admitted GitHub-hosted
-   Ubuntu 24.04 x86_64 cloud envelope;
-8. Foundation and Geometry qualifications remain intact;
-9. no WSL/cloud equivalence is claimed;
-10. no curve production implementation has begun.
+Decision:
 
-No work item is active.
+- first investigation problem:
+  **Polynomial Cubic Bézier Value Representation and Evaluation**;
+- 2D and 3D fixed cubic polynomial curves only;
+- four ordered finite qualified control points;
+- parameter domain exactly `[0,1]`;
+- recursive de Casteljau evaluation using component-wise `std::lerp`;
+- exact endpoint semantics and geometric reversal;
+- explicit parameter failures;
+- no new runtime dependency;
+- no derivative, regularity, arc-length, topology-ownership, discretization,
+  quadrilateral, or parallel scope.
+
+Literature/reference review recorded in
+`docs/research/REFERENCE_REGISTER.md`, including Farin, Farouki/Rajan, CGAL,
+Open CASCADE, and the C++ `std::lerp` contract.
+
+This work item is documentation/decision only. No curve implementation exists
+on this branch.
 
 ## Next admissible work item after closure
 
-Open one separate scientific entry-decision work item for:
+After this entry decision is merged, post-merge FAST/INTEGRATION pass, and its
+checkpoint is closed, implement exactly one work unit:
 
-**Curve Representation — Continuous Geometry Before Discretization.**
+**Polynomial Cubic Bézier Value Representation and Evaluation.**
 
-The entry decision must bound the first investigation problem before any
-production implementation. It should define:
-
-1. the exact continuous curve capability admitted first;
-2. explicit exclusions;
-3. analytic/reference evidence requirements;
-4. finite/error semantics;
-5. prerequisite preservation requirements;
-6. deterministic representation and reversal expectations;
-7. the focused contract required before any stage-level qualification tooling;
-8. the later stage-exit regression boundary.
-
-No curve implementation belongs to the closure checkpoint itself.
+The implementation must remain within the entry decision and must reach
+`IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED` before any derivative
+or later curve work may open.
 
