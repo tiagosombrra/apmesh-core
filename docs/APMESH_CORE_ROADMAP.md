@@ -563,18 +563,10 @@ Stage exit gate: primitive operations are analytically verified across the decla
 
 ### Topological Model — Explicit Identity and Incidence
 
-Status: `IN INVESTIGATION / IDENTITY AND ORIENTED EDGE KERNEL IMPLEMENTED /
-FOCUSED CONTRACT PASS / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
-EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
-CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
-FOCUSED TOOLING CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED /
-FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED /
-PREPARATION-ONLY WORKFLOW IMPLEMENTED / STATIC CONTRACT PASS / PREPARED /
-PREPARATION AUDIT PASS / AUTHORIZATION-AS-CODE IMPLEMENTED /
-REUSABLE EXECUTOR STATIC CONTRACT PASS / NO EXECUTE_ONCE RECORD /
-NOT EXECUTED / STAGE UNQUALIFIED`
+Status: `IN INVESTIGATION / PRODUCTION IMPLEMENTATION COMPLETE /
+FOCUSED CONTRACTS PASS / CUMULATIVE REGRESSION EXECUTED ONCE /
+TERMINAL AUDIT COMPLETE / TMR0-TMR5 PASS / TMR6-TMR7 BLOCKED /
+FORMAL ATTEMPT CONSUMED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -631,14 +623,26 @@ The single stage-exit regression is pre-registered in
 bind the completed topology model, current-candidate Foundation/Geometry
 preservation, exact forward/reverse incidence, structural recomputation,
 canonical snapshot bytes, repeated/cross-cell determinism, and retained
-evidence integrity. The bounded report-only profile, experimental exporter,
-independent validator/comparer, revision-bound runner, and opt-in focused
-workflow are implemented. Their GCC 13 Debug and Clang 18/libc++ Debug tooling
-contracts passed on GitHub-hosted Ubuntu 24.04 in run `35514834796`. That run
-validated tooling only: no formal manifest was prepared, the fixed four-cell
-two-repetition TMR campaign was not executed, and no TMR gate or stage
-qualification result exists. Formal cloud execution still requires the
-explicit protocol environment amendment/supplement declared below.
+evidence integrity.
+
+The first formal cloud campaign was authorized by PR #29 and executed exactly
+once in run `35528077223` against candidate
+`e5eda2663d6ff4b93ce1205660ff04d432acb9c0`. The immutable execution claim
+exists and the formal attempt is consumed. Terminal artifact `10610497080`
+was independently audited. Package integrity, detached verification, eight
+topology certificates, cross-cell equivalence, negative outcomes, and all
+recorded commands are internally consistent.
+
+The terminal scientific audit is
+`docs/audits/2026-09-20-topological-model-tmr-terminal-audit.md`. It records
+TMR0–TMR5 `PASS`, TMR6–TMR7 `BLOCKED`, and overall `BLOCKED`. The blocker
+is evidence cardinality: the protocol requires the exact seven-test semantic
+allowlist once in each of two repetitions per cell, but the sealed runner
+executed semantic CTest once per cell while repeating only certificate
+production. Existing semantic CTests are 7/7 PASS in all four cells; there is
+no observed production-semantic contradiction. A new campaign is forbidden
+until a separately authorized diagnosis resolves the protocol/runner
+repetition-cardinality mismatch.
 
 #### Vertex and Edge Identity
 
@@ -806,19 +810,29 @@ Goal: define the end-to-end contract: for every input in the declared admissible
 
 Mandatory stage regression: execute the full certified fixture hierarchy, selected literature/benchmark models, deterministic repeats, scale/reparameterization variants, and all prior regression gates. This is the doctoral triangular-baseline release gate.
 
-### Parallel Equivalence — Optimize Only After Serial Certification
-
-Status: `NOT STARTED`
-
-Goal: introduce parallel execution without changing certified scientific semantics.
-
-Mandatory stage regression: serial/parallel certificate equivalence, repeated-run determinism, race/sanitizer checks, and full prerequisite regression.
-
 ### Quad-Dominant Extension — Compatibility-Preserving Quadrilateral Research
 
 Status: `NOT STARTED`
 
 Goal: begin only after the triangular certified baseline is released. Detailed decomposition will be created from literature and experimental evidence at that time.
+
+The quad-dominant extension remains serial and deterministic while its
+scientific semantics, compatibility constraints, quality criteria, and
+regression evidence are established. Parallel execution is intentionally
+deferred until this extension is qualified.
+
+### Parallel Equivalence — Optimize Only After Serial and Quad Certification
+
+Status: `NOT STARTED`
+
+Goal: introduce parallel execution only after the certified serial triangular
+baseline and the serial Quad-Dominant Extension are scientifically closed,
+without changing any qualified scientific semantics.
+
+Mandatory stage regression: serial/parallel certificate equivalence,
+repeated-run determinism, race/sanitizer checks, and full prerequisite
+regression across every qualified serial capability, including the
+quad-dominant extension.
 
 ### Tensor/Anisotropic Extension — Compatibility-Aware Metric Meshing
 
