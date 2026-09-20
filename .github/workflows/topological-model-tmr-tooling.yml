@@ -85,6 +85,7 @@ jobs:
               "apmesh_core.topological_model_cumulative_evidence",
               "apmesh_core.topological_model_cumulative_runner",
               "apmesh_core.topological_model_cumulative_prepare_workflow",
+              "apmesh_core.topological_model_cumulative_execute_workflow",
           ]
           observed = [test["name"] for test in inventory["tests"] if test["name"] in expected]
           if observed != expected:
@@ -109,3 +110,9 @@ jobs:
         run: |
           set -euo pipefail
           /usr/bin/ctest             --test-dir "${{ matrix.build_dir }}"             --output-on-failure             -R "^apmesh_core\.topological_model_cumulative_prepare_workflow$"
+
+      - name: Run execution-only workflow contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/ctest             --test-dir "${{ matrix.build_dir }}"             --output-on-failure             -R "^apmesh_core\.topological_model_cumulative_execute_workflow$"
