@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Workflow and Regression Policy
 
 Status: ACTIVE / MANDATORY
-Last updated: 2026-09-04
+Last updated: 2026-09-20
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Continuation state: `docs/APMESH_CORE_STATE.md`
 
@@ -417,7 +417,80 @@ At the end of a meaningful session/change:
 - record new literature/decisions;
 - record exact next admissible action.
 
-## 16. Anti-patterns explicitly prohibited
+## 16. Repository checkpoint, progress accounting, and audit cadence
+
+The Git repository is the continuation authority for every work session. Chat
+history may explain intent, but it must never be required to discover the
+current scientific state, the last accepted revision, or the next admissible
+action.
+
+Every meaningful execution report recorded in Git must identify:
+
+- baseline branch and commit;
+- exact objective and bounded scope;
+- work-class percentages for that execution;
+- files or mechanisms changed;
+- validation actually executed and its result;
+- evidence produced or intentionally not produced;
+- scientific status change, if any;
+- retained limitations and blockers;
+- exact next admissible action; and
+- synchronization status of `main`, active branch, and CI.
+
+Work-class percentages describe the planned/observed distribution of the
+execution and must sum to 100% across:
+
+- **Implementation** — production scientific/C++ behavior;
+- **Tests/validation** — focused tests, semantic regression, bug reproducers,
+  build portability, and test infrastructure;
+- **Evidence/experiments** — manifests, certificates, retained experimental
+  outputs, comparisons, and qualification execution; and
+- **Documentation/governance** — roadmap, continuation state, decisions,
+  audits, and process maintenance.
+
+These percentages are effort-accounting signals, not scientific completion
+scores. For ordinary implementation work, the standing target remains roughly
+60--65% implementation, 25--30% tests/validation, and about 10% combined
+evidence/documentation unless the work unit justifies another distribution.
+Qualification and audit work are explicit exceptions.
+
+Scientific-stage completion is reported separately as independent lanes, each
+from 0% to 100%:
+
+1. production implementation;
+2. focused validation;
+3. stage-regression/qualification tooling;
+4. formal evidence execution; and
+5. closure audit/documentation.
+
+Do not collapse these lanes into an overall percentage unless a stage decision
+pre-registers explicit weights. This avoids presenting arbitrary arithmetic as
+scientific progress.
+
+At every major phase boundary, and before authorizing a new Scientific Stage,
+perform a repository audit plus cumulative regression appropriate to the claim.
+The audit must verify at minimum:
+
+- `main` and documented baseline agreement;
+- no stale stage/status contradiction in STATE/ROADMAP/active decisions;
+- expected CI profiles and recent terminal results;
+- current semantic test inventory and declared allowlists;
+- retained prerequisite authority and limitations;
+- absence of undeclared production-scope expansion; and
+- one exact next admissible action.
+
+The reusable GitHub Actions **Major Semantic Regression** is an engineering
+regression over current direct/focused semantic tests on GCC 13 and Clang 18,
+Debug and Release, with qualification tooling disabled. It is not a scientific
+stage-qualification campaign and cannot substitute for a pre-registered stage
+protocol such as TMR0--TMR7.
+
+The continuation state must contain a compact current checkpoint so a new
+session can resume from the repository alone. A major audit/closure must record
+its terminal commit and CI run(s) in the repository before further scientific
+scope is authorized.
+
+## 17. Anti-patterns explicitly prohibited
 
 - advance because a test executable returned zero without inspecting its contract;
 - tune a tolerance until a fixture passes without a mathematical/numerical basis;

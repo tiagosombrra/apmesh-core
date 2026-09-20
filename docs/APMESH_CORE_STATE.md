@@ -61,6 +61,60 @@ The greenfield implementation must eventually be usable as a library inside a la
     explicit scientific-stage closure. Qualification tooling is opt-in and its
     historical evidence remains preserved without running by default.
 
+## Current repository checkpoint
+
+Canonical integration baseline before this audit:
+
+- repository: `tiagosombrra/apmesh-core`;
+- visibility: `PUBLIC`;
+- canonical branch: `main`;
+- accepted `main` revision: `b6e4459b4de0b8376eaf4c41848949f7e69fd312`;
+- GitHub Actions FAST on that revision: `PASS`, run `35510340606`;
+- open scientific stage: **Topological Model — Explicit Identity and Incidence**;
+- stage status: production bounded scope implemented, focused contracts pass,
+  cumulative TMR0--TMR7 pre-registered, stage unqualified.
+
+Current Topological Model completion lanes:
+
+| Lane | Completion | Current basis |
+| --- | ---: | --- |
+| Production implementation | 100% | Five authorized bounded topology work units implemented. |
+| Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
+| Stage-regression / qualification tooling | 0% | TMR report-only workflow/profile/exporter/comparer/runner not implemented. |
+| Formal evidence execution | 0% | No TMR manifest prepared and no TMR campaign executed. |
+| Closure audit / documentation | 0% | Stage cannot close before TMR0--TMR7 terminal audit. |
+
+Current cloud-execution infrastructure:
+
+| Capability | Completion | Status |
+| --- | ---: | --- |
+| FAST | 100% | GitHub-hosted Ubuntu 24.04, GCC 13 Debug; `main` PASS. |
+| Major semantic regression | 100% | Four-cell GitHub-hosted Ubuntu 24.04 regression PASS in run `35510690848`. |
+| INTEGRATION | 0% | Not yet implemented in GitHub Actions. |
+| QUALIFICATION environment | 0% | Reproducible cloud qualification envelope not yet admitted. |
+
+Current audit execution work-class allocation:
+
+- Implementation: **0%**;
+- Tests/validation: **55%**;
+- Evidence/experiments: **15%**;
+- Documentation/governance: **30%**.
+
+These percentages describe this audit execution's work distribution, not
+scientific completion. The independent completion lanes above are the
+authoritative stage-progress view.
+
+Accepted public/cloud engineering audit: `PASS`, recorded in
+`docs/audits/2026-09-20-public-cloud-baseline.md`. FAST run `35510690845`
+and four-cell Major Semantic Regression run `35510690848` passed on the audit
+candidate without production C++ change. The repository currently has no GitHub
+rulesets; this is a governance limitation, not a scientific regression.
+
+Exact next admissible action after this audit is integrated into `main`: add
+the compact GitHub Actions INTEGRATION profile for GCC 13 Debug and Clang
+18/libc++ Debug. The next scientific Topological Model action remains the
+smallest reusable report-only TMR0--TMR7 workflow.
+
 ## Current active stage
 
 **Topological Model — Explicit Identity and Incidence**
