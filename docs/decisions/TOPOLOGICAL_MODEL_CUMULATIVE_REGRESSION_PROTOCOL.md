@@ -472,3 +472,78 @@ PR #41 integrated the whole-commit guard as
 `35533347164` passed. The correction checkpoint is closed. The exact one-file
 second-package `EXECUTE_ONCE` authorization is now the sole permitted
 continuation.
+
+## 15. Second formal execution and corrected terminal audit
+
+PR #43 introduced exactly one new manifest-bound authorization record and
+merged it to protected `main` as
+`cddd959574ed6a677ac755a5b329d53a9cfe32ec`.
+
+The authorized identity is:
+
+- scientific candidate
+  `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
+- preparation run `35531261000`;
+- prepared artifact `10611054028`;
+- prepared artifact SHA-256
+  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
+- prepared-manifest SHA-256
+  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
+- preparation-seal SHA-256
+  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`.
+
+Protected-main run `35533702004` validated the complete authorization
+commit, exact machine-readable preparation audit, unclaimed manifest, caller
+binding, historical candidate, admitted cloud toolchain, GitHub artifact
+digest/provenance, and restored PREPARED package before creating the immutable
+claim:
+
+`tmr-execution-claim-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`.
+
+The run then invoked the corrected sealed campaign exactly once, removed
+reproducible build trees, verified terminal retention, and retained artifact
+`10612032787` with independently recomputed archive SHA-256:
+
+`dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8`.
+
+The second attempt is consumed.
+
+Independent audit authority:
+
+- `docs/audits/2026-09-20-topological-model-tmr-corrected-terminal-audit.md`;
+- `docs/audits/2026-09-20-topological-model-tmr-corrected-terminal-audit.json`.
+
+The corrected terminal package contains exactly:
+
+- 56 unique successful command records;
+- 112 planned and retained command logs;
+- 8 CTest discovery records;
+- 8 semantic CTest records;
+- 7/7 exact allowlist tests passing in every repetition;
+- 56 individual semantic test executions;
+- 8 byte-identical topology certificates;
+- complete negative, dependency, runtime and compile-command inventories;
+- detached candidate verification; and
+- exact sealed terminal retention.
+
+Independent gate decision:
+
+- TMR0: `PASS`;
+- TMR1: `PASS`;
+- TMR2: `PASS`;
+- TMR3: `PASS`;
+- TMR4: `PASS`;
+- TMR5: `PASS`;
+- TMR6: `PASS`;
+- TMR7: `PASS`;
+- overall: `PASS`.
+
+Per Section 12, the Topological Model stage is therefore **QUALIFIED only in
+the exact formally admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope**.
+This result does not establish WSL/cloud equivalence and does not alter the
+declared topology nonclaims.
+
+The next permitted scientific transition after audit integration and closure
+is one separate entry decision for **Curve Representation — Continuous Geometry
+Before Discretization**. No curve implementation begins automatically.
+
