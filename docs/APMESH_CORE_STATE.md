@@ -134,7 +134,7 @@ Current Topological Model completion lanes:
 | --- | ---: | --- |
 | Production implementation | 100% | Five authorized bounded topology work units implemented. |
 | Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
-| Stage-regression / qualification tooling | 100% | Report-only profile/exporter/comparer/runner, fail-closed cloud binding, exact admitted tool plan, preparation workflow, and one-shot manual execution wrapper are implemented; execution-wrapper focused/static validation PASS in run `35525736120`. |
+| Stage-regression / qualification tooling | 100% | Report-only profile/exporter/comparer/runner, fail-closed cloud binding, exact admitted tool plan, preparation workflow, exact authorization validator/controller, and reusable one-shot executor are implemented; authorization-as-code focused/static validation PASS in run `35527446051`. |
 | Formal evidence preparation | 100% | Run `35524700979` produced the first sealed PREPARED package for candidate `e5eda266`; independent preparation audit PASS; artifact remains unconsumed. |
 | Formal evidence execution | 0% | No `execute` invocation, command records, terminal manifest, TMR evidence campaign, or gate decision exists. |
 | Closure audit / documentation | 0% | Stage cannot close before formal execution and TMR0--TMR7 terminal scientific audit. |
@@ -247,17 +247,20 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after integration of the
+authorization-as-code mechanism:
 
-**Dispatch `Topological Model TMR Execution` exactly once on canonical
-`main`, consume the exact audited PREPARED artifact, retain the terminal
-package, and stop for independent TMR0--TMR7 audit.**
+**Create one separate exact `EXECUTE_ONCE` authorization record by pull
+request. Its merge to protected `main` is the formal execution authorization
+event and automatically calls the reusable Topological Model TMR executor.**
 
-The execution workflow is integrated by PR #25 as
-`d7019fbff97989a79fd27fcb1915073881a53564`; post-merge FAST run
-`35525932108` and INTEGRATION run `35525932111` passed. The work item is
-closed in `docs/APMESH_CORE_WORKLOG.md`. The PREPARED package remains
-unconsumed, no claim tag exists, and Topological Model remains unqualified.
+The authorization-as-code implementation is validated in tooling run
+`35527446051` in both GCC 13 Debug and Clang 18/libc++ Debug. It is not
+admissible to add the authorization record until this implementation is merged,
+post-merge FAST/INTEGRATION pass, and the work item is closed in
+`docs/APMESH_CORE_WORKLOG.md`. The audited PREPARED package remains
+unconsumed, no execution-claim tag exists, no formal TMR execution has
+occurred, and Topological Model remains unqualified.
 
 ## Current active stage
 
@@ -314,7 +317,8 @@ adjacency, pairing, manifold policy, geometry, or embedded cryptography.
 
 **Topological Model Cumulative Regression — PRE-REGISTERED / REPORT-ONLY
 TOOLING IMPLEMENTED / FOCUSED TOOLING CONTRACTS PASS / PREPARED /
-PREPARATION AUDIT PASS / NOT EXECUTED.** The single stage-exit protocol is fixed in
+PREPARATION AUDIT PASS / AUTHORIZATION-AS-CODE VALIDATED / NOT AUTHORIZED /
+NOT EXECUTED.** The single stage-exit protocol is fixed in
 `docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`. It uses
 four GCC/Clang Debug/Release cells, two repetitions per cell, the exact seven-
 test prerequisite/topology allowlist, and TMR0–TMR7. The reusable report-only
@@ -336,11 +340,17 @@ candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`. Independent audit of
 the retained package, seal, lifecycle, cloud identity, fixed plan, 1534-file
 candidate inventory, 123 planned artifacts, and all twelve critical input hashes
 passed. The package remains unconsumed with `execution_requested=false` and
-TMR0--TMR7 `NOT_EXECUTED`. A one-shot execution wrapper now binds the exact
-artifact/candidate, performs full preflight before an immutable manifest-hash
-claim tag, and exposes exactly one `execute` invocation; focused/static run
-`35525736120` passed in both GCC/Clang cells. No claim tag, four-cell TMR
-execution, terminal result, gate decision, or qualification result exists.
+TMR0--TMR7 `NOT_EXECUTED`. The execution path is being strengthened from a
+standalone manual dispatch to repository-resident authorization-as-code: an
+exact `EXECUTE_ONCE` JSON record must be newly added to protected `main`,
+the controller validates that record and rejects an existing claim, and the
+reusable executor independently revalidates the caller commit and authorization
+before checking out the exact historical candidate. The original full PREPARED
+binding, immutable manifest-hash claim, single `execute`, no-retry rule, and
+terminal retention remain intact. Focused/static tooling run `35527446051`
+passed all six TMR tooling contracts in both GCC/Clang cells. No authorization
+record, claim tag, four-cell TMR execution, terminal result, gate decision, or
+qualification result exists.
 
 Current prerequisite closure evidence:
 
