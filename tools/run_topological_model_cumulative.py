@@ -157,7 +157,7 @@ def protocol_check(path: pathlib.Path) -> None:
         "execution_requested=false",
         "detached-worktree verification",
         "TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md",
-        "fail closed",
+        "fails closed",
         "## 13. Next bounded action",
     )
     if any(token not in content for token in required):
