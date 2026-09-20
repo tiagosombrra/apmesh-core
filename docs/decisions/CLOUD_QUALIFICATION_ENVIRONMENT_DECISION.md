@@ -1,6 +1,6 @@
 # Cloud Qualification Environment — Admission Decision
 
-Status: CANDIDATE / NOT ADMITTED  
+Status: ADMITTED / CQE0-CQE7 PASS / DISTINCT FROM WSL  
 Date: 2026-09-20  
 Repository baseline: `6f2827bf180fce19f39be8ae44d72f8d74a473b2`
 
@@ -128,9 +128,30 @@ A PASS does not establish:
   evidence; or
 - Topological Model qualification.
 
+## Execution and decision
+
+The first admission run, `35512991310`, was retained as
+`BLOCKED_BY_CMAKE_CACHE_TYPE_ASSERTION`: environment identity and configure
+passed, but a workflow assertion required the wrong CMake cache type for the
+already correct `/usr/bin/ninja` value. One focused mechanical correction was
+made without changing environment identity, production C++, or scientific
+acceptance.
+
+The corrected run, `35513051098`, passed all four cells on functional candidate
+`952695f0456f095e4f7204d34a7652738dbd75da`. Each cell matched the declared
+runner image and package/tool identities, discovered exactly seven semantic
+tests, retained qualification tooling as OFF, and completed 7/7 semantic tests.
+
+CQE0–CQE7 are therefore **PASS**. The cloud environment is admitted as a
+distinct bounded qualification envelope candidate. It is not declared
+scientifically equivalent to WSL.
+
+Full retained audit:
+`docs/audits/2026-09-20-cloud-qualification-environment-admission.md`.
+
 ## Next action
 
-Implement and execute the bounded environment-admission workflow. If CQE0–CQE7
-pass, record the cloud environment as admitted for future qualification
-preparation. Only then may the Topological Model qualification protocol be
-explicitly amended or supplemented to permit a cloud campaign.
+The next bounded scientific implementation action is the smallest reusable
+report-only TMR0–TMR7 workflow. Before any formal TMR cloud execution, the
+Topological Model qualification protocol must explicitly name this admitted
+cloud envelope; no environment transition may be inferred silently.
