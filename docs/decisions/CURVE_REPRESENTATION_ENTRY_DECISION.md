@@ -1,6 +1,6 @@
 # Curve Representation — Bounded Entry Decision
 
-Status: ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED
+Status: FIRST WORK UNIT IMPLEMENTED / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -336,3 +336,41 @@ Validation:
 The entry-decision checkpoint is closed. The sole next bounded work item is
 implementation of **Polynomial Cubic Bézier Value Representation and
 Evaluation** within the scope fixed above.
+
+## First work-unit implementation result
+
+Branch `curve/cubic-bezier-value-evaluation` implements only the authorized
+Polynomial Cubic Bézier Value Representation and Evaluation work unit:
+
+- `CubicBezier2` and `CubicBezier3` immutable value representations;
+- exactly four ordered qualified control points;
+- evaluation only for finite `t∈[0,1]`;
+- recursive component-wise de Casteljau evaluation using `std::lerp`;
+- exact endpoint semantics;
+- geometric reversal by reversing control-point order;
+- explicit `CurveError::non_finite_parameter`,
+  `parameter_out_of_domain`, and defensive `non_finite_result`;
+- no derivative, regularity, curvature, integration, topology ownership,
+  discretization, meshing or parallel capability.
+
+Focused evidence is implemented by:
+
+- `apmesh_core.curve_representation`;
+- `apmesh_core.curve_header_isolation`.
+
+PR validation for branch head `2da0d55b1d0404c108449fb15ae8b0f528a6c3f0`:
+
+- FAST run `35541613233`: PASS, GCC 13 Debug, 9/9 selected tests;
+- INTEGRATION run `35541613216`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 9/9 selected tests in each cell.
+
+The selected nine tests include both new curve contracts plus the required
+Numeric, Geometry Primitives, Cartesian Frames, Topological Model, Minimal
+Small Linear Algebra and Math Header Isolation prerequisite tests.
+
+Scientific status after this focused evidence is exactly:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
+
+No stage-level Curve Representation qualification is claimed by this component
+work unit.
