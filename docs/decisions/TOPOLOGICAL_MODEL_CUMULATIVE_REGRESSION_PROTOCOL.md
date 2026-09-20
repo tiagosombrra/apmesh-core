@@ -440,3 +440,15 @@ PR #37 integrated the corrected preparation audit as
 `35531732329` and FAST `35531732270` passed. The audit checkpoint is
 therefore closed. The authorization-binding/generalization work item is now the
 sole permitted continuation.
+
+The generic binding is specified in
+`docs/decisions/TOPOLOGICAL_MODEL_TMR_GENERIC_AUTHORIZATION_BINDING_DECISION.md`.
+It preserves the scientific protocol and one-shot authorization semantics while
+making campaign identity data-driven from an exact, closed authorization
+record. Final TMR Tooling run `35532220165` passed in both declared tooling
+cells. This infrastructure change itself does not authorize execution.
+
+After integration and checkpoint closure, the only permitted continuation is a
+separate one-file `EXECUTE_ONCE` authorization PR for the audited second
+PREPARED manifest
+`f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`.
