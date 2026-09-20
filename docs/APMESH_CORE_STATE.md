@@ -277,6 +277,14 @@ The bounded implementation remains exactly:
 No derivative, regularity, arc length, rational curve, topology ownership,
 discretization, quadrilateral, or parallel capability is authorized.
 
+Current implementation branch:
+`curve/cubic-bezier-value-evaluation`.
+
+The branch currently adds only the fixed cubic value/evaluation API,
+de Casteljau implementation, focused semantic tests, header isolation and CMake
+registration. Scientific status remains NOT QUALIFIED; PR validation is
+pending.
+
 
 ## Current active stage
 
@@ -286,8 +294,8 @@ NOT QUALIFIED**
 
 Current entry decision:
 
-**Polynomial Cubic Bézier Value Representation and Evaluation — AUTHORIZED /
-NOT IMPLEMENTED.** The bounded work unit introduces only immutable 2D/3D cubic
+**Polynomial Cubic Bézier Value Representation and Evaluation — ACTIVE /
+VALIDATION PENDING.** The bounded work unit introduces only immutable 2D/3D cubic
 polynomial Bézier geometry with four ordered control points, evaluation on the
 closed normalized domain `[0,1]` by de Casteljau/`std::lerp`, exact
 endpoints, reversal, explicit parameter failures, and focused analytic evidence.
