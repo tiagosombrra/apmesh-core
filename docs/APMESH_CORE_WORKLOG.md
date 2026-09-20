@@ -40,10 +40,10 @@ writing.
 
 ## Current canonical baseline
 
-- `main`: `503b023dd00059300c1b27e275df5e2d27534aac`;
-- PR #19: merged;
-- post-merge FAST: run `35516767520`, PASS;
-- post-merge INTEGRATION: run `35516767491`, PASS;
+- `main`: `d9297ffad4f503b4ea11b056885749fff5872201`;
+- PR #20: merged;
+- post-merge FAST: run `35519501704`, PASS;
+- post-merge INTEGRATION: run `35519501663`, PASS in GCC 13 Debug and Clang 18/libc++ Debug;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - formal TMR manifest: **none**;
 - formal TMR execution: **none**;
@@ -57,14 +57,14 @@ writing.
 | Cloud environment supplement | MERGED | `docs/tmr-cloud-environment-supplement` / PR #17 | FAST/INTEGRATION merged checkpoint PASS | protocol/documentation only |
 | Fail-closed cloud identity binding | MERGED | `topology/tmr-cloud-identity-binding` / PR #18 | run `35516246789` PASS; `35516204233` retained mechanical protocol-guard failure | no formal manifest, no TMR execution |
 | Exact admitted cloud tool paths | MERGED | `topology/tmr-exact-tool-path-plan` / PR #19 | run `35516578411` PASS; post-merge FAST/INTEGRATION PASS | no formal manifest, no TMR execution |
-| Preparation-only manual workflow | VALIDATED_UNMERGED | technical lineage `topology/tmr-preparation-only-workflow` -> `topology/tmr-preparation-only-workflow-v2`; continuation branch `ci/tmr-preparation-workflow-simplification` | `35516864464` and `35516972035` retained mechanical quoting failures; corrected `35517077819` PASS in GCC/Clang focused/static contracts | workflow itself has never been dispatched; no PREPARED package exists |
+| Preparation-only manual workflow | MERGED | technical lineage `topology/tmr-preparation-only-workflow` -> `topology/tmr-preparation-only-workflow-v2`; continuation branch `ci/tmr-preparation-workflow-simplification`; PR #20 | `35516864464` and `35516972035` retained mechanical quoting failures; corrected `35517077819` PASS; post-merge FAST `35519501704` PASS and INTEGRATION `35519501663` PASS | workflow itself has never been dispatched; no PREPARED package exists |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
 
 ## Relevant branch classification
 
-- `ci/tmr-preparation-workflow-simplification`: **ACTIVE /
-  VALIDATED_UNMERGED**; contains the validated preparation-only workflow plus
-  synchronized continuation documentation.
+- `ci/tmr-preparation-workflow-simplification`: **MERGED / HISTORICAL** via
+  PR #20; contains the integrated preparation-only workflow lineage and the
+  first operational-continuity checkpoint.
 - `topology/tmr-preparation-only-workflow-v2`: **SUPERSEDED BY ACTIVE
   CONTINUATION BRANCH**; validated technical ancestor, run `35517077819`.
 - `topology/tmr-preparation-only-workflow`: **BLOCKED_RETAINED /
@@ -79,21 +79,21 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Integrate the preparation-only manual workflow and synchronized continuation
-documentation.**
+**None. The preparation-only workflow integration work item is closed.**
 
-Acceptance before this work item can close:
+Closure evidence:
 
-1. open a PR from `ci/tmr-preparation-workflow-simplification` to `main`;
-2. required FAST and both INTEGRATION checks pass;
-3. merge using the repository-allowed linear method;
-4. post-merge FAST and INTEGRATION pass on the merged revision;
-5. verify this ledger and `APMESH_CORE_STATE.md` on `main` identify the
-   preparation workflow as integrated but **not dispatched**.
+1. PR #20 merged as `d9297ffad4f503b4ea11b056885749fff5872201`;
+2. required PR FAST and both INTEGRATION checks passed;
+3. post-merge FAST run `35519501704` passed;
+4. post-merge INTEGRATION run `35519501663` passed in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+5. the preparation workflow remains undispatched and no PREPARED package exists.
 
-Only after all five conditions pass may the next work item become active.
+No implementation branch for the next scientific action is active.
 
 ## Next admissible work item after closure
+
 
 One explicit manual dispatch of `Topological Model TMR Preparation` from
 canonical `main`.
