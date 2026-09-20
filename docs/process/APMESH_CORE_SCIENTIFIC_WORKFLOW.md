@@ -258,7 +258,9 @@ Run the relevant FAST tests and compact cumulative semantic tests with GCC
 Debug and Clang/libc++ Debug. Add Release only when optimization, `NDEBUG`, or
 floating-point behavior is a declared risk. The standard Debug entry points
 are `ctest --preset integration-gcc-debug` and
-`ctest --preset integration-clang-debug`. Integration does not automatically
+`ctest --preset integration-clang-debug`. GitHub Actions mirrors these as the
+required jobs `GCC 13 Debug / INTEGRATION` and
+`Clang 18 libc++ Debug / INTEGRATION`. Integration does not automatically
 create a manifest, retention package, or formal campaign.
 
 ### Scientific-stage qualification
@@ -481,7 +483,9 @@ The audit must verify at minimum:
 
 The reusable GitHub Actions **Major Semantic Regression** is an engineering
 regression over current direct/focused semantic tests on GCC 13 and Clang 18,
-Debug and Release, with qualification tooling disabled. It is not a scientific
+Debug and Release, with qualification tooling disabled. It is intentionally
+manual (`workflow_dispatch`) and is executed at declared major phase
+boundaries rather than on every pull request. It is not a scientific
 stage-qualification campaign and cannot substitute for a pre-registered stage
 protocol such as TMR0--TMR7.
 
