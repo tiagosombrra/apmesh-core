@@ -135,72 +135,56 @@ writing.
 - `docs/tmr-repetition-correction-closure`: **MERGED / HISTORICAL** via
   PR #36; closes the corrected-runner checkpoint and authorizes a new formal
   preparation.
-- `docs/tmr-corrected-preparation-audit`: **ACTIVE /
-  VALIDATED_UNMERGED**; independent audit of the second PREPARED package only.
+- `docs/tmr-corrected-preparation-audit`: **MERGED / HISTORICAL** via PR #37;
+  independent audit of the second PREPARED package only.
+- `docs/tmr-corrected-preparation-audit-closure`: **CLOSURE-ONLY**; records
+  PR #37 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Integrate the corrected second TMR PREPARED-package audit —
-VALIDATED_UNMERGED.**
+**None. The corrected second PREPARED-package audit is closed.**
 
-Active branch: `docs/tmr-corrected-preparation-audit`.
+Closure evidence:
 
-Audited preparation:
+1. preparation run `35531261000` produced the second corrected PREPARED
+   package for candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
+2. independent audit decision:
+   **PASS / PREPARED / NOT EXECUTED**;
+3. audit PR #37 merged as
+   `1f004a06aa9c6c72e4053b23c67ce514e322369d`;
+4. PR #37 FAST `35531688595`: PASS;
+5. PR #37 INTEGRATION `35531688584`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+6. post-merge INTEGRATION `35531732329`: PASS in both cells;
+7. post-merge FAST `35531732270`: PASS;
+8. the audited package remains PREPARED and unconsumed; no execution claim or
+   terminal evidence exists for it.
 
-1. workflow run `35531261000`, event `workflow_dispatch`, branch `main`;
-2. candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
-3. artifact `10611054028`,
-   `tmr-prepared-37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
-4. artifact ZIP SHA-256
-   `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
-5. prepared-manifest SHA-256
-   `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
-6. preparation-seal SHA-256
-   `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
-7. exact seven-file PREPARED archive, with no execution claim, command records,
-   terminal manifest, certificate index or failure record;
-8. candidate/upstream equality, clean-tree claim, 1546 retained source paths,
-   and 1546 GitHub tree blobs with identical path-list SHA-256
-   `1afa38a785143adaee41887b23f11e400dd538b73b1492dfae77ffa4d79c4e2a`;
-9. 12/12 critical input hashes independently recomputed against the exact
-   GitHub candidate and matched;
-10. all four admitted cloud observations PASS;
-11. corrected planned execution cardinality: 56 unique command records,
-    112 command logs, 14 commands per cell, eight semantic CTest records and
-    56 individual semantic test executions;
-12. lifecycle `PREPARED`, `execution_requested=false`, TMR0–TMR7 all
-    `NOT_EXECUTED`.
-
-Audit decision: **PASS / PREPARED / NOT EXECUTED.**
-
-The current authorization validator/controller/executor constants are still
-bound to the consumed first PREPARED package. No `EXECUTE_ONCE` for this
-second package is admissible yet.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this preparation audit is merged, post-merge FAST/INTEGRATION pass, and
-the audit checkpoint is closed, open one bounded authorization-binding work
-item for the audited second PREPARED package.
+Open one bounded authorization-binding/generalization work item for the audited
+second PREPARED package.
 
-That work item must preserve repository-resident one-shot authorization and
-fail-closed behavior while binding, directly or through a safely generalized
-mechanism, the exact audited identities:
+The work item must preserve the one-shot repository-resident authorization
+model and fail-closed execution semantics while making the exact audited second
+package admissible:
 
 - candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
 - preparation run `35531261000`;
 - artifact ID `10611054028`;
-- artifact SHA-256
+- artifact ZIP SHA-256
   `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
 - prepared-manifest SHA-256
   `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
 - preparation-seal SHA-256
   `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
-- corrected preparation-audit authority.
+- preparation audit
+  `docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.md`.
 
-The binding work item must not itself add `EXECUTE_ONCE`, create a claim, or
-execute the campaign. Only after that mechanism is merged, validated and
-closed may a separate exact authorization-record PR be created.
+That work item must not add `EXECUTE_ONCE`, create a claim, or execute the
+campaign.
 
