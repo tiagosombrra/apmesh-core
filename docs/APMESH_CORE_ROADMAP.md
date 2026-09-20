@@ -945,5 +945,13 @@ Deterministic edge-incidence structural classification and immutable canonical
 snapshot emission are implemented, with focused GCC/Clang Debug contracts
 passing. Neither converts structural signatures into adjacency, pairing,
 boundary, manifold, shell, or geometric claims. The cumulative TMR0–TMR7
-protocol is pre-registered; the next bounded action is its smallest reusable
-report-only workflow. No further production topology concept is authorized.
+protocol is pre-registered.
+
+The repository/public-cloud transition audit passed on 2026-09-20. FAST and the
+reusable four-cell Major Semantic Regression passed on GitHub-hosted Ubuntu
+24.04 without production C++ change; the audit record is
+`docs/audits/2026-09-20-public-cloud-baseline.md`. The next infrastructure
+action is the compact INTEGRATION GitHub Actions profile for GCC 13 Debug and
+Clang 18/libc++ Debug. The next bounded scientific action remains the smallest
+reusable report-only TMR0–TMR7 workflow. No further production topology concept
+is authorized.
