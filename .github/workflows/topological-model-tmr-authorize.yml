@@ -64,7 +64,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          /usr/bin/python3 tools/topological_model_tmr_authorization.py             --source-root .             validate             --authorization "${TMR_AUTHORIZATION_FILE}"             --github-output "${GITHUB_OUTPUT}"
+          /usr/bin/python3 tools/topological_model_tmr_authorization.py \
+            --source-root . \
+            validate \
+            --authorization "${TMR_AUTHORIZATION_FILE}" \
+            --github-output "${GITHUB_OUTPUT}"
 
       - name: Require unclaimed PREPARED manifest
         shell: bash
