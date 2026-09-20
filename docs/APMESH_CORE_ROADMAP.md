@@ -852,6 +852,13 @@ discretization, quadrilateral meshing, and parallel execution. Passing the
 focused contract will establish only `IMPLEMENTED / FOCUSED CONTRACTS PASS /
 NOT QUALIFIED`; stage qualification remains a later cumulative regression.
 
+PR #46 integrated the entry authority as
+`c76e2946c8c9ffec658e4c8aa146f1abdca62f33`. PR FAST
+`35536256853`, PR INTEGRATION `35536256854`, post-merge FAST
+`35536324878`, and post-merge INTEGRATION `35536324875` passed. The entry
+checkpoint is closed. The sole next work item is the bounded cubic
+representation/evaluation implementation.
+
 #### Cubic Bezier Evaluation
 
 - Implement `CubicBezier2`/`CubicBezier3` value semantics from four
