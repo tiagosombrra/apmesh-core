@@ -250,36 +250,50 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after entry-decision integration:
 
-**Open one separate scientific entry decision for Curve Representation —
-Continuous Geometry Before Discretization.**
+**Implement Polynomial Cubic Bézier Value Representation and Evaluation only.**
 
-Topological Model qualification is closed on `main`.
+Entry authority:
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`.
 
-Integration evidence:
+Authorized first implementation scope:
 
-- corrected terminal-audit PR #44 merged as
-  `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
-- PR FAST `35534295054`: PASS;
-- PR INTEGRATION `35534295078`: PASS;
-- post-merge FAST `35534347597`: PASS;
-- post-merge INTEGRATION `35534347623`: PASS.
+- immutable `CubicBezier2` and `CubicBezier3`;
+- four ordered qualified control points;
+- exact `[0,1]` parameter domain;
+- de Casteljau evaluation using component-wise `std::lerp`;
+- geometric reversal;
+- explicit invalid-parameter failures;
+- focused GCC 13 Debug and Clang 18/libc++ Debug contracts;
+- preservation of accepted Numeric, Geometry, Cartesian Frames and Topological
+  Model semantics.
 
-Scientific status:
+No derivatives, regularity, arc length, rational curves, topology ownership,
+discretization, quadrilateral meshing, or parallel execution are authorized by
+this entry decision.
 
-- TMR0–TMR7: PASS;
-- overall: PASS;
-- Topological Model: QUALIFIED in the exact admitted GitHub-hosted Ubuntu
-  24.04 x86_64 cloud envelope;
-- WSL/cloud equivalence: not claimed.
-
-The next entry decision must bound the first continuous-curve investigation
-before production code is written. Curve implementation is not authorized by
-Topological Model qualification alone.
+Topological Model remains QUALIFIED; Curve Representation is
+`IN INVESTIGATION / NOT QUALIFIED`.
 
 
 ## Current active stage
+
+**Curve Representation — Continuous Geometry Before Discretization —
+IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED /
+NOT QUALIFIED**
+
+Current entry decision:
+
+**Polynomial Cubic Bézier Value Representation and Evaluation — AUTHORIZED /
+NOT IMPLEMENTED.** The bounded work unit introduces only immutable 2D/3D cubic
+polynomial Bézier geometry with four ordered control points, evaluation on the
+closed normalized domain `[0,1]` by de Casteljau/`std::lerp`, exact
+endpoints, reversal, explicit parameter failures, and focused analytic evidence.
+It does not authorize derivatives, curvature, arc length, splines/rational
+curves, topological ownership, discretization, quad meshing, or parallelism.
+
+## Most recently qualified stage
 
 **Topological Model — Explicit Identity and Incidence**
 
