@@ -145,6 +145,17 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.curve_representation
     )
 
+    add_executable(apmesh_core.curve_differential
+        tests/curve_differential.cpp
+    )
+    target_link_libraries(apmesh_core.curve_differential PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.curve_differential)
+
+    add_test(
+        NAME apmesh_core.curve_differential
+        COMMAND apmesh_core.curve_differential
+    )
+
     add_executable(apmesh_core.curve_header_isolation
         tests/curve_header_isolation.cpp
     )
@@ -204,6 +215,7 @@ if(BUILD_TESTING)
     )
     set_tests_properties(
         apmesh_core.curve_representation
+        apmesh_core.curve_differential
         PROPERTIES LABELS "curve;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
     set_tests_properties(
