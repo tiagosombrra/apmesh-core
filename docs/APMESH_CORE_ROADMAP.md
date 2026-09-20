@@ -147,6 +147,27 @@ record, or chronological narrative for every implementation step. Small
 components may be integrated before formal stage qualification when their
 focused contracts pass and their status remains explicitly unqualified.
 
+### 2.8 Repository continuity and progress-reporting rule
+
+The repository must remain sufficient to continue the project without chat
+history. Every major status change records a compact checkpoint in
+`docs/APMESH_CORE_STATE.md` with the accepted revision, active stage, terminal
+CI/regression state, retained blockers, progress lanes, and exact next
+admissible action.
+
+Each execution reports work-class percentages that sum to 100% across
+implementation, tests/validation, evidence/experiments, and
+documentation/governance. These percentages describe effort distribution, not
+scientific completion. Stage completion is reported separately as independent
+0--100% lanes for production implementation, focused validation,
+stage-regression/qualification tooling, formal evidence execution, and closure
+audit/documentation.
+
+At every major phase boundary, run an explicit repository audit and cumulative
+semantic regression before authorizing further scientific scope. Engineering
+CI regressions do not substitute for a stage's pre-registered scientific
+qualification protocol.
+
 ## 3. Technology baseline
 
 The greenfield core is defined as follows unless changed by a reviewed architecture decision:
