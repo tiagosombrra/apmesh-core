@@ -345,3 +345,45 @@ command/evidence cardinality, the minimal tooling correction, and the
 requirements for a new PREPARED package. It must not prepare, authorize, or
 execute another formal campaign.
 
+## 14. Prospective repetition-scope clarification
+
+This section is prospective and applies only to a newly prepared campaign after
+the first formal campaign was independently audited as `BLOCKED`. It does not
+reinterpret, rescue, or complete run `35528077223`.
+
+The diagnosis authority is
+`docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`.
+
+For each of the four fixed matrix cells:
+
+1. configure the cell once;
+2. for each of the two declared repetitions, in order:
+   - invoke the sealed build command on that configured cell build tree;
+   - rediscover and verify the exact seven-test semantic CTest allowlist;
+   - execute the exact semantic allowlist once and prove 7/7 PASS;
+   - produce one topology certificate;
+   - independently validate that certificate;
+3. after both repetitions, collect negative outcomes, dependency inventory,
+   runtime dependency evidence, and the retained compile-command inventory once
+   for the cell.
+
+A repetition does not require a fresh CMake configuration, clean rebuild, or a
+distinct build directory unless a later separately reviewed scientific
+decision explicitly adds such a requirement. Re-invoking the sealed build
+command is sufficient to satisfy the original build-per-repetition requirement.
+
+Therefore a conforming four-cell/two-repetition execution has exactly 56
+command records:
+
+- 4 configure;
+- 8 build;
+- 8 CTest discovery;
+- 8 semantic CTest;
+- 8 certificate production;
+- 8 certificate validation;
+- 4 negative-outcome;
+- 4 dependency-inventory; and
+- 4 runtime-dependency records.
+
+The scientific matrix, repetitions, semantic allowlist, topology cases, TMR0-
+TMR7 gates, failure policy, and acceptance criteria are unchanged.
