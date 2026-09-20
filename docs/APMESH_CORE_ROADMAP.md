@@ -563,10 +563,9 @@ Stage exit gate: primitive operations are analytically verified across the decla
 
 ### Topological Model — Explicit Identity and Incidence
 
-Status: `IN INVESTIGATION / PRODUCTION IMPLEMENTATION COMPLETE /
-FOCUSED CONTRACTS PASS / CUMULATIVE REGRESSION EXECUTED ONCE /
-TERMINAL AUDIT COMPLETE / TMR0-TMR5 PASS / TMR6-TMR7 BLOCKED /
-FORMAL ATTEMPT CONSUMED / STAGE UNQUALIFIED`
+Status: `QUALIFIED / PRODUCTION IMPLEMENTATION COMPLETE /
+FOCUSED CONTRACTS PASS / SECOND CUMULATIVE REGRESSION COMPLETE /
+TMR0-TMR7 PASS / candidate 37f9af77 / GitHub Ubuntu 24.04 x86_64`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -750,6 +749,31 @@ post-merge FAST `35533347184`, and post-merge INTEGRATION
 `35533347164` all passed. The correction checkpoint is closed. The sole next
 bounded work is the exact one-file `EXECUTE_ONCE` authorization for the
 audited second PREPARED package.
+
+PR #43 then merged the exact one-file second `EXECUTE_ONCE` authorization as
+`cddd959574ed6a677ac755a5b329d53a9cfe32ec`. Protected-main run
+`35533702004` validated the authorization, audited PREPARED binding, exact
+artifact provenance and admitted cloud environment; created the immutable
+manifest-hash execution claim; executed the corrected sealed campaign exactly
+once; verified retention; and retained terminal artifact `10612032787`.
+
+Independent terminal audit is retained in
+`docs/audits/2026-09-20-topological-model-tmr-corrected-terminal-audit.md`.
+It recomputes the complete terminal package and records TMR0–TMR7 `PASS`,
+overall `PASS`. The package contains the required 56 command records,
+eight exact semantic CTest repetitions (56 individual semantic tests, all
+passing), eight byte-identical topology certificates, complete negative and
+dependency evidence, detached verification, and exact retention.
+
+Therefore the Topological Model stage is **QUALIFIED in the exact formally
+admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope**. This does not
+establish WSL/cloud equivalence and does not expand any excluded topology or
+geometry claim.
+
+Per the stage-exit protocol, curve implementation does not start automatically.
+After terminal-audit integration and closure, the next bounded transition is a
+separate scientific entry decision for **Curve Representation — Continuous
+Geometry Before Discretization**.
 
 #### Vertex and Edge Identity
 
