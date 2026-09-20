@@ -83,6 +83,12 @@ if(BUILD_TESTING AND APMESH_ENABLE_QUALIFICATION_TESTS)
     target_link_libraries(apmesh_core_geometry_primitives_cumulative_export PRIVATE apmesh::core)
     apmesh_apply_target_defaults(apmesh_core_geometry_primitives_cumulative_export)
 
+    add_executable(apmesh_core_topological_model_cumulative_export
+        experiments/topological_model_cumulative_export.cpp
+    )
+    target_link_libraries(apmesh_core_topological_model_cumulative_export PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core_topological_model_cumulative_export)
+
     add_executable(apmesh_core_minimal_small_linear_algebra_export
         experiments/minimal_small_linear_algebra_export.cpp
     )
@@ -198,6 +204,28 @@ if(BUILD_TESTING)
             --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/geometry_primitives_cumulative_export.cpp
             --certificate-exporter $<TARGET_FILE:apmesh_core_geometry_primitives_cumulative_export>
             --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/geometry_primitives_cumulative_evidence.py
+    )
+    add_test(
+        NAME apmesh_core.topological_model_cumulative_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/topological_model_cumulative_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_topological_model_cumulative_export>
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/topological_model_cumulative_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/topological_model_cumulative.json
+    )
+    add_test(
+        NAME apmesh_core.topological_model_cumulative_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/topological_model_cumulative_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_topological_model_cumulative.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/topological_model_cumulative.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/topological_model_cumulative_export.cpp
+            --certificate-exporter $<TARGET_FILE:apmesh_core_topological_model_cumulative_export>
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/topological_model_cumulative_evidence.py
     )
     add_test(
         NAME apmesh_core.cartesian_frames_evidence
@@ -417,6 +445,11 @@ if(BUILD_TESTING)
         apmesh_core.geometry_point_vector_runner
         apmesh_core.geometry_point_vector_retention
         PROPERTIES LABELS "geometry;contract;qualification;tooling"
+    )
+    set_tests_properties(
+        apmesh_core.topological_model_cumulative_evidence
+        apmesh_core.topological_model_cumulative_runner
+        PROPERTIES LABELS "topology;contract;qualification;tooling"
     )
     set_tests_properties(
         apmesh_core.geometry_point_vector_foundation_preservation

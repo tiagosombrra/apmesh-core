@@ -74,7 +74,12 @@ Current repository continuation checkpoint:
 - final pre-merge Major Semantic Regression on tree-equivalent candidate `6a934de6e8f6fae35e6c38ec45b9b1f23b170acb`: `PASS`, run `35513567930`;
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - stage status: production bounded scope implemented, focused contracts pass,
-  cumulative TMR0--TMR7 pre-registered, stage unqualified.
+  cumulative TMR0--TMR7 report-only tooling implemented and focused-tooling
+  contracts pass; no formal TMR manifest or execution exists; stage
+  unqualified;
+- TMR tooling validation candidate: `ad8f6f379d2284b782cb93bf4e0a6f3b1aa61822`;
+  GitHub Actions run `35514834796`, GCC 13 Debug and Clang 18/libc++ Debug
+  focused tooling contracts PASS.
 
 Current Topological Model completion lanes:
 
@@ -82,7 +87,7 @@ Current Topological Model completion lanes:
 | --- | ---: | --- |
 | Production implementation | 100% | Five authorized bounded topology work units implemented. |
 | Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
-| Stage-regression / qualification tooling | 0% | TMR report-only workflow/profile/exporter/comparer/runner not implemented. |
+| Stage-regression / qualification tooling | 100% | Report-only profile/exporter/independent comparer/revision-bound runner and opt-in focused workflow implemented; GCC/Clang Debug tooling contracts PASS in run `35514834796`. |
 | Formal evidence execution | 0% | No TMR manifest prepared and no TMR campaign executed. |
 | Closure audit / documentation | 0% | Stage cannot close before TMR0--TMR7 terminal audit. |
 
@@ -95,14 +100,14 @@ Current cloud-execution infrastructure:
 | INTEGRATION | 100% | GCC 13 Debug and Clang 18/libc++ Debug required checks PASS; closure audit recorded in `docs/audits/2026-09-20-cloud-integration-closure.md`. |
 | QUALIFICATION environment | 100% | CQE0-CQE7 PASS; final candidate revalidation PASS in run `35513250315`, then squash-merged with identical tree. |
 
-Current cloud QUALIFICATION-environment execution work-class allocation:
+Current TMR report-only tooling execution work-class allocation:
 
-- Implementation: **0%**;
-- Tests/validation: **50%**;
-- Evidence/experiments: **25%**;
-- Documentation/governance: **25%**.
+- Implementation: **45%**;
+- Tests/validation: **30%**;
+- Evidence/experiments: **15%**;
+- Documentation/governance: **10%**.
 
-These percentages describe this audit execution's work distribution, not
+These percentages describe the report-only tooling work distribution, not
 scientific completion. The independent completion lanes above are the
 authoritative stage-progress view.
 
@@ -155,10 +160,13 @@ Semantic Regression results remain bound to the merged functional content.
 Post-merge FAST run `35513658207` and INTEGRATION run `35513658197` both passed.
 
 The cloud envelope is distinct from the historical WSL qualification envelope;
-no equivalence is claimed. Exact next scientific action: implement the smallest
-reusable report-only TMR0--TMR7 workflow. Before formal TMR cloud execution, the
-TMR protocol must explicitly name the admitted cloud envelope. No manifest is
-prepared and no formal campaign is authorized yet.
+no equivalence is claimed. The smallest reusable report-only TMR0--TMR7 tooling
+layer is implemented and its focused GCC/Clang Debug contracts passed in run
+`35514834796`. No manifest is prepared and no formal campaign is authorized.
+After this tooling change is integrated, the next bounded scientific action is
+a separate TMR protocol environment amendment/supplement that explicitly names
+the admitted cloud envelope; it must not prepare or execute a campaign in the
+same change.
 
 ## Session handoff
 
@@ -190,16 +198,18 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after integration of the current tooling
+candidate:
 
-**Implement the smallest reusable report-only TMR0–TMR7 workflow and focused
-tooling contracts, without changing production C++, preparing a formal
-manifest, or executing the formal TMR campaign.**
+**Create a separate bounded TMR protocol environment amendment/supplement that
+explicitly binds the admitted GitHub-hosted Ubuntu 24.04 qualification envelope
+to future formal TMR execution and states the exact scope of the resulting
+claim.**
 
-Before a future formal TMR campaign may run in GitHub Actions, the
-pre-registered Topological Model protocol must be explicitly amended or
-supplemented to name the admitted cloud envelope. Until that happens, its
-formal qualification decision remains scoped to the historical WSL envelope.
+That protocol-only step must not prepare a formal TMR manifest, execute the TMR
+campaign, or change production C++. Until such an amendment/supplement is
+accepted, the formal TMR qualification claim remains scoped to the historical
+WSL envelope.
 
 ## Current active stage
 
@@ -254,12 +264,17 @@ the forward-only canonical `apmesh-topology-v1` snapshot. Focused GCC 13 Debug
 and Clang 18/libc++ Debug CTests passed. This adds no repair, deserialization,
 adjacency, pairing, manifold policy, geometry, or embedded cryptography.
 
-**Topological Model Cumulative Regression — PRE-REGISTERED / NOT PREPARED /
-NOT EXECUTED.** The single stage-exit protocol is fixed in
+**Topological Model Cumulative Regression — PRE-REGISTERED / REPORT-ONLY
+TOOLING IMPLEMENTED / FOCUSED TOOLING CONTRACTS PASS / NOT PREPARED / NOT
+EXECUTED.** The single stage-exit protocol is fixed in
 `docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`. It uses
 four GCC/Clang Debug/Release cells, two repetitions per cell, the exact seven-
-test prerequisite/topology allowlist, and TMR0–TMR7. No profile, tooling,
-manifest, execution, or qualification result exists yet.
+test prerequisite/topology allowlist, and TMR0–TMR7. The reusable report-only
+profile, exporter, independent validator/comparer, revision-bound runner, and
+opt-in focused workflow now exist. Their GCC 13 Debug and Clang 18/libc++ Debug
+focused tooling contracts passed in GitHub Actions run `35514834796`. No
+formal manifest was prepared, no four-cell TMR campaign was executed, and no
+TMR gate or qualification result exists.
 
 Current prerequisite closure evidence:
 

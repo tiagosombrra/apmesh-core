@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "kind": "topological-model-cumulative-regression-profile",
+  "repetitions_per_cell": 2,
+  "cells": [
+    {"id": "gcc-debug", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Debug"},
+    {"id": "gcc-release", "compiler": "GCC 13", "library": "libstdc++", "build_type": "Release"},
+    {"id": "clang-debug", "compiler": "Clang 18", "library": "libc++", "build_type": "Debug"},
+    {"id": "clang-release", "compiler": "Clang 18", "library": "libc++", "build_type": "Release"}
+  ],
+  "gates": ["TMR0", "TMR1", "TMR2", "TMR3", "TMR4", "TMR5", "TMR6", "TMR7"],
+  "semantic_ctest_allowlist": [
+    "apmesh_core.bootstrap_smoke",
+    "apmesh_core.numeric_contract",
+    "apmesh_core.geometry_primitives",
+    "apmesh_core.minimal_small_linear_algebra",
+    "apmesh_core.math_header_isolation",
+    "apmesh_core.cartesian_frames",
+    "apmesh_core.topological_model"
+  ],
+  "cases": [
+    "empty_model",
+    "identity_and_edge_order",
+    "transactional_rejection",
+    "invalid_lookup_and_orientation",
+    "boundary_valence",
+    "multiple_loops_repeated_owner",
+    "structural_classes",
+    "three_face_multi_use",
+    "incidence_bijection",
+    "canonical_snapshot",
+    "deterministic_equal_construction",
+    "controlled_orientation_difference",
+    "controlled_insertion_difference"
+  ],
+  "certificate_negative_cases": [
+    "duplicate_case",
+    "forged_snapshot",
+    "forged_incidence",
+    "forged_summary",
+    "undeclared_semantic_claim"
+  ],
+  "authority_paths": [
+    "docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md",
+    "docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md",
+    "docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md",
+    "docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md",
+    "docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md"
+  ],
+  "volatile_fields": [
+    "cell", "compiler", "library", "build_type", "path", "pid", "timestamp",
+    "duration", "artifact_hash"
+  ],
+  "limitations": [
+    "Formal TMR execution remains scoped to the pre-registered WSL Ubuntu 24.04 GCC 13/libstdc++ and Clang 18/libc++ envelope until an explicit protocol amendment names another envelope",
+    "The workflow is report-only; focused tooling contracts do not prepare or execute the formal TMR campaign",
+    "The admitted GitHub-hosted Ubuntu 24.04 environment may validate tooling but is not silently substituted into the pre-registered scientific qualification claim",
+    "No native Windows, coordinate welding, adjacency, pairing, manifold, curve, surface, meshing, parallel, or performance qualification"
+  ]
+}

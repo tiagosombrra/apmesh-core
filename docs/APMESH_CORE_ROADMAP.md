@@ -568,7 +568,9 @@ FOCUSED CONTRACT PASS / FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
 EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
-CUMULATIVE REGRESSION PRE-REGISTERED / NOT PREPARED / STAGE UNQUALIFIED`
+CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
+FOCUSED TOOLING CONTRACTS PASS / NOT PREPARED / NOT EXECUTED /
+STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -625,7 +627,14 @@ The single stage-exit regression is pre-registered in
 bind the completed topology model, current-candidate Foundation/Geometry
 preservation, exact forward/reverse incidence, structural recomputation,
 canonical snapshot bytes, repeated/cross-cell determinism, and retained
-evidence integrity. No profile, tooling, manifest, or execution exists yet.
+evidence integrity. The bounded report-only profile, experimental exporter,
+independent validator/comparer, revision-bound runner, and opt-in focused
+workflow are implemented. Their GCC 13 Debug and Clang 18/libc++ Debug tooling
+contracts passed on GitHub-hosted Ubuntu 24.04 in run `35514834796`. That run
+validated tooling only: no formal manifest was prepared, the fixed four-cell
+two-repetition TMR campaign was not executed, and no TMR gate or stage
+qualification result exists. Formal cloud execution still requires the
+explicit protocol environment amendment/supplement declared below.
 
 #### Vertex and Edge Identity
 
@@ -928,7 +937,9 @@ FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
 EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
-CUMULATIVE REGRESSION PRE-REGISTERED / NOT PREPARED / STAGE UNQUALIFIED**
+CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
+FOCUSED TOOLING CONTRACTS PASS / NOT PREPARED / NOT EXECUTED /
+STAGE UNQUALIFIED**
 
 The Identity and Oriented Edge Incidence Kernel defined in
 `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` is implemented and its
@@ -945,7 +956,10 @@ Deterministic edge-incidence structural classification and immutable canonical
 snapshot emission are implemented, with focused GCC/Clang Debug contracts
 passing. Neither converts structural signatures into adjacency, pairing,
 boundary, manifold, shell, or geometric claims. The cumulative TMR0–TMR7
-protocol is pre-registered.
+protocol is pre-registered. Its smallest reusable report-only tooling layer is
+implemented and passed focused GCC 13 Debug plus Clang 18/libc++ Debug
+contracts in GitHub Actions run `35514834796`; the scientific campaign remains
+unprepared and unexecuted.
 
 The repository/public-cloud transition audit passed on 2026-09-20. FAST and the
 reusable four-cell Major Semantic Regression passed on GitHub-hosted Ubuntu
@@ -976,9 +990,14 @@ run `35512991310` remains retained as the single mechanical
 is explicitly distinct from the historical WSL qualification envelope and
 fails closed on runner-image or package drift.
 
-The next bounded scientific action is the smallest reusable report-only
-TMR0–TMR7 workflow and its focused tooling contracts, with no production C++
-change, no formal manifest preparation, and no formal campaign execution.
-Before a later formal TMR execution in the cloud, the pre-registered Topological
-Model protocol must explicitly name the admitted cloud envelope. No further
+The report-only TMR0–TMR7 workflow and focused tooling contracts are now
+implemented without production C++ changes and passed the bounded GCC/Clang
+Debug tooling validation in run `35514834796`. No formal manifest has been
+prepared and no TMR campaign has executed.
+
+After this tooling change is integrated, the next bounded scientific action is
+a separate protocol environment amendment/supplement that explicitly binds the
+admitted GitHub-hosted Ubuntu 24.04 qualification envelope to any future cloud
+TMR execution and states the scope of the resulting claim. That amendment must
+not prepare a TMR manifest or execute the campaign in the same step. No further
 production topology concept is authorized.
