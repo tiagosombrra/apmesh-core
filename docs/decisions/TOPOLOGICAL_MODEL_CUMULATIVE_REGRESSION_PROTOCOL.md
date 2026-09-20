@@ -1,6 +1,6 @@
 # Topological Model — Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT PREPARED / NOT EXECUTED
+Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED / NOT PREPARED / NOT EXECUTED
 Date: 2026-09-20
 Stage: Topological Model — Explicit Identity and Incidence
 
@@ -223,38 +223,33 @@ This tooling result creates no formal manifest, TMR execution, gate result, or
 qualification claim. It does not replace the execution environment declared by
 the fixed claim above.
 
-## 12.1 Cloud-environment transition note
+## 12.1 Cloud-environment supplement
 
-A distinct GitHub-hosted qualification environment was admitted after this
-protocol was pre-registered. Its authority is
-`docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md`, with closure
-audit in
+The environment boundary is now supplemented by
+`docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`.
+
+That supplement admits future formal TMR0–TMR7 execution in the exact
+GitHub-hosted Ubuntu 24.04 x86_64 envelope previously admitted by
+`docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md` and audited in
 `docs/audits/2026-09-20-cloud-qualification-environment-admission.md`.
 
-This protocol has **not** yet been amended to replace its formal WSL execution
-scope. Therefore:
+The scientific claim, matrix, repetitions, allowlist, cases, gates, failure
+policy, and retained-output requirements in this protocol are unchanged.
+Historical WSL evidence remains WSL-scoped; a future cloud PASS would be a
+separate environment-scoped qualification result, not an equivalence claim.
 
-- the report-only TMR0–TMR7 workflow may be implemented and tested against the
-  current repository without preparing or executing a formal campaign;
-- no formal TMR manifest may silently substitute the admitted cloud envelope
-  for the WSL envelope declared above;
-- before formal cloud execution, a bounded protocol amendment/supplement must
-  explicitly bind the admitted cloud image/tool identity and state the scope of
-  the resulting qualification claim; and
-- historical WSL qualification evidence remains historical WSL evidence and is
-  not reclassified as cloud evidence.
+No formal cloud manifest may become `PREPARED` until the TMR preparation path
+fails closed on the exact runner image, package, compiler/library, architecture,
+and build-tool identities fixed by the supplement.
 
 ## 13. Next bounded action
 
-The smallest reusable report-only TMR0–TMR7 workflow is implemented without a
-production C++ change. Its focused evidence and runner lifecycle contracts
-passed in GCC 13 Debug and Clang 18/libc++ Debug in GitHub Actions run
-`35514834796`. No formal manifest has been prepared and the TMR campaign has
-not executed.
+The smallest reusable report-only TMR0–TMR7 workflow is implemented and its
+focused tooling contracts passed in GitHub Actions run `35514834796`. The
+cloud environment supplement is now protocol authority. No formal manifest has
+been prepared and the TMR campaign has not executed.
 
-After this tooling change is integrated, the next bounded scientific action is
-a separate environment amendment/supplement to this protocol that explicitly
-binds the admitted GitHub-hosted Ubuntu 24.04 qualification environment to any
-future cloud TMR execution and states the exact scope of the resulting claim.
-That amendment/supplement must not prepare a TMR manifest or execute the formal
-campaign in the same change.
+The next bounded action is to add the smallest fail-closed cloud-identity
+binding to the existing TMR preparation/runner path and focused contracts. That
+change must prepare no formal TMR manifest, execute no formal TMR campaign, and
+change no production C++.

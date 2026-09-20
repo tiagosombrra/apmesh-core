@@ -75,7 +75,8 @@ Current repository continuation checkpoint:
 - open scientific stage: **Topological Model — Explicit Identity and Incidence**;
 - stage status: production bounded scope implemented, focused contracts pass,
   cumulative TMR0--TMR7 report-only tooling implemented and focused-tooling
-  contracts pass; no formal TMR manifest or execution exists; stage
+  contracts pass; the admitted cloud envelope is now explicitly supplemented
+  into the TMR protocol; no formal TMR manifest or execution exists; stage
   unqualified;
 - TMR tooling validation candidate: `ad8f6f379d2284b782cb93bf4e0a6f3b1aa61822`;
   GitHub Actions run `35514834796`, GCC 13 Debug and Clang 18/libc++ Debug
@@ -162,11 +163,12 @@ Post-merge FAST run `35513658207` and INTEGRATION run `35513658197` both passed.
 The cloud envelope is distinct from the historical WSL qualification envelope;
 no equivalence is claimed. The smallest reusable report-only TMR0--TMR7 tooling
 layer is implemented and its focused GCC/Clang Debug contracts passed in run
-`35514834796`. No manifest is prepared and no formal campaign is authorized.
-After this tooling change is integrated, the next bounded scientific action is
-a separate TMR protocol environment amendment/supplement that explicitly names
-the admitted cloud envelope; it must not prepare or execute a campaign in the
-same change.
+`35514834796`. The TMR protocol now explicitly accepts the admitted cloud
+envelope through
+`docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`.
+No manifest is prepared and no formal campaign is authorized. The next bounded
+action is fail-closed cloud-identity binding in the existing preparation/runner
+path, with focused contracts only.
 
 ## Session handoff
 
@@ -198,18 +200,17 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after integration of the current tooling
-candidate:
+Exact next bounded scientific action:
 
-**Create a separate bounded TMR protocol environment amendment/supplement that
-explicitly binds the admitted GitHub-hosted Ubuntu 24.04 qualification envelope
-to future formal TMR execution and states the exact scope of the resulting
-claim.**
+**Add the smallest fail-closed cloud identity binding to the existing TMR
+preparation/runner path and focused contracts, using the accepted
+`docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`
+as authority.**
 
-That protocol-only step must not prepare a formal TMR manifest, execute the TMR
-campaign, or change production C++. Until such an amendment/supplement is
-accepted, the formal TMR qualification claim remains scoped to the historical
-WSL envelope.
+That tooling-only step must prepare no formal TMR manifest, execute no TMR
+campaign, and change no production C++. Historical WSL evidence remains
+WSL-scoped; a future cloud campaign would establish a distinct cloud-scoped
+qualification claim.
 
 ## Current active stage
 
@@ -272,8 +273,10 @@ four GCC/Clang Debug/Release cells, two repetitions per cell, the exact seven-
 test prerequisite/topology allowlist, and TMR0–TMR7. The reusable report-only
 profile, exporter, independent validator/comparer, revision-bound runner, and
 opt-in focused workflow now exist. Their GCC 13 Debug and Clang 18/libc++ Debug
-focused tooling contracts passed in GitHub Actions run `35514834796`. No
-formal manifest was prepared, no four-cell TMR campaign was executed, and no
+focused tooling contracts passed in GitHub Actions run `35514834796`. The
+cloud execution envelope is explicitly bound by
+`docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`.
+No formal manifest was prepared, no four-cell TMR campaign was executed, and no
 TMR gate or qualification result exists.
 
 Current prerequisite closure evidence:

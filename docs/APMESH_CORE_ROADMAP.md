@@ -569,8 +569,8 @@ EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
 IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
 CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
-FOCUSED TOOLING CONTRACTS PASS / NOT PREPARED / NOT EXECUTED /
-STAGE UNQUALIFIED`
+FOCUSED TOOLING CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED /
+NOT PREPARED / NOT EXECUTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -958,8 +958,10 @@ passing. Neither converts structural signatures into adjacency, pairing,
 boundary, manifold, shell, or geometric claims. The cumulative TMR0–TMR7
 protocol is pre-registered. Its smallest reusable report-only tooling layer is
 implemented and passed focused GCC 13 Debug plus Clang 18/libc++ Debug
-contracts in GitHub Actions run `35514834796`; the scientific campaign remains
-unprepared and unexecuted.
+contracts in GitHub Actions run `35514834796`. The admitted GitHub-hosted
+Ubuntu 24.04 cloud envelope is now explicitly bound for future formal TMR use by
+`docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`;
+the scientific campaign remains unprepared and unexecuted.
 
 The repository/public-cloud transition audit passed on 2026-09-20. FAST and the
 reusable four-cell Major Semantic Regression passed on GitHub-hosted Ubuntu
@@ -990,14 +992,14 @@ run `35512991310` remains retained as the single mechanical
 is explicitly distinct from the historical WSL qualification envelope and
 fails closed on runner-image or package drift.
 
-The report-only TMR0–TMR7 workflow and focused tooling contracts are now
-implemented without production C++ changes and passed the bounded GCC/Clang
-Debug tooling validation in run `35514834796`. No formal manifest has been
-prepared and no TMR campaign has executed.
+The report-only TMR0–TMR7 workflow and focused tooling contracts are implemented
+without production C++ changes and passed the bounded GCC/Clang Debug tooling
+validation in run `35514834796`. The accepted cloud-environment supplement now
+binds the exact admitted GitHub-hosted Ubuntu 24.04 envelope to future formal
+TMR work. No formal manifest has been prepared and no TMR campaign has
+executed.
 
-After this tooling change is integrated, the next bounded scientific action is
-a separate protocol environment amendment/supplement that explicitly binds the
-admitted GitHub-hosted Ubuntu 24.04 qualification envelope to any future cloud
-TMR execution and states the scope of the resulting claim. That amendment must
-not prepare a TMR manifest or execute the campaign in the same step. No further
-production topology concept is authorized.
+The next bounded scientific action is to make the existing TMR preparation and
+runner fail closed on that exact cloud identity and to validate only those
+focused tooling contracts. That step must not prepare a formal manifest, execute
+the TMR campaign, or add any production topology concept.
