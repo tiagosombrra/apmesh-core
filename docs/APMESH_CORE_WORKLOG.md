@@ -66,7 +66,7 @@ writing.
 | Exact admitted cloud tool paths | MERGED | `topology/tmr-exact-tool-path-plan` / PR #19 | run `35516578411` PASS; post-merge FAST/INTEGRATION PASS | no formal manifest, no TMR execution |
 | Preparation-only manual workflow | MERGED | technical lineage `topology/tmr-preparation-only-workflow` -> `topology/tmr-preparation-only-workflow-v2`; continuation branch `ci/tmr-preparation-workflow-simplification`; PR #20 | `35516864464` and `35516972035` retained mechanical quoting failures; corrected `35517077819` PASS; post-merge FAST `35519501704` PASS and INTEGRATION `35519501663` PASS | workflow integrated; formal dispatch recorded separately below |
 | First formal TMR preparation and package audit | MERGED | workflow run `35524700979`; audit branch `docs/tmr-prepared-package-audit`; PR #23 | run PASS; artifact `10609500629`; GitHub/archive SHA-256 `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`; preparation audit PASS; post-merge FAST `35525181361` PASS and INTEGRATION `35525181462` PASS | PREPARED only; `execution_requested=false`; TMR0-TMR7 `NOT_EXECUTED`; no execute |
-| One-shot manual TMR execution workflow | VALIDATED_UNMERGED | `topology/tmr-execution-only-workflow` | focused/static run `35525736120` PASS in GCC 13 Debug and Clang 18/libc++ Debug; local Git upstream reconstruction contract verified | manual-only; exact candidate/artifact; preflight -> immutable claim tag -> one execute; no formal dispatch yet |
+| One-shot manual TMR execution workflow | MERGED | `topology/tmr-execution-only-workflow`; PR #25 | focused/static runs `35525736120` and `35525847660` PASS in GCC 13 Debug and Clang 18/libc++ Debug; post-merge FAST `35525932108` PASS and INTEGRATION `35525932111` PASS; local Git upstream reconstruction contract verified | manual-only; exact candidate/artifact; preflight -> immutable claim tag -> one execute; no formal dispatch yet |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
 
 ## Relevant branch classification
@@ -84,37 +84,27 @@ writing.
 - `docs/tmr-cloud-environment-supplement`: **MERGED / HISTORICAL** via PR #17.
 - `topology/tmr-report-only-workflow`: **MERGED / HISTORICAL** via PR #16.
 - `topology/tmr-tooling-contract-correction`: **SUPERSEDED / HISTORICAL**.
-- `topology/tmr-execution-only-workflow`: **ACTIVE / VALIDATED_UNMERGED**;
-  one-shot manual execution wrapper for the audited PREPARED package.
+- `topology/tmr-execution-only-workflow`: **MERGED / HISTORICAL** via
+  PR #25; one-shot manual execution wrapper for the audited PREPARED package.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Integrate the one-shot manual TMR execution workflow —
-VALIDATED_UNMERGED.**
+**None. The one-shot manual TMR execution-workflow work item is closed.**
 
-Validated properties:
+Closure evidence:
 
-1. exact candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`;
-2. exact preparation run `35524700979` and artifact ID `10609500629`;
-3. exact prepared-manifest and preparation-seal hashes;
-4. manual-only dispatch on canonical `main`;
-5. exact artifact restored directly to the sealed runner-temp root;
-6. complete existing `validate-prepared`/execution-binding preflight runs before
-   any global execution claim;
-7. immutable claim tag
-   `tmr-execution-claim-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd`
-   is created before the only `execute` invocation;
-8. a pre-existing claim blocks execution; after claim creation, any failure
-   consumes the single formal attempt and no retry path exists;
-9. terminal retention executes under `always()`, reproducible build trees are
-   removed, and the retained package is independently verified;
-10. focused/static tooling run `35525736120` passed in both GCC and Clang
-    cells.
+1. PR #25 merged as `d7019fbff97989a79fd27fcb1915073881a53564`;
+2. post-merge FAST run `35525932108` passed;
+3. post-merge INTEGRATION run `35525932111` passed in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+4. no execution-claim tag exists yet;
+5. artifact `10609500629` remains unconsumed;
+6. no formal `execute` invocation, terminal package, or TMR0-TMR7 decision
+   exists.
 
-No claim tag has been created and the audited PREPARED artifact remains
-unconsumed.
+No formal-execution work item is active.
 
 ## Next admissible work item after closure
 

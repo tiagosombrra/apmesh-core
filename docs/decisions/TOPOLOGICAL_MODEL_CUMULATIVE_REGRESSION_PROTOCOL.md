@@ -292,8 +292,12 @@ binding preflight before creating the immutable manifest-hash claim tag, then
 exposes one `execute` invocation and retained terminal evidence. No claim tag
 or formal execution has occurred.
 
-After integration and ordinary post-merge validation, the next bounded action
-is one explicit manual dispatch of `Topological Model TMR Execution` on
-canonical `main`. That dispatch consumes the formal attempt. The resulting
-terminal package must be audited before any TMR0-TMR7 gate or stage
-qualification decision.
+PR #25 integrated the execution wrapper as
+`d7019fbff97989a79fd27fcb1915073881a53564`; post-merge FAST run
+`35525932108` and INTEGRATION run `35525932111` passed. No claim tag or
+formal execution exists.
+
+The next bounded action is one explicit manual dispatch of
+`Topological Model TMR Execution` on canonical `main`. That dispatch consumes
+the formal attempt. The resulting terminal package must be audited before any
+TMR0-TMR7 gate or stage qualification decision.

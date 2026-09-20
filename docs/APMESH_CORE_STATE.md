@@ -247,18 +247,17 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after integration of the execution-only
-workflow:
+Exact next bounded scientific action:
 
 **Dispatch `Topological Model TMR Execution` exactly once on canonical
 `main`, consume the exact audited PREPARED artifact, retain the terminal
 package, and stop for independent TMR0--TMR7 audit.**
 
-The execution workflow implementation itself is validated in tooling run
-`35525736120`, but formal execution is not authorized until that workflow is
-merged, post-merge FAST/INTEGRATION pass, and the work item is closed in
-`docs/APMESH_CORE_WORKLOG.md`. The PREPARED package remains unconsumed and
-Topological Model remains unqualified.
+The execution workflow is integrated by PR #25 as
+`d7019fbff97989a79fd27fcb1915073881a53564`; post-merge FAST run
+`35525932108` and INTEGRATION run `35525932111` passed. The work item is
+closed in `docs/APMESH_CORE_WORKLOG.md`. The PREPARED package remains
+unconsumed, no claim tag exists, and Topological Model remains unqualified.
 
 ## Current active stage
 
