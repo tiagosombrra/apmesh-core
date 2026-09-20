@@ -572,8 +572,9 @@ CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
 FOCUSED TOOLING CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED /
 FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / EXACT CLOUD TOOL PLAN SEALED /
 PREPARATION-ONLY WORKFLOW IMPLEMENTED / STATIC CONTRACT PASS / PREPARED /
-PREPARATION AUDIT PASS / EXECUTION-ONLY WORKFLOW IMPLEMENTED /
-STATIC CONTRACT PASS / NOT DISPATCHED / NOT EXECUTED / STAGE UNQUALIFIED`
+PREPARATION AUDIT PASS / AUTHORIZATION-AS-CODE IMPLEMENTED /
+REUSABLE EXECUTOR STATIC CONTRACT PASS / NO EXECUTE_ONCE RECORD /
+NOT EXECUTED / STAGE UNQUALIFIED`
 
 Goal: represent the patch complex without inferring topology from geometry.
 
@@ -1046,6 +1047,17 @@ PR #25 integrated the one-shot execution wrapper as
 `35525932108` and INTEGRATION `35525932111` passed. No claim tag or formal
 execution exists.
 
-The next bounded scientific action is one explicit manual dispatch of
-`Topological Model TMR Execution`, followed by independent audit of the
-retained terminal package before any TMR0-TMR7 decision.
+The execution authorization path is now being strengthened from a standalone
+manual dispatch to authorization-as-code. The exact manifest-bound
+`EXECUTE_ONCE` record is introduced only by a separate pull request after
+the mechanism itself is integrated and closed. Its merge to protected `main`
+triggers a controller that validates a newly added immutable record, rejects an
+existing execution claim, and calls the reusable one-shot executor. The executor
+independently revalidates the authorization commit before consuming the exact
+audited PREPARED package. Focused/static tooling run `35527446051` passed in
+both GCC 13 Debug and Clang 18/libc++ Debug.
+
+The next bounded scientific action after integration/closure is therefore one
+separate authorization-record PR. Merging that record becomes the execution
+authorization event; the resulting terminal package must then be independently
+audited before any TMR0-TMR7 decision.
