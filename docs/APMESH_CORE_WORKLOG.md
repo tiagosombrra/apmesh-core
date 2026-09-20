@@ -125,38 +125,38 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The first formal TMR terminal-audit checkpoint is closed.**
+**Diagnose the first TMR protocol/runner repetition-cardinality mismatch —
+ACTIVE.**
 
-Closure evidence:
+Active branch: `topology/tmr-repetition-cardinality-diagnosis`.
 
-1. terminal audit integration PR #30 merged as
-   `83a135127302ca328bf49e3e71fbb8ac2e16da2b`;
-2. PR #30 post-merge FAST `35529230596` and INTEGRATION `35529230618`
-   passed;
-3. continuity checkpoint PR #31 merged as
-   `bfc2a63e6f30dc290478b33524bc88d4dc664bf0`;
-4. PR #31 post-merge FAST `35529420125` and INTEGRATION `35529420121`
-   passed;
-5. the authoritative scientific result remains TMR0–TMR5 `PASS`,
-   TMR6–TMR7 `BLOCKED`, overall `BLOCKED`;
-6. the first formal execution claim remains consumed and immutable;
-7. no diagnosis, runner correction, preparation, or new formal campaign is
-   active.
+Authorized scope:
+
+1. compare the sealed protocol, profile, runner, planned inventories, runner
+   contracts, and retained first-campaign evidence;
+2. determine which operations are genuinely repetition-scoped;
+3. derive the exact required command/evidence cardinality for four cells × two
+   repetitions;
+4. identify the minimal tooling correction and focused regression contracts;
+5. decide whether the protocol wording needs clarification without weakening
+   the pre-registered scientific acceptance claim;
+6. specify requirements for a new PREPARED package and future one-shot formal
+   campaign;
+7. document the diagnosis and synchronize STATE/ROADMAP/WORKLOG/protocol as
+   needed;
+8. do **not** modify production topology C++;
+9. do **not** implement the runner correction inside this diagnosis work item;
+10. do **not** prepare, authorize, or execute a new formal campaign.
+
+The consumed first-campaign claim and all retained evidence remain immutable.
 
 ## Next admissible work item after closure
 
-Open exactly one bounded diagnosis work item for the protocol/runner
-repetition-cardinality mismatch.
+If the diagnosis identifies a bounded mechanical runner defect without changing
+the scientific hypothesis or acceptance criteria, open one focused correction
+work item implementing only the diagnosed runner/profile/inventory/test changes.
 
-The diagnosis must determine:
-
-1. which operations are repetition-scoped by the sealed protocol;
-2. the exact four-cell × two-repetition command/evidence cardinality;
-3. the minimal runner/profile/inventory/test correction;
-4. whether wording clarification is needed without weakening the original
-   scientific acceptance claim; and
-5. requirements for a new PREPARED package and future formal campaign.
-
-The diagnosis must not prepare, authorize, or execute a new campaign. No retry
-or rescue of the consumed first attempt is permitted.
+That correction must be validated without creating a formal PREPARED package.
+Only after the correction is merged, post-merge validation passes, and its
+checkpoint is closed may a new formal preparation be considered.
 
