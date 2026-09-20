@@ -891,9 +891,25 @@ separate Curve Derivatives and Regularity decision.
 
 #### Curve Derivatives and Regularity
 
-- Implement first and second derivatives.
-- Define and detect regularity/zero-speed conditions.
-- Verify line, near-line, inflection, localized-curvature, and degenerate cases.
+Decision in progress:
+`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`.
+
+The bounded first differential work unit is **Cubic Bézier Differential
+Evaluation and Pointwise Speed**:
+
+- evaluate first derivative as the quadratic Bézier hodograph;
+- evaluate second derivative as the linear derivative of that hodograph;
+- evaluate pointwise speed with the qualified stable norm;
+- verify endpoint/hodograph formulas, reversal signs, translation invariance,
+  admitted-frame covariance, constant/linear/stationary fixtures, finite
+  extremes and deterministic repeatability;
+- treat exact zero derivative as valid pointwise data.
+
+Global interval regularity is deliberately separated from this work unit.
+Sampling does not prove `B'(t) != 0` for every `t∈[0,1]`; therefore no
+`is_regular()` or equivalent interval-wide claim is authorized here. A later
+Global Cubic Regularity Certification decision may investigate complete root /
+interval evidence after differential evaluation is integrated.
 
 #### Arc Length and Parameter Mapping
 
