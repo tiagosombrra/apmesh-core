@@ -394,3 +394,14 @@ PR #33 as `da47c01da9cfcabafca4638c02006be8f1372aea`. Post-merge FAST
 change is the focused mechanical runner/protocol-guard correction; a new
 formal preparation remains unauthorized until that correction is separately
 merged, validated, and closed.
+
+The focused correction was subsequently integrated by PR #35 as
+`6df723b68d265e2e3081a774d7312aa227fdcef6`. Final corrected-branch TMR
+Tooling `35530579354`, PR FAST `35530643533`, PR INTEGRATION
+`35530643582`, post-merge INTEGRATION `35530685060`, and post-merge FAST
+`35530685096` all passed in their declared cells. The correction checkpoint
+is therefore closed.
+
+The next permitted formal action is preparation of one new PREPARED package
+from the corrected clean candidate. Preparation still does not authorize
+execution or decide any TMR gate.
