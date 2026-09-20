@@ -131,44 +131,37 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The TMR repetition-cardinality diagnosis is closed.**
+**Correct TMR repetition cardinality and stable protocol validation — ACTIVE.**
 
-Closure evidence:
+Active branch: `topology/tmr-repetition-cardinality-correction`.
 
-1. diagnosis authority:
-   `docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`;
-2. diagnosis PR #33 merged as
-   `da47c01da9cfcabafca4638c02006be8f1372aea`;
-3. required PR FAST `35529950706` passed;
-4. required PR INTEGRATION `35529950569` passed in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. diagnosis-time TMR Tooling `35529933344` failed in both cells exactly at
-   the already diagnosed transient protocol-title guard, before any PREPARED
-   package or scientific execution;
-6. post-merge FAST `35529991911` passed;
-7. post-merge INTEGRATION `35529991909` passed in GCC 13 Debug and Clang
-   18/libc++ Debug;
-8. no production topology C++, runner behavior, preparation, authorization, or
-   formal campaign changed in the diagnosis.
+Authority:
+`docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`.
 
-No work item is active.
+Authorized scope:
+
+1. configure each TMR cell once;
+2. execute build, CTest discovery, exact semantic CTest, certificate production
+   and certificate validation once in each declared repetition;
+3. use cell + repetition-qualified record IDs for repetition-scoped commands;
+4. retain discovery evidence with both cell and repetition identity;
+5. update planned log inventories to the diagnosed 56-command cardinality;
+6. strengthen focused runner contracts to prove exact per-cell/per-repetition
+   cardinality and fail-closed second-repetition behavior;
+7. replace the transient Section-13-heading guard with stable protocol
+   invariants;
+8. preserve the scientific profile, matrix, allowlist, cases, TMR0–TMR7 gates,
+   production topology C++, and the consumed first-campaign evidence;
+9. do not create a formal PREPARED package outside focused temporary tests;
+10. do not authorize or execute a formal campaign.
 
 ## Next admissible work item after closure
 
-Open one focused mechanical TMR correction work item implementing the closed
-diagnosis:
+After this focused mechanical correction is merged, TMR Tooling passes in both
+declared tooling cells, ordinary post-merge FAST/INTEGRATION pass, and the
+correction checkpoint is closed, prepare one **new** formal TMR package from a
+new clean candidate.
 
-1. configure once per cell;
-2. build, CTest discovery, exact semantic CTest, certificate and certificate
-   validation once per declared repetition;
-3. cell + repetition-qualified record IDs and discovery evidence;
-4. matching planned retained-log cardinality;
-5. focused contracts proving exactly 56 command records and fail-closed
-   second-repetition behavior;
-6. replace the transient Section-13-title guard with stable protocol
-   invariants.
-
-The correction must not modify production topology C++, scientific
-matrix/allowlist/cases/gates, prepare a formal manifest, authorize execution,
-or run a formal campaign.
+The consumed first PREPARED package, authorization, and claim remain immutable
+and cannot be reused.
 
