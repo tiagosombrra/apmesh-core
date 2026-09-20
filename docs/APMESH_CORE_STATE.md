@@ -252,23 +252,31 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Open one separate scientific decision for Curve Derivatives and Regularity.**
+**Integrate the bounded Curve Derivatives and Regularity decision; do not
+implement derivative code in the decision work item.**
 
-The first Curve Representation work unit was integrated by PR #48 as
-`bde874311d9960c5fab7ce03b26b6cd5fbd61b34`.
+Active decision authority:
+`docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`.
 
-Validation:
+The proposed first differential work unit is:
 
-- PR FAST `35541914952`: PASS;
-- PR INTEGRATION `35541914958`: PASS;
-- post-merge FAST `35541963486`: PASS;
-- post-merge INTEGRATION `35541963489`: PASS.
+**Cubic Bézier Differential Evaluation and Pointwise Speed.**
 
-Polynomial Cubic Bézier Value Representation and Evaluation is therefore
-closed at **IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT QUALIFIED**.
+It permits only:
 
-No derivative code may begin until a separate bounded decision fixes derivative
-and regularity semantics and evidence obligations.
+- first derivative as the quadratic Bézier hodograph;
+- second derivative as the linear derivative of that hodograph;
+- pointwise speed from the qualified stable norm;
+- explicit parameter/non-finite-result failures;
+- reversal, translation and admitted-frame differential relations;
+- analytic pointwise zero-speed evidence.
+
+It explicitly does **not** permit a global `is_regular()` claim. A curve is
+globally regular only when its derivative is nonzero at every parameter in the
+domain; finite sampling cannot certify that condition.
+
+No derivative production code is authorized until this decision is integrated,
+validated and closed.
 
 
 ## Current active stage
@@ -277,10 +285,18 @@ and regularity semantics and evidence obligations.
 IN INVESTIGATION / CUBIC VALUE-EVALUATION IMPLEMENTED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 
-Current entry decision:
+Current completed work unit:
 
 **Polynomial Cubic Bézier Value Representation and Evaluation — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.** The bounded work unit introduces only immutable 2D/3D cubic
+FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+Current bounded decision:
+
+**Curve Derivatives and Regularity — DECISION ACTIVE / IMPLEMENTATION NOT
+STARTED.** The decision separates local differential evaluation from global
+regularity certification. Its first proposed work unit is Cubic Bézier
+Differential Evaluation and Pointwise Speed; interval-wide regularity,
+curvature, arc length and discretization remain unauthorized. The bounded work unit introduces only immutable 2D/3D cubic
 polynomial Bézier geometry with four ordered control points, evaluation on the
 closed normalized domain `[0,1]` by de Casteljau/`std::lerp`, exact
 endpoints, reversal, explicit parameter failures, and focused analytic evidence.
