@@ -891,8 +891,15 @@ separate Curve Derivatives and Regularity decision.
 
 #### Curve Derivatives and Regularity
 
-Decision in progress:
+Decision authority:
 `docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`.
+
+PR #50 integrated the decision as
+`9c3caa35b580402fa0d7ce71412f3def7bbd8aa4`. PR FAST
+`35542378763`, PR INTEGRATION `35542378797`, post-merge FAST
+`35542416703`, and post-merge INTEGRATION `35542416695` passed. The
+decision checkpoint is closed; the next bounded work is differential
+evaluation/pointwise speed implementation only.
 
 The bounded first differential work unit is **Cubic Bézier Differential
 Evaluation and Pointwise Speed**:
