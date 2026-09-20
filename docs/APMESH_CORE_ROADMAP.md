@@ -832,7 +832,7 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 ### Curve Representation — Continuous Geometry Before Discretization
 
 Status: `IN INVESTIGATION / ENTRY DECISION APPROVED /
-IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED`
+CUBIC VALUE-EVALUATION IMPLEMENTATION ACTIVE / STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
 
@@ -858,6 +858,10 @@ PR #46 integrated the entry authority as
 `35536324878`, and post-merge INTEGRATION `35536324875` passed. The entry
 checkpoint is closed. The sole next work item is the bounded cubic
 representation/evaluation implementation.
+
+The active implementation branch is
+`curve/cubic-bezier-value-evaluation`. It remains limited to the fixed cubic
+value/evaluation contract; focused PR validation is pending.
 
 #### Cubic Bezier Evaluation
 
