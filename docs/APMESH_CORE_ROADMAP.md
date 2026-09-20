@@ -735,6 +735,14 @@ post-merge FAST `35532410672`, and post-merge INTEGRATION
 one-file `EXECUTE_ONCE` authorization for the audited second PREPARED
 manifest.
 
+A final pre-authorization audit found that the controller's commit diff was
+restricted to `experiments/authorizations`, so unrelated changes in the same
+commit would not have been visible to the isolation check. The focused
+`topology/tmr-authorization-whole-commit-guard` correction removes that
+pathspec and strengthens the static contract. TMR Tooling run `35532624980`
+passed in both declared tooling cells. Authorization remains deferred until
+this guard correction is separately integrated and closed.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,
