@@ -775,6 +775,13 @@ After terminal-audit integration and closure, the next bounded transition is a
 separate scientific entry decision for **Curve Representation — Continuous
 Geometry Before Discretization**.
 
+PR #44 integrated the qualifying terminal audit as
+`bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`. PR FAST
+`35534295054`, PR INTEGRATION `35534295078`, post-merge FAST
+`35534347597`, and post-merge INTEGRATION `35534347623` passed. The
+Topological Model stage-exit checkpoint is therefore closed. The next bounded
+work is the separate Curve Representation scientific entry decision only.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,
