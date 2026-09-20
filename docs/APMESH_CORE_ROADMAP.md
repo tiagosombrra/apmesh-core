@@ -743,6 +743,14 @@ pathspec and strengthens the static contract. TMR Tooling run `35532624980`
 passed in both declared tooling cells. Authorization remains deferred until
 this guard correction is separately integrated and closed.
 
+PR #41 integrated the correction as
+`d4a3a2da64c84ec922e881e899a153287593b79c`. Final TMR Tooling
+`35532708479`, PR FAST `35533302056`, PR INTEGRATION `35533302046`,
+post-merge FAST `35533347184`, and post-merge INTEGRATION
+`35533347164` all passed. The correction checkpoint is closed. The sole next
+bounded work is the exact one-file `EXECUTE_ONCE` authorization for the
+audited second PREPARED package.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,
