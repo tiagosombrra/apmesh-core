@@ -374,3 +374,22 @@ Scientific status after this focused evidence is exactly:
 
 No stage-level Curve Representation qualification is claimed by this component
 work unit.
+
+## First work-unit integration checkpoint
+
+PR #48 integrated Polynomial Cubic Bézier Value Representation and Evaluation
+as `bde874311d9960c5fab7ce03b26b6cd5fbd61b34`.
+
+Validation:
+
+- PR FAST `35541914952`: PASS;
+- PR INTEGRATION `35541914958`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35541963486`: PASS;
+- post-merge INTEGRATION `35541963489`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+The first work unit is closed at **IMPLEMENTED / FOCUSED CONTRACTS PASS / NOT
+QUALIFIED**. The next bounded transition is a separate scientific decision for
+Curve Derivatives and Regularity. No derivative implementation is authorized by
+this checkpoint.
