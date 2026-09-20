@@ -137,7 +137,7 @@ modify or requalify C++, tests, tooling, thresholds, or the Numeric Contract.
 
 The revision-bound Numeric Contract manifest is:
 
-- path: externally retained `apmesh-core-numeric-contract-prepared-20260905-181000-1939d248/manifest.json`;
+- manifest identifier: `apmesh-core-numeric-contract-prepared-20260905-181000-1939d248/manifest.json`;
 - SHA-256: `ec37ca0e2f93011782f5de42535ccf95783e46c374b691a9e1748506c3d4f9e5`;
 - audited dependency decision: `BLOCKED`.
 
