@@ -252,35 +252,33 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Implement Cubic Bézier Differential Evaluation and Pointwise Speed only.**
+**Integrate Cubic Bézier Differential Evaluation and Pointwise Speed, then
+close the work-unit checkpoint before opening Global Cubic Regularity
+Certification.**
 
-The Curve Derivatives and Regularity decision was integrated by PR #50 as
-`9c3caa35b580402fa0d7ce71412f3def7bbd8aa4`.
+Implementation branch:
+`curve/cubic-bezier-differential-evaluation`.
 
-Validation:
+Focused validation:
 
-- PR FAST `35542378763`: PASS;
-- PR INTEGRATION `35542378797`: PASS;
-- post-merge FAST `35542416703`: PASS;
-- post-merge INTEGRATION `35542416695`: PASS.
+- PR #52 FAST `35544242913`: PASS;
+- PR #52 INTEGRATION `35544242911`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
 
-The implementation boundary is fixed to:
+The candidate adds only first derivative, second derivative and pointwise speed
+for the fixed polynomial cubic Bézier representation. Derivatives remain in
+Bézier/Bernstein form and pointwise speed uses the qualified stable norm.
 
-- first derivative as the quadratic Bézier hodograph;
-- second derivative as the linear derivative of that hodograph;
-- pointwise speed from the qualified stable Euclidean norm;
-- explicit parameter/non-finite-result failures;
-- focused reversal, translation, admitted-frame and analytic evidence.
-
-Global interval regularity is not authorized. No `is_regular()`, root
-certification, unit tangent, curvature, arc length, discretization,
-quadrilateral or parallel capability may be introduced.
+Global interval regularity remains unproved and unauthorized. No
+`is_regular()`, root certification, unit tangent, curvature, arc length,
+discretization, quadrilateral or parallel capability is admitted by this work
+unit.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
-IN INVESTIGATION / CUBIC VALUE-EVALUATION IMPLEMENTED /
+IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION IMPLEMENTED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 
 Current completed work unit:
@@ -290,11 +288,12 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 
 Current bounded decision:
 
-**Curve Derivatives and Regularity — DECISION APPROVED / IMPLEMENTATION NOT
-STARTED.** The decision separates local differential evaluation from global
-regularity certification. Its first proposed work unit is Cubic Bézier
-Differential Evaluation and Pointwise Speed; interval-wide regularity,
-curvature, arc length and discretization remain unauthorized. The bounded work unit introduces only immutable 2D/3D cubic
+**Cubic Bézier Differential Evaluation and Pointwise Speed — IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATION PENDING / NOT QUALIFIED.** The candidate
+implements analytic first/second derivative evaluation and pointwise speed only.
+The decision continues to separate local differential evaluation from global
+regularity certification; interval-wide regularity, curvature, arc length and
+discretization remain unauthorized. The bounded work unit introduces only immutable 2D/3D cubic
 polynomial Bézier geometry with four ordered control points, evaluation on the
 closed normalized domain `[0,1]` by de Casteljau/`std::lerp`, exact
 endpoints, reversal, explicit parameter failures, and focused analytic evidence.
