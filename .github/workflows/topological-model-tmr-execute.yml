@@ -72,6 +72,7 @@ jobs:
         with:
           artifact-ids: "10609500629"
           path: ${{ runner.temp }}/apmesh-tmr-prepared
+          merge-multiple: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           run-id: "35524700979"
