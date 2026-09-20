@@ -651,6 +651,20 @@ is therefore the separately authorized repetition-cardinality diagnosis; no
 curve work, runner correction, preparation, or new formal execution is yet
 authorized.
 
+The repetition-cardinality diagnosis is now complete in
+`docs/decisions/TOPOLOGICAL_MODEL_TMR_REPETITION_CARDINALITY_DIAGNOSIS.md`.
+It confirms a mechanical runner defect, not a production-topology regression.
+For every cell, future repetitions must each invoke build, rediscover the exact
+allowlist, run semantic CTest, produce a certificate, and validate it. Configure
+remains cell-scoped. The required future command cardinality is 56 records over
+the fixed four-cell/two-repetition matrix.
+
+The diagnosis also records a fragile protocol-title guard exposed by TMR
+tooling run `35529611062`. The next bounded work after diagnosis integration
+is one focused mechanical correction of the repetition scope, inventories,
+focused contracts, and stable protocol guard. No formal preparation or
+execution is authorized by that correction.
+
 #### Vertex and Edge Identity
 
 - Define strong `VertexId`, `EdgeId`, and `FaceId` topological types. Curve,
