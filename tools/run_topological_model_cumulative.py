@@ -18,6 +18,8 @@ TOOL_ROOT = pathlib.Path(__file__).resolve().parent
 if str(TOOL_ROOT) not in sys.path:
     sys.path.insert(0, str(TOOL_ROOT))
 
+from cloud_qualification_environment import (EnvironmentValidationError,
+                                             validate as validate_cloud_environment)
 from experiment_runtime import (RuntimeErrorEvidence, clean_candidate, input_identity,
                                 read_json, relative_path, run_command, sha256_file,
                                 tool_version, utc_now, verify_input_identity,
@@ -30,7 +32,20 @@ from topological_model_cumulative_evidence import (EvidenceError, compare,
 POST_MERGE_BASELINE = "4386ba534c1a04934b676b507a1689edb30fd8ae"
 BUILD_TIMEOUT_SECONDS, PROCESS_TIMEOUT_SECONDS, OVERALL_TIMEOUT_SECONDS = 300, 45, 1800
 PREPARATION_FILES = ("profile.json", "prepared-manifest.json", "plan.json", "planned-inventories.json")
-INPUT_PATHS = {"profile": "experiments/profiles/topological_model_cumulative.json", "protocol": "docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md", "exporter": "experiments/topological_model_cumulative_export.cpp", "validator": "tools/topological_model_cumulative_evidence.py", "runner": "tools/run_topological_model_cumulative.py", "runtime": "tools/experiment_runtime.py", "cmake": "CMakeLists.txt"}
+INPUT_PATHS = {
+    "profile": "experiments/profiles/topological_model_cumulative.json",
+    "protocol": "docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md",
+    "exporter": "experiments/topological_model_cumulative_export.cpp",
+    "validator": "tools/topological_model_cumulative_evidence.py",
+    "runner": "tools/run_topological_model_cumulative.py",
+    "runtime": "tools/experiment_runtime.py",
+    "cmake": "CMakeLists.txt",
+    "cloud_profile": "experiments/profiles/cloud_qualification_environment.json",
+    "cloud_validator": "tools/cloud_qualification_environment.py",
+    "cloud_supplement": "docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md",
+    "cloud_decision": "docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md",
+    "cloud_audit": "docs/audits/2026-09-20-cloud-qualification-environment-admission.md",
+}
 SUCCESS_FILES = {"profile.json", "prepared-manifest.json", "plan.json", "planned-inventories.json", "preparation-seal.json", "state.json", "state-history.jsonl", "execution-claim.json", "command-records.json", "certificate-index.json", "per-cell-comparisons.json", "cross-cell-comparison.json", "observed-inventories.json", "gate-summary.json", "gate-summary.md", "terminal-manifest.json", "detached-verification.json", "retention-manifest.json"}
 FAILURE_FILES = {"profile.json", "prepared-manifest.json", "plan.json", "planned-inventories.json", "preparation-seal.json", "state.json", "state-history.jsonl", "execution-claim.json", "command-records.json", "failure.json", "terminal-manifest.json", "detached-verification.json", "retention-manifest.json"}
 
@@ -94,6 +109,39 @@ def environment_identity() -> dict[str, Any]:
     return {"python": tool_identity(sys.executable), "cmake": tool_identity("cmake"), "ctest": tool_identity("ctest"), "ninja": tool_identity("ninja"), "gcc": tool_identity("g++-13"), "clang": tool_identity("clang++-18"), "ldd": tool_identity("ldd"), "observations": {name: os.environ.get(name, "") for name in ("LANG", "LC_ALL", "TZ")}}
 
 
+def cloud_environment_binding(paths: dict[str, pathlib.Path], profile: dict[str, Any]) -> dict[str, Any]:
+    cloud_profile = read_json(paths["cloud_profile"])
+    if cloud_profile.get("schema_version") != 1 or cloud_profile.get("kind") != "cloud-qualification-environment-profile":
+        raise fail("cloud qualification environment profile identity differs")
+    if cloud_profile.get("cells") != profile["cells"]:
+        raise fail("cloud qualification environment matrix differs from TMR")
+    cloud_allowlist = cloud_profile.get("semantic_ctest_allowlist")
+    if not isinstance(cloud_allowlist, list) or sorted(cloud_allowlist) != sorted(profile["semantic_ctest_allowlist"]) or len(cloud_allowlist) != len(set(cloud_allowlist)):
+        raise fail("cloud qualification environment semantic allowlist differs from TMR")
+
+    observations = []
+    try:
+        for cell in profile["cells"]:
+            observation = validate_cloud_environment(cloud_profile, cell["id"])
+            if observation.get("status") != "PASS":
+                details = "; ".join(observation.get("failures", []))
+                raise fail(f"cloud qualification environment identity differs for {cell['id']}: {details}")
+            observations.append(observation)
+    except (EnvironmentValidationError, OSError, KeyError, ValueError) as error:
+        raise fail(f"cloud qualification environment validation failed: {error}") from error
+
+    return {
+        "schema_version": 1,
+        "kind": "topological-model-cumulative-cloud-environment-binding",
+        "profile_sha256": sha256_file(paths["cloud_profile"]),
+        "validator_sha256": sha256_file(paths["cloud_validator"]),
+        "supplement_sha256": sha256_file(paths["cloud_supplement"]),
+        "decision_sha256": sha256_file(paths["cloud_decision"]),
+        "audit_sha256": sha256_file(paths["cloud_audit"]),
+        "observations": observations,
+    }
+
+
 def declared_allowlist(source: pathlib.Path, expected: list[str]) -> list[str]:
     names = re.findall(r"add_test\s*\(\s*NAME\s+([^\s)]+)", (source / "CMakeLists.txt").read_text(encoding="utf-8"))
     selected = [name for name in names if name in expected]
@@ -104,7 +152,14 @@ def declared_allowlist(source: pathlib.Path, expected: list[str]) -> list[str]:
 
 def protocol_check(path: pathlib.Path) -> None:
     content = path.read_text(encoding="utf-8")
-    required = ("## 9. TMR0", "execution_requested=false", "detached-worktree verification", "## 13. Next bounded action")
+    required = (
+        "## 9. TMR0",
+        "execution_requested=false",
+        "detached-worktree verification",
+        "TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md",
+        "fail closed",
+        "## 13. Next bounded action",
+    )
     if any(token not in content for token in required):
         raise fail("protocol is not the pre-registered TMR0-TMR7 authority")
 
@@ -148,7 +203,7 @@ def preparation_seal(output: pathlib.Path) -> dict[str, Any]:
 
 def validate_prepared(output: pathlib.Path, *, require_unconsumed: bool = True) -> dict[str, Any]:
     manifest = read_json(output / "prepared-manifest.json")
-    keys = {"schema_version", "kind", "state", "execution_requested", "candidate", "inputs", "environment", "working_directory", "output_root", "limits_seconds", "declared_semantic_ctest_allowlist", "plan", "planned_inventories", "gates", "retained_limitations", "prepared_utc"}
+    keys = {"schema_version", "kind", "state", "execution_requested", "candidate", "inputs", "environment", "cloud_environment", "working_directory", "output_root", "limits_seconds", "declared_semantic_ctest_allowlist", "plan", "planned_inventories", "gates", "retained_limitations", "prepared_utc"}
     if set(manifest) != keys or manifest["schema_version"] != 1 or manifest["kind"] != "topological-model-cumulative-prepared-manifest" or manifest["state"] != "PREPARED" or manifest["execution_requested"] is not False:
         raise fail("prepared manifest schema differs")
     if manifest["output_root"] != str(output.resolve()) or set(manifest["gates"].values()) != {"NOT_EXECUTED"}:
@@ -178,6 +233,8 @@ def validate_execution_binding(arguments: argparse.Namespace, source: pathlib.Pa
     if manifest["candidate"] != candidate or manifest["environment"] != environment_identity() or manifest["working_directory"] != str(source) or manifest["output_root"] != str(output):
         raise fail("prepared candidate or environment differs")
     verify_input_identity(manifest["inputs"], paths)
+    if manifest["cloud_environment"] != cloud_environment_binding(paths, profile):
+        raise fail("prepared cloud qualification environment binding differs")
     declared = declared_allowlist(source, profile["semantic_ctest_allowlist"])
     plan = command_plan(profile, source, declared)
     if manifest["declared_semantic_ctest_allowlist"] != declared or manifest["plan"] != plan or manifest["planned_inventories"] != planned_inventories(profile, candidate, plan) or manifest["gates"] != {gate: "NOT_EXECUTED" for gate in profile["gates"]}:
@@ -192,10 +249,11 @@ def prepare(arguments: argparse.Namespace) -> None:
     paths = input_paths(arguments, source)
     profile, candidate = validate_profile(paths["profile"]), published_candidate(source)
     protocol_check(paths["protocol"])
+    cloud_binding = cloud_environment_binding(paths, profile)
     declared = declared_allowlist(source, profile["semantic_ctest_allowlist"])
     plan = command_plan(profile, source, declared)
     output.mkdir(parents=True); shutil.copyfile(paths["profile"], output / "profile.json")
-    manifest = {"schema_version": 1, "kind": "topological-model-cumulative-prepared-manifest", "state": "PREPARED", "execution_requested": False, "candidate": candidate, "inputs": input_identity(paths), "environment": environment_identity(), "working_directory": str(source), "output_root": str(output), "limits_seconds": {"build": BUILD_TIMEOUT_SECONDS, "process": PROCESS_TIMEOUT_SECONDS, "overall": OVERALL_TIMEOUT_SECONDS}, "declared_semantic_ctest_allowlist": declared, "plan": plan, "planned_inventories": planned_inventories(profile, candidate, plan), "gates": {gate: "NOT_EXECUTED" for gate in profile["gates"]}, "retained_limitations": profile["limitations"], "prepared_utc": utc_now()}
+    manifest = {"schema_version": 1, "kind": "topological-model-cumulative-prepared-manifest", "state": "PREPARED", "execution_requested": False, "candidate": candidate, "inputs": input_identity(paths), "environment": environment_identity(), "cloud_environment": cloud_binding, "working_directory": str(source), "output_root": str(output), "limits_seconds": {"build": BUILD_TIMEOUT_SECONDS, "process": PROCESS_TIMEOUT_SECONDS, "overall": OVERALL_TIMEOUT_SECONDS}, "declared_semantic_ctest_allowlist": declared, "plan": plan, "planned_inventories": planned_inventories(profile, candidate, plan), "gates": {gate: "NOT_EXECUTED" for gate in profile["gates"]}, "retained_limitations": profile["limitations"], "prepared_utc": utc_now()}
     write_json(output / "prepared-manifest.json", manifest)
     write_json(output / "plan.json", {"schema_version": 1, "kind": "topological-model-cumulative-launch-plan", "execution_requested": False, "cells": plan, "gates": manifest["gates"], "limitations": manifest["retained_limitations"]})
     write_json(output / "planned-inventories.json", manifest["planned_inventories"])
@@ -424,12 +482,20 @@ def main() -> int:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("self-check").add_argument("--output", required=True)
     commands.add_parser("plan").add_argument("--output", required=True)
+    commands.add_parser("validate-cloud-environment").add_argument("--output", required=True)
     commands.add_parser("prepare").add_argument("--output-root", required=True)
     commands.add_parser("validate-prepared").add_argument("--output-root", required=True)
     commands.add_parser("execute").add_argument("--output-root", required=True)
     commands.add_parser("verify-retention").add_argument("--output-root", required=True)
     arguments = parser.parse_args()
     try:
+        if arguments.command == "validate-cloud-environment":
+            source = pathlib.Path(arguments.source_root).resolve()
+            paths = input_paths(arguments, source)
+            profile = validate_profile(paths["profile"])
+            protocol_check(paths["protocol"])
+            write_json(pathlib.Path(arguments.output), cloud_environment_binding(paths, profile))
+            return 0
         if arguments.command == "prepare":
             prepare(arguments); return 0
         if arguments.command == "validate-prepared":
