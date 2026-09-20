@@ -149,52 +149,37 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The generic TMR authorization-binding infrastructure is closed.**
+**Correct the generic TMR authorization whole-commit guard — ACTIVE.**
 
-Closure evidence:
+Active branch: `topology/tmr-authorization-whole-commit-guard`.
 
-1. generic binding decision:
-   `docs/decisions/TOPOLOGICAL_MODEL_TMR_GENERIC_AUTHORIZATION_BINDING_DECISION.md`;
-2. final branch-head TMR Tooling `35532329855`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-3. PR #39 FAST `35532379951`: PASS;
-4. PR #39 INTEGRATION `35532379945`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. PR #39 squash-merged as
-   `3b5febcbda49977e834708344f561e6cba074fbf`;
-6. post-merge FAST `35532410672`: PASS;
-7. post-merge INTEGRATION `35532410659`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-8. no authorization record, execution claim or formal campaign was created by
-   the infrastructure work item;
-9. the audited second PREPARED package remains unconsumed.
+During pre-authorization review, the integrated controller was found to compute
+its before→after diff with the pathspec `experiments/authorizations`. That
+correctly constrains authorization-file changes inside the directory, but it
+does not prove that the complete authorization commit contains no unrelated
+repository changes.
 
-No work item is active.
+This contradicts the already accepted generic-binding decision, which requires
+the entire protected-main authorization commit to add exactly one admitted
+authorization record and no other path.
+
+Authorized scope:
+
+1. remove the authorization-directory pathspec from the controller diff;
+2. require the complete before→after commit diff to contain exactly one path;
+3. require that one path to be newly added and to match the manifest-hash
+   authorization namespace;
+4. strengthen the static controller contract so a future path-filtered diff
+   cannot satisfy it;
+5. preserve all other generic authorization, executor, claim, artifact,
+   PREPARED and scientific semantics;
+6. do not add `EXECUTE_ONCE`, create a claim or execute the campaign.
 
 ## Next admissible work item after closure
 
-Create one separate exact `EXECUTE_ONCE` authorization-record PR containing
-only:
-
-`experiments/authorizations/topological-model-tmr-f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa.json`
-
-The record must bind exactly:
-
-- candidate `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
-- preparation run `35531261000`;
-- artifact ID `10611054028`;
-- artifact SHA-256
-  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
-- prepared-manifest SHA-256
-  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
-- preparation-seal SHA-256
-  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
-- preparation audit
-  `docs/audits/2026-09-20-topological-model-tmr-corrected-preparation-audit.json`;
-- execution workflow
-  `.github/workflows/topological-model-tmr-execute.yml`;
-- `terminal_audit_required=true`.
-
-The PR must contain no other repository change. Its merge to protected `main`
-will be the formal execution authorization event.
+After this focused guard correction is merged, TMR Tooling and ordinary
+post-merge checks pass, and its checkpoint is closed, create the previously
+authorized exact one-file `EXECUTE_ONCE` PR for the audited second PREPARED
+manifest
+`f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`.
 
