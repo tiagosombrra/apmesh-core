@@ -963,16 +963,22 @@ the checkout runtime deprecation was removed by pinning the official
 The cloud QUALIFICATION-environment transition is accepted at 100% through
 `docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md` and
 `docs/audits/2026-09-20-cloud-qualification-environment-admission.md`.
-CQE0–CQE7 passed in run `35513051098` on candidate `952695f`: all four
-GCC/Clang Debug/Release cells matched the pinned GitHub Ubuntu 24.04 image and
-declared package/tool identities, kept qualification tooling OFF, discovered
-the exact seven-test semantic inventory, retained per-cell artifacts, and
-passed 7/7 tests. The first run `35512991310` is retained as the single
-mechanical `BLOCKED_BY_CMAKE_CACHE_TYPE_ASSERTION` attempt. The admitted cloud
-envelope is explicitly distinct from the historical WSL qualification envelope
-and fails closed on runner-image or package drift.
+CQE0–CQE7 passed in run `35513051098`; the final PR #13 candidate
+`6a934de6e8f6fae35e6c38ec45b9b1f23b170acb` was revalidated by Qualification
+Environment run `35513250315` and phase-boundary Major Semantic Regression run
+`35513567930`, both PASS. PR #13 was squash-merged as
+`0a7095d431e4bea3c9c73e75d22df2e713c7a8ab`; the reviewed candidate tree and
+merged tree are identical
+(`7144943abc7ffd861b92587217a112c0edf6f9b4`). Post-merge FAST run
+`35513658207` and INTEGRATION run `35513658197` passed. The first admission
+run `35512991310` remains retained as the single mechanical
+`BLOCKED_BY_CMAKE_CACHE_TYPE_ASSERTION` attempt. The admitted cloud envelope
+is explicitly distinct from the historical WSL qualification envelope and
+fails closed on runner-image or package drift.
 
 The next bounded scientific action is the smallest reusable report-only
-TMR0–TMR7 workflow. Before any formal TMR execution in the cloud, the
-pre-registered Topological Model protocol must explicitly name the admitted
-cloud envelope. No further production topology concept is authorized.
+TMR0–TMR7 workflow and its focused tooling contracts, with no production C++
+change, no formal manifest preparation, and no formal campaign execution.
+Before a later formal TMR execution in the cloud, the pre-registered Topological
+Model protocol must explicitly name the admitted cloud envelope. No further
+production topology concept is authorized.
