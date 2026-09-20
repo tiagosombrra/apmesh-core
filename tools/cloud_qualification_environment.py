@@ -41,7 +41,7 @@ def command_stdout(argv: list[str]) -> str:
 
 
 def package_version(name: str) -> str:
-    return command_stdout(["/usr/bin/dpkg-query", "-W", "-f=\${Version}", name])
+    return command_stdout(["/usr/bin/dpkg-query", "-W", "-f=${Version}", name])
 
 
 def os_release() -> dict[str, str]:
