@@ -248,43 +248,30 @@ Infrastructure status is closed at 100% for FAST, INTEGRATION, Major Semantic
 Regression availability, and the admitted cloud QUALIFICATION environment.
 This does **not** qualify the Topological Model stage.
 
-Exact next bounded scientific action after corrected PREPARED audit integration:
+Exact next bounded scientific action:
 
-**Open one bounded authorization-binding work item for the audited second TMR
-PREPARED package.**
+**Open one bounded authorization-binding/generalization work item for the
+audited second Topological Model TMR PREPARED package.**
 
-The second formal preparation completed in run `35531261000` on canonical
-`main` candidate
-`37f9af77f38e12af0a92d3c0f57f1ad31a218144`.
+The corrected second PREPARED package was audited **PASS / PREPARED / NOT
+EXECUTED** and integrated by PR #37 as
+`1f004a06aa9c6c72e4053b23c67ce514e322369d`.
 
-Independent audit:
+Validation:
 
-- artifact ID `10611054028`;
-- ZIP SHA-256
-  `96a47fcecc524e0a4baccee899bd88be8443dbc9778a55271a8376ebe2f6a1ab`;
-- prepared-manifest SHA-256
-  `f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`;
-- preparation-seal SHA-256
-  `366c782c571f6e63e320ac65e51dc464b0e3b3c8de498cfaf49ef50672dba9c2`;
-- 1546 retained source paths exactly match the 1546-blob GitHub candidate
-  tree;
-- 12/12 critical candidate input hashes matched;
-- all four admitted cloud observations PASS;
-- corrected planned execution shape contains exactly 56 unique command records
-  and 112 command logs;
-- lifecycle `PREPARED`, `execution_requested=false`, TMR0–TMR7
-  `NOT_EXECUTED`;
-- no execution claim, command records, terminal manifest or certificate index.
+- PR FAST `35531688595`: PASS;
+- PR INTEGRATION `35531688584`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge INTEGRATION `35531732329`: PASS;
+- post-merge FAST `35531732270`: PASS.
 
-Audit decision:
-**PASS / PREPARED / NOT EXECUTED.**
+The exact audited second-package manifest is
+`f43da78df89814a7baab5bf962054fb11ca7f407cf6e711cbff7148a15bae5fa`.
+It remains unconsumed.
 
-The current authorization-as-code validator/controller/reusable executor are
-still explicitly bound to the consumed first package. Therefore no
-`EXECUTE_ONCE` for the new manifest is authorized until a separate bounded
-binding/generalization work item is merged, validated and closed.
-
-Topological Model remains `IN INVESTIGATION / NOT QUALIFIED`.
+The current authorization implementation is still bound to the first consumed
+package. A separate tooling/governance change must bind or safely generalize
+that mechanism before a new `EXECUTE_ONCE` record can be admitted.
 
 
 ## Current active stage
