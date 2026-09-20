@@ -105,10 +105,11 @@ must bind and retain, by declared identity and hash where applicable:
    authorities, limitations, and evidence plan; and
 6. the clean published candidate revision and tracked-source inventory.
 
-The current report-only TMR profile/runner remains intentionally conservative
-until a separate bounded change makes this cloud identity fail-closed in the
-preparation path. This supplement alone does not authorize a manifest whose
-environment binding is weaker than Section 3.
+The TMR preparation/runner path now binds this supplement, the cloud admission
+decision and audit, the machine-readable cloud profile/validator, and exact
+observations for all four declared cells. The binding fails closed on drift.
+Focused validation passed in GitHub Actions run `35516246789`. No manifest
+whose environment binding is weaker than Section 3 is authorized.
 
 ## 7. Decision effect
 
@@ -119,7 +120,8 @@ No TMR manifest is prepared by this change. No TMR command is executed. No
 TMR0–TMR7 gate is decided. No production C++ changes. Topological Model remains
 unqualified.
 
-The next bounded action is to add the smallest fail-closed cloud identity binding
-to the existing TMR preparation/runner path and focused contracts. That next
-change must still prepare no formal TMR manifest and execute no formal TMR
-campaign.
+The fail-closed cloud identity binding is implemented and focused validation
+passed in run `35516246789`. The next bounded action is a preparation-only
+GitHub Actions path using the existing runner. That workflow change must be
+integrated without dispatching it, must retain a future PREPARED package only
+when explicitly invoked, and must contain no formal execution step.
