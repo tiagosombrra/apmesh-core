@@ -43,6 +43,56 @@ def main() -> int:
     if "(?:" in expression or not expression.startswith("^(") or not expression.endswith(")$"):
         raise RuntimeError("semantic CTest expression is not CTest-compatible")
     common = [sys.executable, arguments.runner, "--source-root", arguments.source_root, "--profile", arguments.profile, "--protocol", arguments.protocol, "--exporter", arguments.exporter, "--validator", arguments.validator]
+    binding_args = argparse.Namespace(
+        source_root=arguments.source_root,
+        profile=arguments.profile,
+        protocol=arguments.protocol,
+        exporter=arguments.exporter,
+        validator=arguments.validator,
+    )
+    binding_paths = runner.input_paths(binding_args, source)
+
+    def passing_cloud_observation(cloud_profile, cell):
+        return {
+            "schema_version": 1,
+            "kind": "cloud-qualification-environment-observation",
+            "cell": cell,
+            "status": "PASS",
+            "runner": cloud_profile["runner"],
+            "tools": cloud_profile["tools"],
+            "historical_wsl_reference": cloud_profile["historical_wsl_reference"],
+            "limitations": cloud_profile["limitations"],
+            "failures": [],
+        }
+
+    with patch.object(runner, "validate_cloud_environment", side_effect=passing_cloud_observation):
+        binding = runner.cloud_environment_binding(binding_paths, profile)
+        if binding["kind"] != "topological-model-cumulative-cloud-environment-binding" or len(binding["observations"]) != 4:
+            raise RuntimeError("cloud environment binding differs")
+        if any(item["status"] != "PASS" for item in binding["observations"]):
+            raise RuntimeError("cloud environment binding did not retain PASS observations")
+
+    with patch.object(
+        runner,
+        "validate_cloud_environment",
+        return_value={"status": "BLOCKED", "failures": ["intentional image drift"]},
+    ):
+        rejects(
+            lambda: runner.cloud_environment_binding(binding_paths, profile),
+            "cloud environment drift was accepted",
+        )
+
+    fake_cloud_binding = {
+        "schema_version": 1,
+        "kind": "topological-model-cumulative-cloud-environment-binding",
+        "profile_sha256": "profile",
+        "validator_sha256": "validator",
+        "supplement_sha256": "supplement",
+        "decision_sha256": "decision",
+        "audit_sha256": "audit",
+        "observations": [{"cell": cell["id"], "status": "PASS"} for cell in profile["cells"]],
+    }
+
     with tempfile.TemporaryDirectory(prefix="apmesh-core-tmr-runner-") as temporary:
         root = pathlib.Path(temporary)
         self_check = root / "self-check.json"
@@ -77,11 +127,13 @@ def main() -> int:
         candidate = {"commit": "0123456789abcdef0123456789abcdef01234567", "upstream_commit": "0123456789abcdef0123456789abcdef01234567", "post_merge_baseline": runner.POST_MERGE_BASELINE, "tree_clean": True, "source_root": str(source), "source_inventory": []}
         output = root / "prepared"
         prepared = argparse.Namespace(source_root=arguments.source_root, profile=arguments.profile, protocol=arguments.protocol, exporter=arguments.exporter, validator=arguments.validator, output_root=str(output))
-        with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}):
+        with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}), patch.object(runner, "cloud_environment_binding", return_value=fake_cloud_binding):
             runner.prepare(prepared)
             manifest = runner.validate_prepared(output)
             if manifest["execution_requested"] is not False or set(manifest["gates"].values()) != {"NOT_EXECUTED"}:
                 raise RuntimeError("prepared manifest claims execution")
+            if manifest["cloud_environment"] != fake_cloud_binding:
+                raise RuntimeError("prepared manifest did not seal cloud environment binding")
             runner.validate_execution_binding(prepared, source, output, manifest)
             saved = (output / "prepared-manifest.json").read_bytes()
             forged = json.loads(saved); forged["execution_requested"] = True
@@ -104,7 +156,7 @@ def main() -> int:
             return {"schema_version": 1, "kind": "experiment-command-record", "id": record_id, "argv": argv, "cwd": str(pathlib.Path(cwd).resolve()), "environment_delta": environment_delta or {}, "started_utc": "2026-01-01T00:00:00+00:00", "ended_utc": "2026-01-01T00:00:00+00:00", "elapsed_seconds": 0.0, "pid": 1, "timeout_seconds": timeout_seconds, "timed_out": False, "exit_code": 1, "launch_error": None, "stdout": {"path": f"logs/{record_id}.stdout.log", "sha256": runner.sha256_file(stdout)}, "stderr": {"path": f"logs/{record_id}.stderr.log", "sha256": runner.sha256_file(stderr)}}
 
         detached = {"result": "PASS", "candidate_commit": candidate["commit"], "source_inventory_count": 0}
-        with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}), patch.object(runner, "run_command", side_effect=failed_command), patch.object(runner, "verify_detached_candidate", return_value=detached):
+        with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}), patch.object(runner, "cloud_environment_binding", return_value=fake_cloud_binding), patch.object(runner, "run_command", side_effect=failed_command), patch.object(runner, "verify_detached_candidate", return_value=detached):
             runner.prepare(failed_args)
             if runner.execute(failed_args) != 1:
                 raise RuntimeError("focused terminal failure was not reported")
@@ -145,7 +197,7 @@ def main() -> int:
                 (build / "compile_commands.json").write_text("[]", encoding="utf-8")
             return {"schema_version": 1, "kind": "experiment-command-record", "id": record_id, "argv": argv, "cwd": str(pathlib.Path(cwd).resolve()), "environment_delta": environment_delta or {}, "started_utc": "2026-01-01T00:00:00+00:00", "ended_utc": "2026-01-01T00:00:00+00:00", "elapsed_seconds": 0.0, "pid": 1, "timeout_seconds": timeout_seconds, "timed_out": False, "exit_code": 0, "launch_error": None, "stdout": {"path": f"logs/{record_id}.stdout.log", "sha256": runner.sha256_file(stdout)}, "stderr": {"path": f"logs/{record_id}.stderr.log", "sha256": runner.sha256_file(stderr)}}
 
-        with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}), patch.object(runner, "run_command", side_effect=successful_command), patch.object(runner, "verify_detached_candidate", return_value=detached):
+        with patch.object(runner, "published_candidate", return_value=candidate), patch.object(runner, "environment_identity", return_value={"test": "identity"}), patch.object(runner, "cloud_environment_binding", return_value=fake_cloud_binding), patch.object(runner, "run_command", side_effect=successful_command), patch.object(runner, "verify_detached_candidate", return_value=detached):
             runner.prepare(success_args)
             if runner.execute(success_args) != 0 or runner.verify_retention(succeeded)["status"] != "PASS":
                 raise RuntimeError("focused successful terminal package was not retained")

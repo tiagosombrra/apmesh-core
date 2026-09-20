@@ -37,11 +37,13 @@ AUTHORITIES = [
     "docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md",
     "docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md",
     "docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md",
+    "docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md",
+    "docs/audits/2026-09-20-cloud-qualification-environment-admission.md",
 ]
 LIMITATIONS = [
-    "Formal TMR execution remains scoped to the pre-registered WSL Ubuntu 24.04 GCC 13/libstdc++ and Clang 18/libc++ envelope until an explicit protocol amendment names another envelope",
-    "The workflow is report-only; focused tooling contracts do not prepare or execute the formal TMR campaign",
-    "The admitted GitHub-hosted Ubuntu 24.04 environment may validate tooling but is not silently substituted into the pre-registered scientific qualification claim",
+    "Formal cloud TMR preparation and execution are admissible only in the exact GitHub-hosted Ubuntu 24.04 x86_64 envelope bound by the accepted cloud supplement; any declared environment drift blocks the workflow",
+    "The workflow remains report-only until a separately authorized formal manifest is prepared and explicitly executed",
+    "Historical WSL qualification evidence remains WSL-scoped and is not reclassified as cloud evidence or treated as cloud-equivalent",
     "No native Windows, coordinate welding, adjacency, pairing, manifold, curve, surface, meshing, parallel, or performance qualification",
 ]
 NON_CLAIMS = [

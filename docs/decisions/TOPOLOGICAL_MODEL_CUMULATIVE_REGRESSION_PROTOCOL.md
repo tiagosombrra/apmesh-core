@@ -1,6 +1,6 @@
 # Topological Model — Cumulative Regression Protocol
 
-Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED / NOT PREPARED / NOT EXECUTED
+Status: PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED / FOCUSED CONTRACTS PASS / CLOUD ENVELOPE SUPPLEMENT ACCEPTED / FAIL-CLOSED CLOUD IDENTITY BINDING IMPLEMENTED / NOT PREPARED / NOT EXECUTED
 Date: 2026-09-20
 Stage: Topological Model — Explicit Identity and Incidence
 
@@ -238,18 +238,23 @@ policy, and retained-output requirements in this protocol are unchanged.
 Historical WSL evidence remains WSL-scoped; a future cloud PASS would be a
 separate environment-scoped qualification result, not an equivalence claim.
 
-No formal cloud manifest may become `PREPARED` until the TMR preparation path
-fails closed on the exact runner image, package, compiler/library, architecture,
-and build-tool identities fixed by the supplement.
+The TMR preparation and execution binding now fails closed on the exact runner
+image, package, compiler/library, architecture, and build-tool identities fixed
+by the supplement. The bounded validation passed in GitHub Actions run
+`35516246789` for both GCC 13 Debug and Clang 18/libc++ Debug focused tooling
+cells. Run `35516204233` is retained as a mechanical protocol-guard failure
+that stopped before environment evaluation. No formal cloud manifest has yet
+been prepared.
 
 ## 13. Next bounded action
 
-The smallest reusable report-only TMR0–TMR7 workflow is implemented and its
-focused tooling contracts passed in GitHub Actions run `35514834796`. The
-cloud environment supplement is now protocol authority. No formal manifest has
-been prepared and the TMR campaign has not executed.
+The reusable report-only TMR0–TMR7 tooling and the fail-closed cloud identity
+binding are implemented. The binding and focused tooling contracts passed in
+GitHub Actions run `35516246789`; no formal manifest has been prepared and the
+TMR campaign has not executed.
 
-The next bounded action is to add the smallest fail-closed cloud-identity
-binding to the existing TMR preparation/runner path and focused contracts. That
-change must prepare no formal TMR manifest, execute no formal TMR campaign, and
-change no production C++.
+The next bounded action is to add a preparation-only GitHub Actions path that
+uses the existing `prepare` command under explicit manual dispatch, writes the
+candidate package below a new external runner-temp root, and retains that sealed
+PREPARED package as an artifact. The workflow must be integrated without being
+dispatched in the same change and must expose no formal `execute` step.
