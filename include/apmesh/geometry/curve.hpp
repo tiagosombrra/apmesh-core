@@ -70,6 +70,43 @@ struct CurveLengthEvidence {
     [[nodiscard]] bool operator==(const CurveLengthEvidence&) const noexcept = default;
 };
 
+
+enum class CurveInverseLengthError {
+    invalid_policy,
+    non_finite_target,
+    target_out_of_domain,
+    target_domain_indeterminate,
+    regularity_not_certified,
+    non_finite_enclosure,
+};
+
+enum class CurveInverseLengthResult {
+    converged,
+    indeterminate,
+};
+
+struct CurveInverseLengthPolicy {
+    CurveLengthPolicy length_policy{};
+    CurveRegularityPolicy regularity_policy{};
+    double parameter_tolerance{};
+    std::size_t max_refinement_iterations{};
+};
+
+struct CurveInverseLengthEvidence {
+    CurveInverseLengthResult result{};
+    double target_lower_length{};
+    double target_upper_length{};
+    double lower_parameter{};
+    double upper_parameter{};
+    CurveLengthEvidence lower_cumulative{};
+    CurveLengthEvidence upper_cumulative{};
+    CurveLengthEvidence total_length{};
+    CurveRegularityEvidence regularity{};
+    std::size_t refinement_iterations{};
+
+    [[nodiscard]] bool operator==(const CurveInverseLengthEvidence&) const noexcept = default;
+};
+
 class CubicBezier2 {
 public:
     constexpr CubicBezier2(
@@ -92,6 +129,14 @@ public:
     cumulative_arc_length_enclosure(
         double parameter,
         const CurveLengthPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+    inverse_arc_length_bracket(
+        double target_length,
+        const CurveInverseLengthPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+    inverse_arc_length_fraction_bracket(
+        double normalized_fraction,
+        const CurveInverseLengthPolicy& policy) const noexcept;
     [[nodiscard]] CubicBezier2 reversed() const noexcept;
 
     [[nodiscard]] bool operator==(const CubicBezier2&) const noexcept = default;
@@ -122,6 +167,14 @@ public:
     cumulative_arc_length_enclosure(
         double parameter,
         const CurveLengthPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+    inverse_arc_length_bracket(
+        double target_length,
+        const CurveInverseLengthPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+    inverse_arc_length_fraction_bracket(
+        double normalized_fraction,
+        const CurveInverseLengthPolicy& policy) const noexcept;
     [[nodiscard]] CubicBezier3 reversed() const noexcept;
 
     [[nodiscard]] bool operator==(const CubicBezier3&) const noexcept = default;
