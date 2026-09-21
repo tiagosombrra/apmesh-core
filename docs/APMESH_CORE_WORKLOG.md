@@ -190,38 +190,42 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Work Unit 2B — Certified Inverse Arc-Length Bracketing is closed.**
+**Continuous Curve Geometry Regression — PRE-REGISTRATION DECISION — ACTIVE /
+DOCUMENTATION-ONLY.**
 
-Closure evidence:
+Active branch: `curve/continuous-geometry-regression-decision`.
 
-1. implementation PR #70 merged as
-   `a82fa1c96fc6665e586753d5e4eb698012a79be3`;
-2. final PR FAST `35594075619`: PASS;
-3. final PR INTEGRATION `35594075595`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35594160853`: PASS;
-5. post-merge INTEGRATION `35594160817`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. bounded public API/evidence/error contract is integrated;
-7. same-curve regularity, certified target uncertainty and deterministic
-   bracket evidence remain intact;
-8. no physical sampling, boundary discretization, surface, Quad-Dominant,
-   parallel or qualification implementation was introduced;
-9. Curve Representation remains stage-unqualified.
+Purpose:
 
-No work item is active.
+Freeze the Curve Representation stage-exit scientific protocol before any
+stage-level regression runner, certificate exporter, preparation workflow or
+formal execution exists.
+
+The decision must pre-register:
+
+1. exact stage claims and explicit nonclaims;
+2. exact prerequisite + curve semantic CTest allowlist;
+3. four admitted cloud cells and two repetitions per cell;
+4. exact repetition-scoped execution semantics;
+5. machine-readable curve certificate schema and scientific projection;
+6. analytic/reference and metamorphic invariants;
+7. negative/adversarial evidence requirements;
+8. prerequisite preservation and dependency isolation;
+9. CGR0–CGR7 scientific gates;
+10. evidence retention, independent audit and one-shot formal execution rules;
+11. stage decision effect on PASS/BLOCKED/FAIL.
+
+No production curve behavior, qualification runner or formal campaign belongs
+to this documentation-only work item.
 
 ## Next admissible work item after closure
 
-Pre-register one **Continuous Curve Geometry Regression** decision for Curve
-Representation stage qualification.
+After the Continuous Curve Geometry Regression protocol is merged,
+FAST/INTEGRATION pass, and its decision checkpoint is closed, implement only
+the **report-only Curve Representation cumulative-regression tooling** required
+by the protocol: exporter/certificate validator, runner, negative contracts and
+focused static/runtime tooling tests.
 
-That decision must define the complete stage-level claim set, exact current-
-candidate semantic allowlist, prerequisite preservation, deterministic repeated
-execution, machine-readable curve certificate, analytic/reference evidence,
-negative/adversarial cases, admitted cloud matrix, retention and independent
-audit gates.
-
-No physical boundary discretization may begin until that cumulative regression
-is executed and Curve Representation is scientifically qualified.
+Formal PREPARED packaging and any execution authorization remain separate later
+work items.
 
