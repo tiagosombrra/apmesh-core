@@ -1202,6 +1202,14 @@ shape. No formal package or execution is authorized by the decision itself.
 After decision integration and checkpoint closure, the next bounded work is
 formal campaign infrastructure implementation only.
 
+PR #77 integrated the PREPARED lifecycle design as
+`7ff5c6e5f52f9f5bd8153d00856239649aac0eff`. PR FAST
+`35604864218`, PR INTEGRATION `35604864050`, post-merge FAST
+`35604986634`, and post-merge INTEGRATION `35604986654` passed. The
+design checkpoint is closed. The next bounded work is formal CGR campaign
+infrastructure implementation only; no formal package or execution is yet
+authorized.
+
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `NOT STARTED`

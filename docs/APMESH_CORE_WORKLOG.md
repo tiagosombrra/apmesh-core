@@ -197,58 +197,39 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Design the formal Continuous Curve Geometry Regression PREPARED lifecycle —
-VALIDATED_UNMERGED.**
+**None. Formal CGR PREPARED lifecycle design is closed.**
 
-Active branch: `curve/cgr-formal-preparation-design`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
+1. preparation-design PR #77 merged as
+   `7ff5c6e5f52f9f5bd8153d00856239649aac0eff`;
+2. PR FAST `35604864218`: PASS;
+3. PR INTEGRATION `35604864050`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+4. post-merge FAST `35604986634`: PASS;
+5. post-merge INTEGRATION `35604986654`: PASS in both declared cells;
+6. the decision remains design-only and created no PREPARED package,
+   authorization, claim, execution or CGR gate result;
+7. report-only CGR planning remains the scientific plan authority;
+8. formal execution remains unauthorized.
 
-Accepted design:
-
-1. the integrated report-only runner remains report-only;
-2. a separate formal campaign runner will own `prepare`,
-   `validate-prepared`, `execute` and `verify-retention`;
-3. that formal runner must reuse the report-only scientific plan rather than
-   define a second matrix/allowlist;
-4. one formal candidate must be protected-`main`, upstream-equal and fully
-   clean, including untracked files;
-5. all eleven Section 4 semantic files remain frozen to
-   `438620efa1f93d29b442e9ba199882a09d2359d9`;
-6. the complete tracked-source inventory is sealed;
-7. environment binding uses the admitted four-cell cloud identity without
-   confusing the historical seven-test environment allowlist with the CGR
-   fourteen-test semantic allowlist;
-8. the PREPARED package contains exactly seven control files and no execution
-   evidence;
-9. the PREPARED manifest binds candidate, source inventory, frozen semantics,
-   critical input hashes, cloud observations, exact 56-command plan, planned
-   terminal evidence and CGR0–CGR7 = `NOT_EXECUTED`;
-10. the preparation seal hashes the retained preparation controls and initial
-    state-history record;
-11. the future executor/workflows/authorization validator must already exist
-    and be hashed before the PREPARED package is created;
-12. preparation is workflow-dispatch-only on canonical `main`;
-13. future authorization remains a separate one-file protected-main event;
-14. independent PREPARED audit is mandatory before any authorization;
-15. no CGR gate or qualification decision is made by preparation/tooling.
-
-No formal PREPARED package, authorization, claim or execution exists.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this preparation-design decision is merged, post-merge FAST/INTEGRATION
-pass, and its checkpoint is closed, implement only the formal CGR campaign
-infrastructure:
+Implement only the formal CGR campaign infrastructure defined by
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`:
 
-- formal campaign runner;
+- `tools/run_continuous_curve_geometry_campaign.py`;
 - preparation-only workflow;
 - reusable one-shot execution workflow;
 - repository-resident authorization validator/controller;
-- focused synthetic/static contracts;
+- focused preparation/execution/retention/authorization contracts;
 - mapping/audit documentation.
 
-That infrastructure work item must not dispatch preparation, create a PREPARED
-package, add an `EXECUTE_ONCE` record, create a claim or execute CGR.
+The implementation must preserve the report-only scientific plan and all frozen
+semantic files.
+
+It must not dispatch formal preparation, create a PREPARED package, add an
+`EXECUTE_ONCE` record, create a claim or execute the formal campaign.
 
