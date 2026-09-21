@@ -163,43 +163,50 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Topological Model qualification is closed.**
+**Curve Representation bounded entry decision — VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/cubic-bezier-entry-decision`.
 
-1. corrected terminal audit PR #44 merged as
-   `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
-2. PR #44 FAST `35534295054`: PASS;
-3. PR #44 INTEGRATION `35534295078`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35534347597`: PASS;
-5. post-merge INTEGRATION `35534347623`: PASS;
-6. authoritative terminal audit records TMR0–TMR7 PASS and overall PASS;
-7. Topological Model is QUALIFIED only in the exact admitted GitHub-hosted
-   Ubuntu 24.04 x86_64 cloud envelope;
-8. Foundation and Geometry qualifications remain intact;
-9. no WSL/cloud equivalence is claimed;
-10. no curve production implementation has begun.
+Entry authority:
 
-No work item is active.
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`
+
+The decision opens only:
+
+**Cubic Bézier Representation and Point Evaluation.**
+
+Authorized first capability:
+
+1. immutable non-rational cubic Bézier values in 2D and 3D;
+2. exactly four ordered qualified finite control points;
+3. exact source/target access;
+4. finite normalized parameter `t ∈ [0,1]`;
+5. deterministic point evaluation through a de Casteljau-style affine path;
+6. exact representation reversal by control-point reversal;
+7. explicit invalid/out-of-domain/non-finite-result failures;
+8. one focused cubic-Bézier CTest contract with prerequisite preservation.
+
+Explicitly not authorized:
+
+- derivatives, tangents, regularity, curvature or torsion;
+- arc length or integration;
+- subdivision, approximation or fitting;
+- rational Bézier, arbitrary degree, B-splines or NURBS;
+- curve identity/topology ownership;
+- discretization, surfaces, meshing or qualification tooling.
+
+Topological Model remains QUALIFIED and closed.
 
 ## Next admissible work item after closure
 
-Open one separate scientific entry-decision work item for:
+After this entry decision is merged, required post-merge validation passes, and
+the entry checkpoint is closed, implement only:
 
-**Curve Representation — Continuous Geometry Before Discretization.**
+**Cubic Bézier Representation and Point Evaluation**
 
-The entry decision must bound the first investigation problem before any
-production implementation. It should define:
+with its focused contract.
 
-1. the exact continuous curve capability admitted first;
-2. explicit exclusions;
-3. analytic/reference evidence requirements;
-4. finite/error semantics;
-5. prerequisite preservation requirements;
-6. deterministic representation and reversal expectations;
-7. the focused contract required before any stage-level qualification tooling;
-8. the later stage-exit regression boundary.
-
-No curve implementation belongs to the closure checkpoint itself.
+The implementation work item must not include derivatives, arc length,
+subdivision, topology ownership, discretization, surfaces, meshing, or a
+stage-level qualification campaign.
 
