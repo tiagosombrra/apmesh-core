@@ -168,36 +168,43 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Arc Length and Parameter Mapping decision checkpoint is closed.**
+**Implement Certified Cubic Bézier Total Arc-Length Enclosure — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/cubic-bezier-total-arc-length-enclosure`.
 
-1. decision authority:
-   `docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md`;
-2. decision PR #59 FAST `35551687273`: PASS;
-3. decision PR #59 INTEGRATION `35551687243`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. PR #59 merged as
-   `65cd93818fa54eac00c6f63ebefa3615074a82cd`;
-5. post-merge FAST `35551746429`: PASS;
-6. post-merge INTEGRATION `35551746412`: PASS;
-7. no production arc-length or mapping implementation was introduced by the
-   decision;
-8. inverse/cumulative parameter mapping remains blocked.
+Decision authority:
+`docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md`.
 
-No work item is active.
+Authorized implementation scope:
+
+1. explicit `CurveLengthPolicy`, result and error vocabulary;
+2. total-length enclosure for `CubicBezier2` and `CubicBezier3`;
+3. deterministic serial dyadic subdivision;
+4. conservative chord lower bounds and control-polygon upper bounds;
+5. private curve-local outward arithmetic only;
+6. explicit `converged` versus resource-limited `indeterminate`;
+7. exact/safely provable straight and constant special cases;
+8. focused analytic/adversarial arc-length tests;
+9. curve public-header isolation update;
+10. preservation of all existing curve and qualified-prerequisite contracts.
+
+Explicitly blocked:
+
+- cumulative `S(t)`;
+- inverse/normalized parameter mapping;
+- curvature/tangent frames;
+- physical discretization;
+- public subdivision;
+- topology ownership;
+- surfaces;
+- quadrilateral generation;
+- parallel execution.
 
 ## Next admissible work item after closure
 
-Implement only:
+After this implementation is merged, post-merge validation passes, and its
+checkpoint is closed, open one separate bounded decision for
+**Cumulative Arc-Length Mapping and Certified Inverse Bracketing**.
 
-**Certified Cubic Bézier Total Arc-Length Enclosure.**
-
-The implementation must remain inside the integrated decision boundary:
-conservative total-length enclosure, explicit policy, deterministic dyadic
-subdivision, resource-bounded `converged/indeterminate` evidence and focused
-contracts.
-
-Cumulative/inverse parameter mapping remains blocked until this first
-arc-length work unit is integrated and closed.
+No mapping implementation belongs to the current work item.
 
