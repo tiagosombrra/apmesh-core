@@ -1,6 +1,6 @@
 # Curve Representation — Continuous Curve Geometry Regression Protocol
 
-Status: **PRE-REGISTERED / DOCUMENTATION-ONLY / NO FORMAL EXECUTION AUTHORIZED**  
+Status: **PROPOSED / UNDER REVIEW / DOCUMENTATION-ONLY / NO FORMAL EXECUTION AUTHORIZED**  
 Date: 2026-09-21  
 Stage: **Curve Representation — Continuous Geometry Before Discretization**  
 Semantic baseline at protocol entry:
@@ -15,7 +15,7 @@ executions, analytic references and metamorphic transformations, while all
 qualified prerequisites remain passing and all downstream physical
 discretization claims remain absent?
 
-This protocol is the stage-exit authority for Curve Representation.
+Once merged and its decision checkpoint is closed, this protocol becomes the stage-exit authority for Curve Representation.
 
 A workflow success, focused unit-test success or report-only tooling success is
 not by itself a Curve Representation qualification decision.
