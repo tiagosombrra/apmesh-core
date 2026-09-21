@@ -1,0 +1,295 @@
+name: Continuous Curve Geometry Regression Execution
+
+on:
+  workflow_call:
+    inputs:
+      authorization_file:
+        required: true
+        type: string
+      authorization_commit:
+        required: true
+        type: string
+      candidate:
+        required: true
+        type: string
+      preparation_run_id:
+        required: true
+        type: string
+      prepared_artifact_id:
+        required: true
+        type: string
+      prepared_artifact_sha256:
+        required: true
+        type: string
+      prepared_manifest_sha256:
+        required: true
+        type: string
+      preparation_seal_sha256:
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: continuous-curve-geometry-regression-execution-${{ inputs.prepared_manifest_sha256 }}
+  cancel-in-progress: false
+
+jobs:
+  execute:
+    name: Execute authorized sealed CGR package once
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CGR_AUTHORIZATION_FILE: ${{ inputs.authorization_file }}
+      CGR_AUTHORIZATION_COMMIT: ${{ inputs.authorization_commit }}
+      CGR_CANDIDATE: ${{ inputs.candidate }}
+      CGR_PREPARATION_RUN_ID: ${{ inputs.preparation_run_id }}
+      CGR_PREPARED_ARTIFACT_ID: ${{ inputs.prepared_artifact_id }}
+      CGR_PREPARED_ARTIFACT_SHA256: ${{ inputs.prepared_artifact_sha256 }}
+      CGR_PREPARED_MANIFEST_SHA256: ${{ inputs.prepared_manifest_sha256 }}
+      CGR_PREPARATION_SEAL_SHA256: ${{ inputs.preparation_seal_sha256 }}
+      CGR_CLAIM_TAG: cgr-execution-claim-${{ inputs.prepared_manifest_sha256 }}
+
+    steps:
+      - name: Require protected-main authorization call
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "${GITHUB_SHA}" = "${CGR_AUTHORIZATION_COMMIT}"
+          test "${CGR_AUTHORIZATION_FILE}" = "experiments/authorizations/continuous-curve-geometry-regression-${CGR_PREPARED_MANIFEST_SHA256}.json"
+          [[ "${CGR_CANDIDATE}" =~ ^[0-9a-f]{40}$ ]]
+          [[ "${CGR_PREPARED_ARTIFACT_SHA256}" =~ ^[0-9a-f]{64}$ ]]
+          [[ "${CGR_PREPARED_MANIFEST_SHA256}" =~ ^[0-9a-f]{64}$ ]]
+          [[ "${CGR_PREPARATION_SEAL_SHA256}" =~ ^[0-9a-f]{64}$ ]]
+          [[ "${CGR_PREPARATION_RUN_ID}" =~ ^[1-9][0-9]*$ ]]
+          [[ "${CGR_PREPARED_ARTIFACT_ID}" =~ ^[1-9][0-9]*$ ]]
+          test "${CGR_CLAIM_TAG}" = "cgr-execution-claim-${CGR_PREPARED_MANIFEST_SHA256}"
+
+      - name: Check out authorization commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.authorization_commit }}
+          fetch-depth: 0
+
+      - name: Revalidate committed authorization before candidate checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${CGR_AUTHORIZATION_COMMIT}"
+          test -z "$(git status --porcelain)"
+          /usr/bin/python3 tools/continuous_curve_geometry_regression_authorization.py \
+            --source-root . \
+            validate \
+            --authorization "${CGR_AUTHORIZATION_FILE}"
+          /usr/bin/python3 - "${CGR_AUTHORIZATION_FILE}" <<'PY'
+          import json
+          import os
+          import pathlib
+          import sys
+
+          value = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+          expected = {
+              "candidate": os.environ["CGR_CANDIDATE"],
+              "preparation_run_id": int(os.environ["CGR_PREPARATION_RUN_ID"]),
+              "prepared_artifact_id": int(os.environ["CGR_PREPARED_ARTIFACT_ID"]),
+              "prepared_artifact_sha256": os.environ["CGR_PREPARED_ARTIFACT_SHA256"],
+              "prepared_manifest_sha256": os.environ["CGR_PREPARED_MANIFEST_SHA256"],
+              "preparation_seal_sha256": os.environ["CGR_PREPARATION_SEAL_SHA256"],
+          }
+          for key, item in expected.items():
+              if value.get(key) != item:
+                  raise SystemExit(f"authorization input differs: {key}")
+          PY
+
+      - name: Check out exact prepared candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.candidate }}
+          fetch-depth: 0
+
+      - name: Reconstruct sealed published-candidate identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${CGR_CANDIDATE}"
+          test -z "$(git status --porcelain)"
+          git merge-base --is-ancestor "${CGR_CANDIDATE}" origin/main
+          git update-ref refs/remotes/origin/cgr-prepared-candidate "${CGR_CANDIDATE}"
+          git switch -c cgr-execution-candidate "${CGR_CANDIDATE}"
+          git branch --set-upstream-to=origin/cgr-prepared-candidate cgr-execution-candidate
+          test "$(git rev-parse HEAD)" = "${CGR_CANDIDATE}"
+          test "$(git rev-parse '@{upstream}')" = "${CGR_CANDIDATE}"
+          test -z "$(git status --porcelain)"
+
+      - name: Install admitted cloud toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            cmake=3.28.3-1build7 \
+            ninja-build=1.11.1-2 \
+            g++-13=13.3.0-6ubuntu2~24.04.1 \
+            clang-18=1:18.1.3-1ubuntu1 \
+            libc++-18-dev=1:18.1.3-1ubuntu1 \
+            libc++abi-18-dev=1:18.1.3-1ubuntu1
+
+      - name: Require exact audited artifact metadata
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          repository = os.environ["GITHUB_REPOSITORY"]
+          artifact_id = os.environ["CGR_PREPARED_ARTIFACT_ID"]
+          url = f"https://api.github.com/repos/{repository}/actions/artifacts/{artifact_id}"
+          request = urllib.request.Request(
+              url,
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                  "X-GitHub-Api-Version": "2022-11-28",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              value = json.load(response)
+
+          if value.get("id") != int(artifact_id):
+              raise SystemExit("prepared artifact id differs")
+          if value.get("expired") is not False:
+              raise SystemExit("prepared artifact is expired")
+          if value.get("digest") != f"sha256:{os.environ['CGR_PREPARED_ARTIFACT_SHA256']}":
+              raise SystemExit("prepared artifact digest differs")
+
+          workflow_run = value.get("workflow_run")
+          if not isinstance(workflow_run, dict):
+              raise SystemExit("prepared artifact workflow provenance is absent")
+          if workflow_run.get("id") != int(os.environ["CGR_PREPARATION_RUN_ID"]):
+              raise SystemExit("prepared artifact run differs")
+          if workflow_run.get("head_sha") != os.environ["CGR_CANDIDATE"]:
+              raise SystemExit("prepared artifact candidate differs")
+          if workflow_run.get("head_branch") != "main":
+              raise SystemExit("prepared artifact branch differs")
+          PY
+
+      - name: Restore exact audited PREPARED package
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          artifact-ids: ${{ inputs.prepared_artifact_id }}
+          path: ${{ runner.temp }}/apmesh-cgr-prepared
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.preparation_run_id }}
+
+      - name: Revalidate exact PREPARED binding before claim
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-cgr-prepared
+        run: |
+          set -euo pipefail
+          test "$(sha256sum "${OUTPUT_ROOT}/prepared-manifest.json" | awk '{print $1}')" = "${CGR_PREPARED_MANIFEST_SHA256}"
+          test "$(sha256sum "${OUTPUT_ROOT}/preparation-seal.json" | awk '{print $1}')" = "${CGR_PREPARATION_SEAL_SHA256}"
+          /usr/bin/python3 tools/run_continuous_curve_geometry_campaign.py \
+            --source-root . \
+            --profile experiments/profiles/continuous_curve_geometry_regression.json \
+            --protocol docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md \
+            --exporter experiments/continuous_curve_geometry_regression_export.cpp \
+            --validator tools/continuous_curve_geometry_regression_evidence.py \
+            --negative tools/continuous_curve_geometry_regression_negative.py \
+            validate-prepared \
+            --output-root "${OUTPUT_ROOT}"
+          /usr/bin/python3 - "${OUTPUT_ROOT}/prepared-manifest.json" "${CGR_CANDIDATE}" <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          manifest = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+          if manifest["candidate"]["commit"] != sys.argv[2]:
+              raise SystemExit("prepared candidate differs")
+          if manifest["state"] != "PREPARED" or manifest["execution_requested"] is not False:
+              raise SystemExit("prepared lifecycle differs")
+          if set(manifest["gates"].values()) != {"NOT_EXECUTED"}:
+              raise SystemExit("prepared manifest already claims a CGR gate")
+          PY
+          test ! -e "${OUTPUT_ROOT}/execution-claim.json"
+          test ! -e "${OUTPUT_ROOT}/terminal-manifest.json"
+          test ! -e "${OUTPUT_ROOT}/command-records.json"
+
+      - name: Acquire immutable one-time execution claim
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin "refs/tags/${CGR_CLAIM_TAG}" >/dev/null 2>&1; then
+            echo "BLOCKED: this PREPARED manifest already has an execution claim" >&2
+            exit 2
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${CGR_CLAIM_TAG}" "${CGR_CANDIDATE}" \
+            -m "CGR execution claim; authorization_commit=${CGR_AUTHORIZATION_COMMIT}; authorization_file=${CGR_AUTHORIZATION_FILE}; prepared_run=${CGR_PREPARATION_RUN_ID}; prepared_manifest=${CGR_PREPARED_MANIFEST_SHA256}; workflow_run=${GITHUB_RUN_ID}"
+          git push origin "refs/tags/${CGR_CLAIM_TAG}"
+          test "$(git ls-remote --tags origin "refs/tags/${CGR_CLAIM_TAG}^{}" | awk '{print $1}')" = "${CGR_CANDIDATE}"
+
+      - name: Execute sealed CGR package exactly once
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-cgr-prepared
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 tools/run_continuous_curve_geometry_campaign.py \
+            --source-root . \
+            --profile experiments/profiles/continuous_curve_geometry_regression.json \
+            --protocol docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md \
+            --exporter experiments/continuous_curve_geometry_regression_export.cpp \
+            --validator tools/continuous_curve_geometry_regression_evidence.py \
+            --negative tools/continuous_curve_geometry_regression_negative.py \
+            execute \
+            --output-root "${OUTPUT_ROOT}"
+
+      - name: Remove reproducible build trees
+        if: always()
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-cgr-prepared
+        run: |
+          set -euo pipefail
+          if [ -d "${OUTPUT_ROOT}/cells" ]; then
+            find "${OUTPUT_ROOT}/cells" -mindepth 2 -maxdepth 2 -type d -name build -prune -exec rm -rf {} +
+          fi
+
+      - name: Verify retained terminal package
+        if: always()
+        shell: bash
+        env:
+          OUTPUT_ROOT: ${{ runner.temp }}/apmesh-cgr-prepared
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 tools/run_continuous_curve_geometry_campaign.py \
+            --source-root . \
+            --profile experiments/profiles/continuous_curve_geometry_regression.json \
+            --protocol docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md \
+            --exporter experiments/continuous_curve_geometry_regression_export.cpp \
+            --validator tools/continuous_curve_geometry_regression_evidence.py \
+            --negative tools/continuous_curve_geometry_regression_negative.py \
+            verify-retention \
+            --output-root "${OUTPUT_ROOT}"
+
+      - name: Retain terminal CGR package
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: cgr-terminal-${{ inputs.prepared_manifest_sha256 }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/apmesh-cgr-prepared
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
+          overwrite: false
