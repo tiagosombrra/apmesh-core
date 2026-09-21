@@ -441,3 +441,23 @@ The next bounded executable work item is only:
 
 No inverse mapping, discretization, quadrilateral or parallel work becomes
 authorized by integrating this decision.
+
+
+## 19. Integration checkpoint
+
+PR #59 integrated this decision as
+`65cd93818fa54eac00c6f63ebefa3615074a82cd`.
+
+Validation:
+
+- PR FAST `35551687273`: PASS;
+- PR INTEGRATION `35551687243`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35551746429`: PASS;
+- post-merge INTEGRATION `35551746412`: PASS.
+
+The decision checkpoint is closed.
+
+The sole next executable work item is **Certified Cubic Bézier Total
+Arc-Length Enclosure**. Cumulative/inverse parameter mapping remains blocked
+until that implementation is integrated and closed.
