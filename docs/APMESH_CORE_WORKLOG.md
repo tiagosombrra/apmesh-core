@@ -186,44 +186,37 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Work Unit 2B implementation decision is closed.**
+**Work Unit 2B — Certified Inverse Arc-Length Bracketing — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/certified-inverse-arc-length-bracketing`.
 
-1. decision authority:
-   `docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`;
-2. PR #68 FAST `35592555795`: PASS;
-3. PR #68 INTEGRATION `35592555778`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. PR #68 squash-merged as
-   `f0faaf53e5b898e0270fc0e406cf7337e8d95bb1`;
-5. post-merge FAST `35592839727`: PASS;
-6. post-merge INTEGRATION `35592839775`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. no inverse production code was introduced by the decision;
-8. Curve Representation remains stage-unqualified.
+Decision authority:
+`docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
 
-No work item is active.
+Authorized implementation scope:
+
+1. add only the bounded inverse policy/result/evidence/error vocabulary fixed by
+   the integrated decision;
+2. internally certify global regularity on the same curve for every inverse
+   call;
+3. reuse integrated total and cumulative arc-length enclosure semantics;
+4. support absolute-length and normalized-fraction target modes;
+5. retain certified parameter brackets and inspectable lower/upper cumulative
+   evidence;
+6. refine deterministically by midpoint bisection only;
+7. preserve total-length uncertainty and fail closed on ambiguous target or
+   midpoint classification;
+8. retain valid brackets on resource/ambiguity `indeterminate` paths;
+9. add focused analytic/adversarial 2D/3D tests and header isolation;
+10. preserve all prerequisite FAST/INTEGRATION contracts;
+11. do not introduce lookup tables, scalar-only inverse authority, physical
+    sampling, boundary discretization, surface, Quad-Dominant, parallel or
+    qualification code.
 
 ## Next admissible work item after closure
 
-Implement exactly **Work Unit 2B — Certified Inverse Arc-Length Bracketing**
-under the integrated decision.
-
-Implementation scope is limited to:
-
-- same-curve internal global-regularity certification;
-- absolute-length and normalized-fraction targets;
-- certified parameter brackets;
-- retained total/lower-cumulative/upper-cumulative evidence;
-- deterministic midpoint bisection;
-- explicit parameter-bracket tolerance and refinement-iteration resource
-  policy;
-- fail-closed target-domain, regularity and enclosure semantics;
-- focused analytic/adversarial 2D/3D tests;
-- prerequisite preservation and header/dependency isolation.
-
-No lookup table, scalar-only inverse authority, physical equal-length sampling,
-boundary discretization, surface, Quad-Dominant, parallel or stage-
-qualification work belongs to this work unit.
+After the bounded implementation is integrated, post-merge FAST/INTEGRATION
+pass, and its checkpoint is closed, pre-register the separate **Continuous
+Curve Geometry Regression** required to qualify Curve Representation before any
+physical discretization begins.
 
