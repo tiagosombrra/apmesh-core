@@ -252,27 +252,27 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Integrate Cubic Bézier Differential Evaluation and Pointwise Speed, then
-close the work-unit checkpoint before opening Global Cubic Regularity
-Certification.**
+**Open one separate bounded decision for Global Cubic Regularity Certification.**
 
-Implementation branch:
-`curve/cubic-bezier-differential-evaluation`.
+Cubic Bézier Differential Evaluation and Pointwise Speed is integrated and
+closed.
 
-Focused validation:
+Integration evidence:
 
-- PR #52 FAST `35544242913`: PASS;
-- PR #52 INTEGRATION `35544242911`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug.
+- PR #52 merged as
+  `1b1da2893168e5f3da3fb98595809d7210f49f6b`;
+- final PR FAST `35544348814`: PASS;
+- final PR INTEGRATION `35544348767`: PASS;
+- post-merge FAST `35544417439`: PASS;
+- post-merge INTEGRATION `35544417474`: PASS.
 
-The candidate adds only first derivative, second derivative and pointwise speed
-for the fixed polynomial cubic Bézier representation. Derivatives remain in
-Bézier/Bernstein form and pointwise speed uses the qualified stable norm.
+The curve stage now has deterministic value evaluation, analytic first/second
+derivatives and pointwise speed. It still has no interval-wide proof that
+`B'(t)` is nonzero everywhere.
 
-Global interval regularity remains unproved and unauthorized. No
-`is_regular()`, root certification, unit tangent, curvature, arc length,
-discretization, quadrilateral or parallel capability is admitted by this work
-unit.
+The next decision must separate exact/complete regularity certification from
+sampling and must not introduce arc length, curvature, discretization,
+quadrilateral or parallel execution.
 
 
 ## Current active stage
@@ -289,7 +289,7 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 Current bounded decision:
 
 **Cubic Bézier Differential Evaluation and Pointwise Speed — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATION PENDING / NOT QUALIFIED.** The candidate
+FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.** The candidate
 implements analytic first/second derivative evaluation and pointwise speed only.
 The decision continues to separate local differential evaluation from global
 regularity certification; interval-wide regularity, curvature, arc length and

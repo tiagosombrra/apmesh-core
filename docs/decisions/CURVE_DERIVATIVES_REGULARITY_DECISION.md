@@ -1,6 +1,6 @@
 # Curve Derivatives and Regularity — Bounded Decision
 
-Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATION PENDING / STAGE UNQUALIFIED
+Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -426,3 +426,28 @@ This evidence supports only:
 
 No global regularity result, arc-length result or Curve Representation
 qualification follows from this implementation candidate.
+
+
+## Implementation integration checkpoint
+
+PR #52 integrated Cubic Bézier Differential Evaluation and Pointwise Speed as
+`1b1da2893168e5f3da3fb98595809d7210f49f6b`.
+
+Validation:
+
+- final PR FAST `35544348814`: PASS;
+- final PR INTEGRATION `35544348767`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35544417439`: PASS;
+- post-merge INTEGRATION `35544417474`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+The work-unit result is therefore:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+The pointwise speed API remains local evidence only. No global regularity,
+arc-length or Curve Representation qualification claim is established.
+
+The next bounded scientific transition is a separate decision for
+**Global Cubic Regularity Certification**.
