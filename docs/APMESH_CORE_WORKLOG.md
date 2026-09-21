@@ -186,44 +186,64 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Work Unit 2B implementation decision is closed.**
+**Work Unit 2B — Certified Inverse Arc-Length Bracketing —
+IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/certified-inverse-arc-length-bracketing`.
 
-1. decision authority:
-   `docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`;
-2. PR #68 FAST `35592555795`: PASS;
-3. PR #68 INTEGRATION `35592555778`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. PR #68 squash-merged as
-   `f0faaf53e5b898e0270fc0e406cf7337e8d95bb1`;
-5. post-merge FAST `35592839727`: PASS;
-6. post-merge INTEGRATION `35592839775`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. no inverse production code was introduced by the decision;
-8. Curve Representation remains stage-unqualified.
+Decision authority:
+`docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
 
-No work item is active.
+Implemented bounded contract:
+
+1. `CurveInverseLengthError`, result, policy and evidence are public only in
+   the curve module;
+2. every inverse call internally certifies global regularity for the same curve;
+3. total and cumulative arc-length evidence reuse the integrated certified
+   enclosure paths;
+4. absolute-length and normalized-fraction target modes are supported;
+5. normalized fractions preserve the retained total-length uncertainty;
+6. the scientific result is a certified `[t_low,t_high]` bracket;
+7. lower/upper cumulative, total-length and regularity evidence are retained;
+8. deterministic `std::midpoint` bisection is the only refinement authority;
+9. ambiguous midpoint classification and resource exhaustion return
+   `indeterminate` with the last valid certified bracket;
+10. exact endpoint identities are admitted only after same-curve regularity is
+    certified;
+11. no target clamping, lookup table, cached sampled mapping, scalar-only
+    scientific inverse, generic root solver or acceleration authority exists.
+
+Focused evidence includes endpoint identities, analytic straight-line
+absolute/fraction inverses, a nonuniform analytic parabola reference, reversal,
+2D/3D parity, translation, power-of-two scale, target-domain rejection/
+uncertainty, degenerate and indeterminate regularity, ambiguous midpoint,
+iteration exhaustion, zero parameter tolerance, invalid policy, numeric
+failure and deterministic repeatability.
+
+Validation:
+
+- PR #70 FAST `35593878035`: PASS;
+- PR #70 INTEGRATION `35593878082`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- new focused test `apmesh_core.curve_inverse_arc_length` participates in
+  FAST and INTEGRATION;
+- curve header-isolation contract covers the new public surface;
+- all prerequisite selected contracts remain passing.
+
+Scientific boundary:
+
+- Curve Representation remains stage-unqualified;
+- no physical equal-length sampling or boundary discretization is introduced;
+- no surface, Quad-Dominant, parallel or qualification tooling is introduced.
 
 ## Next admissible work item after closure
 
-Implement exactly **Work Unit 2B — Certified Inverse Arc-Length Bracketing**
-under the integrated decision.
+After PR #70 is merged, post-merge FAST/INTEGRATION pass, and the Work Unit 2B
+checkpoint is closed, pre-register the separate **Continuous Curve Geometry
+Regression** required for Curve Representation stage qualification.
 
-Implementation scope is limited to:
-
-- same-curve internal global-regularity certification;
-- absolute-length and normalized-fraction targets;
-- certified parameter brackets;
-- retained total/lower-cumulative/upper-cumulative evidence;
-- deterministic midpoint bisection;
-- explicit parameter-bracket tolerance and refinement-iteration resource
-  policy;
-- fail-closed target-domain, regularity and enclosure semantics;
-- focused analytic/adversarial 2D/3D tests;
-- prerequisite preservation and header/dependency isolation.
-
-No lookup table, scalar-only inverse authority, physical equal-length sampling,
-boundary discretization, surface, Quad-Dominant, parallel or stage-
-qualification work belongs to this work unit.
+That stage-regression decision must bind the complete admitted continuous-curve
+claim set and prerequisite preservation before any formal qualification
+execution. Physical discretization remains blocked until Curve Representation
+is qualified.
 

@@ -1,6 +1,7 @@
 # Curve Representation — Work Unit 2B Certified Inverse Arc-Length Bracketing
 
-Status: IMPLEMENTATION DECISION INTEGRATED / CLOSED / IMPLEMENTATION AUTHORIZED
+Status: IMPLEMENTATION DECISION INTEGRATED / IMPLEMENTATION COMPLETE /
+FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED
 Date: 2026-09-21
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Parent authority:
@@ -443,3 +444,52 @@ The sole next work item is implementation of exactly the bounded
 **Certified Inverse Arc-Length Bracketing** contract in this document. No
 physical sampling, lookup table, boundary discretization, surface,
 Quad-Dominant, parallel, or stage-qualification capability is authorized.
+
+## 20. Implementation result
+
+Implementation branch:
+`curve/certified-inverse-arc-length-bracketing`.
+
+PR: #70.
+
+Implemented surface:
+
+- `CurveInverseLengthError`;
+- `CurveInverseLengthResult`;
+- `CurveInverseLengthPolicy`;
+- `CurveInverseLengthEvidence`;
+- absolute-target certified inverse-bracket methods for 2D/3D cubics;
+- normalized-fraction certified inverse-bracket methods for 2D/3D cubics.
+
+The implementation internally reuses same-curve regularity certification,
+certified total arc length and certified cumulative arc length. It introduces
+no generic solver or public interval abstraction.
+
+Validation:
+
+- FAST `35593878035`: PASS;
+- INTEGRATION `35593878082`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- header isolation covers the bounded public contract;
+- all selected prerequisite semantic contracts remain passing.
+
+Completion-gate status:
+
+1. public API remains inside the authorized policy/result/evidence surface:
+   PASS;
+2. required focused cases: PASS;
+3. same-curve regularity before unique inverse claim: PASS;
+4. inspectable lower/upper cumulative proof evidence: PASS;
+5. both target modes preserve total uncertainty: PASS;
+6. ambiguity/resource paths retain a valid bracket and return
+   `indeterminate`: PASS;
+7. FAST: PASS;
+8. GCC/Clang INTEGRATION: PASS;
+9. excluded downstream capability absent: PASS.
+
+Result:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+After integration and closure, pre-register the Continuous Curve Geometry
+Regression. Physical discretization remains blocked until that stage-level
+regression qualifies Curve Representation.

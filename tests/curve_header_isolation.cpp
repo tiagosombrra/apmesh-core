@@ -12,6 +12,9 @@ int main() {
     using apmesh::core::CurveLengthError;
     using apmesh::core::CurveLengthEvidence;
     using apmesh::core::CurveLengthPolicy;
+    using apmesh::core::CurveInverseLengthError;
+    using apmesh::core::CurveInverseLengthEvidence;
+    using apmesh::core::CurveInverseLengthPolicy;
     using apmesh::core::CurveRegularityError;
     using apmesh::core::CurveRegularityEvidence;
     using apmesh::core::CurveRegularityPolicy;
@@ -74,6 +77,26 @@ int main() {
             std::declval<const CurveLengthPolicy&>())),
         std::expected<CurveLengthEvidence, CurveLengthError>>);
     static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().inverse_arc_length_bracket(
+            0.5,
+            std::declval<const CurveInverseLengthPolicy&>())),
+        std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().inverse_arc_length_bracket(
+            0.5,
+            std::declval<const CurveInverseLengthPolicy&>())),
+        std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().inverse_arc_length_fraction_bracket(
+            0.5,
+            std::declval<const CurveInverseLengthPolicy&>())),
+        std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().inverse_arc_length_fraction_bracket(
+            0.5,
+            std::declval<const CurveInverseLengthPolicy&>())),
+        std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>>);
+    static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().control_points()),
         const std::array<Point2, 4>&>);
     static_assert(std::same_as<
@@ -98,6 +121,12 @@ int main() {
         .max_subdivision_depth = 8,
         .max_processed_nodes = 128,
     };
+    const CurveInverseLengthPolicy inverse_policy{
+        .length_policy = length_policy,
+        .regularity_policy = policy,
+        .parameter_tolerance = 0.25,
+        .max_refinement_iterations = 8,
+    };
     return curve2.evaluate(0.5).has_value() &&
                    curve3.evaluate(0.5).has_value() &&
                    curve2.first_derivative(0.5).has_value() &&
@@ -113,7 +142,11 @@ int main() {
                    curve2.cumulative_arc_length_enclosure(
                        0.5, length_policy).has_value() &&
                    curve3.cumulative_arc_length_enclosure(
-                       0.5, length_policy).has_value()
+                       0.5, length_policy).has_value() &&
+                   !curve2.inverse_arc_length_bracket(
+                       0.0, inverse_policy).has_value() &&
+                   !curve3.inverse_arc_length_fraction_bracket(
+                       0.0, inverse_policy).has_value()
                ? 0
                : 1;
 }

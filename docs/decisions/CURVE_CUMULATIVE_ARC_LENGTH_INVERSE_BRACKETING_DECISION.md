@@ -477,3 +477,41 @@ Decision effect:
 The authorized implementation remains limited by the child decision. Physical
 equal-length sampling, boundary discretization, surfaces, Quad-Dominant work
 and parallel execution remain blocked.
+
+## 21. Work Unit 2B implementation result
+
+Implementation branch:
+`curve/certified-inverse-arc-length-bracketing`.
+
+PR: #70.
+
+The bounded candidate implements only the child decision contract:
+
+- same-curve global regularity certification before inverse claims;
+- certified absolute-length and normalized-fraction target handling;
+- conservative target uncertainty preservation;
+- deterministic midpoint bracket refinement;
+- retained lower/upper cumulative, total-length and regularity evidence;
+- explicit `converged/indeterminate` and classified failure semantics.
+
+Validation:
+
+- FAST `35593878035`: PASS;
+- INTEGRATION `35593878082`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The focused contract covers endpoint identities, analytic straight and
+parabola fixtures, reversal, 2D/3D parity, translation, power-of-two scale,
+uncertain target domain, degenerate/indeterminate regularity, ambiguous
+midpoint, iteration exhaustion, zero parameter tolerance, invalid policy,
+non-finite enclosure and deterministic repeatability.
+
+Decision effect at this point:
+
+- Work Unit 2B:
+  **IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED /
+  NOT QUALIFIED**;
+- Curve Representation: **STAGE UNQUALIFIED**.
+
+Integration and post-merge closure are still required before Continuous Curve
+Geometry Regression may be opened.

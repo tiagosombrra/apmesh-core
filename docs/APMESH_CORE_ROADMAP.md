@@ -1083,6 +1083,27 @@ parameter brackets, deterministic midpoint bisection and explicit
 indeterminate/resource semantics. No lookup/sampling approximation, physical
 discretization, surface, quadrilateral or parallel capability is admitted.
 
+The bounded implementation is complete on
+`curve/certified-inverse-arc-length-bracketing` and is
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED**.
+
+The public result is an inspectable certified parameter bracket retaining
+same-curve regularity, total-length, lower-cumulative and upper-cumulative
+evidence. Absolute and normalized-fraction modes preserve target uncertainty;
+deterministic midpoint bisection is the only refinement authority. Ambiguous
+midpoint and iteration-resource paths retain the last valid bracket and return
+`indeterminate`.
+
+PR #70 validation:
+- FAST `35593878035`: PASS;
+- INTEGRATION `35593878082`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+No physical sampling, boundary discretization, surface, quadrilateral,
+parallel or qualification capability is introduced. After integration and
+closure, the next bounded transition is pre-registration of the Continuous
+Curve Geometry Regression.
+
 Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
 difference is an error estimate, whereas the first work unit requires an
 explicit conservative enclosure.

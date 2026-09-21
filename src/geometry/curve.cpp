@@ -9,6 +9,7 @@
 #include <cmath>
 #include <expected>
 #include <limits>
+#include <numeric>
 #include <optional>
 
 namespace apmesh::core {
@@ -1122,6 +1123,375 @@ certify_regularity_impl(
     };
 }
 
+[[nodiscard]] CurveInverseLengthError inverse_error(
+    const CurveLengthError error) noexcept {
+    switch (error) {
+    case CurveLengthError::invalid_policy:
+        return CurveInverseLengthError::invalid_policy;
+    case CurveLengthError::non_finite_enclosure:
+        return CurveInverseLengthError::non_finite_enclosure;
+    case CurveLengthError::non_finite_parameter:
+    case CurveLengthError::parameter_out_of_domain:
+        return CurveInverseLengthError::non_finite_enclosure;
+    }
+    return CurveInverseLengthError::non_finite_enclosure;
+}
+
+[[nodiscard]] CurveInverseLengthError inverse_error(
+    const CurveRegularityError error) noexcept {
+    switch (error) {
+    case CurveRegularityError::invalid_policy:
+        return CurveInverseLengthError::invalid_policy;
+    case CurveRegularityError::non_finite_enclosure:
+        return CurveInverseLengthError::non_finite_enclosure;
+    }
+    return CurveInverseLengthError::non_finite_enclosure;
+}
+
+[[nodiscard]] std::expected<void, CurveInverseLengthError>
+validate_inverse_length_policy(
+    const CurveInverseLengthPolicy& policy) noexcept {
+    const auto length_valid = validate_length_policy(policy.length_policy);
+    if (!length_valid) {
+        return std::unexpected{CurveInverseLengthError::invalid_policy};
+    }
+    const auto regularity_valid =
+        validate_regularity_policy(policy.regularity_policy);
+    if (!regularity_valid) {
+        return std::unexpected{CurveInverseLengthError::invalid_policy};
+    }
+    if (!std::isfinite(policy.parameter_tolerance) ||
+        policy.parameter_tolerance < 0.0 ||
+        policy.max_refinement_iterations == 0) {
+        return std::unexpected{CurveInverseLengthError::invalid_policy};
+    }
+    return {};
+}
+
+[[nodiscard]] bool valid_length_evidence(
+    const CurveLengthEvidence& evidence) noexcept {
+    return std::isfinite(evidence.lower_length) &&
+           std::isfinite(evidence.upper_length) &&
+           evidence.lower_length >= 0.0 &&
+           evidence.upper_length >= evidence.lower_length;
+}
+
+[[nodiscard]] std::expected<std::pair<double, double>, CurveInverseLengthError>
+fraction_target_interval(
+    const double fraction,
+    const CurveLengthEvidence& total) noexcept {
+    const double raw_lower = fraction * total.lower_length;
+    const double raw_upper = fraction * total.upper_length;
+    if (!std::isfinite(raw_lower) || !std::isfinite(raw_upper)) {
+        return std::unexpected{CurveInverseLengthError::non_finite_enclosure};
+    }
+
+    const double lower =
+        raw_lower == 0.0 ? 0.0 : std::nextafter(raw_lower, 0.0);
+    const double upper =
+        raw_upper == 0.0
+            ? 0.0
+            : std::nextafter(
+                  raw_upper,
+                  std::numeric_limits<double>::infinity());
+    if (!std::isfinite(lower) || !std::isfinite(upper) ||
+        lower < 0.0 || upper < lower) {
+        return std::unexpected{CurveInverseLengthError::non_finite_enclosure};
+    }
+    return std::pair{lower, upper};
+}
+
+[[nodiscard]] CurveInverseLengthEvidence inverse_evidence(
+    const CurveInverseLengthResult result,
+    const double target_lower,
+    const double target_upper,
+    const double lower_parameter,
+    const double upper_parameter,
+    const CurveLengthEvidence& lower_cumulative,
+    const CurveLengthEvidence& upper_cumulative,
+    const CurveLengthEvidence& total,
+    const CurveRegularityEvidence& regularity,
+    const std::size_t iterations) noexcept {
+    return CurveInverseLengthEvidence{
+        .result = result,
+        .target_lower_length = target_lower,
+        .target_upper_length = target_upper,
+        .lower_parameter = lower_parameter,
+        .upper_parameter = upper_parameter,
+        .lower_cumulative = lower_cumulative,
+        .upper_cumulative = upper_cumulative,
+        .total_length = total,
+        .regularity = regularity,
+        .refinement_iterations = iterations,
+    };
+}
+
+enum class InverseTargetMode {
+    absolute_length,
+    normalized_fraction,
+};
+
+template <typename Curve>
+[[nodiscard]] std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+inverse_arc_length_bracket_impl(
+    const Curve& curve,
+    const double target,
+    const CurveInverseLengthPolicy& policy,
+    const InverseTargetMode mode) noexcept {
+    const auto valid_policy = validate_inverse_length_policy(policy);
+    if (!valid_policy) {
+        return std::unexpected{valid_policy.error()};
+    }
+
+    if (!std::isfinite(target)) {
+        return std::unexpected{CurveInverseLengthError::non_finite_target};
+    }
+    if (target < 0.0 ||
+        (mode == InverseTargetMode::normalized_fraction && target > 1.0)) {
+        return std::unexpected{CurveInverseLengthError::target_out_of_domain};
+    }
+
+    const auto regularity =
+        curve.certify_regularity(policy.regularity_policy);
+    if (!regularity) {
+        return std::unexpected{inverse_error(regularity.error())};
+    }
+    if (regularity->result != CurveRegularityResult::regular) {
+        return std::unexpected{
+            CurveInverseLengthError::regularity_not_certified};
+    }
+
+    const auto total = curve.arc_length_enclosure(policy.length_policy);
+    if (!total) {
+        return std::unexpected{inverse_error(total.error())};
+    }
+    if (!valid_length_evidence(*total)) {
+        return std::unexpected{CurveInverseLengthError::non_finite_enclosure};
+    }
+
+    const auto zero =
+        curve.cumulative_arc_length_enclosure(0.0, policy.length_policy);
+    if (!zero) {
+        return std::unexpected{inverse_error(zero.error())};
+    }
+    if (!valid_length_evidence(*zero) ||
+        zero->lower_length != 0.0 || zero->upper_length != 0.0) {
+        return std::unexpected{CurveInverseLengthError::non_finite_enclosure};
+    }
+
+    double target_lower = 0.0;
+    double target_upper = 0.0;
+
+    if (mode == InverseTargetMode::absolute_length) {
+        if (target > total->upper_length) {
+            return std::unexpected{
+                CurveInverseLengthError::target_out_of_domain};
+        }
+
+        target_lower = target;
+        target_upper = target;
+
+        if (target == 0.0) {
+            return inverse_evidence(
+                CurveInverseLengthResult::converged,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                *zero,
+                *zero,
+                *total,
+                *regularity,
+                0);
+        }
+
+        if (total->lower_length == total->upper_length &&
+            target == total->lower_length) {
+            return inverse_evidence(
+                CurveInverseLengthResult::converged,
+                target,
+                target,
+                1.0,
+                1.0,
+                *total,
+                *total,
+                *total,
+                *regularity,
+                0);
+        }
+
+        if (target > total->lower_length) {
+            return std::unexpected{
+                CurveInverseLengthError::target_domain_indeterminate};
+        }
+    } else {
+        if (target == 0.0) {
+            return inverse_evidence(
+                CurveInverseLengthResult::converged,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                *zero,
+                *zero,
+                *total,
+                *regularity,
+                0);
+        }
+        if (target == 1.0) {
+            return inverse_evidence(
+                CurveInverseLengthResult::converged,
+                total->lower_length,
+                total->upper_length,
+                1.0,
+                1.0,
+                *total,
+                *total,
+                *total,
+                *regularity,
+                0);
+        }
+
+        const auto target_interval =
+            fraction_target_interval(target, *total);
+        if (!target_interval) {
+            return std::unexpected{target_interval.error()};
+        }
+        target_lower = target_interval->first;
+        target_upper = target_interval->second;
+        if (target_upper > total->lower_length) {
+            return std::unexpected{
+                CurveInverseLengthError::target_domain_indeterminate};
+        }
+    }
+
+    double lower_parameter = 0.0;
+    double upper_parameter = 1.0;
+    CurveLengthEvidence lower_cumulative = *zero;
+    CurveLengthEvidence upper_cumulative = *total;
+
+    if (!(lower_cumulative.upper_length <= target_lower &&
+          target_upper <= upper_cumulative.lower_length)) {
+        return std::unexpected{
+            CurveInverseLengthError::target_domain_indeterminate};
+    }
+
+    if (upper_parameter - lower_parameter <=
+        policy.parameter_tolerance) {
+        return inverse_evidence(
+            CurveInverseLengthResult::converged,
+            target_lower,
+            target_upper,
+            lower_parameter,
+            upper_parameter,
+            lower_cumulative,
+            upper_cumulative,
+            *total,
+            *regularity,
+            0);
+    }
+
+    for (std::size_t iteration = 0;
+         iteration < policy.max_refinement_iterations;
+         ++iteration) {
+        const double midpoint =
+            std::midpoint(lower_parameter, upper_parameter);
+        if (midpoint == lower_parameter ||
+            midpoint == upper_parameter) {
+            return inverse_evidence(
+                CurveInverseLengthResult::indeterminate,
+                target_lower,
+                target_upper,
+                lower_parameter,
+                upper_parameter,
+                lower_cumulative,
+                upper_cumulative,
+                *total,
+                *regularity,
+                iteration);
+        }
+
+        const auto middle_cumulative =
+            curve.cumulative_arc_length_enclosure(
+                midpoint,
+                policy.length_policy);
+        if (!middle_cumulative) {
+            return std::unexpected{
+                inverse_error(middle_cumulative.error())};
+        }
+        if (!valid_length_evidence(*middle_cumulative)) {
+            return std::unexpected{
+                CurveInverseLengthError::non_finite_enclosure};
+        }
+
+        const std::size_t completed_iterations = iteration + 1;
+        if (target_lower == target_upper &&
+            middle_cumulative->lower_length ==
+                middle_cumulative->upper_length &&
+            middle_cumulative->lower_length == target_lower) {
+            return inverse_evidence(
+                CurveInverseLengthResult::converged,
+                target_lower,
+                target_upper,
+                midpoint,
+                midpoint,
+                *middle_cumulative,
+                *middle_cumulative,
+                *total,
+                *regularity,
+                completed_iterations);
+        }
+
+        if (middle_cumulative->upper_length <= target_lower) {
+            lower_parameter = midpoint;
+            lower_cumulative = *middle_cumulative;
+        } else if (
+            target_upper <= middle_cumulative->lower_length) {
+            upper_parameter = midpoint;
+            upper_cumulative = *middle_cumulative;
+        } else {
+            return inverse_evidence(
+                CurveInverseLengthResult::indeterminate,
+                target_lower,
+                target_upper,
+                lower_parameter,
+                upper_parameter,
+                lower_cumulative,
+                upper_cumulative,
+                *total,
+                *regularity,
+                completed_iterations);
+        }
+
+        if (upper_parameter - lower_parameter <=
+            policy.parameter_tolerance) {
+            return inverse_evidence(
+                CurveInverseLengthResult::converged,
+                target_lower,
+                target_upper,
+                lower_parameter,
+                upper_parameter,
+                lower_cumulative,
+                upper_cumulative,
+                *total,
+                *regularity,
+                completed_iterations);
+        }
+    }
+
+    return inverse_evidence(
+        CurveInverseLengthResult::indeterminate,
+        target_lower,
+        target_upper,
+        lower_parameter,
+        upper_parameter,
+        lower_cumulative,
+        upper_cumulative,
+        *total,
+        *regularity,
+        policy.max_refinement_iterations);
+}
+
 } // namespace
 
 const std::array<Point2, 4>& CubicBezier2::control_points() const noexcept {
@@ -1184,6 +1554,28 @@ CubicBezier2::cumulative_arc_length_enclosure(
         control_points_,
         parameter,
         policy);
+}
+
+std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+CubicBezier2::inverse_arc_length_bracket(
+    const double target_length,
+    const CurveInverseLengthPolicy& policy) const noexcept {
+    return inverse_arc_length_bracket_impl(
+        *this,
+        target_length,
+        policy,
+        InverseTargetMode::absolute_length);
+}
+
+std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+CubicBezier2::inverse_arc_length_fraction_bracket(
+    const double normalized_fraction,
+    const CurveInverseLengthPolicy& policy) const noexcept {
+    return inverse_arc_length_bracket_impl(
+        *this,
+        normalized_fraction,
+        policy,
+        InverseTargetMode::normalized_fraction);
 }
 
 CubicBezier2 CubicBezier2::reversed() const noexcept {
@@ -1255,6 +1647,28 @@ CubicBezier3::cumulative_arc_length_enclosure(
         control_points_,
         parameter,
         policy);
+}
+
+std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+CubicBezier3::inverse_arc_length_bracket(
+    const double target_length,
+    const CurveInverseLengthPolicy& policy) const noexcept {
+    return inverse_arc_length_bracket_impl(
+        *this,
+        target_length,
+        policy,
+        InverseTargetMode::absolute_length);
+}
+
+std::expected<CurveInverseLengthEvidence, CurveInverseLengthError>
+CubicBezier3::inverse_arc_length_fraction_bracket(
+    const double normalized_fraction,
+    const CurveInverseLengthPolicy& policy) const noexcept {
+    return inverse_arc_length_bracket_impl(
+        *this,
+        normalized_fraction,
+        policy,
+        InverseTargetMode::normalized_fraction);
 }
 
 CubicBezier3 CubicBezier3::reversed() const noexcept {
