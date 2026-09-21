@@ -93,6 +93,91 @@ Project relevance:
 - baseline semantics for binary/decimal floating-point formats, operations, exceptions, and rounding behavior;
 - informs declared environment assumptions for reproducibility and numeric diagnostics.
 
+## Curve representation and geometric modeling
+
+### Farouki and Rajan 1987 — Bernstein-form numerical conditioning
+
+Status: `ACTIVE REVIEW`
+
+Rida T. Farouki and V. T. Rajan. *On the numerical condition of polynomials in
+Bernstein form*. Computer Aided Geometric Design, 4(3), 191–216, 1987.
+DOI: 10.1016/0167-8396(87)90012-4.
+
+Publisher entry:
+https://doi.org/10.1016/0167-8396(87)90012-4
+
+Project relevance:
+
+- establishes the Bernstein-Bézier form as a numerically favorable basis for
+  geometric modeling computations;
+- supports retaining the cubic curve directly in Bernstein/Bézier form instead
+  of converting it to the power basis as the primary representation;
+- does not by itself prove every floating-point evaluation or define AP Mesh
+  acceptance thresholds.
+
+Current decision impact:
+
+- use a direct Bernstein/Bézier representation for the first continuous curve
+  work unit;
+- prefer a de Casteljau evaluation path and independently verify its numerical
+  residual rather than using legacy AP Mesh output as an oracle.
+
+### Delgado Gracia 2020 — de Casteljau error analysis
+
+Status: `ACTIVE REVIEW`
+
+Jorge Delgado Gracia. *Compensated Evaluation of Tensor Product Surfaces in
+CAGD*. Mathematics, 8(12), 2219, 2020.
+DOI: 10.3390/math8122219.
+
+Open-access article:
+https://doi.org/10.3390/math8122219
+
+Project relevance:
+
+- summarizes the standard de Casteljau recurrence for Bernstein/Bézier
+  evaluation and its floating-point error analysis;
+- reinforces that numerical agreement must be assessed through a declared error
+  model and residual, not a project-wide epsilon;
+- compensated evaluation is explicitly not selected for the first bounded
+  cubic work unit.
+
+### Open CASCADE Bézier curve semantics
+
+Status: `ACTIVE REVIEW`
+
+Open CASCADE Technology, `Geom_BezierCurve` and
+`Geom2d_BezierCurve` reference documentation.
+
+References:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom2d___bezier_curve.html
+- https://dev.opencascade.org/doc/refman/html/class_geom___bezier_curve.html
+
+Project relevance:
+
+- documents the common normalized Bézier parameter range `[0,1]`;
+- documents first/last control-point endpoint semantics;
+- documents curve reversal through parameter mapping `u -> 1-u`;
+- serves only as an external semantic cross-check and is not an implementation
+  dependency or acceptance oracle.
+
+### C++ `std::lerp` finite interpolation semantics
+
+Status: `ACTIVE REVIEW`
+
+C++ standard-library interpolation reference:
+https://en.cppreference.com/w/cpp/numeric/lerp
+
+Project relevance:
+
+- for finite endpoints, `t == 0` returns the first endpoint, `t == 1`
+  returns the second endpoint, and `t in [0,1]` returns a finite result;
+- supports component-wise de Casteljau interpolation without the avoidable
+  overflow risk of spelling every interpolation as `a + t * (b - a)`;
+- this is an engineering property of the selected primitive, not a scientific
+  acceptance criterion by itself.
+
 ## Scientific software engineering and reproducibility
 
 ### Wilson et al. 2014 — Best Practices for Scientific Computing
