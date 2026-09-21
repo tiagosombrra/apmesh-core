@@ -176,47 +176,48 @@ writing.
   PR #66; Work Unit 2A implementation only.
 - `docs/cumulative-arc-length-enclosure-closure`: **CLOSURE-ONLY**; records
   Work Unit 2A integration and post-merge validation.
+- `curve/inverse-arc-length-bracketing-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; fixes the executable Work Unit 2B contract before
+  inverse implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Work Unit 2A — Certified Cumulative Arc-Length Enclosure is closed.**
+**Work Unit 2B — Certified Inverse Arc-Length Bracketing implementation
+decision — ACTIVE / DOCUMENTATION-ONLY.**
 
-Closure evidence:
+Active branch: `curve/inverse-arc-length-bracketing-decision`.
 
-1. implementation authority:
-   `docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`;
-2. PR #66 FAST `35591661827`: PASS on the final documented head;
-3. PR #66 INTEGRATION `35591661836`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug on the final documented head;
-4. PR #66 squash-merged as
-   `3cfb580cae2e2d26e87e9dfcfeab0aade0a3a3be`;
-5. post-merge FAST `35591774007`: PASS;
-6. post-merge INTEGRATION `35591773982`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. cumulative prefix length is now implemented with conservative
-   lower/upper evidence and explicit resource semantics;
-8. no inverse parameter mapping was introduced;
-9. Curve Representation remains stage-unqualified.
+Parent authority:
+`docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
 
-No work item is active.
+Purpose:
+
+Freeze the executable 2B public/evidence contract after 2A closure and before
+any inverse production code.
+
+The decision must bind:
+
+1. same-curve global regularity as a mandatory precondition;
+2. certified parameter brackets rather than scalar parameter estimates;
+3. absolute-length targets and normalized-fraction targets;
+4. total/cumulative enclosure uncertainty in every proof;
+5. deterministic midpoint bracket refinement;
+6. explicit parameter-bracket width and iteration-resource policy;
+7. explicit target-domain and regularity failure semantics;
+8. retained lower/upper cumulative evidence in the returned certificate;
+9. endpoint semantics for zero and normalized fraction one;
+10. focused analytic/adversarial 2D/3D evidence.
+
+No inverse production code belongs to this work item.
 
 ## Next admissible work item after closure
 
-Open one separate bounded work item for:
+After the Work Unit 2B implementation decision is merged, post-merge
+FAST/INTEGRATION pass, and its checkpoint is closed, implement only the
+certified inverse bracket API fixed by that decision.
 
-**Work Unit 2B — Certified Inverse Arc-Length Bracketing.**
-
-The 2B work item must preserve the already integrated decision boundary:
-
-- prove same-curve global regularity before any unique inverse claim;
-- return a certified parameter bracket, not a scalar parameter estimate;
-- preserve cumulative and total-length enclosure uncertainty;
-- use deterministic bracket refinement as the correctness mechanism;
-- treat normalized fraction targets through the total-length enclosure;
-- reject or return indeterminate when target-domain membership cannot be
-  certified;
-- do not introduce lookup tables, physical sampling, boundary discretization,
-  surfaces, Quad-Dominant work or parallel execution.
+Physical sampling, lookup tables, boundary discretization, surfaces,
+Quad-Dominant work and parallel execution remain blocked.
 
