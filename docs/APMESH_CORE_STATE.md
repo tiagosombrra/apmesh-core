@@ -250,27 +250,27 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after total arc-length implementation integration:
+Exact next bounded scientific action:
 
 **Open one separate bounded decision for Cumulative Arc-Length Mapping and
 Certified Inverse Bracketing.**
 
-Certified Cubic Bézier Total Arc-Length Enclosure is implemented on
-`curve/cubic-bezier-total-arc-length-enclosure` and validated at final head
-`6ba8a1e52927c696e5c297c49943c1b25d8ec116`.
+Certified Cubic Bézier Total Arc-Length Enclosure is integrated and closed.
 
-Validation:
+Integration evidence:
 
-- FAST `35552642188`: PASS;
-- INTEGRATION `35552642196`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+- PR #61 final head
+  `42002586dfd61a80d07053d88982b301b1f1acde`;
+- final PR FAST `35552739398`: PASS;
+- final PR INTEGRATION `35552739395`: PASS;
+- PR #61 merged as
+  `5d89edfd391dc5548245f35ccedc2ac4c6c6951a`;
+- post-merge FAST `35580244685`: PASS;
+- post-merge INTEGRATION `35580244722`: PASS.
 
-The implementation returns a conservative total-length enclosure with explicit
-policy/resource evidence. Its norm enclosure uses scaled interval arithmetic
-and outward-rounded `sqrt`; it does not rely on an assumed formal error bound
-for `std::hypot`.
-
-Cumulative/inverse mapping remains unimplemented and unauthorized until this
-work unit is merged and closed.
+The integrated API retains a conservative finite total-length enclosure with
+explicit resource evidence. Cumulative and inverse mapping remain
+unimplemented and unauthorized until the next decision is integrated.
 
 
 ## Current active stage
@@ -278,7 +278,7 @@ work unit is merged and closed.
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
 CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED / STAGE UNQUALIFIED**
+INTEGRATED / STAGE UNQUALIFIED**
 
 Current completed work unit:
 
