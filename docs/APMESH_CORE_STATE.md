@@ -250,27 +250,29 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after regularity-decision integration:
+Exact next bounded scientific action:
 
 **Implement Certified Global Cubic Regularity by Bernstein Speed-Squared
 Enclosure and its focused contract.**
 
-Decision authority:
+The bounded decision is integrated and closed.
 
-`docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`
+Integration evidence:
 
-The method certifies the complete parameter interval through conservative
-Bernstein enclosures of `s(t)=||B'(t)||^2`, recursively subdivided until each
-leaf has a strictly positive lower coefficient bound or the explicit resource
-policy is exhausted.
+- PR #55 merged as
+  `224c8ab530f88475c2d8281cb60682a7c0db851a`;
+- PR FAST `35549162022`: PASS;
+- PR INTEGRATION `35549161971`: PASS;
+- post-merge FAST `35549240099`: PASS;
+- post-merge INTEGRATION `35549240093`: PASS.
 
-Only complete positivity may return `regular`. Exact admitted singular
-witnesses may return `degenerate`; all unresolved cases return
-`indeterminate`.
+The implementation may add only the conservative curve-local interval helper,
+explicit certification policy/result vocabulary, complete Bernstein
+squared-speed enclosure/subdivision certifier and focused 2D/3D evidence fixed
+by the decision.
 
-No sampling/epsilon regularity claim, general polynomial root solver, arc
-length, curvature, discretization, quadrilateral or parallel execution is
-authorized.
+Arc length, curvature, discretization, quadrilateral and parallel execution
+remain unauthorized.
 
 
 ## Current active stage
