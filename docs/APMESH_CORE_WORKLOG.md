@@ -163,43 +163,55 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Topological Model qualification is closed.**
+**Curve Representation scientific entry decision — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/representation-entry-decision`.
 
-1. corrected terminal audit PR #44 merged as
-   `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
-2. PR #44 FAST `35534295054`: PASS;
-3. PR #44 INTEGRATION `35534295078`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35534347597`: PASS;
-5. post-merge INTEGRATION `35534347623`: PASS;
-6. authoritative terminal audit records TMR0–TMR7 PASS and overall PASS;
-7. Topological Model is QUALIFIED only in the exact admitted GitHub-hosted
-   Ubuntu 24.04 x86_64 cloud envelope;
-8. Foundation and Geometry qualifications remain intact;
-9. no WSL/cloud equivalence is claimed;
-10. no curve production implementation has begun.
+Stage:
+**Curve Representation — Continuous Geometry Before Discretization.**
 
-No work item is active.
+Purpose:
+
+Define the smallest scientifically defensible first continuous-curve work unit
+after qualified Foundation, Geometry Primitives and Topological Model, before
+any curve production code exists.
+
+The entry decision must:
+
+1. remain consistent with the roadmap's first problem, **Cubic Bezier
+   Evaluation**;
+2. perform a focused literature/best-practice review before selecting the
+   evaluation mechanism;
+3. define the exact admitted curve representation and parameter domain;
+4. define explicit finite/error semantics and prohibit hidden tolerance;
+5. define deterministic control-point order, endpoint and reversal semantics;
+6. define analytic/reference evidence, including an independent numerical
+   reference path;
+7. preserve all qualified prerequisite semantic tests;
+8. exclude derivatives, regularity, curvature, arc length, subdivision API,
+   discretization, surfaces, meshing, Quad-Dominant work and parallel
+   execution;
+9. define the later stage-level cumulative regression boundary;
+10. introduce no production curve implementation in this work item.
+
+Repository audit at entry:
+
+- authoritative base:
+  `b30c781cb11a465f014c1239ab2655c3b8edbf0a`;
+- Curve Representation status on that base: `NOT STARTED`;
+- no `docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md` exists;
+- no `include/apmesh/curve` or `src/curve` production module exists;
+- current roadmap already names Cubic Bezier Evaluation as the first curve
+  investigation problem;
+- Topological Model qualification checkpoint is closed;
+- no PR was open when this work item started.
 
 ## Next admissible work item after closure
 
-Open one separate scientific entry-decision work item for:
+After the Curve Representation entry decision is merged, required
+FAST/INTEGRATION checks pass, and the entry checkpoint is closed, implement
+only the first bounded curve work unit authorized by that decision.
 
-**Curve Representation — Continuous Geometry Before Discretization.**
-
-The entry decision must bound the first investigation problem before any
-production implementation. It should define:
-
-1. the exact continuous curve capability admitted first;
-2. explicit exclusions;
-3. analytic/reference evidence requirements;
-4. finite/error semantics;
-5. prerequisite preservation requirements;
-6. deterministic representation and reversal expectations;
-7. the focused contract required before any stage-level qualification tooling;
-8. the later stage-exit regression boundary.
-
-No curve implementation belongs to the closure checkpoint itself.
+No derivative, regularity, arc-length, discretization, surface, meshing,
+Quad-Dominant or parallel work may begin before their own bounded decisions.
 
