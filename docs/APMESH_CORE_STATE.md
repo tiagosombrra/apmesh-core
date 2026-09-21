@@ -250,28 +250,32 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after Work Unit 2B integration:
 
-**Implement exactly Work Unit 2B — Certified Inverse Arc-Length Bracketing.**
+**Close Certified Inverse Arc-Length Bracketing, then pre-register the
+Continuous Curve Geometry Regression required to qualify Curve
+Representation.**
 
-The implementation decision is integrated and closed.
+Work Unit 2B is implemented and validated on
+`curve/certified-inverse-arc-length-bracketing`.
 
-Integration evidence:
+Validation:
 
-- PR #68 FAST `35592555795`: PASS;
-- PR #68 INTEGRATION `35592555778`: PASS;
-- PR #68 merged as
-  `f0faaf53e5b898e0270fc0e406cf7337e8d95bb1`;
-- post-merge FAST `35592839727`: PASS;
-- post-merge INTEGRATION `35592839775`: PASS.
+- FAST `35593878035`: PASS;
+- INTEGRATION `35593878082`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
 
-Implementation authority:
-`docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
+The bounded implementation internally certifies same-curve regularity, reuses
+certified total/cumulative arc-length evidence, preserves target uncertainty,
+returns inspectable parameter brackets and refines only through deterministic
+bisection. Ambiguity/resource exhaustion retain the last valid bracket and
+return `indeterminate`.
 
-The work unit must preserve same-curve regularity authority, certified target
-uncertainty, bracket evidence and deterministic serial refinement. It must not
-open physical discretization, surfaces, Quad-Dominant work, parallel execution
-or stage qualification.
+Status:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+Curve Representation remains stage-unqualified. Physical discretization,
+surfaces, Quad-Dominant work and parallel execution remain blocked.
 
 
 ## Current active stage
@@ -289,8 +293,8 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 Current bounded decision:
 
 **Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
-APPROVED / INTEGRATED / WORK UNIT 2A CLOSED / WORK UNIT 2B IMPLEMENTATION
-AUTHORIZED.**
+APPROVED / INTEGRATED / WORK UNIT 2A CLOSED / WORK UNIT 2B IMPLEMENTED /
+FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED.**
 
 Work Unit 2A provides conservative cumulative prefix-length evidence for
 `S(t)` using private outward edge-vector de Casteljau construction and the
