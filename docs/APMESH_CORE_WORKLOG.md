@@ -169,7 +169,7 @@ The presence of historical branches on the remote does not make them active.
 ## Current active work item
 
 **Implement Certified Global Cubic Regularity by Bernstein Speed-Squared
-Enclosure — IMPLEMENTED / VALIDATION PENDING.**
+Enclosure — IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED.**
 
 Active branch: `curve/global-cubic-regularity-certification`.
 
@@ -197,6 +197,14 @@ Implemented scope:
     near-stationary regularity, resource policy, reversal, translation,
     power-of-two scale, extreme finite input and determinism;
 11. curve public-header isolation extended to the new API.
+
+Validation:
+
+- PR #57 FAST `35549795835`: PASS;
+- PR #57 INTEGRATION `35549795743`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- the focused `apmesh_core.curve_regularity` contract passed together with
+  the existing curve and qualified-prerequisite contracts.
 
 No arc length, curvature, public subdivision, general root solver, topology
 ownership, discretization, quadrilateral or parallel capability is included.
