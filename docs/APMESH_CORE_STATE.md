@@ -250,41 +250,37 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after report-only tooling integration:
 
-**Implement only the report-only Continuous Curve Geometry Regression tooling
-required by the pre-registered CGR0–CGR7 protocol.**
+**Close the Continuous Curve Geometry Regression tooling checkpoint, then open
+one separate formal preparation design / PREPARED-package work item.**
 
-Protocol authority:
-`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
+Current tooling status on
+`curve/continuous-geometry-regression-tooling`:
 
-Protocol integration evidence:
-
-- PR #73 merged as
-  `af580a9358428e1607c77f7557355595a0a7c45c`;
-- PR FAST `35598147692`: PASS;
-- PR INTEGRATION `35598147572`: PASS;
-- post-merge FAST `35598248171`: PASS;
-- post-merge INTEGRATION `35598248036`: PASS.
-
-Pre-registered formal shape remains:
-
-- semantic baseline
+- report-only profile/exporter/validator/negative/runner implemented;
+- deterministic CSV/JSON/SVG derivation implemented and byte-determinism
+  tested;
+- exact simulated formal shape fixed at 56 commands, 112 logs, eight
+  discoveries, eight semantic CTest records, 112 individual semantic test
+  executions and eight certificates;
+- all CGR gates remain `NOT_EXECUTED`;
+- runner exposes no `prepare` or `execute`;
+- all eleven frozen semantic files remain byte-identical to baseline
   `438620efa1f93d29b442e9ba199882a09d2359d9`;
-- four admitted cloud cells;
-- two repetitions per cell;
-- exact fourteen-test semantic allowlist;
-- 56 command records;
-- 112 command logs;
-- eight certificates;
-- 112 individual semantic test executions;
-- deterministic derived data/figures;
-- CGR0–CGR7 independent terminal audit.
+- final focused CGR Tooling run `35601303879`: PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug.
 
-Curve Representation remains stage-unqualified. The next work is tooling only;
-formal preparation/execution and physical boundary discretization remain
-blocked.
+Audit authority:
+`docs/audits/2026-09-21-continuous-curve-geometry-regression-tooling-audit.md`.
 
+This is tooling validation only. Curve Representation remains
+`IN INVESTIGATION / NOT QUALIFIED`; no formal PREPARED package, authorization,
+claim or scientific execution exists.
+
+After merge, post-merge validation and checkpoint closure, the preparation
+phase may bind one clean candidate and exact planned evidence while retaining
+`execution_requested=false` and CGR0–CGR7 `NOT_EXECUTED`.
 
 
 ## Current active stage
@@ -293,7 +289,7 @@ blocked.
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
 CERTIFIED TOTAL + CUMULATIVE + INVERSE ARC LENGTH IMPLEMENTED /
 FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED /
-STAGE UNQUALIFIED**
+REPORT-ONLY TOOLING VALIDATED_UNMERGED / STAGE UNQUALIFIED**
 
 Current completed work unit:
 
@@ -312,9 +308,10 @@ integrated certified total-length engine. PR #66 merged as
 `3cfb580cae2e2d26e87e9dfcfeab0aade0a3a3be`; post-merge FAST
 `35591774007` and INTEGRATION `35591773982` pass.
 
-Work Unit 2B may now be opened separately. A unique inverse claim must bind
-global regularity to the same curve and preserve a certified parameter
-bracket.
+All currently admitted continuous-curve production work units are integrated
+and closed. Stage qualification now proceeds only through the pre-registered
+CGR lifecycle; no additional curve semantic work is authorized inside the
+report-only tooling phase.
 
 
 ## Most recently qualified stage
