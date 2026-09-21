@@ -197,47 +197,43 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Continuous Curve Geometry Regression report-only tooling is closed.**
+**Design the formal Continuous Curve Geometry Regression PREPARED lifecycle —
+ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/cgr-formal-preparation-design`.
 
-1. tooling PR #75 merged as
-   `6e3952f2bdee5ca9bdfe076d5af2932b359d130f`;
-2. final branch-head Continuous Curve Geometry Regression Tooling run
-   `35602067270`: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-3. PR FAST `35602217696`: PASS;
-4. PR INTEGRATION `35602217726`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-5. post-merge FAST `35603677515`: PASS;
-6. post-merge INTEGRATION `35603677377`: PASS in both declared cells;
-7. all eleven frozen curve semantic files remain byte-identical to semantic
-   baseline `438620efa1f93d29b442e9ba199882a09d2359d9`;
-8. the report-only runner still exposes no formal prepare or execute command;
-9. no PREPARED package, authorization, claim, terminal package or CGR gate
-   result has been created.
+Authorized scope:
 
-No work item is active.
+1. freeze the clean-candidate and published-main requirements;
+2. freeze the complete tracked-source inventory and Section 4 frozen-semantic
+   verification;
+3. define exact preparation inputs and input hashes;
+4. define admitted cloud-environment binding;
+5. define the formal four-cell × two-repetition launch plan and planned
+   retention inventory;
+6. define PREPARED manifest, preparation seal, state and state-history schemas;
+7. require the future execution runner and execution workflows to exist and be
+   revision-bound before the PREPARED package is created;
+8. define preparation workflow restrictions and retained artifact identity;
+9. define independent PREPARED-audit requirements;
+10. define the later repository-resident one-shot authorization boundary;
+11. keep CGR0–CGR7 `NOT_EXECUTED` throughout preparation;
+12. do not implement preparation/execution tooling in this decision work item;
+13. do not create a PREPARED package, authorization, claim or formal execution.
 
 ## Next admissible work item after closure
 
-Open one separate **formal CGR preparation-design decision**.
+After this preparation-design decision is merged, protected checks and
+post-merge validation pass, and the decision checkpoint is closed, implement
+only the formal CGR campaign infrastructure described by the decision:
 
-That decision must define, before implementation:
+- formal campaign runner with preparation, validation, one-shot execution and
+  retention verification;
+- preparation-only workflow;
+- reusable execution workflow;
+- repository-resident authorization validator/controller;
+- focused synthetic/static contracts.
 
-1. the exact clean-candidate requirements;
-2. the complete tracked-source inventory and frozen-semantic verification;
-3. exact preparation inputs and their hashes;
-4. cloud-environment binding;
-5. the formal campaign plan and planned-retention inventory;
-6. PREPARED lifecycle/state-history semantics;
-7. preparation sealing and manifest identity;
-8. how the future execution implementation is revision-bound **before**
-   authorization;
-9. the formal preparation workflow boundary;
-10. the independent PREPARED-audit requirements;
-11. explicit prohibition of execution, claim creation, or CGR gate decisions
-    during preparation.
-
-Only after that decision is integrated and closed may the formal
-PREPARED-package mechanism be implemented.
+That infrastructure work item must still create no formal PREPARED package and
+no `EXECUTE_ONCE` authorization record.
 
