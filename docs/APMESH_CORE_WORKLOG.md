@@ -197,69 +197,47 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Continuous Curve Geometry Regression report-only tooling —
-VALIDATED_UNMERGED.**
+**None. Continuous Curve Geometry Regression report-only tooling is closed.**
 
-Active branch: `curve/continuous-geometry-regression-tooling`.
+Closure evidence:
 
-Protocol authority:
-`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
+1. tooling PR #75 merged as
+   `6e3952f2bdee5ca9bdfe076d5af2932b359d130f`;
+2. final branch-head Continuous Curve Geometry Regression Tooling run
+   `35602067270`: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+3. PR FAST `35602217696`: PASS;
+4. PR INTEGRATION `35602217726`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+5. post-merge FAST `35603677515`: PASS;
+6. post-merge INTEGRATION `35603677377`: PASS in both declared cells;
+7. all eleven frozen curve semantic files remain byte-identical to semantic
+   baseline `438620efa1f93d29b442e9ba199882a09d2359d9`;
+8. the report-only runner still exposes no formal prepare or execute command;
+9. no PREPARED package, authorization, claim, terminal package or CGR gate
+   result has been created.
 
-Audit authority:
-`docs/audits/2026-09-21-continuous-curve-geometry-regression-tooling-audit.md`.
-
-Implemented and validated:
-
-1. closed declarative CGR profile for the exact four-cell × two-repetition
-   matrix and fourteen-test semantic allowlist;
-2. scientific certificate exporter covering representation/value,
-   differential/speed, global regularity, total/cumulative length,
-   inverse-bracketing, transformation/parity relations and failure semantics;
-3. independent evidence validator with analytic/metamorphic recomputation,
-   same-cell scientific-projection equality and cross-cell categorical/numeric
-   relation rules;
-4. deterministic CSV/JSON + SVG derived evidence for all four pre-registered
-   figure families, with byte-determinism tested;
-5. report-only runner exposing only `self-check`, `plan`, `simulate` and
-   `validate-simulation`;
-6. simulated exact formal shape: 56 unique command records, 112 command logs,
-   eight discovery records, eight semantic CTest records, 112 individual
-   semantic test executions and eight certificate slots;
-7. real negative/adversarial tooling that forges certificate evidence and
-   requires fail-closed validator rejection;
-8. focused evidence, runner and workflow contracts registered only under
-   `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
-9. focused Ubuntu 24.04 workflow for GCC 13 Debug and Clang 18/libc++ Debug;
-10. all eleven protocol-frozen semantic files verified byte-identical to
-    baseline `438620efa1f93d29b442e9ba199882a09d2359d9`;
-11. no `prepare`, `execute`, PREPARED package, authorization record, claim,
-    formal terminal package or CGR gate decision introduced.
-
-Validation:
-
-- final CGR Tooling run `35601303879`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug;
-- all three focused contracts PASS in both cells;
-- development runs `35600447561`, `35600549395`, `35600718350`,
-  `35600780940` and `35601176646` are retained as mechanical tooling
-  development failures only; none created formal scientific evidence.
-
-Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this report-only tooling PR is merged, PR/post-merge FAST and INTEGRATION
-pass, the focused CGR tooling remains green on the integrated lineage, and the
-tooling checkpoint is closed, open one separate **formal preparation design /
-PREPARED-package work item** governed by CGR0–CGR7.
+Open one separate **formal CGR preparation-design decision**.
 
-That later phase must add only preparation/lifecycle machinery needed to bind
-one clean candidate, the admitted cloud identity, complete tracked-source
-inventory, exact input hashes, the 56-command plan, planned evidence/retention
-inventory and preparation seal.
+That decision must define, before implementation:
 
-Preparation must still be `execution_requested=false` with CGR0–CGR7
-`NOT_EXECUTED`. Formal execution remains unauthorized until that PREPARED
-package is independently audited and a later exact one-shot authorization is
-separately merged.
+1. the exact clean-candidate requirements;
+2. the complete tracked-source inventory and frozen-semantic verification;
+3. exact preparation inputs and their hashes;
+4. cloud-environment binding;
+5. the formal campaign plan and planned-retention inventory;
+6. PREPARED lifecycle/state-history semantics;
+7. preparation sealing and manifest identity;
+8. how the future execution implementation is revision-bound **before**
+   authorization;
+9. the formal preparation workflow boundary;
+10. the independent PREPARED-audit requirements;
+11. explicit prohibition of execution, claim creation, or CGR gate decisions
+    during preparation.
+
+Only after that decision is integrated and closed may the formal
+PREPARED-package mechanism be implemented.
 

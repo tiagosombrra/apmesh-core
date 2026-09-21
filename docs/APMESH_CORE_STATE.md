@@ -250,37 +250,33 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after report-only tooling integration:
+Exact next bounded scientific action:
 
-**Close the Continuous Curve Geometry Regression tooling checkpoint, then open
-one separate formal preparation design / PREPARED-package work item.**
+**Open one separate formal Continuous Curve Geometry Regression
+PREPARED-package design decision.**
 
-Current tooling status on
-`curve/continuous-geometry-regression-tooling`:
+Report-only CGR tooling is integrated and closed:
 
-- report-only profile/exporter/validator/negative/runner implemented;
-- deterministic CSV/JSON/SVG derivation implemented and byte-determinism
-  tested;
-- exact simulated formal shape fixed at 56 commands, 112 logs, eight
-  discoveries, eight semantic CTest records, 112 individual semantic test
-  executions and eight certificates;
-- all CGR gates remain `NOT_EXECUTED`;
-- runner exposes no `prepare` or `execute`;
-- all eleven frozen semantic files remain byte-identical to baseline
-  `438620efa1f93d29b442e9ba199882a09d2359d9`;
-- final focused CGR Tooling run `35601303879`: PASS in GCC 13 Debug and
-  Clang 18/libc++ Debug.
+- PR #75 merged as
+  `6e3952f2bdee5ca9bdfe076d5af2932b359d130f`;
+- final tooling run `35602067270`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- PR FAST `35602217696`: PASS;
+- PR INTEGRATION `35602217726`: PASS;
+- post-merge FAST `35603677515`: PASS;
+- post-merge INTEGRATION `35603677377`: PASS.
 
-Audit authority:
-`docs/audits/2026-09-21-continuous-curve-geometry-regression-tooling-audit.md`.
+All eleven frozen semantic files remain byte-identical to baseline
+`438620efa1f93d29b442e9ba199882a09d2359d9`.
 
-This is tooling validation only. Curve Representation remains
-`IN INVESTIGATION / NOT QUALIFIED`; no formal PREPARED package, authorization,
-claim or scientific execution exists.
+The next phase is design/governance only. It must specify exact candidate
+cleanliness, complete tracked-source identity, cloud-environment binding,
+formal plan, planned retention, preparation sealing, lifecycle state history,
+revision binding of the future executor, and independent PREPARED-audit
+requirements before implementation of formal preparation begins.
 
-After merge, post-merge validation and checkpoint closure, the preparation
-phase may bind one clean candidate and exact planned evidence while retaining
-`execution_requested=false` and CGR0–CGR7 `NOT_EXECUTED`.
+Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`. Formal
+preparation, authorization and execution remain absent.
 
 
 ## Current active stage
@@ -289,7 +285,7 @@ phase may bind one clean candidate and exact planned evidence while retaining
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
 CERTIFIED TOTAL + CUMULATIVE + INVERSE ARC LENGTH IMPLEMENTED /
 FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED /
-REPORT-ONLY TOOLING VALIDATED_UNMERGED / STAGE UNQUALIFIED**
+REPORT-ONLY TOOLING INTEGRATED / CHECKPOINT CLOSED / STAGE UNQUALIFIED**
 
 Current completed work unit:
 
