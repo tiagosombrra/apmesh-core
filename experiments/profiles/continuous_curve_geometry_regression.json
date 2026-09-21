@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "kind": "continuous-curve-geometry-regression-profile",
+  "repetitions_per_cell": 2,
+  "semantic_baseline": "438620efa1f93d29b442e9ba199882a09d2359d9",
+  "cells": [
+    {
+      "id": "gcc-debug",
+      "compiler": "GCC 13",
+      "library": "libstdc++",
+      "build_type": "Debug"
+    },
+    {
+      "id": "gcc-release",
+      "compiler": "GCC 13",
+      "library": "libstdc++",
+      "build_type": "Release"
+    },
+    {
+      "id": "clang-debug",
+      "compiler": "Clang 18",
+      "library": "libc++",
+      "build_type": "Debug"
+    },
+    {
+      "id": "clang-release",
+      "compiler": "Clang 18",
+      "library": "libc++",
+      "build_type": "Release"
+    }
+  ],
+  "gates": [
+    "CGR0",
+    "CGR1",
+    "CGR2",
+    "CGR3",
+    "CGR4",
+    "CGR5",
+    "CGR6",
+    "CGR7"
+  ],
+  "semantic_ctest_allowlist": [
+    "apmesh_core.bootstrap_smoke",
+    "apmesh_core.numeric_contract",
+    "apmesh_core.geometry_primitives",
+    "apmesh_core.minimal_small_linear_algebra",
+    "apmesh_core.math_header_isolation",
+    "apmesh_core.cartesian_frames",
+    "apmesh_core.topological_model",
+    "apmesh_core.curve_representation",
+    "apmesh_core.curve_differential",
+    "apmesh_core.curve_regularity",
+    "apmesh_core.curve_arc_length",
+    "apmesh_core.curve_cumulative_arc_length",
+    "apmesh_core.curve_inverse_arc_length",
+    "apmesh_core.curve_header_isolation"
+  ],
+  "cases": [
+    "representation_value",
+    "differential_speed",
+    "regularity_regular",
+    "regularity_degenerate",
+    "regularity_indeterminate",
+    "total_length_line",
+    "total_length_parabola",
+    "cumulative_length_line",
+    "cumulative_length_parabola",
+    "inverse_line",
+    "inverse_parabola",
+    "reversal_relations",
+    "translation_scale_relations",
+    "planar_embedding_parity",
+    "failure_semantics"
+  ],
+  "certificate_negative_cases": [
+    "duplicate_case",
+    "forged_categorical_result",
+    "forged_reference_containment",
+    "forged_inverse_bracket_order",
+    "undeclared_semantic_claim",
+    "invalid_regularity_policy",
+    "invalid_length_policy",
+    "invalid_inverse_policy",
+    "non_finite_parameter",
+    "non_finite_inverse_target",
+    "inverse_target_outside_domain",
+    "inverse_target_domain_indeterminate",
+    "inverse_regularity_not_certified"
+  ],
+  "frozen_semantic_files": [
+    "include/apmesh/geometry/curve.hpp",
+    "src/geometry/curve.cpp",
+    "src/geometry/detail/curve_length_interval.hpp",
+    "src/geometry/detail/curve_regularity_interval.hpp",
+    "tests/curve_representation.cpp",
+    "tests/curve_differential.cpp",
+    "tests/curve_regularity.cpp",
+    "tests/curve_arc_length.cpp",
+    "tests/curve_cumulative_arc_length.cpp",
+    "tests/curve_inverse_arc_length.cpp",
+    "tests/curve_header_isolation.cpp"
+  ],
+  "derived_evidence": [
+    "curve-value-reference",
+    "curve-differential-speed",
+    "curve-arc-length-enclosure",
+    "curve-inverse-bracket"
+  ],
+  "authority_paths": [
+    "docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md",
+    "docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md",
+    "docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md",
+    "docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md",
+    "docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md",
+    "docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md",
+    "docs/audits/2026-09-20-cloud-qualification-environment-admission.md"
+  ],
+  "limitations": [
+    "Report-only tooling does not prepare, authorize, execute, or qualify the Curve Representation stage",
+    "Formal qualification is restricted to the exact admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope",
+    "No WSL/cloud equivalence, physical boundary discretization, surface, meshing, Quad-Dominant, parallel, GPU, SIMD, or native-Windows qualification"
+  ]
+}

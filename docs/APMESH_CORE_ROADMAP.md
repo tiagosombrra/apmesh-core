@@ -1163,6 +1163,23 @@ PR #73 integrated the protocol as
 protocol checkpoint is closed. The sole next bounded work is report-only CGR
 tooling; formal preparation/execution remains deferred.
 
+The report-only CGR tooling is implemented on
+`curve/continuous-geometry-regression-tooling` and independently audited in
+`docs/audits/2026-09-21-continuous-curve-geometry-regression-tooling-audit.md`.
+
+The tooling fixes the exact four-cell × two-repetition campaign plan without
+executing it: 56 command records, 112 command logs, eight discoveries, eight
+semantic CTest records, 112 individual semantic test executions and eight
+certificates. It adds independent analytic/metamorphic certificate validation,
+real fail-closed adversarial forgery checks, and deterministic CSV/JSON/SVG
+regression evidence. All eleven protocol-frozen semantic files remain
+byte-identical to baseline `438620efa1f93d29b442e9ba199882a09d2359d9`.
+
+Focused CGR Tooling run `35601303879` passed in GCC 13 Debug and Clang
+18/libc++ Debug. This remains report-only: CGR0–CGR7 are `NOT_EXECUTED`,
+Curve Representation is not qualified, and formal preparation/execution remain
+deferred until this tooling is integrated and its checkpoint is closed.
+
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `NOT STARTED`

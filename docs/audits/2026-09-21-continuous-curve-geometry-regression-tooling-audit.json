@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "kind": "continuous-curve-geometry-regression-tooling-audit",
+  "audit_date": "2026-09-21",
+  "decision": "PASS",
+  "phase": "REPORT_ONLY_TOOLING",
+  "formal_preparation": false,
+  "formal_execution": false,
+  "qualification_decision": false,
+  "protocol": "docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md",
+  "semantic_baseline": "438620efa1f93d29b442e9ba199882a09d2359d9",
+  "final_tooling_run": {
+    "run_id": 35601303879,
+    "head_sha": "d4f9c238ec93225abd69ffb548c5ef13e4d2de48",
+    "conclusion": "success",
+    "cells": [
+      "GCC 13 Debug / CGR TOOLING",
+      "Clang 18 libc++ Debug / CGR TOOLING"
+    ]
+  },
+  "report_only_contract": {
+    "matrix_cells": 4,
+    "repetitions_per_cell": 2,
+    "semantic_ctest_allowlist_count": 14,
+    "planned_command_records": 56,
+    "planned_command_logs": 112,
+    "planned_discovery_records": 8,
+    "planned_semantic_ctest_records": 8,
+    "planned_individual_semantic_test_executions": 112,
+    "planned_certificates": 8,
+    "gates": "NOT_EXECUTED",
+    "runner_commands": [
+      "self-check",
+      "plan",
+      "simulate",
+      "validate-simulation"
+    ],
+    "forbidden_runner_commands": [
+      "prepare",
+      "execute"
+    ]
+  },
+  "tooling_inventory": [
+    "experiments/profiles/continuous_curve_geometry_regression.json",
+    "experiments/continuous_curve_geometry_regression_export.cpp",
+    "tools/continuous_curve_geometry_regression_evidence.py",
+    "tools/continuous_curve_geometry_regression_negative.py",
+    "tools/run_continuous_curve_geometry_regression.py",
+    "tests/continuous_curve_geometry_regression_evidence_test.py",
+    "tests/continuous_curve_geometry_regression_runner_test.py",
+    "tests/continuous_curve_geometry_regression_workflow_test.py",
+    ".github/workflows/continuous-curve-geometry-regression-tooling.yml",
+    "CMakeLists.txt"
+  ],
+  "evidence_contract": {
+    "certificate_case_families": 15,
+    "negative_case_count": 13,
+    "derived_evidence_families": 4,
+    "deterministic_derived_files": 9,
+    "same_cell_projection_rule": "BYTE_IDENTICAL_SCIENTIFIC_PROJECTION",
+    "cross_cell_rule": "CATEGORICAL_EQUAL_AND_NUMERIC_RELATIONS_INDEPENDENTLY_VALIDATED",
+    "negative_forgery_validation": "FAIL_CLOSED"
+  },
+  "frozen_semantic_files": {
+    "count": 11,
+    "all_identical_to_baseline": true,
+    "files": [
+      {
+        "path": "include/apmesh/geometry/curve.hpp",
+        "git_blob": "ed23351ede741d37235b258e9f8a072759f2688a"
+      },
+      {
+        "path": "src/geometry/curve.cpp",
+        "git_blob": "faf237a7408b472410bedbd2380e9d8d1160134a"
+      },
+      {
+        "path": "src/geometry/detail/curve_length_interval.hpp",
+        "git_blob": "aea17e7f296d3df33acc1bf8e556de04b68eb20f"
+      },
+      {
+        "path": "src/geometry/detail/curve_regularity_interval.hpp",
+        "git_blob": "7b06dc56b87b12a66a41ca08e513fdff5c2dac6c"
+      },
+      {
+        "path": "tests/curve_representation.cpp",
+        "git_blob": "f9960a620405e3fc7cd3beb71569dc084e9eb897"
+      },
+      {
+        "path": "tests/curve_differential.cpp",
+        "git_blob": "00457311396229208dcbbf6e2737cf47e39a44af"
+      },
+      {
+        "path": "tests/curve_regularity.cpp",
+        "git_blob": "93420e2b7c6c4a678c7cde62446b94f8c9879fd8"
+      },
+      {
+        "path": "tests/curve_arc_length.cpp",
+        "git_blob": "2d5c75200fca43539fa6406b1fa9be5711aa327f"
+      },
+      {
+        "path": "tests/curve_cumulative_arc_length.cpp",
+        "git_blob": "c33508ba50fd839295fef617513559948aa17dcd"
+      },
+      {
+        "path": "tests/curve_inverse_arc_length.cpp",
+        "git_blob": "afc1dd7d2c66e20e8b8f566d2a397152cb87a332"
+      },
+      {
+        "path": "tests/curve_header_isolation.cpp",
+        "git_blob": "7a9235d7bfc37f0b16c5f5c264c25eead4c50889"
+      }
+    ]
+  },
+  "development_failures": [
+    {
+      "run_id": 35600447561,
+      "classification": "MECHANICAL_TOOLING_DEVELOPMENT",
+      "cause": "runner initially required CMake declaration order to equal canonical protocol allowlist order",
+      "formal_evidence": false
+    },
+    {
+      "run_id": 35600549395,
+      "classification": "MECHANICAL_TOOLING_DEVELOPMENT",
+      "cause": "superseded intermediate tooling state before allowlist-order correction",
+      "formal_evidence": false
+    },
+    {
+      "run_id": 35600718350,
+      "classification": "MECHANICAL_TOOLING_DEVELOPMENT",
+      "cause": "CGR exporter translation unit missing anonymous-namespace closure",
+      "formal_evidence": false
+    },
+    {
+      "run_id": 35600780940,
+      "classification": "MECHANICAL_TOOLING_DEVELOPMENT",
+      "cause": "superseded exporter-build failure before translation-unit correction",
+      "formal_evidence": false
+    },
+    {
+      "run_id": 35601176646,
+      "classification": "MECHANICAL_TOOLING_DEVELOPMENT",
+      "cause": "static workflow test used incidental build-directory substring count",
+      "formal_evidence": false
+    }
+  ],
+  "next_bounded_action": "Integrate report-only tooling, pass PR and post-merge FAST/INTEGRATION plus focused CGR tooling, close the tooling checkpoint, then open one separate formal preparation design/PREPARED-package work item. No formal execution is authorized."
+}
