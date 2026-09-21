@@ -1,6 +1,6 @@
 # Curve Representation — Bounded Entry Decision
 
-Status: ENTRY DECISION VALIDATED_UNMERGED / NO PRODUCTION IMPLEMENTATION
+Status: ENTRY DECISION PROPOSED / IN REVIEW / NO PRODUCTION IMPLEMENTATION
 Date: 2026-09-21
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites: Foundation QUALIFIED; Geometry Primitives QUALIFIED;
