@@ -831,8 +831,9 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION IMPLEMENTED /
-FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED`
+Status: `IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL
+REGULARITY IMPLEMENTED / ARC-LENGTH DECISION ACTIVE / FOCUSED CONTRACTS PASS /
+STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
 
@@ -980,9 +981,40 @@ regularity work-unit checkpoint is closed.
 
 #### Arc Length and Parameter Mapping
 
-- Select an error-controlled integration strategy after literature review.
-- Return value plus convergence/error diagnostics rather than a naked scalar.
-- Verify against line and analytic arc references and under reparameterization stress.
+Decision authority:
+`docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md`.
+
+The investigation is intentionally split into two bounded work units.
+
+**Work unit 1 — Certified Cubic Bézier Total Arc-Length Enclosure**
+
+- use deterministic dyadic de Casteljau subdivision;
+- use conservative chord lower bounds and control-polygon upper bounds;
+- retain a finite enclosure `[lower, upper]`;
+- report `converged` only when the explicit global width policy is proven;
+- return `indeterminate` with the best valid enclosure when resources are
+  exhausted;
+- require no global-regularity precondition for total length;
+- verify straight, constant, degree-elevated parabola, reversal, translation,
+  power-of-two scale, 2D/3D parity, stationary, extreme and resource-limited
+  cases;
+- keep conservative arithmetic private to the curve module.
+
+**Work unit 2 — Cumulative Arc-Length Mapping and Certified Inverse Bracketing**
+
+- remains blocked until Work unit 1 is integrated and closed;
+- may define cumulative `S(t)` and target-length/fraction-to-parameter
+  bracketing;
+- must require a globally regular curve before claiming a unique inverse;
+- must preserve a proven bracket; Newton/secant acceleration, if ever admitted,
+  may not be required for correctness.
+
+Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
+difference is an error estimate, whereas the first work unit requires an
+explicit conservative enclosure.
+
+No physical discretization, curvature, surface, quadrilateral or parallel
+capability is admitted by this decision.
 
 #### Continuous Curve Geometry Regression
 
