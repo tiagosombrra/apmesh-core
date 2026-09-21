@@ -934,6 +934,28 @@ The next bounded transition is the separate **Global Cubic Regularity
 Certification** decision. No global regularity claim follows from pointwise
 speed sampling.
 
+
+#### Global Cubic Regularity Certification
+
+Status: `DECISION APPROVED / IMPLEMENTATION NOT STARTED`
+
+Authority:
+`docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`.
+
+The bounded method certifies regularity through conservative Bernstein
+enclosures of the quartic squared-speed polynomial
+`s(t)=B'(t)·B'(t)`. Recursive midpoint subdivision covers the complete
+`[0,1]` interval. A curve is reported regular only when every retained leaf
+has a strictly positive lower Bernstein coefficient bound.
+
+The result vocabulary explicitly separates `regular`, exact witnessed
+`degenerate`, and `indeterminate`. Resource exhaustion or insufficient
+floating enclosure may only produce `indeterminate`.
+
+Sampling, speed epsilon, general root solving, public interval arithmetic,
+arc-length integration, curvature, discretization and parallel execution remain
+excluded.
+
 #### Arc Length and Parameter Mapping
 
 - Select an error-controlled integration strategy after literature review.

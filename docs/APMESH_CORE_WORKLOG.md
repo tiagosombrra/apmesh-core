@@ -168,39 +168,48 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Cubic Bézier Differential Evaluation and Pointwise Speed is closed.**
+**Global Cubic Regularity Certification bounded decision —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/global-cubic-regularity-decision`.
 
-1. implementation PR #52 merged as
-   `1b1da2893168e5f3da3fb98595809d7210f49f6b`;
-2. final PR FAST `35544348814`: PASS;
-3. final PR INTEGRATION `35544348767`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35544417439`: PASS;
-5. post-merge INTEGRATION `35544417474`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. first derivative, second derivative and pointwise speed are integrated for
-   `CubicBezier2` and `CubicBezier3`;
-7. the focused differential contract and curve public-header isolation pass;
-8. Curve Representation remains unqualified;
-9. no global regularity, curvature, arc length, discretization, quadrilateral
-   or parallel capability was introduced.
+Decision authority:
 
-No work item is active.
+`docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`
+
+Chosen method:
+
+**Certified Global Cubic Regularity by Bernstein Speed-Squared Enclosure.**
+
+The decision reduces global regularity to certification of strict positivity of
+the quartic Bernstein polynomial `s(t)=B'(t)·B'(t)` over the complete
+`[0,1]` domain.
+
+Scientific result vocabulary:
+
+- `regular`: complete interval positivity certified;
+- `degenerate`: exact admitted zero-derivative witness;
+- `indeterminate`: bounded conservative computation cannot certify either
+  admitted conclusion.
+
+No dense sampling, speed epsilon, general root solver, public interval
+arithmetic, third-party dependency, arc length, curvature, discretization,
+quadrilateral or parallel capability is authorized.
+
+The implementation may later add only a private curve-local conservative
+interval helper sufficient for squared-speed coefficients and midpoint
+Bernstein subdivision. Any enclosure failure/resource exhaustion must remain
+explicit.
 
 ## Next admissible work item after closure
 
-Open one separate bounded scientific decision for:
+After this decision is merged, required post-merge checks pass, and its
+checkpoint is closed, implement only:
 
-**Global Cubic Regularity Certification.**
+**Certified Global Cubic Regularity by Bernstein Speed-Squared Enclosure**
 
-The decision must define a mathematically complete interval-wide method for
-determining whether `B'(t) != 0` for every `t∈[0,1]`, including endpoint
-cases and simultaneous roots of the vector-valued quadratic hodograph.
+with focused 2D/3D interval-enclosure and regularity contracts.
 
-The decision must explicitly reject dense sampling and a context-free speed
-epsilon as certification methods.
-
-No implementation belongs to this closure checkpoint.
+Arc Length and Parameter Mapping remains blocked until that implementation is
+separately integrated, validated and closed.
 
