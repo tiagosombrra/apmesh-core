@@ -250,35 +250,37 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after cumulative-mapping decision integration:
 
-**Open one separate bounded decision for Cumulative Arc-Length Mapping and
-Certified Inverse Bracketing.**
+**Implement only Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
 
-Certified Cubic Bézier Total Arc-Length Enclosure is integrated and closed.
+Decision authority:
+`docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
 
-Integration evidence:
+The decision deliberately separates forward cumulative mapping from inversion.
 
-- PR #61 final head
-  `42002586dfd61a80d07053d88982b301b1f1acde`;
-- final PR FAST `35552739398`: PASS;
-- final PR INTEGRATION `35552739395`: PASS;
-- PR #61 merged as
-  `5d89edfd391dc5548245f35ccedc2ac4c6c6951a`;
-- post-merge FAST `35580244685`: PASS;
-- post-merge INTEGRATION `35580244722`: PASS.
+Work Unit 2A may add only conservative evidence for
 
-The integrated API retains a conservative finite total-length enclosure with
-explicit resource evidence. Cumulative and inverse mapping remain
-unimplemented and unauthorized until the next decision is integrated.
+`S(t)=length(B|[0,t])`
+
+on `t in [0,1]`, reusing/refactoring the integrated certified total-length
+machinery and preserving explicit `converged / indeterminate / failure`
+semantics.
+
+Work Unit 2B — Certified Inverse Arc-Length Bracketing remains blocked until
+2A is separately implemented, validated, integrated and closed. A unique
+inverse will additionally require same-curve global regularity authority.
+
+No physical discretization, curvature, surface, quadrilateral or parallel
+capability is opened by this decision.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
-CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / STAGE UNQUALIFIED**
+CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / CUMULATIVE MAPPING DECISION ACTIVE /
+FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED**
 
 Current completed work unit:
 
@@ -287,17 +289,30 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 
 Current bounded decision:
 
-**Cubic Bézier Differential Evaluation and Pointwise Speed — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.** The candidate
-implements analytic first/second derivative evaluation and pointwise speed only.
-The decision continues to separate local differential evaluation from global
-regularity certification; interval-wide regularity, curvature, arc length and
-discretization remain unauthorized. The bounded work unit introduces only immutable 2D/3D cubic
-polynomial Bézier geometry with four ordered control points, evaluation on the
-closed normalized domain `[0,1]` by de Casteljau/`std::lerp`, exact
-endpoints, reversal, explicit parameter failures, and focused analytic evidence.
-It does not authorize derivatives, curvature, arc length, splines/rational
-curves, topological ownership, discretization, quad meshing, or parallelism.
+**Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
+ONLY / INTEGRATION PENDING.**
+
+The decision splits the investigation into:
+
+1. **Work Unit 2A — Certified Cumulative Arc-Length Enclosure**, the only
+   executable capability proposed after decision closure; and
+2. **Work Unit 2B — Certified Inverse Arc-Length Bracketing**, explicitly
+   blocked until 2A closes.
+
+Forward cumulative length exists without a regularity prerequisite. A unique
+inverse claim requires the same curve to be globally certified regular so that
+`S'(t)=||B'(t)||>0` on the full interval.
+
+Completed integrated Curve Representation work units remain:
+
+- Polynomial Cubic Bézier Value Representation and Evaluation;
+- Cubic Bézier Differential Evaluation and Pointwise Speed;
+- Global Cubic Regularity Certification;
+- Certified Cubic Bézier Total Arc-Length Enclosure.
+
+Curve Representation remains stage-unqualified pending cumulative/inverse
+mapping and later Continuous Curve Geometry Regression.
+
 
 ## Most recently qualified stage
 
