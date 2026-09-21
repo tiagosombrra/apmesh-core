@@ -831,7 +831,7 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `IN INVESTIGATION / ENTRY DECISION VALIDATED_UNMERGED /
+Status: `IN INVESTIGATION / ENTRY DECISION PROPOSED / IN REVIEW /
 NO PRODUCTION CURVE CODE`
 
 Goal: certify continuous curve representation independent of meshing.
@@ -1104,7 +1104,7 @@ verified. Geometry Primitives is QUALIFIED only in the declared WSL Ubuntu
 Current active stage:
 
 **Curve Representation — Continuous Geometry Before Discretization /
-ENTRY DECISION VALIDATED_UNMERGED / NO PRODUCTION CURVE CODE**
+ENTRY DECISION PROPOSED / IN REVIEW / NO PRODUCTION CURVE CODE**
 
 Most recently qualified stage:
 
