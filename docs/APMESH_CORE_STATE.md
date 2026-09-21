@@ -252,26 +252,28 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Open Work Unit 2B — Certified Inverse Arc-Length Bracketing as a separate
-bounded work item.**
+**Integrate and close the Work Unit 2B implementation decision; then implement
+only Certified Inverse Arc-Length Bracketing under that fixed contract.**
 
-Work Unit 2A is closed and integrated.
+Active decision branch:
+`curve/inverse-arc-length-bracketing-decision`.
 
-Integration evidence:
+Implementation-decision authority:
+`docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
 
-- PR #66 merged as
-  `3cfb580cae2e2d26e87e9dfcfeab0aade0a3a3be`;
-- final PR FAST `35591661827`: PASS;
-- final PR INTEGRATION `35591661836`: PASS;
-- post-merge FAST `35591774007`: PASS;
-- post-merge INTEGRATION `35591773982`: PASS.
+The decision fixes:
 
-Work Unit 2A result:
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+- same-curve internal global-regularity certification;
+- absolute-length and normalized-fraction targets;
+- certified `[t_low,t_high]` results rather than scalar-only inverse values;
+- retained total/lower-cumulative/upper-cumulative evidence;
+- deterministic midpoint bisection;
+- explicit parameter-width and iteration-resource policy;
+- explicit target-domain/regularity/enclosure failure semantics;
+- fail-closed ambiguity and resource exhaustion.
 
-Work Unit 2B may now be opened under the already integrated same-curve
-regularity and certified-bracket boundary. Physical discretization remains
-blocked.
+No inverse production code is authorized until this decision is integrated and
+its checkpoint closed.
 
 
 ## Current active stage
@@ -289,7 +291,8 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 Current bounded decision:
 
 **Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
-APPROVED / INTEGRATED / WORK UNIT 2A CLOSED / WORK UNIT 2B READY TO OPEN.**
+APPROVED / INTEGRATED / WORK UNIT 2A CLOSED / WORK UNIT 2B IMPLEMENTATION
+DECISION ACTIVE.**
 
 Work Unit 2A provides conservative cumulative prefix-length evidence for
 `S(t)` using private outward edge-vector de Casteljau construction and the
