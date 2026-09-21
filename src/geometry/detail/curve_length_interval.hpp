@@ -70,53 +70,148 @@ euclidean_norm_bounds(
 
     std::array<double, Dimension> lower_components{};
     std::array<double, Dimension> upper_components{};
+    double scale = 0.0;
+
     for (std::size_t index = 0; index < Dimension; ++index) {
         const auto [lower, upper] = absolute_bounds(value[index]);
+        if (!std::isfinite(lower) || !std::isfinite(upper)) {
+            return std::unexpected{IntervalError::non_finite_bound};
+        }
         lower_components[index] = lower;
         upper_components[index] = upper;
+        scale = std::max(scale, upper);
     }
 
-    double lower_raw = 0.0;
-    double upper_raw = 0.0;
-    if constexpr (Dimension == 2) {
-        lower_raw = std::hypot(lower_components[0], lower_components[1]);
-        upper_raw = std::hypot(upper_components[0], upper_components[1]);
-    } else {
-        if (lower_components[2] == 0.0 && upper_components[2] == 0.0) {
-            lower_raw = std::hypot(lower_components[0], lower_components[1]);
-            upper_raw = std::hypot(upper_components[0], upper_components[1]);
-        } else {
-            lower_raw = std::hypot(
-                lower_components[0],
-                lower_components[1],
-                lower_components[2]);
-            upper_raw = std::hypot(
-                upper_components[0],
-                upper_components[1],
-                upper_components[2]);
+    if (scale == 0.0) {
+        return ClosedInterval{0.0, 0.0};
+    }
+
+    double lower_sum = 0.0;
+    double upper_sum = 0.0;
+
+    for (std::size_t index = 0; index < Dimension; ++index) {
+        double normalized_lower = 0.0;
+        if (lower_components[index] > 0.0) {
+            const double raw = lower_components[index] / scale;
+            if (!std::isfinite(raw)) {
+                return std::unexpected{IntervalError::non_finite_bound};
+            }
+            normalized_lower =
+                raw == 0.0 ? 0.0 : std::max(0.0, std::nextafter(raw, 0.0));
+        }
+
+        double normalized_upper = 0.0;
+        if (upper_components[index] > 0.0) {
+            const double raw = upper_components[index] / scale;
+            if (!std::isfinite(raw)) {
+                return std::unexpected{IntervalError::non_finite_bound};
+            }
+            normalized_upper = std::nextafter(
+                raw,
+                std::numeric_limits<double>::infinity());
+            if (!std::isfinite(normalized_upper)) {
+                return std::unexpected{IntervalError::non_finite_bound};
+            }
+        }
+
+        double square_lower = 0.0;
+        if (normalized_lower > 0.0) {
+            const double raw = normalized_lower * normalized_lower;
+            if (!std::isfinite(raw)) {
+                return std::unexpected{IntervalError::non_finite_bound};
+            }
+            square_lower =
+                raw == 0.0 ? 0.0 : std::max(0.0, std::nextafter(raw, 0.0));
+        }
+
+        double square_upper = 0.0;
+        if (normalized_upper > 0.0) {
+            const double raw = normalized_upper * normalized_upper;
+            if (!std::isfinite(raw)) {
+                return std::unexpected{IntervalError::non_finite_bound};
+            }
+            square_upper = std::nextafter(
+                raw,
+                std::numeric_limits<double>::infinity());
+            if (!std::isfinite(square_upper)) {
+                return std::unexpected{IntervalError::non_finite_bound};
+            }
+        }
+
+        if (square_lower > 0.0) {
+            if (lower_sum == 0.0) {
+                lower_sum = square_lower;
+            } else {
+                const double raw = lower_sum + square_lower;
+                if (!std::isfinite(raw)) {
+                    return std::unexpected{IntervalError::non_finite_bound};
+                }
+                lower_sum = std::max(0.0, std::nextafter(raw, 0.0));
+            }
+        }
+
+        if (square_upper > 0.0) {
+            if (upper_sum == 0.0) {
+                upper_sum = square_upper;
+            } else {
+                const double raw = upper_sum + square_upper;
+                if (!std::isfinite(raw)) {
+                    return std::unexpected{IntervalError::non_finite_bound};
+                }
+                upper_sum = std::nextafter(
+                    raw,
+                    std::numeric_limits<double>::infinity());
+                if (!std::isfinite(upper_sum)) {
+                    return std::unexpected{IntervalError::non_finite_bound};
+                }
+            }
         }
     }
 
-    if (!std::isfinite(lower_raw) || !std::isfinite(upper_raw)) {
-        return std::unexpected{IntervalError::non_finite_bound};
+    double root_lower = 0.0;
+    if (lower_sum > 0.0) {
+        const double raw = std::sqrt(lower_sum);
+        if (!std::isfinite(raw)) {
+            return std::unexpected{IntervalError::non_finite_bound};
+        }
+        root_lower = std::max(0.0, std::nextafter(raw, 0.0));
+    }
+
+    double root_upper = 0.0;
+    if (upper_sum > 0.0) {
+        const double raw = std::sqrt(upper_sum);
+        if (!std::isfinite(raw)) {
+            return std::unexpected{IntervalError::non_finite_bound};
+        }
+        root_upper = std::nextafter(
+            raw,
+            std::numeric_limits<double>::infinity());
+        if (!std::isfinite(root_upper)) {
+            return std::unexpected{IntervalError::non_finite_bound};
+        }
     }
 
     double lower = 0.0;
-    if (lower_raw > 0.0) {
-        const auto widened_lower = widen_down(lower_raw);
-        if (!widened_lower) {
-            return std::unexpected{widened_lower.error()};
+    if (root_lower > 0.0) {
+        const double raw = root_lower * scale;
+        if (!std::isfinite(raw)) {
+            return std::unexpected{IntervalError::non_finite_bound};
         }
-        lower = std::max(0.0, *widened_lower);
+        lower = raw == 0.0 ? 0.0 : std::max(0.0, std::nextafter(raw, 0.0));
     }
 
     double upper = 0.0;
-    if (upper_raw > 0.0) {
-        const auto widened_upper = widen_up(upper_raw);
-        if (!widened_upper) {
-            return std::unexpected{widened_upper.error()};
+    if (root_upper > 0.0) {
+        const double raw = root_upper * scale;
+        if (!std::isfinite(raw)) {
+            return std::unexpected{IntervalError::non_finite_bound};
         }
-        upper = *widened_upper;
+        upper = std::nextafter(
+            raw,
+            std::numeric_limits<double>::infinity());
+        if (!std::isfinite(upper)) {
+            return std::unexpected{IntervalError::non_finite_bound};
+        }
     }
 
     if (lower > upper) {
