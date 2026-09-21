@@ -1237,6 +1237,18 @@ bounded step is exactly one formal PREPARED dispatch from clean canonical
 `main`, followed by independent PREPARED audit. Formal execution remains
 unauthorized.
 
+PR #79 integrated the formal campaign infrastructure as
+`a0232e0c00aae1338b55ba0b45997db1a3c00464`. The validated branch head and
+merge commit have identical Git tree
+`2ece9368e9b48a0c1db7fc1494a8713a833a9b43`. Final formal tooling
+`35614078272`, PR FAST `35614279053`, PR INTEGRATION `35614278985`,
+post-merge FAST `35614426119`, and post-merge INTEGRATION
+`35614426153` all passed. The infrastructure checkpoint is closed.
+
+The sole next bounded action is one formal PREPARED dispatch from canonical
+clean `main`, followed by independent PREPARED audit; no formal execution is
+yet authorized.
+
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `NOT STARTED`
