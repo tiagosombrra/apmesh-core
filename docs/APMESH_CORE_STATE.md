@@ -250,41 +250,44 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after regression-protocol integration:
 
-**Pre-register the Continuous Curve Geometry Regression required to qualify
-Curve Representation.**
+**Implement only the report-only Continuous Curve Geometry Regression tooling
+required by the pre-registered CGR0–CGR7 protocol.**
 
-Work Unit 2B — Certified Inverse Arc-Length Bracketing is integrated and
-closed.
+Protocol under review:
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
 
-Integration evidence:
+Pre-registered regression shape:
 
-- PR #70 merged as
-  `a82fa1c96fc6665e586753d5e4eb698012a79be3`;
-- final PR FAST `35594075619`: PASS;
-- final PR INTEGRATION `35594075595`: PASS;
-- post-merge FAST `35594160853`: PASS;
-- post-merge INTEGRATION `35594160817`: PASS.
+- semantic baseline:
+  `438620efa1f93d29b442e9ba199882a09d2359d9`;
+- four admitted cloud cells;
+- two repetitions per cell;
+- exact fourteen-test semantic allowlist;
+- 56 planned command records;
+- 112 command logs;
+- eight curve scientific certificates;
+- 112 individual semantic test executions;
+- analytic/reference and metamorphic curve evidence;
+- deterministic derived regression data/figures;
+- CGR0–CGR7 independent scientific gates.
 
-Curve Representation now has focused implementation evidence for cubic value
-evaluation, differential evaluation/pointwise speed, global regularity,
-certified total arc length, certified cumulative arc length and certified
-inverse arc-length bracketing.
+This documentation-only decision does not create tooling, a PREPARED package,
+an authorization or a formal execution.
 
-Status remains:
+Curve Representation remains:
 **IN INVESTIGATION / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED.**
 
-The next work is stage-level regression design only. Physical boundary
-discretization remains blocked until formal cumulative regression and
-independent scientific audit qualify Curve Representation.
+Physical boundary discretization remains blocked.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
-CERTIFIED TOTAL + CUMULATIVE ARC LENGTH IMPLEMENTED / FOCUSED CONTRACTS PASS /
+CERTIFIED TOTAL + CUMULATIVE + INVERSE ARC LENGTH IMPLEMENTED /
+FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL UNDER REVIEW /
 STAGE UNQUALIFIED**
 
 Current completed work unit:
