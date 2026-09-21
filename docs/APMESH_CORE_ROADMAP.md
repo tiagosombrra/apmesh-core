@@ -831,9 +831,22 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `NOT STARTED`
+Status: `IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED`
 
 Goal: certify continuous curve representation independent of meshing.
+
+Entry authority:
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`.
+
+The first bounded work unit is **Cubic Bézier Representation and Point
+Evaluation** only: immutable non-rational cubic curves in 2D/3D from exactly
+four finite control points, normalized `[0,1]` point evaluation,
+de Casteljau-style deterministic evaluation, exact representation reversal,
+classified invalid/domain/non-finite-result failures, and one focused contract.
+
+Derivatives, regularity, curvature, arc length, subdivision, rational or
+arbitrary-degree curves, topology ownership, boundary discretization, surfaces,
+meshing, and stage-level qualification remain outside this first work unit.
 
 #### Cubic Bezier Evaluation
 
