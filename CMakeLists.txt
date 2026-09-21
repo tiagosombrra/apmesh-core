@@ -90,6 +90,17 @@ if(BUILD_TESTING AND APMESH_ENABLE_QUALIFICATION_TESTS)
     target_link_libraries(apmesh_core_topological_model_cumulative_export PRIVATE apmesh::core)
     apmesh_apply_target_defaults(apmesh_core_topological_model_cumulative_export)
 
+    add_executable(apmesh_core_continuous_curve_geometry_regression_export
+        experiments/continuous_curve_geometry_regression_export.cpp
+    )
+    target_link_libraries(
+        apmesh_core_continuous_curve_geometry_regression_export
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(
+        apmesh_core_continuous_curve_geometry_regression_export
+    )
+
     add_executable(apmesh_core_minimal_small_linear_algebra_export
         experiments/minimal_small_linear_algebra_export.cpp
     )
@@ -358,6 +369,36 @@ if(BUILD_TESTING)
             --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/topological-model-tmr-authorize.yml
     )
     add_test(
+        NAME apmesh_core.continuous_curve_geometry_regression_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/continuous_curve_geometry_regression_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_continuous_curve_geometry_regression_export>
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/continuous_curve_geometry_regression_evidence.py
+            --negative ${CMAKE_CURRENT_SOURCE_DIR}/tools/continuous_curve_geometry_regression_negative.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/continuous_curve_geometry_regression.json
+    )
+    add_test(
+        NAME apmesh_core.continuous_curve_geometry_regression_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/continuous_curve_geometry_regression_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_continuous_curve_geometry_regression.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/continuous_curve_geometry_regression.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/continuous_curve_geometry_regression_export.cpp
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/continuous_curve_geometry_regression_evidence.py
+            --negative ${CMAKE_CURRENT_SOURCE_DIR}/tools/continuous_curve_geometry_regression_negative.py
+    )
+    add_test(
+        NAME apmesh_core.continuous_curve_geometry_regression_workflow
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/continuous_curve_geometry_regression_workflow_test.py
+            --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/continuous-curve-geometry-regression-tooling.yml
+    )
+    add_test(
         NAME apmesh_core.cartesian_frames_evidence
         COMMAND
             ${Python3_EXECUTABLE}
@@ -584,6 +625,12 @@ if(BUILD_TESTING)
         apmesh_core.topological_model_tmr_authorization
         apmesh_core.topological_model_tmr_authorization_workflow
         PROPERTIES LABELS "topology;contract;qualification;tooling"
+    )
+    set_tests_properties(
+        apmesh_core.continuous_curve_geometry_regression_evidence
+        apmesh_core.continuous_curve_geometry_regression_runner
+        apmesh_core.continuous_curve_geometry_regression_workflow
+        PROPERTIES LABELS "curve;geometry;contract;qualification;tooling"
     )
     set_tests_properties(
         apmesh_core.geometry_point_vector_foundation_preservation
