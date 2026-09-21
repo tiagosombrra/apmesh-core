@@ -831,9 +831,9 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL
-REGULARITY + CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED / STAGE UNQUALIFIED`
+Status: `IN INVESTIGATION / ALL ADMITTED CONTINUOUS-CURVE WORK UNITS
+IMPLEMENTED / FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL UNDER REVIEW /
+STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
 
@@ -1129,13 +1129,13 @@ the separate cumulative/inverse decision above.
 
 #### Continuous Curve Geometry Regression
 
-Status: **PRE-REGISTERED / DOCUMENTATION-ONLY / NO FORMAL EXECUTION
+Status: **PROPOSED / UNDER REVIEW / DOCUMENTATION-ONLY / NO FORMAL EXECUTION
 AUTHORIZED** on `curve/continuous-geometry-regression-decision`.
 
 Protocol authority under review:
 `docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
 
-The stage-exit regression is pre-registered to:
+The proposed stage-exit regression fixes the following prospective requirements:
 
 - rerun the exact fourteen-test prerequisite + curve semantic allowlist;
 - execute four admitted cloud cells × two repetitions;
