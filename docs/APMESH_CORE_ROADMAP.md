@@ -1007,9 +1007,18 @@ private outward arithmetic, explicit `converged/indeterminate` evidence, and
 a scaled interval norm using correctly-rounded `sqrt`. Final FAST
 `35552642188` and INTEGRATION `35552642196` pass in GCC/Clang.
 
+PR #61 integrated the bounded implementation as
+`5d89edfd391dc5548245f35ccedc2ac4c6c6951a`. Final PR FAST
+`35552739398`, PR INTEGRATION `35552739395`, post-merge FAST
+`35580244685`, and post-merge INTEGRATION `35580244722` all passed.
+Work unit 1 is therefore **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED**. The next bounded transition is the separate cumulative/inverse
+mapping decision.
+
 **Work unit 2 — Cumulative Arc-Length Mapping and Certified Inverse Bracketing**
 
-- remains blocked until Work unit 1 is integrated and closed;
+- is now eligible for a separate bounded decision because Work unit 1 is
+  integrated and closed;
 - may define cumulative `S(t)` and target-length/fraction-to-parameter
   bracketing;
 - must require a globally regular curve before claiming a unique inverse;
