@@ -250,35 +250,29 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after PREPARED-audit integration:
+Exact next bounded scientific action:
 
 **Create one separate exact `EXECUTE_ONCE` authorization-record PR for the
 audited Continuous Curve Geometry Regression PREPARED package.**
 
-Formal preparation run `35620525792` produced one sealed package for
-candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`.
+The PREPARED audit is closed on `main`:
 
-Independent audit records:
+- preparation run `35620525792`;
+- candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+- audit PR #81 merged as
+  `988d0877d78ccd0c1ed4d368a802a8a4cad28d7b`;
+- PR FAST `35629544372`: PASS;
+- PR INTEGRATION `35629544344`: PASS;
+- post-merge FAST `35629633009`: PASS;
+- post-merge INTEGRATION `35629632897`: PASS.
 
-- artifact ID `10649325906`;
-- artifact ZIP SHA-256
-  `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`;
-- prepared-manifest SHA-256
-  `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
-- preparation-seal SHA-256
-  `686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`;
-- complete 1595-path source inventory equality with the GitHub candidate tree;
-- 18/18 critical input hashes PASS;
-- 11/11 frozen curve-semantic hashes PASS against the protocol baseline;
-- four cloud observations PASS;
-- exact 56-command / 112-log / eight-repetition / 112-semantic-test plan;
-- lifecycle `PREPARED`, `execution_requested=false`;
-- CGR0–CGR7 all `NOT_EXECUTED`.
+The audited manifest
+`201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`
+remains unclaimed and unexecuted.
 
-Audit decision: **PASS / PREPARED / NOT EXECUTED.**
-
-Formal execution remains unauthorized until a separate one-file
-`EXECUTE_ONCE` authorization is merged after this checkpoint closes.
+The next authorization PR must contain exactly one newly added manifest-bound
+authorization file and no other repository change. Its protected-main merge
+will be the formal one-shot CGR execution authorization event.
 
 Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
 
