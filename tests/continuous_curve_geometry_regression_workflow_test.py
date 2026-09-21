@@ -42,7 +42,14 @@ def main() -> int:
 
     for name in ("GCC 13 Debug", "Clang 18 libc++ Debug"):
         require(name in text, f"tooling matrix cell is absent: {name}")
-    require(text.count("build/cgr-") == 2, "tooling build-directory matrix differs")
+    require(
+        text.count("build_dir: build/cgr-gcc-debug") == 1,
+        "GCC tooling build directory differs",
+    )
+    require(
+        text.count("build_dir: build/cgr-clang-debug") == 1,
+        "Clang tooling build directory differs",
+    )
 
     for package in (
         "cmake=3.28.3-1build7",
