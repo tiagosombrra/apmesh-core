@@ -472,3 +472,31 @@ formal execution.
 After integration and checkpoint closure, exactly one formal preparation may be
 dispatched from canonical clean `main`; the resulting package must then stop
 for independent PREPARED audit.
+
+## 19. Formal infrastructure integration checkpoint
+
+PR #79 integrated the formal campaign infrastructure as
+`a0232e0c00aae1338b55ba0b45997db1a3c00464`.
+
+The final validated branch head
+`d52f8f95f192c3076249f917486497be698f1848` and the squash-merge commit
+share exact Git tree:
+
+`2ece9368e9b48a0c1db7fc1494a8713a833a9b43`.
+
+Validation:
+
+- CGR FORMAL TOOLING `35614078272`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- PR FAST `35614279053`: PASS;
+- PR INTEGRATION `35614278985`: PASS;
+- post-merge FAST `35614426119`: PASS;
+- post-merge INTEGRATION `35614426153`: PASS.
+
+The infrastructure checkpoint is closed. No formal PREPARED artifact,
+authorization record, execution claim, terminal package or CGR gate decision
+exists.
+
+Exactly one formal preparation may now be dispatched from canonical clean
+`main`. The resulting PREPARED artifact must stop for independent audit.
+Formal execution remains unauthorized.
