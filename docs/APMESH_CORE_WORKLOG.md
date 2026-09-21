@@ -192,70 +192,59 @@ writing.
 - `curve/continuous-geometry-regression-tooling`: **MERGED / HISTORICAL**
   via PR #75; report-only CGR exporter/validator/runner/negative/derived-
   evidence tooling only.
-- `curve/cgr-formal-campaign-infrastructure`: **ACTIVE /
-  VALIDATED_UNMERGED**; formal lifecycle infrastructure only; no real PREPARED
-  package or formal execution.
+- `curve/cgr-formal-campaign-infrastructure`: **MERGED / HISTORICAL**
+  via PR #79; formal lifecycle infrastructure only; no real PREPARED package
+  or formal execution.
+- `docs/cgr-formal-infrastructure-closure`: **CLOSURE-ONLY**; records PR #79
+  integration, exact-tree identity, and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Implement formal Continuous Curve Geometry Regression campaign
-infrastructure — VALIDATED_UNMERGED.**
+**None. Formal CGR campaign infrastructure is closed.**
 
-Active branch: `curve/cgr-formal-campaign-infrastructure`.
+Closure evidence:
 
-Authority:
-`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
+1. formal-infrastructure PR #79 merged as
+   `a0232e0c00aae1338b55ba0b45997db1a3c00464`;
+2. final validated branch head
+   `d52f8f95f192c3076249f917486497be698f1848` and squash-merge commit have
+   identical Git tree `2ece9368e9b48a0c1db7fc1494a8713a833a9b43`;
+3. final CGR FORMAL TOOLING `35614078272`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. PR FAST `35614279053`: PASS;
+5. PR INTEGRATION `35614278985`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+6. post-merge FAST `35614426119`: PASS;
+7. post-merge INTEGRATION `35614426153`: PASS in both cells;
+8. all eleven frozen semantic files remain unchanged;
+9. no real PREPARED package, authorization record, claim, terminal package or
+   CGR gate decision was created.
 
-Implemented:
-
-1. revision-bound formal runner
-   `tools/run_continuous_curve_geometry_campaign.py`;
-2. preparation-only workflow;
-3. reusable one-shot execution workflow;
-4. protected-main repository authorization controller;
-5. closed-schema authorization validator;
-6. five new focused formal infrastructure contracts;
-7. CMake opt-in registration;
-8. dedicated `CGR FORMAL TOOLING` validation workflow;
-9. infrastructure mapping/audit in Markdown and JSON.
-
-Scientific/control invariants validated:
-
-- formal plan derives from the report-only CGR plan;
-- all eleven frozen semantic files remain unchanged;
-- exact 56-command / 112-log / 8-certificate / 112-semantic-test shape;
-- PREPARED contains exactly seven files;
-- CGR0–CGR7 remain `NOT_EXECUTED` before formal execution;
-- cloud drift, PREPARED mutation and consumed-package reuse fail closed;
-- synthetic mid-campaign failure retains a valid BLOCKED terminal package;
-- successful and blocked packages are immutable after local claim;
-- authorization commit isolation covers the complete commit;
-- executor has one claim and one execute path only.
-
-Validation:
-
-- formal tooling run `35613409036`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug;
-- exact eight-contract inventory passed in both cells;
-- no real PREPARED package, `EXECUTE_ONCE`, claim, terminal package or CGR
-  gate result was created.
-
-Audit authorities:
-
-- `docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.md`;
-- `docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.json`.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this infrastructure implementation is merged, required PR and post-merge
-FAST/INTEGRATION plus final formal-tooling validation pass, and the
-infrastructure checkpoint is closed, dispatch exactly one formal
-**CGR PREPARED** package from canonical clean `main`.
+Dispatch exactly one formal **Continuous Curve Geometry Regression PREPARED**
+package from canonical clean `main` using:
+
+`Continuous Curve Geometry Regression Preparation`
 
 Then stop for independent PREPARED audit.
 
-No `EXECUTE_ONCE` authorization, claim or formal execution is admissible
-before a separate audit decision of **PASS / PREPARED / NOT EXECUTED**.
+The preparation must remain:
+
+- PREPARED only;
+- exactly seven control files;
+- `execution_requested=false`;
+- CGR0–CGR7 all `NOT_EXECUTED`;
+- no execution claim;
+- no command records;
+- no certificate index;
+- no terminal manifest;
+- no failure record.
+
+No `EXECUTE_ONCE`, claim or formal execution is admissible before an
+independent audit decision of **PASS / PREPARED / NOT EXECUTED**.
 
