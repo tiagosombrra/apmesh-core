@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <numeric>
 #include <locale>
 #include <sstream>
 #include <string>
@@ -228,34 +229,15 @@ long double parabola_prefix_length(const long double parameter) {
            0.25L * std::asinh(2.0L * parameter);
 }
 
-template <typename T, typename E>
-const T* require_value(
-    const std::expected<T, E>& value,
-    const std::string_view label) {
-    if (!value) {
-        std::cerr << "missing expected value: " << label << '\n';
-        return nullptr;
-    }
-    return &*value;
-}
-
 std::string certificate(const std::string_view cell, const int repetition) {
     const auto p20 = Point2::make(0.0, 0.0);
     const auto p21 = Point2::make(0.0, 2.0);
     const auto p22 = Point2::make(2.0, 2.0);
     const auto p23 = Point2::make(2.0, 0.0);
-    const auto p30 = Point3::make(0.0, 0.0, 0.0);
-    const auto p31 = Point3::make(1.0, 2.0, 4.0);
-    const auto p32 = Point3::make(3.0, -1.0, 2.0);
-    const auto p33 = Point3::make(4.0, 0.0, 8.0);
     const auto l20 = Point2::make(0.0, 0.0);
     const auto l21 = Point2::make(1.0, 0.0);
     const auto l22 = Point2::make(2.0, 0.0);
     const auto l23 = Point2::make(3.0, 0.0);
-    const auto l30 = Point3::make(0.0, 0.0, 0.0);
-    const auto l31 = Point3::make(1.0, 0.0, 0.0);
-    const auto l32 = Point3::make(2.0, 0.0, 0.0);
-    const auto l33 = Point3::make(3.0, 0.0, 0.0);
     const auto q0 = Point2::make(0.0, 0.0);
     const auto q1 = Point2::make(1.0 / 3.0, 0.0);
     const auto q2 = Point2::make(2.0 / 3.0, 1.0 / 3.0);
@@ -265,16 +247,14 @@ std::string certificate(const std::string_view cell, const int repetition) {
     const auto q32 = Point3::make(2.0 / 3.0, 1.0 / 3.0, 0.0);
     const auto q33 = Point3::make(1.0, 1.0, 0.0);
 
-    if (!p20 || !p21 || !p22 || !p23 || !p30 || !p31 || !p32 || !p33 ||
-        !l20 || !l21 || !l22 || !l23 || !l30 || !l31 || !l32 || !l33 ||
+    if (!p20 || !p21 || !p22 || !p23 ||
+        !l20 || !l21 || !l22 || !l23 ||
         !q0 || !q1 || !q2 || !q3 || !q30 || !q31 || !q32 || !q33) {
         return {};
     }
 
     const CubicBezier2 curve2{*p20, *p21, *p22, *p23};
-    const CubicBezier3 curve3{*p30, *p31, *p32, *p33};
     const CubicBezier2 line2{*l20, *l21, *l22, *l23};
-    const CubicBezier3 line3{*l30, *l31, *l32, *l33};
     const CubicBezier2 parabola2{*q0, *q1, *q2, *q3};
     const CubicBezier3 parabola3{*q30, *q31, *q32, *q33};
 
