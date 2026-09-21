@@ -501,11 +501,10 @@ Final validation at head
 - FAST `35552642188`: PASS;
 - INTEGRATION `35552642196`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
 
-This establishes:
+This was the pre-merge implementation validation result. The authoritative
+integrated result is recorded below.
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
-
-It does not authorize cumulative/inverse parameter mapping or any later
+It did not authorize cumulative/inverse parameter mapping or any later
 discretization/meshing phase.
 
 
@@ -546,3 +545,9 @@ The next admissible scientific action is a **separate bounded decision** for
 Cumulative Arc-Length Mapping and Certified Inverse Bracketing. This document's
 earlier future-boundary text remains informative, but it does not itself
 authorize Work unit 2 implementation.
+
+That separate authority is now authored at
+`docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
+It splits the continuation into Work Unit 2A (certified cumulative enclosure)
+and a later blocked Work Unit 2B (certified inverse bracketing). Until the new
+decision is integrated and closed, neither mapping work unit is authorized.
