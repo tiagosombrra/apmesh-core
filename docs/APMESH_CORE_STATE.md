@@ -90,56 +90,42 @@ Current repository continuation checkpoint:
 - post-merge GitHub Actions FAST on that baseline: `PASS`, run `35513658207`;
 - post-merge GitHub Actions INTEGRATION on that baseline: `PASS`, run `35513658197`;
 - final pre-merge Major Semantic Regression on tree-equivalent candidate `6a934de6e8f6fae35e6c38ec45b9b1f23b170acb`: `PASS`, run `35513567930`;
-- open scientific stage: **Topological Model — Explicit Identity and Incidence — QUALIFIED /
-TMR0–TMR7 PASS**;
-- stage status: production bounded scope implemented, focused contracts pass,
-  cumulative TMR0--TMR7 report-only tooling implemented, the admitted cloud
-  envelope explicitly supplemented, the preparation/runner path fail-closed on
-  that identity, and a manual preparation-only workflow implemented and
-  statically qualified; that workflow has not been dispatched, no formal TMR
-  manifest exists, and the stage remains unqualified;
-- TMR report-only tooling validation: candidate
-  `ad8f6f379d2284b782cb93bf4e0a6f3b1aa61822`, run `35514834796`, GCC 13
-  Debug and Clang 18/libc++ Debug PASS;
-- TMR cloud-identity binding validation: candidate
-  `967072efdee49af04b06c3f73b2b89fcb66f874c`, run `35516246789`, exact
-  admitted cloud identity plus focused GCC/Clang Debug tooling contracts PASS;
-  prior run `35516204233` is retained as a mechanical protocol-guard failure
-  before environment evaluation;
-- formal TMR launch-plan tool paths are sealed to the admitted absolute cloud
-  paths (`/usr/bin/cmake`, `/usr/bin/ctest`, `/usr/bin/ninja`,
-  `/usr/bin/g++-13`, `/usr/bin/clang++-18`); focused GCC/Clang Debug
-  validation PASS in run `35516578411` on candidate
-  `84149dc1cb7181fd18760927f76a51e1c3b1ce6d`;
-- manual preparation-only workflow implemented with `workflow_dispatch` only,
-  canonical-`main` restriction, external runner-temp output, immutable
-  PREPARED-state checks, pinned artifact retention, and no `execute` path.
-  Runs `35516864464` and `35516972035` are retained as consecutive
-  mechanical quoting failures; the tooling stop was honored, the shell command
-  was simplified, and run `35517077819` passed in both focused cells.
-  PR #20 integrated the workflow as
-  `d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST
-  `35519501704` and INTEGRATION `35519501663` passed.
-- first formal preparation: run `35524700979`, workflow_dispatch on canonical
-  `main` candidate `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, PASS;
-  retained artifact `10609500629`, archive SHA-256
-  `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`;
-  preparation audit PASS in
-  `docs/audits/2026-09-20-topological-model-tmr-preparation-audit.md`;
-  package remains unconsumed, with `execution_requested=false` and TMR0--TMR7
-  all `NOT_EXECUTED`.
+- active scientific stage: **Curve Representation — Continuous Geometry Before
+  Discretization / ENTRY DECISION IN PROGRESS / NO PRODUCTION CURVE CODE**;
+- active work item: `curve/entry-decision`;
+- most recently qualified stage: **Topological Model — Explicit Identity and
+  Incidence / TMR0–TMR7 PASS / OVERALL PASS**;
+- Topological Model qualifying candidate:
+  `37f9af77f38e12af0a92d3c0f57f1ad31a218144`;
+- qualifying terminal audit:
+  `docs/audits/2026-09-20-topological-model-tmr-corrected-terminal-audit.md`;
+- qualifying audit integration: PR #44,
+  `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
+- Topological Model closure integration: PR #45,
+  `b30c781cb11a465f014c1239ab2655c3b8edbf0a`;
+- post-closure FAST `35534520923`: PASS;
+- post-closure INTEGRATION `35534520980`: PASS;
+- qualification scope remains the exact admitted GitHub-hosted Ubuntu 24.04
+  x86_64 cloud envelope; no WSL/cloud equivalence is claimed;
+- Curve Representation entry authority under review:
+  `docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`;
+- first proposed executable work unit: **Cubic Bézier 3D Immutable
+  Representation and Evaluation on [0,1]**.
 
-Current Topological Model completion lanes:
+Topological Model closure summary:
 
-| Lane | Completion | Current basis |
-| --- | ---: | --- |
-| Production implementation | 100% | Five authorized bounded topology work units implemented; no production-semantic defect is shown by the blocked campaign. |
-| Focused validation | 100% | Focused GCC 13 Debug and Clang 18/libc++ Debug contracts pass. |
-| Stage-regression / qualification tooling | 100% implemented, correction pending | The complete preparation/authorization/execution/retention path exists and ran once; diagnosis is required because runner repetition cardinality does not satisfy the sealed protocol. |
-| Formal evidence preparation | 100% for first attempt | Run `35524700979` produced the audited PREPARED package, later consumed exactly once by the authorized formal campaign. |
-| Formal evidence execution | 100% for first attempt | Run `35528077223` executed once and retained the terminal package; the attempt is immutable and consumed. |
-| Terminal scientific audit | 100% | TMR0–TMR5 PASS; TMR6–TMR7 BLOCKED; overall BLOCKED. |
-| Stage qualification | 0% closed | Topological Model remains NOT QUALIFIED until a future newly prepared campaign satisfies TMR0–TMR7. |
+| Lane | Final status | Authority |
+| --- | --- | --- |
+| Production implementation | CLOSED / PASS | Five bounded topology work units |
+| Focused validation | CLOSED / PASS | GCC 13 Debug + Clang 18/libc++ Debug contracts |
+| Stage regression tooling | CLOSED / PASS | Corrected four-cell × two-repetition TMR |
+| Formal preparation | CLOSED / PASS | run `35531261000`, audited PREPARED |
+| Formal execution | CLOSED / PASS / CONSUMED | run `35533702004` |
+| Terminal scientific audit | CLOSED / TMR0–TMR7 PASS | corrected terminal audit |
+| Stage qualification | QUALIFIED | PR #44 + PR #45 closure |
+
+Historical first-attempt BLOCKED evidence remains immutable in its dedicated
+audit/diagnosis documents and is not reinterpreted by this summary.
 
 Current cloud-execution infrastructure:
 
@@ -252,34 +238,52 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Open one separate scientific entry decision for Curve Representation —
-Continuous Geometry Before Discretization.**
+**Integrate the bounded Curve Representation entry decision, then close its
+checkpoint before any production curve implementation.**
 
-Topological Model qualification is closed on `main`.
+Active branch: `curve/entry-decision`.
 
-Integration evidence:
+The entry decision authorizes, prospectively, only one next executable work
+unit after integration:
 
-- corrected terminal-audit PR #44 merged as
-  `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
-- PR FAST `35534295054`: PASS;
-- PR INTEGRATION `35534295078`: PASS;
-- post-merge FAST `35534347597`: PASS;
-- post-merge INTEGRATION `35534347623`: PASS.
+**Cubic Bézier 3D Immutable Representation and Evaluation on [0,1].**
 
-Scientific status:
+The first implementation will not begin on this branch.
 
-- TMR0–TMR7: PASS;
-- overall: PASS;
-- Topological Model: QUALIFIED in the exact admitted GitHub-hosted Ubuntu
-  24.04 x86_64 cloud envelope;
-- WSL/cloud equivalence: not claimed.
-
-The next entry decision must bound the first continuous-curve investigation
-before production code is written. Curve implementation is not authorized by
-Topological Model qualification alone.
 
 
 ## Current active stage
+
+**Curve Representation — Continuous Geometry Before Discretization**
+
+Current stage status:
+
+**ENTRY DECISION IN PROGRESS / NO PRODUCTION CURVE CODE.**
+
+Current bounded investigation:
+
+**Cubic Bézier Evaluation.**
+
+The proposed first work unit is limited to an immutable non-rational cubic
+Bézier in 3D, four finite `Point3` control points, exact parameter domain
+`[0,1]`, de Casteljau evaluation via `std::lerp`, explicit parameter
+failure semantics, exact control-point reversal, affine-consistency fixtures,
+and an independent high-precision Bernstein reference.
+
+Derivatives, regularity, arc length, parameter inversion, discretization,
+topological curve identity, surfaces, meshing, parallelism, arbitrary degree,
+rational weights, B-splines and NURBS remain excluded.
+
+Entry authority:
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`.
+
+Reference review:
+`docs/research/REFERENCE_REGISTER.md`.
+
+No production implementation begins until the entry decision is merged and its
+checkpoint is closed.
+
+## Most recently qualified stage
 
 **Topological Model — Explicit Identity and Incidence**
 
@@ -626,6 +630,8 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 1. `docs/APMESH_CORE_STATE.md`
 2. `docs/APMESH_CORE_ROADMAP.md`
+3. `docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`
+4. `docs/research/REFERENCE_REGISTER.md`
 3. `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`
 4. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
 5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
@@ -644,24 +650,20 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Geometry Primitives is QUALIFIED on candidate `2f22ffd` after the audited
-GPR0-GPR7 campaign. Preserve the immutable historical blocked attempts and the
-fifth manifest/retention package as the stage evidence. Foundation and Geometry
-Primitives remain qualified only in their declared WSL envelope.
+Current authorized activity is documentation/review only:
 
-The bounded Identity and Oriented Edge Incidence Kernel, Face Identity and
-Ordered Boundary Cycles, and Deterministic Edge-Use Incidence Enumeration are
-implemented. Their focused GCC 13 Debug and Clang 18/libc++ Debug FAST contract
-passes, but Topological Model remains unqualified. The fourth bounded work unit
-implemented deterministic edge-incidence structural classification and the
-fifth completed immutable consistency validation plus forward-only canonical
-snapshot emission, as defined by
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. The cumulative
-TMR0–TMR7 protocol is now pre-registered. The next action is to implement its
-smallest reusable report-only workflow; no further production topology concept
-is authorized.
-Do not implement curves, NURBS, surfaces, meshing, or a formal qualification
-campaign.
+1. complete and integrate the bounded Curve Representation entry decision;
+2. validate FAST/INTEGRATION;
+3. close the entry-decision checkpoint;
+4. only then implement **Cubic Bézier 3D Immutable Representation and
+   Evaluation on [0,1]** as one separate executable work unit.
+
+Do not implement derivatives, regularity, arc length, discretization,
+topological curve identity, surfaces, meshing, Quad-Dominant work, parallel
+execution, or anisotropy in the first curve work unit.
+
+The previously qualified Foundation, Geometry Primitives, and Topological Model
+stages remain prerequisites and must not be silently reopened or bypassed.
 
 ## Stage closure protocol
 
