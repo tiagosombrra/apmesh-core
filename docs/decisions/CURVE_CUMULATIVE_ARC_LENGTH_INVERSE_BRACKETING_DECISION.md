@@ -406,3 +406,31 @@ Decision effect at this point:
 
 Integration and post-merge closure remain required before Work Unit 2B may be
 opened.
+
+
+## 18. Work Unit 2A integration and closure
+
+PR #66 integrated Certified Cumulative Arc-Length Enclosure as:
+
+`3cfb580cae2e2d26e87e9dfcfeab0aade0a3a3be`.
+
+Validation:
+
+- final PR FAST `35591661827`: PASS;
+- final PR INTEGRATION `35591661836`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35591774007`: PASS;
+- post-merge INTEGRATION `35591773982`: PASS.
+
+Closed result:
+
+- Work Unit 2A:
+  **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+  NOT QUALIFIED**;
+- Work Unit 2B:
+  **UNBLOCKED FOR A SEPARATE BOUNDED WORK ITEM**;
+- Curve Representation:
+  **STAGE UNQUALIFIED**.
+
+The 2A integration introduces no inverse mapping, physical sampling,
+discretization, surface, quadrilateral or parallel capability.
