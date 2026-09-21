@@ -1054,11 +1054,14 @@ PR INTEGRATION `35581198681`, post-merge FAST `35581291836`, and
 post-merge INTEGRATION `35581291965` passed. The decision checkpoint is
 closed.
 
-Work Unit 2A — Certified Cumulative Arc-Length Enclosure is now the sole
-authorized implementation work item. It is ACTIVE on
-`curve/cumulative-arc-length-enclosure`, bounded to conservative forward
-prefix-length evidence and reuse/refactor of the integrated certified
-total-length core. Work Unit 2B remains blocked.
+Work Unit 2A — Certified Cumulative Arc-Length Enclosure is
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT
+QUALIFIED** on `curve/cumulative-arc-length-enclosure`, PR #66. The
+implementation builds certified prefix edge enclosures directly from original
+represented control data with outward de Casteljau algebra, reuses the
+integrated total-length enclosure engine, and introduces no inverse mapping.
+PR FAST `35591468322` and INTEGRATION `35591468337` pass in the declared
+GCC/Clang cells. Work Unit 2B remains blocked until integration and closure.
 
 Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
 difference is an error estimate, whereas the first work unit requires an
