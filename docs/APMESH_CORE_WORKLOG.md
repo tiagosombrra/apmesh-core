@@ -181,69 +181,47 @@ writing.
   implementation.
 - `docs/curve-inverse-bracketing-decision-closure`: **CLOSURE-ONLY**;
   records PR #68 integration and post-merge validation.
+- `curve/certified-inverse-arc-length-bracketing`: **MERGED / HISTORICAL**
+  via PR #70; Work Unit 2B implementation only.
+- `docs/curve-inverse-bracketing-closure`: **CLOSURE-ONLY**; records
+  Work Unit 2B integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Work Unit 2B — Certified Inverse Arc-Length Bracketing —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED.**
+**None. Work Unit 2B — Certified Inverse Arc-Length Bracketing is closed.**
 
-Active branch: `curve/certified-inverse-arc-length-bracketing`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
+1. implementation PR #70 merged as
+   `a82fa1c96fc6665e586753d5e4eb698012a79be3`;
+2. final PR FAST `35594075619`: PASS;
+3. final PR INTEGRATION `35594075595`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. post-merge FAST `35594160853`: PASS;
+5. post-merge INTEGRATION `35594160817`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+6. bounded public API/evidence/error contract is integrated;
+7. same-curve regularity, certified target uncertainty and deterministic
+   bracket evidence remain intact;
+8. no physical sampling, boundary discretization, surface, Quad-Dominant,
+   parallel or qualification implementation was introduced;
+9. Curve Representation remains stage-unqualified.
 
-Implemented bounded contract:
-
-1. `CurveInverseLengthError`, result, policy and evidence are public only in
-   the curve module;
-2. every inverse call internally certifies global regularity for the same curve;
-3. total and cumulative arc-length evidence reuse the integrated certified
-   enclosure paths;
-4. absolute-length and normalized-fraction target modes are supported;
-5. normalized fractions preserve the retained total-length uncertainty;
-6. the scientific result is a certified `[t_low,t_high]` bracket;
-7. lower/upper cumulative, total-length and regularity evidence are retained;
-8. deterministic `std::midpoint` bisection is the only refinement authority;
-9. ambiguous midpoint classification and resource exhaustion return
-   `indeterminate` with the last valid certified bracket;
-10. exact endpoint identities are admitted only after same-curve regularity is
-    certified;
-11. no target clamping, lookup table, cached sampled mapping, scalar-only
-    scientific inverse, generic root solver or acceleration authority exists.
-
-Focused evidence includes endpoint identities, analytic straight-line
-absolute/fraction inverses, a nonuniform analytic parabola reference, reversal,
-2D/3D parity, translation, power-of-two scale, target-domain rejection/
-uncertainty, degenerate and indeterminate regularity, ambiguous midpoint,
-iteration exhaustion, zero parameter tolerance, invalid policy, numeric
-failure and deterministic repeatability.
-
-Validation:
-
-- PR #70 FAST `35593878035`: PASS;
-- PR #70 INTEGRATION `35593878082`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug;
-- new focused test `apmesh_core.curve_inverse_arc_length` participates in
-  FAST and INTEGRATION;
-- curve header-isolation contract covers the new public surface;
-- all prerequisite selected contracts remain passing.
-
-Scientific boundary:
-
-- Curve Representation remains stage-unqualified;
-- no physical equal-length sampling or boundary discretization is introduced;
-- no surface, Quad-Dominant, parallel or qualification tooling is introduced.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After PR #70 is merged, post-merge FAST/INTEGRATION pass, and the Work Unit 2B
-checkpoint is closed, pre-register the separate **Continuous Curve Geometry
-Regression** required for Curve Representation stage qualification.
+Pre-register one **Continuous Curve Geometry Regression** decision for Curve
+Representation stage qualification.
 
-That stage-regression decision must bind the complete admitted continuous-curve
-claim set and prerequisite preservation before any formal qualification
-execution. Physical discretization remains blocked until Curve Representation
-is qualified.
+That decision must define the complete stage-level claim set, exact current-
+candidate semantic allowlist, prerequisite preservation, deterministic repeated
+execution, machine-readable curve certificate, analytic/reference evidence,
+negative/adversarial cases, admitted cloud matrix, retention and independent
+audit gates.
+
+No physical boundary discretization may begin until that cumulative regression
+is executed and Curve Representation is scientifically qualified.
 
