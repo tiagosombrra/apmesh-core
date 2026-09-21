@@ -177,42 +177,53 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Cumulative Arc-Length Mapping and Certified Inverse Bracketing decision
-checkpoint is closed.**
+**Implement Work Unit 2A — Certified Cumulative Arc-Length Enclosure —
+ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/certified-cumulative-arc-length-enclosure`.
 
-1. decision authority:
-   `docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`;
-2. decision PR #63 FAST `35581198802`: PASS;
-3. decision PR #63 INTEGRATION `35581198681`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. PR #63 squash-merged as
-   `32428d29407949f058d44bf2dfdcab59600714c1`;
-5. post-merge FAST `35581291836`: PASS;
-6. post-merge INTEGRATION `35581291965`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. no mapping production code was introduced by the decision;
-8. Work Unit 2A is now authorized;
-9. Work Unit 2B remains blocked.
+Decision authority:
+`docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
 
-No work item is active.
+Authorized implementation scope:
+
+1. add cumulative prefix-length enclosure for `CubicBezier2` and
+   `CubicBezier3`;
+2. accept only `t in [0,1]` with explicit parameter failure;
+3. retain exact `[0,0]` at `t=0`;
+4. retain scientific equivalence with total-length enclosure at `t=1`;
+5. construct the prefix cubic conservatively with private curve-local outward
+   arithmetic;
+6. reuse/refactor the integrated certified total-length engine rather than
+   introduce a competing integration algorithm;
+7. retain existing `CurveLengthPolicy` and conservative
+   `converged/indeterminate` evidence when semantically sufficient;
+8. add focused analytic/adversarial tests for endpoint, analytic prefix,
+   reversal, embedding, translation, scale, stationary, resource, invalid
+   parameter/policy, extreme/subnormal and repeatability cases;
+9. update header-isolation and CMake test registration;
+10. preserve all prerequisite FAST/INTEGRATION contracts.
+
+Explicitly excluded:
+
+- inverse or fraction-to-parameter mapping;
+- target-length inversion;
+- lookup tables;
+- root solvers;
+- curvature;
+- physical discretization;
+- topology ownership;
+- surfaces;
+- quadrilateral generation;
+- parallel execution;
+- Curve Representation stage qualification.
 
 ## Next admissible work item after closure
 
-Implement only:
+After Work Unit 2A is implemented, focused FAST/INTEGRATION pass, its PR is
+merged, post-merge checks pass, and its checkpoint is closed, open one separate
+bounded continuation for **Work Unit 2B — Certified Inverse Arc-Length
+Bracketing**.
 
-**Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
-
-Implementation must remain inside the integrated decision boundary:
-
-- conservative `S(t)=length(B|[0,t])` enclosure;
-- explicit parameter/policy/resource semantics;
-- certified private prefix construction;
-- reuse/refactor of the existing certified total-length core;
-- focused analytic/adversarial 2D/3D evidence;
-- no inverse mapping.
-
-Work Unit 2B — Certified Inverse Arc-Length Bracketing remains blocked until 2A
-is implemented, validated, integrated and closed.
+No inverse implementation may be bundled into the current branch.
 
