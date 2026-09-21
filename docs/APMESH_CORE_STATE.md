@@ -250,35 +250,35 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after total arc-length implementation integration:
 
-**Implement Certified Cubic Bézier Total Arc-Length Enclosure.**
+**Open one separate bounded decision for Cumulative Arc-Length Mapping and
+Certified Inverse Bracketing.**
 
-The Arc Length and Parameter Mapping decision is integrated and closed.
+Certified Cubic Bézier Total Arc-Length Enclosure is implemented on
+`curve/cubic-bezier-total-arc-length-enclosure` and validated at final head
+`6ba8a1e52927c696e5c297c49943c1b25d8ec116`.
 
-Decision integration:
+Validation:
 
-- PR #59 merged as
-  `65cd93818fa54eac00c6f63ebefa3615074a82cd`;
-- PR FAST `35551687273`: PASS;
-- PR INTEGRATION `35551687243`: PASS;
-- post-merge FAST `35551746429`: PASS;
-- post-merge INTEGRATION `35551746412`: PASS.
+- FAST `35552642188`: PASS;
+- INTEGRATION `35552642196`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
 
-The implementation boundary is fixed by
-`docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md`.
+The implementation returns a conservative total-length enclosure with explicit
+policy/resource evidence. Its norm enclosure uses scaled interval arithmetic
+and outward-rounded `sqrt`; it does not rely on an assumed formal error bound
+for `std::hypot`.
 
-Only total-length enclosure is authorized. Cumulative/inverse mapping,
-curvature, discretization, quadrilateral generation and parallel execution
-remain blocked.
+Cumulative/inverse mapping remains unimplemented and unauthorized until this
+work unit is merged and closed.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
-IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY
-IMPLEMENTED / ARC-LENGTH DECISION INTEGRATED / FOCUSED CONTRACTS PASS /
-STAGE UNQUALIFIED**
+IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
+CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / FOCUSED CONTRACTS PASS /
+VALIDATED_UNMERGED / STAGE UNQUALIFIED**
 
 Current completed work unit:
 
