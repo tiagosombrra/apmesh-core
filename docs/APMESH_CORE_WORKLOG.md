@@ -189,52 +189,73 @@ writing.
   via PR #73; CGR0–CGR7 stage-exit protocol only.
 - `docs/curve-cgr-protocol-closure`: **CLOSURE-ONLY**; records PR #73
   integration and post-merge validation.
-- `curve/continuous-geometry-regression-tooling`: **ACTIVE /
-  VALIDATED_UNMERGED**; report-only CGR exporter/validator/runner/negative/
-  derived-evidence tooling only; no PREPARED package or formal execution.
+- `curve/continuous-geometry-regression-tooling`: **MERGED / HISTORICAL**
+  via PR #75; report-only CGR exporter/validator/runner/negative/derived-
+  evidence tooling only.
+- `curve/cgr-formal-campaign-infrastructure`: **ACTIVE /
+  VALIDATED_UNMERGED**; formal lifecycle infrastructure only; no real PREPARED
+  package or formal execution.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
 **Implement formal Continuous Curve Geometry Regression campaign
-infrastructure — ACTIVE.**
+infrastructure — VALIDATED_UNMERGED.**
 
 Active branch: `curve/cgr-formal-campaign-infrastructure`.
 
 Authority:
 `docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
 
-Authorized implementation scope:
+Implemented:
 
-1. formal runner
+1. revision-bound formal runner
    `tools/run_continuous_curve_geometry_campaign.py`;
 2. preparation-only workflow;
 3. reusable one-shot execution workflow;
-4. repository-resident authorization validator/controller;
-5. formal runner/preparation/execution/authorization focused contracts;
-6. formal-infrastructure validation workflow and CMake opt-in registration;
-7. infrastructure audit plus synchronized STATE/ROADMAP/WORKLOG/protocol.
+4. protected-main repository authorization controller;
+5. closed-schema authorization validator;
+6. five new focused formal infrastructure contracts;
+7. CMake opt-in registration;
+8. dedicated `CGR FORMAL TOOLING` validation workflow;
+9. infrastructure mapping/audit in Markdown and JSON.
 
-Mandatory invariants:
+Scientific/control invariants validated:
 
-- reuse the report-only CGR scientific plan;
-- preserve all eleven frozen semantic files;
-- preserve 56 commands / 112 logs / 8 certificates / 112 semantic tests;
-- seal the future executor and authorization path before preparation;
-- keep CGR0–CGR7 `NOT_EXECUTED` outside formal execution;
-- do not dispatch preparation;
-- do not create a formal PREPARED package;
-- do not add `EXECUTE_ONCE`;
-- do not create a claim;
-- do not execute the formal campaign.
+- formal plan derives from the report-only CGR plan;
+- all eleven frozen semantic files remain unchanged;
+- exact 56-command / 112-log / 8-certificate / 112-semantic-test shape;
+- PREPARED contains exactly seven files;
+- CGR0–CGR7 remain `NOT_EXECUTED` before formal execution;
+- cloud drift, PREPARED mutation and consumed-package reuse fail closed;
+- synthetic mid-campaign failure retains a valid BLOCKED terminal package;
+- successful and blocked packages are immutable after local claim;
+- authorization commit isolation covers the complete commit;
+- executor has one claim and one execute path only.
+
+Validation:
+
+- formal tooling run `35613409036`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- exact eight-contract inventory passed in both cells;
+- no real PREPARED package, `EXECUTE_ONCE`, claim, terminal package or CGR
+  gate result was created.
+
+Audit authorities:
+
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.md`;
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.json`.
 
 ## Next admissible work item after closure
 
-After this formal-infrastructure implementation is merged, its focused formal
-tooling workflow and ordinary post-merge checks pass, and the infrastructure
-checkpoint is closed, dispatch exactly one formal **CGR PREPARED** package from
-canonical clean `main`, then stop for independent PREPARED audit.
+After this infrastructure implementation is merged, required PR and post-merge
+FAST/INTEGRATION plus final formal-tooling validation pass, and the
+infrastructure checkpoint is closed, dispatch exactly one formal
+**CGR PREPARED** package from canonical clean `main`.
 
-No execution authorization is admissible before that independent audit.
+Then stop for independent PREPARED audit.
+
+No `EXECUTE_ONCE` authorization, claim or formal execution is admissible
+before a separate audit decision of **PASS / PREPARED / NOT EXECUTED**.
 
