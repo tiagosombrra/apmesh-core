@@ -250,37 +250,34 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after cumulative-mapping decision integration:
+Exact next bounded scientific action:
 
 **Implement only Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
 
-Decision authority:
+The cumulative/inverse mapping decision is integrated and closed.
+
+Decision integration:
+
+- PR #63 merged as
+  `32428d29407949f058d44bf2dfdcab59600714c1`;
+- PR FAST `35581198802`: PASS;
+- PR INTEGRATION `35581198681`: PASS;
+- post-merge FAST `35581291836`: PASS;
+- post-merge INTEGRATION `35581291965`: PASS.
+
+Authority:
 `docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
 
-The decision deliberately separates forward cumulative mapping from inversion.
-
-Work Unit 2A may add only conservative evidence for
-
-`S(t)=length(B|[0,t])`
-
-on `t in [0,1]`, reusing/refactoring the integrated certified total-length
-machinery and preserving explicit `converged / indeterminate / failure`
-semantics.
-
-Work Unit 2B — Certified Inverse Arc-Length Bracketing remains blocked until
-2A is separately implemented, validated, integrated and closed. A unique
-inverse will additionally require same-curve global regularity authority.
-
-No physical discretization, curvature, surface, quadrilateral or parallel
-capability is opened by this decision.
+Only forward cumulative enclosure `S(t)` is authorized. Certified inverse
+bracketing remains blocked until 2A is separately integrated and closed.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
-CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / CUMULATIVE MAPPING DECISION ACTIVE /
-FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED**
+CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / CUMULATIVE MAPPING DECISION
+INTEGRATED / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED**
 
 Current completed work unit:
 
@@ -290,28 +287,14 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 Current bounded decision:
 
 **Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
-ONLY / INTEGRATION PENDING.**
+APPROVED / INTEGRATED / WORK UNIT 2A AUTHORIZED / WORK UNIT 2B BLOCKED.**
 
-The decision splits the investigation into:
+Work Unit 2A may implement only conservative cumulative prefix-length evidence
+for `S(t)`.
 
-1. **Work Unit 2A — Certified Cumulative Arc-Length Enclosure**, the only
-   executable capability proposed after decision closure; and
-2. **Work Unit 2B — Certified Inverse Arc-Length Bracketing**, explicitly
-   blocked until 2A closes.
-
-Forward cumulative length exists without a regularity prerequisite. A unique
-inverse claim requires the same curve to be globally certified regular so that
-`S'(t)=||B'(t)||>0` on the full interval.
-
-Completed integrated Curve Representation work units remain:
-
-- Polynomial Cubic Bézier Value Representation and Evaluation;
-- Cubic Bézier Differential Evaluation and Pointwise Speed;
-- Global Cubic Regularity Certification;
-- Certified Cubic Bézier Total Arc-Length Enclosure.
-
-Curve Representation remains stage-unqualified pending cumulative/inverse
-mapping and later Continuous Curve Geometry Regression.
+Work Unit 2B remains blocked until 2A closes. Any later unique inverse claim
+must bind global regularity to the same curve and preserve a certified
+parameter bracket.
 
 
 ## Most recently qualified stage

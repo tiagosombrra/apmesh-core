@@ -168,46 +168,51 @@ writing.
   via PR #61; certified total-length implementation.
 - `docs/curve-total-arc-length-closure`: **MERGED / HISTORICAL** via PR #62;
   closes Work Unit 1.
-- `curve/cumulative-arc-length-mapping-decision`: **ACTIVE / DECISION ONLY**;
-  defines Work Unit 2A and the blocked Work Unit 2B boundary.
+- `curve/cumulative-arc-length-mapping-decision`: **MERGED / HISTORICAL**
+  via PR #63; defines Work Unit 2A and the blocked Work Unit 2B boundary.
+- `docs/cumulative-arc-length-decision-closure`: **CLOSURE-ONLY**; records
+  PR #63 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Define Cumulative Arc-Length Mapping and Certified Inverse Bracketing —
-ACTIVE / DECISION ONLY.**
+**None. Cumulative Arc-Length Mapping and Certified Inverse Bracketing decision
+checkpoint is closed.**
 
-Active branch: `curve/cumulative-arc-length-mapping-decision`.
+Closure evidence:
 
-Scientific boundary under decision:
+1. decision authority:
+   `docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`;
+2. decision PR #63 FAST `35581198802`: PASS;
+3. decision PR #63 INTEGRATION `35581198681`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+4. PR #63 squash-merged as
+   `32428d29407949f058d44bf2dfdcab59600714c1`;
+5. post-merge FAST `35581291836`: PASS;
+6. post-merge INTEGRATION `35581291965`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. no mapping production code was introduced by the decision;
+8. Work Unit 2A is now authorized;
+9. Work Unit 2B remains blocked.
 
-1. split the investigation into two sequential work units rather than
-   introducing forward cumulative mapping and inversion together;
-2. Work Unit 2A — **Certified Cumulative Arc-Length Enclosure**:
-   `S(t)=length(B|[0,t])`, with conservative evidence on `[0,1]`;
-3. Work Unit 2B — **Certified Inverse Arc-Length Bracketing**:
-   blocked until Work Unit 2A is implemented, integrated and closed;
-4. cumulative length exists without a global-regularity prerequisite and is
-   nondecreasing;
-5. unique inverse claims require the same curve to be globally certified
-   regular, so that `S'(t)=||B'(t)||>0` and `S` is strictly increasing;
-6. inversion correctness must be bracket-preserving and deterministic;
-   bisection/bracket refinement is the correctness mechanism;
-7. Newton/secant acceleration, lookup tables and fitted approximate
-   reparameterizations are not accepted as correctness authorities;
-8. normalized-fraction inversion must treat total length as an enclosure, not
-   silently collapse it to one scalar;
-9. no physical sampling/discretization, curvature, surfaces, quadrilateral
-   generation or parallel execution is admitted;
-10. no production mapping implementation belongs to this decision branch.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this decision is merged, post-merge FAST/INTEGRATION pass, and its
-checkpoint is closed, implement only **Work Unit 2A — Certified Cumulative
-Arc-Length Enclosure**.
+Implement only:
 
-Work Unit 2B — Certified Inverse Arc-Length Bracketing remains blocked until
-2A is separately implemented, validated, integrated and closed.
+**Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
+
+Implementation must remain inside the integrated decision boundary:
+
+- conservative `S(t)=length(B|[0,t])` enclosure;
+- explicit parameter/policy/resource semantics;
+- certified private prefix construction;
+- reuse/refactor of the existing certified total-length core;
+- focused analytic/adversarial 2D/3D evidence;
+- no inverse mapping.
+
+Work Unit 2B — Certified Inverse Arc-Length Bracketing remains blocked until 2A
+is implemented, validated, integrated and closed.
 

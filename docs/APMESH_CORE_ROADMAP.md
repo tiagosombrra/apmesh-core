@@ -1048,8 +1048,14 @@ The total-length Work Unit 1 checkpoint was closed by PR #62 merged as
 `689cd9b44d97eb53e6d9aa3f88d96a846ecaf8c3`; post-merge FAST
 `35580547608` and INTEGRATION `35580547591` passed.
 
-No Work Unit 2 production implementation is authorized until the new decision
-is merged and its checkpoint is closed.
+PR #63 integrated the cumulative/inverse decision as
+`32428d29407949f058d44bf2dfdcab59600714c1`. PR FAST `35581198802`,
+PR INTEGRATION `35581198681`, post-merge FAST `35581291836`, and
+post-merge INTEGRATION `35581291965` passed. The decision checkpoint is
+closed.
+
+Work Unit 2A — Certified Cumulative Arc-Length Enclosure is now the sole
+authorized implementation work item. Work Unit 2B remains blocked.
 
 Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
 difference is an error estimate, whereas the first work unit requires an
