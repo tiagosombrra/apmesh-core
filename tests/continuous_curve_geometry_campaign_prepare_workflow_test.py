@@ -66,13 +66,7 @@ def main() -> int:
         "failure.json",
     ):
         require(
-            f'test ! -e "${{OUTPUT_ROOT}}/{absent}"'.replace("${OUTPUT_ROOT}", "${OUTPUT_ROOT}")
-            not in (),
-            "internal test construction error",
-        )
-        require(
-            f'test ! -e "${{OUTPUT_ROOT}}/{absent}"'.replace("${OUTPUT_ROOT}", "${OUTPUT_ROOT}")
-            in text,
+            f'test ! -e "${{OUTPUT_ROOT}}/{absent}"' in text,
             f"workflow does not reject PREPARED-forbidden artifact: {absent}",
         )
     require(
