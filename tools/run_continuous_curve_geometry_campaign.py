@@ -1050,6 +1050,13 @@ def verify_retention(output: pathlib.Path) -> dict[str, Any]:
 def execute(arguments: argparse.Namespace) -> int:
     source = pathlib.Path(arguments.source_root).resolve()
     output = pathlib.Path(arguments.output_root).resolve()
+
+    # A local execution claim is part of the immutable consumed-package
+    # boundary. Re-entering execute must not rewrite either a successful or a
+    # blocked terminal package.
+    if (output / "execution-claim.json").exists():
+        return 1
+
     records: list[dict[str, Any]] = []
     entries: list[dict[str, Any]] = []
     try:
