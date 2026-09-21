@@ -9,6 +9,9 @@ int main() {
     using apmesh::core::CubicBezier2;
     using apmesh::core::CubicBezier3;
     using apmesh::core::CurveError;
+    using apmesh::core::CurveLengthError;
+    using apmesh::core::CurveLengthEvidence;
+    using apmesh::core::CurveLengthPolicy;
     using apmesh::core::CurveRegularityError;
     using apmesh::core::CurveRegularityEvidence;
     using apmesh::core::CurveRegularityPolicy;
@@ -53,6 +56,14 @@ int main() {
             std::declval<const CurveRegularityPolicy&>())),
         std::expected<CurveRegularityEvidence, CurveRegularityError>>);
     static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().arc_length_enclosure(
+            std::declval<const CurveLengthPolicy&>())),
+        std::expected<CurveLengthEvidence, CurveLengthError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().arc_length_enclosure(
+            std::declval<const CurveLengthPolicy&>())),
+        std::expected<CurveLengthEvidence, CurveLengthError>>);
+    static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().control_points()),
         const std::array<Point2, 4>&>);
     static_assert(std::same_as<
@@ -71,6 +82,12 @@ int main() {
         .max_subdivision_depth = 8,
         .max_processed_nodes = 128,
     };
+    const CurveLengthPolicy length_policy{
+        .absolute_tolerance = 0.0,
+        .relative_tolerance = 0.0,
+        .max_subdivision_depth = 8,
+        .max_processed_nodes = 128,
+    };
     return curve2.evaluate(0.5).has_value() &&
                    curve3.evaluate(0.5).has_value() &&
                    curve2.first_derivative(0.5).has_value() &&
@@ -80,7 +97,9 @@ int main() {
                    curve2.speed(0.5).has_value() &&
                    curve3.speed(0.5).has_value() &&
                    curve2.certify_regularity(policy).has_value() &&
-                   curve3.certify_regularity(policy).has_value()
+                   curve3.certify_regularity(policy).has_value() &&
+                   curve2.arc_length_enclosure(length_policy).has_value() &&
+                   curve3.arc_length_enclosure(length_policy).has_value()
                ? 0
                : 1;
 }
