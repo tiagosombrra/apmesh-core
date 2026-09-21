@@ -182,6 +182,20 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.curve_cumulative_arc_length
     )
 
+    add_executable(apmesh_core.curve_inverse_arc_length
+        tests/curve_inverse_arc_length.cpp
+    )
+    target_link_libraries(
+        apmesh_core.curve_inverse_arc_length
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.curve_inverse_arc_length)
+
+    add_test(
+        NAME apmesh_core.curve_inverse_arc_length
+        COMMAND apmesh_core.curve_inverse_arc_length
+    )
+
     add_executable(apmesh_core.curve_regularity
         tests/curve_regularity.cpp
     )
@@ -260,6 +274,7 @@ if(BUILD_TESTING)
         apmesh_core.curve_regularity
         apmesh_core.curve_arc_length
         apmesh_core.curve_cumulative_arc_length
+        apmesh_core.curve_inverse_arc_length
         PROPERTIES LABELS "curve;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
     set_tests_properties(
