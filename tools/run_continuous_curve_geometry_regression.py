@@ -94,14 +94,14 @@ def candidate_identity(source: pathlib.Path) -> dict[str, Any]:
     if re.fullmatch(r"[0-9a-f]{40}", commit) is None:
         raise fail("candidate commit identity differs")
     status = subprocess.run(
-        ["git", "status", "--porcelain"],
+        ["git", "status", "--porcelain", "--untracked-files=no"],
         cwd=source,
         capture_output=True,
         text=True,
         check=False,
     )
     if status.returncode != 0 or status.stdout:
-        raise fail("candidate worktree is not clean")
+        raise fail("tracked candidate inputs are not clean")
     ancestor = subprocess.run(
         ["git", "merge-base", "--is-ancestor", SEMANTIC_BASELINE, commit],
         cwd=source,
