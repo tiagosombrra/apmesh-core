@@ -887,4 +887,23 @@ scientific continuation is one separate entry decision for **Curve Differential
 Geometry — Curvature, Regularity, and Features**. No physical Boundary Curve
 Discretization implementation begins automatically.
 
+## 36. Qualification integration checkpoint
+
+PR #84 integrated the terminal scientific audit as
+`d0045767d5a4c7fb910fd3e8aaccea73673fb558`.
+
+Validation:
+
+- PR FAST `35634165038`: PASS;
+- PR INTEGRATION `35634165026`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35634295936`: PASS;
+- post-merge INTEGRATION `35634295812`: PASS in both cells.
+
+The Curve Representation qualification checkpoint is closed. This protocol is
+now historical stage-exit authority. The sole permitted continuation is the
+separate Curve Differential Geometry scientific entry decision described in
+Section 24. No Boundary Curve Discretization implementation is authorized by
+this closure.
+
 
