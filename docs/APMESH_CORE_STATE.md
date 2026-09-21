@@ -250,34 +250,38 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after PREPARED-audit integration:
 
-**Dispatch exactly one formal Continuous Curve Geometry Regression PREPARED
-package from canonical clean `main`, then stop for independent PREPARED
-audit.**
+**Create one separate exact `EXECUTE_ONCE` authorization-record PR for the
+audited Continuous Curve Geometry Regression PREPARED package.**
 
-Formal infrastructure is closed on `main`:
+Formal preparation run `35620525792` produced one sealed package for
+candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`.
 
-- PR #79 merged as
-  `a0232e0c00aae1338b55ba0b45997db1a3c00464`;
-- validated branch head and merge commit share exact tree
-  `2ece9368e9b48a0c1db7fc1494a8713a833a9b43`;
-- final CGR FORMAL TOOLING `35614078272`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug;
-- PR FAST `35614279053`: PASS;
-- PR INTEGRATION `35614278985`: PASS;
-- post-merge FAST `35614426119`: PASS;
-- post-merge INTEGRATION `35614426153`: PASS.
+Independent audit records:
 
-No real PREPARED package, authorization record, claim or formal execution has
-yet occurred.
+- artifact ID `10649325906`;
+- artifact ZIP SHA-256
+  `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`;
+- prepared-manifest SHA-256
+  `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
+- preparation-seal SHA-256
+  `686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`;
+- complete 1595-path source inventory equality with the GitHub candidate tree;
+- 18/18 critical input hashes PASS;
+- 11/11 frozen curve-semantic hashes PASS against the protocol baseline;
+- four cloud observations PASS;
+- exact 56-command / 112-log / eight-repetition / 112-semantic-test plan;
+- lifecycle `PREPARED`, `execution_requested=false`;
+- CGR0–CGR7 all `NOT_EXECUTED`.
 
-The next lifecycle step is preparation only. Formal execution remains
-unauthorized until an independent preparation audit records
-**PASS / PREPARED / NOT EXECUTED** and a later exact `EXECUTE_ONCE`
-authorization is separately merged.
+Audit decision: **PASS / PREPARED / NOT EXECUTED.**
+
+Formal execution remains unauthorized until a separate one-file
+`EXECUTE_ONCE` authorization is merged after this checkpoint closes.
 
 Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
+
 
 
 ## Current active stage
