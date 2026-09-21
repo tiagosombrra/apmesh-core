@@ -18,6 +18,11 @@ add_vectors(
     const IntervalVector<Dimension>& rhs) noexcept {
     IntervalVector<Dimension> result{};
     for (std::size_t index = 0; index < Dimension; ++index) {
+        if (lhs[index].lower == 0.0 && lhs[index].upper == 0.0 &&
+            rhs[index].lower == 0.0 && rhs[index].upper == 0.0) {
+            result[index] = ClosedInterval{0.0, 0.0};
+            continue;
+        }
         const auto value = add(lhs[index], rhs[index]);
         if (!value) {
             return std::unexpected{value.error()};
@@ -34,6 +39,10 @@ scale_vector(
     const double scalar) noexcept {
     IntervalVector<Dimension> result{};
     for (std::size_t index = 0; index < Dimension; ++index) {
+        if (value[index].lower == 0.0 && value[index].upper == 0.0) {
+            result[index] = ClosedInterval{0.0, 0.0};
+            continue;
+        }
         const auto component = multiply(value[index], scalar);
         if (!component) {
             return std::unexpected{component.error()};
