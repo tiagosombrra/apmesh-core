@@ -252,36 +252,34 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Integrate and close Work Unit 2A — Certified Cumulative Arc-Length
-Enclosure; then open Work Unit 2B as a separate bounded transition.**
+**Open Work Unit 2B — Certified Inverse Arc-Length Bracketing as a separate
+bounded work item.**
 
-Work Unit 2A is **IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED** on `curve/cumulative-arc-length-enclosure`, PR #66.
+Work Unit 2A is closed and integrated.
 
-The cumulative/inverse mapping decision is integrated and closed.
+Integration evidence:
 
-Decision integration:
+- PR #66 merged as
+  `3cfb580cae2e2d26e87e9dfcfeab0aade0a3a3be`;
+- final PR FAST `35591661827`: PASS;
+- final PR INTEGRATION `35591661836`: PASS;
+- post-merge FAST `35591774007`: PASS;
+- post-merge INTEGRATION `35591773982`: PASS.
 
-- PR #63 merged as
-  `32428d29407949f058d44bf2dfdcab59600714c1`;
-- PR FAST `35581198802`: PASS;
-- PR INTEGRATION `35581198681`: PASS;
-- post-merge FAST `35581291836`: PASS;
-- post-merge INTEGRATION `35581291965`: PASS.
+Work Unit 2A result:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 
-Authority:
-`docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
-
-Only forward cumulative enclosure `S(t)` is authorized. Certified inverse
-bracketing remains blocked until 2A is separately integrated and closed.
+Work Unit 2B may now be opened under the already integrated same-curve
+regularity and certified-bracket boundary. Physical discretization remains
+blocked.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
-CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / CUMULATIVE ARC-LENGTH ENCLOSURE
-VALIDATED_UNMERGED / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED**
+CERTIFIED TOTAL + CUMULATIVE ARC LENGTH IMPLEMENTED / FOCUSED CONTRACTS PASS /
+STAGE UNQUALIFIED**
 
 Current completed work unit:
 
@@ -291,17 +289,17 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 Current bounded decision:
 
 **Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
-APPROVED / INTEGRATED / WORK UNIT 2A VALIDATED_UNMERGED / WORK UNIT 2B
-BLOCKED.**
+APPROVED / INTEGRATED / WORK UNIT 2A CLOSED / WORK UNIT 2B READY TO OPEN.**
 
-Work Unit 2A now implements conservative cumulative prefix-length evidence for
+Work Unit 2A provides conservative cumulative prefix-length evidence for
 `S(t)` using private outward edge-vector de Casteljau construction and the
-integrated certified total-length engine. PR #66 FAST `35591468322` and
-INTEGRATION `35591468337` pass.
+integrated certified total-length engine. PR #66 merged as
+`3cfb580cae2e2d26e87e9dfcfeab0aade0a3a3be`; post-merge FAST
+`35591774007` and INTEGRATION `35591773982` pass.
 
-Work Unit 2B remains blocked until 2A closes. Any later unique inverse claim
-must bind global regularity to the same curve and preserve a certified
-parameter bracket.
+Work Unit 2B may now be opened separately. A unique inverse claim must bind
+global regularity to the same curve and preserve a certified parameter
+bracket.
 
 
 ## Most recently qualified stage
