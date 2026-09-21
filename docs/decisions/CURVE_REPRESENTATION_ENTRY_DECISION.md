@@ -1,7 +1,7 @@
 # Curve Representation — Bounded Entry Decision
 
 Status: ALL ADMITTED CONTINUOUS-CURVE WORK UNITS IMPLEMENTED / FOCUSED
-CONTRACTS PASS / CGR0–CGR7 PROTOCOL UNDER REVIEW / STAGE UNQUALIFIED
+CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
