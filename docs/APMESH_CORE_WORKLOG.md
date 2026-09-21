@@ -198,42 +198,57 @@ The presence of historical branches on the remote does not make them active.
 ## Current active work item
 
 **Design the formal Continuous Curve Geometry Regression PREPARED lifecycle —
-ACTIVE.**
+VALIDATED_UNMERGED.**
 
 Active branch: `curve/cgr-formal-preparation-design`.
 
-Authorized scope:
+Decision authority:
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
 
-1. freeze the clean-candidate and published-main requirements;
-2. freeze the complete tracked-source inventory and Section 4 frozen-semantic
-   verification;
-3. define exact preparation inputs and input hashes;
-4. define admitted cloud-environment binding;
-5. define the formal four-cell × two-repetition launch plan and planned
-   retention inventory;
-6. define PREPARED manifest, preparation seal, state and state-history schemas;
-7. require the future execution runner and execution workflows to exist and be
-   revision-bound before the PREPARED package is created;
-8. define preparation workflow restrictions and retained artifact identity;
-9. define independent PREPARED-audit requirements;
-10. define the later repository-resident one-shot authorization boundary;
-11. keep CGR0–CGR7 `NOT_EXECUTED` throughout preparation;
-12. do not implement preparation/execution tooling in this decision work item;
-13. do not create a PREPARED package, authorization, claim or formal execution.
+Accepted design:
+
+1. the integrated report-only runner remains report-only;
+2. a separate formal campaign runner will own `prepare`,
+   `validate-prepared`, `execute` and `verify-retention`;
+3. that formal runner must reuse the report-only scientific plan rather than
+   define a second matrix/allowlist;
+4. one formal candidate must be protected-`main`, upstream-equal and fully
+   clean, including untracked files;
+5. all eleven Section 4 semantic files remain frozen to
+   `438620efa1f93d29b442e9ba199882a09d2359d9`;
+6. the complete tracked-source inventory is sealed;
+7. environment binding uses the admitted four-cell cloud identity without
+   confusing the historical seven-test environment allowlist with the CGR
+   fourteen-test semantic allowlist;
+8. the PREPARED package contains exactly seven control files and no execution
+   evidence;
+9. the PREPARED manifest binds candidate, source inventory, frozen semantics,
+   critical input hashes, cloud observations, exact 56-command plan, planned
+   terminal evidence and CGR0–CGR7 = `NOT_EXECUTED`;
+10. the preparation seal hashes the retained preparation controls and initial
+    state-history record;
+11. the future executor/workflows/authorization validator must already exist
+    and be hashed before the PREPARED package is created;
+12. preparation is workflow-dispatch-only on canonical `main`;
+13. future authorization remains a separate one-file protected-main event;
+14. independent PREPARED audit is mandatory before any authorization;
+15. no CGR gate or qualification decision is made by preparation/tooling.
+
+No formal PREPARED package, authorization, claim or execution exists.
 
 ## Next admissible work item after closure
 
-After this preparation-design decision is merged, protected checks and
-post-merge validation pass, and the decision checkpoint is closed, implement
-only the formal CGR campaign infrastructure described by the decision:
+After this preparation-design decision is merged, post-merge FAST/INTEGRATION
+pass, and its checkpoint is closed, implement only the formal CGR campaign
+infrastructure:
 
-- formal campaign runner with preparation, validation, one-shot execution and
-  retention verification;
+- formal campaign runner;
 - preparation-only workflow;
-- reusable execution workflow;
+- reusable one-shot execution workflow;
 - repository-resident authorization validator/controller;
-- focused synthetic/static contracts.
+- focused synthetic/static contracts;
+- mapping/audit documentation.
 
-That infrastructure work item must still create no formal PREPARED package and
-no `EXECUTE_ONCE` authorization record.
+That infrastructure work item must not dispatch preparation, create a PREPARED
+package, add an `EXECUTE_ONCE` record, create a claim or execute CGR.
 
