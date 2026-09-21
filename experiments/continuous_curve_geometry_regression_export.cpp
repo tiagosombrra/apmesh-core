@@ -77,18 +77,8 @@ std::string point_json(const Point2& value) {
     return "[" + number(value.x()) + "," + number(value.y()) + "]";
 }
 
-std::string point_json(const Point3& value) {
-    return "[" + number(value.x()) + "," + number(value.y()) + "," +
-           number(value.z()) + "]";
-}
-
 std::string vector_json(const Vector2& value) {
     return "[" + number(value.x()) + "," + number(value.y()) + "]";
-}
-
-std::string vector_json(const Vector3& value) {
-    return "[" + number(value.x()) + "," + number(value.y()) + "," +
-           number(value.z()) + "]";
 }
 
 std::string regularity_name(const CurveRegularityResult value) {
@@ -197,12 +187,6 @@ double distance(const Point2& lhs, const Point2& rhs) {
     return std::hypot(lhs.x() - rhs.x(), lhs.y() - rhs.y());
 }
 
-double distance(const Point3& lhs, const Point3& rhs) {
-    return std::hypot(
-        std::hypot(lhs.x() - rhs.x(), lhs.y() - rhs.y()),
-        lhs.z() - rhs.z());
-}
-
 template <typename Point>
 double point_residual(const Point& lhs, const Point& rhs) {
     return distance(lhs, rhs);
@@ -214,13 +198,6 @@ double vector_residual(const Vector& lhs, const Vector& rhs);
 template <>
 double vector_residual(const Vector2& lhs, const Vector2& rhs) {
     return std::hypot(lhs.x() - rhs.x(), lhs.y() - rhs.y());
-}
-
-template <>
-double vector_residual(const Vector3& lhs, const Vector3& rhs) {
-    return std::hypot(
-        std::hypot(lhs.x() - rhs.x(), lhs.y() - rhs.y()),
-        lhs.z() - rhs.z());
 }
 
 long double parabola_prefix_length(const long double parameter) {
@@ -624,6 +601,8 @@ std::string certificate(const std::string_view cell, const int repetition) {
     out << "}";
     return out.str();
 }
+
+} // namespace
 
 int main(int argc, char** argv) {
     if (argc < 3 || std::string_view{argv[1]} != "certificate") {
