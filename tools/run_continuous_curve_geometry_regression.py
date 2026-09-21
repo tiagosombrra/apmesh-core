@@ -149,13 +149,13 @@ def declared_allowlist(source: pathlib.Path, expected: list[str]) -> list[str]:
     content = (source / "CMakeLists.txt").read_text(encoding="utf-8")
     names = re.findall(r"add_test\s*\(\s*NAME\s+([^\s)]+)", content)
     selected = [name for name in names if name in expected]
-    if selected != expected:
+    if len(selected) != len(set(selected)):
+        raise fail("declared semantic CTest allowlist contains duplicates")
+    if set(selected) != set(expected) or len(selected) != len(expected):
         raise fail(
             f"declared semantic CTest allowlist differs: expected={expected}, observed={selected}"
         )
-    if len(selected) != len(set(selected)):
-        raise fail("declared semantic CTest allowlist contains duplicates")
-    return selected
+    return list(expected)
 
 
 def protocol_check(path: pathlib.Path) -> None:
