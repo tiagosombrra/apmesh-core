@@ -197,54 +197,54 @@ writing.
   or formal execution.
 - `docs/cgr-formal-infrastructure-closure`: **CLOSURE-ONLY**; records PR #79
   integration, exact-tree identity, and post-merge validation.
+- `docs/cgr-prepared-audit-pass`: **ACTIVE / VALIDATED_UNMERGED**;
+  independent audit of the first formal CGR PREPARED package only.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Formal CGR campaign infrastructure is closed.**
+**Integrate the first formal CGR PREPARED-package audit —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `docs/cgr-prepared-audit-pass`.
 
-1. formal-infrastructure PR #79 merged as
-   `a0232e0c00aae1338b55ba0b45997db1a3c00464`;
-2. final validated branch head
-   `d52f8f95f192c3076249f917486497be698f1848` and squash-merge commit have
-   identical Git tree `2ece9368e9b48a0c1db7fc1494a8713a833a9b43`;
-3. final CGR FORMAL TOOLING `35614078272`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. PR FAST `35614279053`: PASS;
-5. PR INTEGRATION `35614278985`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-6. post-merge FAST `35614426119`: PASS;
-7. post-merge INTEGRATION `35614426153`: PASS in both cells;
-8. all eleven frozen semantic files remain unchanged;
-9. no real PREPARED package, authorization record, claim, terminal package or
-   CGR gate decision was created.
+Audited preparation:
 
-No work item is active.
+1. workflow run `35620525792`, event `workflow_dispatch`, branch `main`;
+2. candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+3. artifact `10649325906`,
+   `cgr-prepared-f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+4. artifact ZIP SHA-256
+   `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`;
+5. prepared-manifest SHA-256
+   `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
+6. preparation-seal SHA-256
+   `686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`;
+7. exact seven-file PREPARED archive and no execution/terminal evidence;
+8. complete source inventory: 1595 paths exactly matching the 1595-blob GitHub
+   candidate tree, path-list SHA-256
+   `46b39d68c68f8f580f4c1c61a08ee3014c834ecccb08a3b9e7d5e80a498b8b69`;
+9. 18/18 critical input hashes independently matched the exact candidate;
+10. 11/11 frozen curve-semantic files match semantic baseline
+    `438620efa1f93d29b442e9ba199882a09d2359d9`;
+11. all four admitted cloud observations PASS;
+12. exact formal plan: 56 command records, 112 command logs, eight semantic
+    repetitions, 112 individual semantic tests, eight certificate slots;
+13. lifecycle `PREPARED`, `execution_requested=false`, CGR0–CGR7 all
+    `NOT_EXECUTED`.
+
+Audit decision: **PASS / PREPARED / NOT EXECUTED.**
 
 ## Next admissible work item after closure
 
-Dispatch exactly one formal **Continuous Curve Geometry Regression PREPARED**
-package from canonical clean `main` using:
+After this preparation audit is merged, post-merge FAST/INTEGRATION pass, and
+the audit checkpoint is closed, create one separate exact `EXECUTE_ONCE`
+authorization-record PR containing only the manifest-bound CGR authorization
+JSON for prepared-manifest SHA-256:
 
-`Continuous Curve Geometry Regression Preparation`
+`201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`.
 
-Then stop for independent PREPARED audit.
-
-The preparation must remain:
-
-- PREPARED only;
-- exactly seven control files;
-- `execution_requested=false`;
-- CGR0–CGR7 all `NOT_EXECUTED`;
-- no execution claim;
-- no command records;
-- no certificate index;
-- no terminal manifest;
-- no failure record.
-
-No `EXECUTE_ONCE`, claim or formal execution is admissible before an
-independent audit decision of **PASS / PREPARED / NOT EXECUTED**.
+That future PR must contain no other repository change. Its merge to protected
+`main` will be the formal one-shot CGR execution authorization event.
 
