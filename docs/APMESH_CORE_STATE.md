@@ -250,33 +250,33 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after preparation-design integration:
 
-**Open one separate formal Continuous Curve Geometry Regression
-PREPARED-package design decision.**
+**Implement only the formal Continuous Curve Geometry Regression campaign
+infrastructure defined by the integrated PREPARED lifecycle decision.**
 
-Report-only CGR tooling is integrated and closed:
+Decision authority:
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
 
-- PR #75 merged as
-  `6e3952f2bdee5ca9bdfe076d5af2932b359d130f`;
-- final tooling run `35602067270`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug;
-- PR FAST `35602217696`: PASS;
-- PR INTEGRATION `35602217726`: PASS;
-- post-merge FAST `35603677515`: PASS;
-- post-merge INTEGRATION `35603677377`: PASS.
+The decision freezes:
 
-All eleven frozen semantic files remain byte-identical to baseline
-`438620efa1f93d29b442e9ba199882a09d2359d9`.
+- one fully clean published `main` candidate;
+- complete tracked-source inventory;
+- eleven frozen semantic files;
+- exact preparation input hashes;
+- admitted four-cell cloud identity;
+- exact 56-command / 112-log / eight-certificate formal plan;
+- seven-file PREPARED package;
+- preparation seal and state history;
+- revision binding of the future executor and authorization workflows before
+  preparation;
+- independent PREPARED audit before authorization.
 
-The next phase is design/governance only. It must specify exact candidate
-cleanliness, complete tracked-source identity, cloud-environment binding,
-formal plan, planned retention, preparation sealing, lifecycle state history,
-revision binding of the future executor, and independent PREPARED-audit
-requirements before implementation of formal preparation begins.
+The implementation phase may add only formal campaign infrastructure and
+focused contracts. It must not dispatch preparation, create a PREPARED package,
+authorize execution, create a claim, execute CGR or decide CGR0–CGR7.
 
-Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`. Formal
-preparation, authorization and execution remain absent.
+Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
 
 
 ## Current active stage
