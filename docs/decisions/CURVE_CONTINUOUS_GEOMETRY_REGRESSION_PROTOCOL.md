@@ -732,3 +732,30 @@ After integration and checkpoint closure, one formal PREPARED dispatch from
 canonical clean `main` is permitted. The resulting artifact must receive an
 independent **PASS / PREPARED / NOT EXECUTED** audit before any authorization
 or formal execution becomes admissible.
+
+## 32. Formal campaign infrastructure integration checkpoint
+
+PR #79 integrated the formal CGR campaign infrastructure as
+`a0232e0c00aae1338b55ba0b45997db1a3c00464`.
+
+Exact-tree identity confirms the final formally validated branch content is the
+content integrated into `main`:
+
+`2ece9368e9b48a0c1db7fc1494a8713a833a9b43`.
+
+Validation:
+
+- final CGR FORMAL TOOLING `35614078272`: PASS in both declared tooling
+  cells;
+- PR FAST `35614279053`: PASS;
+- PR INTEGRATION `35614278985`: PASS;
+- post-merge FAST `35614426119`: PASS;
+- post-merge INTEGRATION `35614426153`: PASS.
+
+The formal infrastructure checkpoint is closed. The scientific protocol,
+frozen baseline, matrix, allowlist, certificate model and CGR0–CGR7 criteria
+remain unchanged.
+
+The sole permitted continuation is one preparation-only dispatch from
+canonical clean `main`, followed by an independent PREPARED audit. No
+authorization or formal execution is permitted before that audit.
