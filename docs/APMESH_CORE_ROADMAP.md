@@ -937,7 +937,7 @@ speed sampling.
 
 #### Global Cubic Regularity Certification
 
-Status: `IMPLEMENTED / VALIDATION PENDING / NOT QUALIFIED`
+Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED`
 
 Authority:
 `docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`.
@@ -968,8 +968,8 @@ the sole next work item.
 The bounded implementation candidate now provides the explicit certification
 policy/result vocabulary, private conservative interval enclosure operations,
 quartic squared-speed Bernstein construction, complete midpoint subdivision and
-focused 2D/3D regularity evidence. Validation is pending PR FAST/INTEGRATION.
-No excluded downstream capability is included.
+focused 2D/3D regularity evidence. PR #57 FAST `35549795835` and INTEGRATION `35549795743` passed in the
+declared GCC/Clang cells. No excluded downstream capability is included.
 
 #### Arc Length and Parameter Mapping
 
