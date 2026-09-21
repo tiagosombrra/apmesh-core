@@ -1,6 +1,6 @@
 # Curve Representation — Continuous Curve Geometry Regression Protocol
 
-Status: **PRE-REGISTERED / INTEGRATED / DOCUMENTATION-ONLY / NO FORMAL EXECUTION AUTHORIZED**  
+Status: **FIRST FORMAL EXECUTION CONSUMED / TERMINAL AUDIT COMPLETE / CGR0–CGR7 PASS / STAGE QUALIFIED**  
 Date: 2026-09-21  
 Stage: **Curve Representation — Continuous Geometry Before Discretization**  
 Semantic baseline at protocol entry:
@@ -796,4 +796,95 @@ CGR0–CGR7 remain `NOT_EXECUTED`.
 The PREPARED-audit checkpoint is closed. The sole permitted continuation is one
 separate exact manifest-bound `EXECUTE_ONCE` authorization-record PR. Its
 protected-main merge will be the formal execution authorization event.
+
+## 35. First formal execution and terminal scientific audit
+
+PR #83 introduced exactly one new manifest-bound authorization record and
+merged it to protected `main` as:
+
+`e8b17256924e907d0859b8ac7061600ffc404b9e`
+
+The authorization binds:
+
+- candidate
+  `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+- preparation run `35620525792`;
+- prepared artifact `10649325906`;
+- prepared artifact SHA-256
+  `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`;
+- prepared-manifest SHA-256
+  `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
+- preparation-seal SHA-256
+  `686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`.
+
+Protected-main run `35630423134` validated the complete authorization
+commit, machine-readable PREPARED audit, unclaimed manifest, candidate and
+artifact provenance, admitted cloud toolchain, and restored PREPARED package
+before creating the immutable claim:
+
+`cgr-execution-claim-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`
+
+The claim is an annotated Git tag object
+`027d5c033a7d5b91e97b5ce8c35d14030f801037` targeting the exact
+candidate. The tag is unsigned; signing was not a pre-registered protocol
+requirement.
+
+The runner then invoked the sealed CGR campaign exactly once, removed
+reproducible build trees, verified terminal retention and retained terminal
+artifact `10654358199` with independently recomputed archive SHA-256:
+
+`a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`
+
+The first formal attempt is consumed.
+
+Independent terminal audit authority:
+
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-terminal-audit.md`;
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-terminal-audit.json`.
+
+The retained terminal package independently satisfies the pre-registered
+cardinality and closure requirements:
+
+- 56 unique successful command records;
+- 112 command logs;
+- eight CTest discovery records;
+- eight exact semantic CTest records;
+- fourteen tests per repetition, 112 individual semantic tests total, all
+  passing;
+- eight validated scientific certificates;
+- same-cell scientific-projection equality;
+- cross-cell categorical equality and independently valid numeric relations;
+- complete negative/adversarial evidence;
+- compile/runtime dependency inventories;
+- deterministic derived CSV/JSON/SVG evidence;
+- exact source and frozen-semantic identity;
+- detached verification;
+- complete lifecycle/sealing/retention evidence.
+
+Independent gate decision:
+
+- CGR0: `PASS`;
+- CGR1: `PASS`;
+- CGR2: `PASS`;
+- CGR3: `PASS`;
+- CGR4: `PASS`;
+- CGR5: `PASS`;
+- CGR6: `PASS`;
+- CGR7: `PASS`;
+- overall: `PASS`.
+
+Per Section 24, **Curve Representation — Continuous Geometry Before
+Discretization is QUALIFIED only in the exact formally admitted GitHub-hosted
+Ubuntu 24.04 x86_64 cloud environment**.
+
+This decision establishes no WSL/cloud equivalence and does not extend the
+declared nonclaims into physical discretization, surfaces, meshing,
+Quad-Dominant, parallel execution, GPU/SIMD, anisotropy or native-Windows
+qualification.
+
+After terminal-audit integration and checkpoint closure, the sole permitted
+scientific continuation is one separate entry decision for **Curve Differential
+Geometry — Curvature, Regularity, and Features**. No physical Boundary Curve
+Discretization implementation begins automatically.
+
 

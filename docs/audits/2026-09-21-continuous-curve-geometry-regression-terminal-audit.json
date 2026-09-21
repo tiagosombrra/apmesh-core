@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "kind": "continuous-curve-geometry-regression-terminal-audit",
+  "audit_date": "2026-09-21",
+  "decision": "PASS",
+  "stage_effect": "QUALIFIED_IN_ADMITTED_CLOUD_ENVIRONMENT",
+  "environment_equivalence_claim": false,
+  "candidate_commit": "f7dc8d82d881858b6481d6d2d1383d8a561684c5",
+  "frozen_semantic_baseline": "438620efa1f93d29b442e9ba199882a09d2359d9",
+  "authorization": {
+    "pr": 83,
+    "merge_commit": "e8b17256924e907d0859b8ac7061600ffc404b9e",
+    "authorization_file": "experiments/authorizations/continuous-curve-geometry-regression-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd.json",
+    "prepared_manifest_sha256": "201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd"
+  },
+  "execution": {
+    "workflow_run_id": 35630423134,
+    "workflow_conclusion": "success",
+    "claim_tag": "cgr-execution-claim-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd",
+    "claim_tag_object_sha": "027d5c033a7d5b91e97b5ce8c35d14030f801037",
+    "claim_target_commit": "f7dc8d82d881858b6481d6d2d1383d8a561684c5",
+    "claim_signed": false,
+    "claim_signature_limitation": "unsigned annotated Git tag; signing is not a pre-registered CGR requirement",
+    "terminal_artifact_id": 10654358199,
+    "terminal_artifact_name": "cgr-terminal-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd-35630423134",
+    "terminal_artifact_sha256": "a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6",
+    "terminal_artifact_size_bytes": 397025
+  },
+  "post_authorization_main_checks": {
+    "fast": {
+      "run_id": 35630422359,
+      "status": "PASS"
+    },
+    "integration": {
+      "run_id": 35630422086,
+      "status": "PASS",
+      "cells": [
+        "GCC 13 Debug",
+        "Clang 18/libc++ Debug"
+      ]
+    }
+  },
+  "identity_and_scope": {
+    "source_inventory_count": 1595,
+    "github_tree_blob_count": 1595,
+    "source_path_list_sha256": "46b39d68c68f8f580f4c1c61a08ee3014c834ecccb08a3b9e7d5e80a498b8b69",
+    "detached_verification": "PASS",
+    "frozen_semantic_files_verified": 11,
+    "frozen_semantic_files_result": "PASS",
+    "critical_preparation_inputs_verified": 18,
+    "critical_preparation_inputs_result": "PASS"
+  },
+  "terminal_package": {
+    "lifecycle_state": "EXECUTED_PENDING_AUDIT",
+    "lifecycle_history": [
+      "PREPARED",
+      "RUNNING",
+      "EXECUTED_PENDING_AUDIT"
+    ],
+    "retained_file_count_including_retention_manifest": 155,
+    "retention_hashed_file_count": 154,
+    "retention_hashes_and_sizes_result": "PASS",
+    "retained_set_exact": true,
+    "build_trees_absent": true,
+    "preparation_seal_still_matches": true,
+    "initial_state_history_seal_still_matches": true,
+    "planned_success_artifact_set_matches_retained_set": true
+  },
+  "command_evidence": {
+    "command_record_count": 56,
+    "unique_command_record_count": 56,
+    "all_exit_zero": true,
+    "timeouts": 0,
+    "launch_errors": 0,
+    "command_records_per_cell": 14,
+    "configure_records": 4,
+    "build_records": 8,
+    "discovery_records": 8,
+    "semantic_ctest_records": 8,
+    "certificate_records": 8,
+    "certificate_validation_records": 8,
+    "negative_evidence_records": 4,
+    "dependency_inventory_records": 4,
+    "runtime_dependency_records": 4,
+    "retained_command_logs": 112,
+    "planned_command_logs": 112,
+    "command_log_inventory_exact": true
+  },
+  "semantic_execution": {
+    "repetitions": 8,
+    "tests_per_repetition": 14,
+    "individual_semantic_test_executions": 112,
+    "all_repetitions_exact_allowlist": true,
+    "all_repetitions_passed_14_of_14": true,
+    "allowlist": [
+      "apmesh_core.bootstrap_smoke",
+      "apmesh_core.numeric_contract",
+      "apmesh_core.geometry_primitives",
+      "apmesh_core.minimal_small_linear_algebra",
+      "apmesh_core.math_header_isolation",
+      "apmesh_core.cartesian_frames",
+      "apmesh_core.topological_model",
+      "apmesh_core.curve_representation",
+      "apmesh_core.curve_differential",
+      "apmesh_core.curve_regularity",
+      "apmesh_core.curve_arc_length",
+      "apmesh_core.curve_cumulative_arc_length",
+      "apmesh_core.curve_inverse_arc_length",
+      "apmesh_core.curve_header_isolation"
+    ]
+  },
+  "certificates": {
+    "count": 8,
+    "same_cell_projection_equal": true,
+    "cross_cell_categorical_equal": true,
+    "numeric_relations_independently_validated": true,
+    "all_scientific_projections_identical": true,
+    "scientific_projection_sha256": "076571b1cc63f19748726aec394816fcfcdbb0d4f76a271c0a5f00709b4c19be",
+    "case_inventory_count": 15,
+    "full_certificate_hashes": [
+      "1596e2ffe2145b8f21672d731cbe6367889204624fb5b543dd63df9fc98c1ff6",
+      "5f3be1d04755fc58fcfaa8109a88a4d54460fc908989ad6768e93ea3496d2c",
+      "2b57055214cd3f9c872df0c1751469b679439e44756e356680ec01fcbfc3d658",
+      "996581f910d2af04f6850d1a2699791f3de8d15c11a1a3d957c86f438503d869",
+      "808d5f880b686a0e6476c4e848fe8a0df89e0f730e216172baca0bbdb29e48c5",
+      "10e99789dfdd296b8cc44753cd7cd14756970b9bf37d07bb15ebf9ca5410e807",
+      "2007d4841654e3745cc9a3ef0db5fe9ce7b39b0e05934fe4bdc35c1009b8eaa0",
+      "c87947beaf08096c9a611271eb4637e8f32a8bc6e5f2dccd8673f62dc1258dcb"
+    ]
+  },
+  "analytic_recomputation": {
+    "bezier_value_reference": "PASS",
+    "first_second_derivative_reference": "PASS",
+    "speed_reference": "PASS",
+    "straight_total_length": "PASS",
+    "straight_cumulative_length": "PASS",
+    "parabola_total_length_containment": "PASS",
+    "parabola_cumulative_length_containment": "PASS",
+    "straight_inverse_bracket_proof": "PASS",
+    "parabola_inverse_bracket_proof": "PASS",
+    "regularity_categories": "PASS",
+    "reversal_translation_scale_relations": "PASS",
+    "planar_embedding_parity": "PASS",
+    "arc_length_width_monotonicity": "PASS",
+    "inverse_bracket_width_monotonicity": "PASS"
+  },
+  "derived_evidence": {
+    "files": 9,
+    "csv_files": 4,
+    "svg_files": 4,
+    "manifest_files": 1,
+    "source_certificate_sha256": "1596e2ffe2145b8f21672d731cbe6367889204624fb5b543dd63df9fc98c1ff6",
+    "csv_series_match_certificate": true,
+    "svg_files_nonempty_and_retention_hashed": true
+  },
+  "negative_and_isolation_evidence": {
+    "cells": 4,
+    "negative_cases_per_cell": 13,
+    "all_negative_cases_rejected": true,
+    "runtime_dependencies_resolved": true,
+    "curve_object_repo_local_dependencies": [
+      "src/geometry/curve.cpp",
+      "include/apmesh/geometry/curve.hpp",
+      "include/apmesh/core/geometry.hpp",
+      "include/apmesh/math/linear_algebra.hpp",
+      "include/apmesh/core/numeric.hpp",
+      "src/geometry/detail/curve_length_interval.hpp",
+      "src/geometry/detail/curve_regularity_interval.hpp"
+    ],
+    "forbidden_curve_dependencies_observed": false,
+    "parallel_gpu_simd_flags_observed": false
+  },
+  "gates": {
+    "CGR0": {
+      "decision": "PASS",
+      "basis": "exact candidate/source identity, frozen semantic baseline, critical input binding, cloud identity, detached verification and scope/nonclaims all preserved"
+    },
+    "CGR1": {
+      "decision": "PASS",
+      "basis": "representation/value analytic fixtures, endpoint semantics, deterministic projection and reversal/translation/scale/embedding relations all pass"
+    },
+    "CGR2": {
+      "decision": "PASS",
+      "basis": "first/second derivative and speed references, reversal/parity and finite/error semantics pass in all repeated certificates"
+    },
+    "CGR3": {
+      "decision": "PASS",
+      "basis": "regular/degenerate/indeterminate global regularity cases and declared invariances are retained without sampling-based overclaim"
+    },
+    "CGR4": {
+      "decision": "PASS",
+      "basis": "total/cumulative arc-length enclosures contain independent analytic references and inverse brackets preserve lower/upper cumulative proof and uncertainty semantics"
+    },
+    "CGR5": {
+      "decision": "PASS",
+      "basis": "exactly eight validated certificates; same-cell projections equal; cross-cell categorical equality and numeric relations independently validated; all eight scientific projections are identical"
+    },
+    "CGR6": {
+      "decision": "PASS",
+      "basis": "exact fourteen-test allowlist passes 14/14 in all eight repetitions; 112 individual semantic tests pass; curve object dependencies remain within admitted Foundation/Geometry/private-curve boundaries"
+    },
+    "CGR7": {
+      "decision": "PASS",
+      "basis": "56 commands, 112 logs, eight discoveries, eight semantic CTests, eight certificates, comparisons, negatives, inventories, derived CSV/SVG evidence, lifecycle, sealing and exact retention are complete and independently recomputable"
+    }
+  },
+  "overall": "PASS",
+  "curve_representation_status": "QUALIFIED",
+  "qualification_scope": "exact admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope only",
+  "next_bounded_action": "After this terminal audit is integrated and post-merge checks pass, close the Curve Representation qualification checkpoint and open one separate entry decision for Curve Differential Geometry — Curvature, Regularity, and Features. Do not begin physical boundary discretization automatically."
+}

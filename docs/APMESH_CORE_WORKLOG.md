@@ -43,32 +43,31 @@ writing.
 
 ## Last closed work-item anchor
 
-- preparation-workflow integration merge: `d9297ffad4f503b4ea11b056885749fff5872201`, PR #20;
-- post-merge FAST: run `35519501704`, PASS;
-- post-merge INTEGRATION: run `35519501663`, PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- operational closure checkpoint: PR #21 merged; its live revision is obtained
-  from the remote audit rather than embedded here;
-- open scientific stage: **Topological Model — Explicit Identity and Incidence**;
-- first formal TMR PREPARED package: run `35524700979`, candidate
-  `e5eda2663d6ff4b93ce1205660ff04d432acb9c0`, artifact `10609500629`;
-- preparation audit: **PASS**, recorded in
-  `docs/audits/2026-09-20-topological-model-tmr-preparation-audit.md`;
-- authorization-as-code integration: PR #27 merged as
-  `7bf2d409556c8318db72b86ef0d85253aa0583ec`;
-- authorization-as-code post-merge FAST: run `35527668634`, PASS;
-- authorization-as-code post-merge INTEGRATION: run `35527668624`, PASS in
-  GCC 13 Debug and Clang 18/libc++ Debug;
-- exact formal execution authorization: PR #29 merged as
-  `8a6eafc02d5e69f467e2badfea0b571e253b84bd`;
-- formal TMR execution: run `35528077223`, process/workflow PASS, exact
-  one-shot attempt consumed;
-- terminal artifact: `10610497080`, SHA-256
-  `b332b8dde2e8651f4dd66339875378a53c9d4390400afd0d869b54969a2bf983`;
-- immutable execution claim:
-  `tmr-execution-claim-d8a7984a3aba3988b970ee734cc5240a035069731a4951ae5ae0f1b4616c8dfd`;
-- terminal scientific audit: **TMR0-TMR5 PASS / TMR6-TMR7 BLOCKED /
-  OVERALL BLOCKED**;
-- Topological Model qualification: **not qualified**.
+- Curve Representation formal infrastructure: PR #79 merged as
+  `a0232e0c00aae1338b55ba0b45997db1a3c00464`;
+- formal CGR PREPARED package: run `35620525792`, candidate
+  `f7dc8d82d881858b6481d6d2d1383d8a561684c5`, artifact
+  `10649325906`;
+- PREPARED audit: **PASS / PREPARED / NOT EXECUTED**, integrated by PR #81
+  as `988d0877d78ccd0c1ed4d368a802a8a4cad28d7b`;
+- PREPARED audit checkpoint: closed by commit
+  `a8a4e6a5922f80bd7e6f838b7aad120922883d3a`;
+- exact formal CGR authorization: PR #83, one file / 14 lines, merged as
+  `e8b17256924e907d0859b8ac7061600ffc404b9e`;
+- formal CGR execution: protected-main run `35630423134`, one-shot attempt
+  consumed;
+- immutable claim:
+  `cgr-execution-claim-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
+- terminal artifact: `10654358199`, archive SHA-256
+  `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`;
+- independent terminal scientific audit:
+  **CGR0–CGR7 PASS / OVERALL PASS**;
+- Curve Representation qualification:
+  **QUALIFIED in the exact admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud
+  envelope**;
+- next scientific transition after audit integration/closure:
+  **Curve Differential Geometry — Curvature, Regularity, and Features entry
+  decision only**.
 
 ## Work-item ledger
 
@@ -94,6 +93,14 @@ writing.
 | Second formal TMR execution | EXECUTED / ATTEMPT CONSUMED | protected-main run `35533702004` | complete authorization/preflight PASS; immutable claim created; execute PASS; retention PASS; artifact `10612032787`, SHA-256 `dd5c12f54ed60a106059a9f42acf5c07884fa83230ae4dfe81d073cb6f7111b8` | process success is not itself qualification |
 | Corrected terminal scientific audit | VALIDATED_UNMERGED / PASS | `docs/tmr-corrected-terminal-audit-pass` | TMR0–TMR7 independently recomputed PASS; 56 command records; eight semantic repetitions; eight byte-identical certificates; exact retention | integration pending; qualification scoped to admitted cloud environment |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
+| CGR stage-exit protocol | MERGED | `curve/continuous-geometry-regression-decision`; PR #73 | protocol integration and post-merge FAST/INTEGRATION PASS | documentation/protocol only; no formal execution |
+| CGR report-only tooling | MERGED | `curve/continuous-geometry-regression-tooling`; PR #75 | final report-only tooling PASS in GCC/Clang; exact 56-command/8-certificate simulation | no formal PREPARED package or execution |
+| CGR formal campaign infrastructure | MERGED | `curve/cgr-formal-campaign-infrastructure`; PR #79 | final formal tooling `35614078272` PASS; post-merge FAST/INTEGRATION PASS | lifecycle infrastructure only |
+| First formal CGR preparation and audit | MERGED / PREPARED / HISTORICAL | run `35620525792`; audit PR #81 | artifact `10649325906`; manifest `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`; PREPARED audit PASS | preparation-only authority consumed by first formal CGR campaign |
+| First exact CGR execution authorization | MERGED / CONSUMED | `curve/cgr-execution-authorization`; PR #83 | one file / 14 lines; merged `e8b17256924e907d0859b8ac7061600ffc404b9e` | exact `EXECUTE_ONCE` event; no reuse |
+| First formal CGR execution | EXECUTED / ATTEMPT CONSUMED | protected-main run `35630423134` | authorization/preflight/claim/execute/retention PASS; artifact `10654358199`, SHA-256 `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6` | workflow success is not itself qualification |
+| CGR terminal scientific audit | VALIDATED_UNMERGED / PASS | `docs/cgr-terminal-audit-pass` | CGR0–CGR7 independently recomputed PASS; 56 commands; 112 semantic test executions; 8 certificates; exact retention and derived evidence | integration pending; qualification cloud-scoped |
+
 
 ## Relevant branch classification
 
@@ -202,55 +209,72 @@ writing.
 - `docs/cgr-prepared-audit-closure`: **CLOSURE-ONLY**; records PR #81
   integration and post-merge validation.
 
+- `curve/cgr-execution-authorization`: **MERGED / CONSUMED** via
+  PR #83; exact one-file first formal CGR `EXECUTE_ONCE` authorization.
+- `docs/cgr-terminal-audit-pass`: **ACTIVE / VALIDATED_UNMERGED**;
+  independent terminal scientific audit of the consumed first formal CGR
+  campaign.
+
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The first formal CGR PREPARED-package audit is closed.**
+**Integrate the first formal CGR terminal scientific audit —
+VALIDATED_UNMERGED / PASS.**
 
-Closure evidence:
+Active branch: `docs/cgr-terminal-audit-pass`.
 
-1. preparation run `35620525792` produced the sealed PREPARED package for
-   candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
-2. audit decision: **PASS / PREPARED / NOT EXECUTED**;
-3. audit PR #81 merged as
-   `988d0877d78ccd0c1ed4d368a802a8a4cad28d7b`;
-4. PR #81 FAST `35629544372`: PASS;
-5. PR #81 INTEGRATION `35629544344`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. post-merge FAST `35629633009`: PASS;
-7. post-merge INTEGRATION `35629632897`: PASS in both cells;
-8. prepared-manifest SHA-256 remains
-   `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
-9. no execution authorization, claim, command records or terminal package
-   exists for this CGR campaign.
+Formal campaign evidence:
 
-No work item is active.
+1. authorization PR #83 merged as
+   `e8b17256924e907d0859b8ac7061600ffc404b9e`;
+2. authorization/execution run `35630423134`: PASS;
+3. immutable claim
+   `cgr-execution-claim-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
+4. annotated claim object
+   `027d5c033a7d5b91e97b5ce8c35d14030f801037`, targeting candidate
+   `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+5. terminal artifact `10654358199`, independently recomputed ZIP SHA-256
+   `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`;
+6. post-authorization FAST `35630422359`: PASS;
+7. post-authorization INTEGRATION `35630422086`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug.
+
+Independent terminal audit:
+
+- exact lifecycle `PREPARED → RUNNING → EXECUTED_PENDING_AUDIT`;
+- candidate/source inventory: 1595 paths, exact GitHub-tree agreement;
+- frozen semantic baseline: 11/11 files preserved;
+- exact retained set: 155 files, 154 retention-hashed + manifest;
+- 56/56 unique command records, all exit 0;
+- 112/112 command logs retained;
+- eight exact semantic CTest records, each 14/14 PASS;
+- 112 individual semantic test executions;
+- eight validated certificates;
+- same-cell projections equal and all eight scientific projections identical;
+- analytic value/differential/regularity/length/cumulative/inverse relations
+  independently recomputed;
+- all 52 negative outcomes rejected;
+- dependency/runtime/compile isolation complete;
+- nine required derived-evidence files retained;
+- CGR0–CGR7: **PASS**;
+- overall: **PASS**;
+- Curve Representation: **QUALIFIED in the exact admitted cloud envelope**.
+
+No WSL/cloud equivalence or downstream discretization/meshing claim is made.
 
 ## Next admissible work item after closure
 
-Create one separate exact `EXECUTE_ONCE` authorization-record PR containing
-only:
+After this terminal audit is merged, required post-merge FAST/INTEGRATION pass,
+and the qualification checkpoint is closed, open one separate scientific entry
+decision for:
 
-`experiments/authorizations/continuous-curve-geometry-regression-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd.json`
+**Curve Differential Geometry — Curvature, Regularity, and Features.**
 
-The record must bind exactly:
+The entry decision must define the first bounded investigation problem,
+mathematical authority, explicit failure semantics, exclusions, focused
+evidence and later stage-exit boundary before production implementation begins.
 
-- candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
-- preparation run `35620525792`;
-- artifact ID `10649325906`;
-- artifact SHA-256
-  `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`;
-- prepared-manifest SHA-256
-  `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
-- preparation-seal SHA-256
-  `686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`;
-- machine-readable preparation audit
-  `docs/audits/2026-09-21-continuous-curve-geometry-regression-preparation-audit.json`;
-- execution workflow
-  `.github/workflows/continuous-curve-geometry-regression-execute.yml`;
-- `terminal_audit_required=true`.
-
-The PR must contain no other repository change. Its merge to protected `main`
-will be the formal one-shot CGR execution authorization event.
+Boundary Curve Discretization remains blocked; no physical sampling or meshing
+starts automatically from Curve Representation qualification.
 

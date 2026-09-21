@@ -250,42 +250,66 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after CGR terminal-audit integration:
 
-**Create one separate exact `EXECUTE_ONCE` authorization-record PR for the
-audited Continuous Curve Geometry Regression PREPARED package.**
+**Close the Curve Representation qualification checkpoint, then open one
+separate scientific entry decision for Curve Differential Geometry —
+Curvature, Regularity, and Features.**
 
-The PREPARED audit is closed on `main`:
+The first formal Continuous Curve Geometry Regression campaign was authorized
+by PR #83 and merged as
+`e8b17256924e907d0859b8ac7061600ffc404b9e`.
 
-- preparation run `35620525792`;
-- candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
-- audit PR #81 merged as
-  `988d0877d78ccd0c1ed4d368a802a8a4cad28d7b`;
-- PR FAST `35629544372`: PASS;
-- PR INTEGRATION `35629544344`: PASS;
-- post-merge FAST `35629633009`: PASS;
-- post-merge INTEGRATION `35629632897`: PASS.
+Protected-main run `35630423134` validated the exact audited PREPARED
+identity, created the immutable manifest-hash claim, executed the sealed
+four-cell/two-repetition campaign exactly once, verified retention and retained
+terminal artifact `10654358199`.
 
-The audited manifest
-`201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`
-remains unclaimed and unexecuted.
+Independent terminal audit records:
 
-The next authorization PR must contain exactly one newly added manifest-bound
-authorization file and no other repository change. Its protected-main merge
-will be the formal one-shot CGR execution authorization event.
+- archive SHA-256
+  `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`;
+- exact 56-command / 112-log cardinality;
+- eight semantic repetitions × fourteen tests = 112 individual semantic test
+  executions, all PASS;
+- eight validated curve certificates with same-cell equality and identical
+  scientific projections across all cells;
+- complete analytic/metamorphic, negative, dependency and derived evidence;
+- exact candidate/frozen-semantic identity and detached verification;
+- CGR0–CGR7: **PASS**;
+- overall: **PASS**;
+- Curve Representation: **QUALIFIED in the exact admitted GitHub-hosted Ubuntu
+  24.04 x86_64 cloud envelope**.
 
-Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
+No WSL/cloud equivalence is claimed. Curve Representation qualification does
+not authorize physical boundary discretization, surfaces, meshing,
+Quad-Dominant, parallel execution or anisotropy.
 
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
-IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
-CERTIFIED TOTAL + CUMULATIVE + INVERSE ARC LENGTH IMPLEMENTED /
-FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED /
-REPORT-ONLY TOOLING INTEGRATED / FORMAL CAMPAIGN INFRASTRUCTURE VALIDATED /
-STAGE UNQUALIFIED**
+QUALIFIED / CGR0–CGR7 PASS / TERMINAL AUDIT VALIDATED_UNMERGED**
+
+Qualification authority:
+
+- protocol:
+  `docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`;
+- terminal audit:
+  `docs/audits/2026-09-21-continuous-curve-geometry-regression-terminal-audit.md`;
+- candidate:
+  `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+- execution run: `35630423134`;
+- terminal artifact: `10654358199`;
+- terminal archive SHA-256:
+  `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`.
+
+CGR0–CGR7 independently PASS. Qualification is cloud-envelope-scoped and does
+not establish WSL/cloud equivalence.
+
+All admitted production work units remain integrated and frozen at semantic
+baseline `438620efa1f93d29b442e9ba199882a09d2359d9`.
 
 Current completed work unit:
 
@@ -304,11 +328,34 @@ integrated certified total-length engine. PR #66 merged as
 `3cfb580cae2e2d26e87e9dfcfeab0aade0a3a3be`; post-merge FAST
 `35591774007` and INTEGRATION `35591773982` pass.
 
-All currently admitted continuous-curve production work units are integrated
-and closed. Stage qualification now proceeds only through the pre-registered
-CGR lifecycle; no additional curve semantic work is authorized inside the
-report-only tooling phase.
+All admitted continuous-curve production work units are integrated and closed.
+The formal CGR lifecycle has now completed and the independent terminal audit
+records CGR0–CGR7 PASS. No additional Curve Representation semantic work is
+authorized by this closure; the next scientific work is a separate Curve
+Differential Geometry entry decision after audit integration/closure.
 
+
+
+### Curve Representation stage-exit result
+
+**Continuous Curve Geometry Regression — FIRST FORMAL EXECUTION CONSUMED /
+TERMINAL AUDIT COMPLETE / CGR0–CGR7 PASS / OVERALL PASS / QUALIFIED.**
+
+Formal authorization PR #83 merged as
+`e8b17256924e907d0859b8ac7061600ffc404b9e`. Run `35630423134`
+created the immutable claim
+`cgr-execution-claim-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`
+and executed exactly once.
+
+The terminal package independently verifies 56 successful command records, 112
+semantic test executions, eight validated certificates, complete negative and
+dependency isolation evidence, nine derived-evidence files, lifecycle/sealing,
+source identity and exact retention.
+
+Per the pre-registered protocol, Curve Representation is therefore QUALIFIED
+only in the admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud environment.
+The next stage is not physical discretization: Curve Differential Geometry
+requires a separate scientific entry decision.
 
 ## Most recently qualified stage
 
