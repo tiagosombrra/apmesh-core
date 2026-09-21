@@ -626,3 +626,27 @@ tooling-checkpoint closure, the next permitted work item is one separate formal
 preparation design / PREPARED-package phase. Formal execution remains blocked
 until a future PREPARED package is independently audited and separately
 authorized.
+
+## 28. Report-only tooling integration checkpoint
+
+PR #75 integrated the report-only CGR tooling as
+`6e3952f2bdee5ca9bdfe076d5af2932b359d130f`.
+
+Validation:
+
+- final branch-head tooling run `35602067270`: PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug;
+- PR FAST `35602217696`: PASS;
+- PR INTEGRATION `35602217726`: PASS;
+- post-merge FAST `35603677515`: PASS;
+- post-merge INTEGRATION `35603677377`: PASS.
+
+No Section 4 semantic file changed. No formal PREPARED package, authorization,
+claim, terminal package or CGR gate result exists.
+
+The report-only tooling checkpoint is closed. The sole permitted continuation
+is one separate formal PREPARED-package design decision that defines exact
+candidate cleanliness, preparation sealing, planned evidence, lifecycle state
+and revision-bound execution identity before formal preparation implementation.
+
+Formal execution remains unauthorized.
