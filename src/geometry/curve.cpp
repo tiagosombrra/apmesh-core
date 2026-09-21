@@ -348,20 +348,36 @@ template <std::size_t Count>
 template <std::size_t Dimension>
 using LengthEdges = std::array<detail::IntervalVector<Dimension>, 3>;
 
+[[nodiscard]] std::expected<detail::ClosedInterval, CurveLengthError>
+length_component_interval(
+    const double next,
+    const double current) noexcept {
+    if (const auto exact = exact_difference(next, current)) {
+        return detail::ClosedInterval{*exact, *exact};
+    }
+
+    const auto next_interval = detail::point_interval(next);
+    const auto current_interval = detail::point_interval(current);
+    if (!next_interval || !current_interval) {
+        return std::unexpected{CurveLengthError::non_finite_enclosure};
+    }
+    const auto difference = detail::subtract(*next_interval, *current_interval);
+    if (!difference) {
+        return std::unexpected{CurveLengthError::non_finite_enclosure};
+    }
+    return *difference;
+}
+
 [[nodiscard]] std::expected<LengthEdges<2>, CurveLengthError>
 length_edges(const std::array<Point2, 4>& points) noexcept {
     LengthEdges<2> result{};
     for (std::size_t edge = 0; edge < 3; ++edge) {
-        const auto next_x = detail::point_interval(points[edge + 1].x());
-        const auto current_x = detail::point_interval(points[edge].x());
-        const auto next_y = detail::point_interval(points[edge + 1].y());
-        const auto current_y = detail::point_interval(points[edge].y());
-        if (!next_x || !current_x || !next_y || !current_y) {
-            return std::unexpected{CurveLengthError::non_finite_enclosure};
-        }
-
-        const auto x = detail::subtract(*next_x, *current_x);
-        const auto y = detail::subtract(*next_y, *current_y);
+        const auto x = length_component_interval(
+            points[edge + 1].x(),
+            points[edge].x());
+        const auto y = length_component_interval(
+            points[edge + 1].y(),
+            points[edge].y());
         if (!x || !y) {
             return std::unexpected{CurveLengthError::non_finite_enclosure};
         }
@@ -374,20 +390,15 @@ length_edges(const std::array<Point2, 4>& points) noexcept {
 length_edges(const std::array<Point3, 4>& points) noexcept {
     LengthEdges<3> result{};
     for (std::size_t edge = 0; edge < 3; ++edge) {
-        const auto next_x = detail::point_interval(points[edge + 1].x());
-        const auto current_x = detail::point_interval(points[edge].x());
-        const auto next_y = detail::point_interval(points[edge + 1].y());
-        const auto current_y = detail::point_interval(points[edge].y());
-        const auto next_z = detail::point_interval(points[edge + 1].z());
-        const auto current_z = detail::point_interval(points[edge].z());
-        if (!next_x || !current_x || !next_y || !current_y ||
-            !next_z || !current_z) {
-            return std::unexpected{CurveLengthError::non_finite_enclosure};
-        }
-
-        const auto x = detail::subtract(*next_x, *current_x);
-        const auto y = detail::subtract(*next_y, *current_y);
-        const auto z = detail::subtract(*next_z, *current_z);
+        const auto x = length_component_interval(
+            points[edge + 1].x(),
+            points[edge].x());
+        const auto y = length_component_interval(
+            points[edge + 1].y(),
+            points[edge].y());
+        const auto z = length_component_interval(
+            points[edge + 1].z(),
+            points[edge].z());
         if (!x || !y || !z) {
             return std::unexpected{CurveLengthError::non_finite_enclosure};
         }
