@@ -254,6 +254,9 @@ Exact next bounded scientific action:
 
 **Implement only Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
 
+Implementation is ACTIVE on
+`curve/cumulative-arc-length-enclosure`.
+
 The cumulative/inverse mapping decision is integrated and closed.
 
 Decision integration:
@@ -287,10 +290,10 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 Current bounded decision:
 
 **Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
-APPROVED / INTEGRATED / WORK UNIT 2A AUTHORIZED / WORK UNIT 2B BLOCKED.**
+APPROVED / INTEGRATED / WORK UNIT 2A ACTIVE / WORK UNIT 2B BLOCKED.**
 
-Work Unit 2A may implement only conservative cumulative prefix-length evidence
-for `S(t)`.
+Work Unit 2A is active on `curve/cumulative-arc-length-enclosure` and may
+implement only conservative cumulative prefix-length evidence for `S(t)`.
 
 Work Unit 2B remains blocked until 2A closes. Any later unique inverse claim
 must bind global regularity to the same curve and preserve a certified
