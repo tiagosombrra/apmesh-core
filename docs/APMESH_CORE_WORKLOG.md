@@ -168,53 +168,37 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Implement Certified Global Cubic Regularity by Bernstein Speed-Squared
-Enclosure — IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED.**
+**None. Certified Global Cubic Regularity by Bernstein Speed-Squared Enclosure is closed.**
 
-Active branch: `curve/global-cubic-regularity-certification`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`.
+1. implementation PR #57 merged as
+   `e0830b19e760b0e08162bb08c93b0462b60c1191`;
+2. final PR FAST `35549866348`: PASS;
+3. final PR INTEGRATION `35549866244`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. post-merge FAST `35549946614`: PASS;
+5. post-merge INTEGRATION `35549946583`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+6. global cubic regularity certification, explicit
+   `regular/degenerate/indeterminate` semantics and focused interval evidence
+   are integrated;
+7. Curve Representation remains unqualified;
+8. no arc length, curvature, public subdivision, discretization,
+   quadrilateral or parallel capability was introduced.
 
-Implemented scope:
-
-1. public explicit certification policy with bounded subdivision depth and
-   processed-node budget;
-2. public scientific result/evidence vocabulary separating `regular`,
-   `degenerate` and `indeterminate`;
-3. private curve-local closed-interval enclosure helper under
-   `src/geometry/detail/`, not a public interval arithmetic API;
-4. conservative derivative-control and quartic squared-speed Bernstein
-   coefficient construction;
-5. complete `[0,1]` depth-first midpoint subdivision;
-6. `regular` only after every retained leaf proves all coefficient lower
-   bounds strictly positive;
-7. exact endpoint singular witnesses through adjacent control-point equality;
-8. resource exhaustion returns `indeterminate`;
-9. non-finite enclosure construction fails explicitly;
-10. focused direct tests of interval enclosure/subdivision plus 2D/3D
-    regularity, endpoint singularity, interior stationary safety,
-    near-stationary regularity, resource policy, reversal, translation,
-    power-of-two scale, extreme finite input and determinism;
-11. curve public-header isolation extended to the new API.
-
-Validation:
-
-- PR #57 FAST `35549795835`: PASS;
-- PR #57 INTEGRATION `35549795743`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug;
-- the focused `apmesh_core.curve_regularity` contract passed together with
-  the existing curve and qualified-prerequisite contracts.
-
-No arc length, curvature, public subdivision, general root solver, topology
-ownership, discretization, quadrilateral or parallel capability is included.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this implementation passes PR FAST/INTEGRATION, is merged, passes
-post-merge validation, and its checkpoint is closed, open the next bounded
-Curve Representation decision.
+Open one separate bounded scientific decision for:
 
-**Arc Length and Parameter Mapping remains blocked until this regularity work
-unit is fully closed.**
+**Arc Length and Parameter Mapping.**
+
+The decision must define the smallest error-controlled integration capability
+needed for cubic Bézier arc length, including explicit convergence/error
+evidence, failure semantics, reversal/frame/scale invariants and the boundary
+between total arc length and inverse/normalized parameter mapping.
+
+No implementation belongs to this closure checkpoint.
 

@@ -252,35 +252,25 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Integrate Certified Global Cubic Regularity by Bernstein Speed-Squared
-Enclosure, then close its work-unit checkpoint.**
+**Open one separate bounded decision for Arc Length and Parameter Mapping.**
 
-Implementation branch:
-`curve/global-cubic-regularity-certification`.
+Global cubic regularity certification is integrated and closed.
 
-The candidate adds only the decision-authorized explicit policy/result API,
-private conservative interval enclosure helper, complete Bernstein
-squared-speed interval subdivision certifier, focused regularity contract and
-header-isolation coverage.
+Integration evidence:
 
-Scientific boundary remains unchanged:
+- PR #57 merged as
+  `e0830b19e760b0e08162bb08c93b0462b60c1191`;
+- final PR FAST `35549866348`: PASS;
+- final PR INTEGRATION `35549866244`: PASS;
+- post-merge FAST `35549946614`: PASS;
+- post-merge INTEGRATION `35549946583`: PASS.
 
-- no sampled/epsilon regularity claim;
-- no general polynomial root solver;
-- no public interval arithmetic;
-- no curvature or tangent frame;
-- no arc length;
-- no curve discretization;
-- no quadrilateral or parallel capability.
+The curve stage now has deterministic value evaluation, analytic first/second
+derivatives, pointwise speed and a sound interval-wide regularity certifier.
+It still has no arc-length integral or parameter mapping.
 
-Validation:
-
-- PR #57 FAST `35549795835`: PASS;
-- PR #57 INTEGRATION `35549795743`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug.
-
-Current result:
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+The next decision must remain serial/deterministic and must not introduce
+discretization, quadrilateral or parallel execution.
 
 
 ## Current active stage
@@ -288,7 +278,7 @@ Current result:
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION IMPLEMENTED /
 GLOBAL REGULARITY IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED / NOT QUALIFIED**
+INTEGRATED / NOT QUALIFIED**
 
 Current completed work unit:
 
