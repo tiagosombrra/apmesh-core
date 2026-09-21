@@ -168,36 +168,89 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Arc Length and Parameter Mapping decision checkpoint is closed.**
+**Implement Certified Cubic Bézier Total Arc-Length Enclosure —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/cubic-bezier-total-arc-length-enclosure`.
 
-1. decision authority:
-   `docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md`;
-2. decision PR #59 FAST `35551687273`: PASS;
-3. decision PR #59 INTEGRATION `35551687243`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. PR #59 merged as
-   `65cd93818fa54eac00c6f63ebefa3615074a82cd`;
-5. post-merge FAST `35551746429`: PASS;
-6. post-merge INTEGRATION `35551746412`: PASS;
-7. no production arc-length or mapping implementation was introduced by the
-   decision;
-8. inverse/cumulative parameter mapping remains blocked.
+Decision authority:
+`docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md`.
 
-No work item is active.
+Implemented scope:
+
+1. public `CurveLengthPolicy`, `CurveLengthResult`,
+   `CurveLengthEvidence`, and `CurveLengthError`;
+2. `CubicBezier2::arc_length_enclosure(...)` and
+   `CubicBezier3::arc_length_enclosure(...)`;
+3. deterministic serial dyadic subdivision expressed through cubic edge-vector
+   de Casteljau identities;
+4. conservative chord lower and control-polygon upper bounds;
+5. private curve-local outward interval arithmetic only;
+6. scaled interval Euclidean norm construction using basic IEEE arithmetic and
+   correctly-rounded `sqrt`, rather than assuming a formal one-ulp guarantee
+   for `hypot`;
+7. caller-controlled absolute/relative enclosure width;
+8. explicit `converged` versus resource-limited `indeterminate` semantics;
+9. exact binary64 fast paths only when constant/axis-monotone length is proven
+   exactly;
+10. retained full-curve enclosure on depth/node budget exhaustion;
+11. new `apmesh_core.curve_arc_length` focused contract and public-header
+   isolation coverage.
+
+Focused evidence includes:
+
+- exact straight and constant curves;
+- independent degree-elevated parabola analytic length;
+- planar 2D/3D parity;
+- reversal;
+- exact-translation evidence stability;
+- power-of-two scale covariance;
+- zero-tolerance and coarse-budget `indeterminate`;
+- resource-refinement no-wider enclosure;
+- endpoint-coincident nonzero-length curve;
+- stationary cubic without a regularity prerequisite;
+- finite-extreme explicit failure;
+- subnormal-scale behavior;
+- invalid policy rejection;
+- deterministic repeatability.
+
+Development validation history:
+
+- PR run `35552448176`: GCC built but the new contract exposed artificial
+  widening of exact zero in planar 3D subdivision; Clang also exposed a missing
+  `<algorithm>` include. No repository integration occurred.
+- run pair `35552504892` / `35552504886`: mechanical test-source failure
+  because an API edit wrote a literal `\\n` between includes; no scientific
+  contract executed on that head.
+- corrected head `dc4425bbafbb2d7e901f031a764de84e0af64f19`: FAST
+  `35552551195` PASS and INTEGRATION `35552551233` PASS in GCC/Clang.
+- scientific hardening replaced `std::hypot`-based norm bounds with scaled
+  interval arithmetic plus outward-rounded `sqrt`;
+- final head `6ba8a1e52927c696e5c297c49943c1b25d8ec116`: FAST
+  `35552642188` PASS and INTEGRATION `35552642196` PASS in GCC 13 Debug
+  and Clang 18/libc++ Debug.
+
+Scientific boundary remains unchanged:
+
+- no cumulative `S(t)`;
+- no inverse/normalized parameter mapping;
+- no curvature;
+- no physical discretization;
+- no public subdivision;
+- no topology ownership;
+- no surfaces;
+- no quadrilateral generation;
+- no parallel execution;
+- Curve Representation remains stage-unqualified.
 
 ## Next admissible work item after closure
 
-Implement only:
+After this implementation PR is merged, post-merge FAST/INTEGRATION pass, and
+its checkpoint is closed, open one separate bounded decision for
+**Cumulative Arc-Length Mapping and Certified Inverse Bracketing**.
 
-**Certified Cubic Bézier Total Arc-Length Enclosure.**
-
-The implementation must remain inside the integrated decision boundary:
-conservative total-length enclosure, explicit policy, deterministic dyadic
-subdivision, resource-bounded `converged/indeterminate` evidence and focused
-contracts.
-
-Cumulative/inverse parameter mapping remains blocked until this first
-arc-length work unit is integrated and closed.
+That decision must use the integrated certified total-length semantics and
+global regularity contract to define monotone cumulative-length evidence and a
+bracket-preserving inverse. No mapping implementation may be bundled into the
+current PR.
 

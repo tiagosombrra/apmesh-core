@@ -832,8 +832,8 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 ### Curve Representation — Continuous Geometry Before Discretization
 
 Status: `IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL
-REGULARITY IMPLEMENTED / ARC-LENGTH DECISION INTEGRATED / FOCUSED CONTRACTS PASS /
-STAGE UNQUALIFIED`
+REGULARITY + CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / FOCUSED CONTRACTS PASS /
+VALIDATED_UNMERGED / STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
 
@@ -999,6 +999,13 @@ The investigation is intentionally split into two bounded work units.
   power-of-two scale, 2D/3D parity, stationary, extreme and resource-limited
   cases;
 - keep conservative arithmetic private to the curve module.
+
+Certified total-length implementation is complete on
+`curve/cubic-bezier-total-arc-length-enclosure`. It uses deterministic
+edge-vector dyadic subdivision, conservative chord/control-polygon enclosure,
+private outward arithmetic, explicit `converged/indeterminate` evidence, and
+a scaled interval norm using correctly-rounded `sqrt`. Final FAST
+`35552642188` and INTEGRATION `35552642196` pass in GCC/Clang.
 
 **Work unit 2 — Cumulative Arc-Length Mapping and Certified Inverse Bracketing**
 

@@ -461,3 +461,48 @@ The decision checkpoint is closed.
 The sole next executable work item is **Certified Cubic Bézier Total
 Arc-Length Enclosure**. Cumulative/inverse parameter mapping remains blocked
 until that implementation is integrated and closed.
+
+
+## 20. Certified total arc-length implementation result
+
+The first authorized work unit is implemented on
+`curve/cubic-bezier-total-arc-length-enclosure`.
+
+Public API:
+
+- `CurveLengthPolicy`;
+- `CurveLengthResult::{converged, indeterminate}`;
+- `CurveLengthEvidence`;
+- `CurveLengthError`;
+- `CubicBezier2::arc_length_enclosure(...)`;
+- `CubicBezier3::arc_length_enclosure(...)`.
+
+The implementation represents each cubic leaf by interval edge vectors and
+uses the exact midpoint de Casteljau edge identities for deterministic
+subdivision. Chord norms provide lower bounds and the three edge norms provide
+control-polygon upper bounds.
+
+A pre-merge scientific review rejected reliance on a one-`nextafter`
+`std::hypot` enclosure because the C++ contract does not establish the
+required formal one-ulp error bound for `hypot`. The final implementation
+instead constructs scaled interval squared-norm bounds from basic arithmetic,
+uses correctly-rounded `std::sqrt`, and rounds the resulting lower/upper
+bounds outward.
+
+The focused contract covers the analytic/adversarial table defined above,
+including an independently evaluated degree-elevated parabola reference,
+resource exhaustion, stationary curves, extreme finite input and subnormal
+scale.
+
+Final validation at head
+`6ba8a1e52927c696e5c297c49943c1b25d8ec116`:
+
+- FAST `35552642188`: PASS;
+- INTEGRATION `35552642196`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+This establishes:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+It does not authorize cumulative/inverse parameter mapping or any later
+discretization/meshing phase.
