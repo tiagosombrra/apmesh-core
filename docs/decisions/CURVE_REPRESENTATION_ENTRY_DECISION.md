@@ -1,6 +1,7 @@
 # Curve Representation — Bounded Entry Decision
 
-Status: FIRST WORK UNIT IMPLEMENTED / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED
+Status: ALL ADMITTED CONTINUOUS-CURVE WORK UNITS IMPLEMENTED / FOCUSED
+CONTRACTS PASS / CGR0–CGR7 PROTOCOL UNDER REVIEW / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -398,3 +399,41 @@ That separate decision is now being specified in
 `docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`. It deliberately
 separates first/second derivative and pointwise-speed evaluation from the
 stronger interval-wide global-regularity certification problem.
+
+
+## Stage implementation completion and cumulative-regression transition
+
+Subsequent bounded decisions and work units completed the admitted
+Curve Representation scope without reopening the original representation
+semantics:
+
+- Cubic Bézier Differential Evaluation and Pointwise Speed;
+- Certified Global Cubic Regularity;
+- Certified Cubic Bézier Total Arc-Length Enclosure;
+- Certified Cumulative Arc-Length Enclosure;
+- Certified Inverse Arc-Length Bracketing.
+
+The final admitted continuous-curve work unit, Certified Inverse Arc-Length
+Bracketing, was integrated by PR #70 as
+`a82fa1c96fc6665e586753d5e4eb698012a79be3` and closed by the subsequent
+checkpoint on `main` at
+`438620efa1f93d29b442e9ba199882a09d2359d9`.
+
+Post-closure FAST `35594467964` and INTEGRATION `35594467983` passed.
+
+No component work unit individually qualifies Curve Representation.
+
+The stage-exit authority is now pre-registered in:
+
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
+
+That protocol freezes the current semantic baseline and requires a separate
+report-only tooling phase, formal preparation, one-shot authorization,
+execution, retained evidence and independent CGR0–CGR7 terminal audit.
+
+Until CGR0–CGR7 all PASS and the qualification decision is integrated:
+
+**Curve Representation remains STAGE UNQUALIFIED.**
+
+No Boundary Curve Discretization, surface, Quad-Dominant or parallel work is
+opened by this transition.

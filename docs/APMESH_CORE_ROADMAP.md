@@ -831,9 +831,9 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL
-REGULARITY + CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED / STAGE UNQUALIFIED`
+Status: `IN INVESTIGATION / ALL ADMITTED CONTINUOUS-CURVE WORK UNITS
+IMPLEMENTED / FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL UNDER REVIEW /
+STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
 
@@ -1129,12 +1129,32 @@ the separate cumulative/inverse decision above.
 
 #### Continuous Curve Geometry Regression
 
-- Rerun all curve analytic/reference fixtures.
-- Rerun all prerequisite regressions.
-- Regenerate curve, derivative, speed, and arc-length error figures.
-- Verify reversal and admitted reparameterization invariants.
+Status: **PROPOSED / UNDER REVIEW / DOCUMENTATION-ONLY / NO FORMAL EXECUTION
+AUTHORIZED** on `curve/continuous-geometry-regression-decision`.
 
-Stage exit gate: continuous curve geometry is qualified before any adaptive sampling is introduced, and Continuous Curve Geometry Regression passes.
+Protocol authority under review:
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
+
+The proposed stage-exit regression fixes the following prospective requirements:
+
+- rerun the exact fourteen-test prerequisite + curve semantic allowlist;
+- execute four admitted cloud cells × two repetitions;
+- retain eight independently validated curve scientific certificates;
+- require same-cell deterministic certificate projections;
+- independently validate cross-cell analytic/metamorphic relations;
+- regenerate deterministic curve/differential/arc-length/inverse regression
+  data and SVG evidence;
+- retain negative/adversarial and dependency-isolation evidence;
+- decide CGR0–CGR7 independently of workflow success.
+
+Planned successful command cardinality is 56 command records and 112 command
+logs. The eight semantic CTest repetitions execute 14 tests each, therefore
+112 individual semantic test executions are required.
+
+Stage exit gate: Curve Representation is qualified only if CGR0–CGR7 all PASS
+after one separately prepared and authorized formal campaign. Physical
+boundary discretization remains blocked until that qualification is integrated
+and closed.
 
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
