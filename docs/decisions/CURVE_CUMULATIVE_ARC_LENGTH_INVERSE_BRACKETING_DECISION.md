@@ -434,3 +434,22 @@ Closed result:
 
 The 2A integration introduces no inverse mapping, physical sampling,
 discretization, surface, quadrilateral or parallel capability.
+
+
+## 19. Work Unit 2B implementation-decision activation
+
+Work Unit 2A is integrated and closed.
+
+A separate executable 2B contract is now under review in:
+
+`docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
+
+That child decision preserves the prospective requirements of Sections 10–12
+and makes them explicit as a public policy/evidence/error contract before any
+inverse production implementation begins.
+
+Until the child decision is integrated and closed:
+
+- Work Unit 2B production code is **NOT AUTHORIZED**;
+- physical discretization remains blocked;
+- Curve Representation remains stage-unqualified.
