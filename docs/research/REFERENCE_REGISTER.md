@@ -559,3 +559,47 @@ Project relevance:
   overflow behavior of naïve `a + t*(b-a)` on extreme opposite-sign values;
 - the standard-library guarantee is a primitive contract, not by itself a
   scientific qualification of curve evaluation.
+
+
+### Global cubic regularity — Bernstein zero-exclusion references
+
+Status: `FOUNDATIONAL` for the bounded Global Cubic Regularity Certification
+decision, reviewed 2026-09-20.
+
+Rida T. Farouki and V. T. Rajan. *On the numerical condition of polynomials in
+Bernstein form*. Computer Aided Geometric Design 4(3), 191–216, 1987.
+https://doi.org/10.1016/0167-8396(87)90012-4
+
+Project relevance:
+
+- supports retaining the squared-speed polynomial in Bernstein form;
+- documents favorable conditioning and improvement under subdivision;
+- does not by itself make ordinary floating coefficients certified bounds.
+
+Qing Xian Meng and Hui Li Liu. *Regularity of Bézier Curves*. Applied Mechanics
+and Materials 48–49, 877–880, 2011.
+https://doi.org/10.4028/www.scientific.net/AMM.48-49.877
+
+Project relevance:
+
+- frames Bézier regularity as existence/nonexistence of zeros in derivative
+  polynomial equations;
+- supports treating global regularity as a zero-exclusion problem rather than
+  sampled speed inspection;
+- AP Mesh does not adopt the paper's complete algebraic method as a dependency.
+
+B. Mourrain and J. P. Pavone. *Subdivision methods for solving polynomial
+equations*. Journal of Symbolic Computation 44(3), 292–306, 2009.
+https://doi.org/10.1016/j.jsc.2008.04.016
+
+Project relevance:
+
+- supports Bernstein-basis subdivision as a principled bounded-domain
+  root/exclusion technique;
+- motivates hierarchical refinement rather than one fixed parameter grid;
+- does not remove the need for conservative floating enclosures and explicit
+  `indeterminate` outcomes.
+
+The bounded AP Mesh decision uses these references only to justify mathematical
+structure. No external solver, arbitrary-degree polynomial subsystem, or
+third-party runtime dependency is admitted.
