@@ -831,15 +831,30 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `NOT STARTED`
+Status: `IN INVESTIGATION / ENTRY DECISION VALIDATED_UNMERGED /
+NO PRODUCTION CURVE CODE`
 
 Goal: certify continuous curve representation independent of meshing.
 
 #### Cubic Bezier Evaluation
 
-- Implement cubic Bezier evaluation from the mathematical definition.
-- Verify endpoint, affine-invariance, reversal, and analytic fixture properties.
-- Compare against independent high-precision/reference evaluation.
+Entry authority:
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`.
+
+First bounded implementation after decision closure:
+
+- immutable non-rational `CubicBezier3`-equivalent value with exactly four
+  finite `Point3` controls;
+- exact parameter domain `[0,1]`;
+- production de Casteljau evaluation using coordinate-wise `std::lerp`;
+- explicit non-finite/out-of-domain parameter failures;
+- exact representation reversal by control-point order;
+- endpoint, affine-consistency, reversal and analytic fixtures;
+- independent Python-`decimal` Bernstein reference;
+- no derivatives, regularity, arc length, discretization, topology ownership,
+  rational weights, arbitrary degree, B-splines/NURBS or surfaces.
+
+Passing this work unit will not qualify the Curve Representation stage.
 
 #### Curve Derivatives and Regularity
 
@@ -1088,134 +1103,27 @@ verified. Geometry Primitives is QUALIFIED only in the declared WSL Ubuntu
 
 Current active stage:
 
-**Topological Model - IN INVESTIGATION / EDGE KERNEL IMPLEMENTED /
-FACE-BOUNDARY IMPLEMENTED / FOCUSED CONTRACT PASS /
-EDGE-USE INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-STRUCTURAL INCIDENCE IMPLEMENTED / FOCUSED CONTRACT PASS /
-IMMUTABLE SNAPSHOT IMPLEMENTED / FOCUSED CONTRACT PASS /
-CUMULATIVE REGRESSION PRE-REGISTERED / REPORT-ONLY TOOLING IMPLEMENTED /
-FOCUSED TOOLING CONTRACTS PASS / NOT PREPARED / NOT EXECUTED /
-STAGE UNQUALIFIED**
+**Curve Representation — Continuous Geometry Before Discretization /
+ENTRY DECISION VALIDATED_UNMERGED / NO PRODUCTION CURVE CODE**
 
-The Identity and Oriented Edge Incidence Kernel defined in
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md` is implemented and its
-focused GCC/Clang Debug contracts pass. The bounded Face Identity and Ordered
-Boundary Cycles implementation is also complete and its focused GCC/Clang
-Debug contract passes. Neither result authorizes `PatchId`, curves, surfaces,
-outer/inner loop classification, manifold or non-manifold classification,
-canonical topology serialization, qualification infrastructure, or meshing.
-The third bounded work unit implements deterministic immutable edge-use
-incidence enumeration. Its focused GCC 13 Debug and Clang 18/libc++ Debug
-evidence passes; it does not qualify the stage or authorize boundary/manifold
-interpretation, geometry, serialization, or a formal campaign.
-Deterministic edge-incidence structural classification and immutable canonical
-snapshot emission are implemented, with focused GCC/Clang Debug contracts
-passing. Neither converts structural signatures into adjacency, pairing,
-boundary, manifold, shell, or geometric claims. The cumulative TMR0–TMR7
-protocol is pre-registered. Its smallest reusable report-only tooling layer is
-implemented and passed focused GCC 13 Debug plus Clang 18/libc++ Debug
-contracts in GitHub Actions run `35514834796`. The admitted GitHub-hosted
-Ubuntu 24.04 cloud envelope is now explicitly bound for future formal TMR use by
-`docs/decisions/TOPOLOGICAL_MODEL_CLOUD_QUALIFICATION_ENVIRONMENT_SUPPLEMENT.md`;
-the scientific campaign remains unprepared and unexecuted.
+Most recently qualified stage:
 
-The repository/public-cloud transition audit passed on 2026-09-20. FAST and the
-reusable four-cell Major Semantic Regression passed on GitHub-hosted Ubuntu
-24.04 without production C++ change; the audit record is
-`docs/audits/2026-09-20-public-cloud-baseline.md`. Cloud INTEGRATION is now
-accepted at 100%: GCC 13 Debug and Clang 18/libc++ Debug each passed the exact
-seven-test semantic inventory, both checks are required by
-`main-protection`, and the closure audit is
-`docs/audits/2026-09-20-cloud-integration-closure.md`. The Major Semantic
-Regression is manual and reserved for explicit major phase boundaries; final
-functional-candidate run `35512093405` passed GCC/Clang Debug/Release after
-the checkout runtime deprecation was removed by pinning the official
-`actions/checkout` v7.0.1 commit.
+**Topological Model — Explicit Identity and Incidence /
+TMR0–TMR7 PASS / OVERALL PASS**
 
-The cloud QUALIFICATION-environment transition is accepted at 100% through
-`docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md` and
-`docs/audits/2026-09-20-cloud-qualification-environment-admission.md`.
-CQE0–CQE7 passed in run `35513051098`; the final PR #13 candidate
-`6a934de6e8f6fae35e6c38ec45b9b1f23b170acb` was revalidated by Qualification
-Environment run `35513250315` and phase-boundary Major Semantic Regression run
-`35513567930`, both PASS. PR #13 was squash-merged as
-`0a7095d431e4bea3c9c73e75d22df2e713c7a8ab`; the reviewed candidate tree and
-merged tree are identical
-(`7144943abc7ffd861b92587217a112c0edf6f9b4`). Post-merge FAST run
-`35513658207` and INTEGRATION run `35513658197` passed. The first admission
-run `35512991310` remains retained as the single mechanical
-`BLOCKED_BY_CMAKE_CACHE_TYPE_ASSERTION` attempt. The admitted cloud envelope
-is explicitly distinct from the historical WSL qualification envelope and
-fails closed on runner-image or package drift.
+Topological Model qualification was integrated by PR #44 at
+`bc9c82275fa91d8a756f831ea4af506ab3bbcfa8` and its closure checkpoint by
+PR #45 at `b30c781cb11a465f014c1239ab2655c3b8edbf0a`. Post-closure FAST
+`35534520923` and INTEGRATION `35534520980` passed.
 
-The report-only TMR0–TMR7 workflow and focused tooling contracts are implemented
-without production C++ changes. The accepted cloud-environment supplement binds
-the exact admitted GitHub-hosted Ubuntu 24.04 envelope, and the existing TMR
-preparation/runner path fails closed on that identity. Focused GCC 13 Debug and
-Clang 18/libc++ Debug validation passed in run `35516246789`; run
-`35516204233` is retained as a mechanical protocol-guard failure before any
-environment evaluation. The formal launch plan seals the admitted `/usr/bin`
-CMake/CTest/Ninja and compiler paths, with focused GCC/Clang Debug PASS in run
-`35516578411`.
+The active Curve Representation entry decision is
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`. Its literature and
+engineering references are registered in
+`docs/research/REFERENCE_REGISTER.md`.
 
-A manual preparation-only GitHub Actions workflow is implemented. It is
-restricted to explicit `workflow_dispatch` on canonical `main`, invokes only
-`prepare` plus `validate-prepared`, writes to a new runner-temporary output
-root, retains the sealed package with a pinned artifact action, rejects any
-execution/terminal evidence, and contains no `execute` path. Runs
-`35516864464` and `35516972035` exposed consecutive mechanical quoting
-defects in the surrounding tooling workflow. The tooling stop was honored; run
-`35517077819` then passed the complete focused/static contracts. PR #20
-integrated the workflow as
-`d9297ffad4f503b4ea11b056885749fff5872201`; post-merge FAST
-`35519501704` and INTEGRATION `35519501663` passed.
+The sole next executable work item after entry-decision integration and
+checkpoint closure is:
 
-Formal preparation run `35524700979` was dispatched once on canonical
-`main` and produced retained artifact `10609500629` for candidate
-`e5eda2663d6ff4b93ce1205660ff04d432acb9c0`. The package has GitHub/archive
-SHA-256 `2dec472689c62e813c3ec80896163a71f9d055ca1bd8cfeadfa7943408aefa72`.
-Independent audit of the package seal, lifecycle, candidate, cloud identity,
-four-cell/two-repetition plan, 1534-file source inventory, 123 planned retained
-artifacts, and all twelve critical input hashes passed. The package remains
-unconsumed with `execution_requested=false`; TMR0-TMR7 remain
-`NOT_EXECUTED`.
+**Cubic Bézier 3D Immutable Representation and Evaluation on [0,1].**
 
-PR #23 integrated the preparation audit as
-`b3d8130cdf75230ef7b71693d2325e5473091857`; post-merge FAST
-`35525181361` and INTEGRATION `35525181462` passed.
-
-A manual execution-only workflow is now implemented for the exact audited
-artifact/candidate. It restores artifact ID `10609500629` directly to the
-sealed output root, revalidates the full PREPARED binding, creates an immutable
-manifest-hash execution-claim tag only after preflight, exposes exactly one
-`execute` invocation, prunes reproducible build trees, verifies retention,
-and uploads terminal evidence. A pre-existing claim blocks execution; once a
-claim is created, failure consumes the attempt and there is no retry path.
-Focused/static run `35525736120` passed in GCC 13 Debug and Clang 18/libc++
-Debug. No claim or formal execution occurred.
-
-PR #25 integrated the one-shot execution wrapper as
-`d7019fbff97989a79fd27fcb1915073881a53564`; post-merge FAST
-`35525932108` and INTEGRATION `35525932111` passed. No claim tag or formal
-execution exists.
-
-The execution authorization path is repository-resident
-authorization-as-code. The exact manifest-bound `EXECUTE_ONCE` record is
-introduced only by a separate pull request. Its merge to protected `main`
-triggers a controller that validates a newly added immutable record, rejects an
-existing execution claim, and calls the reusable one-shot executor. The executor
-independently revalidates the authorization commit before consuming the exact
-audited PREPARED package. Focused/static tooling runs `35527446051` and
-`35527563934` passed in both GCC 13 Debug and Clang 18/libc++ Debug.
-
-PR #27 integrated authorization-as-code as
-`7bf2d409556c8318db72b86ef0d85253aa0583ec`. Required PR FAST
-`35527616244` and INTEGRATION `35527616258` passed; post-merge FAST
-`35527668634` and INTEGRATION `35527668624` passed. No
-`EXECUTE_ONCE` record, execution claim, formal execution, or terminal package
-exists.
-
-The next bounded scientific action is one separate exact authorization-record
-PR. Merging that record becomes the formal execution authorization event; the
-resulting terminal package must then be independently audited before any
-TMR0-TMR7 decision.
+No curve production implementation belongs to the entry-decision branch.
