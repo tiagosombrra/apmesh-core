@@ -250,31 +250,37 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after formal-infrastructure integration:
 
-**Implement only the formal Continuous Curve Geometry Regression campaign
-infrastructure defined by the integrated PREPARED lifecycle decision.**
+**Dispatch exactly one formal Continuous Curve Geometry Regression PREPARED
+package from canonical clean `main`, then stop for independent PREPARED
+audit.**
 
-Preparation-design integration evidence:
+The formal campaign infrastructure is implemented on
+`curve/cgr-formal-campaign-infrastructure`.
 
-- PR #77 merged as
-  `7ff5c6e5f52f9f5bd8153d00856239649aac0eff`;
-- PR FAST `35604864218`: PASS;
-- PR INTEGRATION `35604864050`: PASS;
-- post-merge FAST `35604986634`: PASS;
-- post-merge INTEGRATION `35604986654`: PASS.
+Validated implementation includes:
 
-The infrastructure phase must add the revision-bound formal runner,
-preparation-only workflow, reusable executor, repository-resident authorization
-controller/validator and focused contracts while preserving:
+- revision-bound formal runner;
+- preparation-only workflow;
+- reusable one-shot executor;
+- protected-main authorization controller/validator;
+- exact report-only/formal plan equivalence;
+- synthetic PREPARED/success/BLOCKED retention contracts;
+- complete-commit authorization isolation;
+- artifact provenance + manifest/seal preflight;
+- immutable post-claim terminal packages.
 
-- the report-only CGR scientific plan;
-- the eleven frozen semantic files;
-- the exact 56-command / 112-log / eight-certificate / 112-semantic-test shape;
-- CGR0–CGR7 = `NOT_EXECUTED` outside formal execution.
+Formal tooling run `35613409036` passed in GCC 13 Debug and Clang 18/libc++
+Debug across the exact eight-contract inventory.
 
-No formal PREPARED package, authorization record, claim or execution may be
-created by the infrastructure work item.
+No real PREPARED package, authorization record, claim or formal execution was
+created by this infrastructure work item.
+
+After integration and checkpoint closure, formal preparation may be dispatched
+once. Formal execution remains unauthorized until an independent preparation
+audit records **PASS / PREPARED / NOT EXECUTED** and a later exact
+`EXECUTE_ONCE` authorization is separately merged.
 
 Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
 
@@ -285,7 +291,8 @@ Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
 CERTIFIED TOTAL + CUMULATIVE + INVERSE ARC LENGTH IMPLEMENTED /
 FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED /
-REPORT-ONLY TOOLING INTEGRATED / CHECKPOINT CLOSED / STAGE UNQUALIFIED**
+REPORT-ONLY TOOLING INTEGRATED / FORMAL CAMPAIGN INFRASTRUCTURE VALIDATED /
+STAGE UNQUALIFIED**
 
 Current completed work unit:
 
