@@ -1066,17 +1066,22 @@ integrated total-length enclosure engine.
 
 Work Unit 2A is closed.
 
-Work Unit 2B — Certified Inverse Arc-Length Bracketing is now in a
-**DOCUMENTATION-ONLY IMPLEMENTATION-DECISION phase** on
-`curve/inverse-arc-length-bracketing-decision`.
+Work Unit 2B — Certified Inverse Arc-Length Bracketing has an
+**INTEGRATED / CLOSED IMPLEMENTATION DECISION**.
 
-Decision authority under review:
+Decision authority:
 `docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
 
-The proposed bounded API retains same-curve regularity authority, total and
-cumulative length uncertainty, certified parameter brackets, deterministic
-bisection and explicit indeterminate/resource semantics. No inverse production
-code is included in the decision work item.
+PR #68 integrated the documentation-only decision as
+`f0faaf53e5b898e0270fc0e406cf7337e8d95bb1`. PR FAST
+`35592555795`, PR INTEGRATION `35592555778`, post-merge FAST
+`35592839727`, and post-merge INTEGRATION `35592839775` passed.
+
+The bounded implementation is now authorized. It must retain same-curve
+regularity authority, total and cumulative length uncertainty, certified
+parameter brackets, deterministic midpoint bisection and explicit
+indeterminate/resource semantics. No lookup/sampling approximation, physical
+discretization, surface, quadrilateral or parallel capability is admitted.
 
 Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
 difference is an error estimate, whereas the first work unit requires an
