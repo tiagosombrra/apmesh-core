@@ -833,6 +833,7 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 Status: `IN INVESTIGATION / ALL ADMITTED CONTINUOUS-CURVE WORK UNITS
 IMPLEMENTED / FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED /
+REPORT-ONLY TOOLING INTEGRATED / FORMAL CAMPAIGN INFRASTRUCTURE VALIDATED /
 STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
@@ -1209,6 +1210,32 @@ PR #77 integrated the PREPARED lifecycle design as
 design checkpoint is closed. The next bounded work is formal CGR campaign
 infrastructure implementation only; no formal package or execution is yet
 authorized.
+
+Formal campaign infrastructure is now implemented on
+`curve/cgr-formal-campaign-infrastructure` under
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
+
+The implementation adds the separate formal runner, preparation-only workflow,
+reusable one-shot executor, protected-main authorization-as-code, complete-
+commit isolation, manifest-hash claim semantics, synthetic success/BLOCKED
+retention contracts, and dedicated formal-tooling validation without changing
+any frozen semantic file.
+
+Formal tooling runs `35613409036` and final synchronized-head run
+`35613745665` passed in GCC 13 Debug and Clang 18/libc++ Debug. The exact
+formal plan remains 56 commands, 112 command logs, eight semantic repetitions,
+112 individual semantic tests and eight certificate slots.
+
+Infrastructure audit authorities:
+
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.md`;
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.json`.
+
+No real PREPARED package, authorization, claim, terminal package or CGR gate
+decision exists. After infrastructure integration and closure, the next
+bounded step is exactly one formal PREPARED dispatch from clean canonical
+`main`, followed by independent PREPARED audit. Formal execution remains
+unauthorized.
 
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
