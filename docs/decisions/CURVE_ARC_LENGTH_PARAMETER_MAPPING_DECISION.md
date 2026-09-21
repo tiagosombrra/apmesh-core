@@ -1,6 +1,7 @@
 # Arc Length and Parameter Mapping — Bounded Decision
 
-Status: DECISION APPROVED / IMPLEMENTATION NOT STARTED / STAGE UNQUALIFIED  
+Status: WORK UNIT 1 IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+WORK UNIT 2 DECISION PENDING / STAGE UNQUALIFIED  
 Date: 2026-09-20  
 Stage: Curve Representation — Continuous Geometry Before Discretization
 
@@ -506,3 +507,42 @@ This establishes:
 
 It does not authorize cumulative/inverse parameter mapping or any later
 discretization/meshing phase.
+
+
+## 14. Work unit 1 implementation result
+
+**Certified Cubic Bézier Total Arc-Length Enclosure — IMPLEMENTED / FOCUSED
+CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+PR #61 integrated the bounded implementation as
+`5d89edfd391dc5548245f35ccedc2ac4c6c6951a`.
+
+Validation:
+
+- final PR head:
+  `42002586dfd61a80d07053d88982b301b1f1acde`;
+- FAST `35552739398`: PASS;
+- INTEGRATION `35552739395`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35580244685`: PASS;
+- post-merge INTEGRATION `35580244722`: PASS.
+
+The integrated implementation provides:
+
+- explicit `CurveLengthPolicy`, `CurveLengthResult`,
+  `CurveLengthEvidence`, and `CurveLengthError`;
+- deterministic dyadic cubic subdivision in edge-vector form;
+- conservative chord/control-polygon total-length enclosure;
+- private outward interval arithmetic;
+- scaled interval Euclidean norm bounds;
+- explicit `converged` versus resource-limited `indeterminate`;
+- focused 2D/3D analytic and adversarial evidence.
+
+The implementation does not add cumulative `S(t)`, inverse/fraction mapping,
+public subdivision, curvature, physical discretization, topology ownership,
+surfaces, quadrilateral generation or parallel execution.
+
+The next admissible scientific action is a **separate bounded decision** for
+Cumulative Arc-Length Mapping and Certified Inverse Bracketing. This document's
+earlier future-boundary text remains informative, but it does not itself
+authorize Work unit 2 implementation.
