@@ -1,6 +1,6 @@
 # Global Cubic Regularity Certification — Bounded Decision
 
-Status: DECISION INTEGRATED / IMPLEMENTATION NOT STARTED
+Status: IMPLEMENTED / VALIDATION PENDING / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -403,3 +403,25 @@ Validation:
 The decision checkpoint is closed. The sole permitted continuation is the
 bounded implementation of **Certified Global Cubic Regularity by Bernstein
 Speed-Squared Enclosure** and its focused contracts.
+
+
+## Implementation candidate
+
+The bounded candidate implements the decision without expanding scope:
+
+- `CurveRegularityPolicy` makes subdivision depth and processed-node budget
+  explicit;
+- `CurveRegularityResult` separates `regular`, `degenerate` and
+  `indeterminate`;
+- `CurveRegularityEvidence` retains deterministic node/leaf/depth
+  diagnostics;
+- `CubicBezier2::certify_regularity` and
+  `CubicBezier3::certify_regularity` expose the bounded certifier;
+- `src/geometry/detail/curve_regularity_interval.hpp` is private,
+  curve-local evidence machinery, not a public interval API;
+- `tests/curve_regularity.cpp` directly exercises interval containment,
+  quartic subdivision and the scientific/adversarial regularity cases;
+- curve header-isolation coverage is extended.
+
+The candidate remains **NOT QUALIFIED**. PR FAST/INTEGRATION validation is
+required before it may be integrated.
