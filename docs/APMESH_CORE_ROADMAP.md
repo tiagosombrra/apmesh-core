@@ -1104,6 +1104,17 @@ parallel or qualification capability is introduced. After integration and
 closure, the next bounded transition is pre-registration of the Continuous
 Curve Geometry Regression.
 
+PR #70 integrated Work Unit 2B as
+`a82fa1c96fc6665e586753d5e4eb698012a79be3`. Final PR FAST
+`35594075619`, final PR INTEGRATION `35594075595`, post-merge FAST
+`35594160853`, and post-merge INTEGRATION `35594160817` passed.
+
+Work Unit 2B is therefore **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSED / NOT QUALIFIED**. The next bounded transition is now only
+pre-registration of the **Continuous Curve Geometry Regression**. Physical
+boundary discretization remains blocked until the Curve Representation stage is
+qualified.
+
 Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
 difference is an error estimate, whereas the first work unit requires an
 explicit conservative enclosure.
