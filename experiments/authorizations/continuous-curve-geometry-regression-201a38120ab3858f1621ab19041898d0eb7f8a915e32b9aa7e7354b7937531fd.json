@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "continuous-curve-geometry-regression-execution-authorization",
+  "authorization": "EXECUTE_ONCE",
+  "candidate": "f7dc8d82d881858b6481d6d2d1383d8a561684c5",
+  "preparation_run_id": 35620525792,
+  "prepared_artifact_id": 10649325906,
+  "prepared_artifact_sha256": "952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063",
+  "prepared_manifest_sha256": "201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd",
+  "preparation_seal_sha256": "686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353",
+  "preparation_audit": "docs/audits/2026-09-21-continuous-curve-geometry-regression-preparation-audit.json",
+  "execution_workflow": ".github/workflows/continuous-curve-geometry-regression-execute.yml",
+  "terminal_audit_required": true
+}
