@@ -1,6 +1,6 @@
 # Cumulative Arc-Length Mapping and Certified Inverse Bracketing — Bounded Decision
 
-Status: DECISION IN PROGRESS / WORK UNIT 2A AUTHORIZATION PROPOSED /
+Status: DECISION APPROVED / INTEGRATED / WORK UNIT 2A AUTHORIZED /
 WORK UNIT 2B BLOCKED / STAGE UNQUALIFIED  
 Date: 2026-09-21  
 Stage: Curve Representation — Continuous Geometry Before Discretization
@@ -338,3 +338,25 @@ sole next executable work item is:
 **Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
 
 Work Unit 2B remains blocked.
+
+
+## 16. Decision integration result
+
+PR #63 integrated this decision as
+`32428d29407949f058d44bf2dfdcab59600714c1`.
+
+Validation:
+
+- PR FAST `35581198802`: PASS;
+- PR INTEGRATION `35581198681`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35581291836`: PASS;
+- post-merge INTEGRATION `35581291965`: PASS.
+
+Decision effect:
+
+- Work Unit 2A — Certified Cumulative Arc-Length Enclosure: **AUTHORIZED**;
+- Work Unit 2B — Certified Inverse Arc-Length Bracketing: **BLOCKED**;
+- Curve Representation: **STAGE UNQUALIFIED**.
+
+No production mapping behavior was introduced by this decision.
