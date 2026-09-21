@@ -252,34 +252,58 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Open one separate scientific entry decision for Curve Representation —
-Continuous Geometry Before Discretization.**
+**Integrate and close the Curve Representation entry decision; then implement
+only Polynomial Cubic Bézier Value Representation and Evaluation.**
 
-Topological Model qualification is closed on `main`.
+Active decision branch:
+`curve/representation-entry-decision`.
 
-Integration evidence:
+Entry authority:
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`.
 
-- corrected terminal-audit PR #44 merged as
-  `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
-- PR FAST `35534295054`: PASS;
-- PR INTEGRATION `35534295078`: PASS;
-- post-merge FAST `35534347597`: PASS;
-- post-merge INTEGRATION `35534347623`: PASS.
+The decision fixes:
 
-Scientific status:
+- immutable 2D/3D fixed-degree cubic Bézier values;
+- exactly four ordered finite control points;
+- normalized parameter domain `[0,1]`;
+- cubic de Casteljau evaluation with component-wise `std::lerp`;
+- exact endpoint semantics;
+- value reversal and reversal invariants;
+- independent higher-precision/reference Bernstein evidence;
+- operation-owned residual/proximity policy with no default epsilon;
+- exact prerequisite semantic preservation.
 
-- TMR0–TMR7: PASS;
-- overall: PASS;
-- Topological Model: QUALIFIED in the exact admitted GitHub-hosted Ubuntu
-  24.04 x86_64 cloud envelope;
-- WSL/cloud equivalence: not claimed.
+Explicitly blocked until later decisions:
 
-The next entry decision must bound the first continuous-curve investigation
-before production code is written. Curve implementation is not authorized by
-Topological Model qualification alone.
+- derivatives and regularity;
+- curvature;
+- arc length and parameter mapping;
+- public subdivision;
+- adaptive sampling/discretization;
+- surfaces/patches;
+- meshing;
+- Quad-Dominant research;
+- parallel execution.
+
+No production curve code is authorized until this entry decision is integrated
+and its checkpoint closed.
 
 
 ## Current active stage
+
+**Curve Representation — Continuous Geometry Before Discretization**
+
+Current stage status:
+
+**IN INVESTIGATION / ENTRY DECISION ACTIVE / NO PRODUCTION CURVE CODE YET.**
+
+The most recently qualified scientific stage remains:
+
+**Topological Model — Explicit Identity and Incidence — QUALIFIED /
+TMR0–TMR7 PASS.**
+
+Historical Topological Model detail follows for retained qualification
+traceability.
 
 **Topological Model — Explicit Identity and Incidence**
 
