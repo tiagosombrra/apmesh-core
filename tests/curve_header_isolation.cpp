@@ -9,6 +9,9 @@ int main() {
     using apmesh::core::CubicBezier2;
     using apmesh::core::CubicBezier3;
     using apmesh::core::CurveError;
+    using apmesh::core::CurveRegularityError;
+    using apmesh::core::CurveRegularityEvidence;
+    using apmesh::core::CurveRegularityPolicy;
     using apmesh::core::Point2;
     using apmesh::core::Point3;
     using apmesh::core::Vector2;
@@ -42,6 +45,14 @@ int main() {
         decltype(std::declval<const CubicBezier3&>().speed(0.5)),
         std::expected<double, CurveError>>);
     static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().certify_regularity(
+            std::declval<const CurveRegularityPolicy&>())),
+        std::expected<CurveRegularityEvidence, CurveRegularityError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().certify_regularity(
+            std::declval<const CurveRegularityPolicy&>())),
+        std::expected<CurveRegularityEvidence, CurveRegularityError>>);
+    static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().control_points()),
         const std::array<Point2, 4>&>);
     static_assert(std::same_as<
@@ -56,6 +67,10 @@ int main() {
 
     const CubicBezier2 curve2{*point2, *point2, *point2, *point2};
     const CubicBezier3 curve3{*point3, *point3, *point3, *point3};
+    const CurveRegularityPolicy policy{
+        .max_subdivision_depth = 8,
+        .max_processed_nodes = 128,
+    };
     return curve2.evaluate(0.5).has_value() &&
                    curve3.evaluate(0.5).has_value() &&
                    curve2.first_derivative(0.5).has_value() &&
@@ -63,7 +78,9 @@ int main() {
                    curve2.second_derivative(0.5).has_value() &&
                    curve3.second_derivative(0.5).has_value() &&
                    curve2.speed(0.5).has_value() &&
-                   curve3.speed(0.5).has_value()
+                   curve3.speed(0.5).has_value() &&
+                   curve2.certify_regularity(policy).has_value() &&
+                   curve3.certify_regularity(policy).has_value()
                ? 0
                : 1;
 }
