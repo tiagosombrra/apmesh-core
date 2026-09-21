@@ -1191,6 +1191,17 @@ decision. It must freeze preparation/lifecycle/revision-binding requirements
 before any formal preparation implementation. Formal execution remains
 unauthorized.
 
+The design is now specified in
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
+It keeps the report-only runner immutable, requires a separate formal runner,
+seals the future executor/authorization path before preparation, defines the
+exact seven-file PREPARED package and independent audit boundary, and preserves
+the 56-command / 112-log / eight-certificate / 112-semantic-test campaign
+shape. No formal package or execution is authorized by the decision itself.
+
+After decision integration and checkpoint closure, the next bounded work is
+formal campaign infrastructure implementation only.
+
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `NOT STARTED`

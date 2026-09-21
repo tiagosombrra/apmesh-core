@@ -650,3 +650,30 @@ candidate cleanliness, preparation sealing, planned evidence, lifecycle state
 and revision-bound execution identity before formal preparation implementation.
 
 Formal execution remains unauthorized.
+
+## 29. Formal PREPARED lifecycle design
+
+The formal preparation/lifecycle design is specified by:
+
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
+
+The decision preserves this protocol unchanged and defines the mechanism by
+which one future clean candidate may become PREPARED without executing CGR.
+
+Key invariants:
+
+- report-only planning remains the scientific plan authority;
+- formal execution code exists and is revision-bound before preparation;
+- all eleven Section 4 semantic files remain frozen;
+- complete tracked-source and cloud-environment identities are sealed;
+- the exact 56-command / 112-log / eight-certificate plan is retained;
+- CGR0–CGR7 remain `NOT_EXECUTED` during preparation;
+- the PREPARED archive contains only seven control files;
+- independent PREPARED audit precedes any authorization;
+- authorization and execution remain separate future lifecycle steps.
+
+This design decision does not itself create a PREPARED package or authorize
+execution.
+
+After its integration and checkpoint closure, only formal campaign
+infrastructure implementation is permitted.
