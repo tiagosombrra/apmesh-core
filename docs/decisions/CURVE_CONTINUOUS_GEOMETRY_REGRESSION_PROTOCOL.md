@@ -759,3 +759,27 @@ remain unchanged.
 The sole permitted continuation is one preparation-only dispatch from
 canonical clean `main`, followed by an independent PREPARED audit. No
 authorization or formal execution is permitted before that audit.
+
+## 33. First formal PREPARED package
+
+Formal preparation run `35620525792` produced one sealed PREPARED package on
+candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`.
+
+Independent preparation audit is retained in
+`docs/audits/2026-09-21-continuous-curve-geometry-regression-preparation-audit.md`
+and records **PASS / PREPARED / NOT EXECUTED**.
+
+The audited package binds prepared-manifest SHA-256
+`201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`
+and preparation-seal SHA-256
+`686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`.
+
+The audit verifies the complete candidate/source identity, Section 4 frozen
+semantic baseline, exact critical-input hashes, admitted cloud matrix, and
+pre-registered formal plan. No command has executed and CGR0–CGR7 remain
+`NOT_EXECUTED`.
+
+After audit integration and closure, the sole permitted continuation is one
+separate exact manifest-bound `EXECUTE_ONCE` authorization-record PR. Its
+protected-main merge will be the formal one-shot execution authorization event.
+
