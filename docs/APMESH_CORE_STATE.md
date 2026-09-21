@@ -252,10 +252,11 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Implement only Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
+**Integrate and close Work Unit 2A — Certified Cumulative Arc-Length
+Enclosure; then open Work Unit 2B as a separate bounded transition.**
 
-Implementation is ACTIVE on
-`curve/cumulative-arc-length-enclosure`.
+Work Unit 2A is **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+VALIDATED_UNMERGED** on `curve/cumulative-arc-length-enclosure`, PR #66.
 
 The cumulative/inverse mapping decision is integrated and closed.
 
@@ -279,8 +280,8 @@ bracketing remains blocked until 2A is separately integrated and closed.
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
-CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / CUMULATIVE MAPPING DECISION
-INTEGRATED / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED**
+CERTIFIED TOTAL ARC LENGTH IMPLEMENTED / CUMULATIVE ARC-LENGTH ENCLOSURE
+VALIDATED_UNMERGED / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED**
 
 Current completed work unit:
 
@@ -290,10 +291,13 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 Current bounded decision:
 
 **Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
-APPROVED / INTEGRATED / WORK UNIT 2A ACTIVE / WORK UNIT 2B BLOCKED.**
+APPROVED / INTEGRATED / WORK UNIT 2A VALIDATED_UNMERGED / WORK UNIT 2B
+BLOCKED.**
 
-Work Unit 2A is active on `curve/cumulative-arc-length-enclosure` and may
-implement only conservative cumulative prefix-length evidence for `S(t)`.
+Work Unit 2A now implements conservative cumulative prefix-length evidence for
+`S(t)` using private outward edge-vector de Casteljau construction and the
+integrated certified total-length engine. PR #66 FAST `35591468322` and
+INTEGRATION `35591468337` pass.
 
 Work Unit 2B remains blocked until 2A closes. Any later unique inverse claim
 must bind global regularity to the same curve and preserve a certified
