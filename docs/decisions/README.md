@@ -15,3 +15,5 @@ A decision record must state:
 - next admissible action.
 
 Decision records do not replace the authoritative roadmap. They provide the evidence and rationale behind roadmap status changes.
+
+- `CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md` — bounds certified cubic total arc length first and defers cumulative/inverse parameter mapping to a separate work unit.
