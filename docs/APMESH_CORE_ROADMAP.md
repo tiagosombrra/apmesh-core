@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-20
+Last updated: 2026-09-21
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -831,10 +831,9 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `IN INVESTIGATION / ALL ADMITTED CONTINUOUS-CURVE WORK UNITS
-IMPLEMENTED / FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED /
-REPORT-ONLY TOOLING INTEGRATED / FORMAL CAMPAIGN INFRASTRUCTURE VALIDATED /
-STAGE UNQUALIFIED`
+Status: `QUALIFIED / CGR0–CGR7 PASS / candidate f7dc8d82 /
+GitHub Ubuntu 24.04 x86_64 / ALL ADMITTED CONTINUOUS-CURVE WORK UNITS
+INTEGRATED`
 
 Goal: certify continuous curve representation independent of meshing.
 
@@ -1282,6 +1281,59 @@ PR #81 integrated the PREPARED audit as
 The PREPARED-audit checkpoint is closed. The sole next bounded action is the
 exact one-file `EXECUTE_ONCE` authorization for manifest
 `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`.
+
+#### Continuous Curve Geometry Regression — stage qualification
+
+Formal PREPARED package run `35620525792` bound clean candidate
+`f7dc8d82d881858b6481d6d2d1383d8a561684c5`, exact frozen semantic
+baseline `438620efa1f93d29b442e9ba199882a09d2359d9`, 1595 tracked source
+paths, the admitted four-cell cloud matrix, and the pre-registered
+56-command / 112-log / eight-certificate plan.
+
+The PREPARED audit was integrated by PR #81 as
+`988d0877d78ccd0c1ed4d368a802a8a4cad28d7b` and closed before formal
+authorization.
+
+PR #83 then merged the exact one-file `EXECUTE_ONCE` record as
+`e8b17256924e907d0859b8ac7061600ffc404b9e`. Protected-main run
+`35630423134` validated the authorization and artifact provenance, created
+the immutable manifest-hash claim, executed the sealed campaign exactly once,
+verified retention, and retained artifact `10654358199` with independently
+recomputed archive SHA-256
+`a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`.
+
+Independent terminal audit:
+`docs/audits/2026-09-21-continuous-curve-geometry-regression-terminal-audit.md`.
+
+Audit result:
+
+- CGR0 identity and scope: `PASS`;
+- CGR1 representation and value: `PASS`;
+- CGR2 differential evaluation and speed: `PASS`;
+- CGR3 global regularity: `PASS`;
+- CGR4 arc length and inverse mapping: `PASS`;
+- CGR5 repeat and cross-cell equivalence: `PASS`;
+- CGR6 prerequisite preservation and isolation: `PASS`;
+- CGR7 evidence integrity and closure: `PASS`;
+- overall: `PASS`.
+
+The terminal package retains exactly 56 successful command records, 112
+command logs, eight exact 14-test semantic repetitions (112 individual tests,
+all passing), eight validated curve certificates, complete negative/dependency
+evidence, deterministic derived CSV/SVG evidence, detached verification and
+exact retention.
+
+**Curve Representation — Continuous Geometry Before Discretization is
+QUALIFIED only in the exact formally admitted GitHub-hosted Ubuntu 24.04
+x86_64 cloud environment.**
+
+No WSL/cloud equivalence, physical boundary discretization, surface, meshing,
+Quad-Dominant, parallel, GPU/SIMD or anisotropy qualification is implied.
+
+Per the stage-exit protocol, the next bounded scientific transition after
+terminal-audit integration and closure is one separate entry decision for
+**Curve Differential Geometry — Curvature, Regularity, and Features**.
+Boundary Curve Discretization does not start automatically.
 
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
