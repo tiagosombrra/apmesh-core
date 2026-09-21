@@ -1,7 +1,7 @@
 # Cumulative Arc-Length Mapping and Certified Inverse Bracketing — Bounded Decision
 
-Status: DECISION APPROVED / INTEGRATED / WORK UNIT 2A AUTHORIZED /
-WORK UNIT 2B BLOCKED / STAGE UNQUALIFIED  
+Status: DECISION APPROVED / INTEGRATED / WORK UNIT 2A CLOSED /
+WORK UNIT 2B IMPLEMENTATION AUTHORIZED / STAGE UNQUALIFIED  
 Date: 2026-09-21  
 Stage: Curve Representation — Continuous Geometry Before Discretization
 
@@ -453,3 +453,27 @@ Until the child decision is integrated and closed:
 - Work Unit 2B production code is **NOT AUTHORIZED**;
 - physical discretization remains blocked;
 - Curve Representation remains stage-unqualified.
+
+## 20. Work Unit 2B implementation-decision integration and closure
+
+PR #68 integrated the child implementation decision as:
+
+`f0faaf53e5b898e0270fc0e406cf7337e8d95bb1`.
+
+Validation:
+
+- PR FAST `35592555795`: PASS;
+- PR INTEGRATION `35592555778`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35592839727`: PASS;
+- post-merge INTEGRATION `35592839775`: PASS.
+
+Decision effect:
+
+- Work Unit 2A: **CLOSED / NOT QUALIFIED**;
+- Work Unit 2B: **AUTHORIZED FOR BOUNDED IMPLEMENTATION**;
+- Curve Representation: **STAGE UNQUALIFIED**.
+
+The authorized implementation remains limited by the child decision. Physical
+equal-length sampling, boundary discretization, surfaces, Quad-Dominant work
+and parallel execution remain blocked.
