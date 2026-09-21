@@ -168,37 +168,33 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Certified Global Cubic Regularity by Bernstein Speed-Squared Enclosure is closed.**
+**Define Arc Length and Parameter Mapping — scientific entry decision ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/arc-length-parameter-mapping-decision`.
 
-1. implementation PR #57 merged as
-   `e0830b19e760b0e08162bb08c93b0462b60c1191`;
-2. final PR FAST `35549866348`: PASS;
-3. final PR INTEGRATION `35549866244`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35549946614`: PASS;
-5. post-merge INTEGRATION `35549946583`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-6. global cubic regularity certification, explicit
-   `regular/degenerate/indeterminate` semantics and focused interval evidence
-   are integrated;
-7. Curve Representation remains unqualified;
-8. no arc length, curvature, public subdivision, discretization,
-   quadrilateral or parallel capability was introduced.
+The decision is documentation/scientific-governance only. No production curve
+implementation belongs to this work item.
 
-No work item is active.
+Bounded decomposition:
+
+1. first implementation work unit:
+   **Certified Cubic Bézier Total Arc-Length Enclosure**;
+2. later, only after that unit is integrated and closed:
+   **Cumulative Arc-Length Mapping and Certified Inverse Bracketing**;
+3. curvature, discretization, surface work, quadrilateral generation and
+   parallel execution remain excluded.
+
+The first unit will use deterministic dyadic de Casteljau subdivision and
+geometric length bounds, retaining an explicit enclosure rather than a naked
+quadrature scalar. It must expose policy/resource exhaustion as
+`indeterminate`, not silently weaken the requested accuracy.
 
 ## Next admissible work item after closure
 
-Open one separate bounded scientific decision for:
+After the Arc Length and Parameter Mapping decision is merged, validated, and
+its checkpoint is closed, implement only **Certified Cubic Bézier Total
+Arc-Length Enclosure**.
 
-**Arc Length and Parameter Mapping.**
-
-The decision must define the smallest error-controlled integration capability
-needed for cubic Bézier arc length, including explicit convergence/error
-evidence, failure semantics, reversal/frame/scale invariants and the boundary
-between total arc length and inverse/normalized parameter mapping.
-
-No implementation belongs to this closure checkpoint.
+No cumulative/inverse parameter mapping implementation may begin in the first
+work unit.
 
