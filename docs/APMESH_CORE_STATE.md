@@ -250,31 +250,31 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after preparation-design integration:
+Exact next bounded scientific action:
 
 **Implement only the formal Continuous Curve Geometry Regression campaign
 infrastructure defined by the integrated PREPARED lifecycle decision.**
 
-Decision authority:
-`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
+Preparation-design integration evidence:
 
-The decision freezes:
+- PR #77 merged as
+  `7ff5c6e5f52f9f5bd8153d00856239649aac0eff`;
+- PR FAST `35604864218`: PASS;
+- PR INTEGRATION `35604864050`: PASS;
+- post-merge FAST `35604986634`: PASS;
+- post-merge INTEGRATION `35604986654`: PASS.
 
-- one fully clean published `main` candidate;
-- complete tracked-source inventory;
-- eleven frozen semantic files;
-- exact preparation input hashes;
-- admitted four-cell cloud identity;
-- exact 56-command / 112-log / eight-certificate formal plan;
-- seven-file PREPARED package;
-- preparation seal and state history;
-- revision binding of the future executor and authorization workflows before
-  preparation;
-- independent PREPARED audit before authorization.
+The infrastructure phase must add the revision-bound formal runner,
+preparation-only workflow, reusable executor, repository-resident authorization
+controller/validator and focused contracts while preserving:
 
-The implementation phase may add only formal campaign infrastructure and
-focused contracts. It must not dispatch preparation, create a PREPARED package,
-authorize execution, create a claim, execute CGR or decide CGR0–CGR7.
+- the report-only CGR scientific plan;
+- the eleven frozen semantic files;
+- the exact 56-command / 112-log / eight-certificate / 112-semantic-test shape;
+- CGR0–CGR7 = `NOT_EXECUTED` outside formal execution.
+
+No formal PREPARED package, authorization record, claim or execution may be
+created by the infrastructure work item.
 
 Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
 
