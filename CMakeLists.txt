@@ -399,6 +399,48 @@ if(BUILD_TESTING)
             --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/continuous-curve-geometry-regression-tooling.yml
     )
     add_test(
+        NAME apmesh_core.continuous_curve_geometry_campaign_runner
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/continuous_curve_geometry_campaign_runner_test.py
+            --runner ${CMAKE_CURRENT_SOURCE_DIR}/tools/run_continuous_curve_geometry_campaign.py
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/continuous_curve_geometry_regression.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/continuous_curve_geometry_regression_export.cpp
+            --certificate-exporter $<TARGET_FILE:apmesh_core_continuous_curve_geometry_regression_export>
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/continuous_curve_geometry_regression_evidence.py
+            --negative ${CMAKE_CURRENT_SOURCE_DIR}/tools/continuous_curve_geometry_regression_negative.py
+    )
+    add_test(
+        NAME apmesh_core.continuous_curve_geometry_campaign_prepare_workflow
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/continuous_curve_geometry_campaign_prepare_workflow_test.py
+            --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/continuous-curve-geometry-regression-prepare.yml
+    )
+    add_test(
+        NAME apmesh_core.continuous_curve_geometry_campaign_execute_workflow
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/continuous_curve_geometry_campaign_execute_workflow_test.py
+            --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/continuous-curve-geometry-regression-execute.yml
+    )
+    add_test(
+        NAME apmesh_core.continuous_curve_geometry_regression_authorization
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/continuous_curve_geometry_regression_authorization_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/continuous_curve_geometry_regression_authorization.py
+    )
+    add_test(
+        NAME apmesh_core.continuous_curve_geometry_regression_authorization_workflow
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/continuous_curve_geometry_regression_authorization_workflow_test.py
+            --workflow ${CMAKE_CURRENT_SOURCE_DIR}/.github/workflows/continuous-curve-geometry-regression-authorize.yml
+    )
+    add_test(
         NAME apmesh_core.cartesian_frames_evidence
         COMMAND
             ${Python3_EXECUTABLE}

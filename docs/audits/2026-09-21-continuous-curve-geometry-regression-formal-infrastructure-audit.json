@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "kind": "continuous-curve-geometry-regression-formal-infrastructure-audit",
+  "audit_date": "2026-09-21",
+  "decision": "PASS",
+  "status": "VALIDATED_UNMERGED",
+  "base_commit": "28d18d88c4c3a7a199a7657aebb79e7c20b79524",
+  "branch": "curve/cgr-formal-campaign-infrastructure",
+  "validation": {
+    "workflow": "Continuous Curve Geometry Regression Formal Tooling",
+    "run_id": 35613409036,
+    "gcc_13_debug": "PASS",
+    "clang_18_libcxx_debug": "PASS",
+    "focused_contract_count": 8
+  },
+  "scope": {
+    "frozen_semantic_files_changed": 0,
+    "formal_prepared_package_created": false,
+    "execute_once_record_added": false,
+    "execution_claim_created": false,
+    "formal_campaign_executed": false,
+    "cgr_gate_decision_created": false
+  },
+  "implemented": {
+    "formal_runner": "tools/run_continuous_curve_geometry_campaign.py",
+    "preparation_workflow": ".github/workflows/continuous-curve-geometry-regression-prepare.yml",
+    "execution_workflow": ".github/workflows/continuous-curve-geometry-regression-execute.yml",
+    "authorization_workflow": ".github/workflows/continuous-curve-geometry-regression-authorize.yml",
+    "authorization_validator": "tools/continuous_curve_geometry_regression_authorization.py",
+    "formal_tooling_workflow": ".github/workflows/continuous-curve-geometry-regression-formal-tooling.yml",
+    "cmake_registration": "CMakeLists.txt"
+  },
+  "evidence_contracts": [
+    "apmesh_core.continuous_curve_geometry_regression_evidence",
+    "apmesh_core.continuous_curve_geometry_regression_runner",
+    "apmesh_core.continuous_curve_geometry_regression_workflow",
+    "apmesh_core.continuous_curve_geometry_campaign_runner",
+    "apmesh_core.continuous_curve_geometry_campaign_prepare_workflow",
+    "apmesh_core.continuous_curve_geometry_campaign_execute_workflow",
+    "apmesh_core.continuous_curve_geometry_regression_authorization",
+    "apmesh_core.continuous_curve_geometry_regression_authorization_workflow"
+  ],
+  "formal_plan": {
+    "command_records": 56,
+    "command_logs": 112,
+    "discoveries": 8,
+    "semantic_ctest_records": 8,
+    "tests_per_semantic_repetition": 14,
+    "individual_semantic_test_executions": 112,
+    "certificate_slots": 8,
+    "gates": "NOT_EXECUTED"
+  },
+  "lifecycle_contract": {
+    "prepared_file_count": 7,
+    "states": [
+      "PREPARED",
+      "RUNNING",
+      "EXECUTED_PENDING_AUDIT",
+      "BLOCKED"
+    ],
+    "post_claim_reuse_rejected": true,
+    "successful_terminal_immutable": true,
+    "blocked_terminal_immutable": true
+  },
+  "next_bounded_action": "Integrate and close this infrastructure checkpoint; then dispatch exactly one formal CGR PREPARED package from canonical clean main and stop for independent PREPARED audit."
+}

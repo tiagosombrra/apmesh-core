@@ -189,47 +189,73 @@ writing.
   via PR #73; CGR0–CGR7 stage-exit protocol only.
 - `docs/curve-cgr-protocol-closure`: **CLOSURE-ONLY**; records PR #73
   integration and post-merge validation.
-- `curve/continuous-geometry-regression-tooling`: **ACTIVE /
-  VALIDATED_UNMERGED**; report-only CGR exporter/validator/runner/negative/
-  derived-evidence tooling only; no PREPARED package or formal execution.
+- `curve/continuous-geometry-regression-tooling`: **MERGED / HISTORICAL**
+  via PR #75; report-only CGR exporter/validator/runner/negative/derived-
+  evidence tooling only.
+- `curve/cgr-formal-campaign-infrastructure`: **ACTIVE /
+  VALIDATED_UNMERGED**; formal lifecycle infrastructure only; no real PREPARED
+  package or formal execution.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Formal CGR PREPARED lifecycle design is closed.**
+**Implement formal Continuous Curve Geometry Regression campaign
+infrastructure — VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/cgr-formal-campaign-infrastructure`.
 
-1. preparation-design PR #77 merged as
-   `7ff5c6e5f52f9f5bd8153d00856239649aac0eff`;
-2. PR FAST `35604864218`: PASS;
-3. PR INTEGRATION `35604864050`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-4. post-merge FAST `35604986634`: PASS;
-5. post-merge INTEGRATION `35604986654`: PASS in both declared cells;
-6. the decision remains design-only and created no PREPARED package,
-   authorization, claim, execution or CGR gate result;
-7. report-only CGR planning remains the scientific plan authority;
-8. formal execution remains unauthorized.
+Authority:
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
 
-No work item is active.
+Implemented:
+
+1. revision-bound formal runner
+   `tools/run_continuous_curve_geometry_campaign.py`;
+2. preparation-only workflow;
+3. reusable one-shot execution workflow;
+4. protected-main repository authorization controller;
+5. closed-schema authorization validator;
+6. five new focused formal infrastructure contracts;
+7. CMake opt-in registration;
+8. dedicated `CGR FORMAL TOOLING` validation workflow;
+9. infrastructure mapping/audit in Markdown and JSON.
+
+Scientific/control invariants validated:
+
+- formal plan derives from the report-only CGR plan;
+- all eleven frozen semantic files remain unchanged;
+- exact 56-command / 112-log / 8-certificate / 112-semantic-test shape;
+- PREPARED contains exactly seven files;
+- CGR0–CGR7 remain `NOT_EXECUTED` before formal execution;
+- cloud drift, PREPARED mutation and consumed-package reuse fail closed;
+- synthetic mid-campaign failure retains a valid BLOCKED terminal package;
+- successful and blocked packages are immutable after local claim;
+- authorization commit isolation covers the complete commit;
+- executor has one claim and one execute path only.
+
+Validation:
+
+- formal tooling run `35613409036`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- exact eight-contract inventory passed in both cells;
+- no real PREPARED package, `EXECUTE_ONCE`, claim, terminal package or CGR
+  gate result was created.
+
+Audit authorities:
+
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.md`;
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.json`.
 
 ## Next admissible work item after closure
 
-Implement only the formal CGR campaign infrastructure defined by
-`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`:
+After this infrastructure implementation is merged, required PR and post-merge
+FAST/INTEGRATION plus final formal-tooling validation pass, and the
+infrastructure checkpoint is closed, dispatch exactly one formal
+**CGR PREPARED** package from canonical clean `main`.
 
-- `tools/run_continuous_curve_geometry_campaign.py`;
-- preparation-only workflow;
-- reusable one-shot execution workflow;
-- repository-resident authorization validator/controller;
-- focused preparation/execution/retention/authorization contracts;
-- mapping/audit documentation.
+Then stop for independent PREPARED audit.
 
-The implementation must preserve the report-only scientific plan and all frozen
-semantic files.
-
-It must not dispatch formal preparation, create a PREPARED package, add an
-`EXECUTE_ONCE` record, create a claim or execute the formal campaign.
+No `EXECUTE_ONCE` authorization, claim or formal execution is admissible
+before a separate audit decision of **PASS / PREPARED / NOT EXECUTED**.
 
