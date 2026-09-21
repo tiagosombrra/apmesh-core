@@ -360,3 +360,49 @@ Decision effect:
 - Curve Representation: **STAGE UNQUALIFIED**.
 
 No production mapping behavior was introduced by this decision.
+
+
+## 17. Work Unit 2A implementation result
+
+Implementation branch:
+`curve/cumulative-arc-length-enclosure`.
+
+PR: #66.
+
+The bounded candidate implements only Work Unit 2A.
+
+Public behavior added:
+
+- cumulative prefix enclosure for `CubicBezier2`;
+- cumulative prefix enclosure for `CubicBezier3`;
+- explicit non-finite/out-of-domain cumulative parameter errors.
+
+The certified prefix is not constructed from rounded public curve points.
+Instead, the implementation starts from interval-enclosed original Bézier edge
+vectors, applies an outward interval de Casteljau construction for the exact
+represented parameter, and passes the resulting three prefix edge enclosures to
+the same conservative chord/control-polygon engine used by certified total
+length.
+
+The total-length engine was refactored only enough to accept already-certified
+edge-vector input. Its existing total-length public semantics are retained.
+
+Focused validation:
+
+- FAST `35591468322`: PASS;
+- INTEGRATION `35591468337`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The cumulative contract covers the required endpoint, analytic, reversal,
+embedding, translation, scale, singular, resource, invalid-input, finite
+extreme, subnormal and repeatability fixtures.
+
+Decision effect at this point:
+
+- Work Unit 2A:
+  **IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED**;
+- Work Unit 2B: **BLOCKED**;
+- Curve Representation: **STAGE UNQUALIFIED**.
+
+Integration and post-merge closure remain required before Work Unit 2B may be
+opened.

@@ -1,7 +1,7 @@
 # AP Mesh Core — Operational Work Ledger
 
 Status: AUTHORITATIVE FOR OPERATIONAL CONTINUITY  
-Last updated: 2026-09-20  
+Last updated: 2026-09-21  
 Canonical integration branch: `main`  
 Scientific continuation authority: `docs/APMESH_CORE_STATE.md`  
 Roadmap authority: `docs/APMESH_CORE_ROADMAP.md`
@@ -172,47 +172,71 @@ writing.
   via PR #63; defines Work Unit 2A and the blocked Work Unit 2B boundary.
 - `docs/cumulative-arc-length-decision-closure`: **CLOSURE-ONLY**; records
   PR #63 integration and post-merge validation.
+- `curve/cumulative-arc-length-enclosure`: **VALIDATED_UNMERGED**; Work Unit
+  2A implementation only; PR #66; inverse mapping remains blocked.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Cumulative Arc-Length Mapping and Certified Inverse Bracketing decision
-checkpoint is closed.**
+**Work Unit 2A — Certified Cumulative Arc-Length Enclosure —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/cumulative-arc-length-enclosure`.  
+PR: #66.
 
-1. decision authority:
-   `docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`;
-2. decision PR #63 FAST `35581198802`: PASS;
-3. decision PR #63 INTEGRATION `35581198681`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. PR #63 squash-merged as
-   `32428d29407949f058d44bf2dfdcab59600714c1`;
-5. post-merge FAST `35581291836`: PASS;
-6. post-merge INTEGRATION `35581291965`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. no mapping production code was introduced by the decision;
-8. Work Unit 2A is now authorized;
-9. Work Unit 2B remains blocked.
+Authority:
+`docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
 
-No work item is active.
+Implemented bounded capability:
+
+1. `CubicBezier2::cumulative_arc_length_enclosure(t, policy)`;
+2. `CubicBezier3::cumulative_arc_length_enclosure(t, policy)`;
+3. exact `t=0 -> [0,0]` and exact delegation to total length at `t=1`;
+4. private certified prefix construction directly from the original
+   interval-enclosed edge vectors through outward de Casteljau algebra;
+5. reuse/refactor of the existing certified chord/control-polygon length
+   engine;
+6. explicit non-finite/out-of-domain parameter failure;
+7. no regularity precondition for forward cumulative length;
+8. separate focused cumulative contract plus header-isolation coverage.
+
+Focused evidence covers the integrated decision's required 2D/3D cases:
+analytic line and parabola prefixes, monotonicity on safe fixtures, constant
+curves, reversal, embedding parity, translation, power-of-two scale, stationary
+and endpoint-coincident curves, zero-tolerance/resource-limited
+`indeterminate`, invalid parameter/policy, finite extremes, subnormal scale
+and repeatability.
+
+Validation:
+
+- PR #66 FAST `35591468322`: PASS;
+- PR #66 INTEGRATION `35591468337`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- all existing curve and prerequisite contracts selected by those profiles
+  remain passing.
+
+Explicitly absent:
+
+- inverse arc-length mapping;
+- fraction/target-length to parameter;
+- lookup/cached sampling tables;
+- root solving;
+- physical equal-length sampling;
+- public subdivision;
+- surface/discretization/meshing;
+- Quad-Dominant work;
+- parallel execution.
+
+Work Unit 2B remains blocked.
 
 ## Next admissible work item after closure
 
-Implement only:
+After PR #66 is merged, post-merge FAST/INTEGRATION pass, and Work Unit 2A's
+checkpoint is closed, open one separate bounded work item for **Work Unit 2B —
+Certified Inverse Arc-Length Bracketing**.
 
-**Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
-
-Implementation must remain inside the integrated decision boundary:
-
-- conservative `S(t)=length(B|[0,t])` enclosure;
-- explicit parameter/policy/resource semantics;
-- certified private prefix construction;
-- reuse/refactor of the existing certified total-length core;
-- focused analytic/adversarial 2D/3D evidence;
-- no inverse mapping.
-
-Work Unit 2B — Certified Inverse Arc-Length Bracketing remains blocked until 2A
-is implemented, validated, integrated and closed.
+The inverse work item must bind same-curve global regularity and preserve a
+certified parameter bracket. No inverse implementation may be folded into PR
+#66 or its closure checkpoint.
 

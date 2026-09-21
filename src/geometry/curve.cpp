@@ -228,6 +228,17 @@ constexpr std::size_t maximum_supported_length_depth = 64;
     return {};
 }
 
+[[nodiscard]] std::expected<void, CurveLengthError> validate_length_parameter(
+    const double parameter) noexcept {
+    if (!std::isfinite(parameter)) {
+        return std::unexpected{CurveLengthError::non_finite_parameter};
+    }
+    if (parameter < 0.0 || parameter > 1.0) {
+        return std::unexpected{CurveLengthError::parameter_out_of_domain};
+    }
+    return {};
+}
+
 [[nodiscard]] std::optional<double> exact_difference(
     const double lhs,
     const double rhs) noexcept {
@@ -405,6 +416,110 @@ length_edges(const std::array<Point3, 4>& points) noexcept {
         result[edge] = detail::IntervalVector<3>{*x, *y, *z};
     }
     return result;
+}
+
+template <std::size_t Dimension>
+[[nodiscard]] std::expected<detail::IntervalVector<Dimension>, CurveLengthError>
+scale_interval_vector(
+    const detail::IntervalVector<Dimension>& value,
+    const detail::ClosedInterval& scalar) noexcept {
+    detail::IntervalVector<Dimension> result{};
+    for (std::size_t index = 0; index < Dimension; ++index) {
+        if ((scalar.lower == 0.0 && scalar.upper == 0.0) ||
+            (value[index].lower == 0.0 && value[index].upper == 0.0)) {
+            result[index] = detail::ClosedInterval{0.0, 0.0};
+            continue;
+        }
+        const auto component = detail::multiply(value[index], scalar);
+        if (!component) {
+            return std::unexpected{CurveLengthError::non_finite_enclosure};
+        }
+        result[index] = *component;
+    }
+    return result;
+}
+
+template <std::size_t Dimension>
+[[nodiscard]] std::expected<detail::IntervalVector<Dimension>, CurveLengthError>
+lerp_interval_vector(
+    const detail::IntervalVector<Dimension>& lhs,
+    const detail::IntervalVector<Dimension>& rhs,
+    const detail::ClosedInterval& one_minus_parameter,
+    const detail::ClosedInterval& parameter) noexcept {
+    const auto lhs_scaled =
+        scale_interval_vector(lhs, one_minus_parameter);
+    const auto rhs_scaled =
+        scale_interval_vector(rhs, parameter);
+    if (!lhs_scaled || !rhs_scaled) {
+        return std::unexpected{CurveLengthError::non_finite_enclosure};
+    }
+    const auto sum = detail::add_vectors(*lhs_scaled, *rhs_scaled);
+    if (!sum) {
+        return std::unexpected{CurveLengthError::non_finite_enclosure};
+    }
+    return *sum;
+}
+
+template <std::size_t Dimension>
+[[nodiscard]] std::expected<LengthEdges<Dimension>, CurveLengthError>
+prefix_length_edges(
+    const LengthEdges<Dimension>& root_edges,
+    const double parameter) noexcept {
+    const detail::ClosedInterval parameter_interval{
+        parameter,
+        parameter,
+    };
+
+    detail::ClosedInterval one_minus_parameter{};
+    if (const auto exact = exact_difference(1.0, parameter)) {
+        one_minus_parameter = detail::ClosedInterval{*exact, *exact};
+    } else {
+        const auto one = detail::point_interval(1.0);
+        const auto parameter_point = detail::point_interval(parameter);
+        if (!one || !parameter_point) {
+            return std::unexpected{CurveLengthError::non_finite_enclosure};
+        }
+        const auto difference = detail::subtract(*one, *parameter_point);
+        if (!difference) {
+            return std::unexpected{CurveLengthError::non_finite_enclosure};
+        }
+        one_minus_parameter = *difference;
+    }
+
+    const auto first_blend = lerp_interval_vector(
+        root_edges[0],
+        root_edges[1],
+        one_minus_parameter,
+        parameter_interval);
+    const auto second_blend = lerp_interval_vector(
+        root_edges[1],
+        root_edges[2],
+        one_minus_parameter,
+        parameter_interval);
+    if (!first_blend || !second_blend) {
+        return std::unexpected{CurveLengthError::non_finite_enclosure};
+    }
+
+    const auto final_blend = lerp_interval_vector(
+        *first_blend,
+        *second_blend,
+        one_minus_parameter,
+        parameter_interval);
+    if (!final_blend) {
+        return std::unexpected{CurveLengthError::non_finite_enclosure};
+    }
+
+    const auto prefix0 =
+        scale_interval_vector(root_edges[0], parameter_interval);
+    const auto prefix1 =
+        scale_interval_vector(*first_blend, parameter_interval);
+    const auto prefix2 =
+        scale_interval_vector(*final_blend, parameter_interval);
+    if (!prefix0 || !prefix1 || !prefix2) {
+        return std::unexpected{CurveLengthError::non_finite_enclosure};
+    }
+
+    return LengthEdges<Dimension>{*prefix0, *prefix1, *prefix2};
 }
 
 struct LengthBounds {
@@ -613,32 +728,12 @@ complete_enclosure(
     return accepted;
 }
 
-template <typename Point, std::size_t Dimension>
+template <std::size_t Dimension>
 [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
-arc_length_enclosure_impl(
-    const std::array<Point, 4>& points,
+arc_length_enclosure_from_edges(
+    const LengthEdges<Dimension>& root_edges,
     const CurveLengthPolicy& policy) noexcept {
-    const auto valid_policy = validate_length_policy(policy);
-    if (!valid_policy) {
-        return std::unexpected{valid_policy.error()};
-    }
-
-    if (const auto exact = exact_axis_monotone_length(points)) {
-        return CurveLengthEvidence{
-            .result = CurveLengthResult::converged,
-            .lower_length = *exact,
-            .upper_length = *exact,
-            .processed_nodes = 1,
-            .accepted_leaves = 1,
-            .max_depth_reached = 0,
-        };
-    }
-
-    const auto root_edges = length_edges(points);
-    if (!root_edges) {
-        return std::unexpected{root_edges.error()};
-    }
-    const auto root_bounds = length_bounds(*root_edges);
+    const auto root_bounds = length_bounds(root_edges);
     if (!root_bounds) {
         return std::unexpected{root_bounds.error()};
     }
@@ -646,7 +741,7 @@ arc_length_enclosure_impl(
     std::array<LengthNode<Dimension>, maximum_supported_length_depth + 1> stack{};
     std::size_t stack_size = 1;
     stack[0] = LengthNode<Dimension>{
-        .edges = *root_edges,
+        .edges = root_edges,
         .depth = 0,
     };
 
@@ -760,6 +855,74 @@ arc_length_enclosure_impl(
         .accepted_leaves = accepted_leaves,
         .max_depth_reached = max_depth_reached,
     };
+}
+
+template <typename Point, std::size_t Dimension>
+[[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
+arc_length_enclosure_impl(
+    const std::array<Point, 4>& points,
+    const CurveLengthPolicy& policy) noexcept {
+    const auto valid_policy = validate_length_policy(policy);
+    if (!valid_policy) {
+        return std::unexpected{valid_policy.error()};
+    }
+
+    if (const auto exact = exact_axis_monotone_length(points)) {
+        return CurveLengthEvidence{
+            .result = CurveLengthResult::converged,
+            .lower_length = *exact,
+            .upper_length = *exact,
+            .processed_nodes = 1,
+            .accepted_leaves = 1,
+            .max_depth_reached = 0,
+        };
+    }
+
+    const auto root_edges = length_edges(points);
+    if (!root_edges) {
+        return std::unexpected{root_edges.error()};
+    }
+    return arc_length_enclosure_from_edges(*root_edges, policy);
+}
+
+template <typename Point, std::size_t Dimension>
+[[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
+cumulative_arc_length_enclosure_impl(
+    const std::array<Point, 4>& points,
+    const double parameter,
+    const CurveLengthPolicy& policy) noexcept {
+    const auto valid_parameter = validate_length_parameter(parameter);
+    if (!valid_parameter) {
+        return std::unexpected{valid_parameter.error()};
+    }
+    const auto valid_policy = validate_length_policy(policy);
+    if (!valid_policy) {
+        return std::unexpected{valid_policy.error()};
+    }
+
+    if (parameter == 0.0) {
+        return CurveLengthEvidence{
+            .result = CurveLengthResult::converged,
+            .lower_length = 0.0,
+            .upper_length = 0.0,
+            .processed_nodes = 1,
+            .accepted_leaves = 1,
+            .max_depth_reached = 0,
+        };
+    }
+    if (parameter == 1.0) {
+        return arc_length_enclosure_impl<Point, Dimension>(points, policy);
+    }
+
+    const auto root_edges = length_edges(points);
+    if (!root_edges) {
+        return std::unexpected{root_edges.error()};
+    }
+    const auto prefix_edges = prefix_length_edges(*root_edges, parameter);
+    if (!prefix_edges) {
+        return std::unexpected{prefix_edges.error()};
+    }
+    return arc_length_enclosure_from_edges(*prefix_edges, policy);
 }
 
 constexpr std::size_t maximum_supported_regularity_depth = 64;
@@ -1013,6 +1176,16 @@ CubicBezier2::arc_length_enclosure(
     return arc_length_enclosure_impl<Point2, 2>(control_points_, policy);
 }
 
+std::expected<CurveLengthEvidence, CurveLengthError>
+CubicBezier2::cumulative_arc_length_enclosure(
+    const double parameter,
+    const CurveLengthPolicy& policy) const noexcept {
+    return cumulative_arc_length_enclosure_impl<Point2, 2>(
+        control_points_,
+        parameter,
+        policy);
+}
+
 CubicBezier2 CubicBezier2::reversed() const noexcept {
     return CubicBezier2{
         control_points_[3],
@@ -1072,6 +1245,16 @@ std::expected<CurveLengthEvidence, CurveLengthError>
 CubicBezier3::arc_length_enclosure(
     const CurveLengthPolicy& policy) const noexcept {
     return arc_length_enclosure_impl<Point3, 3>(control_points_, policy);
+}
+
+std::expected<CurveLengthEvidence, CurveLengthError>
+CubicBezier3::cumulative_arc_length_enclosure(
+    const double parameter,
+    const CurveLengthPolicy& policy) const noexcept {
+    return cumulative_arc_length_enclosure_impl<Point3, 3>(
+        control_points_,
+        parameter,
+        policy);
 }
 
 CubicBezier3 CubicBezier3::reversed() const noexcept {
