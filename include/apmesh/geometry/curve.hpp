@@ -42,6 +42,8 @@ struct CurveRegularityEvidence {
 
 enum class CurveLengthError {
     invalid_policy,
+    non_finite_parameter,
+    parameter_out_of_domain,
     non_finite_enclosure,
 };
 
@@ -86,6 +88,10 @@ public:
     certify_regularity(const CurveRegularityPolicy& policy) const noexcept;
     [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
     arc_length_enclosure(const CurveLengthPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
+    cumulative_arc_length_enclosure(
+        double parameter,
+        const CurveLengthPolicy& policy) const noexcept;
     [[nodiscard]] CubicBezier2 reversed() const noexcept;
 
     [[nodiscard]] bool operator==(const CubicBezier2&) const noexcept = default;
@@ -112,6 +118,10 @@ public:
     certify_regularity(const CurveRegularityPolicy& policy) const noexcept;
     [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
     arc_length_enclosure(const CurveLengthPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
+    cumulative_arc_length_enclosure(
+        double parameter,
+        const CurveLengthPolicy& policy) const noexcept;
     [[nodiscard]] CubicBezier3 reversed() const noexcept;
 
     [[nodiscard]] bool operator==(const CubicBezier3&) const noexcept = default;
