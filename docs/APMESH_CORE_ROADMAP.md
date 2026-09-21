@@ -1017,13 +1017,39 @@ mapping decision.
 
 **Work unit 2 — Cumulative Arc-Length Mapping and Certified Inverse Bracketing**
 
-- is now eligible for a separate bounded decision because Work unit 1 is
-  integrated and closed;
-- may define cumulative `S(t)` and target-length/fraction-to-parameter
-  bracketing;
-- must require a globally regular curve before claiming a unique inverse;
-- must preserve a proven bracket; Newton/secant acceleration, if ever admitted,
-  may not be required for correctness.
+Decision authority under integration:
+`docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
+
+This investigation is further split to avoid coupling two new guarantees.
+
+**Work Unit 2A — Certified Cumulative Arc-Length Enclosure**
+
+- certify `S(t)=length(B|[0,t])` for `t in [0,1]`;
+- retain a conservative prefix-length enclosure, never only a scalar estimate;
+- use private outward prefix construction and the integrated certified
+  total-length semantics;
+- require no global regularity precondition for forward cumulative length;
+- preserve endpoint, reversal, embedding, translation, scale and deterministic
+  evidence;
+- remain serial and independent of physical discretization.
+
+**Work Unit 2B — Certified Inverse Arc-Length Bracketing**
+
+- remains blocked until Work Unit 2A is implemented, integrated and closed;
+- requires same-curve global regularity before claiming a unique inverse;
+- must retain a proven parameter bracket rather than one unqualified estimate;
+- must treat normalized-fraction targets through the retained total-length
+  enclosure;
+- uses deterministic bracket refinement as the correctness mechanism;
+- Newton/secant acceleration, lookup tables or fitted approximate
+  parameterizations cannot be correctness authorities.
+
+The total-length Work Unit 1 checkpoint was closed by PR #62 merged as
+`689cd9b44d97eb53e6d9aa3f88d96a846ecaf8c3`; post-merge FAST
+`35580547608` and INTEGRATION `35580547591` passed.
+
+No Work Unit 2 production implementation is authorized until the new decision
+is merged and its checkpoint is closed.
 
 Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
 difference is an error estimate, whereas the first work unit requires an
@@ -1032,13 +1058,10 @@ explicit conservative enclosure.
 No physical discretization, curvature, surface, quadrilateral or parallel
 capability is admitted by this decision.
 
-PR #59 integrated the Arc Length and Parameter Mapping decision as
-`65cd93818fa54eac00c6f63ebefa3615074a82cd`. PR FAST
-`35551687273`, PR INTEGRATION `35551687243`, post-merge FAST
-`35551746429`, and post-merge INTEGRATION `35551746412` passed. The
-decision checkpoint is closed. The sole next work item is implementation of
-**Certified Cubic Bézier Total Arc-Length Enclosure**; cumulative/inverse
-parameter mapping remains blocked.
+PR #59 integrated the original Arc Length and Parameter Mapping decision as
+`65cd93818fa54eac00c6f63ebefa3615074a82cd`; Work Unit 1 was subsequently
+implemented by PR #61 and closed by PR #62. The next transition is governed by
+the separate cumulative/inverse decision above.
 
 #### Continuous Curve Geometry Regression
 
