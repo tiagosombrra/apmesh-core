@@ -1,6 +1,6 @@
 # Curve Representation — Work Unit 2B Certified Inverse Arc-Length Bracketing
 
-Status: IMPLEMENTATION DECISION ACTIVE / DOCUMENTATION ONLY
+Status: IMPLEMENTATION DECISION INTEGRATED / CLOSED / IMPLEMENTATION AUTHORIZED
 Date: 2026-09-21
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Parent authority:
@@ -423,3 +423,23 @@ stage-unqualified.
 The next transition is a separately pre-registered **Continuous Curve Geometry
 Regression** that cumulatively verifies the admitted continuous curve
 semantics before physical discretization opens.
+
+## 19. Decision integration and closure
+
+PR #68 integrated this implementation decision as
+`f0faaf53e5b898e0270fc0e406cf7337e8d95bb1`.
+
+Validation:
+
+- PR FAST `35592555795`: PASS;
+- PR INTEGRATION `35592555778`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35592839727`: PASS;
+- post-merge INTEGRATION `35592839775`: PASS.
+
+The decision checkpoint is closed.
+
+The sole next work item is implementation of exactly the bounded
+**Certified Inverse Arc-Length Bracketing** contract in this document. No
+physical sampling, lookup table, boundary discretization, surface,
+Quad-Dominant, parallel, or stage-qualification capability is authorized.

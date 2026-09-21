@@ -252,28 +252,26 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Integrate and close the Work Unit 2B implementation decision; then implement
-only Certified Inverse Arc-Length Bracketing under that fixed contract.**
+**Implement exactly Work Unit 2B — Certified Inverse Arc-Length Bracketing.**
 
-Active decision branch:
-`curve/inverse-arc-length-bracketing-decision`.
+The implementation decision is integrated and closed.
 
-Implementation-decision authority:
+Integration evidence:
+
+- PR #68 FAST `35592555795`: PASS;
+- PR #68 INTEGRATION `35592555778`: PASS;
+- PR #68 merged as
+  `f0faaf53e5b898e0270fc0e406cf7337e8d95bb1`;
+- post-merge FAST `35592839727`: PASS;
+- post-merge INTEGRATION `35592839775`: PASS.
+
+Implementation authority:
 `docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
 
-The decision fixes:
-
-- same-curve internal global-regularity certification;
-- absolute-length and normalized-fraction targets;
-- certified `[t_low,t_high]` results rather than scalar-only inverse values;
-- retained total/lower-cumulative/upper-cumulative evidence;
-- deterministic midpoint bisection;
-- explicit parameter-width and iteration-resource policy;
-- explicit target-domain/regularity/enclosure failure semantics;
-- fail-closed ambiguity and resource exhaustion.
-
-No inverse production code is authorized until this decision is integrated and
-its checkpoint closed.
+The work unit must preserve same-curve regularity authority, certified target
+uncertainty, bracket evidence and deterministic serial refinement. It must not
+open physical discretization, surfaces, Quad-Dominant work, parallel execution
+or stage qualification.
 
 
 ## Current active stage
@@ -292,7 +290,7 @@ Current bounded decision:
 
 **Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
 APPROVED / INTEGRATED / WORK UNIT 2A CLOSED / WORK UNIT 2B IMPLEMENTATION
-DECISION ACTIVE.**
+AUTHORIZED.**
 
 Work Unit 2A provides conservative cumulative prefix-length evidence for
 `S(t)` using private outward edge-vector de Casteljau construction and the
