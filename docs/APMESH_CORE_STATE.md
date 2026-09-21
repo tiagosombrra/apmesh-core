@@ -252,34 +252,36 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Implement Certified Global Cubic Regularity by Bernstein Speed-Squared
-Enclosure and its focused contract.**
+**Validate and integrate Certified Global Cubic Regularity by Bernstein
+Speed-Squared Enclosure, then close its work-unit checkpoint.**
 
-The bounded decision is integrated and closed.
+Implementation branch:
+`curve/global-cubic-regularity-certification`.
 
-Integration evidence:
+The candidate adds only the decision-authorized explicit policy/result API,
+private conservative interval enclosure helper, complete Bernstein
+squared-speed interval subdivision certifier, focused regularity contract and
+header-isolation coverage.
 
-- PR #55 merged as
-  `224c8ab530f88475c2d8281cb60682a7c0db851a`;
-- PR FAST `35549162022`: PASS;
-- PR INTEGRATION `35549161971`: PASS;
-- post-merge FAST `35549240099`: PASS;
-- post-merge INTEGRATION `35549240093`: PASS.
+Scientific boundary remains unchanged:
 
-The implementation may add only the conservative curve-local interval helper,
-explicit certification policy/result vocabulary, complete Bernstein
-squared-speed enclosure/subdivision certifier and focused 2D/3D evidence fixed
-by the decision.
+- no sampled/epsilon regularity claim;
+- no general polynomial root solver;
+- no public interval arithmetic;
+- no curvature or tangent frame;
+- no arc length;
+- no curve discretization;
+- no quadrilateral or parallel capability.
 
-Arc length, curvature, discretization, quadrilateral and parallel execution
-remain unauthorized.
+Result before CI:
+**IMPLEMENTED / VALIDATION PENDING / NOT QUALIFIED.**
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION IMPLEMENTED /
-GLOBAL REGULARITY DECISION APPROVED / FOCUSED CONTRACTS PASS /
+GLOBAL REGULARITY IMPLEMENTED / VALIDATION PENDING /
 NOT QUALIFIED**
 
 Current completed work unit:
