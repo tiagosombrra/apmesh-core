@@ -39,6 +39,35 @@ struct CurveRegularityEvidence {
     [[nodiscard]] bool operator==(const CurveRegularityEvidence&) const noexcept = default;
 };
 
+
+enum class CurveLengthError {
+    invalid_policy,
+    non_finite_enclosure,
+};
+
+enum class CurveLengthResult {
+    converged,
+    indeterminate,
+};
+
+struct CurveLengthPolicy {
+    double absolute_tolerance{};
+    double relative_tolerance{};
+    std::size_t max_subdivision_depth{};
+    std::size_t max_processed_nodes{};
+};
+
+struct CurveLengthEvidence {
+    CurveLengthResult result{};
+    double lower_length{};
+    double upper_length{};
+    std::size_t processed_nodes{};
+    std::size_t accepted_leaves{};
+    std::size_t max_depth_reached{};
+
+    [[nodiscard]] bool operator==(const CurveLengthEvidence&) const noexcept = default;
+};
+
 class CubicBezier2 {
 public:
     constexpr CubicBezier2(
@@ -55,6 +84,8 @@ public:
     [[nodiscard]] std::expected<double, CurveError> speed(double parameter) const noexcept;
     [[nodiscard]] std::expected<CurveRegularityEvidence, CurveRegularityError>
     certify_regularity(const CurveRegularityPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
+    arc_length_enclosure(const CurveLengthPolicy& policy) const noexcept;
     [[nodiscard]] CubicBezier2 reversed() const noexcept;
 
     [[nodiscard]] bool operator==(const CubicBezier2&) const noexcept = default;
@@ -79,6 +110,8 @@ public:
     [[nodiscard]] std::expected<double, CurveError> speed(double parameter) const noexcept;
     [[nodiscard]] std::expected<CurveRegularityEvidence, CurveRegularityError>
     certify_regularity(const CurveRegularityPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
+    arc_length_enclosure(const CurveLengthPolicy& policy) const noexcept;
     [[nodiscard]] CubicBezier3 reversed() const noexcept;
 
     [[nodiscard]] bool operator==(const CubicBezier3&) const noexcept = default;
