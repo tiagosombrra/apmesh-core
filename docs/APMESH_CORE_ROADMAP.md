@@ -1064,8 +1064,19 @@ implementation builds certified prefix edge enclosures directly from original
 represented control data with outward de Casteljau algebra and reuses the
 integrated total-length enclosure engine.
 
-Work Unit 2A is closed. Work Unit 2B — Certified Inverse Arc-Length Bracketing
-may now be opened as a separate bounded work item.
+Work Unit 2A is closed.
+
+Work Unit 2B — Certified Inverse Arc-Length Bracketing is now in a
+**DOCUMENTATION-ONLY IMPLEMENTATION-DECISION phase** on
+`curve/inverse-arc-length-bracketing-decision`.
+
+Decision authority under review:
+`docs/decisions/CURVE_INVERSE_ARC_LENGTH_BRACKETING_IMPLEMENTATION_DECISION.md`.
+
+The proposed bounded API retains same-curve regularity authority, total and
+cumulative length uncertainty, certified parameter brackets, deterministic
+bisection and explicit indeterminate/resource semantics. No inverse production
+code is included in the decision work item.
 
 Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
 difference is an error estimate, whereas the first work unit requires an
