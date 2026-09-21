@@ -1,0 +1,112 @@
+name: Continuous Curve Geometry Regression Authorization
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "experiments/authorizations/continuous-curve-geometry-regression-*.json"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: continuous-curve-geometry-regression-authorization
+  cancel-in-progress: false
+
+jobs:
+  authorize:
+    name: Validate committed EXECUTE_ONCE authorization
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      authorization_file: ${{ steps.authorization.outputs.authorization_file }}
+      candidate: ${{ steps.authorization.outputs.candidate }}
+      preparation_run_id: ${{ steps.authorization.outputs.preparation_run_id }}
+      prepared_artifact_id: ${{ steps.authorization.outputs.prepared_artifact_id }}
+      prepared_artifact_sha256: ${{ steps.authorization.outputs.prepared_artifact_sha256 }}
+      prepared_manifest_sha256: ${{ steps.authorization.outputs.prepared_manifest_sha256 }}
+      preparation_seal_sha256: ${{ steps.authorization.outputs.preparation_seal_sha256 }}
+      claim_tag: ${{ steps.authorization.outputs.claim_tag }}
+
+    steps:
+      - name: Check out protected-main authorization commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Require canonical main authorization commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${GITHUB_REF}" = "refs/heads/main"
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          test -z "$(git status --porcelain)"
+
+      - name: Require one newly added immutable authorization record
+        id: authorization_path
+        shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          git cat-file -e "${BEFORE_SHA}^{commit}"
+          observed="$(git diff --name-status "${BEFORE_SHA}" "${GITHUB_SHA}")"
+          count="$(printf '%s\n' "${observed}" | sed '/^$/d' | wc -l)"
+          if [ "${count}" -ne 1 ]; then
+            echo "BLOCKED: exactly one authorization file must change" >&2
+            printf 'observed=%q\n' "${observed}" >&2
+            exit 2
+          fi
+          status="${observed%%$'\t'*}"
+          path="${observed#*$'\t'}"
+          if [ "${status}" != "A" ]; then
+            echo "BLOCKED: authorization must be introduced exactly once as a new file" >&2
+            exit 2
+          fi
+          if [[ ! "${path}" =~ ^experiments/authorizations/continuous-curve-geometry-regression-[0-9a-f]{64}\.json$ ]]; then
+            echo "BLOCKED: authorization filename is outside the admitted manifest-hash namespace" >&2
+            exit 2
+          fi
+          printf 'authorization_file=%s\n' "${path}" >> "${GITHUB_OUTPUT}"
+
+      - name: Validate exact audited PREPARED authorization
+        id: authorization
+        shell: bash
+        env:
+          CGR_AUTHORIZATION_FILE: ${{ steps.authorization_path.outputs.authorization_file }}
+        run: |
+          set -euo pipefail
+          /usr/bin/python3 tools/continuous_curve_geometry_regression_authorization.py \
+            --source-root . \
+            validate \
+            --authorization "${CGR_AUTHORIZATION_FILE}" \
+            --github-output "${GITHUB_OUTPUT}"
+
+      - name: Require unclaimed PREPARED manifest
+        shell: bash
+        env:
+          CGR_CLAIM_TAG: ${{ steps.authorization.outputs.claim_tag }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin "refs/tags/${CGR_CLAIM_TAG}" >/dev/null 2>&1; then
+            echo "BLOCKED: execution claim already exists" >&2
+            exit 2
+          fi
+
+  execute:
+    name: Consume authorized PREPARED package once
+    needs: authorize
+    permissions:
+      actions: read
+      contents: write
+    uses: ./.github/workflows/continuous-curve-geometry-regression-execute.yml
+    with:
+      authorization_file: ${{ needs.authorize.outputs.authorization_file }}
+      authorization_commit: ${{ github.sha }}
+      candidate: ${{ needs.authorize.outputs.candidate }}
+      preparation_run_id: ${{ needs.authorize.outputs.preparation_run_id }}
+      prepared_artifact_id: ${{ needs.authorize.outputs.prepared_artifact_id }}
+      prepared_artifact_sha256: ${{ needs.authorize.outputs.prepared_artifact_sha256 }}
+      prepared_manifest_sha256: ${{ needs.authorize.outputs.prepared_manifest_sha256 }}
+      preparation_seal_sha256: ${{ needs.authorize.outputs.preparation_seal_sha256 }}
