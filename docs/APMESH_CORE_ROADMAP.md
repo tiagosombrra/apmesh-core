@@ -937,7 +937,7 @@ speed sampling.
 
 #### Global Cubic Regularity Certification
 
-Status: `DECISION INTEGRATED / IMPLEMENTATION NOT STARTED`
+Status: `IMPLEMENTED / VALIDATION PENDING / NOT QUALIFIED`
 
 Authority:
 `docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`.
@@ -963,6 +963,13 @@ PR #55 integrated the bounded decision as
 `35549240099`, and post-merge INTEGRATION `35549240093` passed. The
 decision checkpoint is closed; implementation of the bounded certifier is now
 the sole next work item.
+
+
+The bounded implementation candidate now provides the explicit certification
+policy/result vocabulary, private conservative interval enclosure operations,
+quartic squared-speed Bernstein construction, complete midpoint subdivision and
+focused 2D/3D regularity evidence. Validation is pending PR FAST/INTEGRATION.
+No excluded downstream capability is included.
 
 #### Arc Length and Parameter Mapping
 
