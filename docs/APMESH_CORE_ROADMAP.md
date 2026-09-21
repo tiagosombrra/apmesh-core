@@ -831,15 +831,32 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 
 ### Curve Representation — Continuous Geometry Before Discretization
 
-Status: `NOT STARTED`
+Status: `IN INVESTIGATION / ENTRY DECISION ACTIVE / NO PRODUCTION CURVE CODE`
 
 Goal: certify continuous curve representation independent of meshing.
 
+Entry authority under review:
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`.
+
+The first bounded work unit is **Polynomial Cubic Bézier Value Representation
+and Evaluation**. It is restricted to immutable 2D/3D cubic values, four
+ordered finite control points, normalized parameter domain `[0,1]`, cubic de
+Casteljau evaluation using component-wise `std::lerp`, exact endpoints,
+reversal semantics, independent reference evidence and explicit numeric
+acceptance policy.
+
+Derivatives, regularity, curvature, arc length, subdivision API, adaptive
+sampling, surfaces, meshing, Quad-Dominant research and parallel execution are
+not authorized by the entry decision.
+
 #### Cubic Bezier Evaluation
 
-- Implement cubic Bezier evaluation from the mathematical definition.
-- Verify endpoint, affine-invariance, reversal, and analytic fixture properties.
-- Compare against independent high-precision/reference evaluation.
+- Implement cubic Bezier evaluation from the mathematical definition only
+  after the entry decision is integrated and closed.
+- Verify endpoint, qualified-frame equivariance, reversal, exact dyadic and
+  analytic fixture properties.
+- Compare nontrivial 2D/3D cases against an independent higher-precision
+  Bernstein reference with an explicit residual/proximity policy.
 
 #### Curve Derivatives and Regularity
 
