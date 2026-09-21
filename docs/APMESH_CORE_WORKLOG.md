@@ -189,49 +189,77 @@ writing.
   via PR #73; CGR0–CGR7 stage-exit protocol only.
 - `docs/curve-cgr-protocol-closure`: **CLOSURE-ONLY**; records PR #73
   integration and post-merge validation.
-- `curve/continuous-geometry-regression-tooling`: **ACTIVE**; report-only
-  CGR exporter/validator/runner/negative/derived-evidence tooling only; no
-  PREPARED package or formal execution.
+- `curve/continuous-geometry-regression-tooling`: **ACTIVE /
+  VALIDATED_UNMERGED**; report-only CGR exporter/validator/runner/negative/
+  derived-evidence tooling only; no PREPARED package or formal execution.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Continuous Curve Geometry Regression report-only tooling — ACTIVE.**
+**Continuous Curve Geometry Regression report-only tooling —
+VALIDATED_UNMERGED.**
 
 Active branch: `curve/continuous-geometry-regression-tooling`.
 
 Protocol authority:
 `docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
 
-Authorized scope:
+Audit authority:
+`docs/audits/2026-09-21-continuous-curve-geometry-regression-tooling-audit.md`.
 
-1. add a declarative CGR profile for the exact four-cell × two-repetition
+Implemented and validated:
+
+1. closed declarative CGR profile for the exact four-cell × two-repetition
    matrix and fourteen-test semantic allowlist;
-2. add a curve scientific certificate exporter covering the pre-registered
-   representation/value, differential/speed, regularity, total/cumulative
-   length and inverse-bracketing case families;
-3. add an independent evidence validator with closed certificate schema,
-   analytic/metamorphic recomputation and fail-closed negative handling;
-4. add deterministic regression-data CSV/JSON plus SVG derivation without
-   third-party runtime dependencies;
-5. add a report-only runner that can plan/simulate/validate the exact
-   56-command shape but does not create a formal PREPARED package;
-6. add negative-evidence generation/validation;
-7. add focused synthetic success/failure runner contracts;
-8. add CMake qualification-test registration and a focused CGR tooling workflow
-   for GCC 13 Debug and Clang 18/libc++ Debug;
-9. preserve every frozen semantic file in protocol Section 4 byte-for-byte;
-10. do not create preparation/execution workflows, authorization records,
-    claims, formal evidence packages, or stage-qualification decisions.
+2. scientific certificate exporter covering representation/value,
+   differential/speed, global regularity, total/cumulative length,
+   inverse-bracketing, transformation/parity relations and failure semantics;
+3. independent evidence validator with analytic/metamorphic recomputation,
+   same-cell scientific-projection equality and cross-cell categorical/numeric
+   relation rules;
+4. deterministic CSV/JSON + SVG derived evidence for all four pre-registered
+   figure families, with byte-determinism tested;
+5. report-only runner exposing only `self-check`, `plan`, `simulate` and
+   `validate-simulation`;
+6. simulated exact formal shape: 56 unique command records, 112 command logs,
+   eight discovery records, eight semantic CTest records, 112 individual
+   semantic test executions and eight certificate slots;
+7. real negative/adversarial tooling that forges certificate evidence and
+   requires fail-closed validator rejection;
+8. focused evidence, runner and workflow contracts registered only under
+   `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
+9. focused Ubuntu 24.04 workflow for GCC 13 Debug and Clang 18/libc++ Debug;
+10. all eleven protocol-frozen semantic files verified byte-identical to
+    baseline `438620efa1f93d29b442e9ba199882a09d2359d9`;
+11. no `prepare`, `execute`, PREPARED package, authorization record, claim,
+    formal terminal package or CGR gate decision introduced.
+
+Validation:
+
+- final CGR Tooling run `35601303879`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- all three focused contracts PASS in both cells;
+- development runs `35600447561`, `35600549395`, `35600718350`,
+  `35600780940` and `35601176646` are retained as mechanical tooling
+  development failures only; none created formal scientific evidence.
+
+Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
 
 ## Next admissible work item after closure
 
-After report-only CGR tooling is merged, its focused tooling workflow passes in
-both declared tooling cells, ordinary post-merge FAST/INTEGRATION pass, and the
+After this report-only tooling PR is merged, PR/post-merge FAST and INTEGRATION
+pass, the focused CGR tooling remains green on the integrated lineage, and the
 tooling checkpoint is closed, open one separate **formal preparation design /
-PREPARED-package work item** governed by the CGR0–CGR7 protocol.
+PREPARED-package work item** governed by CGR0–CGR7.
 
-Formal execution remains unauthorized until a future PREPARED package is
-independently audited and separately authorized.
+That later phase must add only preparation/lifecycle machinery needed to bind
+one clean candidate, the admitted cloud identity, complete tracked-source
+inventory, exact input hashes, the 56-command plan, planned evidence/retention
+inventory and preparation seal.
+
+Preparation must still be `execution_requested=false` with CGR0–CGR7
+`NOT_EXECUTED`. Formal execution remains unauthorized until that PREPARED
+package is independently audited and a later exact one-shot authorization is
+separately merged.
 
