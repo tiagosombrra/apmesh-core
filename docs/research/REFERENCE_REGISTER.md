@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-19
+Last updated: 2026-09-21
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -337,6 +337,92 @@ Project relevance:
 The Geometry Primitives entry decision combines this interface evidence with
 the existing IEEE 754, Goldberg, Higham, and Shewchuk references. Raw vector
 operations do not qualify robust predicate signs or topological decisions.
+
+## Curve representation
+
+### Farin — Curves and Surfaces for CAGD
+
+Status: `FOUNDATIONAL` for Curve Representation entry, reviewed 2026-09-21.
+
+Gerald Farin. *Curves and Surfaces for CAGD: A Practical Guide*, 5th ed.,
+Morgan Kaufmann, 2002. ISBN 978-1-55860-737-8.
+
+Publisher / contents:
+
+- https://www.sciencedirect.com/book/9781558607378/curves-and-surfaces-for-cagd
+- https://shop.elsevier.com/books/curves-and-surfaces-for-cagd/farin/978-1-55860-737-8
+
+Project relevance:
+
+- chapters on linear interpolation, the de Casteljau algorithm, Bernstein form,
+  and Bézier-curve properties provide the mathematical basis for polynomial
+  Bézier evaluation;
+- supports endpoint interpolation, affine invariance, control-point reversal,
+  and independent Bernstein-form verification;
+- supports treating derivatives, differential geometry, rational curves and
+  B-splines as distinct later capabilities rather than importing them into the
+  first curve work unit.
+
+Decision impact:
+
+- the first Curve Representation work unit is one non-rational cubic Bézier in
+  3D with four finite control points and canonical parameter domain `[0,1]`;
+- production evaluation uses de Casteljau rather than a power-basis expansion;
+- Bernstein evaluation is reserved as an independent reference path in tests,
+  not duplicated as production logic.
+
+### C++ `std::lerp` specification — finite interpolation primitive
+
+Status: `FOUNDATIONAL` for bounded cubic Bézier evaluation, reviewed
+2026-09-21.
+
+C++ working draft, linear interpolation:
+
+https://eel.is/c++draft/c.math.lerp
+
+Project relevance:
+
+- for finite endpoints, `std::lerp(a,b,0)` returns `a` and
+  `std::lerp(a,b,1)` returns `b`;
+- for finite endpoints and `t` in `[0,1]`, the returned interpolation is
+  finite;
+- supports a de Casteljau implementation in which every coordinate-level
+  interpolation remains finite throughout the admitted parameter domain.
+
+Decision impact:
+
+- use coordinate-wise `std::lerp` for the de Casteljau interpolation steps;
+- reject non-finite or out-of-domain parameters explicitly rather than clamp or
+  extrapolate;
+- retain an explicit `non_finite_result` defensive failure if the final
+  `Point3` construction ever contradicts the admitted finite-state
+  assumptions.
+
+### Open CASCADE `Geom_BezierCurve` — mature CAD vocabulary and reversal
+
+Status: `FOUNDATIONAL` as an external semantic comparison only, reviewed
+2026-09-21.
+
+Current OCCT reference:
+
+https://dev.opencascade.org/doc/refman/html/class_geom___bezier_curve.html
+
+Project relevance:
+
+- provides a mature CAD example of Bézier curves defined by control points;
+- exposes the canonical `0` and `1` endpoint parameters;
+- documents reversal using the parameter map `u -> 1-u`;
+- demonstrates that arbitrary degree, rational weights, mutation, derivatives
+  and segmentation are additional semantics beyond basic evaluation.
+
+Decision impact:
+
+- AP Mesh Core uses OCCT only as vocabulary/interface evidence, never as a
+  dependency or numerical oracle;
+- the first work unit deliberately fixes degree three, non-rational geometry,
+  immutable control points and `[0,1]` evaluation;
+- extrapolation, weights, degree elevation, segmentation and mutation remain
+  excluded even though mature CAD kernels may support them.
 
 ## Topological model
 
