@@ -250,36 +250,44 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after Curve entry integration:
 
-**Open one separate scientific entry decision for Curve Representation —
-Continuous Geometry Before Discretization.**
+**Implement only Cubic Bézier Representation and Point Evaluation plus its
+focused contract.**
 
-Topological Model qualification is closed on `main`.
+The Curve Representation entry decision is now defined in:
 
-Integration evidence:
+`docs/decisions/CURVE_REPRESENTATION_ENTRY_DECISION.md`
 
-- corrected terminal-audit PR #44 merged as
-  `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
-- PR FAST `35534295054`: PASS;
-- PR INTEGRATION `35534295078`: PASS;
-- post-merge FAST `35534347597`: PASS;
-- post-merge INTEGRATION `35534347623`: PASS.
+It admits exactly four ordered finite control points in 2D/3D, normalized
+finite parameter `t ∈ [0,1]`, deterministic de Casteljau-style point
+evaluation, exact representation reversal, and explicit failure for invalid
+parameter/domain/non-finite arithmetic.
 
-Scientific status:
+It explicitly excludes derivatives, regularity, curvature, arc length,
+subdivision, rational/arbitrary-degree curves, topology ownership,
+discretization, surfaces, meshing, and formal qualification infrastructure.
 
-- TMR0–TMR7: PASS;
-- overall: PASS;
-- Topological Model: QUALIFIED in the exact admitted GitHub-hosted Ubuntu
-  24.04 x86_64 cloud envelope;
-- WSL/cloud equivalence: not claimed.
-
-The next entry decision must bound the first continuous-curve investigation
-before production code is written. Curve implementation is not authorized by
-Topological Model qualification alone.
-
+The entry decision itself changes no production code and reopens no qualified
+prerequisite.
 
 ## Current active stage
+
+**Curve Representation — Continuous Geometry Before Discretization**
+
+Current decision:
+
+**ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED.**
+
+First bounded implementation work unit:
+
+**Cubic Bézier Representation and Point Evaluation.**
+
+Topological Model remains QUALIFIED / TMR0–TMR7 PASS in the exact admitted
+GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope.
+
+
+## Most recently qualified prerequisite stage
 
 **Topological Model — Explicit Identity and Incidence**
 
