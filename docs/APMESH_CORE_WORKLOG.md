@@ -164,6 +164,13 @@ writing.
 - `docs/curve-entry-decision-closure`: **CLOSURE-ONLY**; records PR #46
   integration and post-merge validation.
 
+- `curve/cubic-bezier-total-arc-length-enclosure`: **MERGED / HISTORICAL**
+  via PR #61; certified total-length implementation.
+- `docs/curve-total-arc-length-closure`: **MERGED / HISTORICAL** via PR #62;
+  closes Work Unit 1.
+- `curve/cumulative-arc-length-mapping-decision`: **ACTIVE / DECISION ONLY**;
+  defines Work Unit 2A and the blocked Work Unit 2B boundary.
+
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
