@@ -1,6 +1,6 @@
 # Curve Representation — Continuous Curve Geometry Regression Protocol
 
-Status: **PROPOSED / UNDER REVIEW / DOCUMENTATION-ONLY / NO FORMAL EXECUTION AUTHORIZED**  
+Status: **PRE-REGISTERED / INTEGRATED / DOCUMENTATION-ONLY / NO FORMAL EXECUTION AUTHORIZED**  
 Date: 2026-09-21  
 Stage: **Curve Representation — Continuous Geometry Before Discretization**  
 Semantic baseline at protocol entry:
@@ -15,7 +15,7 @@ executions, analytic references and metamorphic transformations, while all
 qualified prerequisites remain passing and all downstream physical
 discretization claims remain absent?
 
-Once merged and its decision checkpoint is closed, this protocol becomes the stage-exit authority for Curve Representation.
+This protocol is the integrated stage-exit authority for Curve Representation.
 
 A workflow success, focused unit-test success or report-only tooling success is
 not by itself a Curve Representation qualification decision.
@@ -571,3 +571,19 @@ checkpoint is closed, implement only report-only qualification tooling:
 - focused tooling contracts.
 
 That tooling work must not prepare or execute the formal campaign.
+
+
+## 26. Protocol integration checkpoint
+
+PR #73 integrated this protocol as
+`af580a9358428e1607c77f7557355595a0a7c45c`.
+
+Validation:
+
+- PR FAST `35598147692`: PASS;
+- PR INTEGRATION `35598147572`: PASS;
+- post-merge FAST `35598248171`: PASS;
+- post-merge INTEGRATION `35598248036`: PASS.
+
+No production curve semantic file changed and no formal qualification campaign
+occurred. The next permitted work item is report-only CGR tooling only.
