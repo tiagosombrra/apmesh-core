@@ -515,3 +515,34 @@ Decision effect at this point:
 
 Integration and post-merge closure are still required before Continuous Curve
 Geometry Regression may be opened.
+
+## 22. Work Unit 2B integration and closure
+
+PR #70 integrated Certified Inverse Arc-Length Bracketing as:
+
+`a82fa1c96fc6665e586753d5e4eb698012a79be3`.
+
+Validation:
+
+- final PR FAST `35594075619`: PASS;
+- final PR INTEGRATION `35594075595`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35594160853`: PASS;
+- post-merge INTEGRATION `35594160817`: PASS.
+
+Closed result:
+
+- Work Unit 2A:
+  **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+  NOT QUALIFIED**;
+- Work Unit 2B:
+  **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+  NOT QUALIFIED**;
+- Curve Representation:
+  **STAGE UNQUALIFIED**.
+
+The Cumulative Arc-Length Mapping and Certified Inverse Bracketing
+investigation is complete at focused-contract level. The sole next transition
+is pre-registration of the Continuous Curve Geometry Regression. Physical
+sampling, boundary discretization, surfaces, Quad-Dominant work and parallel
+execution remain blocked.
