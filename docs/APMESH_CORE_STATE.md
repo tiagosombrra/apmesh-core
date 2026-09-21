@@ -250,37 +250,32 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after formal-infrastructure integration:
+Exact next bounded scientific action:
 
 **Dispatch exactly one formal Continuous Curve Geometry Regression PREPARED
 package from canonical clean `main`, then stop for independent PREPARED
 audit.**
 
-The formal campaign infrastructure is implemented on
-`curve/cgr-formal-campaign-infrastructure`.
+Formal infrastructure is closed on `main`:
 
-Validated implementation includes:
+- PR #79 merged as
+  `a0232e0c00aae1338b55ba0b45997db1a3c00464`;
+- validated branch head and merge commit share exact tree
+  `2ece9368e9b48a0c1db7fc1494a8713a833a9b43`;
+- final CGR FORMAL TOOLING `35614078272`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- PR FAST `35614279053`: PASS;
+- PR INTEGRATION `35614278985`: PASS;
+- post-merge FAST `35614426119`: PASS;
+- post-merge INTEGRATION `35614426153`: PASS.
 
-- revision-bound formal runner;
-- preparation-only workflow;
-- reusable one-shot executor;
-- protected-main authorization controller/validator;
-- exact report-only/formal plan equivalence;
-- synthetic PREPARED/success/BLOCKED retention contracts;
-- complete-commit authorization isolation;
-- artifact provenance + manifest/seal preflight;
-- immutable post-claim terminal packages.
+No real PREPARED package, authorization record, claim or formal execution has
+yet occurred.
 
-Formal tooling run `35613409036` passed in GCC 13 Debug and Clang 18/libc++
-Debug across the exact eight-contract inventory.
-
-No real PREPARED package, authorization record, claim or formal execution was
-created by this infrastructure work item.
-
-After integration and checkpoint closure, formal preparation may be dispatched
-once. Formal execution remains unauthorized until an independent preparation
-audit records **PASS / PREPARED / NOT EXECUTED** and a later exact
-`EXECUTE_ONCE` authorization is separately merged.
+The next lifecycle step is preparation only. Formal execution remains
+unauthorized until an independent preparation audit records
+**PASS / PREPARED / NOT EXECUTED** and a later exact `EXECUTE_ONCE`
+authorization is separately merged.
 
 Curve Representation remains `IN INVESTIGATION / NOT QUALIFIED`.
 
