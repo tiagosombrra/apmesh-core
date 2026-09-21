@@ -1180,6 +1180,17 @@ Focused CGR Tooling run `35601303879` passed in GCC 13 Debug and Clang
 Curve Representation is not qualified, and formal preparation/execution remain
 deferred until this tooling is integrated and its checkpoint is closed.
 
+PR #75 integrated the report-only tooling as
+`6e3952f2bdee5ca9bdfe076d5af2932b359d130f`. Final branch-head tooling
+`35602067270`, PR FAST `35602217696`, PR INTEGRATION `35602217726`,
+post-merge FAST `35603677515`, and post-merge INTEGRATION
+`35603677377` all passed. The report-only tooling checkpoint is closed.
+
+The sole next bounded work is one separate formal PREPARED-package design
+decision. It must freeze preparation/lifecycle/revision-binding requirements
+before any formal preparation implementation. Formal execution remains
+unauthorized.
+
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `NOT STARTED`
