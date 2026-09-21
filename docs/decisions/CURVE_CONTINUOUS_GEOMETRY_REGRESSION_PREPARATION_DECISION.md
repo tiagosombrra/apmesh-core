@@ -417,3 +417,58 @@ be dispatched on canonical `main`, followed by independent PREPARED audit.
 
 Formal execution remains unauthorized until that later audit is integrated and
 a separate exact authorization record is merged.
+
+## 18. Formal infrastructure implementation result
+
+The formal campaign infrastructure defined by this decision is implemented on
+`curve/cgr-formal-campaign-infrastructure`.
+
+Implemented files:
+
+- `tools/run_continuous_curve_geometry_campaign.py`;
+- `.github/workflows/continuous-curve-geometry-regression-prepare.yml`;
+- `.github/workflows/continuous-curve-geometry-regression-execute.yml`;
+- `.github/workflows/continuous-curve-geometry-regression-authorize.yml`;
+- `tools/continuous_curve_geometry_regression_authorization.py`;
+- `.github/workflows/continuous-curve-geometry-regression-formal-tooling.yml`;
+- focused runner/workflow/authorization contracts registered through
+  `CMakeLists.txt`.
+
+The formal runner imports the integrated report-only runner as its scientific
+plan authority. The focused formal contract requires command-ID equivalence and
+the exact pre-registered 56-command / 112-log / eight-certificate /
+112-semantic-test cardinality.
+
+The synthetic lifecycle contract proves:
+
+- PREPARED contains exactly seven control files;
+- cloud drift and PREPARED mutation fail closed;
+- consumed PREPARED state cannot validate as unconsumed;
+- successful synthetic execution retains exactly 56 command records,
+  112 logs, eight discoveries, eight semantic CTest records, eight
+  certificates and complete deterministic derived evidence;
+- a second-repetition semantic failure closes BLOCKED before later scientific
+  work;
+- successful and blocked terminal packages remain byte-immutable after claim.
+
+The authorization infrastructure uses a closed schema, machine-readable
+PREPARED-audit binding, complete-commit isolation, manifest-hash claim identity
+and exact GitHub artifact provenance before download.
+
+Validation:
+
+- formal tooling run `35613409036`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- synchronized documentation-head run `35613745665`: PASS in both declared
+  tooling cells.
+
+Audit authority:
+
+`docs/audits/2026-09-21-continuous-curve-geometry-regression-formal-infrastructure-audit.md`
+
+This implementation result creates no real PREPARED package and authorizes no
+formal execution.
+
+After integration and checkpoint closure, exactly one formal preparation may be
+dispatched from canonical clean `main`; the resulting package must then stop
+for independent PREPARED audit.
