@@ -937,7 +937,7 @@ speed sampling.
 
 #### Global Cubic Regularity Certification
 
-Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED`
+Status: `IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED`
 
 Authority:
 `docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`.
@@ -970,6 +970,13 @@ policy/result vocabulary, private conservative interval enclosure operations,
 quartic squared-speed Bernstein construction, complete midpoint subdivision and
 focused 2D/3D regularity evidence. PR #57 FAST `35549795835` and INTEGRATION `35549795743` passed in the
 declared GCC/Clang cells. No excluded downstream capability is included.
+
+
+PR #57 integrated the bounded certifier as
+`e0830b19e760b0e08162bb08c93b0462b60c1191`. Final PR FAST
+`35549866348`, PR INTEGRATION `35549866244`, post-merge FAST
+`35549946614`, and post-merge INTEGRATION `35549946583` passed. The
+regularity work-unit checkpoint is closed.
 
 #### Arc Length and Parameter Mapping
 
