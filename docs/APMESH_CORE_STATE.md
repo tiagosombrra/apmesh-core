@@ -252,33 +252,48 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Open one separate bounded decision for Arc Length and Parameter Mapping.**
+**Integrate the Arc Length and Parameter Mapping bounded decision, then close
+its decision checkpoint.**
 
-Global cubic regularity certification is integrated and closed.
+Decision branch:
+`curve/arc-length-parameter-mapping-decision`.
 
-Integration evidence:
+Decision authority:
+`docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md`.
 
-- PR #57 merged as
-  `e0830b19e760b0e08162bb08c93b0462b60c1191`;
-- final PR FAST `35549866348`: PASS;
-- final PR INTEGRATION `35549866244`: PASS;
-- post-merge FAST `35549946614`: PASS;
-- post-merge INTEGRATION `35549946583`: PASS.
+The investigation problem is split deliberately:
 
-The curve stage now has deterministic value evaluation, analytic first/second
-derivatives, pointwise speed and a sound interval-wide regularity certifier.
-It still has no arc-length integral or parameter mapping.
+1. next executable work unit:
+   **Certified Cubic Bézier Total Arc-Length Enclosure**;
+2. later work unit, still blocked:
+   **Cumulative Arc-Length Mapping and Certified Inverse Bracketing**.
 
-The next decision must remain serial/deterministic and must not introduce
-discretization, quadrilateral or parallel execution.
+The first implementation must return a conservative total-length enclosure
+rather than a naked quadrature scalar. It uses deterministic dyadic de Casteljau
+subdivision with chord lower bounds and control-polygon upper bounds, explicit
+caller policy, resource-bounded `converged/indeterminate` evidence and no
+hidden tolerance.
+
+Scientific boundary remains:
+
+- no cumulative/inverse parameter mapping yet;
+- no public subdivision;
+- no curvature;
+- no physical discretization;
+- no surface or patch geometry;
+- no quadrilateral generation;
+- no parallel execution.
+
+This decision work item contains documentation only. Production arc-length code
+is not yet authorized until the decision is merged and closed.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
-IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION IMPLEMENTED /
-GLOBAL REGULARITY IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / NOT QUALIFIED**
+IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY
+IMPLEMENTED / ARC-LENGTH DECISION ACTIVE / FOCUSED CONTRACTS PASS /
+STAGE UNQUALIFIED**
 
 Current completed work unit:
 
