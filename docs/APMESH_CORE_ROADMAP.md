@@ -1249,6 +1249,32 @@ The sole next bounded action is one formal PREPARED dispatch from canonical
 clean `main`, followed by independent PREPARED audit; no formal execution is
 yet authorized.
 
+The formal PREPARED dispatch was executed as run `35620525792` on canonical
+`main` candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`.
+
+Independent preparation audit records **PASS / PREPARED / NOT EXECUTED**:
+
+- artifact `10649325906`;
+- ZIP SHA-256
+  `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`;
+- prepared-manifest SHA-256
+  `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
+- preparation-seal SHA-256
+  `686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`;
+- exact 1595-path candidate inventory agreement;
+- 18/18 critical inputs and 11/11 frozen semantics independently matched;
+- all four admitted cloud observations PASS;
+- exact 56-command / 112-log / eight-semantic-repetition /
+  112-individual-test / eight-certificate planned campaign;
+- CGR0–CGR7 remain `NOT_EXECUTED`.
+
+Audit authority:
+`docs/audits/2026-09-21-continuous-curve-geometry-regression-preparation-audit.md`.
+
+After audit integration and closure, the sole next bounded action is one exact
+manifest-bound `EXECUTE_ONCE` authorization PR. Formal execution remains
+unauthorized until that later one-file merge.
+
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `NOT STARTED`
