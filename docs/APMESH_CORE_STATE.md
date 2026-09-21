@@ -252,47 +252,32 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Integrate the Arc Length and Parameter Mapping bounded decision, then close
-its decision checkpoint.**
+**Implement Certified Cubic Bézier Total Arc-Length Enclosure.**
 
-Decision branch:
-`curve/arc-length-parameter-mapping-decision`.
+The Arc Length and Parameter Mapping decision is integrated and closed.
 
-Decision authority:
+Decision integration:
+
+- PR #59 merged as
+  `65cd93818fa54eac00c6f63ebefa3615074a82cd`;
+- PR FAST `35551687273`: PASS;
+- PR INTEGRATION `35551687243`: PASS;
+- post-merge FAST `35551746429`: PASS;
+- post-merge INTEGRATION `35551746412`: PASS.
+
+The implementation boundary is fixed by
 `docs/decisions/CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md`.
 
-The investigation problem is split deliberately:
-
-1. next executable work unit:
-   **Certified Cubic Bézier Total Arc-Length Enclosure**;
-2. later work unit, still blocked:
-   **Cumulative Arc-Length Mapping and Certified Inverse Bracketing**.
-
-The first implementation must return a conservative total-length enclosure
-rather than a naked quadrature scalar. It uses deterministic dyadic de Casteljau
-subdivision with chord lower bounds and control-polygon upper bounds, explicit
-caller policy, resource-bounded `converged/indeterminate` evidence and no
-hidden tolerance.
-
-Scientific boundary remains:
-
-- no cumulative/inverse parameter mapping yet;
-- no public subdivision;
-- no curvature;
-- no physical discretization;
-- no surface or patch geometry;
-- no quadrilateral generation;
-- no parallel execution.
-
-This decision work item contains documentation only. Production arc-length code
-is not yet authorized until the decision is merged and closed.
+Only total-length enclosure is authorized. Cumulative/inverse mapping,
+curvature, discretization, quadrilateral generation and parallel execution
+remain blocked.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY
-IMPLEMENTED / ARC-LENGTH DECISION ACTIVE / FOCUSED CONTRACTS PASS /
+IMPLEMENTED / ARC-LENGTH DECISION INTEGRATED / FOCUSED CONTRACTS PASS /
 STAGE UNQUALIFIED**
 
 Current completed work unit:
