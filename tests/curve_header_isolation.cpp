@@ -60,7 +60,17 @@ int main() {
             std::declval<const CurveLengthPolicy&>())),
         std::expected<CurveLengthEvidence, CurveLengthError>>);
     static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().cumulative_arc_length_enclosure(
+            0.5,
+            std::declval<const CurveLengthPolicy&>())),
+        std::expected<CurveLengthEvidence, CurveLengthError>>);
+    static_assert(std::same_as<
         decltype(std::declval<const CubicBezier3&>().arc_length_enclosure(
+            std::declval<const CurveLengthPolicy&>())),
+        std::expected<CurveLengthEvidence, CurveLengthError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().cumulative_arc_length_enclosure(
+            0.5,
             std::declval<const CurveLengthPolicy&>())),
         std::expected<CurveLengthEvidence, CurveLengthError>>);
     static_assert(std::same_as<
@@ -99,7 +109,11 @@ int main() {
                    curve2.certify_regularity(policy).has_value() &&
                    curve3.certify_regularity(policy).has_value() &&
                    curve2.arc_length_enclosure(length_policy).has_value() &&
-                   curve3.arc_length_enclosure(length_policy).has_value()
+                   curve3.arc_length_enclosure(length_policy).has_value() &&
+                   curve2.cumulative_arc_length_enclosure(
+                       0.5, length_policy).has_value() &&
+                   curve3.cumulative_arc_length_enclosure(
+                       0.5, length_policy).has_value()
                ? 0
                : 1;
 }
