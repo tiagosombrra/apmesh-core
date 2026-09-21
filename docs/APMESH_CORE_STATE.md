@@ -252,8 +252,8 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Validate and integrate Certified Global Cubic Regularity by Bernstein
-Speed-Squared Enclosure, then close its work-unit checkpoint.**
+**Integrate Certified Global Cubic Regularity by Bernstein Speed-Squared
+Enclosure, then close its work-unit checkpoint.**
 
 Implementation branch:
 `curve/global-cubic-regularity-certification`.
@@ -273,16 +273,22 @@ Scientific boundary remains unchanged:
 - no curve discretization;
 - no quadrilateral or parallel capability.
 
-Result before CI:
-**IMPLEMENTED / VALIDATION PENDING / NOT QUALIFIED.**
+Validation:
+
+- PR #57 FAST `35549795835`: PASS;
+- PR #57 INTEGRATION `35549795743`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Current result:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION IMPLEMENTED /
-GLOBAL REGULARITY IMPLEMENTED / VALIDATION PENDING /
-NOT QUALIFIED**
+GLOBAL REGULARITY IMPLEMENTED / FOCUSED CONTRACTS PASS /
+VALIDATED_UNMERGED / NOT QUALIFIED**
 
 Current completed work unit:
 
