@@ -698,3 +698,37 @@ implementation according to
 `docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
 
 Formal preparation dispatch and formal execution remain unauthorized.
+
+## 31. Formal campaign infrastructure validation
+
+The formal campaign infrastructure is implemented on
+`curve/cgr-formal-campaign-infrastructure` according to
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
+
+The implementation preserves the Section 4 frozen semantic baseline and reuses
+the report-only plan authority. It adds no alternate scientific matrix or
+semantic allowlist.
+
+Formal tooling runs `35613409036` and `35613745665` passed in GCC 13
+Debug and Clang 18/libc++ Debug across the exact eight-contract inventory:
+
+- report-only evidence;
+- report-only runner;
+- report-only tooling workflow;
+- formal lifecycle runner;
+- preparation-only workflow;
+- reusable executor;
+- authorization record;
+- authorization controller.
+
+The synthetic lifecycle verifies the exact 56-command / 112-log /
+eight-semantic-repetition / 112-individual-semantic-test / eight-certificate
+shape while leaving CGR0–CGR7 outside formal execution as `NOT_EXECUTED`.
+
+No real PREPARED package, authorization record, claim, terminal package or CGR
+gate result is created by this infrastructure phase.
+
+After integration and checkpoint closure, one formal PREPARED dispatch from
+canonical clean `main` is permitted. The resulting artifact must receive an
+independent **PASS / PREPARED / NOT EXECUTED** audit before any authorization
+or formal execution becomes admissible.
