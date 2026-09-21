@@ -677,3 +677,24 @@ execution.
 
 After its integration and checkpoint closure, only formal campaign
 infrastructure implementation is permitted.
+
+## 30. Formal PREPARED lifecycle design integration checkpoint
+
+PR #77 integrated the PREPARED lifecycle design as
+`7ff5c6e5f52f9f5bd8153d00856239649aac0eff`.
+
+Validation:
+
+- PR FAST `35604864218`: PASS;
+- PR INTEGRATION `35604864050`: PASS;
+- post-merge FAST `35604986634`: PASS;
+- post-merge INTEGRATION `35604986654`: PASS.
+
+The design checkpoint is closed. No formal PREPARED package, authorization,
+claim, terminal package or CGR gate result exists.
+
+The sole permitted continuation is formal campaign infrastructure
+implementation according to
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
+
+Formal preparation dispatch and formal execution remain unauthorized.
