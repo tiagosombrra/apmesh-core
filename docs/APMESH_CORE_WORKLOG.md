@@ -197,54 +197,60 @@ writing.
   or formal execution.
 - `docs/cgr-formal-infrastructure-closure`: **CLOSURE-ONLY**; records PR #79
   integration, exact-tree identity, and post-merge validation.
-- `docs/cgr-prepared-audit-pass`: **ACTIVE / VALIDATED_UNMERGED**;
+- `docs/cgr-prepared-audit-pass`: **MERGED / HISTORICAL** via PR #81;
   independent audit of the first formal CGR PREPARED package only.
+- `docs/cgr-prepared-audit-closure`: **CLOSURE-ONLY**; records PR #81
+  integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Integrate the first formal CGR PREPARED-package audit —
-VALIDATED_UNMERGED.**
+**None. The first formal CGR PREPARED-package audit is closed.**
 
-Active branch: `docs/cgr-prepared-audit-pass`.
+Closure evidence:
 
-Audited preparation:
-
-1. workflow run `35620525792`, event `workflow_dispatch`, branch `main`;
-2. candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
-3. artifact `10649325906`,
-   `cgr-prepared-f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
-4. artifact ZIP SHA-256
-   `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`;
-5. prepared-manifest SHA-256
+1. preparation run `35620525792` produced the sealed PREPARED package for
+   candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+2. audit decision: **PASS / PREPARED / NOT EXECUTED**;
+3. audit PR #81 merged as
+   `988d0877d78ccd0c1ed4d368a802a8a4cad28d7b`;
+4. PR #81 FAST `35629544372`: PASS;
+5. PR #81 INTEGRATION `35629544344`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+6. post-merge FAST `35629633009`: PASS;
+7. post-merge INTEGRATION `35629632897`: PASS in both cells;
+8. prepared-manifest SHA-256 remains
    `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
-6. preparation-seal SHA-256
-   `686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`;
-7. exact seven-file PREPARED archive and no execution/terminal evidence;
-8. complete source inventory: 1595 paths exactly matching the 1595-blob GitHub
-   candidate tree, path-list SHA-256
-   `46b39d68c68f8f580f4c1c61a08ee3014c834ecccb08a3b9e7d5e80a498b8b69`;
-9. 18/18 critical input hashes independently matched the exact candidate;
-10. 11/11 frozen curve-semantic files match semantic baseline
-    `438620efa1f93d29b442e9ba199882a09d2359d9`;
-11. all four admitted cloud observations PASS;
-12. exact formal plan: 56 command records, 112 command logs, eight semantic
-    repetitions, 112 individual semantic tests, eight certificate slots;
-13. lifecycle `PREPARED`, `execution_requested=false`, CGR0–CGR7 all
-    `NOT_EXECUTED`.
+9. no execution authorization, claim, command records or terminal package
+   exists for this CGR campaign.
 
-Audit decision: **PASS / PREPARED / NOT EXECUTED.**
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this preparation audit is merged, post-merge FAST/INTEGRATION pass, and
-the audit checkpoint is closed, create one separate exact `EXECUTE_ONCE`
-authorization-record PR containing only the manifest-bound CGR authorization
-JSON for prepared-manifest SHA-256:
+Create one separate exact `EXECUTE_ONCE` authorization-record PR containing
+only:
 
-`201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`.
+`experiments/authorizations/continuous-curve-geometry-regression-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd.json`
 
-That future PR must contain no other repository change. Its merge to protected
-`main` will be the formal one-shot CGR execution authorization event.
+The record must bind exactly:
+
+- candidate `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+- preparation run `35620525792`;
+- artifact ID `10649325906`;
+- artifact SHA-256
+  `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`;
+- prepared-manifest SHA-256
+  `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
+- preparation-seal SHA-256
+  `686c5192f5373c42e54339fdd38519e62ebef009dc74ae927c34fe97919b5353`;
+- machine-readable preparation audit
+  `docs/audits/2026-09-21-continuous-curve-geometry-regression-preparation-audit.json`;
+- execution workflow
+  `.github/workflows/continuous-curve-geometry-regression-execute.yml`;
+- `terminal_audit_required=true`.
+
+The PR must contain no other repository change. Its merge to protected `main`
+will be the formal one-shot CGR execution authorization event.
 
