@@ -250,36 +250,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after regression-protocol integration:
+Exact next bounded scientific action:
 
 **Implement only the report-only Continuous Curve Geometry Regression tooling
 required by the pre-registered CGR0–CGR7 protocol.**
 
-Protocol under review:
+Protocol authority:
 `docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
 
-Pre-registered regression shape:
+Protocol integration evidence:
 
-- semantic baseline:
+- PR #73 merged as
+  `af580a9358428e1607c77f7557355595a0a7c45c`;
+- PR FAST `35598147692`: PASS;
+- PR INTEGRATION `35598147572`: PASS;
+- post-merge FAST `35598248171`: PASS;
+- post-merge INTEGRATION `35598248036`: PASS.
+
+Pre-registered formal shape remains:
+
+- semantic baseline
   `438620efa1f93d29b442e9ba199882a09d2359d9`;
 - four admitted cloud cells;
 - two repetitions per cell;
 - exact fourteen-test semantic allowlist;
-- 56 planned command records;
+- 56 command records;
 - 112 command logs;
-- eight curve scientific certificates;
+- eight certificates;
 - 112 individual semantic test executions;
-- analytic/reference and metamorphic curve evidence;
-- deterministic derived regression data/figures;
-- CGR0–CGR7 independent scientific gates.
+- deterministic derived data/figures;
+- CGR0–CGR7 independent terminal audit.
 
-This documentation-only decision does not create tooling, a PREPARED package,
-an authorization or a formal execution.
+Curve Representation remains stage-unqualified. The next work is tooling only;
+formal preparation/execution and physical boundary discretization remain
+blocked.
 
-Curve Representation remains:
-**IN INVESTIGATION / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED.**
-
-Physical boundary discretization remains blocked.
 
 
 ## Current active stage
@@ -287,7 +292,7 @@ Physical boundary discretization remains blocked.
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL REGULARITY +
 CERTIFIED TOTAL + CUMULATIVE + INVERSE ARC LENGTH IMPLEMENTED /
-FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL UNDER REVIEW /
+FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED /
 STAGE UNQUALIFIED**
 
 Current completed work unit:
