@@ -197,39 +197,44 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Formal CGR PREPARED lifecycle design is closed.**
+**Implement formal Continuous Curve Geometry Regression campaign
+infrastructure — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/cgr-formal-campaign-infrastructure`.
 
-1. preparation-design PR #77 merged as
-   `7ff5c6e5f52f9f5bd8153d00856239649aac0eff`;
-2. PR FAST `35604864218`: PASS;
-3. PR INTEGRATION `35604864050`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-4. post-merge FAST `35604986634`: PASS;
-5. post-merge INTEGRATION `35604986654`: PASS in both declared cells;
-6. the decision remains design-only and created no PREPARED package,
-   authorization, claim, execution or CGR gate result;
-7. report-only CGR planning remains the scientific plan authority;
-8. formal execution remains unauthorized.
+Authority:
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`.
 
-No work item is active.
+Authorized implementation scope:
+
+1. formal runner
+   `tools/run_continuous_curve_geometry_campaign.py`;
+2. preparation-only workflow;
+3. reusable one-shot execution workflow;
+4. repository-resident authorization validator/controller;
+5. formal runner/preparation/execution/authorization focused contracts;
+6. formal-infrastructure validation workflow and CMake opt-in registration;
+7. infrastructure audit plus synchronized STATE/ROADMAP/WORKLOG/protocol.
+
+Mandatory invariants:
+
+- reuse the report-only CGR scientific plan;
+- preserve all eleven frozen semantic files;
+- preserve 56 commands / 112 logs / 8 certificates / 112 semantic tests;
+- seal the future executor and authorization path before preparation;
+- keep CGR0–CGR7 `NOT_EXECUTED` outside formal execution;
+- do not dispatch preparation;
+- do not create a formal PREPARED package;
+- do not add `EXECUTE_ONCE`;
+- do not create a claim;
+- do not execute the formal campaign.
 
 ## Next admissible work item after closure
 
-Implement only the formal CGR campaign infrastructure defined by
-`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PREPARATION_DECISION.md`:
+After this formal-infrastructure implementation is merged, its focused formal
+tooling workflow and ordinary post-merge checks pass, and the infrastructure
+checkpoint is closed, dispatch exactly one formal **CGR PREPARED** package from
+canonical clean `main`, then stop for independent PREPARED audit.
 
-- `tools/run_continuous_curve_geometry_campaign.py`;
-- preparation-only workflow;
-- reusable one-shot execution workflow;
-- repository-resident authorization validator/controller;
-- focused preparation/execution/retention/authorization contracts;
-- mapping/audit documentation.
-
-The implementation must preserve the report-only scientific plan and all frozen
-semantic files.
-
-It must not dispatch formal preparation, create a PREPARED package, add an
-`EXECUTE_ONCE` record, create a claim or execute the formal campaign.
+No execution authorization is admissible before that independent audit.
 
