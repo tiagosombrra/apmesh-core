@@ -832,7 +832,7 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 ### Curve Representation — Continuous Geometry Before Discretization
 
 Status: `IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION + GLOBAL
-REGULARITY IMPLEMENTED / ARC-LENGTH DECISION ACTIVE / FOCUSED CONTRACTS PASS /
+REGULARITY IMPLEMENTED / ARC-LENGTH DECISION INTEGRATED / FOCUSED CONTRACTS PASS /
 STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
@@ -1015,6 +1015,14 @@ explicit conservative enclosure.
 
 No physical discretization, curvature, surface, quadrilateral or parallel
 capability is admitted by this decision.
+
+PR #59 integrated the Arc Length and Parameter Mapping decision as
+`65cd93818fa54eac00c6f63ebefa3615074a82cd`. PR FAST
+`35551687273`, PR INTEGRATION `35551687243`, post-merge FAST
+`35551746429`, and post-merge INTEGRATION `35551746412` passed. The
+decision checkpoint is closed. The sole next work item is implementation of
+**Certified Cubic Bézier Total Arc-Length Enclosure**; cumulative/inverse
+parameter mapping remains blocked.
 
 #### Continuous Curve Geometry Regression
 
