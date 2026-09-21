@@ -1,6 +1,6 @@
 # Global Cubic Regularity Certification — Bounded Decision
 
-Status: BOUNDED DECISION / IMPLEMENTATION NOT STARTED
+Status: DECISION INTEGRATED / IMPLEMENTATION NOT STARTED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -384,3 +384,22 @@ and its focused interval-enclosure/regularity contracts.
 
 Arc Length and Parameter Mapping remains blocked until this regularity work
 unit is separately integrated, validated and closed.
+
+
+## Integration checkpoint
+
+PR #55 integrated this bounded decision as
+`224c8ab530f88475c2d8281cb60682a7c0db851a`.
+
+Validation:
+
+- PR FAST `35549162022`: PASS;
+- PR INTEGRATION `35549161971`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35549240099`: PASS;
+- post-merge INTEGRATION `35549240093`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+The decision checkpoint is closed. The sole permitted continuation is the
+bounded implementation of **Certified Global Cubic Regularity by Bernstein
+Speed-Squared Enclosure** and its focused contracts.

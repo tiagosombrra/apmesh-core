@@ -937,7 +937,7 @@ speed sampling.
 
 #### Global Cubic Regularity Certification
 
-Status: `DECISION APPROVED / IMPLEMENTATION NOT STARTED`
+Status: `DECISION INTEGRATED / IMPLEMENTATION NOT STARTED`
 
 Authority:
 `docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`.
@@ -955,6 +955,14 @@ floating enclosure may only produce `indeterminate`.
 Sampling, speed epsilon, general root solving, public interval arithmetic,
 arc-length integration, curvature, discretization and parallel execution remain
 excluded.
+
+
+PR #55 integrated the bounded decision as
+`224c8ab530f88475c2d8281cb60682a7c0db851a`. PR FAST
+`35549162022`, PR INTEGRATION `35549161971`, post-merge FAST
+`35549240099`, and post-merge INTEGRATION `35549240093` passed. The
+decision checkpoint is closed; implementation of the bounded certifier is now
+the sole next work item.
 
 #### Arc Length and Parameter Mapping
 
