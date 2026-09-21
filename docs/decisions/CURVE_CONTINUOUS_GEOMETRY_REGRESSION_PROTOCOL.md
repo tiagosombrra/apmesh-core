@@ -587,3 +587,42 @@ Validation:
 
 No production curve semantic file changed and no formal qualification campaign
 occurred. The next permitted work item is report-only CGR tooling only.
+
+## 27. Report-only tooling implementation record
+
+The report-only tooling required by Section 22 is implemented on
+`curve/continuous-geometry-regression-tooling`.
+
+Audit authority:
+
+`docs/audits/2026-09-21-continuous-curve-geometry-regression-tooling-audit.md`.
+
+The tooling implements:
+
+- the closed four-cell × two-repetition CGR profile;
+- the exact fourteen-test semantic allowlist;
+- curve scientific certificate export;
+- independent analytic/metamorphic evidence validation;
+- same-cell scientific-projection equality and cross-cell categorical/numeric
+  relation validation;
+- real fail-closed negative/adversarial evidence;
+- deterministic CSV/JSON/SVG derived evidence;
+- report-only plan/simulation of the exact 56-command / 112-log / eight-
+  certificate / 112-semantic-test shape;
+- focused GCC 13 Debug and Clang 18/libc++ Debug tooling contracts.
+
+Final focused tooling run `35601303879` passed in both declared tooling
+cells.
+
+All eleven Section 4 semantic files remain byte-identical to baseline
+`438620efa1f93d29b442e9ba199882a09d2359d9`.
+
+The report-only runner exposes no `prepare` or `execute` command and all
+CGR0–CGR7 gates remain `NOT_EXECUTED`.
+
+This implementation record does not authorize formal preparation or execution
+by itself. After tooling integration, ordinary post-merge validation, and
+tooling-checkpoint closure, the next permitted work item is one separate formal
+preparation design / PREPARED-package phase. Formal execution remains blocked
+until a future PREPARED package is independently audited and separately
+authorized.
