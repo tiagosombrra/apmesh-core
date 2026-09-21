@@ -95,6 +95,8 @@ writing.
 | Corrected terminal scientific audit | VALIDATED_UNMERGED / PASS | `docs/tmr-corrected-terminal-audit-pass` | TMR0–TMR7 independently recomputed PASS; 56 command records; eight semantic repetitions; eight byte-identical certificates; exact retention | integration pending; qualification scoped to admitted cloud environment |
 | TMR tooling-contract correction | SUPERSEDED | `topology/tmr-tooling-contract-correction` | historical focused run `35515277674` PASS | superseded by later integrated tooling lineage |
 
+| Curve Representation entry decision | ACTIVE / DOCUMENTATION-ONLY | `curve/representation-entry-decision` | literature review + bounded cubic Bézier value/evaluation decision; no production curve code | first curve implementation blocked until integration/closure |
+
 ## Relevant branch classification
 
 - `ci/tmr-preparation-workflow-simplification`: **MERGED / HISTORICAL** via
