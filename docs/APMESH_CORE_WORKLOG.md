@@ -185,47 +185,48 @@ writing.
   via PR #70; Work Unit 2B implementation only.
 - `docs/curve-inverse-bracketing-closure`: **CLOSURE-ONLY**; records
   Work Unit 2B integration and post-merge validation.
+- `curve/continuous-geometry-regression-decision`: **MERGED / HISTORICAL**
+  via PR #73; CGR0–CGR7 stage-exit protocol only.
+- `docs/curve-cgr-protocol-closure`: **CLOSURE-ONLY**; records PR #73
+  integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Continuous Curve Geometry Regression — PRE-REGISTRATION DECISION — ACTIVE /
-DOCUMENTATION-ONLY.**
+**None. Continuous Curve Geometry Regression protocol pre-registration is
+closed.**
 
-Active branch: `curve/continuous-geometry-regression-decision`.
+Closure evidence:
 
-Purpose:
+1. protocol PR #73 merged as
+   `af580a9358428e1607c77f7557355595a0a7c45c`;
+2. PR FAST `35598147692`: PASS;
+3. PR INTEGRATION `35598147572`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+4. post-merge FAST `35598248171`: PASS;
+5. post-merge INTEGRATION `35598248036`: PASS in both declared cells;
+6. the frozen semantic baseline remains
+   `438620efa1f93d29b442e9ba199882a09d2359d9`;
+7. the protocol is documentation-only and no report-only tooling, PREPARED
+   package, authorization, claim or formal qualification execution has yet
+   occurred.
 
-Freeze the Curve Representation stage-exit scientific protocol before any
-stage-level regression runner, certificate exporter, preparation workflow or
-formal execution exists.
-
-The decision must pre-register:
-
-1. exact stage claims and explicit nonclaims;
-2. exact prerequisite + curve semantic CTest allowlist;
-3. four admitted cloud cells and two repetitions per cell;
-4. exact repetition-scoped execution semantics;
-5. machine-readable curve certificate schema and scientific projection;
-6. analytic/reference and metamorphic invariants;
-7. negative/adversarial evidence requirements;
-8. prerequisite preservation and dependency isolation;
-9. CGR0–CGR7 scientific gates;
-10. evidence retention, independent audit and one-shot formal execution rules;
-11. stage decision effect on PASS/BLOCKED/FAIL.
-
-No production curve behavior, qualification runner or formal campaign belongs
-to this documentation-only work item.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After the Continuous Curve Geometry Regression protocol is merged,
-FAST/INTEGRATION pass, and its decision checkpoint is closed, implement only
-the **report-only Curve Representation cumulative-regression tooling** required
-by the protocol: exporter/certificate validator, runner, negative contracts and
-focused static/runtime tooling tests.
+Implement only the **report-only Continuous Curve Geometry Regression tooling**
+required by the pre-registered protocol:
 
-Formal PREPARED packaging and any execution authorization remain separate later
-work items.
+- curve scientific certificate exporter;
+- independent certificate/evidence validator;
+- cumulative-regression runner;
+- negative-evidence generator/validator;
+- deterministic regression-data and SVG derivation;
+- focused runtime/static tooling contracts.
+
+The tooling work item must not modify any frozen semantic file from protocol
+Section 4. It must not create a formal PREPARED package, execution
+authorization, claim or stage qualification campaign.
 

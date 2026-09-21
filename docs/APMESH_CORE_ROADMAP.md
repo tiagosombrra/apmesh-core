@@ -832,7 +832,7 @@ Stage exit gate: canonical synthetic models reproduce declared topology exactly 
 ### Curve Representation — Continuous Geometry Before Discretization
 
 Status: `IN INVESTIGATION / ALL ADMITTED CONTINUOUS-CURVE WORK UNITS
-IMPLEMENTED / FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL UNDER REVIEW /
+IMPLEMENTED / FOCUSED CONTRACTS PASS / CGR0–CGR7 PROTOCOL PRE-REGISTERED /
 STAGE UNQUALIFIED`
 
 Goal: certify continuous curve representation independent of meshing.
@@ -1129,13 +1129,13 @@ the separate cumulative/inverse decision above.
 
 #### Continuous Curve Geometry Regression
 
-Status: **PROPOSED / UNDER REVIEW / DOCUMENTATION-ONLY / NO FORMAL EXECUTION
-AUTHORIZED** on `curve/continuous-geometry-regression-decision`.
+Status: **PRE-REGISTERED / DOCUMENTATION-ONLY / NO FORMAL EXECUTION
+AUTHORIZED**.
 
-Protocol authority under review:
+Protocol authority:
 `docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
 
-The proposed stage-exit regression fixes the following prospective requirements:
+The pre-registered stage-exit regression fixes:
 
 - rerun the exact fourteen-test prerequisite + curve semantic allowlist;
 - execute four admitted cloud cells × two repetitions;
@@ -1155,6 +1155,13 @@ Stage exit gate: Curve Representation is qualified only if CGR0–CGR7 all PASS
 after one separately prepared and authorized formal campaign. Physical
 boundary discretization remains blocked until that qualification is integrated
 and closed.
+
+PR #73 integrated the protocol as
+`af580a9358428e1607c77f7557355595a0a7c45c`. PR FAST
+`35598147692`, PR INTEGRATION `35598147572`, post-merge FAST
+`35598248171`, and post-merge INTEGRATION `35598248036` passed. The
+protocol checkpoint is closed. The sole next bounded work is report-only CGR
+tooling; formal preparation/execution remains deferred.
 
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
