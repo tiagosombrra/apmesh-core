@@ -1055,7 +1055,10 @@ post-merge INTEGRATION `35581291965` passed. The decision checkpoint is
 closed.
 
 Work Unit 2A — Certified Cumulative Arc-Length Enclosure is now the sole
-authorized implementation work item. Work Unit 2B remains blocked.
+authorized implementation work item. It is ACTIVE on
+`curve/cumulative-arc-length-enclosure`, bounded to conservative forward
+prefix-length evidence and reuse/refactor of the integrated certified
+total-length core. Work Unit 2B remains blocked.
 
 Gauss–Kronrod remains diagnostic/reference-only at this stage: its nested-rule
 difference is an error estimate, whereas the first work unit requires an
