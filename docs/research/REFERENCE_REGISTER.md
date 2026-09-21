@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-19
+Last updated: 2026-09-21
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
