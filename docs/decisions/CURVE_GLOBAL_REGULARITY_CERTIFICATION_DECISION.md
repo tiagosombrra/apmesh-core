@@ -1,6 +1,6 @@
 # Global Cubic Regularity Certification — Bounded Decision
 
-Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / STAGE UNQUALIFIED
+Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -429,3 +429,22 @@ Debug and Clang 18/libc++ Debug.
 The candidate is therefore **IMPLEMENTED / FOCUSED CONTRACTS PASS /
 VALIDATED_UNMERGED / NOT QUALIFIED**. Stage qualification remains a later
 separate work item.
+
+
+## Implementation closure
+
+PR #57 integrated the bounded certifier as
+`e0830b19e760b0e08162bb08c93b0462b60c1191`.
+
+Validation:
+
+- final PR FAST `35549866348`: PASS;
+- final PR INTEGRATION `35549866244`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35549946614`: PASS;
+- post-merge INTEGRATION `35549946583`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+The work unit is closed at **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / NOT QUALIFIED**. The next permitted work is the separate Arc
+Length and Parameter Mapping decision.
