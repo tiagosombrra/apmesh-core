@@ -1,6 +1,6 @@
 # Global Cubic Regularity Certification — Bounded Decision
 
-Status: IMPLEMENTED / VALIDATION PENDING / STAGE UNQUALIFIED
+Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / STAGE UNQUALIFIED
 Date: 2026-09-20
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Prerequisites:
@@ -423,5 +423,9 @@ The bounded candidate implements the decision without expanding scope:
   quartic subdivision and the scientific/adversarial regularity cases;
 - curve header-isolation coverage is extended.
 
-The candidate remains **NOT QUALIFIED**. PR FAST/INTEGRATION validation is
-required before it may be integrated.
+PR #57 FAST `35549795835` and INTEGRATION `35549795743` passed in GCC 13
+Debug and Clang 18/libc++ Debug.
+
+The candidate is therefore **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+VALIDATED_UNMERGED / NOT QUALIFIED**. Stage qualification remains a later
+separate work item.
