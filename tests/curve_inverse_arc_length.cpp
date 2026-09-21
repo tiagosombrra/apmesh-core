@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <expected>
 #include <limits>
+#include <numeric>
 #include <string_view>
 
 namespace {
