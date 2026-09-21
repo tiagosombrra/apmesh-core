@@ -1,6 +1,7 @@
 #include "apmesh/geometry/curve.hpp"
 
-#include <algorithm>\n#include <cmath>
+#include <algorithm>
+#include <cmath>
 #include <cstdio>
 #include <expected>
 #include <limits>
