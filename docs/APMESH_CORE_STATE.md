@@ -250,36 +250,35 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after regularity-decision integration:
 
-**Open one separate bounded decision for Global Cubic Regularity Certification.**
+**Implement Certified Global Cubic Regularity by Bernstein Speed-Squared
+Enclosure and its focused contract.**
 
-Cubic Bézier Differential Evaluation and Pointwise Speed is integrated and
-closed.
+Decision authority:
 
-Integration evidence:
+`docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`
 
-- PR #52 merged as
-  `1b1da2893168e5f3da3fb98595809d7210f49f6b`;
-- final PR FAST `35544348814`: PASS;
-- final PR INTEGRATION `35544348767`: PASS;
-- post-merge FAST `35544417439`: PASS;
-- post-merge INTEGRATION `35544417474`: PASS.
+The method certifies the complete parameter interval through conservative
+Bernstein enclosures of `s(t)=||B'(t)||^2`, recursively subdivided until each
+leaf has a strictly positive lower coefficient bound or the explicit resource
+policy is exhausted.
 
-The curve stage now has deterministic value evaluation, analytic first/second
-derivatives and pointwise speed. It still has no interval-wide proof that
-`B'(t)` is nonzero everywhere.
+Only complete positivity may return `regular`. Exact admitted singular
+witnesses may return `degenerate`; all unresolved cases return
+`indeterminate`.
 
-The next decision must separate exact/complete regularity certification from
-sampling and must not introduce arc length, curvature, discretization,
-quadrilateral or parallel execution.
+No sampling/epsilon regularity claim, general polynomial root solver, arc
+length, curvature, discretization, quadrilateral or parallel execution is
+authorized.
 
 
 ## Current active stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
 IN INVESTIGATION / CUBIC VALUE + DIFFERENTIAL EVALUATION IMPLEMENTED /
-FOCUSED CONTRACTS PASS / NOT QUALIFIED**
+GLOBAL REGULARITY DECISION APPROVED / FOCUSED CONTRACTS PASS /
+NOT QUALIFIED**
 
 Current completed work unit:
 
