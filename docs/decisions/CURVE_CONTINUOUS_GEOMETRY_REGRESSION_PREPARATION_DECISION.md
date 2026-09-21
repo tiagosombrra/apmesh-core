@@ -500,3 +500,35 @@ exists.
 Exactly one formal preparation may now be dispatched from canonical clean
 `main`. The resulting PREPARED artifact must stop for independent audit.
 Formal execution remains unauthorized.
+
+## 20. First formal PREPARED package audit
+
+The first formal preparation was dispatched exactly once on canonical
+`main` as workflow run `35620525792`, candidate
+`f7dc8d82d881858b6481d6d2d1383d8a561684c5`.
+
+Retained artifact:
+
+- ID `10649325906`;
+- name `cgr-prepared-f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
+- ZIP SHA-256
+  `952cadc3d5cc761105d5100319cf24077cd9b0ac5d0a42000a8ae1e3eac91063`.
+
+Independent audit authority:
+
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-preparation-audit.md`;
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-preparation-audit.json`.
+
+Audit decision: **PASS / PREPARED / NOT EXECUTED**.
+
+The audit independently verifies the exact seven-file package, preparation
+seal, complete 1595-path candidate inventory, all 18 critical inputs, all 11
+frozen semantic files, all four cloud observations, and the pre-registered
+56-command / 112-log / eight-repetition / 112-semantic-test /
+eight-certificate plan. CGR0–CGR7 remain `NOT_EXECUTED`.
+
+This audit does not authorize execution. After audit integration and checkpoint
+closure, the sole permitted continuation is a separate exact one-file
+`EXECUTE_ONCE` authorization for prepared-manifest SHA-256
+`201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`.
+
