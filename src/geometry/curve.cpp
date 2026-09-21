@@ -212,6 +212,16 @@ template <typename Vector>
 
 constexpr std::size_t maximum_supported_regularity_depth = 64;
 
+
+[[nodiscard]] std::expected<void, CurveRegularityError> validate_regularity_policy(
+    const CurveRegularityPolicy& policy) noexcept {
+    if (policy.max_processed_nodes == 0 ||
+        policy.max_subdivision_depth > maximum_supported_regularity_depth) {
+        return std::unexpected{CurveRegularityError::invalid_policy};
+    }
+    return {};
+}
+
 template <std::size_t Dimension>
 using DerivativeIntervalControls =
     std::array<detail::IntervalVector<Dimension>, 3>;
@@ -324,11 +334,6 @@ certify_regularity_impl(
     const std::array<Point, 4>& points,
     const DerivativeIntervalControls<Dimension>& derivative_controls,
     const CurveRegularityPolicy& policy) noexcept {
-    if (policy.max_processed_nodes == 0 ||
-        policy.max_subdivision_depth > maximum_supported_regularity_depth) {
-        return std::unexpected{CurveRegularityError::invalid_policy};
-    }
-
     if (points[1] == points[0] || points[3] == points[2]) {
         return CurveRegularityEvidence{
             .result = CurveRegularityResult::degenerate,
@@ -439,6 +444,10 @@ std::expected<double, CurveError> CubicBezier2::speed(
 std::expected<CurveRegularityEvidence, CurveRegularityError>
 CubicBezier2::certify_regularity(
     const CurveRegularityPolicy& policy) const noexcept {
+    const auto valid_policy = validate_regularity_policy(policy);
+    if (!valid_policy) {
+        return std::unexpected{valid_policy.error()};
+    }
     const auto controls = derivative_interval_controls(control_points_);
     if (!controls) {
         return std::unexpected{controls.error()};
@@ -490,6 +499,10 @@ std::expected<double, CurveError> CubicBezier3::speed(
 std::expected<CurveRegularityEvidence, CurveRegularityError>
 CubicBezier3::certify_regularity(
     const CurveRegularityPolicy& policy) const noexcept {
+    const auto valid_policy = validate_regularity_policy(policy);
+    if (!valid_policy) {
+        return std::unexpected{valid_policy.error()};
+    }
     const auto controls = derivative_interval_controls(control_points_);
     if (!controls) {
         return std::unexpected{controls.error()};
