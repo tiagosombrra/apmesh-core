@@ -177,42 +177,48 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Cumulative Arc-Length Mapping and Certified Inverse Bracketing decision
-checkpoint is closed.**
+**Work Unit 2A — Certified Cumulative Arc-Length Enclosure — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/cumulative-arc-length-enclosure`.
 
-1. decision authority:
-   `docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`;
-2. decision PR #63 FAST `35581198802`: PASS;
-3. decision PR #63 INTEGRATION `35581198681`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-4. PR #63 squash-merged as
-   `32428d29407949f058d44bf2dfdcab59600714c1`;
-5. post-merge FAST `35581291836`: PASS;
-6. post-merge INTEGRATION `35581291965`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. no mapping production code was introduced by the decision;
-8. Work Unit 2A is now authorized;
-9. Work Unit 2B remains blocked.
+Authority:
+`docs/decisions/CURVE_CUMULATIVE_ARC_LENGTH_INVERSE_BRACKETING_DECISION.md`.
 
-No work item is active.
+Authorized implementation scope:
+
+1. conservative cumulative prefix length
+   `S(t)=length(B|[0,t])` for `t in [0,1]`;
+2. finite lower/upper enclosure plus existing convergence/resource evidence;
+3. exact `t=0 -> [0,0]`;
+4. `t=1` scientifically equivalent to total-length evidence under the same
+   policy;
+5. reuse/refactor of the existing certified total-length core;
+6. certified private prefix construction from the exact represented binary64
+   control data;
+7. explicit invalid-parameter/policy/numeric failure;
+8. focused 2D/3D analytic/adversarial evidence required by the integrated
+   decision;
+9. preservation of all current curve/prerequisite contracts;
+10. serial deterministic execution only.
+
+Explicitly blocked:
+
+- inverse arc-length mapping;
+- fraction/target-length to parameter;
+- lookup/cached sampling tables;
+- root solving;
+- physical sampling/equal-length points;
+- public subdivision;
+- surfaces/discretization/meshing;
+- Quad-Dominant work;
+- parallel execution.
 
 ## Next admissible work item after closure
 
-Implement only:
+After Work Unit 2A is implemented, focused contracts pass, the implementation
+PR is merged, post-merge FAST/INTEGRATION pass, and its checkpoint is closed,
+open one separate decision/implementation transition for **Work Unit 2B —
+Certified Inverse Arc-Length Bracketing**.
 
-**Work Unit 2A — Certified Cumulative Arc-Length Enclosure.**
-
-Implementation must remain inside the integrated decision boundary:
-
-- conservative `S(t)=length(B|[0,t])` enclosure;
-- explicit parameter/policy/resource semantics;
-- certified private prefix construction;
-- reuse/refactor of the existing certified total-length core;
-- focused analytic/adversarial 2D/3D evidence;
-- no inverse mapping.
-
-Work Unit 2B — Certified Inverse Arc-Length Bracketing remains blocked until 2A
-is implemented, validated, integrated and closed.
+Work Unit 2B remains blocked during this branch.
 
