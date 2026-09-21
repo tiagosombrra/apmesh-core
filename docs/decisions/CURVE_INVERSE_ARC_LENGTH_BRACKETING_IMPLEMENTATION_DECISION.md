@@ -1,7 +1,7 @@
 # Curve Representation — Work Unit 2B Certified Inverse Arc-Length Bracketing
 
-Status: IMPLEMENTATION DECISION INTEGRATED / IMPLEMENTATION COMPLETE /
-FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED
+Status: IMPLEMENTATION COMPLETE / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSED / NOT QUALIFIED
 Date: 2026-09-21
 Stage: Curve Representation — Continuous Geometry Before Discretization
 Parent authority:
@@ -493,3 +493,26 @@ Result:
 After integration and closure, pre-register the Continuous Curve Geometry
 Regression. Physical discretization remains blocked until that stage-level
 regression qualifies Curve Representation.
+
+## 21. Implementation integration and closure
+
+PR #70 integrated the bounded implementation as
+`a82fa1c96fc6665e586753d5e4eb698012a79be3`.
+
+Validation:
+
+- final PR FAST `35594075619`: PASS;
+- final PR INTEGRATION `35594075595`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35594160853`: PASS;
+- post-merge INTEGRATION `35594160817`: PASS.
+
+The Work Unit 2B checkpoint is closed.
+
+Final work-unit result:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
+
+The next admissible work is documentation-only pre-registration of the
+Continuous Curve Geometry Regression. No physical boundary discretization is
+authorized before stage qualification.

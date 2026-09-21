@@ -250,32 +250,34 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after Work Unit 2B integration:
+Exact next bounded scientific action:
 
-**Close Certified Inverse Arc-Length Bracketing, then pre-register the
-Continuous Curve Geometry Regression required to qualify Curve
-Representation.**
+**Pre-register the Continuous Curve Geometry Regression required to qualify
+Curve Representation.**
 
-Work Unit 2B is implemented and validated on
-`curve/certified-inverse-arc-length-bracketing`.
+Work Unit 2B — Certified Inverse Arc-Length Bracketing is integrated and
+closed.
 
-Validation:
+Integration evidence:
 
-- FAST `35593878035`: PASS;
-- INTEGRATION `35593878082`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug.
+- PR #70 merged as
+  `a82fa1c96fc6665e586753d5e4eb698012a79be3`;
+- final PR FAST `35594075619`: PASS;
+- final PR INTEGRATION `35594075595`: PASS;
+- post-merge FAST `35594160853`: PASS;
+- post-merge INTEGRATION `35594160817`: PASS.
 
-The bounded implementation internally certifies same-curve regularity, reuses
-certified total/cumulative arc-length evidence, preserves target uncertainty,
-returns inspectable parameter brackets and refines only through deterministic
-bisection. Ambiguity/resource exhaustion retain the last valid bracket and
-return `indeterminate`.
+Curve Representation now has focused implementation evidence for cubic value
+evaluation, differential evaluation/pointwise speed, global regularity,
+certified total arc length, certified cumulative arc length and certified
+inverse arc-length bracketing.
 
-Status:
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+Status remains:
+**IN INVESTIGATION / FOCUSED CONTRACTS PASS / STAGE UNQUALIFIED.**
 
-Curve Representation remains stage-unqualified. Physical discretization,
-surfaces, Quad-Dominant work and parallel execution remain blocked.
+The next work is stage-level regression design only. Physical boundary
+discretization remains blocked until formal cumulative regression and
+independent scientific audit qualify Curve Representation.
 
 
 ## Current active stage
@@ -293,8 +295,8 @@ FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 Current bounded decision:
 
 **Cumulative Arc-Length Mapping and Certified Inverse Bracketing — DECISION
-APPROVED / INTEGRATED / WORK UNIT 2A CLOSED / WORK UNIT 2B IMPLEMENTED /
-FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED.**
+APPROVED / INTEGRATED / WORK UNIT 2A CLOSED / WORK UNIT 2B CLOSED /
+FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
 
 Work Unit 2A provides conservative cumulative prefix-length evidence for
 `S(t)` using private outward edge-vector de Casteljau construction and the
