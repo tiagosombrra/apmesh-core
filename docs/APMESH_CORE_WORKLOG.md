@@ -189,44 +189,49 @@ writing.
   via PR #73; CGR0–CGR7 stage-exit protocol only.
 - `docs/curve-cgr-protocol-closure`: **CLOSURE-ONLY**; records PR #73
   integration and post-merge validation.
+- `curve/continuous-geometry-regression-tooling`: **ACTIVE**; report-only
+  CGR exporter/validator/runner/negative/derived-evidence tooling only; no
+  PREPARED package or formal execution.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Continuous Curve Geometry Regression protocol pre-registration is
-closed.**
+**Continuous Curve Geometry Regression report-only tooling — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/continuous-geometry-regression-tooling`.
 
-1. protocol PR #73 merged as
-   `af580a9358428e1607c77f7557355595a0a7c45c`;
-2. PR FAST `35598147692`: PASS;
-3. PR INTEGRATION `35598147572`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-4. post-merge FAST `35598248171`: PASS;
-5. post-merge INTEGRATION `35598248036`: PASS in both declared cells;
-6. the frozen semantic baseline remains
-   `438620efa1f93d29b442e9ba199882a09d2359d9`;
-7. the protocol is documentation-only and no report-only tooling, PREPARED
-   package, authorization, claim or formal qualification execution has yet
-   occurred.
+Protocol authority:
+`docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`.
 
-No work item is active.
+Authorized scope:
+
+1. add a declarative CGR profile for the exact four-cell × two-repetition
+   matrix and fourteen-test semantic allowlist;
+2. add a curve scientific certificate exporter covering the pre-registered
+   representation/value, differential/speed, regularity, total/cumulative
+   length and inverse-bracketing case families;
+3. add an independent evidence validator with closed certificate schema,
+   analytic/metamorphic recomputation and fail-closed negative handling;
+4. add deterministic regression-data CSV/JSON plus SVG derivation without
+   third-party runtime dependencies;
+5. add a report-only runner that can plan/simulate/validate the exact
+   56-command shape but does not create a formal PREPARED package;
+6. add negative-evidence generation/validation;
+7. add focused synthetic success/failure runner contracts;
+8. add CMake qualification-test registration and a focused CGR tooling workflow
+   for GCC 13 Debug and Clang 18/libc++ Debug;
+9. preserve every frozen semantic file in protocol Section 4 byte-for-byte;
+10. do not create preparation/execution workflows, authorization records,
+    claims, formal evidence packages, or stage-qualification decisions.
 
 ## Next admissible work item after closure
 
-Implement only the **report-only Continuous Curve Geometry Regression tooling**
-required by the pre-registered protocol:
+After report-only CGR tooling is merged, its focused tooling workflow passes in
+both declared tooling cells, ordinary post-merge FAST/INTEGRATION pass, and the
+tooling checkpoint is closed, open one separate **formal preparation design /
+PREPARED-package work item** governed by the CGR0–CGR7 protocol.
 
-- curve scientific certificate exporter;
-- independent certificate/evidence validator;
-- cumulative-regression runner;
-- negative-evidence generator/validator;
-- deterministic regression-data and SVG derivation;
-- focused runtime/static tooling contracts.
-
-The tooling work item must not modify any frozen semantic file from protocol
-Section 4. It must not create a formal PREPARED package, execution
-authorization, claim or stage qualification campaign.
+Formal execution remains unauthorized until a future PREPARED package is
+independently audited and separately authorized.
 
