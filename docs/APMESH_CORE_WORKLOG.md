@@ -158,48 +158,56 @@ writing.
   PR #44; independent second terminal scientific audit, TMR0–TMR7 PASS.
 - `docs/topological-model-qualification-closure`: **CLOSURE-ONLY**; closes
   the qualified Topological Model stage before any Curve Representation entry.
+- `curve/entry-decision`: **ACTIVE**; Curve Representation scientific entry
+  decision only; no production curve implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Topological Model qualification is closed.**
+**Curve Representation — Cubic Bézier Evaluation entry decision — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/entry-decision`.
 
-1. corrected terminal audit PR #44 merged as
-   `bc9c82275fa91d8a756f831ea4af506ab3bbcfa8`;
-2. PR #44 FAST `35534295054`: PASS;
-3. PR #44 INTEGRATION `35534295078`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35534347597`: PASS;
-5. post-merge INTEGRATION `35534347623`: PASS;
-6. authoritative terminal audit records TMR0–TMR7 PASS and overall PASS;
-7. Topological Model is QUALIFIED only in the exact admitted GitHub-hosted
-   Ubuntu 24.04 x86_64 cloud envelope;
-8. Foundation and Geometry qualifications remain intact;
-9. no WSL/cloud equivalence is claimed;
-10. no curve production implementation has begun.
+Purpose:
 
-No work item is active.
+Define the smallest scientifically defensible continuous-curve capability after
+the qualified Topological Model stage and before any derivative, arc-length,
+discretization, surface, or meshing implementation.
+
+Current bounded question:
+
+**Can one immutable cubic Bézier curve in 3D be represented and evaluated on
+the exact closed parameter domain [0,1] with deterministic finite/error
+semantics, endpoint/reversal invariants, affine-consistency evidence, and an
+independent high-precision reference — without importing topology,
+discretization, or later differential geometry?**
+
+Required entry-decision outputs:
+
+1. literature/reference review;
+2. exact admitted mathematical definition and parameter domain;
+3. numeric and error semantics;
+4. explicit exclusions;
+5. focused analytic/adversarial fixture table;
+6. deterministic reversal and representation rules;
+7. prerequisite-preservation boundary;
+8. first implementation work-unit scope;
+9. stop conditions;
+10. later stage-exit regression boundary.
+
+No curve production code is authorized until this decision is merged and its
+checkpoint is closed.
 
 ## Next admissible work item after closure
 
-Open one separate scientific entry-decision work item for:
+After the Curve Representation entry decision is merged, required
+FAST/INTEGRATION checks pass, and its checkpoint is closed, implement exactly
+one bounded work unit:
 
-**Curve Representation — Continuous Geometry Before Discretization.**
+**Cubic Bézier 3D immutable representation and evaluation on [0,1].**
 
-The entry decision must bound the first investigation problem before any
-production implementation. It should define:
-
-1. the exact continuous curve capability admitted first;
-2. explicit exclusions;
-3. analytic/reference evidence requirements;
-4. finite/error semantics;
-5. prerequisite preservation requirements;
-6. deterministic representation and reversal expectations;
-7. the focused contract required before any stage-level qualification tooling;
-8. the later stage-exit regression boundary.
-
-No curve implementation belongs to the closure checkpoint itself.
+Derivatives, regularity, arc length, parameter inversion, adaptive sampling,
+topological curve identity, boundary discretization, surfaces, meshing and
+parallelism remain excluded from that first implementation unit.
 
