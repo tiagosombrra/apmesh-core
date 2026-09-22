@@ -259,71 +259,65 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   authorizes only its mapped implementation as the next work item.
 - `curve/bounded-line-segment`: **MERGED / HISTORICAL** via PR #105;
   bounded 2D/3D directed line-segment representation implementation.
-- `docs/bounded-line-segment-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #105 integration, retained initial mechanical validation failure,
-  corrected final validation, and post-merge evidence.
+- `docs/bounded-line-segment-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #106; records PR #105 integration, retained initial
+  mechanical validation failure, corrected final validation and closure.
+- `curve/rational-quadratic-bezier-decision`: **ACTIVE**;
+  literature-backed second-concrete-family decision only; no production
+  rational-curve implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Directed Line Segment Representation in 2D and 3D is
-integrated and ready for closure.**
+**Second Concrete Curve Family — Rational Quadratic Bézier Decision —
+ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
 
-Implementation closure evidence:
+Active branch:
+`curve/rational-quadratic-bezier-decision`.
 
-1. authority:
-   `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-2. implementation PR #105 merged as
-   `87ced22d033e5478c134aa66c2eef4b6017a4596`;
-3. initial candidate head
-   `043fd98d2162e83a59e4b0b16054e51367551c2d` failed FAST
-   `35720284585` and INTEGRATION `35720284182` during compilation of
-   `tests/line_segment.cpp` because local `Vector2`/`Vector3`
-   using-declarations were missing;
-4. production `src/geometry/line_segment.cpp` compiled in that initial
-   attempt; the failure was retained and corrected only in the focused test;
-5. corrected candidate head
-   `482ea0acd00b51a7bc772935d344008d2797474c` passed FAST
-   `35720421004` and INTEGRATION `35720420984`, 19/19 tests in GCC 13
-   Debug and Clang 18/libc++ Debug;
-6. final documentation-synchronized PR head
-   `abb3d18869cd61b4ea361efc3bdbad215485c5a9` passed FAST
-   `35721616589` and INTEGRATION `35721616596`, 19/19 tests in every
-   required cell;
-7. `apmesh_core.line_segment` passed in every final PR-head validation job;
-8. post-merge FAST `35721779942`: PASS, 19/19 tests;
-9. post-merge INTEGRATION `35721779739`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug, 19/19 tests per cell;
-10. `LineSegment2` and `LineSegment3` satisfy the unchanged common bounded
-    parametric concepts;
-11. the qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved;
-12. no circle/conic, rational/arbitrary-degree Bézier, B-spline, NURBS,
-    composite/trimmed curve or surface capability was introduced.
+Closed line-segment checkpoint:
 
-Result:
+1. implementation closure PR #106 merged as
+   `b435ddbbf93f94741014b26d081dbf5bdbb7c9e6`;
+2. closure PR FAST `35722026674`: PASS;
+3. closure PR INTEGRATION `35722026746`: PASS;
+4. closure post-merge FAST `35722144861`: PASS;
+5. closure post-merge INTEGRATION `35722144806`: PASS;
+6. `LineSegment2/3` remain integrated;
+7. the common parametric contract remains unchanged;
+8. the original cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-**Bounded Directed Line Segment Representation in 2D and 3D — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+Decision question:
 
-No production work item is active on this closure branch.
+**Which concrete family should follow bounded line segments: an analytic
+circle/conic arc, rational/arbitrary-degree Bézier, B-spline, NURBS, or
+composition/trimming?**
+
+Repository-specific constraint:
+
+- the qualified `CartesianFrame2/3` capability admits exact
+  signed-permutation bases and power-of-two scaling only;
+- its qualification explicitly excludes arbitrary-angle rotations;
+- therefore a general analytic 3D circular arc based on an arbitrary oriented
+  plane would require a separate frame/plane decision or a new independent
+  orientation representation.
+
+The decision must compare whether a fixed-degree positive-weight rational
+quadratic Bézier family can provide the next smallest 2D/3D step while
+representing conic segments without introducing knots, periodic parent-curve
+semantics or an arbitrary 3D frame.
+
+This branch may change only documentation/research/decision authorities.
+
+No rational curve, analytic arc, spline, NURBS, composite/trimmed curve,
+surface, discretization, sizing, meshing, Quad-Dominant or parallel production
+implementation is authorized.
 
 ## Next admissible transition
 
-After this closure is integrated and post-merge FAST/INTEGRATION pass, open
-exactly one new literature-backed decision for the next concrete curve family.
+Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision checkpoint closes may exactly one selected implementation
+work item begin.
 
-The decision must freshly compare at minimum:
-
-- bounded circular/conic arc;
-- rational and/or arbitrary-degree Bézier;
-- B-spline;
-- NURBS;
-- composite/trimmed boundary curves where prerequisite ordering matters.
-
-It must account for the now-integrated line-segment family, the future
-`line/arc/Bezier` boundary-discretization regression, exact CAD geometry,
-later surface trimming/boundary needs, implementation risk and independent
-verification cost.
-
-No next family is pre-authorized by this closure.
+No later family is automatically authorized.
