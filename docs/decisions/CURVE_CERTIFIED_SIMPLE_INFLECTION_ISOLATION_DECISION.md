@@ -695,3 +695,40 @@ feature-classification work.
 
 Boundary Curve Discretization, sizing, surfaces, meshing, Quad-Dominant and
 parallel execution remain blocked.
+
+## 21. Integration checkpoint
+
+PR #94 integrated this bounded decision and repository mapping as
+`44e04205c604abec8dc92f31930a371dc0c56cd1`.
+
+Final decision-head validation:
+
+- FAST `35677428464`: PASS;
+- INTEGRATION `35677428431`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35677498659`: PASS;
+- INTEGRATION `35677498682`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The integrated decision includes explicit accounting for roots that may fall on
+internal subdivision boundaries. Open-interval Bernstein sign counting may not
+silently discard such a root; an internal-boundary zero obligation must be
+proved root-free, certified exactly once as a simple root, or leave the result
+`indeterminate`.
+
+The decision checkpoint is closed.
+
+The sole next bounded work item is implementation of:
+
+**Certified Simple Planar Inflection Isolation on Globally Regular Cubic Bézier
+Curves**
+
+within the exact contract and repository mapping fixed above.
+
+No global curvature bound, curvature-extrema analysis, feature
+classification, boundary discretization, sizing, surfaces, meshing,
+Quad-Dominant construction, parallel execution, or stage-level qualification is
+authorized by this checkpoint.
