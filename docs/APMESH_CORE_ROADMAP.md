@@ -1344,13 +1344,44 @@ work is the separate Curve Differential Geometry entry decision only.
 
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
-Status: `NOT STARTED`
+Status: `IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED`
 
-Goal: certify intrinsic curve differential quantities used by boundary discretization.
+Goal: certify intrinsic curve differential quantities used by later boundary
+discretization without conflating local differential evaluation with global
+feature classification.
 
-Investigation problems will cover curvature definition/evaluation, regularity, feature classification, and scale robustness. Detailed executable work units will be defined only after Continuous Curve Geometry is qualified.
+Entry authority:
+`docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-Mandatory stage regression: rerun all curve-differential fixtures plus every prerequisite regression and regenerate curvature/reference figures before qualification.
+The first bounded work unit is **Pointwise Curvature Magnitude on Regular Cubic
+Bézier Curves**.
+
+Authorized first-unit semantics:
+
+- reuse qualified `B'`, `B''`, speed and vector geometry;
+- 2D/3D nonnegative pointwise curvature magnitude;
+- exact parameter domain `[0,1]`;
+- explicit singular-parameter failure when `B'(t)==0`;
+- no epsilon-based singularity threshold;
+- regular inflections may return exactly zero curvature;
+- reversal/translation/orthogonal-frame invariance;
+- reciprocal uniform-scale covariance;
+- 2D/3D planar embedding parity;
+- scale-aware finite evaluation with explicit non-finite-result failure.
+
+Explicitly deferred:
+
+- signed planar curvature;
+- Frenet frames and torsion;
+- global curvature bounds/extrema/monotonicity;
+- inflection isolation and feature classification;
+- discretization and curvature-driven sizing;
+- surfaces, meshing, Quad-Dominant and parallel execution.
+
+Mandatory stage regression remains later: all admitted curve-differential
+fixtures plus every qualified prerequisite regression and regenerated
+curvature/reference evidence before stage qualification.
+
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
 
@@ -1497,50 +1528,23 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current stage-exit result:
+Current scientific stage:
 
-**Curve Representation — Continuous Geometry Before Discretization:
-QUALIFIED / CGR0–CGR7 PASS**
+**Curve Differential Geometry — Curvature, Regularity, and Features —
+IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED**
 
-Qualification candidate:
-`f7dc8d82d881858b6481d6d2d1383d8a561684c5`.
+The qualified prerequisite is Curve Representation — Continuous Geometry Before
+Discretization, CGR0–CGR7 PASS in the admitted cloud envelope.
 
-Formal execution:
+The current branch is documentation/research only. After entry integration and
+checkpoint closure, the sole next bounded implementation is:
 
-- authorization PR #83 merged as
-  `e8b17256924e907d0859b8ac7061600ffc404b9e`;
-- one-shot run `35630423134`: process PASS;
-- terminal artifact `10654358199`;
-- independently recomputed archive SHA-256
-  `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`;
-- immutable claim
-  `cgr-execution-claim-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`.
+**Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
 
-Independent audit authority:
-
-`docs/audits/2026-09-21-continuous-curve-geometry-regression-terminal-audit.md`.
-
-The audit independently recomputes CGR0–CGR7 as PASS from exact candidate,
-frozen-semantic identity, 56 command records, 112 semantic test executions,
-eight scientific certificates, negative/adversarial evidence, dependency
-isolation, derived regression evidence, lifecycle/sealing and exact retention.
-
-This qualification is limited to the admitted GitHub-hosted Ubuntu 24.04
-x86_64 cloud environment. No WSL/cloud equivalence or downstream
-discretization/meshing claim is made.
-
-The Curve Representation terminal-audit checkpoint is closed. The current
-bounded action is one separate literature-backed scientific entry decision for:
-
-**Curve Differential Geometry — Curvature, Regularity, and Features.**
-
-Boundary Curve Discretization remains blocked until Curve Differential Geometry
-and its own entry prerequisites are explicitly satisfied.
-
-The long-term ordering remains:
+Boundary Curve Discretization remains blocked. The long-term ordering remains:
 
 **Global Certification → Quad-Dominant Extension → Parallel Equivalence →
 Tensor/Anisotropic Extension.**
 
-Parallel execution must not precede the serial Quad-Dominant qualification.
+Parallel execution must not precede serial Quad-Dominant qualification.
 
