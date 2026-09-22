@@ -320,6 +320,20 @@ No arbitrary degree, repeated knots, periodicity, analytic conic,
 heterogeneous composition, surface, discretization or meshing work is
 authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/nurbs.hpp`;
+- `src/geometry/multi_span_nurbs.cpp`;
+- `tests/multi_span_cubic_nurbs.cpp`;
+- `CMakeLists.txt`.
+
+The fixed two-span production source and common parametric contract are
+unchanged.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ## Current active stage
 
 **Curve Representation Breadth Gate — MULTI-SPAN CUBIC NURBS
