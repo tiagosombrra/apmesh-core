@@ -1509,7 +1509,8 @@ candidates before authorizing any production implementation.
 
 Status: `IN INVESTIGATION / PARAMETRIC CONTRACT INTEGRATED /
 LINE SEGMENT INTEGRATED / RATIONAL QUADRATIC BÉZIER INTEGRATED /
-ORIENTED TRIM INTEGRATED / TWO-SPAN CUBIC B-SPLINE DECISION ACTIVE /
+ORIENTED TRIM INTEGRATED / TWO-SPAN CUBIC B-SPLINE INTEGRATED /
+TWO-SPAN CUBIC NURBS DECISION ACTIVE /
 NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1873,47 +1874,48 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Two-Span Clamped Cubic Polynomial
-B-Spline — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / TERMINAL DOCUMENTATION SYNC ACTIVE**
+**Curve Representation Breadth Gate — Two-Span Clamped Cubic Positive-Weight
+NURBS — DECISION ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION**
 
-Implementation authority:
-`docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
+Terminal prerequisite evidence:
 
-Terminal validation lineage:
-
-- implementation PR #118:
-  `c336460b751fa600c893aa6a96f9d594cdcd9a9e`;
-- retained initial mechanical focused-test compile failure:
-  FAST `35736203787`, INTEGRATION `35736203805`;
-- correction commit:
-  `e42484c6c81163b13bd01761603421dcfff34ff1`;
-- corrected FAST `35736410584`: PASS, 22/22;
-- corrected INTEGRATION `35736410585`: PASS, 22/22 in GCC and Clang;
-- final PR FAST `35736642982`: PASS;
-- final PR INTEGRATION `35736642765`: PASS;
-- implementation post-merge FAST `35736839516`: PASS;
-- implementation post-merge INTEGRATION `35736839526`: PASS;
-- closure PR #119:
+- fixed B-spline implementation closure PR #119:
   `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
-- closure PR FAST `35737384883`: PASS;
-- closure PR INTEGRATION `35737384888`: PASS;
 - closure post-merge FAST `35737514686`: PASS;
-- closure post-merge INTEGRATION `35737514493`: PASS.
+- closure post-merge INTEGRATION `35737514493`: PASS;
+- terminal sync PR #120:
+  `6e549d4f4b989108f8faacad326a207ee88238e7`;
+- terminal sync FAST `35740316433`: PASS;
+- terminal sync INTEGRATION `35740316620`: PASS.
 
-Production now includes the fixed two-span clamped cubic B-spline family,
-without widening the original cubic-Bézier CGR qualification claim.
+Active decision:
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-After this terminal sync is integrated and post-merge validated, open exactly
-one fresh literature-backed comparison decision among:
+The decision selects a fixed rational spline work unit that combines two
+already isolated foundations without broadening storage/container semantics:
 
-- general bounded clamped B-spline expansion;
-- NURBS;
-- arbitrary-degree polynomial/rational Bézier;
-- analytic conic after arbitrary 3D orientation prerequisites;
-- heterogeneous composition/polycurve.
+- degree 3;
+- exactly five controls;
+- exactly five finite positive weights;
+- knots `[a,a,a,a,k,b,b,b,b]`;
+- finite strict `a<k<b`;
+- exactly two spans;
+- one simple interior knot / C2 representation continuity;
+- non-periodic;
+- value/D1/D2;
+- homogeneous de Boor production strategy;
+- all-one/equal-weight parity with integrated polynomial B-spline;
+- rational-quadratic degree-elevation + knot-insertion parity;
+- independent rational-basis reference;
+- local-support, weight-scale and reversal evidence.
 
-No option is preselected.
+General/multi-span B-spline/NURBS, arbitrary degree/count, repeated knots,
+periodicity, arbitrary-degree Bézier, analytic conic and heterogeneous
+composition remain later decisions.
+
+No implementation is authorized until this decision is integrated,
+post-merge FAST/INTEGRATION pass, and the decision checkpoint is separately
+closed.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
