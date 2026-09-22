@@ -250,28 +250,27 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after implementation integration:
+Exact next bounded scientific action:
 
-**Close the Certified Simple Planar Inflection Isolation implementation
-checkpoint, then open one new literature-backed Curve Differential Geometry
-decision.**
+**Open one new literature-backed bounded decision for the next Curve
+Differential Geometry investigation.**
 
-The bounded implementation is complete on
-`curve/certified-simple-inflection-isolation` and conforms to
-`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
+Certified Simple Planar Inflection Isolation was integrated by PR #96 as
+`c4905589c2ee8700c58560ef1a99a49a3821af4e`.
 
-Final focused validation:
+Validation:
 
-- FAST `35678475990`: PASS;
-- INTEGRATION `35678475955`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug.
+- final PR FAST `35678624215`: PASS;
+- final PR INTEGRATION `35678624192`: PASS;
+- post-merge FAST `35678808956`: PASS;
+- post-merge INTEGRATION `35678808941`: PASS.
 
-The implementation adds only the admitted 2D certified simple-inflection
-isolator, private quadratic Bernstein interval machinery, focused tests, header
-isolation and CMake registration.
+The work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED**.
 
-It does not add later Curve Differential Geometry or downstream mesh
-capability.
+No next Curve Differential Geometry capability is pre-authorized. A separate
+literature-backed decision must compare the remaining candidates and freeze a
+new bounded contract before production code is written.
 
 Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
 
@@ -281,8 +280,7 @@ Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED /
+SIMPLE-INFLECTION INTEGRATED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 
 
