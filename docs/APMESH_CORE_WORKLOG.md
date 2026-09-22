@@ -345,65 +345,57 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   implementation checkpoint.
 - `docs/surface-bicubic-bezier-closure-sync`: **MERGED / HISTORICAL**
   via PR #142; terminally reconciles the closed bicubic patch checkpoint.
-- `surface/rational-bicubic-bezier-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; literature-backed next Surface Representation breadth
-  decision; no production rational surface code.
+- `surface/rational-bicubic-bezier-decision`: **MERGED / HISTORICAL**
+  via PR #143; bounded rational bicubic Bézier surface decision.
+- `docs/surface-rational-bicubic-bezier-decision-closure`:
+  **CLOSURE-ONLY**; records PR #143 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Rational Bicubic Bézier Surface Breadth Decision — ACTIVE /
-DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Rational Bicubic Bézier Surface breadth decision is integrated and
+ready for closure.**
 
-Active branch:
-`surface/rational-bicubic-bezier-decision`.
+Decision closure evidence:
 
-Entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`;
+2. decision PR #143 head:
+   `af09c54f6c3f6c963fac140d02ae56d0bf40a886`;
+3. decision PR FAST `35780844901`: PASS;
+4. decision PR INTEGRATION `35780844932`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. decision PR #143 merged as
+   `281626d6ec02763be57b15fff15a82b0daa9129d`;
+6. post-merge FAST `35780994515`: PASS;
+7. post-merge INTEGRATION `35780994410`: PASS;
+8. no rational bicubic production type exists yet;
+9. existing 26 ordinary semantic tests remain the production baseline;
+10. polynomial bicubic surface semantics remain frozen.
 
-- terminal bicubic closure sync PR #142 head:
-  `9ad202b13f86cdb0c3ad5fa8670ed7cf67892b5d`;
-- PR #142 FAST `35767725994`: PASS;
-- PR #142 INTEGRATION `35767725955`: PASS;
-- PR #142 merged as
-  `bf218b31eb2b71d7ed651183b0cfc649c96b8c7c`;
-- post-merge FAST `35768039368`: PASS;
-- post-merge INTEGRATION `35768039528`: PASS;
-- ordinary semantic baseline: 26 tests;
-- no open PR or active production work item at decision entry.
+No production work item is active in this closure change.
 
-Decision authority:
-`docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
+## Next admissible work item after closure
 
-Compared candidates:
-
-1. rational Bézier patch;
-2. B-spline/NURBS surface;
-3. Coons/transfinite patch;
-4. analytic elementary surfaces;
-5. ruled/extrusion/revolution surfaces;
-6. rectangular/general trimmed-surface semantics.
-
-Selected future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D.**
 
-The decision isolates only rational surface weighting:
+Implementation is bounded by
+`docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md` and may add only:
 
-- same 4x4 Point3 control net;
-- same degree 3 in U/V;
-- same exact [0,1]^2 domain;
-- finite strictly positive 4x4 weight net;
-- deterministic homogeneous V-then-U tensor evaluation;
-- analytic rational first/second partials;
-- equal-weight parity with the integrated polynomial bicubic patch;
+- 4x4 positive finite weights on the existing 4x4 Point3 topology;
+- exact [0,1]^2 domain;
+- scale-aware homogeneous V-then-U evaluation;
+- analytic rational Su/Sv/Suu/Suv/Svv;
+- equal-weight polynomial parity;
 - independent rational Bernstein oracle;
-- common-weight scale invariance;
 - rational edge/reference evidence;
-- target ordinary inventory: 27 tests.
+- U/V reversal, weight-scale, affine, extreme-finite and determinism evidence;
+- one focused ordinary semantic contract, targeting 27 tests.
 
-The next NURBS surface decision remains explicitly planned after this work unit.
-Coons, analytic elementary, swept and trimmed families remain retained.
-
-No production surface code may begin until this decision is integrated,
-post-merge validated and separately closed.
+No U/V knots, NURBS surface, Coons/transfinite, analytic elementary, swept,
+trimmed, surface-differential-geometry, discretization or meshing work is
+authorized.
