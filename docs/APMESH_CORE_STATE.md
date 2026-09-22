@@ -328,9 +328,20 @@ No general/multi-span B-spline, NURBS, arbitrary degree/count, repeated knot,
 periodic, analytic conic, heterogeneous composition, surface, discretization
 or meshing work is authorized.
 
-The implementation remains **ACTIVE / VALIDATION PENDING / NOT QUALIFIED**
-until focused PR validation, integration, post-merge validation and closure
-complete.
+Corrected candidate validation:
+
+- head `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`;
+- FAST `35736410584`: PASS, 22/22 tests;
+- INTEGRATION `35736410585`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 22/22 tests per cell;
+- focused `apmesh_core.two_span_cubic_bspline`: PASS in all three jobs.
+
+The initial failed head remains documented in WORKLOG/decision as a mechanical
+focused-test compile failure.
+
+The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
+head passes and integration/post-merge closure completes.
 
 ## Current active stage
 
