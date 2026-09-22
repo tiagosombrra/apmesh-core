@@ -1876,63 +1876,52 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Cubic NURBS Double-Knot C1
-Continuity — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Continuity — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
-
-- terminal multi-span NURBS state:
-  `a37e8c266b0057b2d813f5f690faa6a1e6a710a1`;
-- terminal sync PR #132 FAST `35753336320`: PASS;
-- terminal sync PR #132 INTEGRATION `35753336303`: PASS;
-- terminal sync post-merge FAST `35753496462`: PASS;
-- terminal sync post-merge INTEGRATION `35753496400`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #133:
+  `ea65372bb6a9ed9a6bde94a3e3eed551e96fd3b9`;
+- PR FAST `35754225028`: PASS;
+- PR INTEGRATION `35754225224`: PASS;
+- post-merge FAST `35754389148`: PASS;
+- post-merge INTEGRATION `35754389151`: PASS.
+
+After decision closure integration and post-merge validation, the sole next
+production work item is:
 
 **Cubic Positive-Weight Multi-Span NURBS with Interior Knot Multiplicity One
-or Two and explicit C1/D2 semantics.**
+or Two and explicit C1/D2 failure semantics.**
 
-The decision deliberately isolates one continuity boundary:
+Authorized future scope:
 
-- degree 3 remains fixed;
-- endpoint multiplicity remains 4;
-- unique interior multiplicities may be 1 or 2 only;
-- multiplicity one remains C2;
-- multiplicity two is representation-guaranteed C1;
-- value and D1 at a double knot remain available;
-- ordinary D2 at the exact double knot returns typed
-  `insufficient_continuity`;
-- D2 remains available in neighboring open spans;
-- existing simple-knot construction remains source/semantic compatible;
-- multiplicity-three C0 and one-sided derivative APIs remain deferred.
+- degree 3;
+- endpoint multiplicity 4;
+- unique interior multiplicities 1/2 only;
+- positive finite weights;
+- non-periodic;
+- simple-knot backward compatibility;
+- explicit multiplicity storage;
+- typed `CurveError::insufficient_continuity`;
+- value/D1 at double knots;
+- D2 failure exactly at double knots;
+- D2 preserved elsewhere;
+- one focused contract, targeting 25 ordinary tests.
 
-Why Surface Representation is still blocked:
+Multiplicity three/C0, arbitrary degree, periodicity, one-sided derivative
+APIs, analytic conics and heterogeneous composition remain later decisions.
 
-- NURBS surfaces carry independent U/V multiplicities;
-- unresolved D2 semantics at reduced-continuity knot lines would otherwise be
-  duplicated for surface second/mixed partials;
-- the curve-level C1 rule must close first.
-
-Deferred:
-
-- multiplicity three/C0;
-- arbitrary degree;
-- periodic splines;
-- analytic conics;
-- heterogeneous composition/polycurve;
-- all surface and downstream meshing implementation.
-
-No implementation may start until the decision PR is integrated, post-merge
-FAST/INTEGRATION pass and the decision checkpoint is separately closed.
+Surface Representation remains blocked until this curve-continuity work unit
+closes and a separate entry decision opens it.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
 
-Boundary Curve Discretization and Surface Representation remain blocked.
+Boundary Curve Discretization remains blocked.
 
 The long-term ordering remains:
 

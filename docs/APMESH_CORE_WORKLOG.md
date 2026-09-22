@@ -323,77 +323,58 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/multi-span-cubic-nurbs-closure-sync`: **MERGED / HISTORICAL**
   via PR #132; terminally reconciles the multi-span NURBS implementation
   closure.
-- `curve/cubic-nurbs-double-knot-continuity-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; literature-backed repeated-knot continuity decision;
-  no production implementation.
+- `curve/cubic-nurbs-double-knot-continuity-decision`: **MERGED /
+  HISTORICAL** via PR #133; bounded repeated-knot continuity decision.
+- `docs/cubic-nurbs-double-knot-decision-closure`: **CLOSURE-ONLY**;
+  records PR #133 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Cubic NURBS Double-Knot C1 Continuity — DECISION ACTIVE /
-DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Cubic NURBS Double-Knot C1 Continuity decision is integrated and ready
+for closure.**
 
-Active branch:
-`curve/cubic-nurbs-double-knot-continuity-decision`.
+Decision closure evidence:
 
-Decision-entry authority:
+1. decision authority:
+   `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+2. decision PR #133 merged as
+   `ea65372bb6a9ed9a6bde94a3e3eed551e96fd3b9`;
+3. decision PR FAST `35754225028`: PASS;
+4. decision PR INTEGRATION `35754225224`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. decision post-merge FAST `35754389148`: PASS;
+6. decision post-merge INTEGRATION `35754389151`: PASS;
+7. no double-knot production semantics have yet been implemented;
+8. all existing 24 ordinary semantic tests remain the current production
+   baseline;
+9. no surface work is active.
 
-- multi-span implementation closure PR #131:
-  `d71ada7b280b443c4eb303c44b57e7ce429fb24a`;
-- closure post-merge FAST `35752844947`: PASS, 24/24;
-- closure post-merge INTEGRATION `35752844817`: PASS, 24/24;
-- terminal sync PR #132:
-  `a37e8c266b0057b2d813f5f690faa6a1e6a710a1`;
-- sync PR FAST `35753336320`: PASS;
-- sync PR INTEGRATION `35753336303`: PASS;
-- sync post-merge FAST `35753496462`: PASS;
-- sync post-merge INTEGRATION `35753496400`: PASS;
-- no open PR and no active production work item at decision entry.
+No production work item is active in this closure change.
 
-Decision authority:
-`docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
+## Next admissible work item after closure
 
-Fresh comparison:
-
-1. repeated-knot / continuity breadth;
-2. arbitrary-degree Bézier/spline breadth;
-3. analytic conics after arbitrary-placement prerequisites;
-4. heterogeneous composition/polycurve;
-5. readiness to open Surface Representation.
-
-Selected bounded future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Cubic Positive-Weight Multi-Span NURBS with Interior Knot Multiplicity One
-or Two and explicit C1/D2 semantics.**
+or Two and explicit C1/D2 failure semantics.**
 
-The decision freezes:
+Implementation remains bounded by the decision:
 
 - degree 3;
-- endpoint multiplicity 4;
-- each unique interior multiplicity in {1,2};
+- multiplicities 1/2 only;
 - positive finite weights;
-- non-periodic bounded domain;
-- unique interior knots plus explicit multiplicity storage;
-- legacy simple-knot factory/API preserved;
-- `CurveError::insufficient_continuity` as the sole common-vocabulary
+- non-periodic;
+- legacy simple-knot construction preserved;
+- explicit multiplicity storage;
+- `CurveError::insufficient_continuity` as the sole common error-vocabulary
   extension;
-- value and D1 succeed at a double knot when representable;
-- ordinary D2 at an exact double knot fails with
-  `insufficient_continuity`;
-- D2 away from the double knot remains available;
-- no one-sided derivative public API.
+- value/D1 succeed at a double knot;
+- ordinary D2 fails exactly at a double knot;
+- no one-sided derivative API;
+- target ordinary inventory: 25 tests.
 
-This branch may change only documentation/research/decision authorities.
-No repeated-knot production code, surface, degree generalization, conic,
-polycurve, discretization or meshing code is authorized.
-
-## Next admissible transition after this decision
-
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision checkpoint closes may one implementation branch be opened for
-the selected double-knot C1 work unit.
-
-Multiplicity three/C0, arbitrary degree, periodicity, one-sided derivative
-APIs, analytic conics, heterogeneous composition and every surface capability
-remain separate later decisions.
+Multiplicity three/C0, arbitrary degree, periodicity, analytic conics,
+heterogeneous composition, surfaces and downstream meshing remain unauthorized.
