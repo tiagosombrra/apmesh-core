@@ -1913,10 +1913,19 @@ Authorized scope:
 - simple-knot regression preservation;
 - target ordinary inventory: 25 tests.
 
-Candidate implementation is mapped to the authorized files and is awaiting
-FAST/INTEGRATION validation. The common bounded-parametric concept signatures
-remain unchanged; only the explicitly authorized common error enumerator is
-added.
+Candidate validation on head
+`e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`:
+
+- FAST `35756479210`: PASS, 25/25 tests;
+- INTEGRATION `35756479108`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 25/25 tests per cell;
+- the new double-knot C1 contract and every prior ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. The common bounded-parametric concept
+signatures remain unchanged; only the explicitly authorized common error
+enumerator is added.
 
 Multiplicity three/C0, arbitrary degree, periodicity, one-sided derivatives,
 analytic conics and heterogeneous composition remain later decisions.
