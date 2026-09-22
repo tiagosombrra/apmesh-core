@@ -255,18 +255,16 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
-5. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
-6. `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
-7. `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
-8. `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
-9. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
-10. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-11. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-12. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-13. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-14. the latest relevant audit under `docs/audits/`;
-15. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`;
+5. `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`;
+6. `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+7. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
+8. `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
+9. `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
+10. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+11. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+12. the latest relevant audit under `docs/audits/`;
+13. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -289,47 +287,46 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed Rational Bicubic Bézier Surface breadth
-decision; no rational surface production code is authorized on this branch.**
+**After this rational-bicubic decision closure is integrated and post-merge
+validated, implement the Positive-Weight Rational Tensor-Product Bicubic
+Bézier Patch in 3D.**
 
-Entry authority:
+Decision evidence:
 
-- terminal bicubic sync PR #142:
-  `bf218b31eb2b71d7ed651183b0cfc649c96b8c7c`;
-- PR #142 FAST `35767725994`: PASS;
-- PR #142 INTEGRATION `35767725955`: PASS;
-- post-merge FAST `35768039368`: PASS;
-- post-merge INTEGRATION `35768039528`: PASS.
+- PR #143 head:
+  `af09c54f6c3f6c963fac140d02ae56d0bf40a886`;
+- PR FAST `35780844901`: PASS;
+- PR INTEGRATION `35780844932`: PASS;
+- merge:
+  `281626d6ec02763be57b15fff15a82b0daa9129d`;
+- post-merge FAST `35780994515`: PASS;
+- post-merge INTEGRATION `35780994410`: PASS.
 
-Active branch:
-`surface/rational-bicubic-bezier-decision`.
+Closure branch:
+`docs/surface-rational-bicubic-bezier-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
 
-Selected future work unit:
+The sole authorized next implementation adds positive rational weights and
+homogeneous quotient partials to the fixed 4x4 bicubic surface topology.
 
-**Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D.**
+The common bounded-surface concept and polynomial bicubic implementation remain
+frozen.
 
-The work unit freezes degree, 4x4 control-net size and [0,1]^2 domain and adds
-only positive rational weights and homogeneous quotient partial derivatives.
+NURBS surface remains the next high-priority breadth candidate after this work
+unit closes. Coons/transfinite, analytic elementary, swept and trimmed surfaces
+remain explicit retained obligations.
 
-B-spline/NURBS surfaces remain the next high-priority candidate after this
-rational seam closes. Coons/transfinite, analytic elementary, swept and
-trimmed surfaces remain explicit retained obligations.
-
-Remaining curve breadth remains retained.
-
-No production rational/NURBS/analytic/trimmed surface, surface differential
-geometry, boundary discretization or meshing code is authorized.
+No rational production implementation begins in this closure branch.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — RATIONAL BICUBIC
-BÉZIER DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+BÉZIER DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
 POLYNOMIAL BICUBIC PATCH AND CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:

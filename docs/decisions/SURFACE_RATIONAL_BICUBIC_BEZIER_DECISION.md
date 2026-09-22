@@ -639,3 +639,37 @@ Surface Differential Geometry, Boundary Curve Discretization and all meshing
 stages remain blocked.
 
 Remaining curve breadth remains retained.
+
+
+## 34. Decision integration checkpoint
+
+PR #143 integrated this bounded Surface Representation breadth decision.
+
+Final decision head:
+
+`af09c54f6c3f6c963fac140d02ae56d0bf40a886`.
+
+Final decision-head validation:
+
+- FAST `35780844901`: PASS;
+- INTEGRATION `35780844932`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #143 merged as:
+
+`281626d6ec02763be57b15fff15a82b0daa9129d`.
+
+Post-merge validation:
+
+- FAST `35780994515`: PASS;
+- INTEGRATION `35780994410`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the rational bicubic Bézier surface implementation bounded by
+Sections 5–31.
+
+No NURBS, Coons, analytic, swept, trimmed or downstream surface capability is
+authorized by this checkpoint.
