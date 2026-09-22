@@ -1687,7 +1687,7 @@ Trim implementation closure PR #115 merged as
 Production therefore includes oriented static trimming semantics over admitted
 bounded curve bases, without heterogeneous runtime composition.
 
-The active next breadth decision is
+The bounded first B-spline decision is
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
 It selects a fixed non-rational, non-periodic, clamped cubic B-spline with
@@ -1874,63 +1874,40 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Polynomial
-B-Spline Representation in 2D and 3D — IMPLEMENTATION ACTIVE /
-FOCUSED VALIDATION PENDING / NOT QUALIFIED**
+B-Spline — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED / IMPLEMENTATION CLOSURE PENDING**
 
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-Closed prerequisite evidence:
+Validation lineage:
 
-- decision PR #116:
-  `0978256b53d8eba7f974229da06cd74b21d3ee53`;
-- decision post-merge FAST `35734755167`: PASS;
-- decision post-merge INTEGRATION `35734755301`: PASS;
-- decision closure PR #117:
-  `5abcc8bd512097e1ae5881e1643f67b89420e1dc`;
-- closure post-merge FAST `35735198199`: PASS;
-- closure post-merge INTEGRATION `35735198173`: PASS.
+- implementation PR #118:
+  `c336460b751fa600c893aa6a96f9d594cdcd9a9e`;
+- initial FAST `35736203787` and INTEGRATION `35736203805`:
+  mechanical focused-test compile failure;
+- correction commit
+  `e42484c6c81163b13bd01761603421dcfff34ff1`;
+- corrected FAST `35736410584`: PASS, 22/22;
+- corrected INTEGRATION `35736410585`: PASS, 22/22 in GCC and Clang;
+- final PR FAST `35736642982`: PASS;
+- final PR INTEGRATION `35736642765`: PASS;
+- post-merge FAST `35736839516`: PASS;
+- post-merge INTEGRATION `35736839526`: PASS.
 
-Active implementation branch:
-`curve/two-span-cubic-bspline`.
+Production now includes the fixed two-span clamped cubic B-spline family,
+without widening the original cubic-Bézier CGR qualification claim.
 
-Implemented candidate scope:
+After this closure is integrated and its own post-merge validation passes, open
+exactly one literature-backed comparison decision among:
 
-- `TwoSpanCubicBSpline2` and `TwoSpanCubicBSpline3`;
-- degree exactly 3;
-- exactly five controls;
-- knots `[a,a,a,a,k,b,b,b,b]` with strict finite `a<k<b`;
-- exact non-normalized domain `[a,b]`;
-- de Boor point evaluation with deterministic span choice;
-- D1/D2 through fixed derived B-spline control polygons;
-- exact endpoint values and endpoint tangent relations;
-- one simple interior knot / C2 representation invariant;
-- local-support evidence;
-- independent Cox–de Boor basis/derivative oracle;
-- cubic Bézier knot-insertion parity;
-- reversal with reflected interior knot;
-- translation, exact power-of-two scale, 2D/3D embedding and determinism;
-- extreme finite-knot success and explicit unrepresentable-derivative failure;
-- one additional focused semantic test, targeting a 22-test ordinary
-  FAST/INTEGRATION inventory.
+- general bounded clamped B-spline expansion;
+- NURBS;
+- arbitrary-degree polynomial/rational Bézier;
+- analytic conic after arbitrary 3D orientation prerequisites;
+- heterogeneous composition/polycurve.
 
-No general B-spline container, NURBS, arbitrary degree/count, repeated knots,
-periodicity, analytic conic, heterogeneous composition, generic differential
-expansion, surface or downstream meshing work is included.
-
-Corrected candidate validation on head
-`ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`:
-
-- FAST `35736410584`: PASS, 22/22 tests;
-- INTEGRATION `35736410585`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 22/22 tests per cell;
-- the new B-spline contract and every prerequisite ordinary semantic contract
-  passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. Passing the full work unit still
-yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-NOT QUALIFIED**.
+No option is preselected.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
