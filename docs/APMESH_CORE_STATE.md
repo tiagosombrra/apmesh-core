@@ -287,46 +287,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this rational-bicubic decision closure is integrated and post-merge
-validated, implement the Positive-Weight Rational Tensor-Product Bicubic
-Bézier Patch in 3D.**
+**Implement the Positive-Weight Rational Tensor-Product Bicubic Bézier Patch
+in 3D.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #143 head:
-  `af09c54f6c3f6c963fac140d02ae56d0bf40a886`;
-- PR FAST `35780844901`: PASS;
-- PR INTEGRATION `35780844932`: PASS;
-- merge:
+- decision PR #143:
   `281626d6ec02763be57b15fff15a82b0daa9129d`;
-- post-merge FAST `35780994515`: PASS;
-- post-merge INTEGRATION `35780994410`: PASS.
+- decision post-merge FAST `35780994515`: PASS;
+- decision post-merge INTEGRATION `35780994410`: PASS;
+- closure PR #144:
+  `0e2e9620052f2bee3237eb8428065b68facff0fd`;
+- closure post-merge FAST `35781441396`: PASS;
+- closure post-merge INTEGRATION `35781441405`: PASS.
 
-Closure branch:
-`docs/surface-rational-bicubic-bezier-decision-closure`.
+Active branch:
+`surface/rational-bicubic-bezier`.
 
 Decision authority:
 `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
 
-The sole authorized next implementation adds positive rational weights and
-homogeneous quotient partials to the fixed 4x4 bicubic surface topology.
+The implementation may add only the fixed 4x4 positive weight net and the
+rational homogeneous evaluation/partial semantics frozen by the decision.
 
-The common bounded-surface concept and polynomial bicubic implementation remain
-frozen.
+The common `BoundedParametricSurface3` contract and integrated polynomial
+bicubic patch remain frozen.
 
-NURBS surface remains the next high-priority breadth candidate after this work
-unit closes. Coons/transfinite, analytic elementary, swept and trimmed surfaces
-remain explicit retained obligations.
-
-No rational production implementation begins in this closure branch.
+NURBS surface, Coons/transfinite, analytic elementary, swept and trimmed
+surfaces remain explicit later work.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — RATIONAL BICUBIC
-BÉZIER DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
+BÉZIER IMPLEMENTATION ACTIVE / NOT QUALIFIED /
 POLYNOMIAL BICUBIC PATCH AND CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
