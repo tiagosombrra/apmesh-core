@@ -284,7 +284,7 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   HISTORICAL** via PR #115; closes the trimmed-subcurve implementation
   checkpoint.
 - `curve/two-span-cubic-bspline-decision`: **ACTIVE**; literature-backed
-  fourth breadth decision only; no production implementation.
+  next breadth decision only; no production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
