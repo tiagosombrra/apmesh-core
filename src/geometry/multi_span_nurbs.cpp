@@ -258,10 +258,7 @@ template <typename Homogeneous>
 [[nodiscard]] std::expected<std::array<Homogeneous, 3>, CurveError>
 first_derivative_controls(
     const std::array<Homogeneous, 4>& controls,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
-    const std::size_t control_count,
+    const std::span<const double> flat_knots,
     const std::size_t start) noexcept {
     std::array<Homogeneous, 3> result{};
     for (std::size_t local = 0; local < result.size(); ++local) {
@@ -270,10 +267,8 @@ first_derivative_controls(
             controls[local],
             controls[local + 1U],
             3,
-            flat_knot(
-                interior_knots, lower, upper, control_count, index + 1U),
-            flat_knot(
-                interior_knots, lower, upper, control_count, index + 4U));
+            flat_knots[index + 1U],
+            flat_knots[index + 4U]);
         if (!value.has_value()) {
             return std::unexpected{value.error()};
         }
@@ -286,10 +281,7 @@ template <typename Homogeneous>
 [[nodiscard]] std::expected<std::array<Homogeneous, 2>, CurveError>
 second_derivative_controls(
     const std::array<Homogeneous, 3>& controls,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
-    const std::size_t control_count,
+    const std::span<const double> flat_knots,
     const std::size_t start) noexcept {
     std::array<Homogeneous, 2> result{};
     for (std::size_t local = 0; local < result.size(); ++local) {
@@ -298,10 +290,8 @@ second_derivative_controls(
             controls[local],
             controls[local + 1U],
             2,
-            flat_knot(
-                interior_knots, lower, upper, control_count, index + 2U),
-            flat_knot(
-                interior_knots, lower, upper, control_count, index + 4U));
+            flat_knots[index + 2U],
+            flat_knots[index + 4U]);
         if (!value.has_value()) {
             return std::unexpected{value.error()};
         }
@@ -313,44 +303,34 @@ second_derivative_controls(
 [[nodiscard]] std::expected<Homogeneous2, CurveError> evaluate_homogeneous(
     const std::span<const Point2> points,
     const std::span<const double> weights,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    const std::size_t start =
-        locate_span(interior_knots, upper, parameter);
+    const std::size_t spline_span = locate_flat_span(flat_knots, parameter);
+    const std::size_t start = spline_span - 3U;
     const auto controls =
         local_homogeneous_controls(points, weights, start);
     return de_boor_local<Homogeneous2, 3>(
         controls,
-        start + 3U,
+        spline_span,
         0U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
 }
 
 [[nodiscard]] std::expected<Homogeneous3, CurveError> evaluate_homogeneous(
     const std::span<const Point3> points,
     const std::span<const double> weights,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    const std::size_t start =
-        locate_span(interior_knots, upper, parameter);
+    const std::size_t spline_span = locate_flat_span(flat_knots, parameter);
+    const std::size_t start = spline_span - 3U;
     const auto controls =
         local_homogeneous_controls(points, weights, start);
     return de_boor_local<Homogeneous3, 3>(
         controls,
-        start + 3U,
+        spline_span,
         0U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
 }
 
@@ -358,61 +338,40 @@ second_derivative_controls(
 evaluate_homogeneous_jet(
     const std::span<const Point2> points,
     const std::span<const double> weights,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    const std::size_t start =
-        locate_span(interior_knots, upper, parameter);
+    const std::size_t spline_span = locate_flat_span(flat_knots, parameter);
+    const std::size_t start = spline_span - 3U;
     const auto controls =
         local_homogeneous_controls(points, weights, start);
-    const auto first = first_derivative_controls(
-        controls,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
-        start);
+    const auto first =
+        first_derivative_controls(controls, flat_knots, start);
     if (!first.has_value()) {
         return std::unexpected{first.error()};
     }
-    const auto second = second_derivative_controls(
-        *first,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
-        start);
+    const auto second =
+        second_derivative_controls(*first, flat_knots, start);
     if (!second.has_value()) {
         return std::unexpected{second.error()};
     }
 
     const auto value = de_boor_local<Homogeneous2, 3>(
         controls,
-        start + 3U,
+        spline_span,
         0U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
     const auto d1 = de_boor_local<Homogeneous2, 2>(
         *first,
-        start + 2U,
+        spline_span - 1U,
         1U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
     const auto d2 = de_boor_local<Homogeneous2, 1>(
         *second,
-        start + 1U,
+        spline_span - 2U,
         2U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
 
     if (!value || !d1 || !d2) {
@@ -425,61 +384,40 @@ evaluate_homogeneous_jet(
 evaluate_homogeneous_jet(
     const std::span<const Point3> points,
     const std::span<const double> weights,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    const std::size_t start =
-        locate_span(interior_knots, upper, parameter);
+    const std::size_t spline_span = locate_flat_span(flat_knots, parameter);
+    const std::size_t start = spline_span - 3U;
     const auto controls =
         local_homogeneous_controls(points, weights, start);
-    const auto first = first_derivative_controls(
-        controls,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
-        start);
+    const auto first =
+        first_derivative_controls(controls, flat_knots, start);
     if (!first.has_value()) {
         return std::unexpected{first.error()};
     }
-    const auto second = second_derivative_controls(
-        *first,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
-        start);
+    const auto second =
+        second_derivative_controls(*first, flat_knots, start);
     if (!second.has_value()) {
         return std::unexpected{second.error()};
     }
 
     const auto value = de_boor_local<Homogeneous3, 3>(
         controls,
-        start + 3U,
+        spline_span,
         0U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
     const auto d1 = de_boor_local<Homogeneous3, 2>(
         *first,
-        start + 2U,
+        spline_span - 1U,
         1U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
     const auto d2 = de_boor_local<Homogeneous3, 1>(
         *second,
-        start + 1U,
+        spline_span - 2U,
         2U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
 
     if (!value || !d1 || !d2) {
