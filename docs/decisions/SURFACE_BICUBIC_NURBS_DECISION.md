@@ -812,3 +812,37 @@ No implementation begins on this decision branch.
 
 Surface Differential Geometry, Boundary Curve Discretization and all meshing
 stages remain blocked.
+
+
+## 39. Decision integration checkpoint
+
+PR #149 integrated this bounded Surface Representation breadth decision.
+
+Final decision head:
+
+`e44a53ae0cb9ce0329dc5036ce13c52feeea9b86`.
+
+Final decision-head validation:
+
+- FAST `35797633074`: PASS;
+- INTEGRATION `35797633084`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #149 merged as:
+
+`d6d9c8c30c716540c95fe449dee53227e6722c22`.
+
+Post-merge validation:
+
+- FAST `35797779574`: PASS;
+- INTEGRATION `35797779547`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the bicubic simple-knot NURBS surface implementation bounded by
+Sections 5–36.
+
+No repeated-knot, Coons, analytic, swept, trimmed or downstream surface
+capability is authorized.
