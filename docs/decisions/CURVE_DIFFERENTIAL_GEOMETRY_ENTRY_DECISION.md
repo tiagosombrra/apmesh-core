@@ -423,7 +423,12 @@ avoidance and explicit unrepresentable-result failure.
 
 Scientific status:
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 
-No later Curve Differential Geometry work unit or stage qualification is
-authorized by this result.
+PR #88 merged as
+`b1a279fbe2592cd4fe7f5a688318ac50f0e60d35`; post-merge FAST
+`35673041777` and INTEGRATION `35673041859` passed.
+
+The first work-unit checkpoint is closed. No later Curve Differential Geometry
+work unit or stage qualification is authorized by this result. The next
+investigation requires a separate literature-backed decision.
