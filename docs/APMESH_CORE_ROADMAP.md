@@ -1346,7 +1346,7 @@ work is the separate Curve Differential Geometry entry decision only.
 
 Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION DECISION VALIDATED_UNMERGED /
+SIMPLE-INFLECTION DECISION INTEGRATED / IMPLEMENTATION NOT STARTED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
@@ -1462,6 +1462,16 @@ No implementation, global curvature bound, extrema, feature classification,
 Boundary Curve Discretization, sizing, surfaces, meshing, Quad-Dominant or
 parallel execution is authorized until this decision is separately integrated
 and closed.
+
+PR #94 integrated the decision as
+`44e04205c604abec8dc92f31930a371dc0c56cd1`. Final PR FAST
+`35677428464`, PR INTEGRATION `35677428431`, post-merge FAST
+`35677498659`, and post-merge INTEGRATION `35677498682` passed.
+
+The decision checkpoint is closed. The sole next bounded work item is the
+mapped **Certified Simple Planar Inflection Isolation on Globally Regular Cubic
+Bézier Curves** implementation. No later Curve Differential Geometry or
+downstream capability is implied.
 
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
