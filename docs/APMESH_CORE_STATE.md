@@ -287,38 +287,56 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the fixed Two-Span Clamped Cubic Positive-Weight NURBS work unit.**
+**Complete the fixed Two-Span Clamped Cubic Positive-Weight NURBS
+implementation on the single active production branch.**
 
-Decision evidence:
+Terminal decision-closure/sync evidence:
 
-- PR #121:
+- decision PR #121:
   `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-- PR FAST `35740954735`: PASS;
-- PR INTEGRATION `35740954945`: PASS;
-- post-merge FAST `35741064912`: PASS;
-- post-merge INTEGRATION `35741064906`: PASS.
+- decision closure PR #122:
+  `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
+- closure post-merge FAST `35741432913`: PASS;
+- closure post-merge INTEGRATION `35741432864`: PASS;
+- terminal sync PR #123:
+  `01a4f7f9e88b7df0ebddbec7e3c745893b86512b`;
+- sync PR FAST `35743947099`: PASS;
+- sync PR INTEGRATION `35743946835`: PASS;
+- sync post-merge FAST `35744071581`: PASS;
+- sync post-merge INTEGRATION `35744071575`: PASS.
 
-Closure branch:
-`docs/two-span-cubic-nurbs-decision-closure`.
+Active branch:
+`curve/two-span-cubic-nurbs`.
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-The sole authorized next implementation is fixed to degree 3, five controls,
-five positive weights and the two-span simple-interior-knot topology already
-specified by the decision.
+Candidate production mapping:
+
+- `include/apmesh/geometry/nurbs.hpp`;
+- `src/geometry/nurbs.cpp`;
+- `tests/two_span_cubic_nurbs.cpp`;
+- `CMakeLists.txt`.
+
+The implementation is fixed to degree 3, five controls, five finite positive
+weights and one simple interior knot over exactly two spans. It uses
+homogeneous de Boor evaluation and analytic rational D1/D2 dehomogenization.
+The common bounded-parametric concepts are unchanged.
 
 No general NURBS/B-spline, variable degree/count, repeated knots, periodicity,
 arbitrary-degree Bézier, analytic conic, heterogeneous composition, surface,
 discretization or meshing work is authorized.
 
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED.**
+
 ## Current active stage
 
 **Curve Representation Breadth Gate — Two-Span Cubic Positive-Weight NURBS —
-DECISION INTEGRATED / CLOSURE PENDING / NO NURBS IMPLEMENTATION /
+IMPLEMENTATION ACTIVE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED /
 B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
