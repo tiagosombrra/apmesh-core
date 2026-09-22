@@ -312,6 +312,20 @@ Required semantics remain exactly those fixed by the decision:
 - typed parameter failures;
 - prerequisite regression preservation.
 
+Validation history:
+
+- initial PR head `043fd98d2162e83a59e4b0b16054e51367551c2d`:
+  FAST `35720284585` and INTEGRATION `35720284182` failed during
+  compilation of `tests/line_segment.cpp`;
+- both GCC and Clang failures had the same mechanical cause: the focused test
+  referenced `Vector2`/`Vector3` after their local using-declarations had
+  been removed; `src/geometry/line_segment.cpp` itself compiled in all
+  observed jobs;
+- no production, mathematical, decision, expected-result or acceptance
+  semantics changed in response;
+- correction commit `0e915dc1bf9cc038fe09fb0c9dc5e8f04b521975`
+  restores only the missing test aliases; corrected validation is pending.
+
 Explicit non-actions:
 
 - no circle/conic arc;
