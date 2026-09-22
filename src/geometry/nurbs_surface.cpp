@@ -322,6 +322,84 @@ template <
     return result;
 }
 
+struct HomogeneousFirstJet {
+    Homogeneous4 value{};
+    Homogeneous4 u{};
+    Homogeneous4 v{};
+};
+
+[[nodiscard]] std::expected<Homogeneous4, SurfaceError> evaluate_value(
+    const std::span<const Point3> points,
+    const std::span<const double> weights,
+    const std::size_t v_control_count,
+    const std::span<const double> u_flat_knots,
+    const std::span<const double> v_flat_knots,
+    const double u,
+    const double v) noexcept {
+    const std::size_t u_span = locate_flat_span(u_flat_knots, u);
+    const std::size_t v_span = locate_flat_span(v_flat_knots, v);
+    const auto controls = local_homogeneous_controls(
+        points,
+        weights,
+        v_control_count,
+        u_span - 3U,
+        v_span - 3U);
+    return evaluate_tensor<3U, 3U>(
+        controls,
+        u_span,
+        v_span,
+        0U,
+        0U,
+        u_flat_knots,
+        v_flat_knots,
+        u,
+        v);
+}
+
+[[nodiscard]] std::expected<HomogeneousFirstJet, SurfaceError>
+evaluate_first_jet(
+    const std::span<const Point3> points,
+    const std::span<const double> weights,
+    const std::size_t v_control_count,
+    const std::span<const double> u_flat_knots,
+    const std::span<const double> v_flat_knots,
+    const double u,
+    const double v) noexcept {
+    const std::size_t u_span = locate_flat_span(u_flat_knots, u);
+    const std::size_t v_span = locate_flat_span(v_flat_knots, v);
+    const std::size_t u_start = u_span - 3U;
+    const std::size_t v_start = v_span - 3U;
+
+    const auto controls = local_homogeneous_controls(
+        points, weights, v_control_count, u_start, v_start);
+    const auto du = differentiate_u(
+        controls, u_flat_knots, u_start, 3, 1U, 4U);
+    const auto dv = differentiate_v(
+        controls, v_flat_knots, v_start, 3, 1U, 4U);
+    if (!du || !dv) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    const auto value = evaluate_tensor<3U, 3U>(
+        controls, u_span, v_span, 0U, 0U,
+        u_flat_knots, v_flat_knots, u, v);
+    const auto u_value = evaluate_tensor<2U, 3U>(
+        *du, u_span - 1U, v_span, 1U, 0U,
+        u_flat_knots, v_flat_knots, u, v);
+    const auto v_value = evaluate_tensor<3U, 2U>(
+        *dv, u_span, v_span - 1U, 0U, 1U,
+        u_flat_knots, v_flat_knots, u, v);
+    if (!value || !u_value || !v_value) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    return HomogeneousFirstJet{
+        .value = *value,
+        .u = *u_value,
+        .v = *v_value,
+    };
+}
+
 struct HomogeneousJet {
     Homogeneous4 value{};
     Homogeneous4 u{};
@@ -843,7 +921,7 @@ BicubicNURBSSurface3::evaluate(
         return control_points_.front();
     }
 
-    const auto jet = evaluate_jet(
+    const auto homogeneous = evaluate_value(
         control_points(),
         weights(),
         v_control_count_,
@@ -851,10 +929,10 @@ BicubicNURBSSurface3::evaluate(
         v_flat_knots_,
         u,
         v);
-    if (!jet.has_value()) {
-        return std::unexpected{jet.error()};
+    if (!homogeneous.has_value()) {
+        return std::unexpected{homogeneous.error()};
     }
-    const auto point = dehomogenize_value(jet->value);
+    const auto point = dehomogenize_value(*homogeneous);
     if (!point.has_value()) {
         return std::unexpected{point.error()};
     }
@@ -874,7 +952,7 @@ BicubicNURBSSurface3::first_derivatives(
         return SurfaceFirstDerivatives3{.u = *zero, .v = *zero};
     }
 
-    const auto jet = evaluate_jet(
+    const auto jet = evaluate_first_jet(
         control_points(),
         weights(),
         v_control_count_,
