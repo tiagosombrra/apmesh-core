@@ -427,9 +427,32 @@ Candidate implementation mapping:
 - `include/apmesh/geometry/parametric_surface.hpp` remains unchanged;
 - `src/geometry/surface.cpp` remains unchanged.
 
+Validation history:
+
+- initial PR head:
+  `83d1aedd68cbd4457e36021c704604b3a616fd8a`;
+- initial FAST `35782696019`: FAIL during test compilation;
+- initial INTEGRATION `35782696016`: FAIL during the same test compilation
+  in GCC and Clang;
+- diagnosis: **mechanical focused-test construction defect** only —
+  `Point3` is intentionally not default-constructible and two test
+  `ControlNet` values used empty aggregate initialization; production
+  `rational_surface.cpp` compiled successfully in all failing jobs;
+- correction: initialize those test-only nets from explicit finite Point3
+  values; no production/API/scientific semantic change;
+- corrected candidate head:
+  `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
+- corrected FAST `35782907623`: PASS, 27/27 tests;
+- corrected INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 27/27 tests in each cell;
+- `apmesh_core.surface_rational_bicubic_bezier`: PASS in all three corrected
+  jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
