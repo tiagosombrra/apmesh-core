@@ -285,54 +285,38 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the Oriented Trimmed Parametric Subcurve decision; no production
-implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated,
+implement Oriented Trimmed Parametric Subcurve Semantics in 2D and 3D.**
 
-Terminal prerequisite evidence:
+Decision evidence:
 
-- rational-quadratic closure PR #110 merged as
-  `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
-- closure post-merge FAST `35727653016`: PASS;
-- closure post-merge INTEGRATION `35727652961`: PASS;
-- terminal reconciliation PR #111 merged as
-  `7579254ebd0d6843fdc3761376132a2b7d9fa43c`;
-- terminal sync FAST `35728104539`: PASS;
-- terminal sync INTEGRATION `35728104607`: PASS.
+- PR #112 merged as
+  `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
+- decision PR FAST `35729461953`: PASS;
+- decision PR INTEGRATION `35729462003`: PASS;
+- decision post-merge FAST `35729581995`: PASS;
+- decision post-merge INTEGRATION `35729581937`: PASS.
 
-Active branch:
-`curve/trimmed-parametric-subcurve-decision`.
+Closure branch:
+`docs/trimmed-parametric-subcurve-decision-closure`.
 
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-The decision compares:
+The future implementation is limited to the static 2D/3D trim wrapper and its
+focused evidence. Existing line, cubic Bézier and rational quadratic values
+remain the admitted basis families for this work unit.
 
-- dedicated analytic circle/general conic;
-- arbitrary-degree polynomial/rational Bézier;
-- B-spline;
-- NURBS;
-- heterogeneous composition;
-- trimming.
-
-It selects only **Oriented Trimmed Parametric Subcurve Semantics in 2D/3D**.
-
-The selected future implementation will wrap one statically known bounded basis
-curve, preserve the basis parameter interval, admit forward or reverse trim
-orientation, and reuse the existing overflow-aware reversed-parameter mapping.
-
-If the decision is integrated, post-merge validation passes, and a separate
-decision checkpoint closes, the sole next implementation work item is the trim
-wrapper mapped by that decision.
-
-No analytic conic, arbitrary-degree, B-spline, NURBS, heterogeneous polycurve,
-surface, discretization or meshing implementation is authorized yet.
+No heterogeneous composition, periodic trim, analytic conic,
+arbitrary-degree, B-spline, NURBS, surface, discretization or meshing work is
+authorized.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
-DECISION ACTIVE / DOCUMENTATION ONLY / NO TRIM IMPLEMENTATION /
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
