@@ -283,51 +283,38 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the First Concrete Curve Family decision selecting bounded directed
-line segments; no production implementation is authorized on this branch.**
+**Implement Bounded Directed Line Segment Representation in 2D and 3D under
+the closed first-concrete-family decision.**
 
-Closed prerequisite evidence:
+Decision closure evidence:
 
-- Bounded Parametric Curve Contract implementation PR #101 merged as
-  `0674cd8531c3033a30282ba6bf95078b54d8c331`;
-- implementation post-merge FAST `35713409188`: PASS;
-- implementation post-merge INTEGRATION `35713409166`: PASS;
-- closure PR #102 merged as
-  `63479c8a7414a61be6f8ac1629e934f506d4f3de`;
-- closure post-merge FAST `35713788156`: PASS;
-- closure post-merge INTEGRATION `35713788216`: PASS.
+- decision PR #103 merged as
+  `2b42c78a2dbf0ede225144339dbf100900bef672`;
+- decision PR FAST `35719338493`: PASS;
+- decision PR INTEGRATION `35719338492`: PASS;
+- decision post-merge FAST `35719435059`: PASS;
+- decision post-merge INTEGRATION `35719434961`: PASS;
+- closure authority: PR #104.
 
-Active branch:
-`curve/bounded-line-segment-decision`.
-
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-The decision compares bounded line/segment, bounded circle/conic arc,
-rational/arbitrary-degree Bézier, B-spline and NURBS. It selects bounded
-directed line segments in 2D/3D as the first concrete family because they
-exercise the common parametric contract with the smallest new semantic surface,
-are already required by the future `line/arc/Bezier` boundary-discretization
-regression, and admit exact analytic evidence.
+The sole authorized production scope is `LineSegment2` and `LineSegment3`
+value representation plus focused conformance/analytic evidence. Existing
+`BoundedParametricCurve2/3` semantics must not change.
 
-If the decision is integrated, post-merge validation passes, and a separate
-decision checkpoint closes, the sole next implementation work item is:
-
-**Bounded Directed Line Segment Representation in 2D and 3D.**
-
-No circle/conic, rational Bézier, arbitrary-degree Bézier, B-spline, NURBS,
-composite/trimmed curve, surface, discretization or meshing implementation is
-authorized yet.
+No circle/conic, arbitrary-degree/rational Bézier, B-spline, NURBS,
+composite/trimmed curve, surface, discretization or meshing work is authorized.
 
 Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and is
-paused during the representation-breadth sequence.
+paused during this representation-breadth sequence.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — First Concrete Curve Family Decision —
-ACTIVE / BOUNDED LINE SEGMENT SELECTED / DOCUMENTATION ONLY /
+**Curve Representation Breadth Gate — Bounded Directed Line Segment —
+DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
 NO NEW FAMILY IMPLEMENTED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:

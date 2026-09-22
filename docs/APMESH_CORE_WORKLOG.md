@@ -252,54 +252,59 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/bounded-parametric-curve-contract-closure`: **MERGED /
   HISTORICAL** via PR #102; records PR #101 integration and post-merge
   validation.
-- `curve/bounded-line-segment-decision`: **ACTIVE**; literature-backed
-  concrete-family selection decision only; no production geometry
-  implementation.
+- `curve/bounded-line-segment-decision`: **MERGED / HISTORICAL** via
+  PR #103; literature-backed first-concrete-family decision only.
+- `docs/bounded-line-segment-decision-closure`: **MERGED / HISTORICAL**
+  via PR #104; closes the bounded line-segment decision checkpoint and
+  authorizes only its mapped implementation as the next work item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**First Concrete Curve Family — Bounded Directed Line Segment Decision —
-ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
+**None. First Concrete Curve Family — Bounded Directed Line Segment decision is
+integrated and closed.**
 
-Active branch:
-`curve/bounded-line-segment-decision`.
+Decision closure evidence:
 
-Entry evidence:
+1. decision authority:
+   `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
+2. decision PR #103 merged as
+   `2b42c78a2dbf0ede225144339dbf100900bef672`;
+3. final decision PR FAST `35719338493`: PASS;
+4. final decision PR INTEGRATION `35719338492`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+5. decision post-merge FAST `35719435059`: PASS;
+6. decision post-merge INTEGRATION `35719434961`: PASS;
+7. closure authority: PR #104;
+8. the qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved;
+9. the common bounded parametric contract remains integrated;
+10. no concrete second curve family has yet been implemented.
 
-1. bounded parametric contract implementation PR #101 merged as
-   `0674cd8531c3033a30282ba6bf95078b54d8c331`;
-2. implementation PR FAST `35713249842`: PASS, 18/18 tests;
-3. implementation PR INTEGRATION `35713249775`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug, 18/18 tests per cell;
-4. implementation post-merge FAST `35713409188`: PASS;
-5. implementation post-merge INTEGRATION `35713409166`: PASS;
-6. closure PR #102 merged as
-   `63479c8a7414a61be6f8ac1629e934f506d4f3de`;
-7. closure post-merge FAST `35713788156`: PASS;
-8. closure post-merge INTEGRATION `35713788216`: PASS;
-9. the qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved;
-10. no second concrete curve family or surface capability exists on `main`.
+No production work item is active in this closure change.
 
-Decision question:
+## Next admissible work item
 
-**Which concrete bounded curve family should be implemented first on top of the
-new parametric-curve contract?**
+Open exactly one implementation branch for:
 
-The decision compares at minimum bounded line/segment, bounded circle/conic
-arc, rational/arbitrary-degree Bézier, B-spline and NURBS against immediate
-Boundary Curve Discretization needs, exact CAD value, later trimming/surface
-boundary needs, robustness risk and independent verification cost.
+**Bounded Directed Line Segment Representation in 2D and 3D.**
 
-This branch may change only documentation/research/decision authorities.
-No production C++, new curve type, surface type, discretization, sizing,
-meshing, Quad-Dominant or parallel implementation is authorized.
+The implementation must remain within
+`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`:
 
-## Next admissible transition after this decision
+- add `LineSegment2` and `LineSegment3`;
+- satisfy `BoundedParametricCurve2/3`;
+- exact `[0,1]` domain;
+- overflow-aware finite value interpolation;
+- constant first derivative with explicit unrepresentable-result failure;
+- exact zero second derivative;
+- endpoint-swap reversal and covariance;
+- tested degenerate-value semantics;
+- focused GCC/Clang regression preserving every current prerequisite.
 
-Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
-and its checkpoint is separately closed may the selected concrete-family
-implementation branch be opened.
+No circle/conic, arbitrary-degree/rational Bézier, B-spline, NURBS,
+composite/trimmed curve, surface, boundary-discretization, sizing, meshing,
+Quad-Dominant or parallel implementation is authorized.
 
-No later family is automatically authorized by that implementation.
+After the segment implementation is integrated and closed, a new
+literature-backed decision is required before the next concrete curve family.
