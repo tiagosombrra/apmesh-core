@@ -397,9 +397,20 @@ Candidate implementation mapping:
   two-sided local support, right-span knot policy, weight scale, reversal,
   affine/embedding, extreme-finite and deterministic behavior.
 
+Candidate validation:
+
+- candidate head:
+  `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
+- FAST `35751863096`: PASS, 24/24 tests;
+- INTEGRATION `35751863450`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 24/24 tests in each cell;
+- `apmesh_core.multi_span_cubic_nurbs`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
