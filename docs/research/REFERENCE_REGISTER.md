@@ -920,6 +920,79 @@ Project relevance:
 - supports deferring arbitrary-degree Bézier while the newly available spline
   seam is generalized across multiple spans.
 
+### Open CASCADE — knot multiplicity and guaranteed B-spline continuity
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the cubic double-knot C1
+continuity decision, reviewed 2026-09-22.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom_convert___b_spline_curve_knot_splitting.html
+- https://dev.opencascade.org/doc/refman/html/class_law___b_spline_knot_splitting.html
+
+Project relevance:
+
+- spline continuity loss is localized at knot values;
+- guaranteed continuity at a knot is degree minus multiplicity;
+- for cubic degree three, multiplicity one gives C2 and multiplicity two gives
+  C1;
+- supports isolating the double-knot case before multiplicity three/C0;
+- local derivative facilities in mature kernels reinforce that side/local
+  derivative semantics are distinct from ordinary globally guaranteed
+  derivatives.
+
+### Open CASCADE Geom_Curve — derivative continuity requirements
+
+Status: `FOUNDATIONAL / SEMANTIC` for typed D2 failure at C1 knots,
+reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___curve.html
+
+Project relevance:
+
+- D1 requires C1 continuity;
+- D2 requires C2 continuity;
+- supports explicit differentiation between a valid first derivative and an
+  unavailable unique ordinary second derivative at a cubic double knot;
+- AP Mesh adopts its own parameter-local expected-value failure semantics rather
+  than copying Open CASCADE exception/global-continuity behavior.
+
+### Open CASCADE — B-spline surface knot continuity as sequencing evidence
+
+Status: `FOUNDATIONAL / SEQUENCING` for keeping Surface Representation
+blocked until C1 knot semantics are explicit, reviewed 2026-09-22.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom_convert___b_spline_surface_knot_splitting.html
+- https://dev.opencascade.org/doc/refman/html/class_geom___b_spline_surface.html
+
+Project relevance:
+
+- surface continuity changes are localized on U/V knot lines;
+- U/V multiplicity controls continuity in each parametric direction;
+- unresolved curve-level repeated-knot derivative semantics would otherwise be
+  duplicated for first/second/mixed surface partials;
+- this evidence supports sequencing only and does not authorize any production
+  surface family.
+
+### CGAL polycurve — composition remains a separate continuity layer
+
+Status: `FOUNDATIONAL / SCOPING` for deferring heterogeneous composition
+while spline-internal continuity is resolved, reviewed 2026-09-22.
+
+Official reference:
+https://doc.cgal.org/latest/Arrangement_on_surface_2/classCGAL_1_1Arr__polycurve__traits__2.html
+
+Project relevance:
+
+- a polycurve is a continuous, well-oriented chain of subcurves;
+- endpoint compatibility and chain orientation are separate from the internal
+  continuity of one spline family;
+- supports deferring runtime heterogeneous composition from the double-knot
+  work unit.
+
 ### Internal arbitrary-orientation constraint — qualified Cartesian Frames
 
 Status: `FOUNDATIONAL / INTERNAL` sequencing constraint for the second

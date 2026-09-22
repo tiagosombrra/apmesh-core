@@ -1875,50 +1875,59 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Multi-Span Clamped Cubic
-Positive-Weight NURBS — IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED / TERMINAL DOCUMENTATION SYNC ACTIVE**
+**Curve Representation Breadth Gate — Cubic NURBS Double-Knot C1
+Continuity — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
+Decision-entry authority:
 
-Terminal validation lineage:
+- terminal multi-span NURBS state:
+  `a37e8c266b0057b2d813f5f690faa6a1e6a710a1`;
+- terminal sync PR #132 FAST `35753336320`: PASS;
+- terminal sync PR #132 INTEGRATION `35753336303`: PASS;
+- terminal sync post-merge FAST `35753496462`: PASS;
+- terminal sync post-merge INTEGRATION `35753496400`: PASS.
 
-- implementation PR #130:
-  `153bf6b874b0deac304ea07562cd897785f631df`;
-- candidate FAST `35751863096`: PASS, 24/24;
-- candidate INTEGRATION `35751863450`: PASS, 24/24 in GCC/Clang;
-- final PR FAST `35752117689`: PASS, 24/24;
-- final PR INTEGRATION `35752117850`: PASS, 24/24 in GCC/Clang;
-- implementation post-merge FAST `35752335649`: PASS, 24/24;
-- implementation post-merge INTEGRATION `35752335629`: PASS, 24/24 in
-  GCC/Clang;
-- closure PR #131:
-  `d71ada7b280b443c4eb303c44b57e7ce429fb24a`;
-- closure PR FAST `35752743478`: PASS;
-- closure PR INTEGRATION `35752743439`: PASS;
-- closure post-merge FAST `35752844947`: PASS, 24/24;
-- closure post-merge INTEGRATION `35752844817`: PASS, 24/24 in GCC/Clang.
+Active decision:
+`docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-Final focused result:
+Selected future work unit:
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED.**
+**Cubic Positive-Weight Multi-Span NURBS with Interior Knot Multiplicity One
+or Two and explicit C1/D2 semantics.**
 
-Production includes the multi-span degree-three positive-weight NURBS family
-with simple interior knots. This does not widen the original Cubic-Bézier CGR
-qualification.
+The decision deliberately isolates one continuity boundary:
 
-After this terminal sync is integrated and post-merge validated, open one fresh
-literature-backed breadth decision comparing:
+- degree 3 remains fixed;
+- endpoint multiplicity remains 4;
+- unique interior multiplicities may be 1 or 2 only;
+- multiplicity one remains C2;
+- multiplicity two is representation-guaranteed C1;
+- value and D1 at a double knot remain available;
+- ordinary D2 at the exact double knot returns typed
+  `insufficient_continuity`;
+- D2 remains available in neighboring open spans;
+- existing simple-knot construction remains source/semantic compatible;
+- multiplicity-three C0 and one-sided derivative APIs remain deferred.
 
-- repeated-knot/continuity breadth;
-- arbitrary-degree polynomial/rational Bézier and/or arbitrary spline degree;
-- analytic conic after arbitrary 3D orientation prerequisites;
+Why Surface Representation is still blocked:
+
+- NURBS surfaces carry independent U/V multiplicities;
+- unresolved D2 semantics at reduced-continuity knot lines would otherwise be
+  duplicated for surface second/mixed partials;
+- the curve-level C1 rule must close first.
+
+Deferred:
+
+- multiplicity three/C0;
+- arbitrary degree;
+- periodic splines;
+- analytic conics;
 - heterogeneous composition/polycurve;
-- readiness for the separate Surface Representation entry decision.
+- all surface and downstream meshing implementation.
 
-No option is preselected.
+No implementation may start until the decision PR is integrated, post-merge
+FAST/INTEGRATION pass and the decision checkpoint is separately closed.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
