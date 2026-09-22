@@ -715,3 +715,50 @@ Current status:
 REVALIDATION PENDING / NOT QUALIFIED.**
 
 No other family or downstream capability is implied.
+
+
+## 28. Implementation integration checkpoint
+
+PR #109 integrated the authorized work unit as
+`6600875dfbb33d1a37603e32bcf452625373c462`.
+
+Validation lineage:
+
+- first complete candidate head:
+  `a68134daae06207f1ec32cf7df1f613a7e8cb693`;
+- candidate FAST `35726985299`: PASS, 20/20 tests;
+- candidate INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 20/20 tests per cell;
+- final documentation-synchronized head:
+  `0c2f0f72a9c7ae9d5c400a0685d72df3303d7273`;
+- final PR FAST `35727147220`: PASS;
+- final PR INTEGRATION `35727147303`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35727296946`: PASS;
+- post-merge INTEGRATION `35727296931`: PASS.
+
+Integrated production scope:
+
+- `RationalQuadraticBezier2`;
+- `RationalQuadraticBezier3`;
+- positive finite validated weights;
+- exact `[0,1]` bounded-domain semantics;
+- point evaluation, D1 and D2;
+- representation reversal;
+- common-weight-scale invariance evidence;
+- polynomial degree-elevation parity;
+- non-circular conic and quarter-circle residual evidence;
+- degenerate/constant and extreme-finite evidence.
+
+The common bounded-parametric concepts were not changed.
+
+Work-unit result:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+This result does not qualify arbitrary rational Bézier, analytic conics,
+B-spline, NURBS, trimming, surfaces or downstream meshing.
+
+After implementation closure integration/post-merge validation, a fresh
+literature-backed decision is mandatory before another concrete family or
+representation semantic step.
