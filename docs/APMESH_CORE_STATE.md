@@ -284,65 +284,48 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Complete Positive-Weight Rational Quadratic Bézier Representation in 2D and
-3D on the single active implementation branch.**
+**After this implementation closure is integrated and post-merge validated,
+open one new literature-backed decision for the next Curve Representation
+Breadth step.**
 
-Closed decision evidence:
+Integrated rational-quadratic evidence:
 
-- PR #107 merged as
-  `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
-- decision post-merge FAST `35722894744`: PASS;
-- decision post-merge INTEGRATION `35722894725`: PASS;
-- decision closure PR #108 merged as
-  `30f32997dec0aa7937c9730eb5ce24e2f80bb964`;
-- closure post-merge FAST `35723209087`: PASS;
-- closure post-merge INTEGRATION `35723209143`: PASS.
+- implementation PR #109 merged as
+  `6600875dfbb33d1a37603e32bcf452625373c462`;
+- candidate FAST `35726985299`: PASS, 20/20;
+- candidate INTEGRATION `35726985356`: PASS, 20/20 in GCC and Clang;
+- final PR-head FAST `35727147220`: PASS;
+- final PR-head INTEGRATION `35727147303`: PASS;
+- post-merge FAST `35727296946`: PASS;
+- post-merge INTEGRATION `35727296931`: PASS.
 
-Active branch:
-`curve/rational-quadratic-bezier`.
+Closure branch:
+`docs/rational-quadratic-bezier-implementation-closure`.
 
 Decision authority:
 `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-Implemented candidate mapping on the active branch:
+Production now contains:
 
-- `include/apmesh/geometry/rational_bezier.hpp`:
-  validated fixed-degree positive-weight 2D/3D value types;
-- `src/geometry/rational_bezier.cpp`:
-  exact `[0,1]` domain, scaled rational value evaluation, analytic D1/D2,
-  endpoint-preserving evaluation and reversal;
-- `tests/rational_quadratic_bezier.cpp`:
-  construction failures, independent rational jet, degree-elevation parity,
-  conic/quarter-circle residuals, reversal, weight-scale invariance,
-  degeneracy, extreme finite values, translation, embedding and determinism;
-- `CMakeLists.txt`:
-  production source plus one focused FAST/INTEGRATION contract.
+- `CubicBezier2/3`;
+- `LineSegment2/3`;
+- `RationalQuadraticBezier2/3`.
 
-The common `BoundedParametricCurve2/3` semantics remain unchanged.
+The original CGR0–CGR7 qualification remains restricted to polynomial cubic
+Bézier. The line-segment and rational-quadratic families are integrated focused
+work units, not a broadened formal qualification claim.
 
-No analytic conic class, arbitrary-degree rational/polynomial Bézier,
-B-spline/NURBS, knots, trimming, surface, discretization or meshing work is
-authorized.
-
-Candidate validation:
-
-- head `a68134daae06207f1ec32cf7df1f613a7e8cb693`;
-- FAST `35726985299`: PASS, 20/20 tests;
-- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 20/20 tests per cell;
-- focused `apmesh_core.rational_quadratic_bezier`: PASS in all three jobs.
-
-The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
-head passes and integration/post-merge closure completes.
+No third family, surface, discretization or meshing work is authorized until a
+new decision is integrated and closed.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
-Bézier — IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED /
-LINE-SEGMENT INTEGRATION PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
+Bézier — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
+CLOSURE PENDING / LINE-SEGMENT INTEGRATION PRESERVED /
+CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
@@ -358,13 +341,14 @@ SEAM**
 The original qualified Curve Representation claim remains intentionally
 narrow: CGR0–CGR7 qualifies only polynomial cubic Bézier curves. Production
 has since been extended, without widening that qualification claim, with
-`LineSegment2` and `LineSegment3` under a separate focused work unit.
+`LineSegment2/3` and `RationalQuadraticBezier2/3` under separate focused
+work units.
 
 The following are **not implemented and not covered by CGR qualification**:
 
 - analytic circular/general conic arc curve types;
-- rational Bézier curves and exact rational conic-segment representation;
-- arbitrary-degree Bézier curves;
+- dedicated analytic circular/general conic arc curve types;
+- arbitrary-degree polynomial/rational Bézier curves;
 - B-spline curves;
 - NURBS curves;
 - composite/trimmed curve semantics;
