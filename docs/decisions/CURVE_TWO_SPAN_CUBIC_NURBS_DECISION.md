@@ -807,3 +807,32 @@ item is the implementation bounded by Sections 5–30.
 General/multi-span B-spline or NURBS, variable degree/count, repeated knots,
 periodicity, arbitrary-degree Bézier, analytic conics, heterogeneous
 composition, surfaces and downstream meshing remain unauthorized.
+
+
+## 34. Decision closure checkpoint
+
+Decision closure PR #122 merged as
+`85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`.
+
+Closure PR validation:
+
+- FAST `35741308649`: PASS;
+- INTEGRATION `35741308596`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Closure post-merge validation:
+
+- FAST `35741432913`: PASS;
+- INTEGRATION `35741432864`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+After terminal documentation synchronization, the sole next production work
+item is the fixed family defined by Sections 5–30.
+
+The closure does not authorize broader NURBS/B-spline containers, variable
+degree/count, repeated knots, periodicity, arbitrary-degree Bézier, analytic
+conics, heterogeneous composition, surfaces or downstream meshing.
