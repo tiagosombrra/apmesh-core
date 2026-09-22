@@ -355,9 +355,13 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-rational-bicubic-bezier-implementation-closure`:
   **MERGED / HISTORICAL** via PR #146; closes the rational bicubic surface
   implementation checkpoint.
-- `docs/surface-rational-bicubic-bezier-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles the closed rational bicubic
-  checkpoint before the next Surface Representation breadth decision.
+- `docs/surface-rational-bicubic-bezier-closure-sync`: **MERGED /
+  HISTORICAL** via PR #147; terminally reconciles the closed rational bicubic
+  checkpoint.
+- `docs/surface-rational-terminal-checkpoint`: **TERMINAL /
+  DOCUMENTATION-ONLY / NO SCIENTIFIC WORK ITEM**; normalizes the compact
+  continuation checkpoint and branch classification before the next breadth
+  decision.
 
 The presence of historical branches on the remote does not make them active.
 

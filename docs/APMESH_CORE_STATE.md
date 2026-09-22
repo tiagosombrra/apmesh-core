@@ -86,16 +86,25 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed surface-representation anchor: Tensor-Product Bicubic
-  Polynomial Bézier Patch in 3D, implementation PR #140
-  `2d6d01e4202367d62db6017939cde0f2b8e83c65`, closure PR #141
-  `e964465fd7f7ffcf9d2403752cf9f791b8666433`, terminal sync PR #142
-  `bf218b31eb2b71d7ed651183b0cfc649c96b8c7c`;
-- terminal sync PR FAST `35767725994` and INTEGRATION `35767725955`: PASS;
-- terminal sync post-merge FAST `35768039368` and INTEGRATION
-  `35768039528`: PASS;
+- latest closed surface-representation anchor: Positive-Weight Rational
+  Tensor-Product Bicubic Bézier Patch in 3D, implementation PR #145
+  `8ac1abd913bf15ff1dc4d60595f809491902c055`, closure PR #146
+  `c7f7b32b180082421cadc74c39d2919f713ec775`, terminal reconciliation
+  PR #147 `6577683e65a35d802a05f812e2763b738094c87f`;
+- implementation post-merge FAST `35783312495` and INTEGRATION
+  `35783312402`: PASS, 27/27;
+- closure post-merge FAST `35783715705` and INTEGRATION
+  `35783715671`: PASS;
+- terminal reconciliation PR FAST `35796641879` and INTEGRATION
+  `35796641967`: PASS;
+- terminal reconciliation post-merge FAST `35796719734` and INTEGRATION
+  `35796719674`: PASS;
 - current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — RATIONAL BICUBIC BÉZIER DECISION ACTIVE / NOT QUALIFIED**;
+  Geometry — RATIONAL BICUBIC BÉZIER IMPLEMENTED / INTEGRATED / CLOSED /
+  NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**;
+- next admissible action: one fresh literature-backed Surface Representation
+  breadth decision comparing cubic B-spline/NURBS, Coons/transfinite,
+  analytic elementary, swept and trimmed families;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
