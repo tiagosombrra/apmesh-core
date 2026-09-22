@@ -324,9 +324,17 @@ No heterogeneous composition, periodic trim, analytic conic,
 arbitrary-degree Bézier, B-spline/NURBS, surface, discretization or meshing
 implementation is included.
 
-The implementation remains **ACTIVE / VALIDATION PENDING / NOT QUALIFIED**
-until PR FAST/INTEGRATION, integration, post-merge validation and closure
-complete.
+Candidate validation:
+
+- head `fdb44db2478f50724242d9f83260bbca5d68ce0e`;
+- FAST `35730750101`: PASS, 21/21 tests;
+- INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 21/21 tests per cell;
+- focused `apmesh_core.trimmed_curve`: PASS in all three jobs.
+
+The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
+head passes and integration/post-merge closure completes.
 
 ## Current active stage
 
