@@ -289,48 +289,38 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed Cubic NURBS Double-Knot C1 Continuity
-decision; no production implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the Cubic NURBS Double-Knot C1 Continuity work unit.**
 
-Decision-entry authority:
+Decision evidence:
 
-- terminal multi-span NURBS state:
-  `a37e8c266b0057b2d813f5f690faa6a1e6a710a1`;
-- sync PR #132 FAST `35753336320`: PASS;
-- sync PR #132 INTEGRATION `35753336303`: PASS;
-- sync post-merge FAST `35753496462`: PASS;
-- sync post-merge INTEGRATION `35753496400`: PASS.
+- PR #133 merged as
+  `ea65372bb6a9ed9a6bde94a3e3eed551e96fd3b9`;
+- PR FAST `35754225028`: PASS;
+- PR INTEGRATION `35754225224`: PASS;
+- post-merge FAST `35754389148`: PASS;
+- post-merge INTEGRATION `35754389151`: PASS.
 
-Active branch:
-`curve/cubic-nurbs-double-knot-continuity-decision`.
+Closure branch:
+`docs/cubic-nurbs-double-knot-decision-closure`.
 
 Decision authority:
 `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-The decision selects only the first reduced-continuity spline step:
+The sole authorized next implementation admits interior multiplicity 1/2 at
+fixed cubic degree and introduces typed ordinary-D2 failure exactly at double
+knots.
 
-- degree remains 3;
-- each interior multiplicity remains 1 or 2;
-- multiplicity two guarantees C1;
-- value and D1 remain ordinary successful queries at a double knot;
-- ordinary D2 at the exact double knot returns
-  `CurveError::insufficient_continuity`;
-- D2 away from that knot remains available;
-- no one-sided derivative API is authorized.
-
-Surface Representation remains blocked because the same multiplicity/partial
-derivative ambiguity would otherwise be duplicated in U/V.
-
-No production repeated-knot, arbitrary-degree, periodic, conic, polycurve,
-surface, discretization or meshing work is authorized.
+Surface Representation remains blocked until that implementation closes and a
+separate surface-readiness/entry decision explicitly opens it.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — CUBIC NURBS DOUBLE-KNOT C1
-CONTINUITY DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+CONTINUITY DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
 MULTI-SPAN NURBS, FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
 INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
