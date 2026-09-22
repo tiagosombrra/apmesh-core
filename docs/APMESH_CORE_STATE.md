@@ -330,9 +330,18 @@ Candidate repository mapping:
 The fixed two-span production source and common parametric contract are
 unchanged.
 
+Candidate validation:
+
+- head `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
+- FAST `35751863096`: PASS, 24/24 tests;
+- INTEGRATION `35751863450`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 24/24 tests per cell;
+- focused `apmesh_core.multi_span_cubic_nurbs`: PASS in all three jobs.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
