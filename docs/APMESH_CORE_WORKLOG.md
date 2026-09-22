@@ -219,64 +219,37 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Implement Pointwise Curvature Magnitude on Regular Cubic Bézier Curves —
-VALIDATED_UNMERGED.**
+**None. Pointwise Curvature Magnitude is integrated and closed.**
 
-Active branch: `curve/pointwise-curvature-magnitude`.
+Closure evidence:
 
-Authority:
-`docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
+1. entry authority:
+   `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+2. implementation PR #88 merged as
+   `b1a279fbe2592cd4fe7f5a688318ac50f0e60d35`;
+3. PR FAST `35672497018`: PASS;
+4. PR INTEGRATION `35672497040`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+5. post-merge FAST `35673041777`: PASS;
+6. post-merge INTEGRATION `35673041859`: PASS;
+7. production API now provides 2D/3D nonnegative pointwise curvature magnitude
+   with exact singular-parameter and explicit non-finite-result semantics;
+8. focused analytic/metamorphic/adversarial evidence is integrated;
+9. qualified Curve Representation prerequisites remain passing;
+10. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Implemented scope:
-
-1. `CubicBezier2::curvature_magnitude(t)`;
-2. `CubicBezier3::curvature_magnitude(t)`;
-3. `CurveError::singular_parameter` for exact zero first derivative;
-4. reuse of qualified first/second derivatives and vector geometry;
-5. scale-aware evaluation using normalized derivatives plus
-   `frexp`/`scalbn` reconstruction of the physical scale factor;
-6. explicit failure when a positive final curvature cannot be represented;
-7. successful exact zero for regular line/inflection cases;
-8. no hidden epsilon or fallback;
-9. focused contract `apmesh_core.curve_curvature` registered in
-   FAST/INTEGRATION.
-
-Focused evidence covers:
-
-- 2D and 3D regular lines;
-- degree-elevated parabola;
-- spatial polynomial `(t,t²,t³)`;
-- regular zero-curvature inflection;
-- singular endpoint and constant curve;
-- reversal;
-- translation;
-- orthogonal signed-permutation frames;
-- reciprocal power-of-two scale covariance;
-- 2D/3D planar embedding parity;
-- tiny but nonzero derivative without false singularity;
-- large-scale fixture whose naïve raw intermediates would overflow;
-- explicitly unrepresentable curvature;
-- invalid parameters, signed zero and repeatability.
-
-Validation:
-
-- PR FAST run `35672497018`: PASS;
-- PR INTEGRATION run `35672497040`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug.
-
-Scientific status is exactly:
-
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
-
-No global feature classification, discretization, sizing, surfaces, meshing,
-Quad-Dominant or parallel execution is introduced.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this PR is merged, post-merge FAST/INTEGRATION pass, and the work-unit
-checkpoint is closed, open one separate literature-backed scientific decision
-for the next Curve Differential Geometry investigation.
+Open one separate literature-backed scientific decision for the next
+**Curve Differential Geometry** investigation.
 
-The next decision must not be inferred automatically from this pointwise
-capability.
+The next decision must select exactly one bounded problem from the remaining
+stage candidates and define its mathematics, evidence, failure semantics and
+explicit exclusions before implementation.
+
+No signed curvature, global bound, extrema, inflection classifier, feature
+classifier, discretization or sizing implementation is authorized by this
+closure alone.
 
