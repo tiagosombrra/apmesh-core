@@ -1510,7 +1510,7 @@ candidates before authorizing any production implementation.
 Status: `IN INVESTIGATION / PARAMETRIC CONTRACT INTEGRATED /
 LINE SEGMENT INTEGRATED / RATIONAL QUADRATIC BÉZIER INTEGRATED /
 ORIENTED TRIM INTEGRATED / TWO-SPAN CUBIC B-SPLINE INTEGRATED /
-TWO-SPAN CUBIC NURBS DECISION ACTIVE /
+TWO-SPAN CUBIC NURBS DECISION INTEGRATED / CLOSURE PENDING /
 NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1875,47 +1875,29 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Positive-Weight
-NURBS — DECISION ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION**
+NURBS — DECISION INTEGRATED / CLOSURE PENDING / NO PRODUCTION IMPLEMENTATION**
 
-Terminal prerequisite evidence:
-
-- fixed B-spline implementation closure PR #119:
-  `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
-- closure post-merge FAST `35737514686`: PASS;
-- closure post-merge INTEGRATION `35737514493`: PASS;
-- terminal sync PR #120:
-  `6e549d4f4b989108f8faacad326a207ee88238e7`;
-- terminal sync FAST `35740316433`: PASS;
-- terminal sync INTEGRATION `35740316620`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-The decision selects a fixed rational spline work unit that combines two
-already isolated foundations without broadening storage/container semantics:
+Decision validation:
 
-- degree 3;
-- exactly five controls;
-- exactly five finite positive weights;
-- knots `[a,a,a,a,k,b,b,b,b]`;
-- finite strict `a<k<b`;
-- exactly two spans;
-- one simple interior knot / C2 representation continuity;
-- non-periodic;
-- value/D1/D2;
-- homogeneous de Boor production strategy;
-- all-one/equal-weight parity with integrated polynomial B-spline;
-- rational-quadratic degree-elevation + knot-insertion parity;
-- independent rational-basis reference;
-- local-support, weight-scale and reversal evidence.
+- PR #121:
+  `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
+- PR FAST `35740954735`: PASS;
+- PR INTEGRATION `35740954945`: PASS;
+- post-merge FAST `35741064912`: PASS;
+- post-merge INTEGRATION `35741064906`: PASS.
 
-General/multi-span B-spline/NURBS, arbitrary degree/count, repeated knots,
+Closure branch:
+`docs/two-span-cubic-nurbs-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is the fixed five-control/two-span cubic positive-weight NURBS family.
+
+General/multi-span B-spline/NURBS, variable degree/count, repeated knots,
 periodicity, arbitrary-degree Bézier, analytic conic and heterogeneous
 composition remain later decisions.
-
-No implementation is authorized until this decision is integrated,
-post-merge FAST/INTEGRATION pass, and the decision checkpoint is separately
-closed.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
