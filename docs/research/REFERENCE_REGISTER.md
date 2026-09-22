@@ -1149,6 +1149,105 @@ Project relevance:
   runtime polymorphism.
 
 
+## Surface Representation
+
+### Open CASCADE Geom_BoundedSurface — finite rectangular surface domains
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for Surface Representation entry,
+reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___bounded_surface.html
+
+Project relevance:
+
+- treats a bounded surface as finite over independent U/V parameter intervals;
+- identifies four isoparametric boundary curves;
+- supports a dedicated two-parameter bounded-surface contract rather than
+  reusing a one-parameter curve interface implicitly.
+
+### Open CASCADE Geom_BezierSurface — tensor-product control-net surface
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the first surface work unit,
+reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___bezier_surface.html
+
+Project relevance:
+
+- represents polynomial/rational Bézier surfaces with a two-dimensional
+  control net;
+- supports isolating a fixed bicubic polynomial patch before weights, knots,
+  periodicity and trimming;
+- external API/inheritance/exception semantics are not adopted.
+
+### Patrikalakis, Maekawa and Cho — Bézier/B-spline surfaces
+
+Status: `FOUNDATIONAL` for tensor-product surface structure, reviewed
+2026-09-22.
+
+References:
+
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node8.html
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node19.html
+
+Project relevance:
+
+- documents Bézier and B-spline surfaces as tensor-product parametric
+  representations;
+- B-spline surfaces use a rectangular control net and independent U/V knot
+  vectors;
+- supports using a direct Bernstein-sum oracle independent of production
+  tensor-product de Casteljau evaluation.
+
+### Open CASCADE geometry model taxonomy — required surface breadth
+
+Status: `FOUNDATIONAL / SCOPING` for the Surface Representation family map,
+reviewed 2026-09-22.
+
+Reference:
+https://dev.opencascade.org/sites/default/files/pdf/Geometry.pdf
+
+Project relevance:
+
+- separates elementary surfaces (plane/cylinder/cone/sphere/torus), free-form
+  Bézier/B-spline surfaces, sweeping surfaces, offsets and trimming;
+- supports retaining analytic, free-form, swept and trimmed families as
+  distinct AP Mesh obligations;
+- prevents one polynomial patch from being documented as full CAD surface
+  coverage.
+
+### Open CASCADE Geom_RectangularTrimmedSurface — trimming is separate from
+supporting geometry
+
+Status: `FOUNDATIONAL / SCOPING` for later trimmed-surface work, reviewed
+2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___rectangular_trimmed_surface.html
+
+Project relevance:
+
+- separates a supporting surface from parameter-domain trimming;
+- exposes independent U/V reversal/orientation semantics;
+- supports keeping first surface representation untrimmed and value-oriented.
+
+### Open CASCADE GeomFill_BSplineCurves — Coons/boundary filling
+
+Status: `FOUNDATIONAL / SCOPING` for later AP Mesh transfinite/Coons work,
+reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/_geom_fill___b_spline_curves_8hxx.html
+
+Project relevance:
+
+- boundary-generated filling is a construction mechanism distinct from a
+  tensor-product value type;
+- supports retaining Coons/transfinite work as an explicit later surface
+  family rather than folding it into the first bicubic patch.
+
 ## Curve Differential Geometry
 
 ### do Carmo — Differential Geometry of Curves and Surfaces
