@@ -31,6 +31,7 @@ add_library(apmesh_core STATIC
     src/core/geometry.cpp
     src/core/numeric.cpp
     src/geometry/curve.cpp
+    src/geometry/line_segment.cpp
     src/math/linear_algebra.cpp
     src/topology/topology.cpp
 )
@@ -165,6 +166,17 @@ if(BUILD_TESTING)
     add_test(
         NAME apmesh_core.parametric_curve_contract
         COMMAND apmesh_core.parametric_curve_contract
+    )
+
+    add_executable(apmesh_core.line_segment
+        tests/line_segment.cpp
+    )
+    target_link_libraries(apmesh_core.line_segment PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.line_segment)
+
+    add_test(
+        NAME apmesh_core.line_segment
+        COMMAND apmesh_core.line_segment
     )
 
     add_executable(apmesh_core.curve_differential
@@ -332,6 +344,7 @@ if(BUILD_TESTING)
     set_tests_properties(
         apmesh_core.curve_representation
         apmesh_core.parametric_curve_contract
+        apmesh_core.line_segment
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
         apmesh_core.curve_signed_curvature

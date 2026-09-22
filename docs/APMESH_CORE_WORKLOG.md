@@ -257,54 +257,99 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/bounded-line-segment-decision-closure`: **MERGED / HISTORICAL**
   via PR #104; closes the bounded line-segment decision checkpoint and
   authorizes only its mapped implementation as the next work item.
+- `curve/bounded-line-segment`: **ACTIVE**; bounded 2D/3D directed
+  line-segment representation implementation under the closed decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. First Concrete Curve Family — Bounded Directed Line Segment decision is
-integrated and closed.**
+**Bounded Directed Line Segment Representation in 2D and 3D — ACTIVE /
+IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`curve/bounded-line-segment`.
 
-1. decision authority:
-   `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-2. decision PR #103 merged as
-   `2b42c78a2dbf0ede225144339dbf100900bef672`;
-3. final decision PR FAST `35719338493`: PASS;
-4. final decision PR INTEGRATION `35719338492`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-5. decision post-merge FAST `35719435059`: PASS;
-6. decision post-merge INTEGRATION `35719434961`: PASS;
-7. closure authority: PR #104;
-8. the qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved;
-9. the common bounded parametric contract remains integrated;
-10. no concrete second curve family has yet been implemented.
+Decision authority:
+`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-No production work item is active in this closure change.
+Closed decision checkpoint:
 
-## Next admissible work item
+- PR #103 merged as
+  `2b42c78a2dbf0ede225144339dbf100900bef672`;
+- decision post-merge FAST `35719435059`: PASS;
+- decision post-merge INTEGRATION `35719434961`: PASS;
+- closure PR #104 merged as
+  `326ffdf724912e8841a74c3c0b69756ca23e14c2`;
+- closure post-merge FAST `35719744251`: PASS;
+- closure post-merge INTEGRATION `35719744291`: PASS.
 
-Open exactly one implementation branch for:
+Authorized repository mapping:
 
-**Bounded Directed Line Segment Representation in 2D and 3D.**
+1. public value family:
+   `include/apmesh/geometry/line_segment.hpp`;
+2. production implementation:
+   `src/geometry/line_segment.cpp`;
+3. focused semantic/header contract:
+   `tests/line_segment.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized authorities:
+   `docs/APMESH_CORE_STATE.md`,
+   `docs/APMESH_CORE_ROADMAP.md`,
+   this worklog, and the decision integration record.
 
-The implementation must remain within
-`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`:
+Required semantics remain exactly those fixed by the decision:
 
-- add `LineSegment2` and `LineSegment3`;
-- satisfy `BoundedParametricCurve2/3`;
-- exact `[0,1]` domain;
-- overflow-aware finite value interpolation;
+- `LineSegment2` and `LineSegment3`;
+- existing `BoundedParametricCurve2/3` concept satisfaction;
+- exact `[0,1]` parameter domain;
+- finite overflow-aware interpolation;
 - constant first derivative with explicit unrepresentable-result failure;
 - exact zero second derivative;
-- endpoint-swap reversal and covariance;
-- tested degenerate-value semantics;
-- focused GCC/Clang regression preserving every current prerequisite.
+- endpoint-swap reversal/involution/covariance;
+- representable degenerate segments with constant value and zero derivatives;
+- typed parameter failures;
+- prerequisite regression preservation.
 
-No circle/conic, arbitrary-degree/rational Bézier, B-spline, NURBS,
-composite/trimmed curve, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized.
+Validation history:
 
-After the segment implementation is integrated and closed, a new
-literature-backed decision is required before the next concrete curve family.
+- initial PR head `043fd98d2162e83a59e4b0b16054e51367551c2d`:
+  FAST `35720284585` and INTEGRATION `35720284182` failed during
+  compilation of `tests/line_segment.cpp`;
+- both GCC and Clang failures had the same mechanical cause: the focused test
+  referenced `Vector2`/`Vector3` after their local using-declarations had
+  been removed; `src/geometry/line_segment.cpp` itself compiled in all
+  observed jobs;
+- no production, mathematical, decision, expected-result or acceptance
+  semantics changed in response;
+- correction commit `0e915dc1bf9cc038fe09fb0c9dc5e8f04b521975`
+  restores only the missing test aliases;
+- corrected candidate head `482ea0acd00b51a7bc772935d344008d2797474c`:
+  FAST `35720421004` PASS, 19/19 tests;
+- corrected candidate INTEGRATION `35720420984` PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug, 19/19 tests in each cell;
+- `apmesh_core.line_segment` passed in all three corrected validation jobs;
+- no production, mathematical, decision, expected-result or acceptance
+  semantics changed between the initial failed head and the corrected passing
+  candidate.
+
+The implementation candidate is therefore **FOCUSED CONTRACTS PASS / READY FOR
+FINAL PR-HEAD REVALIDATION AFTER THIS DOCUMENTATION SYNC / NOT QUALIFIED**.
+
+Explicit non-actions:
+
+- no circle/conic arc;
+- no arbitrary-degree/rational Bézier;
+- no B-spline/NURBS;
+- no composite/trimmed curve;
+- no generic regularity/length/curvature refactor;
+- no surface/discretization/sizing/meshing;
+- no Quad-Dominant or parallel work.
+
+## Next admissible transition
+
+Complete only this implementation, pass focused FAST/INTEGRATION in GCC and
+Clang, integrate through one PR, pass post-merge validation, synchronize the
+implementation closure checkpoint, and only then open a new literature-backed
+decision for the next concrete curve family.

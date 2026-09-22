@@ -283,12 +283,12 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Implement Bounded Directed Line Segment Representation in 2D and 3D under
-the closed first-concrete-family decision.**
+**Complete Bounded Directed Line Segment Representation in 2D and 3D on the
+single active implementation branch.**
 
-Decision closure evidence:
+Decision/closure evidence:
 
 - decision PR #103 merged as
   `2b42c78a2dbf0ede225144339dbf100900bef672`;
@@ -296,26 +296,54 @@ Decision closure evidence:
 - decision PR INTEGRATION `35719338492`: PASS;
 - decision post-merge FAST `35719435059`: PASS;
 - decision post-merge INTEGRATION `35719434961`: PASS;
-- closure authority: PR #104.
+- decision closure PR #104 merged as
+  `326ffdf724912e8841a74c3c0b69756ca23e14c2`;
+- closure post-merge FAST `35719744251`: PASS;
+- closure post-merge INTEGRATION `35719744291`: PASS.
 
-Implementation authority:
+Active branch:
+`curve/bounded-line-segment`.
+
+Decision authority:
 `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-The sole authorized production scope is `LineSegment2` and `LineSegment3`
-value representation plus focused conformance/analytic evidence. Existing
-`BoundedParametricCurve2/3` semantics must not change.
+Implemented candidate mapping on the active branch:
 
-No circle/conic, arbitrary-degree/rational Bézier, B-spline, NURBS,
-composite/trimmed curve, surface, discretization or meshing work is authorized.
+- `include/apmesh/geometry/line_segment.hpp`:
+  `LineSegment2` and `LineSegment3` value declarations;
+- `src/geometry/line_segment.cpp`:
+  exact `[0,1]` domain, overflow-aware interpolation, constant D1, exact
+  zero D2 and endpoint-swap reversal;
+- `tests/line_segment.cpp`:
+  concept, analytic, reversal, degeneracy, extreme-finite, covariance,
+  embedding and determinism evidence;
+- `CMakeLists.txt`:
+  production source plus one focused FAST/INTEGRATION semantic contract.
 
-Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and is
-paused during this representation-breadth sequence.
+The existing `BoundedParametricCurve2/3` contract is unchanged. No other
+curve family, generic differential/length refactor, surface, discretization or
+meshing implementation is authorized.
+
+Corrected candidate validation:
+
+- head `482ea0acd00b51a7bc772935d344008d2797474c`;
+- FAST `35720421004`: PASS, 19/19 tests;
+- INTEGRATION `35720420984`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 19/19 tests per cell;
+- focused `apmesh_core.line_segment`: PASS in all three jobs.
+
+The initial failed head remains documented in WORKLOG/decision as a mechanical
+focused-test compile failure.
+
+The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
+head passes and integration/post-merge closure completes.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Bounded Directed Line Segment —
-DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
-NO NEW FAMILY IMPLEMENTED / CUBIC BASELINE QUALIFICATION PRESERVED**
+IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED /
+CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
