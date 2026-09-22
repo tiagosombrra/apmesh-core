@@ -1876,66 +1876,47 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Tensor-Product
-Bicubic Polynomial Bézier Patch in 3D — IMPLEMENTATION ACTIVE /
+Bicubic Polynomial Bézier Patch in 3D — IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
 NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
+Implementation evidence:
 
-Closed decision lineage:
+- candidate head
+  `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
+- candidate FAST `35765755483`: PASS, 26/26;
+- candidate INTEGRATION `35765755475`: PASS, 26/26;
+- final PR head
+  `453ff3b7e3a33ab0410db8c86fd8ac5a2531b226`;
+- final INTEGRATION `35765951784`: PASS, 26/26;
+- final FAST `35765951781` attempt 1: CANCELLED mechanically;
+- final FAST `35765951781` attempt 2: PASS, 26/26;
+- implementation PR #140:
+  `2d6d01e4202367d62db6017939cde0f2b8e83c65`;
+- post-merge FAST `35766651557`: PASS, 26/26;
+- post-merge INTEGRATION `35766651497`: PASS, 26/26.
 
-- decision PR #138:
-  `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
-- decision post-merge FAST `35762956742`: PASS;
-- decision post-merge INTEGRATION `35762956709`: PASS;
-- closure PR #139:
-  `2300c5fdac3e79d4106f0a7821749dfc5de97ffd`;
-- closure post-merge FAST `35763548131`: PASS;
-- closure post-merge INTEGRATION `35763548244`: PASS.
+Closure branch:
+`docs/surface-bicubic-bezier-implementation-closure`.
 
-Active implementation branch:
-`surface/bicubic-bezier-patch`.
+After closure integration and post-merge validation, the sole next action is a
+fresh Surface Representation breadth decision comparing:
 
-Authorized first work unit:
-
-- minimal static bounded-surface contract;
-- exact [0,1]² domain for this concrete patch;
-- 4x4 Point3 control net;
-- deterministic V-then-U tensor-product de Casteljau;
-- analytic Su, Sv, Suu, Suv, Svv;
-- U/V reversal and boundary parity;
-- direct Bernstein oracle;
-- analytic polynomial fixtures;
-- constant/degenerate representation allowed;
-- target ordinary inventory: 26 tests.
-
-Candidate validation on head
-`f9c94d95540d93eace7bbf1401c35f17a27d145b`:
-
-- FAST `35765755483`: PASS, 26/26 tests;
-- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 26/26 tests per cell;
-- the new bicubic surface contract and every prior ordinary semantic contract
-  passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. No topology, trimming,
-surface-differential-geometry or meshing dependency was introduced.
-
-The retained future surface envelope remains:
-
-- rational Bézier;
-- B-spline/NURBS;
-- Coons/transfinite;
+- rational Bézier patch;
+- B-spline/NURBS surface;
+- Coons/transfinite patch;
 - analytic elementary surfaces;
-- ruled/extrusion/revolution;
-- trimmed surfaces.
+- ruled/extrusion/revolution surfaces;
+- rectangular/general trimmed-surface semantics.
 
-Remaining curve breadth remains retained, not cancelled.
+No candidate is preselected.
+
+The retained curve-breadth obligations remain open.
 
 Curve Differential Geometry remains paused/unqualified.
 
-Boundary Curve Discretization remains blocked.
+Boundary Curve Discretization and Surface Differential Geometry remain
+blocked.
 
 The long-term ordering remains:
 

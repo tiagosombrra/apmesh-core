@@ -338,109 +338,61 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   PR #138; literature-backed Surface Representation entry decision.
 - `docs/surface-representation-entry-decision-closure`: **MERGED /
   HISTORICAL** via PR #139; closes the Surface Representation entry decision.
-- `surface/bicubic-bezier-patch`: **ACTIVE**; first bounded production work
-  item in Surface Representation.
+- `surface/bicubic-bezier-patch`: **MERGED / HISTORICAL** via PR #140;
+  first bounded production work item in Surface Representation.
+- `docs/surface-bicubic-bezier-implementation-closure`: **CLOSURE-ONLY**;
+  records PR #140 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Tensor-Product Bicubic Polynomial Bézier Patch in 3D — ACTIVE /
-IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None. Tensor-Product Bicubic Polynomial Bézier Patch in 3D is integrated and
+ready for closure.**
 
-Active branch:
-`surface/bicubic-bezier-patch`.
+Implementation closure evidence:
 
-Decision authority:
-`docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
+1. candidate head:
+   `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
+2. candidate FAST `35765755483`: PASS, 26/26;
+3. candidate INTEGRATION `35765755475`: PASS, 26/26 in GCC and Clang;
+4. final PR head:
+   `453ff3b7e3a33ab0410db8c86fd8ac5a2531b226`;
+5. final PR INTEGRATION `35765951784`: PASS, 26/26 in GCC and Clang;
+6. final PR FAST `35765951781` attempt 1: CANCELLED mechanically by workflow
+   concurrency after documentation commits; no test failure;
+7. final PR FAST `35765951781` attempt 2: PASS, 26/26 on the same immutable
+   head;
+8. implementation PR #140 merged as
+   `2d6d01e4202367d62db6017939cde0f2b8e83c65`;
+9. post-merge FAST `35766651557`: PASS, 26/26;
+10. post-merge INTEGRATION `35766651497`: PASS, 26/26 in GCC and Clang;
+11. focused `apmesh_core.surface_bicubic_bezier`: PASS in every successful
+    candidate/final/post-merge gate;
+12. all prior ordinary semantic contracts remained PASS;
+13. no rational, spline/NURBS, Coons, analytic, swept, trimmed or meshing
+    surface capability was added.
 
-Closed decision checkpoint:
+Integrated work-unit result before this closure merges:
 
-- decision PR #138:
-  `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
-- decision post-merge FAST `35762956742`: PASS;
-- decision post-merge INTEGRATION `35762956709`: PASS;
-- decision closure PR #139 head:
-  `050d1b5b919b9bba0b360b37657c07c5bac70eef`;
-- closure PR FAST `35763315317`: PASS;
-- closure PR INTEGRATION `35763315277`: PASS;
-- closure PR #139 merged as:
-  `2300c5fdac3e79d4106f0a7821749dfc5de97ffd`;
-- closure post-merge FAST `35763548131`: PASS;
-- closure post-merge INTEGRATION `35763548244`: PASS.
+**SURFACE REPRESENTATION STAGE OPEN /
+BICUBIC BÉZIER PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
 
-Authorized repository mapping:
+## Next admissible work item after closure
 
-1. `include/apmesh/geometry/parametric_surface.hpp`;
-2. `include/apmesh/geometry/surface.hpp`;
-3. `src/geometry/surface.cpp`;
-4. `tests/surface_bicubic_bezier.cpp`;
-5. `CMakeLists.txt`;
-6. synchronized STATE / ROADMAP / WORKLOG / decision.
+After this closure is integrated and post-merge validated, open exactly one
+fresh literature-backed Surface Representation breadth decision comparing:
 
-Required scope:
+1. rational Bézier patch;
+2. B-spline/NURBS surface;
+3. Coons/transfinite patch;
+4. analytic elementary surfaces;
+5. ruled/extrusion/revolution surfaces;
+6. rectangular/general trimmed-surface semantics.
 
-- exact [0,1] x [0,1] parameter domain for the bicubic patch;
-- 4x4 finite Point3 control net;
-- deterministic V-then-U tensor-product de Casteljau evaluation;
-- analytic Su, Sv, Suu, Suv, Svv;
-- U/V reversals and involution;
-- exact corner identity;
-- four boundary curves matching `CubicBezier3`;
-- independent direct Bernstein oracle;
-- analytic plane/saddle/polynomial fixtures;
-- constant and degenerate patches remain representable;
-- typed U/V parameter and non-finite-result failures;
-- target ordinary semantic inventory: 26 tests.
+No candidate is pre-authorized.
 
-Candidate implementation mapping:
-
-- `include/apmesh/geometry/parametric_surface.hpp`:
-  bounded U/V domain, typed query failures, first/second partial aggregates and
-  static `BoundedParametricSurface3` concept;
-- `include/apmesh/geometry/surface.hpp`:
-  immutable `BicubicBezierPatch3` value type over a 4x4 Point3 control net;
-- `src/geometry/surface.cpp`:
-  deterministic V-then-U tensor-product de Casteljau, analytic
-  Su/Sv/Suu/Suv/Svv and U/V reversals;
-- `tests/surface_bicubic_bezier.cpp`:
-  direct Bernstein oracle, four `CubicBezier3` boundary contracts, analytic
-  plane and saddle fixtures, reversal/orientation, constant/degenerate,
-  affine/extreme-finite and deterministic failure evidence;
-- `CMakeLists.txt`:
-  production source plus the 26th ordinary semantic contract.
-
-Candidate validation:
-
-- candidate head:
-  `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
-- FAST `35765755483`: PASS, 26/26 tests;
-- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 26/26 tests per cell;
-- `apmesh_core.surface_bicubic_bezier`: PASS in all three jobs;
-- every prior ordinary semantic contract remained PASS.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no rational surface weights;
-- no B-spline/NURBS surface knots;
-- no arbitrary degree;
-- no Coons/transfinite surface;
-- no analytic elementary surface type;
-- no ruled/extrusion/revolution surface;
-- no trimming/curve-on-surface/topology;
-- no normals, metric or curvature;
-- no surface meshing/discretization;
-- no third-party runtime dependency.
-
-## Next admissible transition
-
-Complete only this first patch implementation, validate 26/26 in FAST and both
-INTEGRATION compiler cells, integrate through one PR, validate protected
-`main`, close the implementation checkpoint, and only then open a fresh
-Surface Representation breadth decision for the next surface family.
+Remaining curve breadth stays retained. Surface Differential Geometry,
+Boundary Curve Discretization and all meshing stages remain blocked until their
+own explicit prerequisites/decisions.
