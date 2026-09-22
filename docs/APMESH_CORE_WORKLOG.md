@@ -360,9 +360,17 @@ Validation history:
   initializes the scaled fixture by copying the existing valid control array
   before replacing each element;
 - no production code, mathematical semantics, oracle, expected result,
-  decision criterion or acceptance boundary changed.
+  decision criterion or acceptance boundary changed;
+- corrected candidate head
+  `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`:
+  FAST `35736410584` PASS, 22/22 tests;
+- corrected candidate INTEGRATION `35736410585` PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug, 22/22 tests in each cell;
+- `apmesh_core.two_span_cubic_bspline`: PASS in all three corrected jobs;
+- all prerequisite ordinary semantic contracts remained PASS.
 
-Corrected validation is pending.
+The implementation candidate is therefore **FOCUSED CONTRACTS PASS / READY FOR
+FINAL PR-HEAD REVALIDATION AFTER THIS DOCUMENTATION SYNC / NOT QUALIFIED**.
 
 Explicit non-actions:
 
