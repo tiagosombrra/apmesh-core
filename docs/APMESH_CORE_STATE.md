@@ -286,39 +286,69 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Implement Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D
-and 3D after this decision closure is integrated and post-merge validated.**
+**Complete Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D
+and 3D on the single active implementation branch.**
 
-Decision evidence:
+Decision/closure evidence:
 
-- PR #116 merged as
+- decision PR #116 merged as
   `0978256b53d8eba7f974229da06cd74b21d3ee53`;
-- decision PR FAST `35732529892`: PASS;
-- decision PR INTEGRATION `35732529957`: PASS;
 - decision post-merge FAST `35734755167`: PASS;
-- decision post-merge INTEGRATION `35734755301`: PASS.
+- decision post-merge INTEGRATION `35734755301`: PASS;
+- decision closure PR #117 merged as
+  `5abcc8bd512097e1ae5881e1643f67b89420e1dc`;
+- closure post-merge FAST `35735198199`: PASS;
+- closure post-merge INTEGRATION `35735198173`: PASS.
 
-Decision closure branch:
-`docs/two-span-cubic-bspline-decision-closure`.
+Active branch:
+`curve/two-span-cubic-bspline`.
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-The sole authorized future production scope is the fixed two-span clamped cubic
-polynomial B-spline family defined by that decision.
+Implemented candidate mapping on the active branch:
 
-No general B-spline, NURBS, arbitrary-degree Bézier, analytic conic,
-heterogeneous composition, surface, discretization or meshing work is
-authorized.
+- `include/apmesh/geometry/bspline.hpp`:
+  fixed two-span 2D/3D cubic B-spline value types and knot inspection;
+- `src/geometry/bspline.cpp`:
+  de Boor value evaluation, fixed derivative polygons, D1/D2, exact endpoints,
+  typed failures and reversal;
+- `tests/two_span_cubic_bspline.cpp`:
+  independent Cox–de Boor/basis derivative oracle, local support, interior
+  knot, endpoint tangents, Bézier knot-insertion parity, reversal,
+  affine/embedding, extreme-finite and determinism evidence;
+- `CMakeLists.txt`:
+  production source plus one focused FAST/INTEGRATION semantic contract.
+
+The existing `BoundedParametricCurve2/3` contract is unchanged.
+
+No general/multi-span B-spline, NURBS, arbitrary degree/count, repeated knot,
+periodic, analytic conic, heterogeneous composition, surface, discretization
+or meshing work is authorized.
+
+Corrected candidate validation:
+
+- head `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`;
+- FAST `35736410584`: PASS, 22/22 tests;
+- INTEGRATION `35736410585`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 22/22 tests per cell;
+- focused `apmesh_core.two_span_cubic_bspline`: PASS in all three jobs.
+
+The initial failed head remains documented in WORKLOG/decision as a mechanical
+focused-test compile failure.
+
+The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
+head passes and integration/post-merge closure completes.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic B-Spline —
-DECISION INTEGRATED / CHECKPOINT CLOSURE PENDING / IMPLEMENTATION AUTHORIZED
-ONLY AFTER CLOSURE / NOT QUALIFIED / TRIM, RATIONAL-QUADRATIC AND LINE-SEGMENT
-INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
+IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED /
+TRIM, RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
+CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 

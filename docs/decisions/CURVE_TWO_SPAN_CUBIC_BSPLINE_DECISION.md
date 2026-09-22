@@ -773,3 +773,86 @@ item is the implementation bounded by Sections 5–29.
 General B-spline, NURBS, arbitrary degree/count, repeated interior knots,
 periodicity, analytic conics, heterogeneous composition, surfaces and
 downstream meshing remain unauthorized.
+
+
+## 33. Active implementation mapping
+
+Decision closure PR #117 merged as
+`5abcc8bd512097e1ae5881e1643f67b89420e1dc`.
+
+Closure post-merge validation:
+
+- FAST `35735198199`: PASS;
+- INTEGRATION `35735198173`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The sole authorized implementation is active on:
+
+`curve/two-span-cubic-bspline`.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/bspline.hpp`;
+- `src/geometry/bspline.cpp`;
+- `tests/two_span_cubic_bspline.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Candidate semantics:
+
+- fixed degree-three, five-control, two-span polynomial B-spline;
+- full inspectable knot vector `[a,a,a,a,k,b,b,b,b]`;
+- validated finite strict `a<k<b`;
+- exact bounded parameter domain `[a,b]`;
+- de Boor point evaluation;
+- fixed derivative control polygons for D1/D2;
+- typed non-finite/out-of-domain/unrepresentable-result failures;
+- reflected-knot reversal using the existing common primitive;
+- unchanged common bounded-parametric concepts.
+
+Focused evidence covers every Section 20 obligation using an independent
+Cox–de Boor/basis-derivative oracle plus qualified cubic-Bézier knot-insertion
+parity.
+
+Expected ordinary FAST/INTEGRATION inventory after registration: **22 tests**.
+
+Initial PR validation on head
+`25ca05e122ab3961d70702fd6322b68b39f108e9` did not reach semantic test
+execution:
+
+- FAST `35736203787`: FAIL during focused-test compilation;
+- INTEGRATION `35736203805`: FAIL in both GCC 13 Debug and Clang 18/libc++
+  Debug during the same focused-test compilation.
+
+The failure is mechanical and isolated to
+`tests/two_span_cubic_bspline.cpp`: a temporary
+`std::array<Point2,5>{}` required default construction of `Point2`, which
+the validated geometry value type intentionally does not provide.
+
+The production B-spline source compiled before the focused test failed.
+
+Correction commit
+`e42484c6c81163b13bd01761603421dcfff34ff1` changes only fixture
+initialization by copying an already valid control array before replacement.
+No production code, mathematical semantics, reference oracle, expected result
+or acceptance criterion changed.
+
+Corrected candidate validation:
+
+- candidate head:
+  `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`;
+- FAST `35736410584`: PASS, 22/22 tests;
+- INTEGRATION `35736410585`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 22/22 tests in each cell;
+- `apmesh_core.two_span_cubic_bspline`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
+
+The initial failed validation remains retained above as part of the work-unit
+evidence and was not overwritten or reinterpreted.
+
+No general B-spline, NURBS or downstream capability is implied.

@@ -33,6 +33,7 @@ add_library(apmesh_core STATIC
     src/geometry/curve.cpp
     src/geometry/line_segment.cpp
     src/geometry/rational_bezier.cpp
+    src/geometry/bspline.cpp
     src/math/linear_algebra.cpp
     src/topology/topology.cpp
 )
@@ -205,6 +206,20 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.trimmed_curve
     )
 
+    add_executable(apmesh_core.two_span_cubic_bspline
+        tests/two_span_cubic_bspline.cpp
+    )
+    target_link_libraries(
+        apmesh_core.two_span_cubic_bspline
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.two_span_cubic_bspline)
+
+    add_test(
+        NAME apmesh_core.two_span_cubic_bspline
+        COMMAND apmesh_core.two_span_cubic_bspline
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -373,6 +388,7 @@ if(BUILD_TESTING)
         apmesh_core.line_segment
         apmesh_core.rational_quadratic_bezier
         apmesh_core.trimmed_curve
+        apmesh_core.two_span_cubic_bspline
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
         apmesh_core.curve_signed_curvature
