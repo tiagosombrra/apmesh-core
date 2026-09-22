@@ -328,6 +328,20 @@ Required semantics:
 - one extreme-domain local probe only for overflow-safe mapping evidence;
 - prerequisite preservation.
 
+Validation history:
+
+- candidate head `fdb44db2478f50724242d9f83260bbca5d68ce0e`;
+- FAST `35730750101`: PASS, 21/21 tests;
+- INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 21/21 tests per cell;
+- `apmesh_core.trimmed_curve`: PASS in all three jobs;
+- all prior ordinary semantic contracts remained PASS;
+- no common-concept, mathematical or acceptance semantics changed during
+  candidate validation.
+
+The implementation candidate is **FOCUSED CONTRACTS PASS / READY FOR FINAL
+PR-HEAD REVALIDATION AFTER DOCUMENTATION SYNC / NOT QUALIFIED**.
+
 Explicit non-actions:
 
 - no heterogeneous composition/polycurve;
