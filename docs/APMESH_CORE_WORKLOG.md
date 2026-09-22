@@ -230,49 +230,40 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Certified Simple Planar Inflection Isolation decision is integrated and
-closed.**
+**Certified Simple Planar Inflection Isolation implementation — ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/certified-simple-inflection-isolation`.
 
-1. decision authority:
-   `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-2. decision PR #94 merged as
-   `44e04205c604abec8dc92f31930a371dc0c56cd1`;
-3. final PR FAST `35677428464`: PASS;
-4. final PR INTEGRATION `35677428431`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. post-merge FAST `35677498659`: PASS;
-6. post-merge INTEGRATION `35677498682`: PASS;
-7. the decision explicitly accounts for internal subdivision-boundary roots;
-8. the exact quadratic Bernstein numerator contract and repository mapping are
-   frozen for the next work unit;
-9. no production implementation was included in the decision PR;
-10. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
+Decision authority:
+`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
 
-No work item is active.
+Mapped implementation scope:
+
+1. public 2D-only inflection policy/result/evidence types in
+   `include/apmesh/geometry/curve.hpp`;
+2. `CubicBezier2::isolate_simple_inflections(...)` only;
+3. private conservative quadratic-Bernstein/root-count machinery under
+   `src/geometry/detail/`;
+4. production orchestration in `src/geometry/curve.cpp`;
+5. dedicated focused contract
+   `tests/curve_inflection_isolation.cpp`;
+6. public-header isolation update as required;
+7. CMake registration and curve-focused labels;
+8. exact global regularity prerequisite reuse;
+9. explicit internal subdivision-boundary root accounting;
+10. no sampled signed-curvature proof;
+11. no 3D inflection API, general polynomial solver, public interval API,
+    discretization, sizing, surfaces, meshing, Quad-Dominant or parallel path.
+
+Scientific status remains **IN INVESTIGATION / NOT QUALIFIED** until this work
+unit is separately integrated and later covered by a stage-level cumulative
+regression.
 
 ## Next admissible work item after closure
 
-Implement only:
+After this implementation is validated in the declared GCC/Clang focused
+boundary, merged, post-merge validated, and its checkpoint is closed, open one
+new literature-backed Curve Differential Geometry decision.
 
-**Certified Simple Planar Inflection Isolation on Globally Regular Cubic Bézier
-Curves.**
-
-The implementation work item is constrained to the integrated decision:
-
-1. `CubicBezier2` only;
-2. explicit global regularity prerequisite;
-3. certified conservative quadratic Bernstein numerator evidence;
-4. no sampled signed-curvature proof;
-5. explicit `complete` versus `indeterminate` result vocabulary;
-6. at most two ordered certified simple-root brackets;
-7. internal subdivision-boundary root obligations must never be lost;
-8. explicit resource policy and bracket-width tolerance only;
-9. focused analytic/metamorphic/adversarial contracts;
-10. preservation of every qualified prerequisite and integrated curve
-    contract.
-
-No later Curve Differential Geometry or downstream meshing capability is
-authorized by this work item.
+No later investigation is pre-authorized by this implementation work item.
 
