@@ -292,7 +292,13 @@ template <typename Vector>
     return result;
 }
 
-[[nodiscard]] std::expected<double, CurveError> curvature_magnitude_impl(
+struct PlanarCurvatureResult {
+    double magnitude{};
+    int orientation{};
+};
+
+[[nodiscard]] std::expected<PlanarCurvatureResult, CurveError>
+planar_curvature_impl(
     const Vector2& first,
     const Vector2& second) noexcept {
     const double velocity_scale = max_abs_component(first);
@@ -302,7 +308,7 @@ template <typename Vector>
 
     const double acceleration_scale = max_abs_component(second);
     if (acceleration_scale == 0.0) {
-        return 0.0;
+        return PlanarCurvatureResult{0.0, 0};
     }
 
     const auto normalized_first = normalized_vector(first, velocity_scale);
@@ -322,12 +328,46 @@ template <typename Vector>
     if (!std::isfinite(determinant)) {
         return std::unexpected{CurveError::non_finite_result};
     }
+    if (determinant == 0.0) {
+        return PlanarCurvatureResult{0.0, 0};
+    }
 
-    return scaled_curvature_result(
+    const auto magnitude = scaled_curvature_result(
         std::abs(determinant),
         *normalized_speed,
         velocity_scale,
         acceleration_scale);
+    if (!magnitude) {
+        return std::unexpected{magnitude.error()};
+    }
+
+    return PlanarCurvatureResult{
+        *magnitude,
+        determinant < 0.0 ? -1 : 1,
+    };
+}
+
+[[nodiscard]] std::expected<double, CurveError> curvature_magnitude_impl(
+    const Vector2& first,
+    const Vector2& second) noexcept {
+    const auto value = planar_curvature_impl(first, second);
+    if (!value) {
+        return std::unexpected{value.error()};
+    }
+    return value->magnitude;
+}
+
+[[nodiscard]] std::expected<double, CurveError> signed_curvature_impl(
+    const Vector2& first,
+    const Vector2& second) noexcept {
+    const auto value = planar_curvature_impl(first, second);
+    if (!value) {
+        return std::unexpected{value.error()};
+    }
+    if (value->orientation == 0) {
+        return 0.0;
+    }
+    return value->orientation < 0 ? -value->magnitude : value->magnitude;
 }
 
 [[nodiscard]] std::expected<double, CurveError> curvature_magnitude_impl(
@@ -1693,6 +1733,23 @@ std::expected<double, CurveError> CubicBezier2::curvature_magnitude(
         return std::unexpected{second.error()};
     }
     return curvature_magnitude_impl(*first, *second);
+}
+
+std::expected<double, CurveError> CubicBezier2::signed_curvature(
+    const double parameter) const noexcept {
+    const auto first = first_derivative(parameter);
+    if (!first.has_value()) {
+        return std::unexpected{first.error()};
+    }
+    if (max_abs_component(*first) == 0.0) {
+        return std::unexpected{CurveError::singular_parameter};
+    }
+
+    const auto second = second_derivative(parameter);
+    if (!second.has_value()) {
+        return std::unexpected{second.error()};
+    }
+    return signed_curvature_impl(*first, *second);
 }
 
 std::expected<CurveRegularityEvidence, CurveRegularityError>

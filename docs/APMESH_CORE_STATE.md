@@ -250,35 +250,44 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after signed-curvature integration:
 
-**Implement Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves.**
+**Close the Pointwise Signed Curvature work-unit checkpoint, then open one
+separate literature-backed decision for the next Curve Differential Geometry
+investigation.**
 
-The decision checkpoint is closed.
+The bounded implementation is complete on
+`curve/signed-planar-curvature`.
 
-Integration evidence:
+Implemented semantics:
 
-- PR #90 merge:
-  `8da6ad656871c23f26f74f148298283970338583`;
-- PR FAST `35674524237`: PASS;
-- PR INTEGRATION `35674524211`: PASS;
-- post-merge FAST `35674581493`: PASS;
-- post-merge INTEGRATION `35674581550`: PASS.
+- 2D-only signed pointwise curvature;
+- standard ordered `(x,y)` orientation;
+- shared scale-aware planar curvature core;
+- exact singularity semantics;
+- canonical successful `+0.0`;
+- reversal/reflection sign laws;
+- orientation-preserving frame invariance;
+- reciprocal scale covariance;
+- exact magnitude parity by shared production construction.
 
-Implementation authority:
-`docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
+Validation:
 
-The implementation is limited to one 2D pointwise signed-curvature query with
-the explicit orientation, singularity, scale, reversal/reflection and magnitude
-parity contract already fixed by that decision.
+- FAST `35675167119`: PASS;
+- INTEGRATION `35675167196`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+Current work-unit status:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+No global inflection, curvature-bound, extrema or feature claim is implied.
 
 
 ## Current active stage
 
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
-SIGNED PLANAR CURVATURE DECISION INTEGRATED / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED**
+SIGNED PLANAR CURVATURE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED**
 
 
 ## Most recently qualified stage

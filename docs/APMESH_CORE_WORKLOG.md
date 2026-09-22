@@ -225,38 +225,66 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. The Pointwise Signed Curvature decision checkpoint is closed.**
+**Implement Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/signed-planar-curvature`.
 
-1. decision authority:
-   `docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`;
-2. decision PR #90 merged as
-   `8da6ad656871c23f26f74f148298283970338583`;
-3. PR FAST `35674524237`: PASS;
-4. PR INTEGRATION `35674524211`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-5. post-merge FAST `35674581493`: PASS;
-6. post-merge INTEGRATION `35674581550`: PASS;
-7. no production signed-curvature implementation was included in the decision;
-8. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
+Authority:
+`docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
 
-No work item is active.
+Implemented scope:
+
+1. `CubicBezier2::signed_curvature(t)` only;
+2. `CubicBezier3` remains without a signed-curvature scalar API;
+3. planar magnitude and signed curvature share one normalized, scale-aware
+   internal curvature core;
+4. exact zero determinant returns canonical successful `+0.0`;
+5. exact zero first derivative remains `CurveError::singular_parameter`;
+6. unrepresentable nonzero curvature remains
+   `CurveError::non_finite_result`;
+7. reversal flips sign;
+8. orientation-preserving frame transforms preserve sign;
+9. orientation-reversing frame transforms flip sign while preserving magnitude;
+10. power-of-two uniform scaling preserves sign and applies reciprocal length
+    scaling;
+11. `abs(signed_curvature)==curvature_magnitude` is enforced by the shared
+    production core and focused evidence;
+12. no global sign certification, inflection isolation, extrema or feature
+    classification is introduced.
+
+Focused evidence:
+
+- new `apmesh_core.curve_signed_curvature` contract;
+- analytic signed parabola reference;
+- reflection and reversal;
+- translation and frame orientation;
+- scale covariance;
+- straight-line and regular-inflection canonical positive zero;
+- singular endpoint and constant-curve rejection;
+- tiny nonzero derivative;
+- extreme representable and unrepresentable curvature;
+- invalid/signed-zero parameters;
+- repeatability;
+- 2D-only public API isolation.
+
+Validation:
+
+- PR FAST `35675167119`: PASS;
+- PR INTEGRATION `35675167196`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Scientific status:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
 
 ## Next admissible work item after closure
 
-Implement exactly:
+After this implementation is merged, post-merge FAST/INTEGRATION pass, and the
+work-unit checkpoint is closed, open one separate literature-backed decision
+for the next Curve Differential Geometry investigation.
 
-**Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves**
-
-within `docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
-
-The implementation must remain 2D-only, reuse the qualified derivative and
-scale-aware planar-curvature semantics, preserve canonical successful
-`+0.0`, test reversal/reflection/orientation laws and magnitude parity, and
-preserve all qualified prerequisites.
-
-No certified inflection isolation, global curvature bounds, extrema,
-classification, discretization, sizing, surfaces, meshing, Quad-Dominant or
-parallel capability is authorized.
+No certified inflection isolation, global curvature bound, extrema,
+classification, discretization, sizing, surface, meshing, Quad-Dominant or
+parallel capability is authorized automatically.
 

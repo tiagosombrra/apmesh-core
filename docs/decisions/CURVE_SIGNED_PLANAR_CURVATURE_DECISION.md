@@ -409,3 +409,33 @@ The decision checkpoint is closed. The sole next bounded work item is
 implementation of **Pointwise Signed Curvature on Regular Planar Cubic Bézier
 Curves** within the contract above. No later Curve Differential Geometry
 capability is authorized by this checkpoint.
+
+## 16. Implementation result
+
+Branch `curve/signed-planar-curvature` implements exactly the bounded 2D
+signed-curvature contract.
+
+Production result:
+
+- `CubicBezier2::signed_curvature(t)`;
+- no corresponding `CubicBezier3` signed scalar;
+- one shared planar scale-aware curvature core for magnitude and sign;
+- canonical successful `+0.0` at exact zero determinant;
+- exact singular-parameter failure;
+- explicit non-finite-result failure for unrepresentable nonzero curvature.
+
+Focused contract:
+`apmesh_core.curve_signed_curvature`.
+
+Validation:
+
+- FAST `35675167119`: PASS;
+- INTEGRATION `35675167196`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+Scientific status:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+No certified inflection isolation, interval/global curvature bound, extrema,
+feature classification or downstream discretization capability is authorized
+by this result.
