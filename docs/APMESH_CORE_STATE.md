@@ -283,66 +283,48 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Complete Bounded Directed Line Segment Representation in 2D and 3D on the
-single active implementation branch.**
+**Close the integrated Bounded Directed Line Segment implementation, then open
+one literature-backed decision for the next concrete curve family.**
 
-Decision/closure evidence:
+Integrated implementation evidence:
 
-- decision PR #103 merged as
-  `2b42c78a2dbf0ede225144339dbf100900bef672`;
-- decision PR FAST `35719338493`: PASS;
-- decision PR INTEGRATION `35719338492`: PASS;
-- decision post-merge FAST `35719435059`: PASS;
-- decision post-merge INTEGRATION `35719434961`: PASS;
-- decision closure PR #104 merged as
-  `326ffdf724912e8841a74c3c0b69756ca23e14c2`;
-- closure post-merge FAST `35719744251`: PASS;
-- closure post-merge INTEGRATION `35719744291`: PASS.
+- PR #105 merged as
+  `87ced22d033e5478c134aa66c2eef4b6017a4596`;
+- retained initial mechanical validation failure:
+  FAST `35720284585`, INTEGRATION `35720284182`;
+- corrected candidate:
+  FAST `35720421004`, INTEGRATION `35720420984`, all PASS, 19/19;
+- final documentation-synchronized PR head:
+  FAST `35721616589`, INTEGRATION `35721616596`, all PASS, 19/19;
+- post-merge FAST `35721779942`: PASS, 19/19;
+- post-merge INTEGRATION `35721779739`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 19/19 per cell.
 
-Active branch:
-`curve/bounded-line-segment`.
-
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-Implemented candidate mapping on the active branch:
+Production now exposes a second concrete bounded curve family:
 
-- `include/apmesh/geometry/line_segment.hpp`:
-  `LineSegment2` and `LineSegment3` value declarations;
-- `src/geometry/line_segment.cpp`:
-  exact `[0,1]` domain, overflow-aware interpolation, constant D1, exact
-  zero D2 and endpoint-swap reversal;
-- `tests/line_segment.cpp`:
-  concept, analytic, reversal, degeneracy, extreme-finite, covariance,
-  embedding and determinism evidence;
-- `CMakeLists.txt`:
-  production source plus one focused FAST/INTEGRATION semantic contract.
+- `LineSegment2`;
+- `LineSegment3`.
 
-The existing `BoundedParametricCurve2/3` contract is unchanged. No other
-curve family, generic differential/length refactor, surface, discretization or
-meshing implementation is authorized.
+They use the unchanged `BoundedParametricCurve2/3` semantics with exact
+`[0,1]` domain, finite interpolation, constant first derivative, exact zero
+second derivative, endpoint-swap reversal and representable degenerate values.
 
-Corrected candidate validation:
+The work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED**.
 
-- head `482ea0acd00b51a7bc772935d344008d2797474c`;
-- FAST `35720421004`: PASS, 19/19 tests;
-- INTEGRATION `35720420984`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 19/19 tests per cell;
-- focused `apmesh_core.line_segment`: PASS in all three jobs.
-
-The initial failed head remains documented in WORKLOG/decision as a mechanical
-focused-test compile failure.
-
-The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
-head passes and integration/post-merge closure completes.
+No next concrete curve family is authorized until a new decision is integrated
+and closed. Curve Differential Geometry remains `IN INVESTIGATION /
+NOT QUALIFIED` and paused during the representation-breadth sequence.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Bounded Directed Line Segment —
-IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED /
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
@@ -356,14 +338,15 @@ SEAM**
 
 ## Representation breadth retained limitation
 
-The qualified Curve Representation claim is intentionally narrow. Production
-currently exposes only polynomial cubic Bézier curves through
-`CubicBezier2` and `CubicBezier3`.
+The original qualified Curve Representation claim remains intentionally
+narrow: CGR0–CGR7 qualifies only polynomial cubic Bézier curves. Production
+has since been extended, without widening that qualification claim, with
+`LineSegment2` and `LineSegment3` under a separate focused work unit.
 
 The following are **not implemented and not covered by CGR qualification**:
 
-- dedicated line/segment or analytic conic/arc curve types;
-- rational Bézier curves and exact conic-segment representation;
+- analytic circular/general conic arc curve types;
+- rational Bézier curves and exact rational conic-segment representation;
 - arbitrary-degree Bézier curves;
 - B-spline curves;
 - NURBS curves;

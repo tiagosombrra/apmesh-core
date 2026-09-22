@@ -615,3 +615,64 @@ The initial failed validation remains retained above as part of the work-unit
 evidence and was not overwritten or reinterpreted.
 
 No other curve family or downstream capability is implied.
+
+
+## 21. Implementation integration checkpoint
+
+The bounded implementation was integrated by PR #105 as
+`87ced22d033e5478c134aa66c2eef4b6017a4596`.
+
+Historical validation evidence is retained exactly:
+
+### Initial candidate — mechanical focused-test compile failure
+
+Candidate head:
+`043fd98d2162e83a59e4b0b16054e51367551c2d`.
+
+- FAST `35720284585`: FAIL;
+- INTEGRATION `35720284182`: FAIL in both compiler cells;
+- failure location: `tests/line_segment.cpp`;
+- cause: local `Vector2`/`Vector3` using-declarations had been removed;
+- production `src/geometry/line_segment.cpp` compiled in the observed jobs;
+- no scientific criterion, production algorithm or expected result was changed.
+
+### Corrected candidate
+
+Candidate head:
+`482ea0acd00b51a7bc772935d344008d2797474c`.
+
+- FAST `35720421004`: PASS, 19/19;
+- INTEGRATION `35720420984`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 19/19 per cell;
+- `apmesh_core.line_segment`: PASS in all three jobs.
+
+### Final documentation-synchronized PR head
+
+Head:
+`abb3d18869cd61b4ea361efc3bdbad215485c5a9`.
+
+- FAST `35721616589`: PASS, 19/19;
+- INTEGRATION `35721616596`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 19/19 per cell;
+- `apmesh_core.line_segment`: PASS in all three jobs.
+
+### Post-merge
+
+Merged main:
+`87ced22d033e5478c134aa66c2eef4b6017a4596`.
+
+- FAST `35721779942`: PASS, 19/19;
+- INTEGRATION `35721779739`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 19/19 per cell.
+
+Final work-unit result:
+
+**Bounded Directed Line Segment Representation in 2D and 3D — IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+The original cubic-Bézier qualification is preserved and is not widened by
+this result.
+
+No later curve family is authorized automatically. After the implementation
+closure checkpoint is integrated and validated, a fresh literature-backed
+decision must choose the next concrete family.
