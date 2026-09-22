@@ -1346,7 +1346,8 @@ work is the separate Curve Differential Geometry entry decision only.
 
 Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION INTEGRATED / FOCUSED CONTRACTS PASS / NOT QUALIFIED`
+SIMPLE-INFLECTION INTEGRATED / FOCUSED CONTRACTS PASS / NOT QUALIFIED /
+PAUSED FOR REPRESENTATION-BREADTH SEAM`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
 discretization without conflating local differential evaluation with global
@@ -1506,7 +1507,8 @@ candidates before authorizing any production implementation.
 
 ### Curve Representation Breadth Gate — Analytic, Rational, and Spline Families
 
-Status: `NOT STARTED / REQUIRED BEFORE BOUNDARY-DISCRETIZATION QUALIFICATION`
+Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION ACTIVE /
+NO NEW FAMILY IMPLEMENTED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
 frozen polynomial cubic Bézier scope implemented by `CubicBezier2` and
@@ -1537,6 +1539,23 @@ stage can be qualified.
 This gate is a scope extension, not a reinterpretation of CGR0–CGR7. The
 qualified cubic-Bézier baseline remains frozen and must be preserved by every
 extension regression.
+
+Active decision authority:
+`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
+
+The decision compares continued Cubic-Bézier-only differential work, direct
+addition of a second concrete curve family, and a minimal static parametric
+curve semantic seam. It selects the seam first.
+
+If the decision is integrated and separately closed, the sole first
+implementation work unit is **Bounded Parametric Curve Contract and Cubic
+Bézier Conformance**. That work unit may add only a finite closed parameter
+domain vocabulary, static 2D/3D C++23 curve concepts, reversal-parameter
+semantics, and unchanged Cubic-Bézier conformance.
+
+Line/segment, circle/conic arc, arbitrary-degree/rational Bézier, B-spline,
+NURBS, composite/trimmed curves and all surface representations remain
+separate later work units.
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
 
@@ -1709,29 +1728,39 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-Current scientific stage:
+Current scientific work focus:
 
-**Curve Differential Geometry — Curvature, Regularity, and Features —
-IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
-SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION INTEGRATED / FOCUSED CONTRACTS PASS / NOT QUALIFIED**
+**Curve Representation Breadth Gate — Parametric Curve Family Abstraction —
+DECISION ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION**
 
-Certified Simple Planar Inflection Isolation was integrated by PR #96 as
-`c4905589c2ee8700c58560ef1a99a49a3821af4e`; its final PR and post-merge
-FAST/INTEGRATION checks passed.
+Operational prerequisite closure:
 
-No production work item is currently authorized. The next executable action is
-one new literature-backed bounded scientific decision after the implementation
-closure checkpoint is integrated.
+- PR #97 merged as
+  `13ec3ac80a88434d73c09ae25c9d542182109c51`;
+- post-merge FAST `35707518191`: PASS;
+- post-merge INTEGRATION `35707518122`: PASS.
 
-The fresh repository coverage audit also records a mandatory future
-Curve Representation breadth gate. The current qualified curve scope is
-polynomial cubic Bézier only; exact arc/conic, rational, B-spline, NURBS and
-surface families are not yet implemented or qualified and must not be inferred
-from the existing CGR result.
+Active decision:
+`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
 
-Boundary Curve Discretization and Surface Representation therefore remain
-blocked until their prerequisite representation decisions are explicit.
+The decision selects a minimal bounded static parametric-curve semantic seam
+before more Cubic-Bézier-specific differential work or a second concrete
+family. The qualified polynomial cubic-Bézier CGR0–CGR7 baseline remains
+unchanged and frozen as a prerequisite.
+
+Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
+is paused only to prevent further concrete-family coupling while the breadth
+seam is decided.
+
+No production work is authorized until this decision is integrated, its
+post-merge validation passes, and the decision checkpoint is separately
+closed.
+
+The planned later concrete-family sequence is bounded line/segment, bounded
+circle/conic arc, rational/arbitrary-degree Bézier, B-spline, NURBS, and
+composite/trimmed curves, each under a separate decision/work unit.
+
+Boundary Curve Discretization and Surface Representation remain blocked.
 
 The long-term ordering remains:
 
