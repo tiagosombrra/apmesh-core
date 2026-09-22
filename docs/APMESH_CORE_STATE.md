@@ -250,36 +250,38 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after decision integration:
 
-**Open one separate literature-backed decision for the next Curve Differential
-Geometry investigation.**
+**Close the Pointwise Signed Curvature decision checkpoint, then implement the
+2D-only bounded work unit.**
 
-Pointwise Curvature Magnitude on Regular Cubic Bézier Curves is integrated and
-closed.
+Decision authority:
+`docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
 
-Evidence:
+The decision admits only local planar signed curvature at a regular parameter,
+with explicit orientation semantics and no global inflection/feature claim.
 
-- PR #88 merge:
-  `b1a279fbe2592cd4fe7f5a688318ac50f0e60d35`;
-- PR FAST `35672497018`: PASS;
-- PR INTEGRATION `35672497040`: PASS;
-- post-merge FAST `35673041777`: PASS;
-- post-merge INTEGRATION `35673041859`: PASS.
+Required implementation properties include:
 
-The implemented capability remains local and pointwise. It does not establish
-signed curvature, interval/global curvature bounds, extrema, inflection
-classification, feature extraction, discretization or sizing.
+- reuse of qualified first/second derivatives;
+- shared scale-aware planar curvature core;
+- exact singularity semantics;
+- canonical successful `+0.0`;
+- reversal sign flip;
+- orientation-preserving frame invariance;
+- orientation-reversing frame sign flip;
+- reciprocal scale covariance;
+- magnitude parity;
+- preserved qualified prerequisites.
 
-The stage remains `IN INVESTIGATION / NOT QUALIFIED`. The next scientific
-problem must be decided separately before implementation.
+Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
 
 
 ## Current active stage
 
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
-FOCUSED CONTRACTS PASS / NOT QUALIFIED**
+SIGNED PLANAR CURVATURE DECISION VALIDATED_UNMERGED / NOT QUALIFIED**
 
 
 ## Most recently qualified stage
