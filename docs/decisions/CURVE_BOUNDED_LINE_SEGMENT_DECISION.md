@@ -578,8 +578,27 @@ translation, 2D/3D embedding and determinism.
 The ordinary FAST/INTEGRATION semantic inventory is expected to increase from
 18 to 19 tests through one new `apmesh_core.line_segment` contract.
 
-Status before CI:
+Initial PR validation on head
+`043fd98d2162e83a59e4b0b16054e51367551c2d` did not reach semantic test
+execution:
 
-**IMPLEMENTED CANDIDATE / FOCUSED VALIDATION PENDING / NOT QUALIFIED.**
+- FAST `35720284585`: FAIL during focused-test compilation;
+- INTEGRATION `35720284182`: FAIL in both GCC 13 Debug and Clang 18/libc++
+  Debug during the same focused-test compilation.
+
+The failure is mechanical and isolated to `tests/line_segment.cpp`: the test
+referenced `Vector2` and `Vector3` after their local using-declarations had
+been removed. The production line-segment source compiled before the failing
+test in the observed jobs.
+
+Correction commit
+`0e915dc1bf9cc038fe09fb0c9dc5e8f04b521975` restores only those test
+aliases. No production code, mathematical semantics, expected results,
+decision criteria or acceptance boundary changed.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / CORRECTED FOCUSED VALIDATION PENDING /
+NOT QUALIFIED.**
 
 No other curve family or downstream capability is implied.
