@@ -1346,8 +1346,7 @@ work is the separate Curve Differential Geometry entry decision only.
 
 Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED /
+SIMPLE-INFLECTION INTEGRATED / FOCUSED CONTRACTS PASS /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
@@ -1491,10 +1490,19 @@ The mapped implementation is now complete on
 Final focused validation passes in FAST `35678475990` and INTEGRATION
 `35678475955` for GCC 13 Debug and Clang 18/libc++ Debug.
 
-The work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED / NOT QUALIFIED**. After integration and checkpoint
-closure, a separate literature-backed decision is required before any next
-Curve Differential Geometry work.
+The work unit was integrated by PR #96 as
+`c4905589c2ee8700c58560ef1a99a49a3821af4e`.
+
+Final PR FAST `35678624215`, PR INTEGRATION `35678624192`,
+post-merge FAST `35678808956`, and post-merge INTEGRATION
+`35678808941` all passed.
+
+The work unit is therefore **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / NOT QUALIFIED**. The implementation checkpoint is closed.
+
+No later Curve Differential Geometry capability is implied. The next bounded
+work is one new literature-backed decision that compares the remaining
+candidates before authorizing any production implementation.
 
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
