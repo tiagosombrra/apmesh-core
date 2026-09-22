@@ -2,6 +2,7 @@
 
 #include "apmesh/core/numeric.hpp"
 
+#include <array>
 #include <cmath>
 #include <cstdio>
 #include <limits>
@@ -76,8 +77,6 @@ int main() {
     using apmesh::core::LineSegment3;
     using apmesh::core::Point2;
     using apmesh::core::Point3;
-    using apmesh::core::Vector2;
-    using apmesh::core::Vector3;
     using apmesh::core::reversed_parameter;
 
     static_assert(BoundedParametricCurve2<LineSegment2>);
@@ -152,7 +151,8 @@ int main() {
         return 1;
     }
 
-    for (const double parameter : {0.0, 0.25, 1.0}) {
+    constexpr std::array<double, 3> derivative_parameters{0.0, 0.25, 1.0};
+    for (const double parameter : derivative_parameters) {
         const auto d12 = segment2.first_derivative(parameter);
         const auto d13 = segment3.first_derivative(parameter);
         const auto d22 = segment2.second_derivative(parameter);
