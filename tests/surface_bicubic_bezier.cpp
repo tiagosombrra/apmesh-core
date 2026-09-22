@@ -220,6 +220,23 @@ apmesh::core::BicubicBezierPatch3::ControlNet make_generic_net() {
     return controls;
 }
 
+apmesh::core::BicubicBezierPatch3::ControlNet make_plane_net() {
+    using apmesh::core::Point3;
+    const auto seed = *Point3::make(0.0, 0.0, 1.0);
+    auto controls = filled_net(seed);
+    for (std::size_t i = 0; i < 4U; ++i) {
+        const double u = static_cast<double>(i) / 3.0;
+        for (std::size_t j = 0; j < 4U; ++j) {
+            const double v = static_cast<double>(j) / 3.0;
+            controls[i][j] = *Point3::make(
+                u,
+                v,
+                1.0 + 2.0 * u - 3.0 * v);
+        }
+    }
+    return controls;
+}
+
 apmesh::core::BicubicBezierPatch3::ControlNet make_saddle_net() {
     using apmesh::core::Point3;
     const auto seed = *Point3::make(0.0, 0.0, 0.0);
@@ -301,6 +318,11 @@ int main() {
 
     const auto controls = make_generic_net();
     const BicubicBezierPatch3 patch{controls};
+
+    passed = require(
+                 patch.control_points() == controls,
+                 "bicubic control-net layout differs") &&
+             passed;
 
     const auto domain = patch.parameter_domain();
     passed = require(
@@ -492,6 +514,33 @@ int main() {
                      "bicubic boundary curve parity differs") &&
                  passed;
     }
+
+    const BicubicBezierPatch3 plane{make_plane_net()};
+    constexpr double plane_u = 0.35;
+    constexpr double plane_v = 0.65;
+    const auto plane_value = plane.evaluate(plane_u, plane_v);
+    const auto plane_first = plane.first_derivatives(plane_u, plane_v);
+    const auto plane_second = plane.second_derivatives(plane_u, plane_v);
+    const auto plane_du = *apmesh::core::Vector3::make(1.0, 0.0, 2.0);
+    const auto plane_dv = *apmesh::core::Vector3::make(0.0, 1.0, -3.0);
+    const auto zero_plane = *apmesh::core::Vector3::make(0.0, 0.0, 0.0);
+    passed = require(
+                 plane_value &&
+                     close_scalar(plane_value->x(), plane_u, 16.0) &&
+                     close_scalar(plane_value->y(), plane_v, 16.0) &&
+                     close_scalar(
+                         plane_value->z(),
+                         1.0 + 2.0 * plane_u - 3.0 * plane_v,
+                         32.0) &&
+                     plane_first &&
+                     close_vector(plane_first->u, plane_du, 32.0) &&
+                     close_vector(plane_first->v, plane_dv, 32.0) &&
+                     plane_second &&
+                     close_vector(plane_second->uu, zero_plane, 32.0) &&
+                     close_vector(plane_second->uv, zero_plane, 32.0) &&
+                     close_vector(plane_second->vv, zero_plane, 32.0),
+                 "analytic plane fixture differs") &&
+             passed;
 
     const BicubicBezierPatch3 saddle{make_saddle_net()};
     constexpr std::array<std::array<double, 2>, 3> saddle_samples{{
@@ -702,6 +751,27 @@ int main() {
                      std::isfinite(extreme_first->v.y()) &&
                      std::isfinite(extreme_second->uv.z()),
                  "extreme finite surface evidence failed") &&
+             passed;
+
+    const double maximum = std::numeric_limits<double>::max();
+    auto unrepresentable_controls =
+        filled_net(*Point3::make(-maximum, 0.0, 0.0));
+    for (std::size_t j = 0; j < 4U; ++j) {
+        unrepresentable_controls[1][j] =
+            *Point3::make(maximum, 0.0, 0.0);
+        unrepresentable_controls[2][j] =
+            *Point3::make(maximum, 0.0, 0.0);
+        unrepresentable_controls[3][j] =
+            *Point3::make(maximum, 0.0, 0.0);
+    }
+    const BicubicBezierPatch3 unrepresentable{unrepresentable_controls};
+    const auto unrepresentable_first =
+        unrepresentable.first_derivatives(0.0, 0.5);
+    passed = require(
+                 !unrepresentable_first &&
+                     unrepresentable_first.error() ==
+                         SurfaceError::non_finite_result,
+                 "unrepresentable surface derivative did not fail explicitly") &&
              passed;
 
     const auto repeat_value_a = patch.evaluate(0.375, 0.625);
