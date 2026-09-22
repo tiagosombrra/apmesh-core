@@ -1911,6 +1911,10 @@ Authorized scope:
 - affine/extreme-finite/deterministic evidence;
 - target ordinary inventory: 27 tests.
 
+Candidate implementation is mapped to the authorized files, with
+`parametric_surface.hpp` and the polynomial `surface.cpp` frozen, and is
+awaiting FAST/INTEGRATION validation.
+
 No U/V knots/multiplicities, NURBS surface, Coons/transfinite, analytic
 surface, swept/trimmed surface, surface differential geometry or meshing work
 is authorized.
