@@ -285,54 +285,83 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   checkpoint.
 - `curve/two-span-cubic-bspline-decision`: **MERGED / HISTORICAL** via
   PR #116; literature-backed bounded first B-spline decision.
-- `docs/two-span-cubic-bspline-decision-closure`: **CLOSURE-ONLY**;
-  records PR #116 integration and post-merge validation.
+- `docs/two-span-cubic-bspline-decision-closure`: **MERGED / HISTORICAL**
+  via PR #117; closes the bounded first B-spline decision checkpoint.
+- `curve/two-span-cubic-bspline`: **ACTIVE**; fixed two-span cubic
+  polynomial B-spline implementation under the closed decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Two-Span Clamped Cubic B-Spline decision is integrated and ready for
-closure.**
+**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D —
+ACTIVE / IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`curve/two-span-cubic-bspline`.
 
-1. decision authority:
-   `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
-2. decision PR #116 merged as
-   `0978256b53d8eba7f974229da06cd74b21d3ee53`;
-3. final PR FAST `35732529892`: PASS;
-4. final PR INTEGRATION `35732529957`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. post-merge FAST `35734755167`: PASS;
-6. post-merge INTEGRATION `35734755301`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. all prior curve integrations remain unchanged;
-8. no B-spline production code is present in this closure change.
+Decision authority:
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-No production work item is active.
+Closed decision checkpoint:
 
-## Next admissible work item after closure
+- decision PR #116 merged as
+  `0978256b53d8eba7f974229da06cd74b21d3ee53`;
+- decision post-merge FAST `35734755167`: PASS;
+- decision post-merge INTEGRATION `35734755301`: PASS;
+- closure PR #117 merged as
+  `5abcc8bd512097e1ae5881e1643f67b89420e1dc`;
+- closure post-merge FAST `35735198199`: PASS;
+- closure post-merge INTEGRATION `35735198173`: PASS.
 
-Open exactly one implementation branch for:
+Authorized repository mapping:
 
-**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D.**
+1. public family:
+   `include/apmesh/geometry/bspline.hpp`;
+2. production implementation:
+   `src/geometry/bspline.cpp`;
+3. focused semantic/header contract:
+   `tests/two_span_cubic_bspline.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized STATE / ROADMAP / WORKLOG / decision mapping.
 
-The implementation must remain within the integrated decision:
+Required semantics:
 
 - degree exactly three;
-- five finite control points;
-- knots `[a,a,a,a,k,b,b,b,b]` with finite strict `a<k<b`;
-- two nonzero spans;
-- one simple interior knot;
-- polynomial/non-rational;
-- non-periodic;
-- value, D1 and D2;
-- de Boor production evaluation;
-- independent basis/derivative reference;
-- local-support, knot, reversal and Bézier knot-insertion parity evidence;
-- expected ordinary inventory: existing 21 tests plus one B-spline contract.
+- exactly five finite control points;
+- knot vector `[a,a,a,a,k,b,b,b,b]`;
+- finite strict `a<k<b`;
+- exactly two nonzero spans;
+- one simple interior knot / C2 representation continuity;
+- non-rational and non-periodic;
+- exact parameter domain `[a,b]`;
+- de Boor production value evaluation;
+- D1/D2 from fixed derivative B-spline relations;
+- exact endpoint values and independent endpoint tangent evidence;
+- local support;
+- reversal with reflected interior knot;
+- Bézier parity through one-knot insertion;
+- independent basis-summation oracle;
+- extreme-finite numeric evidence;
+- prerequisite preservation.
 
-No general B-spline, NURBS, arbitrary degree/count, repeated interior knots,
-periodicity, analytic conic, heterogeneous composition, surface, downstream
-meshing, Quad-Dominant or parallel work is authorized.
+Explicit non-actions:
+
+- no dynamic degree/control/knot containers;
+- no repeated interior knots;
+- no periodicity;
+- no rational B-spline/NURBS;
+- no arbitrary-degree Bézier;
+- no analytic conic;
+- no heterogeneous composition;
+- no generic regularity/length/curvature expansion;
+- no surface/discretization/sizing/meshing;
+- no Quad-Dominant or parallel work.
+
+## Next admissible transition
+
+Complete only this implementation, pass focused FAST/INTEGRATION in GCC and
+Clang with the expected 22-test ordinary inventory, integrate through one PR,
+pass post-merge validation, synchronize the implementation closure checkpoint,
+and only then open a fresh literature-backed breadth decision.
