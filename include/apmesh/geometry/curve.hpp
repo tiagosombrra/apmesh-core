@@ -124,6 +124,8 @@ public:
     [[nodiscard]] std::expected<double, CurveError> speed(double parameter) const noexcept;
     [[nodiscard]] std::expected<double, CurveError>
     curvature_magnitude(double parameter) const noexcept;
+    [[nodiscard]] std::expected<double, CurveError>
+    signed_curvature(double parameter) const noexcept;
     [[nodiscard]] std::expected<CurveRegularityEvidence, CurveRegularityError>
     certify_regularity(const CurveRegularityPolicy& policy) const noexcept;
     [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
