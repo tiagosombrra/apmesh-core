@@ -1876,47 +1876,49 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Cubic NURBS Double-Knot C1
-Continuity — DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+Continuity — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-Decision validation:
+Closed decision lineage:
 
-- PR #133:
+- decision PR #133:
   `ea65372bb6a9ed9a6bde94a3e3eed551e96fd3b9`;
-- PR FAST `35754225028`: PASS;
-- PR INTEGRATION `35754225224`: PASS;
-- post-merge FAST `35754389148`: PASS;
-- post-merge INTEGRATION `35754389151`: PASS.
+- decision post-merge FAST `35754389148`: PASS;
+- decision post-merge INTEGRATION `35754389151`: PASS;
+- closure PR #134:
+  `8e47a35922f5f0dd246b238294e58980baf91277`;
+- closure post-merge FAST `35754917335`: PASS;
+- closure post-merge INTEGRATION `35754917556`: PASS.
 
-After decision closure integration and post-merge validation, the sole next
-production work item is:
+Active implementation branch:
+`curve/cubic-nurbs-double-knot-continuity`.
 
-**Cubic Positive-Weight Multi-Span NURBS with Interior Knot Multiplicity One
-or Two and explicit C1/D2 failure semantics.**
+Authorized scope:
 
-Authorized future scope:
-
-- degree 3;
-- endpoint multiplicity 4;
-- unique interior multiplicities 1/2 only;
+- extend `MultiSpanCubicNURBS2/3`;
+- degree 3 remains fixed;
+- explicit unique interior multiplicity 1/2;
+- simple-knot factory remains backward-compatible;
 - positive finite weights;
 - non-periodic;
-- simple-knot backward compatibility;
-- explicit multiplicity storage;
-- typed `CurveError::insufficient_continuity`;
+- exact `CurveError::insufficient_continuity`;
 - value/D1 at double knots;
-- D2 failure exactly at double knots;
-- D2 preserved elsewhere;
-- one focused contract, targeting 25 ordinary tests.
+- ordinary D2 failure exactly at a double knot;
+- ordinary D2 preserved elsewhere;
+- focused independent repeated-knot reference;
+- geometry-preserving repeated-knot insertion evidence;
+- reversal/multiplicity reflection;
+- simple-knot regression preservation;
+- target ordinary inventory: 25 tests.
 
-Multiplicity three/C0, arbitrary degree, periodicity, one-sided derivative
-APIs, analytic conics and heterogeneous composition remain later decisions.
+Multiplicity three/C0, arbitrary degree, periodicity, one-sided derivatives,
+analytic conics and heterogeneous composition remain later decisions.
 
-Surface Representation remains blocked until this curve-continuity work unit
-closes and a separate entry decision opens it.
+Surface Representation remains blocked until this implementation is integrated,
+post-merge validated and closed, followed by a separate surface-readiness/entry
+decision.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
