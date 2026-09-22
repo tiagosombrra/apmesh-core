@@ -68,6 +68,10 @@ writing.
 - next scientific transition after audit integration/closure:
   **Curve Differential Geometry — Curvature, Regularity, and Features entry
   decision only**.
+- CGR terminal-audit PR #84 merged as
+  `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
+- PR #84 FAST `35634165038` and INTEGRATION `35634165026`: PASS;
+- post-merge FAST `35634295936` and INTEGRATION `35634295812`: PASS.
 
 ## Work-item ledger
 
@@ -99,7 +103,7 @@ writing.
 | First formal CGR preparation and audit | MERGED / PREPARED / HISTORICAL | run `35620525792`; audit PR #81 | artifact `10649325906`; manifest `201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`; PREPARED audit PASS | preparation-only authority consumed by first formal CGR campaign |
 | First exact CGR execution authorization | MERGED / CONSUMED | `curve/cgr-execution-authorization`; PR #83 | one file / 14 lines; merged `e8b17256924e907d0859b8ac7061600ffc404b9e` | exact `EXECUTE_ONCE` event; no reuse |
 | First formal CGR execution | EXECUTED / ATTEMPT CONSUMED | protected-main run `35630423134` | authorization/preflight/claim/execute/retention PASS; artifact `10654358199`, SHA-256 `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6` | workflow success is not itself qualification |
-| CGR terminal scientific audit | VALIDATED_UNMERGED / PASS | `docs/cgr-terminal-audit-pass` | CGR0–CGR7 independently recomputed PASS; 56 commands; 112 semantic test executions; 8 certificates; exact retention and derived evidence | integration pending; qualification cloud-scoped |
+| CGR terminal scientific audit | MERGED / PASS | `docs/cgr-terminal-audit-pass`; PR #84 | CGR0–CGR7 independently recomputed PASS; 56 commands; 112 semantic test executions; 8 certificates; exact retention and derived evidence | Curve Representation qualified in admitted cloud envelope |
 
 
 ## Relevant branch classification
@@ -211,70 +215,47 @@ writing.
 
 - `curve/cgr-execution-authorization`: **MERGED / CONSUMED** via
   PR #83; exact one-file first formal CGR `EXECUTE_ONCE` authorization.
-- `docs/cgr-terminal-audit-pass`: **ACTIVE / VALIDATED_UNMERGED**;
+- `docs/cgr-terminal-audit-pass`: **MERGED / HISTORICAL** via PR #84;
   independent terminal scientific audit of the consumed first formal CGR
   campaign.
+- `docs/curve-representation-qualification-closure`: **CLOSURE-ONLY**;
+  closes the qualified Curve Representation stage before the next stage entry.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Integrate the first formal CGR terminal scientific audit —
-VALIDATED_UNMERGED / PASS.**
+**None. Curve Representation qualification is closed.**
 
-Active branch: `docs/cgr-terminal-audit-pass`.
+Closure evidence:
 
-Formal campaign evidence:
+1. terminal scientific audit PR #84 merged as
+   `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
+2. PR FAST `35634165038`: PASS;
+3. PR INTEGRATION `35634165026`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. post-merge FAST `35634295936`: PASS;
+5. post-merge INTEGRATION `35634295812`: PASS in both cells;
+6. authoritative audit records CGR0–CGR7 PASS and overall PASS;
+7. Curve Representation is QUALIFIED only in the exact admitted GitHub-hosted
+   Ubuntu 24.04 x86_64 cloud envelope;
+8. no WSL/cloud equivalence or downstream physical-discretization claim is
+   made;
+9. no Curve Differential Geometry production implementation has begun.
 
-1. authorization PR #83 merged as
-   `e8b17256924e907d0859b8ac7061600ffc404b9e`;
-2. authorization/execution run `35630423134`: PASS;
-3. immutable claim
-   `cgr-execution-claim-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
-4. annotated claim object
-   `027d5c033a7d5b91e97b5ce8c35d14030f801037`, targeting candidate
-   `f7dc8d82d881858b6481d6d2d1383d8a561684c5`;
-5. terminal artifact `10654358199`, independently recomputed ZIP SHA-256
-   `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`;
-6. post-authorization FAST `35630422359`: PASS;
-7. post-authorization INTEGRATION `35630422086`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug.
-
-Independent terminal audit:
-
-- exact lifecycle `PREPARED → RUNNING → EXECUTED_PENDING_AUDIT`;
-- candidate/source inventory: 1595 paths, exact GitHub-tree agreement;
-- frozen semantic baseline: 11/11 files preserved;
-- exact retained set: 155 files, 154 retention-hashed + manifest;
-- 56/56 unique command records, all exit 0;
-- 112/112 command logs retained;
-- eight exact semantic CTest records, each 14/14 PASS;
-- 112 individual semantic test executions;
-- eight validated certificates;
-- same-cell projections equal and all eight scientific projections identical;
-- analytic value/differential/regularity/length/cumulative/inverse relations
-  independently recomputed;
-- all 52 negative outcomes rejected;
-- dependency/runtime/compile isolation complete;
-- nine required derived-evidence files retained;
-- CGR0–CGR7: **PASS**;
-- overall: **PASS**;
-- Curve Representation: **QUALIFIED in the exact admitted cloud envelope**.
-
-No WSL/cloud equivalence or downstream discretization/meshing claim is made.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this terminal audit is merged, required post-merge FAST/INTEGRATION pass,
-and the qualification checkpoint is closed, open one separate scientific entry
-decision for:
+Open one separate literature-backed scientific entry-decision work item for:
 
 **Curve Differential Geometry — Curvature, Regularity, and Features.**
 
 The entry decision must define the first bounded investigation problem,
-mathematical authority, explicit failure semantics, exclusions, focused
-evidence and later stage-exit boundary before production implementation begins.
+mathematical definitions and invariance laws, explicit domain/failure
+semantics, evidence fixtures, exclusions, prerequisite preservation and the
+future stage-exit regression boundary before production implementation begins.
 
-Boundary Curve Discretization remains blocked; no physical sampling or meshing
-starts automatically from Curve Representation qualification.
+Boundary Curve Discretization remains blocked until its own prerequisites and
+entry decision are satisfied.
 

@@ -1335,6 +1335,13 @@ terminal-audit integration and closure is one separate entry decision for
 **Curve Differential Geometry — Curvature, Regularity, and Features**.
 Boundary Curve Discretization does not start automatically.
 
+PR #84 integrated the qualifying CGR terminal audit as
+`d0045767d5a4c7fb910fd3e8aaccea73673fb558`. PR FAST
+`35634165038`, PR INTEGRATION `35634165026`, post-merge FAST
+`35634295936`, and post-merge INTEGRATION `35634295812` all passed.
+The Curve Representation qualification checkpoint is closed. The next bounded
+work is the separate Curve Differential Geometry entry decision only.
+
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `NOT STARTED`
@@ -1522,8 +1529,8 @@ This qualification is limited to the admitted GitHub-hosted Ubuntu 24.04
 x86_64 cloud environment. No WSL/cloud equivalence or downstream
 discretization/meshing claim is made.
 
-The next bounded action, after terminal-audit integration and checkpoint
-closure, is one separate literature-backed scientific entry decision for:
+The Curve Representation terminal-audit checkpoint is closed. The current
+bounded action is one separate literature-backed scientific entry decision for:
 
 **Curve Differential Geometry — Curvature, Regularity, and Features.**
 

@@ -250,47 +250,39 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after CGR terminal-audit integration:
+Exact next bounded scientific action:
 
-**Close the Curve Representation qualification checkpoint, then open one
-separate scientific entry decision for Curve Differential Geometry —
-Curvature, Regularity, and Features.**
+**Open one separate literature-backed scientific entry decision for Curve
+Differential Geometry — Curvature, Regularity, and Features.**
 
-The first formal Continuous Curve Geometry Regression campaign was authorized
-by PR #83 and merged as
-`e8b17256924e907d0859b8ac7061600ffc404b9e`.
+Curve Representation qualification is closed on `main`.
 
-Protected-main run `35630423134` validated the exact audited PREPARED
-identity, created the immutable manifest-hash claim, executed the sealed
-four-cell/two-repetition campaign exactly once, verified retention and retained
-terminal artifact `10654358199`.
+Integration evidence:
 
-Independent terminal audit records:
+- CGR terminal-audit PR #84 merged as
+  `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
+- PR FAST `35634165038`: PASS;
+- PR INTEGRATION `35634165026`: PASS;
+- post-merge FAST `35634295936`: PASS;
+- post-merge INTEGRATION `35634295812`: PASS.
 
-- archive SHA-256
-  `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`;
-- exact 56-command / 112-log cardinality;
-- eight semantic repetitions × fourteen tests = 112 individual semantic test
-  executions, all PASS;
-- eight validated curve certificates with same-cell equality and identical
-  scientific projections across all cells;
-- complete analytic/metamorphic, negative, dependency and derived evidence;
-- exact candidate/frozen-semantic identity and detached verification;
-- CGR0–CGR7: **PASS**;
-- overall: **PASS**;
-- Curve Representation: **QUALIFIED in the exact admitted GitHub-hosted Ubuntu
-  24.04 x86_64 cloud envelope**.
+Scientific status:
 
-No WSL/cloud equivalence is claimed. Curve Representation qualification does
-not authorize physical boundary discretization, surfaces, meshing,
-Quad-Dominant, parallel execution or anisotropy.
+- CGR0–CGR7: PASS;
+- overall: PASS;
+- Curve Representation: QUALIFIED in the exact admitted GitHub-hosted Ubuntu
+  24.04 x86_64 cloud envelope;
+- WSL/cloud equivalence: not claimed.
+
+The next stage entry must be decided before any curvature/feature production
+code is written. Boundary Curve Discretization remains blocked.
 
 
 
-## Current active stage
+## Most recently qualified stage
 
 **Curve Representation — Continuous Geometry Before Discretization —
-QUALIFIED / CGR0–CGR7 PASS / TERMINAL AUDIT VALIDATED_UNMERGED**
+QUALIFIED / CGR0–CGR7 PASS**
 
 Qualification authority:
 
@@ -357,7 +349,7 @@ only in the admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud environment.
 The next stage is not physical discretization: Curve Differential Geometry
 requires a separate scientific entry decision.
 
-## Most recently qualified stage
+## Previously qualified prerequisite stage
 
 **Topological Model — Explicit Identity and Incidence**
 
