@@ -255,16 +255,17 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
-5. `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
-6. `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
-7. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
-8. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-9. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-10. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-11. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-12. the latest relevant audit under `docs/audits/`;
-13. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
+5. `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
+6. `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
+7. `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
+8. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
+9. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
+10. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+11. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+12. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+13. the latest relevant audit under `docs/audits/`;
+14. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -287,47 +288,55 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Open one fresh literature-backed Curve Representation Breadth decision.**
+**Integrate the literature-backed Multi-Span Clamped Cubic Positive-Weight
+NURBS breadth decision; no production implementation is authorized on this
+branch.**
 
-Terminal fixed NURBS evidence:
+Decision-entry authority:
 
-- implementation PR #124:
-  `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
-- implementation post-merge FAST `35746004007`: PASS;
-- implementation post-merge INTEGRATION `35746003953`: PASS;
-- closure PR #125:
-  `465dc5b5f1948d4d27ca67d777aa2493f9c8968e`;
-- closure post-merge FAST `35746603445`: PASS;
-- closure post-merge INTEGRATION `35746603448`: PASS;
-- terminal sync PR #126:
-  `eaba130eaa5da79fc827b8f770df4123524fc455`;
-- sync PR FAST `35747044794`: PASS;
-- sync PR INTEGRATION `35747044719`: PASS;
-- sync post-merge FAST `35747249752`: PASS;
-- sync post-merge INTEGRATION `35747249889`: PASS.
+- terminal `main`:
+  `eb48bd648c75efe044dd4bc34c3aa34b4b72cda2`;
+- terminal-state PR #127 FAST `35748224182`: PASS;
+- terminal-state PR #127 INTEGRATION `35748224260`: PASS;
+- terminal-state post-merge FAST `35748370784`: PASS;
+- terminal-state post-merge INTEGRATION `35748370519`: PASS.
 
-Production representation breadth now contains:
+Active branch:
+`curve/multi-span-cubic-nurbs-decision`.
 
-- `CubicBezier2/3`;
-- `LineSegment2/3`;
-- `RationalQuadraticBezier2/3`;
-- static `TrimmedCurve2/3`;
-- `TwoSpanCubicBSpline2/3`;
-- `TwoSpanCubicNURBS2/3`.
+Decision authority:
+`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
 
-The fixed NURBS work unit is terminally closed but does not widen the original
-CGR0–CGR7 qualification beyond polynomial cubic Bézier.
+The decision compares the five required breadth candidates and selects only:
 
-No representation family is currently active and no candidate for the next
-breadth decision is pre-authorized.
+**Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
+with Simple Interior Knots.**
+
+Selected future semantics:
+
+- degree remains exactly 3;
+- at least two spans;
+- runtime-variable controls, weights and simple interior knots;
+- `control_count == weight_count == interior_knot_count + 4`;
+- positive finite weights;
+- non-periodic;
+- immutable `std::vector` ownership / read-only `std::span` inspection;
+- deterministic exact span location with the right span selected at an
+  interior knot;
+- local homogeneous value/D1/D2 evaluation;
+- no per-query allocation or global weight scan after span location.
+
+No production implementation, repeated knots, arbitrary degree, analytic
+conics, heterogeneous composition, surface, discretization or meshing work is
+authorized.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — NO ACTIVE REPRESENTATION WORK ITEM /
-FIXED TWO-SPAN CUBIC NURBS TERMINALLY CLOSED / NOT QUALIFIED /
-NEXT BREADTH DECISION REQUIRED / B-SPLINE, RATIONAL, TRIM AND LINE
+**Curve Representation Breadth Gate — MULTI-SPAN CUBIC NURBS DECISION
+ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED / FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
 INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
