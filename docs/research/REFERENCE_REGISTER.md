@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-20
+Last updated: 2026-09-22
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -603,6 +603,100 @@ Project relevance:
 The bounded AP Mesh decision uses these references only to justify mathematical
 structure. No external solver, arbitrary-degree polynomial subsystem, or
 third-party runtime dependency is admitted.
+
+
+### Piegl and Tiller 1997 — The NURBS Book
+
+Status: `FOUNDATIONAL` for the Parametric Curve Family Abstraction decision,
+reviewed 2026-09-22.
+
+Les Piegl and Wayne Tiller. *The NURBS Book*, 2nd ed., Springer, 1997.
+
+Accessible reference copy:
+https://home.zcu.cz/~bastl/GM1/the-nurbs-book.pdf
+
+Project relevance:
+
+- treats B-spline and NURBS curves/surfaces together with their evaluation and
+  derivative algorithms;
+- documents NURBS as a generalization that includes non-rational B-splines and
+  rational/non-rational Bézier forms;
+- supports separating common parametric semantics from family-specific
+  control/weight/knot storage;
+- does not require AP Mesh to adopt one universal NURBS representation for all
+  analytic geometry or to implement spline/rational families in one work unit.
+
+### Open CASCADE Geom_Curve — common parametric curve semantics
+
+Status: `FOUNDATIONAL` interface/reference evidence for the Parametric Curve
+Family Abstraction decision, reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___curve.html
+
+Project relevance:
+
+- provides a mature CAD-kernel example of common parameter bounds, evaluation,
+  derivatives, reversal, continuity, closedness and periodicity across concrete
+  line, conic, Bézier and B-spline curve families;
+- demonstrates that parameter-domain and derivative semantics are genuinely
+  cross-family concepts;
+- AP Mesh does not adopt OCCT ownership, inheritance, exception behavior,
+  tolerance policies or runtime dependency.
+
+### Open CASCADE Geom_BSplineCurve — knot domain and rational/periodic variation
+
+Status: `FOUNDATIONAL` scoping evidence for later B-spline/NURBS work,
+reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___b_spline_curve.html
+
+Project relevance:
+
+- first and last curve parameters are knot values rather than a universal
+  normalized interval;
+- knot multiplicity affects continuity;
+- B-spline curves may be periodic and rational;
+- supports explicitly deferring continuity partitions, periodic wrapping,
+  knots and weights from the first common abstraction work unit.
+
+### Open CASCADE Geom_Circle — non-normalized bounded periodic example
+
+Status: `FOUNDATIONAL` counterexample to a universal `[0,1]` domain,
+reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___circle.html
+
+Project relevance:
+
+- documents a circle parameter domain `[0,2π]`;
+- documents periodicity and reversed-parameter relation `2π-u`;
+- supports an explicit per-curve parameter domain and reversal mapping;
+- does not pre-authorize a circle implementation in AP Mesh.
+
+### C++23 constraints/concepts — static semantic interface mechanism
+
+Status: `FOUNDATIONAL` engineering evidence for the bounded abstraction,
+reviewed 2026-09-22.
+
+References:
+
+- https://en.cppreference.com/w/cpp/language/constraints
+- https://en.cppreference.com/w/cpp/language/requires
+- https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
+
+Project relevance:
+
+- C++ concepts provide compile-time named requirements for generic algorithms;
+- C++ Core Guidelines recommend concepts model meaningful semantic categories
+  rather than incidental syntax;
+- compile-time satisfaction does not prove semantic correctness, so runtime
+  analytic/metamorphic contracts remain mandatory;
+- supports a static value-oriented abstraction before considering virtual
+  runtime polymorphism.
+
 
 ## Curve Differential Geometry
 
