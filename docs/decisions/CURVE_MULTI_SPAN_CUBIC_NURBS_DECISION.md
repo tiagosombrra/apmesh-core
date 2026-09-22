@@ -982,3 +982,56 @@ FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No broader spline, conic, composition, surface or downstream capability is
 implied.
+
+
+## 41. Implementation integration checkpoint
+
+Implementation PR #130 merged as
+`153bf6b874b0deac304ea07562cd897785f631df`.
+
+Validation lineage:
+
+- first complete candidate head:
+  `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
+- candidate FAST `35751863096`: PASS, 24/24 ordinary tests;
+- candidate INTEGRATION `35751863450`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 24/24 tests per cell;
+- final documentation-synchronized head:
+  `3a600bba2b521ba4fea12be0b85dd55161205f15`;
+- final PR FAST `35752117689`: PASS, 24/24;
+- final PR INTEGRATION `35752117850`: PASS in GCC 13 Debug and Clang 18
+  libc++ Debug, 24/24 tests per cell;
+- post-merge FAST `35752335649`: PASS, 24/24;
+- post-merge INTEGRATION `35752335629`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 24/24 tests per cell.
+
+Integrated production scope:
+
+- `MultiSpanCubicNURBS2`;
+- `MultiSpanCubicNURBS3`;
+- degree 3;
+- runtime-variable control/weight/simple-knot count;
+- at least two spans;
+- clamped endpoints and simple interior knots;
+- finite strictly positive weights;
+- immutable owning vectors/read-only spans;
+- exact right-span search;
+- local homogeneous value/D1/D2;
+- no per-query allocation;
+- no global weight normalization after span location.
+
+Focused evidence includes every Section 25 category.
+
+The common `BoundedParametricCurve2/3` concepts and fixed
+`src/geometry/nurbs.cpp` production semantics remain unchanged.
+
+Work-unit result before closure:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+This does not qualify repeated knots, arbitrary degree, periodic NURBS,
+analytic conics, heterogeneous composition, NURBS surfaces or the breadth
+stage.
+
+A separate implementation closure is mandatory before any next breadth
+decision.
