@@ -250,33 +250,27 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after decision integration:
+Exact next bounded scientific action:
 
 **Implement only Certified Simple Planar Inflection Isolation on Globally
 Regular Cubic Bézier Curves.**
 
-Decision authority:
-`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
+The bounded decision was integrated by PR #94 as
+`44e04205c604abec8dc92f31930a371dc0c56cd1`.
 
-The selected next problem is deliberately global but bounded:
+Validation:
 
-- certify regularity first;
-- reason on the exact quadratic Bernstein curvature-numerator polynomial;
-- certify simple interior roots through Bernstein sign-variation/subdivision
-  evidence;
-- return `indeterminate` for unresolved multiple/tangential/ill-conditioned
-  cases;
-- explicitly retain root obligations at internal subdivision boundaries so a
-  root cannot disappear under open-interval Bernstein sign counting;
-- never use sampled signed curvature as proof;
-- retain explicit resource limits and parameter-bracket tolerance;
-- preserve deterministic reversal/frame/scale relations.
+- final PR FAST `35677428464`: PASS;
+- final PR INTEGRATION `35677428431`: PASS;
+- post-merge FAST `35677498659`: PASS;
+- post-merge INTEGRATION `35677498682`: PASS.
 
-Pointwise signed curvature remains a local prerequisite, not the proof
-mechanism.
+The implementation must conform to
+`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`,
+including explicit internal subdivision-boundary root accounting. No
+production root isolation exists yet.
 
-No implementation is authorized until this decision itself is merged,
-post-merge validated and closed.
+Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
 
 
 ## Current active stage
@@ -284,7 +278,7 @@ post-merge validated and closed.
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION DECISION VALIDATED_UNMERGED /
+SIMPLE-INFLECTION DECISION INTEGRATED / IMPLEMENTATION NOT STARTED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 
 
