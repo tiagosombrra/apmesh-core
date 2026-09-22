@@ -350,125 +350,66 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-rational-bicubic-bezier-decision-closure`:
   **MERGED / HISTORICAL** via PR #144; closes the rational bicubic surface
   decision checkpoint.
-- `surface/rational-bicubic-bezier`: **ACTIVE**; bounded positive-weight
-  rational bicubic surface implementation.
+- `surface/rational-bicubic-bezier`: **MERGED / HISTORICAL** via PR #145;
+  bounded positive-weight rational bicubic surface implementation.
+- `docs/surface-rational-bicubic-bezier-implementation-closure`:
+  **CLOSURE-ONLY**; records PR #145 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D —
-ACTIVE / IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None. Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D is
+integrated and ready for closure.**
 
-Active branch:
-`surface/rational-bicubic-bezier`.
+Implementation closure evidence:
 
-Decision authority:
-`docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
+1. initial PR head:
+   `83d1aedd68cbd4457e36021c704604b3a616fd8a`;
+2. initial FAST `35782696019`: FAIL during focused-test compilation;
+3. initial INTEGRATION `35782696016`: FAIL during the same focused-test
+   compilation in GCC and Clang;
+4. diagnosis: mechanical focused-test construction defect only; production
+   rational surface source compiled successfully;
+5. corrected candidate head:
+   `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
+6. corrected FAST `35782907623`: PASS, 27/27;
+7. corrected INTEGRATION `35782907574`: PASS, 27/27 in GCC and Clang;
+8. final PR head:
+   `9677c98882ce32569e537a9b5d91f23cffabec69`;
+9. final PR FAST `35783120161`: PASS, 27/27;
+10. final PR INTEGRATION `35783120208`: PASS, 27/27 in GCC and Clang;
+11. PR #145 merged as
+    `8ac1abd913bf15ff1dc4d60595f809491902c055`;
+12. post-merge FAST `35783312495`: PASS, 27/27;
+13. post-merge INTEGRATION `35783312402`: PASS, 27/27 in GCC and Clang;
+14. focused `apmesh_core.surface_rational_bicubic_bezier`: PASS throughout
+    corrected/final/post-merge validation;
+15. every prior ordinary semantic contract remained PASS;
+16. `parametric_surface.hpp`, polynomial `surface.cpp` and
+    `BicubicBezierPatch3` remained frozen prerequisites.
 
-Closed decision checkpoint:
+No production work item is active in this closure change.
 
-- decision PR #143:
-  `281626d6ec02763be57b15fff15a82b0daa9129d`;
-- decision PR FAST `35780844901`: PASS;
-- decision PR INTEGRATION `35780844932`: PASS;
-- decision post-merge FAST `35780994515`: PASS;
-- decision post-merge INTEGRATION `35780994410`: PASS;
-- decision closure PR #144 head:
-  `423bf857661dc94e17f46a73a25369e08ec92811`;
-- closure PR FAST `35781257218`: PASS;
-- closure PR INTEGRATION `35781257255`: PASS;
-- closure PR #144 merged as:
-  `0e2e9620052f2bee3237eb8428065b68facff0fd`;
-- closure post-merge FAST `35781441396`: PASS;
-- closure post-merge INTEGRATION `35781441405`: PASS.
+Final component result after this closure:
 
-Authorized repository mapping:
+**SURFACE REPRESENTATION STAGE OPEN / RATIONAL BICUBIC BÉZIER PATCH
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
 
-1. public rational patch API:
-   `include/apmesh/geometry/surface.hpp`;
-2. rational production source:
-   `src/geometry/rational_surface.cpp`;
-3. focused semantic/reference contract:
-   `tests/surface_rational_bicubic_bezier.cpp`;
-4. build/test registration:
-   `CMakeLists.txt`;
-5. synchronized STATE / ROADMAP / WORKLOG / decision.
+## Next admissible work item after closure
 
-Required implementation scope:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one fresh literature-backed Surface Representation breadth
+decision comparing:
 
-- same 4x4 finite Point3 topology;
-- same degree three in U/V;
-- same exact [0,1]^2 domain;
-- 4x4 finite strictly positive weights;
-- construction-time validation of all weights;
-- deterministic scale-aware homogeneous V-then-U evaluation;
-- analytic rational Su/Sv/Suu/Suv/Svv;
-- exact corners;
-- equal-weight parity with `BicubicBezierPatch3`;
-- common weight-scale invariance;
-- independent rational Bernstein oracle;
-- U/V reversal;
-- target ordinary inventory: 27 tests.
+1. cubic B-spline/NURBS surface;
+2. Coons/transfinite patch;
+3. analytic elementary surfaces;
+4. ruled/extrusion/revolution surfaces;
+5. rectangular/general trimmed-surface semantics.
 
-Candidate implementation mapping:
+NURBS surface remains a high-priority candidate but is not pre-authorized.
 
-- `include/apmesh/geometry/surface.hpp`:
-  adds validated `RationalBicubicBezierPatch3` plus fixed 4x4 weight storage;
-- `src/geometry/rational_surface.cpp`:
-  implements scale-aware homogeneous tensor evaluation and analytic rational
-  Su/Sv/Suu/Suv/Svv without modifying the polynomial source;
-- `tests/surface_rational_bicubic_bezier.cpp`:
-  independent rational Bernstein oracle, equal-weight polynomial parity,
-  RationalQuadraticBezier3 degree-elevation relation, reversal, weight-scale,
-  affine, extreme-finite and deterministic evidence;
-- `CMakeLists.txt`:
-  links the rational source and registers the 27th ordinary surface contract;
-- `include/apmesh/geometry/parametric_surface.hpp` remains unchanged;
-- `src/geometry/surface.cpp` remains unchanged.
-
-Validation history:
-
-- initial PR head:
-  `83d1aedd68cbd4457e36021c704604b3a616fd8a`;
-- initial FAST `35782696019`: FAIL during test compilation;
-- initial INTEGRATION `35782696016`: FAIL during the same test compilation
-  in GCC and Clang;
-- diagnosis: **mechanical focused-test construction defect** only —
-  `Point3` is intentionally not default-constructible and two test
-  `ControlNet` values used empty aggregate initialization; production
-  `rational_surface.cpp` compiled successfully in all failing jobs;
-- correction: initialize those test-only nets from explicit finite Point3
-  values; no production/API/scientific semantic change;
-- corrected candidate head:
-  `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
-- corrected FAST `35782907623`: PASS, 27/27 tests;
-- corrected INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 27/27 tests in each cell;
-- `apmesh_core.surface_rational_bicubic_bezier`: PASS in all three corrected
-  jobs;
-- every prior ordinary semantic contract remained PASS.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no U/V knots or multiplicities;
-- no NURBS surface;
-- no runtime-variable control-net dimensions;
-- no arbitrary degree;
-- no Coons/transfinite;
-- no analytic elementary/swept/trimmed surfaces;
-- no normals/metric/curvature;
-- no discretization or meshing.
-
-## Next admissible transition
-
-Complete only this rational bicubic implementation, validate 27/27 in FAST and
-both INTEGRATION cells, integrate through one PR, validate protected `main`,
-close the implementation checkpoint, and only then open a fresh Surface
-Representation breadth decision. NURBS surface remains the immediate
-high-priority candidate but is not pre-authorized.
+Surface Differential Geometry, Boundary Curve Discretization and all meshing
+stages remain blocked.

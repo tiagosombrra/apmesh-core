@@ -798,3 +798,42 @@ FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No U/V knot, NURBS, Coons, analytic, swept, trimmed, differential-geometry or
 meshing capability is implied.
+
+
+## 37. Implementation integration checkpoint
+
+Implementation PR #145 used final head:
+
+`9677c98882ce32569e537a9b5d91f23cffabec69`.
+
+Final PR validation:
+
+- FAST `35783120161`: PASS, 27/27 ordinary semantic tests;
+- INTEGRATION `35783120208`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 27/27 tests per cell;
+- `apmesh_core.surface_rational_bicubic_bezier`: PASS in all three jobs.
+
+PR #145 merged as:
+
+`8ac1abd913bf15ff1dc4d60595f809491902c055`.
+
+Post-merge validation:
+
+- FAST `35783312495`: PASS, 27/27;
+- INTEGRATION `35783312402`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 27/27 tests per cell.
+
+The earlier failed heads remain preserved as mechanical focused-test evidence;
+no production/API/scientific semantics were changed by that correction.
+
+Integrated result:
+
+**SURFACE REPRESENTATION STAGE OPEN /
+RATIONAL BICUBIC BÉZIER PATCH IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+The implementation is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is one fresh literature-backed Surface Representation breadth decision.
+NURBS, Coons, analytic, swept and trimmed families remain unselected.
