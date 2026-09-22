@@ -266,6 +266,8 @@ The selected next problem is deliberately global but bounded:
   evidence;
 - return `indeterminate` for unresolved multiple/tangential/ill-conditioned
   cases;
+- explicitly retain root obligations at internal subdivision boundaries so a
+  root cannot disappear under open-interval Bernstein sign counting;
 - never use sampled signed curvature as proof;
 - retain explicit resource limits and parameter-bracket tolerance;
 - preserve deterministic reversal/frame/scale relations.
