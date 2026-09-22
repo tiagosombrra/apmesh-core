@@ -380,9 +380,21 @@ Candidate implementation currently mapped on this active branch:
   local support, weight-scale invariance, reversal, embedding, affine,
   extreme-finite and determinism evidence.
 
+Candidate validation:
+
+- candidate head:
+  `a096b00438f8acf08adce58327439e888037818f`;
+- FAST `35745044617`: PASS, 23/23 tests;
+- INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 23/23 tests in each cell;
+- `apmesh_core.two_span_cubic_nurbs`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- no production or acceptance semantics changed during this validation.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
