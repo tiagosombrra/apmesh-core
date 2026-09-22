@@ -11,8 +11,8 @@ namespace apmesh::core {
 enum class CurveError {
     non_finite_parameter,
     parameter_out_of_domain,
-    singular_parameter,
     non_finite_result,
+    singular_parameter,
 };
 
 enum class CurveRegularityError {
