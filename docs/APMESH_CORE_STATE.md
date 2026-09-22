@@ -291,40 +291,38 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this implementation closure is integrated and post-merge validated,
-open one fresh literature-backed Curve/Surface breadth decision.**
+**Open one fresh literature-backed Curve/Surface breadth decision.**
 
-Integrated C1 work-unit evidence:
+Terminal C1 work-unit evidence:
 
-- candidate head:
-  `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
-- candidate FAST `35756479210`: PASS, 25/25;
-- candidate INTEGRATION `35756479108`: PASS, 25/25;
-- final head:
-  `ba0f5ec0ee038f176cc9abc405e2aa879a2e9b95`;
-- final PR FAST `35756643568`: PASS, 25/25;
-- final PR INTEGRATION `35756643616`: PASS, 25/25;
 - implementation PR #135:
   `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`;
-- post-merge FAST `35756910304`: PASS, 25/25;
-- post-merge INTEGRATION `35756910340`: PASS, 25/25.
+- implementation post-merge FAST `35756910304`: PASS, 25/25;
+- implementation post-merge INTEGRATION `35756910340`: PASS, 25/25;
+- closure PR #136 head:
+  `bb5c524bc1642376689c6b8aa1a845364844de09`;
+- closure PR FAST `35757407115`: PASS;
+- closure PR INTEGRATION `35757407483`: PASS;
+- closure merge:
+  `affc7a46b7fd4c5cc419679e6192fc293501654e`;
+- closure post-merge FAST `35757554252`: PASS;
+- closure post-merge INTEGRATION `35757554247`: PASS.
 
-Closure branch:
-`docs/cubic-nurbs-double-knot-implementation-closure`.
+The integrated representation supports cubic positive-weight multi-span NURBS
+with unique interior multiplicities 1/2 and parameter-local ordinary-D2
+continuity failure at double knots.
 
-The integrated representation now supports cubic positive-weight multi-span
-NURBS with unique interior multiplicities 1/2, parameter-local ordinary-D2
-failure at double knots, and preserved simple-knot semantics.
+No production work item is active.
 
-No multiplicity-three, arbitrary-degree, periodic, one-sided derivative,
-analytic-conic, polycurve, surface, discretization or meshing work is
-authorized.
+The next decision must compare Surface Representation readiness against
+multiplicity-three/C0, arbitrary-degree spline/Bézier, analytic conics and
+heterogeneous composition/polycurve. No winner is pre-authorized.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — CUBIC NURBS DOUBLE-KNOT C1
 CONTINUITY IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED /
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
 MULTI-SPAN NURBS, FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
 INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
