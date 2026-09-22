@@ -773,3 +773,51 @@ item is the implementation bounded by Sections 5–29.
 General B-spline, NURBS, arbitrary degree/count, repeated interior knots,
 periodicity, analytic conics, heterogeneous composition, surfaces and
 downstream meshing remain unauthorized.
+
+
+## 33. Active implementation mapping
+
+Decision closure PR #117 merged as
+`5abcc8bd512097e1ae5881e1643f67b89420e1dc`.
+
+Closure post-merge validation:
+
+- FAST `35735198199`: PASS;
+- INTEGRATION `35735198173`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The sole authorized implementation is active on:
+
+`curve/two-span-cubic-bspline`.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/bspline.hpp`;
+- `src/geometry/bspline.cpp`;
+- `tests/two_span_cubic_bspline.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Candidate semantics:
+
+- fixed degree-three, five-control, two-span polynomial B-spline;
+- full inspectable knot vector `[a,a,a,a,k,b,b,b,b]`;
+- validated finite strict `a<k<b`;
+- exact bounded parameter domain `[a,b]`;
+- de Boor point evaluation;
+- fixed derivative control polygons for D1/D2;
+- typed non-finite/out-of-domain/unrepresentable-result failures;
+- reflected-knot reversal using the existing common primitive;
+- unchanged common bounded-parametric concepts.
+
+Focused evidence covers every Section 20 obligation using an independent
+Cox–de Boor/basis-derivative oracle plus qualified cubic-Bézier knot-insertion
+parity.
+
+Expected ordinary FAST/INTEGRATION inventory after registration: **22 tests**.
+
+Status before CI:
+
+**IMPLEMENTED CANDIDATE / FOCUSED VALIDATION PENDING / NOT QUALIFIED.**
+
+No general B-spline, NURBS or downstream capability is implied.
