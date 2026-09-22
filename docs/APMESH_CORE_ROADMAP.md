@@ -1892,9 +1892,18 @@ No heterogeneous composition/type erasure, periodic trim, analytic conic,
 arbitrary-degree Bézier, B-spline/NURBS, surface, boundary discretization,
 sizing or meshing work is included.
 
-The branch must pass FAST and both INTEGRATION compiler cells before
-integration. Passing yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / NOT QUALIFIED**.
+Candidate validation on head
+`fdb44db2478f50724242d9f83260bbca5d68ce0e`:
+
+- FAST `35730750101`: PASS, 21/21 tests;
+- INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 21/21 tests per cell;
+- the new trim contract and every prerequisite ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. Passing still yields only
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED**.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
