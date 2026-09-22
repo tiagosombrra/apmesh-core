@@ -287,46 +287,82 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this rational-bicubic decision closure is integrated and post-merge
-validated, implement the Positive-Weight Rational Tensor-Product Bicubic
-Bézier Patch in 3D.**
+**Implement the Positive-Weight Rational Tensor-Product Bicubic Bézier Patch
+in 3D.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #143 head:
-  `af09c54f6c3f6c963fac140d02ae56d0bf40a886`;
-- PR FAST `35780844901`: PASS;
-- PR INTEGRATION `35780844932`: PASS;
-- merge:
+- decision PR #143:
   `281626d6ec02763be57b15fff15a82b0daa9129d`;
-- post-merge FAST `35780994515`: PASS;
-- post-merge INTEGRATION `35780994410`: PASS.
+- decision post-merge FAST `35780994515`: PASS;
+- decision post-merge INTEGRATION `35780994410`: PASS;
+- closure PR #144:
+  `0e2e9620052f2bee3237eb8428065b68facff0fd`;
+- closure post-merge FAST `35781441396`: PASS;
+- closure post-merge INTEGRATION `35781441405`: PASS.
 
-Closure branch:
-`docs/surface-rational-bicubic-bezier-decision-closure`.
+Active branch:
+`surface/rational-bicubic-bezier`.
 
 Decision authority:
 `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
 
-The sole authorized next implementation adds positive rational weights and
-homogeneous quotient partials to the fixed 4x4 bicubic surface topology.
+The implementation may add only the fixed 4x4 positive weight net and the
+rational homogeneous evaluation/partial semantics frozen by the decision.
 
-The common bounded-surface concept and polynomial bicubic implementation remain
-frozen.
+The common `BoundedParametricSurface3` contract and integrated polynomial
+bicubic patch remain frozen.
 
-NURBS surface remains the next high-priority breadth candidate after this work
-unit closes. Coons/transfinite, analytic elementary, swept and trimmed surfaces
-remain explicit retained obligations.
+NURBS surface, Coons/transfinite, analytic elementary, swept and trimmed
+surfaces remain explicit later work.
 
-No rational production implementation begins in this closure branch.
+Candidate repository mapping:
+
+- `include/apmesh/geometry/surface.hpp`;
+- `src/geometry/rational_surface.cpp`;
+- `tests/surface_rational_bicubic_bezier.cpp`;
+- `CMakeLists.txt`.
+
+Candidate semantics:
+
+- finite strictly positive 4x4 weights are validated explicitly;
+- stored weights remain the exact inputs;
+- homogeneous controls use a common internal weight scale before coordinate
+  multiplication;
+- value and homogeneous first/second partial nets are evaluated
+  deterministically V-then-U;
+- rational quotient formulas produce Su/Sv/Suu/Suv/Svv;
+- exact corners and constant-patch identities are preserved;
+- polynomial `BicubicBezierPatch3` and the common surface concept are
+  unchanged;
+- expected ordinary inventory: 27 tests.
+
+Validation history:
+
+- initial head `83d1aedd68cbd4457e36021c704604b3a616fd8a`;
+- FAST `35782696019` and INTEGRATION `35782696016`: FAIL during focused
+  test compilation because two test-only `ControlNet` objects attempted
+  default construction of `Point3`;
+- production `rational_surface.cpp` compiled successfully in those failed
+  jobs;
+- correction changed test construction only;
+- corrected head `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
+- FAST `35782907623`: PASS, 27/27;
+- INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 27/27 per cell;
+- focused rational bicubic contract: PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — RATIONAL BICUBIC
-BÉZIER DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
+BÉZIER IMPLEMENTATION ACTIVE / NOT QUALIFIED /
 POLYNOMIAL BICUBIC PATCH AND CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
@@ -355,7 +391,9 @@ The following are **not implemented and not covered by CGR qualification**:
 - general/multi-span/arbitrary-degree/repeated-knot/periodic NURBS semantics
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
-- any production surface representation.
+- rational Bézier, B-spline/NURBS, Coons/transfinite, analytic elementary,
+  swept and trimmed surface representations beyond the integrated polynomial
+  bicubic Bézier patch.
 
 This limitation does not invalidate the existing cubic-Bézier qualification.
 It prevents that qualification from being generalized to those families.
@@ -366,10 +404,11 @@ family scope-extension decision must admit the required analytic/rational/spline
 families and define how common differential/discretization algorithms reuse
 their semantics.
 
-Before Surface Representation begins, its entry decision must explicitly map
-the required surface families, including polynomial/rational free-form patches,
-analytic reference surfaces and trimming/boundary semantics. No surface family
-is implicitly qualified by the current curve work.
+Surface Representation is now open and its entry decision explicitly maps
+polynomial/rational free-form, spline/NURBS, Coons/transfinite, analytic,
+swept and trimmed families. Only the polynomial bicubic Bézier patch is already
+integrated; the rational bicubic patch is the current candidate. No other
+surface family is implicitly implemented or qualified.
 
 
 ## Most recently qualified stage

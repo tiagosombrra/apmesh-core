@@ -673,3 +673,128 @@ Sections 5–31.
 
 No NURBS, Coons, analytic, swept, trimmed or downstream surface capability is
 authorized by this checkpoint.
+
+
+## 35. Decision closure checkpoint
+
+Decision closure PR #144 used head:
+
+`423bf857661dc94e17f46a73a25369e08ec92811`.
+
+Closure PR validation:
+
+- FAST `35781257218`: PASS;
+- INTEGRATION `35781257255`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #144 merged as:
+
+`0e2e9620052f2bee3237eb8428065b68facff0fd`.
+
+Closure post-merge validation:
+
+- FAST `35781441396`: PASS;
+- INTEGRATION `35781441405`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / RATIONAL BICUBIC BÉZIER IMPLEMENTATION AUTHORIZED /
+NOT QUALIFIED.**
+
+The sole active production work item is the rational bicubic patch bounded by
+Sections 5–31.
+
+No NURBS, Coons, analytic, swept, trimmed or downstream surface capability is
+authorized.
+
+
+## 36. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/rational-bicubic-bezier`.
+
+Candidate mapping:
+
+- public value/API extension:
+  `include/apmesh/geometry/surface.hpp`;
+- production:
+  `src/geometry/rational_surface.cpp`;
+- focused semantic/reference contract:
+  `tests/surface_rational_bicubic_bezier.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Frozen prerequisites:
+
+- `include/apmesh/geometry/parametric_surface.hpp`: unchanged;
+- `src/geometry/surface.cpp`: unchanged;
+- `BicubicBezierPatch3`: prerequisite polynomial oracle/production family.
+
+Candidate production semantics:
+
+- exact stored 4x4 controls and input weights;
+- explicit finite/positive weight construction validation;
+- common internal weight normalization;
+- deterministic V-then-U homogeneous de Casteljau;
+- homogeneous derivative nets through degree reduction;
+- analytic rational Su/Sv/Suu/Suv/Svv dehomogenization;
+- exact corners;
+- exact constant-geometry shortcut;
+- U/V reversal of controls and weights.
+
+Focused contract includes:
+
+- independent rational Bernstein value/partial oracle;
+- all-equal non-unit weight parity with `BicubicBezierPatch3`;
+- common weight-scale invariance;
+- U/V reversal and derivative covariance;
+- homogeneous degree elevation from integrated
+  `RationalQuadraticBezier3` as cross-family evidence;
+- translation and coordinate-scale covariance;
+- extreme finite positive weights;
+- explicit unrepresentable-result failure;
+- deterministic repeated success/failure evidence.
+
+Expected ordinary semantic inventory: **27 tests**.
+
+Validation history:
+
+Initial PR head:
+
+`83d1aedd68cbd4457e36021c704604b3a616fd8a`.
+
+Initial validation:
+
+- FAST `35782696019`: FAIL during focused-test compilation;
+- INTEGRATION `35782696016`: FAIL during the same focused-test compilation
+  in GCC 13 Debug and Clang 18/libc++ Debug;
+- diagnosis: two test-only `ControlNet` instances used empty aggregate
+  initialization even though `Point3` is deliberately non-default-
+  constructible;
+- `src/geometry/rational_surface.cpp` compiled successfully in all initial
+  jobs;
+- the correction initialized the two test nets explicitly and changed no
+  production, API or scientific semantics.
+
+Corrected candidate head:
+
+`3ac7b36db5a2a94f77a81fd441d9d871233653a3`.
+
+Corrected validation:
+
+- FAST `35782907623`: PASS, 27/27 ordinary semantic tests;
+- INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 27/27 tests per cell;
+- `apmesh_core.surface_rational_bicubic_bezier`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No U/V knot, NURBS, Coons, analytic, swept, trimmed, differential-geometry or
+meshing capability is implied.
