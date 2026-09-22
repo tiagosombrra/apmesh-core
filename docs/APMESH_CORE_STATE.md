@@ -339,9 +339,25 @@ Candidate semantics:
   unchanged;
 - expected ordinary inventory: 27 tests.
 
+Validation history:
+
+- initial head `83d1aedd68cbd4457e36021c704604b3a616fd8a`;
+- FAST `35782696019` and INTEGRATION `35782696016`: FAIL during focused
+  test compilation because two test-only `ControlNet` objects attempted
+  default construction of `Point3`;
+- production `rational_surface.cpp` compiled successfully in those failed
+  jobs;
+- correction changed test construction only;
+- corrected head `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
+- FAST `35782907623`: PASS, 27/27;
+- INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 27/27 per cell;
+- focused rational bicubic contract: PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
