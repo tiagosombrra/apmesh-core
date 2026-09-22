@@ -312,59 +312,86 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   representation-breadth checkpoint.
 - `curve/multi-span-cubic-nurbs-decision`: **MERGED / HISTORICAL** via
   PR #128; bounded multi-span cubic NURBS breadth decision.
-- `docs/multi-span-cubic-nurbs-decision-closure`: **CLOSURE-ONLY**;
-  records PR #128 integration and post-merge validation.
+- `docs/multi-span-cubic-nurbs-decision-closure`: **MERGED / HISTORICAL**
+  via PR #129; closes the multi-span cubic NURBS decision checkpoint.
+- `curve/multi-span-cubic-nurbs`: **ACTIVE**; bounded runtime-variable
+  span-count cubic positive-weight NURBS implementation under the closed
+  decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Multi-Span Clamped Cubic Positive-Weight NURBS breadth decision is
-integrated and ready for closure.**
-
-Decision closure evidence:
-
-1. decision authority:
-   `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
-2. decision PR #128 merged as
-   `77a7773cdb431469402f773b52c70d171d805201`;
-3. decision PR FAST `35749650284`: PASS;
-4. decision PR INTEGRATION `35749650175`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. decision post-merge FAST `35749735576`: PASS;
-6. decision post-merge INTEGRATION `35749735502`: PASS;
-7. no multi-span production NURBS family has yet been implemented;
-8. the common bounded-parametric concepts remain unchanged;
-9. the fixed two-span NURBS/B-spline and all prior curve families remain frozen
-   prerequisites.
-
-No production work item is active in this closure change.
-
-## Next admissible work item after closure
-
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
-
 **Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
-with Simple Interior Knots.**
+with Simple Interior Knots — ACTIVE / IMPLEMENTATION IN PROGRESS /
+NOT QUALIFIED.**
 
-Implementation must remain within
-`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`:
+Active branch:
+`curve/multi-span-cubic-nurbs`.
 
-- degree 3;
+Decision authority:
+`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
+
+Closed decision checkpoint:
+
+- decision PR #128:
+  `77a7773cdb431469402f773b52c70d171d805201`;
+- decision post-merge FAST `35749735576`: PASS;
+- decision post-merge INTEGRATION `35749735502`: PASS;
+- decision closure PR #129:
+  `4f59898b40717cef91ea0fbf70f72493d715d4a3`;
+- closure PR FAST `35749973962`: PASS;
+- closure PR INTEGRATION `35749973927`: PASS;
+- closure post-merge FAST `35750063544`: PASS;
+- closure post-merge INTEGRATION `35750063493`: PASS.
+
+Authorized repository mapping:
+
+1. public family extension:
+   `include/apmesh/geometry/nurbs.hpp`;
+2. production implementation:
+   `src/geometry/multi_span_nurbs.cpp`;
+3. focused semantic/reference contract:
+   `tests/multi_span_cubic_nurbs.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized STATE / ROADMAP / WORKLOG / decision.
+
+Required scope:
+
+- degree exactly 3;
 - at least two spans;
 - runtime-variable controls/weights/simple interior knots;
 - `control_count == weight_count == interior_knot_count + 4`;
+- endpoint multiplicity 4 and every interior multiplicity 1;
 - finite strictly positive weights;
-- non-periodic;
-- immutable owning vectors/read-only spans;
+- non-periodic bounded domain;
+- immutable owning `std::vector` storage with read-only `std::span` views;
 - deterministic right-span knot policy;
-- local homogeneous value/D1/D2 after span location;
-- fixed-family parity, independent rational-basis oracle, test-only knot
-  insertion parity, local support, reversal, affine/embedding, extreme-finite
-  and determinism evidence;
+- local homogeneous value/D1/D2 after `O(log S)` span location;
+- fixed two-span parity;
+- independent rational-basis oracle;
+- test-only geometry-preserving knot-insertion parity;
+- local support on both sides;
+- weight-scale, reversal, affine/embedding, extreme-finite and determinism
+  evidence;
 - expected ordinary inventory: 24 tests.
 
-No arbitrary degree, repeated knots, periodicity, analytic conic,
-heterogeneous composition, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel work is authorized.
+Explicit non-actions:
+
+- no arbitrary degree;
+- no repeated interior knots;
+- no periodicity;
+- no one-span rational cubic admission;
+- no production knot insertion/removal;
+- no custom allocator or third-party container;
+- no analytic conic;
+- no heterogeneous composition/polycurve;
+- no surface/discretization/sizing/meshing;
+- no Quad-Dominant or parallel work.
+
+## Next admissible transition
+
+Complete only this implementation, pass FAST/INTEGRATION in GCC and Clang,
+integrate through one PR, pass post-merge validation, close the implementation
+checkpoint, and only then open a fresh literature-backed breadth decision.
