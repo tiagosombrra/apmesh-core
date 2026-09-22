@@ -522,3 +522,64 @@ item is the selected implementation within Sections 5–16 of this decision.
 No circle/conic, rational/arbitrary-degree Bézier, B-spline, NURBS,
 composite/trimmed curve, surface, boundary-discretization, sizing, meshing,
 Quad-Dominant or parallel implementation is authorized by this checkpoint.
+
+
+## 20. Active implementation mapping
+
+Decision closure PR #104 merged as
+`326ffdf724912e8841a74c3c0b69756ca23e14c2`.
+
+Closure post-merge validation:
+
+- FAST `35719744251`: PASS;
+- INTEGRATION `35719744291`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The sole authorized implementation is active on:
+
+`curve/bounded-line-segment`.
+
+Candidate repository mapping:
+
+- public value declarations:
+  `include/apmesh/geometry/line_segment.hpp`;
+- production implementation:
+  `src/geometry/line_segment.cpp`;
+- focused semantic and header-isolation contract:
+  `tests/line_segment.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized continuity authorities:
+  `docs/APMESH_CORE_STATE.md`,
+  `docs/APMESH_CORE_ROADMAP.md`,
+  `docs/APMESH_CORE_WORKLOG.md`.
+
+Implemented candidate semantics:
+
+- `LineSegment2` and `LineSegment3` are directed endpoint value types;
+- the parameter domain is exactly `[0,1]`;
+- value evaluation uses component-wise `std::lerp`;
+- first derivative is the endpoint difference and returns
+  `CurveError::non_finite_result` when that mathematical difference is not
+  representable;
+- second derivative is exact zero after the same typed parameter validation;
+- reversal swaps endpoints;
+- degenerate coincident-endpoint segments remain representable and yield
+  constant values with exact zero derivatives;
+- both concrete families satisfy the already integrated
+  `BoundedParametricCurve2/3` concepts;
+- the common parametric-curve contract is unchanged.
+
+Focused evidence covers concept satisfaction, exact endpoints, analytic
+interior evaluation, D1/D2, reversal/involution/covariance, degeneracy, typed
+parameter failures, extreme finite coordinates, unrepresentable derivative,
+translation, 2D/3D embedding and determinism.
+
+The ordinary FAST/INTEGRATION semantic inventory is expected to increase from
+18 to 19 tests through one new `apmesh_core.line_segment` contract.
+
+Status before CI:
+
+**IMPLEMENTED CANDIDATE / FOCUSED VALIDATION PENDING / NOT QUALIFIED.**
+
+No other curve family or downstream capability is implied.
