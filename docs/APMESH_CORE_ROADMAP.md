@@ -1448,9 +1448,11 @@ It selects **Certified Simple Planar Inflection Isolation on Globally Regular
 Cubic Bézier Curves** as the next investigation. The decision reduces
 `det(B',B'')` for a planar cubic to its exact quadratic Bernstein form,
 requires global regularity certification first, and uses certified Bernstein
-sign variation/subdivision to isolate only simple interior roots. Multiple,
-tangential or unresolved roots remain `indeterminate`; sampled pointwise
-signed curvature is not a proof mechanism.
+sign variation/subdivision to isolate only simple interior roots. Internal
+subdivision-boundary root obligations are tracked explicitly so open-interval
+sign counting cannot silently lose a root. Multiple, tangential or unresolved
+roots remain `indeterminate`; sampled pointwise signed curvature is not a
+proof mechanism.
 
 Repository mapping is explicit in the decision: existing public curve API,
 production source, private interval enclosure machinery, prerequisite contracts,
