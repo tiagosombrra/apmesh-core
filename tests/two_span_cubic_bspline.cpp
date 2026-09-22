@@ -250,7 +250,6 @@ int main() {
     using apmesh::core::TwoSpanCubicBSpline2;
     using apmesh::core::TwoSpanCubicBSpline3;
     using apmesh::core::Vector2;
-    using apmesh::core::Vector3;
     using apmesh::core::reversed_parameter;
 
     static_assert(BoundedParametricCurve2<TwoSpanCubicBSpline2>);
@@ -622,6 +621,29 @@ int main() {
                  "B-spline reversal covariance differs") &&
              passed;
 
+    const auto mapped3 =
+        reversed_parameter(curve3->parameter_domain(), reverse_query);
+    if (!mapped3) {
+        return 1;
+    }
+    const auto original_value3 = curve3->evaluate(reverse_query);
+    const auto reverse_value3 = reversed3.evaluate(*mapped3);
+    const auto original_d13 = curve3->first_derivative(reverse_query);
+    const auto reverse_d13 = reversed3.first_derivative(*mapped3);
+    const auto original_d23 = curve3->second_derivative(reverse_query);
+    const auto reverse_d23 = reversed3.second_derivative(*mapped3);
+    passed = require(
+                 original_value3 && reverse_value3 &&
+                     close_point(*original_value3, *reverse_value3, 32.0) &&
+                     original_d13 && reverse_d13 &&
+                     close_scalar(reverse_d13->x(), -original_d13->x(), 64.0) &&
+                     close_scalar(reverse_d13->y(), -original_d13->y(), 64.0) &&
+                     close_scalar(reverse_d13->z(), -original_d13->z(), 64.0) &&
+                     original_d23 && reverse_d23 &&
+                     close_vector(*original_d23, *reverse_d23, 128.0),
+                 "3D B-spline reversal covariance differs") &&
+             passed;
+
     const auto translated0 = Point2::make(8.0, -6.0);
     const auto translated1 = Point2::make(9.5, -3.0);
     const auto translated2 = Point2::make(12.0, -8.0);
@@ -701,13 +723,16 @@ int main() {
                  "B-spline exact power-of-two scale covariance differs") &&
              passed;
 
+    const auto e30 = Point3::make(p20->x(), p20->y(), 0.0);
+    const auto e31 = Point3::make(p21->x(), p21->y(), 0.0);
+    const auto e32 = Point3::make(p22->x(), p22->y(), 0.0);
+    const auto e33 = Point3::make(p23->x(), p23->y(), 0.0);
+    const auto e34 = Point3::make(p24->x(), p24->y(), 0.0);
+    if (!e30 || !e31 || !e32 || !e33 || !e34) {
+        return 1;
+    }
     const std::array<Point3, 5> embedded_controls{
-        *Point3::make(p20->x(), p20->y(), 0.0),
-        *Point3::make(p21->x(), p21->y(), 0.0),
-        *Point3::make(p22->x(), p22->y(), 0.0),
-        *Point3::make(p23->x(), p23->y(), 0.0),
-        *Point3::make(p24->x(), p24->y(), 0.0),
-    };
+        *e30, *e31, *e32, *e33, *e34};
     const auto embedded =
         TwoSpanCubicBSpline3::make(embedded_controls, -2.0, 0.5, 4.0);
     if (!embedded) {
