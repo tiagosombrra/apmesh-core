@@ -1864,9 +1864,19 @@ No analytic circle/conic class, arbitrary-degree Bézier, B-spline, NURBS,
 composition/trimming, generic regularity/length/curvature expansion, surface,
 boundary discretization, sizing or meshing work is included.
 
-The branch must pass FAST and both INTEGRATION compiler cells before
-integration. Passing yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / NOT QUALIFIED** for this work unit.
+Candidate validation on head
+`a68134daae06207f1ec32cf7df1f613a7e8cb693`:
+
+- FAST `35726985299`: PASS, 20/20 tests;
+- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 20/20 tests per cell;
+- the new rational-quadratic contract and every prerequisite ordinary
+  semantic contract passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. Passing the full work unit still
+yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED**.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
