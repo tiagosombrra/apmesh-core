@@ -393,6 +393,27 @@ Required scope:
 - typed U/V parameter and non-finite-result failures;
 - target ordinary semantic inventory: 26 tests.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/parametric_surface.hpp`:
+  bounded U/V domain, typed query failures, first/second partial aggregates and
+  static `BoundedParametricSurface3` concept;
+- `include/apmesh/geometry/surface.hpp`:
+  immutable `BicubicBezierPatch3` value type over a 4x4 Point3 control net;
+- `src/geometry/surface.cpp`:
+  deterministic V-then-U tensor-product de Casteljau, analytic
+  Su/Sv/Suu/Suv/Svv and U/V reversals;
+- `tests/surface_bicubic_bezier.cpp`:
+  direct Bernstein oracle, four `CubicBezier3` boundary contracts, analytic
+  plane and saddle fixtures, reversal/orientation, constant/degenerate,
+  affine/extreme-finite and deterministic failure evidence;
+- `CMakeLists.txt`:
+  production source plus the 26th ordinary semantic contract.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no rational surface weights;
