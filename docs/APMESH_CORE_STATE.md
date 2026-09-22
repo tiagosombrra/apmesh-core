@@ -288,67 +288,52 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Implement the closed-decision Multi-Span Clamped Cubic Positive-Weight NURBS
-work unit with simple interior knots.**
+**Integrate the Multi-Span Clamped Cubic Positive-Weight NURBS implementation
+closure; no new representation implementation is authorized during closure.**
 
-Decision/closure evidence:
+Implementation integration evidence:
 
-- decision PR #128:
-  `77a7773cdb431469402f773b52c70d171d805201`;
-- decision post-merge FAST `35749735576`: PASS;
-- decision post-merge INTEGRATION `35749735502`: PASS;
-- closure PR #129:
-  `4f59898b40717cef91ea0fbf70f72493d715d4a3`;
-- closure PR FAST `35749973962`: PASS;
-- closure PR INTEGRATION `35749973927`: PASS;
-- closure post-merge FAST `35750063544`: PASS;
-- closure post-merge INTEGRATION `35750063493`: PASS.
+- PR #130 merged as
+  `153bf6b874b0deac304ea07562cd897785f631df`;
+- candidate head:
+  `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
+- candidate FAST `35751863096`: PASS, 24/24;
+- candidate INTEGRATION `35751863450`: PASS, 24/24 in GCC/Clang;
+- final head:
+  `3a600bba2b521ba4fea12be0b85dd55161205f15`;
+- final PR FAST `35752117689`: PASS, 24/24;
+- final PR INTEGRATION `35752117850`: PASS, 24/24 in GCC/Clang;
+- post-merge FAST `35752335649`: PASS, 24/24;
+- post-merge INTEGRATION `35752335629`: PASS, 24/24 in GCC/Clang.
 
-Active branch:
-`curve/multi-span-cubic-nurbs`.
+Closure branch:
+`docs/multi-span-cubic-nurbs-implementation-closure`.
 
-Decision authority:
-`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
+Integrated representation breadth now includes:
 
-The implementation may generalize only runtime span/control/weight/simple-knot
-count. Degree 3, simple interior multiplicity, positive weights,
-non-periodicity and the common bounded-parametric contract remain frozen.
+- `CubicBezier2/3`;
+- `LineSegment2/3`;
+- `RationalQuadraticBezier2/3`;
+- static `TrimmedCurve2/3`;
+- `TwoSpanCubicBSpline2/3`;
+- `TwoSpanCubicNURBS2/3`;
+- `MultiSpanCubicNURBS2/3` with degree 3, positive weights and simple
+  interior knots.
 
-No arbitrary degree, repeated knots, periodicity, analytic conic,
-heterogeneous composition, surface, discretization or meshing work is
-authorized.
+The multi-span work unit remains **NOT QUALIFIED** as a broadened
+representation-stage claim.
 
-Candidate repository mapping:
-
-- `include/apmesh/geometry/nurbs.hpp`;
-- `src/geometry/multi_span_nurbs.cpp`;
-- `tests/multi_span_cubic_nurbs.cpp`;
-- `CMakeLists.txt`.
-
-The fixed two-span production source and common parametric contract are
-unchanged.
-
-Candidate validation:
-
-- head `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
-- FAST `35751863096`: PASS, 24/24 tests;
-- INTEGRATION `35751863450`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 24/24 tests per cell;
-- focused `apmesh_core.multi_span_cubic_nurbs`: PASS in all three jobs.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+No repeated-knot, arbitrary-degree, periodic, conic, composite, surface,
+discretization or meshing work is authorized.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — MULTI-SPAN CUBIC NURBS
-IMPLEMENTATION ACTIVE / NOT QUALIFIED / FIXED NURBS, B-SPLINE, RATIONAL,
-TRIM AND LINE INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION
-PRESERVED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED / FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
+INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
