@@ -1509,6 +1509,7 @@ candidates before authorizing any production implementation.
 
 Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
 BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
+FIRST CONCRETE FAMILY DECISION ACTIVE / BOUNDED LINE SEGMENT SELECTED /
 NO NEW FAMILY IMPLEMENTED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1567,6 +1568,24 @@ reversal-parameter semantics, and unchanged Cubic-Bézier conformance.
 Line/segment, circle/conic arc, arbitrary-degree/rational Bézier, B-spline,
 NURBS, composite/trimmed curves and all surface representations remain
 separate later work units.
+
+The bounded parametric contract implementation was integrated by PR #101 as
+`0674cd8531c3033a30282ba6bf95078b54d8c331`. Final PR FAST
+`35713249842` and INTEGRATION `35713249775` passed with 18/18 tests in
+each required cell; post-merge FAST `35713409188` and INTEGRATION
+`35713409166` also passed.
+
+Closure PR #102 merged as
+`63479c8a7414a61be6f8ac1629e934f506d4f3de`. Closure post-merge FAST
+`35713788156` and INTEGRATION `35713788216` passed.
+
+The active first-concrete-family decision is
+`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
+
+It compares line/segment, circle/conic arc, rational/arbitrary-degree Bézier,
+B-spline and NURBS and selects **Bounded Directed Line Segment Representation
+in 2D and 3D** as the next implementation candidate after decision integration
+and closure. No production segment code exists on this decision branch.
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
 
@@ -1741,38 +1760,38 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Bounded Parametric Curve Contract and
-Cubic Bézier Conformance — INTEGRATED / FOCUSED CONTRACTS PASS /
-NOT QUALIFIED**
+**Curve Representation Breadth Gate — First Concrete Curve Family Decision —
+ACTIVE / BOUNDED DIRECTED LINE SEGMENT SELECTED / DOCUMENTATION ONLY**
 
-Implementation evidence:
+Closed prerequisite evidence:
 
-- PR #101 merged as
+- parametric-contract PR #101:
   `0674cd8531c3033a30282ba6bf95078b54d8c331`;
-- PR FAST `35713249842`: PASS, 18/18 tests;
-- PR INTEGRATION `35713249775`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 18/18 tests per cell;
+- PR #101 FAST `35713249842`: PASS, 18/18;
+- PR #101 INTEGRATION `35713249775`: PASS, 18/18 in GCC and Clang;
 - post-merge FAST `35713409188`: PASS;
-- post-merge INTEGRATION `35713409166`: PASS.
+- post-merge INTEGRATION `35713409166`: PASS;
+- closure PR #102:
+  `63479c8a7414a61be6f8ac1629e934f506d4f3de`;
+- closure post-merge FAST `35713788156`: PASS;
+- closure post-merge INTEGRATION `35713788216`: PASS.
 
-The common bounded parametric seam is now integrated while the existing
-Cubic-Bézier evaluation/differential/regularity/length/curvature/inflection
-algorithms remain intact.
+Active decision:
+`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-No second concrete curve family is present.
+The decision selects bounded directed line segments in 2D and 3D as the first
+new family. The future implementation must satisfy the already integrated
+`BoundedParametricCurve2/3` concepts, use exact `[0,1]` segment
+parameterization, preserve typed domain failures, support exact endpoint-swap
+reversal, constant first derivative, zero second derivative and explicitly
+tested degenerate-value semantics.
 
-After this closure checkpoint is integrated and validated, the next bounded
-scientific action is one literature-backed decision comparing candidate
-concrete curve families against:
+No implementation is authorized until this decision is integrated,
+post-merge FAST/INTEGRATION pass, and the decision checkpoint is separately
+closed.
 
-- Boundary Curve Discretization needs;
-- exact analytic/CAD representation value;
-- later trimming and surface-boundary requirements;
-- implementation and robustness risk;
-- independent verification cost.
-
-Bounded line/segment, circle/conic arc, rational/arbitrary-degree Bézier,
-B-spline and NURBS are candidates, not authorization.
+Circle/conic arc, rational/arbitrary-degree Bézier, B-spline, NURBS and
+composite/trimmed curves remain later decisions.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during the representation-breadth sequence.

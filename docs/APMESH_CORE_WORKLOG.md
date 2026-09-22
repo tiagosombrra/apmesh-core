@@ -249,50 +249,57 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `curve/bounded-parametric-curve-contract`: **MERGED / HISTORICAL** via
   PR #101; bounded parameter-domain/static-concept/Cubic-Bézier conformance
   implementation only.
-- `docs/bounded-parametric-curve-contract-closure`: **CLOSURE-ONLY**;
-  records PR #101 integration and post-merge validation.
+- `docs/bounded-parametric-curve-contract-closure`: **MERGED /
+  HISTORICAL** via PR #102; records PR #101 integration and post-merge
+  validation.
+- `curve/bounded-line-segment-decision`: **ACTIVE**; literature-backed
+  concrete-family selection decision only; no production geometry
+  implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Parametric Curve Contract and Cubic Bézier Conformance is
-integrated and closed.**
+**First Concrete Curve Family — Bounded Directed Line Segment Decision —
+ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
 
-Closure evidence:
+Active branch:
+`curve/bounded-line-segment-decision`.
 
-1. authority:
-   `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-2. implementation PR #101 merged as
+Entry evidence:
+
+1. bounded parametric contract implementation PR #101 merged as
    `0674cd8531c3033a30282ba6bf95078b54d8c331`;
-3. final PR FAST `35713249842`: PASS, 18/18 tests;
-4. final PR INTEGRATION `35713249775`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug, 18/18 tests per cell;
-5. post-merge FAST `35713409188`: PASS;
-6. post-merge INTEGRATION `35713409166`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. the qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved;
-8. no second concrete curve family or surface capability was introduced.
+2. implementation PR FAST `35713249842`: PASS, 18/18 tests;
+3. implementation PR INTEGRATION `35713249775`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug, 18/18 tests per cell;
+4. implementation post-merge FAST `35713409188`: PASS;
+5. implementation post-merge INTEGRATION `35713409166`: PASS;
+6. closure PR #102 merged as
+   `63479c8a7414a61be6f8ac1629e934f506d4f3de`;
+7. closure post-merge FAST `35713788156`: PASS;
+8. closure post-merge INTEGRATION `35713788216`: PASS;
+9. the qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved;
+10. no second concrete curve family or surface capability exists on `main`.
 
-No production work item is active on this closure branch.
+Decision question:
 
-## Next admissible transition
+**Which concrete bounded curve family should be implemented first on top of the
+new parametric-curve contract?**
 
-After this closure is integrated and post-merge FAST/INTEGRATION pass, open
-exactly one new literature-backed decision for the next concrete curve
-representation family.
+The decision compares at minimum bounded line/segment, bounded circle/conic
+arc, rational/arbitrary-degree Bézier, B-spline and NURBS against immediate
+Boundary Curve Discretization needs, exact CAD value, later trimming/surface
+boundary needs, robustness risk and independent verification cost.
 
-The decision must compare at minimum:
+This branch may change only documentation/research/decision authorities.
+No production C++, new curve type, surface type, discretization, sizing,
+meshing, Quad-Dominant or parallel implementation is authorized.
 
-- bounded line/segment;
-- bounded circle/conic arc;
-- rational/arbitrary-degree Bézier;
-- B-spline;
-- NURBS;
+## Next admissible transition after this decision
 
-against the immediate needs of Boundary Curve Discretization, exact CAD
-geometry, later trimming/surface boundaries, implementation risk and
-scientific verification cost.
+Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
+and its checkpoint is separately closed may the selected concrete-family
+implementation branch be opened.
 
-No concrete family is pre-authorized until that decision is integrated and
-closed.
+No later family is automatically authorized by that implementation.

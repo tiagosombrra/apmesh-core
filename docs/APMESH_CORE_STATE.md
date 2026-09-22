@@ -255,11 +255,12 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-5. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-6. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-7. the latest relevant audit under `docs/audits/`;
-8. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
+5. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+6. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+7. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+8. the latest relevant audit under `docs/audits/`;
+9. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -284,32 +285,49 @@ Topological Model qualification decision is recorded below.
 
 Exact current bounded scientific action:
 
-**Close Bounded Parametric Curve Contract and Cubic Bézier Conformance, then
-open one literature-backed decision for the first concrete curve family.**
+**Integrate the First Concrete Curve Family decision selecting bounded directed
+line segments; no production implementation is authorized on this branch.**
 
-Implementation evidence:
+Closed prerequisite evidence:
 
-- PR #101 merged as
+- Bounded Parametric Curve Contract implementation PR #101 merged as
   `0674cd8531c3033a30282ba6bf95078b54d8c331`;
-- final PR FAST `35713249842`: PASS, 18/18 tests;
-- final PR INTEGRATION `35713249775`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 18/18 tests per cell;
-- post-merge FAST `35713409188`: PASS;
-- post-merge INTEGRATION `35713409166`: PASS.
+- implementation post-merge FAST `35713409188`: PASS;
+- implementation post-merge INTEGRATION `35713409166`: PASS;
+- closure PR #102 merged as
+  `63479c8a7414a61be6f8ac1629e934f506d4f3de`;
+- closure post-merge FAST `35713788156`: PASS;
+- closure post-merge INTEGRATION `35713788216`: PASS.
 
-The bounded seam is **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-NOT QUALIFIED**.
+Active branch:
+`curve/bounded-line-segment-decision`.
 
-The qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved. No second
-concrete family or surface capability is present.
+Decision authority:
+`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-After this closure checkpoint is integrated and validated, the sole next work
-is a literature-backed comparison of candidate concrete curve families.
+The decision compares bounded line/segment, bounded circle/conic arc,
+rational/arbitrary-degree Bézier, B-spline and NURBS. It selects bounded
+directed line segments in 2D/3D as the first concrete family because they
+exercise the common parametric contract with the smallest new semantic surface,
+are already required by the future `line/arc/Bezier` boundary-discretization
+regression, and admit exact analytic evidence.
+
+If the decision is integrated, post-merge validation passes, and a separate
+decision checkpoint closes, the sole next implementation work item is:
+
+**Bounded Directed Line Segment Representation in 2D and 3D.**
+
+No circle/conic, rational Bézier, arbitrary-degree Bézier, B-spline, NURBS,
+composite/trimmed curve, surface, discretization or meshing implementation is
+authorized yet.
+
+Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and is
+paused during the representation-breadth sequence.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — Bounded Parametric Curve Contract —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
+**Curve Representation Breadth Gate — First Concrete Curve Family Decision —
+ACTIVE / BOUNDED LINE SEGMENT SELECTED / DOCUMENTATION ONLY /
 NO NEW FAMILY IMPLEMENTED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
