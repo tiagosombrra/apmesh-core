@@ -272,67 +272,59 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/rational-quadratic-bezier-implementation-closure`: **MERGED /
   HISTORICAL** via PR #110; records PR #109 integration and post-merge
   validation.
-- `docs/rational-quadratic-bezier-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles the already merged closure
-  before the next scientific decision.
+- `docs/rational-quadratic-bezier-closure-sync`: **MERGED / HISTORICAL**
+  via PR #111; terminally reconciles the rational-quadratic closure.
+- `curve/trimmed-parametric-subcurve-decision`: **ACTIVE**;
+  literature-backed trimming-vs-family comparison decision only; no
+  production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Positive-Weight Rational Quadratic Bézier implementation and its
-closure are integrated.**
+**Oriented Trimmed Parametric Subcurve — DECISION ACTIVE /
+DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
 
-Implementation closure evidence:
+Active branch:
+`curve/trimmed-parametric-subcurve-decision`.
 
-1. decision authority:
-   `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
-2. implementation PR #109 merged as
+Entry evidence:
+
+1. rational-quadratic implementation PR #109 merged as
    `6600875dfbb33d1a37603e32bcf452625373c462`;
-3. candidate FAST `35726985299`: PASS, 20/20 tests;
-4. candidate INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug, 20/20 tests per cell;
-5. final documentation-synchronized PR-head FAST `35727147220`: PASS;
-6. final documentation-synchronized PR-head INTEGRATION `35727147303`:
-   PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-7. post-merge FAST `35727296946`: PASS;
-8. post-merge INTEGRATION `35727296931`: PASS;
-9. implementation closure PR #110 merged as
+2. implementation closure PR #110 merged as
    `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
-10. closure PR FAST `35727517602`: PASS;
-11. closure PR INTEGRATION `35727517607`: PASS;
-12. closure post-merge FAST `35727653016`: PASS;
-13. closure post-merge INTEGRATION `35727652961`: PASS;
-14. `apmesh_core.rational_quadratic_bezier` passed in all required cells;
-15. the line-segment family and all prior ordinary contracts remain passing;
-16. `BoundedParametricCurve2/3` semantics remain unchanged;
-17. cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+3. closure post-merge FAST `35727653016`: PASS;
+4. closure post-merge INTEGRATION `35727652961`: PASS;
+5. terminal reconciliation PR #111 merged as
+   `7579254ebd0d6843fdc3761376132a2b7d9fa43c`;
+6. terminal sync FAST `35728104539`: PASS;
+7. terminal sync INTEGRATION `35728104607`: PASS;
+8. production contains `CubicBezier2/3`, `LineSegment2/3` and
+   `RationalQuadraticBezier2/3`;
+9. no trim/composition, analytic conic, arbitrary-degree, B-spline, NURBS or
+   surface representation is implemented.
 
-No production work item is active.
+Decision question:
 
-This sync contains no scientific or production change; it only records the
-terminally merged closure state.
+**Should the next representation-breadth work unit add another mathematical
+family immediately, or first establish oriented trimming of the bounded
+families already present?**
 
-## Next admissible work item
+The decision compares analytic conic, arbitrary-degree Bézier, B-spline,
+NURBS, heterogeneous composition and trimming. It selects only **Oriented
+Trimmed Parametric Subcurve Semantics**.
 
-Open exactly one new **literature-backed bounded scientific decision** for the
-next Curve Representation Breadth family/semantic step.
+This branch may change only documentation/research/decision authorities.
+No production C++, third family, surface, boundary-discretization, sizing,
+meshing, Quad-Dominant or parallel implementation is authorized.
 
-The decision must compare at minimum:
+## Next admissible transition after this decision
 
-- dedicated analytic circle/general conic representation, including the
-  unresolved arbitrary 3D supporting-plane/orientation prerequisite;
-- arbitrary-degree polynomial/rational Bézier;
-- B-spline;
-- NURBS;
-- composition/trimming.
+Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
+and its checkpoint is separately closed may one implementation work item be
+opened for the mapped trim wrapper.
 
-It must account for the now-integrated families:
-
-- `LineSegment2/3`;
-- `RationalQuadraticBezier2/3`;
-- qualified `CubicBezier2/3`.
-
-No concrete third family, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized until that decision is
-separately integrated and closed.
+The implementation remains limited to a statically typed bounded basis curve.
+Heterogeneous polycurve/composition, periodic trim, B-spline/NURBS and analytic
+conics remain separate later decisions.

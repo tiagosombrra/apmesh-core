@@ -255,13 +255,14 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
-5. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-6. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-7. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-8. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-9. the latest relevant audit under `docs/audits/`;
-10. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
+5. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
+6. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
+7. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+8. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+9. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+10. the latest relevant audit under `docs/audits/`;
+11. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -284,53 +285,55 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Open one new literature-backed decision for the next Curve Representation
-Breadth step after this terminal documentation sync is integrated and
-post-merge validated.**
+**Integrate the Oriented Trimmed Parametric Subcurve decision; no production
+implementation is authorized on this branch.**
 
-Integrated rational-quadratic evidence:
+Terminal prerequisite evidence:
 
-- implementation PR #109 merged as
-  `6600875dfbb33d1a37603e32bcf452625373c462`;
-- candidate FAST `35726985299`: PASS, 20/20;
-- candidate INTEGRATION `35726985356`: PASS, 20/20 in GCC and Clang;
-- final PR-head FAST `35727147220`: PASS;
-- final PR-head INTEGRATION `35727147303`: PASS;
-- post-merge FAST `35727296946`: PASS;
-- post-merge INTEGRATION `35727296931`: PASS;
-- implementation closure PR #110 merged as
+- rational-quadratic closure PR #110 merged as
   `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
-- closure PR FAST `35727517602`: PASS;
-- closure PR INTEGRATION `35727517607`: PASS;
 - closure post-merge FAST `35727653016`: PASS;
-- closure post-merge INTEGRATION `35727652961`: PASS.
+- closure post-merge INTEGRATION `35727652961`: PASS;
+- terminal reconciliation PR #111 merged as
+  `7579254ebd0d6843fdc3761376132a2b7d9fa43c`;
+- terminal sync FAST `35728104539`: PASS;
+- terminal sync INTEGRATION `35728104607`: PASS.
 
-Terminal sync branch:
-`docs/rational-quadratic-bezier-closure-sync`.
+Active branch:
+`curve/trimmed-parametric-subcurve-decision`.
 
 Decision authority:
-`docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
+`docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-Production now contains:
+The decision compares:
 
-- `CubicBezier2/3`;
-- `LineSegment2/3`;
-- `RationalQuadraticBezier2/3`.
+- dedicated analytic circle/general conic;
+- arbitrary-degree polynomial/rational Bézier;
+- B-spline;
+- NURBS;
+- heterogeneous composition;
+- trimming.
 
-The original CGR0–CGR7 qualification remains restricted to polynomial cubic
-Bézier. The line-segment and rational-quadratic families are integrated focused
-work units, not a broadened formal qualification claim.
+It selects only **Oriented Trimmed Parametric Subcurve Semantics in 2D/3D**.
 
-No third family, surface, discretization or meshing work is authorized until a
-new decision is integrated and closed.
+The selected future implementation will wrap one statically known bounded basis
+curve, preserve the basis parameter interval, admit forward or reverse trim
+orientation, and reuse the existing overflow-aware reversed-parameter mapping.
+
+If the decision is integrated, post-merge validation passes, and a separate
+decision checkpoint closes, the sole next implementation work item is the trim
+wrapper mapped by that decision.
+
+No analytic conic, arbitrary-degree, B-spline, NURBS, heterogeneous polycurve,
+surface, discretization or meshing implementation is authorized yet.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
-Bézier — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / LINE-SEGMENT INTEGRATION PRESERVED /
+**Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
+DECISION ACTIVE / DOCUMENTATION ONLY / NO TRIM IMPLEMENTATION /
+RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
