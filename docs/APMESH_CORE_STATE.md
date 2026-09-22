@@ -289,31 +289,26 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this terminal implementation-closure synchronization is integrated and
-post-merge validated, open one fresh literature-backed Curve Representation
-Breadth decision.**
+**Open one fresh literature-backed Curve Representation Breadth decision.**
 
 Terminal fixed NURBS evidence:
 
 - implementation PR #124:
   `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
-- candidate FAST `35745044617`: PASS, 23/23;
-- candidate INTEGRATION `35745044483`: PASS, 23/23 in GCC and Clang;
-- final PR FAST `35745222050`: PASS;
-- final PR INTEGRATION `35745221931`: PASS;
 - implementation post-merge FAST `35746004007`: PASS;
 - implementation post-merge INTEGRATION `35746003953`: PASS;
 - closure PR #125:
   `465dc5b5f1948d4d27ca67d777aa2493f9c8968e`;
-- closure PR FAST `35746421742`: PASS;
-- closure PR INTEGRATION `35746421809`: PASS;
 - closure post-merge FAST `35746603445`: PASS;
-- closure post-merge INTEGRATION `35746603448`: PASS.
+- closure post-merge INTEGRATION `35746603448`: PASS;
+- terminal sync PR #126:
+  `eaba130eaa5da79fc827b8f770df4123524fc455`;
+- sync PR FAST `35747044794`: PASS;
+- sync PR INTEGRATION `35747044719`: PASS;
+- sync post-merge FAST `35747249752`: PASS;
+- sync post-merge INTEGRATION `35747249889`: PASS.
 
-Terminal sync branch:
-`docs/two-span-cubic-nurbs-implementation-closure-sync`.
-
-Production representation breadth contains:
+Production representation breadth now contains:
 
 - `CubicBezier2/3`;
 - `LineSegment2/3`;
@@ -322,20 +317,18 @@ Production representation breadth contains:
 - `TwoSpanCubicBSpline2/3`;
 - `TwoSpanCubicNURBS2/3`.
 
-The fixed NURBS work unit is closed but not formally qualified as a broadened
-representation stage. The original CGR0–CGR7 qualification remains restricted
-to polynomial cubic Bézier.
+The fixed NURBS work unit is terminally closed but does not widen the original
+CGR0–CGR7 qualification beyond polynomial cubic Bézier.
 
-No additional family or downstream stage is authorized until a new decision is
-integrated and closed.
+No representation family is currently active and no candidate for the next
+breadth decision is pre-authorized.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — Two-Span Cubic Positive-Weight NURBS —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / TERMINAL SYNC ACTIVE /
-B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS PRESERVED /
-CUBIC BASELINE QUALIFICATION PRESERVED**
+**Curve Representation Breadth Gate — NO ACTIVE REPRESENTATION WORK ITEM /
+FIXED TWO-SPAN CUBIC NURBS TERMINALLY CLOSED / NOT QUALIFIED /
+NEXT BREADTH DECISION REQUIRED / B-SPLINE, RATIONAL, TRIM AND LINE
+INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
