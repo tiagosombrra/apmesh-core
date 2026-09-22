@@ -318,6 +318,31 @@ bicubic patch remain frozen.
 NURBS surface, Coons/transfinite, analytic elementary, swept and trimmed
 surfaces remain explicit later work.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/surface.hpp`;
+- `src/geometry/rational_surface.cpp`;
+- `tests/surface_rational_bicubic_bezier.cpp`;
+- `CMakeLists.txt`.
+
+Candidate semantics:
+
+- finite strictly positive 4x4 weights are validated explicitly;
+- stored weights remain the exact inputs;
+- homogeneous controls use a common internal weight scale before coordinate
+  multiplication;
+- value and homogeneous first/second partial nets are evaluated
+  deterministically V-then-U;
+- rational quotient formulas produce Su/Sv/Suu/Suv/Svv;
+- exact corners and constant-patch identities are preserved;
+- polynomial `BicubicBezierPatch3` and the common surface concept are
+  unchanged;
+- expected ordinary inventory: 27 tests.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — RATIONAL BICUBIC
@@ -350,7 +375,9 @@ The following are **not implemented and not covered by CGR qualification**:
 - general/multi-span/arbitrary-degree/repeated-knot/periodic NURBS semantics
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
-- any production surface representation.
+- rational Bézier, B-spline/NURBS, Coons/transfinite, analytic elementary,
+  swept and trimmed surface representations beyond the integrated polynomial
+  bicubic Bézier patch.
 
 This limitation does not invalidate the existing cubic-Bézier qualification.
 It prevents that qualification from being generalized to those families.
@@ -361,10 +388,11 @@ family scope-extension decision must admit the required analytic/rational/spline
 families and define how common differential/discretization algorithms reuse
 their semantics.
 
-Before Surface Representation begins, its entry decision must explicitly map
-the required surface families, including polynomial/rational free-form patches,
-analytic reference surfaces and trimming/boundary semantics. No surface family
-is implicitly qualified by the current curve work.
+Surface Representation is now open and its entry decision explicitly maps
+polynomial/rational free-form, spline/NURBS, Coons/transfinite, analytic,
+swept and trimmed families. Only the polynomial bicubic Bézier patch is already
+integrated; the rational bicubic patch is the current candidate. No other
+surface family is implicitly implemented or qualified.
 
 
 ## Most recently qualified stage
