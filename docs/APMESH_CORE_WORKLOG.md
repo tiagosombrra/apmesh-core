@@ -230,40 +230,63 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Certified Simple Planar Inflection Isolation implementation — ACTIVE.**
+**Certified Simple Planar Inflection Isolation implementation —
+VALIDATED_UNMERGED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
 
 Active branch: `curve/certified-simple-inflection-isolation`.
 
 Decision authority:
 `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
 
-Mapped implementation scope:
+Implemented repository mapping:
 
-1. public 2D-only inflection policy/result/evidence types in
+1. public 2D-only API:
    `include/apmesh/geometry/curve.hpp`;
-2. `CubicBezier2::isolate_simple_inflections(...)` only;
-3. private conservative quadratic-Bernstein/root-count machinery under
-   `src/geometry/detail/`;
-4. production orchestration in `src/geometry/curve.cpp`;
-5. dedicated focused contract
+2. production orchestration:
+   `src/geometry/curve.cpp`;
+3. private quadratic Bernstein/enclosure machinery:
+   `src/geometry/detail/curve_inflection_interval.hpp`;
+4. dedicated focused evidence:
    `tests/curve_inflection_isolation.cpp`;
-6. public-header isolation update as required;
-7. CMake registration and curve-focused labels;
-8. exact global regularity prerequisite reuse;
-9. explicit internal subdivision-boundary root accounting;
-10. no sampled signed-curvature proof;
-11. no 3D inflection API, general polynomial solver, public interval API,
-    discretization, sizing, surfaces, meshing, Quad-Dominant or parallel path.
+5. public-header isolation:
+   `tests/curve_header_isolation.cpp`;
+6. test registration/labels:
+   `CMakeLists.txt`.
 
-Scientific status remains **IN INVESTIGATION / NOT QUALIFIED** until this work
-unit is separately integrated and later covered by a stage-level cumulative
-regression.
+Validated semantics:
+
+- global regularity is mandatory;
+- `N(t)=det(B'(t),B''(t))` is handled in exact quadratic Bernstein structure;
+- no sampled signed-curvature proof exists in production;
+- zero/one/two simple-root cases are covered analytically;
+- physical endpoint zeros are not reported;
+- an internal subdivision-boundary zero cannot disappear and currently forces
+  `indeterminate` unless independently discharged;
+- double/multiple and ill-conditioned fixtures are never guessed;
+- reversal, reflection, rotation, translation and power-of-two scaling preserve
+  the admitted root parameters/count;
+- 3D, public interval/polynomial solvers, discretization and downstream mesh
+  capabilities remain absent.
+
+Validation history:
+
+- initial code head: FAST `35678235163`, INTEGRATION `35678235124` PASS;
+- strengthened test head exposed one test-expectation mismatch in
+  `35678348013/35678348005`, not a production-semantic defect;
+- corrected head: FAST `35678430176`, INTEGRATION `35678430258` PASS;
+- final strengthened head: FAST `35678475990`, INTEGRATION
+  `35678475955` PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+The work unit remains `VALIDATED_UNMERGED` until PR integration and
+post-merge validation.
 
 ## Next admissible work item after closure
 
-After this implementation is validated in the declared GCC/Clang focused
-boundary, merged, post-merge validated, and its checkpoint is closed, open one
-new literature-backed Curve Differential Geometry decision.
+After this implementation PR is merged, post-merge FAST/INTEGRATION pass, and
+the implementation checkpoint is closed, open one new literature-backed
+scientific decision for the next Curve Differential Geometry investigation.
 
-No later investigation is pre-authorized by this implementation work item.
+No global curvature bound, curvature extrema, feature classification,
+Boundary Curve Discretization, sizing, surfaces, meshing, Quad-Dominant or
+parallel work is pre-authorized.
 
