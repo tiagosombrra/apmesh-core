@@ -296,56 +296,65 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #120; terminally reconciles the fixed B-spline closure.
 - `curve/two-span-cubic-nurbs-decision`: **MERGED / HISTORICAL** via
   PR #121; bounded fixed NURBS decision.
-- `docs/two-span-cubic-nurbs-decision-closure`: **CLOSURE-ONLY**;
-  records PR #121 integration and post-merge validation.
+- `docs/two-span-cubic-nurbs-decision-closure`: **MERGED / HISTORICAL**
+  via PR #122; closes the fixed two-span cubic NURBS decision checkpoint.
+- `docs/two-span-cubic-nurbs-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles PR #122 integration and
+  post-merge validation before production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Two-Span Clamped Cubic Positive-Weight NURBS decision is integrated
-and ready for closure.**
+**None. Two-Span Clamped Cubic Positive-Weight NURBS decision is closed;
+terminal documentation synchronization is active.**
 
-Decision closure evidence:
+Terminal decision-closure evidence:
 
-1. decision authority:
-   `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
-2. decision PR #121 merged as
+1. decision PR #121 merged as
    `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-3. final PR FAST `35740954735`: PASS;
-4. final PR INTEGRATION `35740954945`: PASS in GCC 13 Debug and Clang
+2. decision PR FAST `35740954735`: PASS;
+3. decision PR INTEGRATION `35740954945`: PASS in GCC 13 Debug and Clang
    18/libc++ Debug;
-5. post-merge FAST `35741064912`: PASS;
-6. post-merge INTEGRATION `35741064906`: PASS;
-7. no NURBS production family has yet been implemented;
-8. the common bounded-parametric concepts remain unchanged;
-9. all prior integrated curve families remain frozen prerequisites.
+4. decision post-merge FAST `35741064912`: PASS;
+5. decision post-merge INTEGRATION `35741064906`: PASS;
+6. decision closure PR #122 merged as
+   `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
+7. closure PR FAST `35741308649`: PASS;
+8. closure PR INTEGRATION `35741308596`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+9. closure post-merge FAST `35741432913`: PASS;
+10. closure post-merge INTEGRATION `35741432864`: PASS;
+11. no NURBS production family has yet been implemented;
+12. the common bounded-parametric concepts remain unchanged;
+13. all prior integrated curve families remain frozen prerequisites.
 
-No production work item is active in this closure change.
+No production work item is active during this documentation-only sync.
 
-## Next admissible work item
+## Next admissible work item after terminal sync
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+After this sync is integrated and its own post-merge FAST/INTEGRATION pass,
 open exactly one implementation branch for:
 
 **Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D.**
 
-Implementation must remain within
-`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`:
+Implementation is bounded by
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md` and may add only:
 
 - degree 3;
-- exactly five controls and five finite strictly positive weights;
+- five controls and five finite strictly positive weights;
 - knots `[a,a,a,a,k,b,b,b,b]` with strict finite `a<k<b`;
-- exactly two spans and one simple interior knot;
-- non-periodic;
-- point, D1 and D2;
+- exactly two spans / one simple interior knot;
+- non-periodic value/D1/D2 semantics;
 - homogeneous de Boor or algebraically equivalent rational evaluation;
-- all-one-weight B-spline parity;
-- rational-quadratic homogeneous degree-elevation/knot-insertion parity;
+- all-one/equal-weight B-spline parity;
+- rational-quadratic homogeneous degree-elevation + knot-insertion parity;
 - independent rational-basis reference;
-- local-support, weight-scale, reversal and extreme-finite evidence;
-- expected ordinary inventory: 23 tests.
+- local support, weight-scale, reversal, embedding, determinism and
+  extreme-finite evidence;
+- one focused ordinary semantic contract, targeting 23 tests.
 
-No broader NURBS/B-spline, arbitrary-degree Bézier, conic, composition,
-surface, boundary-discretization, sizing, meshing, Quad-Dominant or parallel
-work is authorized.
+No broader NURBS/B-spline, variable degree/count, repeated knots, periodicity,
+arbitrary-degree Bézier, analytic conic, heterogeneous composition, surface,
+boundary-discretization, sizing, meshing, Quad-Dominant or parallel work is
+authorized.

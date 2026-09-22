@@ -289,25 +289,32 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the fixed Two-Span Clamped Cubic Positive-Weight NURBS work unit.**
+**After this terminal documentation synchronization is integrated and
+post-merge validated, implement the fixed Two-Span Clamped Cubic
+Positive-Weight NURBS work unit.**
 
-Decision evidence:
+Terminal decision-closure evidence:
 
-- PR #121:
+- decision PR #121:
   `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-- PR FAST `35740954735`: PASS;
-- PR INTEGRATION `35740954945`: PASS;
-- post-merge FAST `35741064912`: PASS;
-- post-merge INTEGRATION `35741064906`: PASS.
+- decision PR FAST `35740954735`: PASS;
+- decision PR INTEGRATION `35740954945`: PASS;
+- decision post-merge FAST `35741064912`: PASS;
+- decision post-merge INTEGRATION `35741064906`: PASS;
+- closure PR #122:
+  `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
+- closure PR FAST `35741308649`: PASS;
+- closure PR INTEGRATION `35741308596`: PASS;
+- closure post-merge FAST `35741432913`: PASS;
+- closure post-merge INTEGRATION `35741432864`: PASS.
 
-Closure branch:
-`docs/two-span-cubic-nurbs-decision-closure`.
+Terminal sync branch:
+`docs/two-span-cubic-nurbs-closure-sync`.
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-The sole authorized next implementation is fixed to degree 3, five controls,
+The sole next production work item is fixed to degree 3, five controls,
 five positive weights and the two-span simple-interior-knot topology already
 specified by the decision.
 
@@ -318,9 +325,9 @@ discretization or meshing work is authorized.
 ## Current active stage
 
 **Curve Representation Breadth Gate — Two-Span Cubic Positive-Weight NURBS —
-DECISION INTEGRATED / CLOSURE PENDING / NO NURBS IMPLEMENTATION /
-B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS PRESERVED /
-CUBIC BASELINE QUALIFICATION PRESERVED**
+DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
+TERMINAL SYNC ACTIVE / B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS
+PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
