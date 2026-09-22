@@ -226,49 +226,65 @@ The presence of historical branches on the remote does not make them active.
 ## Current active work item
 
 **Implement Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves —
-ACTIVE.**
+VALIDATED_UNMERGED.**
 
 Active branch: `curve/signed-planar-curvature`.
 
 Authority:
 `docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
 
-Authorized implementation scope:
+Implemented scope:
 
-1. add `CubicBezier2::signed_curvature(t)` only;
-2. keep `CubicBezier3` unchanged;
-3. refactor the planar curvature internals so magnitude and signed curvature
-   share the same normalized determinant and scale-aware reconstruction;
-4. canonicalize successful exact zero curvature to `+0.0`;
-5. preserve exact `singular_parameter` semantics;
-6. preserve explicit `non_finite_result` for unrepresentable nonzero
-   curvature;
-7. add one dedicated focused contract for analytic, reversal, reflection,
-   frame-orientation, scale, magnitude-parity, singularity and adversarial
-   cases;
-8. register that focused contract in FAST/INTEGRATION;
-9. preserve all qualified prerequisite contracts;
-10. do not add inflection isolation, global bounds, extrema, feature
-    classification, discretization, sizing, surfaces, meshing, Quad-Dominant
-    or parallel execution.
+1. `CubicBezier2::signed_curvature(t)` only;
+2. `CubicBezier3` remains without a signed-curvature scalar API;
+3. planar magnitude and signed curvature share one normalized, scale-aware
+   internal curvature core;
+4. exact zero determinant returns canonical successful `+0.0`;
+5. exact zero first derivative remains `CurveError::singular_parameter`;
+6. unrepresentable nonzero curvature remains
+   `CurveError::non_finite_result`;
+7. reversal flips sign;
+8. orientation-preserving frame transforms preserve sign;
+9. orientation-reversing frame transforms flip sign while preserving magnitude;
+10. power-of-two uniform scaling preserves sign and applies reciprocal length
+    scaling;
+11. `abs(signed_curvature)==curvature_magnitude` is enforced by the shared
+    production core and focused evidence;
+12. no global sign certification, inflection isolation, extrema or feature
+    classification is introduced.
 
-Decision checkpoint closure evidence:
+Focused evidence:
 
-- PR #90 merge `8da6ad656871c23f26f74f148298283970338583`;
-- PR FAST `35674524237`: PASS;
-- PR INTEGRATION `35674524211`: PASS;
-- post-merge FAST `35674581493`: PASS;
-- post-merge INTEGRATION `35674581550`: PASS;
-- closure PR #91 merge `c60fe93295ab791add07f851a8aaf8c77fee468e`;
-- closure post-merge FAST `35674841138`: PASS;
-- closure post-merge INTEGRATION `35674841157`: PASS.
+- new `apmesh_core.curve_signed_curvature` contract;
+- analytic signed parabola reference;
+- reflection and reversal;
+- translation and frame orientation;
+- scale covariance;
+- straight-line and regular-inflection canonical positive zero;
+- singular endpoint and constant-curve rejection;
+- tiny nonzero derivative;
+- extreme representable and unrepresentable curvature;
+- invalid/signed-zero parameters;
+- repeatability;
+- 2D-only public API isolation.
+
+Validation:
+
+- PR FAST `35675167119`: PASS;
+- PR INTEGRATION `35675167196`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Scientific status:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
 
 ## Next admissible work item after closure
 
-After the signed-curvature implementation is merged, post-merge
-FAST/INTEGRATION pass, and the work-unit checkpoint is closed, open one
-separate literature-backed decision for the next Curve Differential Geometry
-investigation.
+After this implementation is merged, post-merge FAST/INTEGRATION pass, and the
+work-unit checkpoint is closed, open one separate literature-backed decision
+for the next Curve Differential Geometry investigation.
 
-No later investigation is inferred automatically.
+No certified inflection isolation, global curvature bound, extrema,
+classification, discretization, sizing, surface, meshing, Quad-Dominant or
+parallel capability is authorized automatically.
 
