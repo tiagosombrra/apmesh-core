@@ -647,6 +647,61 @@ Project relevance:
 - AP Mesh does not adopt Open CASCADE inheritance, tolerances, ownership or a
   runtime dependency.
 
+### Open CASCADE trimmed-curve semantics — basis subdomain and orientation
+
+Status: `FOUNDATIONAL` for the Oriented Trimmed Parametric Subcurve
+decision, reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___trimmed_curve.html
+
+Project relevance:
+
+- models a trimmed curve as a portion of a basis curve limited by two basis
+  parameters;
+- treats trim orientation and reversed-parameter mapping explicitly;
+- documents additional ambiguity for periodic bases, supporting AP Mesh
+  deferral of periodic wrapping;
+- supports a separate trim semantic layer instead of duplicating trim logic in
+  each concrete family;
+- AP Mesh does not adopt Open CASCADE ownership, inheritance, exception,
+  tolerance or periodic-adjustment behavior.
+
+### CGAL polycurve traits — composition remains a separate later layer
+
+Status: `FOUNDATIONAL / SCOPING` for separating trimming from heterogeneous
+composition, reviewed 2026-09-22.
+
+Official reference:
+https://doc.cgal.org/latest/Arrangement_on_surface_2/classCGAL_1_1Arr__polycurve__traits__2.html
+
+Project relevance:
+
+- supports chains built from subcurves such as line segments, conic/circular
+  arcs and Bézier curves;
+- requires neighboring subcurves to meet and carry coherent orientation;
+- demonstrates that piecewise composition is a distinct representation layer
+  over already-defined subcurves;
+- supports deferring runtime heterogeneous storage/type erasure while AP Mesh
+  first establishes trimming of one statically known bounded basis curve.
+
+### Open CASCADE B-spline breadth — why spline semantics remain deferred
+
+Status: `FOUNDATIONAL / SCOPING` for the third representation-breadth
+decision, reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___b_spline_curve.html
+
+Project relevance:
+
+- B-splines may be uniform/non-uniform, rational/non-rational and
+  periodic/non-periodic;
+- construction exposes degree, poles, knots and multiplicities;
+- reversal and segmentation interact with knot data;
+- supports treating B-spline/NURBS as later bounded decisions rather than
+  combining knot/continuity/periodic semantics with the first trim wrapper.
+
 ### Internal arbitrary-orientation constraint — qualified Cartesian Frames
 
 Status: `FOUNDATIONAL / INTERNAL` sequencing constraint for the second
