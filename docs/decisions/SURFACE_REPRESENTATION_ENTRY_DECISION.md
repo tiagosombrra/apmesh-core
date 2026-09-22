@@ -841,3 +841,90 @@ item is the bicubic polynomial Bézier patch implementation bounded by
 Sections 6–32.
 
 No other surface family or downstream capability is authorized.
+
+
+## 36. Decision closure checkpoint
+
+Decision closure PR #139 used head
+`050d1b5b919b9bba0b360b37657c07c5bac70eef`.
+
+Closure PR validation:
+
+- FAST `35763315317`: PASS;
+- INTEGRATION `35763315277`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #139 merged as
+`2300c5fdac3e79d4106f0a7821749dfc5de97ffd`.
+
+Closure post-merge validation:
+
+- FAST `35763548131`: PASS;
+- INTEGRATION `35763548244`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / SURFACE REPRESENTATION STAGE OPEN /
+BICUBIC BÉZIER PATCH IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the tensor-product bicubic polynomial
+Bézier patch bounded by Sections 6–32.
+
+No other surface family or downstream capability is authorized.
+
+
+## 37. Active bicubic patch implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/bicubic-bezier-patch`.
+
+Candidate mapping:
+
+- common bounded-surface contract:
+  `include/apmesh/geometry/parametric_surface.hpp`;
+- public bicubic patch API:
+  `include/apmesh/geometry/surface.hpp`;
+- production:
+  `src/geometry/surface.cpp`;
+- focused semantic/reference contract:
+  `tests/surface_bicubic_bezier.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+The candidate implements:
+
+- exact [0,1]^2 domain for the bicubic family;
+- 4x4 U-major Point3 control storage;
+- deterministic V-then-U tensor-product de Casteljau;
+- analytic Su, Sv, Suu, Suv and Svv;
+- U/V reversal and exact stored-net involution;
+- exact four-corner identity;
+- boundary value/tangent parity against the existing `CubicBezier3`;
+- independent direct Bernstein value/partial reference;
+- analytic plane and saddle fixtures;
+- constant and rank-deficient representation acceptance;
+- translation/power-of-two scale covariance;
+- extreme finite success and explicit non-finite-result failure;
+- deterministic repeated successes/failures.
+
+Expected ordinary semantic inventory: **26 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
+- FAST `35765755483`: PASS, 26/26 ordinary semantic tests;
+- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell;
+- `apmesh_core.surface_bicubic_bezier`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No rational, B-spline/NURBS, Coons, analytic elementary, swept, trimmed,
+surface differential geometry or meshing capability is implied.

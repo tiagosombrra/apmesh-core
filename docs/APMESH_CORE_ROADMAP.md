@@ -1875,36 +1875,52 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Continuous Patch Geometry — ENTRY DECISION
-INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
+**Surface Representation — Continuous Patch Geometry — Tensor-Product
+Bicubic Polynomial Bézier Patch in 3D — IMPLEMENTATION ACTIVE /
 NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
 
-Decision validation:
+Closed decision lineage:
 
-- PR #138 head:
-  `0593131d7380147ef87e9fcba5122ffbcbedd546`;
-- PR FAST `35762844157`: PASS;
-- PR INTEGRATION `35762844171`: PASS;
-- merge:
+- decision PR #138:
   `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
-- post-merge FAST `35762956742`: PASS;
-- post-merge INTEGRATION `35762956709`: PASS.
+- decision post-merge FAST `35762956742`: PASS;
+- decision post-merge INTEGRATION `35762956709`: PASS;
+- closure PR #139:
+  `2300c5fdac3e79d4106f0a7821749dfc5de97ffd`;
+- closure post-merge FAST `35763548131`: PASS;
+- closure post-merge INTEGRATION `35763548244`: PASS.
 
-Closure branch:
-`docs/surface-representation-entry-decision-closure`.
+Active implementation branch:
+`surface/bicubic-bezier-patch`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized first work unit:
 
-**Tensor-Product Bicubic Polynomial Bézier Patch in 3D.**
+- minimal static bounded-surface contract;
+- exact [0,1]² domain for this concrete patch;
+- 4x4 Point3 control net;
+- deterministic V-then-U tensor-product de Casteljau;
+- analytic Su, Sv, Suu, Suv, Svv;
+- U/V reversal and boundary parity;
+- direct Bernstein oracle;
+- analytic polynomial fixtures;
+- constant/degenerate representation allowed;
+- target ordinary inventory: 26 tests.
 
-Authorized first implementation remains limited to the minimal bounded-surface
-contract, [0,1]² bicubic patch, analytic first/second partials, U/V reversal,
-boundary parity and one independent focused contract targeting 26 ordinary
-tests.
+Candidate validation on head
+`f9c94d95540d93eace7bbf1401c35f17a27d145b`:
+
+- FAST `35765755483`: PASS, 26/26 tests;
+- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell;
+- the new bicubic surface contract and every prior ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. No topology, trimming,
+surface-differential-geometry or meshing dependency was introduced.
 
 The retained future surface envelope remains:
 

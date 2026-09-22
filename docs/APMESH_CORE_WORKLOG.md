@@ -336,55 +336,111 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #137; terminally reconciles the closed C1 implementation.
 - `surface/representation-entry-decision`: **MERGED / HISTORICAL** via
   PR #138; literature-backed Surface Representation entry decision.
-- `docs/surface-representation-entry-decision-closure`: **CLOSURE-ONLY**;
-  records PR #138 integration and post-merge validation.
+- `docs/surface-representation-entry-decision-closure`: **MERGED /
+  HISTORICAL** via PR #139; closes the Surface Representation entry decision.
+- `surface/bicubic-bezier-patch`: **ACTIVE**; first bounded production work
+  item in Surface Representation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Surface Representation entry decision is integrated and ready for
-closure.**
+**Tensor-Product Bicubic Polynomial Bézier Patch in 3D — ACTIVE /
+IMPLEMENTATION OPEN / NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`surface/bicubic-bezier-patch`.
 
-1. decision authority:
-   `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`;
-2. decision PR #138 head:
-   `0593131d7380147ef87e9fcba5122ffbcbedd546`;
-3. decision PR FAST `35762844157`: PASS;
-4. decision PR INTEGRATION `35762844171`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. decision PR #138 merged as
-   `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
-6. post-merge FAST `35762956742`: PASS;
-7. post-merge INTEGRATION `35762956709`: PASS;
-8. no production surface type exists yet;
-9. existing 25 ordinary semantic tests remain the production baseline.
+Decision authority:
+`docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
 
-No production work item is active in this closure change.
+Closed decision checkpoint:
 
-## Next admissible work item after closure
+- decision PR #138:
+  `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
+- decision post-merge FAST `35762956742`: PASS;
+- decision post-merge INTEGRATION `35762956709`: PASS;
+- decision closure PR #139 head:
+  `050d1b5b919b9bba0b360b37657c07c5bac70eef`;
+- closure PR FAST `35763315317`: PASS;
+- closure PR INTEGRATION `35763315277`: PASS;
+- closure PR #139 merged as:
+  `2300c5fdac3e79d4106f0a7821749dfc5de97ffd`;
+- closure post-merge FAST `35763548131`: PASS;
+- closure post-merge INTEGRATION `35763548244`: PASS.
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
+Authorized repository mapping:
 
-**Tensor-Product Bicubic Polynomial Bézier Patch in 3D.**
+1. `include/apmesh/geometry/parametric_surface.hpp`;
+2. `include/apmesh/geometry/surface.hpp`;
+3. `src/geometry/surface.cpp`;
+4. `tests/surface_bicubic_bezier.cpp`;
+5. `CMakeLists.txt`;
+6. synchronized STATE / ROADMAP / WORKLOG / decision.
 
-Implementation must remain within
-`docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`:
+Required scope:
 
-- minimal bounded surface abstraction;
-- exact [0,1] x [0,1] domain for the first patch;
-- 4x4 Point3 control net;
-- deterministic V-then-U tensor-product de Casteljau;
+- exact [0,1] x [0,1] parameter domain for the bicubic patch;
+- 4x4 finite Point3 control net;
+- deterministic V-then-U tensor-product de Casteljau evaluation;
 - analytic Su, Sv, Suu, Suv, Svv;
-- U/V reversal;
-- exact boundary parity with `CubicBezier3`;
+- U/V reversals and involution;
+- exact corner identity;
+- four boundary curves matching `CubicBezier3`;
 - independent direct Bernstein oracle;
-- analytic polynomial fixtures;
-- no regularity rejection at the representation layer;
-- target ordinary inventory: 26 tests.
+- analytic plane/saddle/polynomial fixtures;
+- constant and degenerate patches remain representable;
+- typed U/V parameter and non-finite-result failures;
+- target ordinary semantic inventory: 26 tests.
 
-No rational, B-spline/NURBS, Coons, analytic elementary, swept, trimmed,
-surface-differential-geometry or meshing work is authorized by this closure.
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/parametric_surface.hpp`:
+  bounded U/V domain, typed query failures, first/second partial aggregates and
+  static `BoundedParametricSurface3` concept;
+- `include/apmesh/geometry/surface.hpp`:
+  immutable `BicubicBezierPatch3` value type over a 4x4 Point3 control net;
+- `src/geometry/surface.cpp`:
+  deterministic V-then-U tensor-product de Casteljau, analytic
+  Su/Sv/Suu/Suv/Svv and U/V reversals;
+- `tests/surface_bicubic_bezier.cpp`:
+  direct Bernstein oracle, four `CubicBezier3` boundary contracts, analytic
+  plane and saddle fixtures, reversal/orientation, constant/degenerate,
+  affine/extreme-finite and deterministic failure evidence;
+- `CMakeLists.txt`:
+  production source plus the 26th ordinary semantic contract.
+
+Candidate validation:
+
+- candidate head:
+  `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
+- FAST `35765755483`: PASS, 26/26 tests;
+- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell;
+- `apmesh_core.surface_bicubic_bezier`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+Explicit non-actions:
+
+- no rational surface weights;
+- no B-spline/NURBS surface knots;
+- no arbitrary degree;
+- no Coons/transfinite surface;
+- no analytic elementary surface type;
+- no ruled/extrusion/revolution surface;
+- no trimming/curve-on-surface/topology;
+- no normals, metric or curvature;
+- no surface meshing/discretization;
+- no third-party runtime dependency.
+
+## Next admissible transition
+
+Complete only this first patch implementation, validate 26/26 in FAST and both
+INTEGRATION compiler cells, integrate through one PR, validate protected
+`main`, close the implementation checkpoint, and only then open a fresh
+Surface Representation breadth decision for the next surface family.

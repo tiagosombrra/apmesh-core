@@ -95,7 +95,7 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - terminal sync post-merge FAST `35761803424` and INTEGRATION
   `35761803482`: PASS;
 - current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — ENTRY DECISION ACTIVE / NOT QUALIFIED**;
+  Geometry — BICUBIC BÉZIER PATCH IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -289,40 +289,75 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the Tensor-Product Bicubic Polynomial Bézier Patch in 3D work unit.**
+**Implement the Tensor-Product Bicubic Polynomial Bézier Patch in 3D work
+unit and the minimal bounded-surface contract.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #138 head:
-  `0593131d7380147ef87e9fcba5122ffbcbedd546`;
-- PR FAST `35762844157`: PASS;
-- PR INTEGRATION `35762844171`: PASS;
-- merge:
+- decision PR #138:
   `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
-- post-merge FAST `35762956742`: PASS;
-- post-merge INTEGRATION `35762956709`: PASS.
+- decision post-merge FAST `35762956742`: PASS;
+- decision post-merge INTEGRATION `35762956709`: PASS;
+- closure PR #139:
+  `2300c5fdac3e79d4106f0a7821749dfc5de97ffd`;
+- closure post-merge FAST `35763548131`: PASS;
+- closure post-merge INTEGRATION `35763548244`: PASS.
 
-Closure branch:
-`docs/surface-representation-entry-decision-closure`.
+Active branch:
+`surface/bicubic-bezier-patch`.
 
 Decision authority:
 `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
 
-The sole authorized next implementation is the bounded bicubic polynomial
-Bézier patch plus the minimal static bounded-surface contract.
+The sole authorized production work is the bounded 4x4 bicubic polynomial
+Bézier patch, exact [0,1]^2 domain, analytic first/second partials, U/V
+reversal, boundary parity and one focused semantic/reference contract.
 
-The complete later surface-family envelope remains explicit but unauthorized.
+No rational, spline/NURBS, Coons, analytic elementary, swept, trimmed,
+surface-differential-geometry or meshing capability is authorized.
 
-Remaining curve breadth remains retained and paused.
+Candidate repository mapping:
+
+- `include/apmesh/geometry/parametric_surface.hpp`;
+- `include/apmesh/geometry/surface.hpp`;
+- `src/geometry/surface.cpp`;
+- `tests/surface_bicubic_bezier.cpp`;
+- `CMakeLists.txt`.
+
+Candidate semantics:
+
+- exact [0,1]^2 domain for this concrete patch;
+- immutable 4x4 U-major Point3 control net;
+- V-then-U tensor-product de Casteljau;
+- analytic Su, Sv, Suu, Suv and Svv;
+- U/V reversal without a normal API;
+- exact corner identities and curve-boundary parity;
+- constant/rank-deficient patches remain valid representations;
+- parameter validation order is U finite, V finite, U domain, V domain;
+- final unrepresentable arithmetic returns
+  `SurfaceError::non_finite_result`;
+- 26 ordinary tests are expected after registration.
+
+Candidate validation:
+
+- head `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
+- FAST `35765755483`: PASS, 26/26 tests;
+- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell;
+- focused `apmesh_core.surface_bicubic_bezier`: PASS in all three jobs.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
-**Surface Representation — Continuous Patch Geometry — ENTRY DECISION
-INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED / CURVE REPRESENTATION PREREQUISITES PRESERVED**
+**Surface Representation — Continuous Patch Geometry — BICUBIC BÉZIER PATCH
+IMPLEMENTATION ACTIVE / NOT QUALIFIED /
+CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
