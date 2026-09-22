@@ -1508,7 +1508,7 @@ candidates before authorizing any production implementation.
 ### Curve Representation Breadth Gate — Analytic, Rational, and Spline Families
 
 Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
-BOUNDED PARAMETRIC CONTRACT IMPLEMENTATION ACTIVE /
+BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
 NO NEW FAMILY IMPLEMENTED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1742,37 +1742,40 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Bounded Parametric Curve Contract and
-Cubic Bézier Conformance — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+Cubic Bézier Conformance — INTEGRATED / FOCUSED CONTRACTS PASS /
+NOT QUALIFIED**
 
-Active branch:
-`curve/bounded-parametric-curve-contract`.
+Implementation evidence:
 
-Decision authority:
-`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
+- PR #101 merged as
+  `0674cd8531c3033a30282ba6bf95078b54d8c331`;
+- PR FAST `35713249842`: PASS, 18/18 tests;
+- PR INTEGRATION `35713249775`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 18/18 tests per cell;
+- post-merge FAST `35713409188`: PASS;
+- post-merge INTEGRATION `35713409166`: PASS.
 
-The bounded candidate introduces only:
+The common bounded parametric seam is now integrated while the existing
+Cubic-Bézier evaluation/differential/regularity/length/curvature/inflection
+algorithms remain intact.
 
-- a finite closed parameter-domain type with explicit construction failures;
-- typed containment and bounded reversal-parameter semantics;
-- static C++23 2D/3D bounded-parametric-curve concepts;
-- `CubicBezier2/3::parameter_domain()` reporting exactly `[0,1]`;
-- compile-time negative/conformance evidence and focused runtime
-  reversal/domain contracts;
-- preservation of the complete existing curve test inventory.
+No second concrete curve family is present.
 
-The implementation deliberately does not refactor the existing Cubic-Bézier
-evaluation, derivative, regularity, arc-length, inverse-length, curvature,
-signed-curvature or inflection algorithms.
+After this closure checkpoint is integrated and validated, the next bounded
+scientific action is one literature-backed decision comparing candidate
+concrete curve families against:
 
-No second concrete curve family, surface, boundary discretization, sizing,
-meshing, Quad-Dominant or parallel implementation is included.
+- Boundary Curve Discretization needs;
+- exact analytic/CAD representation value;
+- later trimming and surface-boundary requirements;
+- implementation and robustness risk;
+- independent verification cost.
+
+Bounded line/segment, circle/conic arc, rational/arbitrary-degree Bézier,
+B-spline and NURBS are candidates, not authorization.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
-paused while this representation seam is established.
-
-After this work unit is integrated and closed, a separate literature-backed
-decision must choose the next concrete representation family; none is
-pre-authorized.
+paused during the representation-breadth sequence.
 
 Boundary Curve Discretization and Surface Representation remain blocked.
 
