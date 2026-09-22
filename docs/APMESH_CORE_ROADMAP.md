@@ -1918,9 +1918,19 @@ No general B-spline container, NURBS, arbitrary degree/count, repeated knots,
 periodicity, analytic conic, heterogeneous composition, generic differential
 expansion, surface or downstream meshing work is included.
 
-The branch must pass FAST and both INTEGRATION compiler cells before
-integration. Passing yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / NOT QUALIFIED** for this work unit.
+Corrected candidate validation on head
+`ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`:
+
+- FAST `35736410584`: PASS, 22/22 tests;
+- INTEGRATION `35736410585`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 22/22 tests per cell;
+- the new B-spline contract and every prerequisite ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. Passing the full work unit still
+yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED**.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
