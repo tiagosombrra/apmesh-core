@@ -11,6 +11,7 @@ namespace apmesh::core {
 enum class CurveError {
     non_finite_parameter,
     parameter_out_of_domain,
+    singular_parameter,
     non_finite_result,
 };
 
@@ -121,6 +122,8 @@ public:
     [[nodiscard]] std::expected<Vector2, CurveError> first_derivative(double parameter) const noexcept;
     [[nodiscard]] std::expected<Vector2, CurveError> second_derivative(double parameter) const noexcept;
     [[nodiscard]] std::expected<double, CurveError> speed(double parameter) const noexcept;
+    [[nodiscard]] std::expected<double, CurveError>
+    curvature_magnitude(double parameter) const noexcept;
     [[nodiscard]] std::expected<CurveRegularityEvidence, CurveRegularityError>
     certify_regularity(const CurveRegularityPolicy& policy) const noexcept;
     [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
@@ -159,6 +162,8 @@ public:
     [[nodiscard]] std::expected<Vector3, CurveError> first_derivative(double parameter) const noexcept;
     [[nodiscard]] std::expected<Vector3, CurveError> second_derivative(double parameter) const noexcept;
     [[nodiscard]] std::expected<double, CurveError> speed(double parameter) const noexcept;
+    [[nodiscard]] std::expected<double, CurveError>
+    curvature_magnitude(double parameter) const noexcept;
     [[nodiscard]] std::expected<CurveRegularityEvidence, CurveRegularityError>
     certify_regularity(const CurveRegularityPolicy& policy) const noexcept;
     [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
