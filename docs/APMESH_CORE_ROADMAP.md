@@ -1659,6 +1659,20 @@ Implementation closure PR #110 merged as
 The rational-quadratic work unit is therefore closed. No later family is
 authorized by that closure.
 
+Terminal reconciliation PR #111 merged as
+`7579254ebd0d6843fdc3761376132a2b7d9fa43c`. Its post-merge FAST
+`35728104539` and INTEGRATION `35728104607` passed.
+
+The active third breadth decision is
+`docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
+
+It compares analytic conics, arbitrary-degree Bézier, B-spline, NURBS,
+heterogeneous composition and trimming. It selects **Oriented Trimmed
+Parametric Subcurve Semantics in 2D/3D** before another mathematical family.
+
+The decision does not authorize polycurve/type-erasure storage, periodic
+trimming or any new concrete curve family.
+
 Repository-specific sequencing matters: the qualified Cartesian-frame claim
 does not include arbitrary-angle rotations, so a general analytic 3D circle
 would require a separate arbitrary supporting-plane/orientation decision.
@@ -1838,39 +1852,45 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Rational Quadratic Work Unit CLOSED /
-NO ACTIVE PRODUCTION WORK ITEM / NEXT DECISION REQUIRED**
+**Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
+DECISION ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION**
 
-Terminal evidence:
+Terminal prerequisite evidence:
 
-- implementation PR #109:
-  `6600875dfbb33d1a37603e32bcf452625373c462`;
-- implementation PR/post-merge FAST/INTEGRATION: PASS;
-- implementation closure PR #110:
+- rational-quadratic closure PR #110:
   `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
-- closure PR FAST `35727517602`: PASS;
-- closure PR INTEGRATION `35727517607`: PASS;
 - closure post-merge FAST `35727653016`: PASS;
-- closure post-merge INTEGRATION `35727652961`: PASS.
+- closure post-merge INTEGRATION `35727652961`: PASS;
+- terminal sync PR #111:
+  `7579254ebd0d6843fdc3761376132a2b7d9fa43c`;
+- terminal sync FAST `35728104539`: PASS;
+- terminal sync INTEGRATION `35728104607`: PASS.
 
-After this terminal documentation sync is integrated and its post-merge
-FAST/INTEGRATION pass, open exactly one literature-backed bounded comparison
-decision among:
+Active decision:
+`docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-- analytic circle/general conic representation plus the arbitrary 3D
-  supporting-plane/orientation prerequisite;
-- arbitrary-degree polynomial/rational Bézier;
-- B-spline;
-- NURBS;
-- composition/trimming.
+The decision selects a statically typed trim wrapper over one existing bounded
+basis curve before another mathematical family.
 
-The decision must account for production already containing:
+Planned semantics after decision closure:
 
-- `CubicBezier2/3`;
-- `LineSegment2/3`;
-- `RationalQuadraticBezier2/3`.
+- oriented source/target basis parameters;
+- nonzero finite trim interval inside the basis domain;
+- exposed domain `[min(u_s,u_e), max(u_s,u_e)]`;
+- forward trim preserves basis parameter;
+- reverse trim uses the existing overflow-aware `reversed_parameter`;
+- forward D1/D2 parity;
+- reverse D1 sign change with D2 preserved;
+- exact trim reversal by swapping oriented endpoints;
+- coverage over line segment, cubic Bézier and rational quadratic Bézier in
+  both 2D and 3D.
 
-No candidate is preselected and no production implementation is authorized.
+Heterogeneous polycurve/composition, periodic trim, analytic conic,
+arbitrary-degree Bézier, B-spline and NURBS remain later decisions.
+
+No implementation is authorized until this decision is integrated,
+post-merge FAST/INTEGRATION pass, and the decision checkpoint is separately
+closed.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
