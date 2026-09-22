@@ -294,38 +294,40 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed bicubic NURBS surface breadth decision; no
-production NURBS surface implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the bounded bicubic positive-weight NURBS surface work unit.**
 
-Entry authority:
+Decision evidence:
 
-- normalized terminal surface checkpoint:
-  `b1537c0697604ee5bc37ac46f25bb271b9be52a1`;
-- PR #148 FAST `35797027086`: PASS;
-- PR #148 INTEGRATION `35797027093`: PASS;
-- post-merge FAST `35797161908`: PASS;
-- post-merge INTEGRATION `35797161957`: PASS.
+- PR #149 head:
+  `e44a53ae0cb9ce0329dc5036ce13c52feeea9b86`;
+- PR FAST `35797633074`: PASS;
+- PR INTEGRATION `35797633084`: PASS;
+- merge:
+  `d6d9c8c30c716540c95fe449dee53227e6722c22`;
+- post-merge FAST `35797779574`: PASS;
+- post-merge INTEGRATION `35797779547`: PASS.
 
-Active branch:
-`surface/bicubic-nurbs-decision`.
+Closure branch:
+`docs/surface-bicubic-nurbs-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
 
-The decision selects a bicubic positive-weight NURBS surface with independent
-runtime U/V span counts and simple interior knots only.
+The sole next implementation keeps degree 3, positive weights,
+non-periodicity and simple interior knots while generalizing U/V span counts
+and rectangular control/weight storage.
 
-The existing bounded-surface contract must remain unchanged. Repeated surface
-knots, arbitrary degree, periodicity, Coons/transfinite, analytic elementary,
-swept, trimmed, differential-geometry and meshing capabilities remain
-unauthorized.
+No repeated surface knots, arbitrary degree, periodicity, Coons/transfinite,
+analytic elementary, swept, trimmed, differential-geometry or meshing
+capability is authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
-BREADTH DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED / POLYNOMIAL AND RATIONAL BICUBIC PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
