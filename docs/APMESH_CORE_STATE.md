@@ -284,40 +284,64 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Implement Positive-Weight Rational Quadratic Bézier Representation in 2D and
-3D under the closed decision.**
+**Complete Positive-Weight Rational Quadratic Bézier Representation in 2D and
+3D on the single active implementation branch.**
 
-Decision evidence:
+Closed decision evidence:
 
 - PR #107 merged as
   `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
-- decision PR FAST `35722805362`: PASS;
-- decision PR INTEGRATION `35722805446`: PASS;
 - decision post-merge FAST `35722894744`: PASS;
 - decision post-merge INTEGRATION `35722894725`: PASS;
-- decision closure authority: PR #108.
+- decision closure PR #108 merged as
+  `30f32997dec0aa7937c9730eb5ce24e2f80bb964`;
+- closure post-merge FAST `35723209087`: PASS;
+- closure post-merge INTEGRATION `35723209143`: PASS.
 
-Implementation authority:
+Active branch:
+`curve/rational-quadratic-bezier`.
+
+Decision authority:
 `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-The sole authorized production scope is the fixed-degree positive-weight
-rational quadratic family in 2D/3D plus its focused evidence.
+Implemented candidate mapping on the active branch:
 
-The common bounded-parametric concepts must remain unchanged.
+- `include/apmesh/geometry/rational_bezier.hpp`:
+  validated fixed-degree positive-weight 2D/3D value types;
+- `src/geometry/rational_bezier.cpp`:
+  exact `[0,1]` domain, scaled rational value evaluation, analytic D1/D2,
+  endpoint-preserving evaluation and reversal;
+- `tests/rational_quadratic_bezier.cpp`:
+  construction failures, independent rational jet, degree-elevation parity,
+  conic/quarter-circle residuals, reversal, weight-scale invariance,
+  degeneracy, extreme finite values, translation, embedding and determinism;
+- `CMakeLists.txt`:
+  production source plus one focused FAST/INTEGRATION contract.
 
-No analytic conic class, arbitrary-degree Bézier, B-spline, NURBS,
-composition/trimming, surface, discretization or meshing implementation is
+The common `BoundedParametricCurve2/3` semantics remain unchanged.
+
+No analytic conic class, arbitrary-degree rational/polynomial Bézier,
+B-spline/NURBS, knots, trimming, surface, discretization or meshing work is
 authorized.
 
-Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and is
-paused during this representation-breadth sequence.
+Candidate validation:
+
+- head `a68134daae06207f1ec32cf7df1f613a7e8cb693`;
+- FAST `35726985299`: PASS, 20/20 tests;
+- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 20/20 tests per cell;
+- focused `apmesh_core.rational_quadratic_bezier`: PASS in all three jobs.
+
+The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
+head passes and integration/post-merge closure completes.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
-Bézier — DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
+Bézier — IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED /
 LINE-SEGMENT INTEGRATION PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:

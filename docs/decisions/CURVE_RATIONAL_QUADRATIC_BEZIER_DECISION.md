@@ -656,3 +656,62 @@ Decision closure authority: PR #108.
 No production implementation is present in this closure change. After PR #108
 is integrated and its post-merge FAST/INTEGRATION pass, the implementation
 scope in Sections 6–23 becomes the sole authorized work item.
+
+
+## 27. Active implementation mapping
+
+Decision closure PR #108 merged as
+`30f32997dec0aa7937c9730eb5ce24e2f80bb964`.
+
+Closure post-merge validation:
+
+- FAST `35723209087`: PASS;
+- INTEGRATION `35723209143`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The sole authorized implementation is active on:
+
+`curve/rational-quadratic-bezier`.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/rational_bezier.hpp`;
+- `src/geometry/rational_bezier.cpp`;
+- `tests/rational_quadratic_bezier.cpp`;
+- `CMakeLists.txt`;
+- synchronized `STATE`, `ROADMAP`, `WORKLOG` and this decision.
+
+Candidate semantics:
+
+- three finite control points and three finite strictly positive stored weights;
+- construction rejects non-finite and non-positive weights without epsilon;
+- exact `[0,1]` parameter domain;
+- exact endpoint value return;
+- positive-weight scaling for internal rational computation without
+  canonicalizing stored weights;
+- point evaluation, D1 and D2 with final representability checks;
+- exact representation reversal;
+- constant-curve zero-derivative handling;
+- unchanged common bounded-parametric concepts.
+
+Focused evidence covers all Section 18 obligations with independent cubic
+degree-elevation and conic residual fixtures.
+
+Expected ordinary FAST/INTEGRATION inventory after registration: **20 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `a68134daae06207f1ec32cf7df1f613a7e8cb693`;
+- FAST `35726985299`: PASS, 20/20 tests;
+- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 20/20 tests in each cell;
+- `apmesh_core.rational_quadratic_bezier`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
+
+No other family or downstream capability is implied.

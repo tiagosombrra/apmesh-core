@@ -267,56 +267,84 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/rational-quadratic-bezier-decision-closure`: **MERGED /
   HISTORICAL** via PR #108; closes the rational-quadratic decision checkpoint
   and authorizes only its bounded implementation as the next work item.
+- `curve/rational-quadratic-bezier`: **ACTIVE**; fixed-degree
+  positive-weight 2D/3D rational quadratic Bézier implementation under the
+  closed decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Positive-Weight Rational Quadratic Bézier decision is integrated and
-closed.**
+**Positive-Weight Rational Quadratic Bézier Representation in 2D and 3D —
+ACTIVE / IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`curve/rational-quadratic-bezier`.
 
-1. decision authority:
-   `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
-2. decision PR #107 merged as
-   `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
-3. decision PR FAST `35722805362`: PASS;
-4. decision PR INTEGRATION `35722805446`: PASS;
-5. decision post-merge FAST `35722894744`: PASS;
-6. decision post-merge INTEGRATION `35722894725`: PASS;
-7. closure authority: PR #108;
-8. line-segment integration remains preserved;
-9. common bounded-parametric semantics remain unchanged;
-10. cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+Decision authority:
+`docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-No production work item is active in this closure change.
+Closed decision checkpoint:
 
-## Next admissible work item
+- PR #107 merged as
+  `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
+- decision post-merge FAST `35722894744`: PASS;
+- decision post-merge INTEGRATION `35722894725`: PASS;
+- closure PR #108 merged as
+  `30f32997dec0aa7937c9730eb5ce24e2f80bb964`;
+- closure post-merge FAST `35723209087`: PASS;
+- closure post-merge INTEGRATION `35723209143`: PASS.
 
-Open exactly one implementation branch for:
+Authorized mapping:
 
-**Positive-Weight Rational Quadratic Bézier Representation in 2D and 3D.**
+1. `include/apmesh/geometry/rational_bezier.hpp`;
+2. `src/geometry/rational_bezier.cpp`;
+3. `tests/rational_quadratic_bezier.cpp`;
+4. `CMakeLists.txt`;
+5. synchronized STATE / ROADMAP / WORKLOG / decision mapping.
 
-Implementation must remain inside
-`docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`:
+Required semantics:
 
 - three finite control points;
 - three finite strictly positive weights;
-- validated construction;
+- explicit construction failure for non-finite/non-positive weights;
 - exact `[0,1]` domain;
-- `BoundedParametricCurve2/3` conformance without changing those concepts;
-- rational value, D1 and D2;
-- reversal by reversed controls/weights;
-- positive common weight-scale invariance;
-- equal-weight parity against degree-elevated existing cubic Bézier fixtures;
-- independent conic/quarter-circle evidence;
-- focused GCC/Clang regression preserving the current 19-test inventory plus
-  the new rational test.
+- unchanged `BoundedParametricCurve2/3` conformance;
+- overflow-aware rational value evaluation;
+- rational D1/D2 with explicit non-finite-result failure;
+- reversal by controls/weights reversal;
+- common positive weight-scale invariance;
+- equal-weight parity against degree-elevated existing cubic Bézier;
+- non-circular conic and quarter-circle evidence;
+- degenerate constant-curve semantics;
+- prerequisite preservation.
 
-No dedicated analytic conic, arbitrary-degree Bézier, B-spline, NURBS,
-composition/trimming, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized.
+Validation history:
 
-After this rational-quadratic implementation is integrated and closed, a fresh
-literature-backed decision is required before another family.
+- candidate head `a68134daae06207f1ec32cf7df1f613a7e8cb693`;
+- FAST `35726985299`: PASS, 20/20 tests;
+- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 20/20 tests in each cell;
+- `apmesh_core.rational_quadratic_bezier`: PASS in all three jobs;
+- line-segment and all prior ordinary semantic contracts remained PASS;
+- no production/math/decision acceptance criteria changed during this
+  candidate validation.
+
+The implementation candidate is therefore **FOCUSED CONTRACTS PASS / READY FOR
+FINAL PR-HEAD REVALIDATION AFTER DOCUMENTATION SYNC / NOT QUALIFIED**.
+
+Explicit non-actions:
+
+- no analytic circle/conic type;
+- no arbitrary-degree rational/polynomial Bézier;
+- no B-spline/NURBS;
+- no knots, periodicity or trimming;
+- no generic regularity/length/curvature extension;
+- no surface/discretization/sizing/meshing;
+- no Quad-Dominant or parallel work.
+
+## Next admissible transition
+
+Complete only this implementation, validate in FAST/GCC and INTEGRATION
+GCC/Clang, integrate, validate the merge, close its checkpoint, then require a
+fresh literature-backed decision before any additional curve family.

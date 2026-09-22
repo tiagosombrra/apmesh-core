@@ -32,6 +32,7 @@ add_library(apmesh_core STATIC
     src/core/numeric.cpp
     src/geometry/curve.cpp
     src/geometry/line_segment.cpp
+    src/geometry/rational_bezier.cpp
     src/math/linear_algebra.cpp
     src/topology/topology.cpp
 )
@@ -177,6 +178,20 @@ if(BUILD_TESTING)
     add_test(
         NAME apmesh_core.line_segment
         COMMAND apmesh_core.line_segment
+    )
+
+    add_executable(apmesh_core.rational_quadratic_bezier
+        tests/rational_quadratic_bezier.cpp
+    )
+    target_link_libraries(
+        apmesh_core.rational_quadratic_bezier
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.rational_quadratic_bezier)
+
+    add_test(
+        NAME apmesh_core.rational_quadratic_bezier
+        COMMAND apmesh_core.rational_quadratic_bezier
     )
 
     add_executable(apmesh_core.curve_differential
@@ -345,6 +360,7 @@ if(BUILD_TESTING)
         apmesh_core.curve_representation
         apmesh_core.parametric_curve_contract
         apmesh_core.line_segment
+        apmesh_core.rational_quadratic_bezier
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
         apmesh_core.curve_signed_curvature
