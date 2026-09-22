@@ -1878,42 +1878,40 @@ Current scientific work focus:
 **Surface Representation — Continuous Patch Geometry — Positive-Weight
 Rational Tensor-Product Bicubic Bézier Patch in 3D —
 IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED**
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Decision authority:
-`docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
+Terminal closure evidence:
 
-Implementation validation:
-
-- corrected candidate head:
-  `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
-- corrected FAST `35782907623`: PASS, 27/27;
-- corrected INTEGRATION `35782907574`: PASS, 27/27;
-- final PR head:
-  `9677c98882ce32569e537a9b5d91f23cffabec69`;
-- final PR FAST `35783120161`: PASS, 27/27;
-- final PR INTEGRATION `35783120208`: PASS, 27/27;
-- merge:
+- implementation PR #145:
   `8ac1abd913bf15ff1dc4d60595f809491902c055`;
-- post-merge FAST `35783312495`: PASS, 27/27;
-- post-merge INTEGRATION `35783312402`: PASS, 27/27.
+- implementation post-merge FAST `35783312495`: PASS, 27/27;
+- implementation post-merge INTEGRATION `35783312402`: PASS, 27/27;
+- closure PR #146 head:
+  `2e1e514216db89d5a1ef5507a2f0f8a2473fa76c`;
+- closure PR FAST `35783557983`: PASS;
+- closure PR INTEGRATION `35783557757`: PASS;
+- closure merge:
+  `c7f7b32b180082421cadc74c39d2919f713ec775`;
+- closure post-merge FAST `35783715705`: PASS;
+- closure post-merge INTEGRATION `35783715671`: PASS.
 
-Closure branch:
-`docs/surface-rational-bicubic-bezier-implementation-closure`.
+Integrated Surface Representation families:
 
-The integrated family preserves the polynomial bicubic patch and common
-bounded-surface contract unchanged.
+- `BicubicBezierPatch3`;
+- `RationalBicubicBezierPatch3`.
 
-After closure integration and post-merge validation, the next action is one
-fresh Surface Representation breadth decision comparing:
+The next action is one fresh literature-backed Surface Representation breadth
+decision comparing:
 
 - cubic B-spline/NURBS surface;
-- Coons/transfinite;
+- Coons/transfinite patch;
 - analytic elementary surfaces;
-- ruled/extrusion/revolution;
+- ruled/extrusion/revolution surfaces;
 - rectangular/general trimming.
 
 No option is preselected.
+
+Remaining curve breadth remains retained and paused.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
