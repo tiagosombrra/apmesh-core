@@ -897,3 +897,31 @@ item is the implementation bounded by Sections 5–35.
 
 Arbitrary degree, repeated knots, periodicity, analytic conics, heterogeneous
 composition, surfaces and downstream meshing remain unauthorized.
+
+
+## 39. Decision closure checkpoint
+
+Decision closure PR #129 merged as
+`4f59898b40717cef91ea0fbf70f72493d715d4a3`.
+
+Closure PR validation:
+
+- FAST `35749973962`: PASS;
+- INTEGRATION `35749973927`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Closure post-merge validation:
+
+- FAST `35750063544`: PASS;
+- INTEGRATION `35750063493`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the multi-span cubic positive-weight
+NURBS family bounded by Sections 5–35.
+
+No broader spline, conic, composition, surface or downstream capability is
+authorized.
