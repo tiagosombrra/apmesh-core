@@ -925,3 +925,60 @@ NURBS family bounded by Sections 5–35.
 
 No broader spline, conic, composition, surface or downstream capability is
 authorized.
+
+
+## 40. Active implementation validation
+
+The bounded implementation is active on:
+
+`curve/multi-span-cubic-nurbs`.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/nurbs.hpp`;
+- `src/geometry/multi_span_nurbs.cpp`;
+- `tests/multi_span_cubic_nurbs.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+The fixed `src/geometry/nurbs.cpp` implementation and
+`include/apmesh/geometry/parametric_curve.hpp` remain unchanged.
+
+Candidate head:
+
+`78e086aa6744fb9bcdb2c5077b55b4122f883836`.
+
+Candidate validation:
+
+- FAST `35751863096`: PASS, 24/24 ordinary semantic tests;
+- INTEGRATION `35751863450`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 24/24 tests per cell;
+- `apmesh_core.multi_span_cubic_nurbs`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Validated candidate scope includes:
+
+- runtime-variable control/weight/simple-knot count;
+- deterministic right-span selection;
+- local homogeneous value/D1/D2;
+- fixed two-span NURBS parity in 2D/3D;
+- polynomial B-spline subset parity;
+- independent four-span rational-basis oracle;
+- test-only geometry-preserving knot insertion;
+- two-sided local support;
+- weight-scale invariance;
+- reversal/involution and derivative covariance;
+- constant-curve semantics;
+- translation and coordinate-scale covariance;
+- 2D/3D embedding parity;
+- extreme-finite success;
+- explicit unrepresentable-result failure;
+- deterministic repeat evidence.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No broader spline, conic, composition, surface or downstream capability is
+implied.
