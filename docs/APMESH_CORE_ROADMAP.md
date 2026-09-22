@@ -1876,54 +1876,47 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Bicubic
-Positive-Weight NURBS Surface — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Positive-Weight NURBS Surface — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
-
-- normalized terminal rational-bicubic checkpoint:
-  `b1537c0697604ee5bc37ac46f25bb271b9be52a1`;
-- PR #148 FAST `35797027086`: PASS;
-- PR #148 INTEGRATION `35797027093`: PASS;
-- post-merge FAST `35797161908`: PASS;
-- post-merge INTEGRATION `35797161957`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #149 head:
+  `e44a53ae0cb9ce0329dc5036ce13c52feeea9b86`;
+- PR FAST `35797633074`: PASS;
+- PR INTEGRATION `35797633084`: PASS;
+- merge:
+  `d6d9c8c30c716540c95fe449dee53227e6722c22`;
+- post-merge FAST `35797779574`: PASS;
+- post-merge INTEGRATION `35797779547`: PASS.
+
+Closure branch:
+`docs/surface-bicubic-nurbs-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Clamped Bicubic Positive-Weight NURBS Surface in 3D with Runtime-Variable
 U/V Span Counts and Simple Interior Knots.**
 
-The bounded decision freezes:
+Authorized future scope remains:
 
-- degree 3 in both directions;
-- arbitrary finite clamped U/V domains;
-- dynamic rectangular U-major control/weight storage;
-- zero or more simple interior knots independently in U/V;
-- finite strictly positive weights;
-- non-periodic semantics;
-- exact deterministic right-span selection;
-- local 4x4 homogeneous V-then-U de Boor evaluation;
-- analytic first/second rational partials;
-- rational-bicubic and polynomial-bicubic subset parity;
-- four edge curves matching integrated `MultiSpanCubicNURBS3`;
-- one focused contract targeting 28 ordinary tests.
+- degree 3 in U/V;
+- arbitrary finite clamped domains;
+- dynamic U-major control/weight net;
+- simple interior knots only;
+- positive weights;
+- non-periodic;
+- local 4x4 homogeneous V-then-U de Boor;
+- analytic first/second partials;
+- frozen common surface contract;
+- one focused contract targeting 28 tests.
 
-Deferred surface breadth remains explicit:
-
-- repeated U/V knot multiplicity and C1/C0 lines;
-- arbitrary degree / periodicity;
-- Coons/transfinite;
-- analytic elementary surfaces;
-- ruled/extrusion/revolution;
-- rectangular/general trimming.
-
-No production implementation may start until this decision is integrated,
-post-merge validated and separately closed.
-
-Remaining curve breadth remains retained and paused.
+Repeated knots, arbitrary degree, periodicity, Coons/transfinite, analytic,
+swept and trimmed families remain later decisions.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
