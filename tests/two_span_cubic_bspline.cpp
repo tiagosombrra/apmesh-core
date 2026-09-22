@@ -683,7 +683,7 @@ int main() {
                  "B-spline translation covariance differs") &&
              passed;
 
-    std::array<Point2, 5> scaled_controls2{};
+    auto scaled_controls2 = controls2;
     for (std::size_t index = 0; index < controls2.size(); ++index) {
         const auto point = Point2::make(
             controls2[index].x() * 2.0,
