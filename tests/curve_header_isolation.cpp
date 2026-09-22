@@ -51,6 +51,12 @@ int main() {
         decltype(std::declval<const CubicBezier3&>().speed(0.5)),
         std::expected<double, CurveError>>);
     static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().signed_curvature(0.5)),
+        std::expected<double, CurveError>>);
+    static_assert(!requires(const CubicBezier3& curve) {
+        curve.signed_curvature(0.5);
+    });
+    static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().certify_regularity(
             std::declval<const CurveRegularityPolicy&>())),
         std::expected<CurveRegularityEvidence, CurveRegularityError>>);
