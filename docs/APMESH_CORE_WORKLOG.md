@@ -327,119 +327,54 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   HISTORICAL** via PR #133; bounded repeated-knot continuity decision.
 - `docs/cubic-nurbs-double-knot-decision-closure`: **MERGED / HISTORICAL**
   via PR #134; closes the double-knot C1 continuity decision checkpoint.
-- `curve/cubic-nurbs-double-knot-continuity`: **ACTIVE**; bounded
-  multiplicity-1/2 implementation work item.
+- `curve/cubic-nurbs-double-knot-continuity`: **MERGED / HISTORICAL** via
+  PR #135; bounded multiplicity-1/2 implementation work item.
+- `docs/cubic-nurbs-double-knot-implementation-closure`: **CLOSURE-ONLY**;
+  records PR #135 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Cubic Positive-Weight Multi-Span NURBS with Interior Knot Multiplicity One
-or Two and explicit C1/D2 failure semantics — ACTIVE / IMPLEMENTATION OPEN /
-NOT QUALIFIED.**
+**None. Cubic NURBS Double-Knot C1 Continuity implementation is integrated and
+ready for closure.**
 
-Active branch:
-`curve/cubic-nurbs-double-knot-continuity`.
+Implementation closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
+1. candidate head:
+   `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
+2. candidate FAST `35756479210`: PASS, 25/25;
+3. candidate INTEGRATION `35756479108`: PASS, 25/25 in GCC and Clang;
+4. final PR head:
+   `ba0f5ec0ee038f176cc9abc405e2aa879a2e9b95`;
+5. final PR FAST `35756643568`: PASS, 25/25;
+6. final PR INTEGRATION `35756643616`: PASS, 25/25 in GCC and Clang;
+7. implementation PR #135 merged as
+   `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`;
+8. post-merge FAST `35756910304`: PASS, 25/25;
+9. post-merge INTEGRATION `35756910340`: PASS, 25/25 in GCC and Clang;
+10. focused `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS in every
+    candidate/final/post-merge gate;
+11. all prior ordinary semantic contracts remained PASS;
+12. no surface implementation is active.
 
-Closed decision checkpoint:
+Integrated work-unit result before this closure merges:
 
-- decision PR #133:
-  `ea65372bb6a9ed9a6bde94a3e3eed551e96fd3b9`;
-- decision PR FAST `35754225028`: PASS;
-- decision PR INTEGRATION `35754225224`: PASS;
-- decision post-merge FAST `35754389148`: PASS;
-- decision post-merge INTEGRATION `35754389151`: PASS;
-- decision closure PR #134:
-  `8e47a35922f5f0dd246b238294e58980baf91277`;
-- closure post-merge FAST `35754917335`: PASS;
-- closure post-merge INTEGRATION `35754917556`: PASS.
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED.**
 
-Authorized repository mapping:
+## Next admissible work item after closure
 
-1. common error vocabulary only:
-   `include/apmesh/geometry/parametric_curve.hpp`;
-2. public NURBS storage/API:
-   `include/apmesh/geometry/nurbs.hpp`;
-3. existing multi-span production:
-   `src/geometry/multi_span_nurbs.cpp`;
-4. focused contract:
-   `tests/cubic_nurbs_double_knot_continuity.cpp`;
-5. build/test registration:
-   `CMakeLists.txt`;
-6. synchronized STATE / ROADMAP / WORKLOG / decision.
+After this closure is integrated and post-merge validated, open exactly one
+fresh literature-backed decision comparing:
 
-Required scope:
+1. bounded Surface Representation entry readiness;
+2. multiplicity-three / C0 curve semantics;
+3. arbitrary-degree spline/Bézier breadth;
+4. analytic conics after arbitrary-placement prerequisites;
+5. heterogeneous composition/polycurve.
 
-- degree exactly 3;
-- endpoint multiplicity 4;
-- each unique interior multiplicity exactly 1 or 2;
-- positive finite weights;
-- non-periodic;
-- existing simple-knot factory/API source-compatible and scientifically
-  unchanged;
-- explicit unique-knot multiplicity storage;
-- `CurveError::insufficient_continuity` as the sole common query-error
-  extension;
-- value and D1 succeed at double knots;
-- ordinary D2 fails exactly at double knots;
-- D2 succeeds away from those knots;
-- no one-sided derivative API;
-- current 24-test baseline preserved;
-- one new focused contract, targeting 25 ordinary tests.
+No candidate is pre-authorized.
 
-Candidate implementation mapping:
-
-- `include/apmesh/geometry/parametric_curve.hpp`:
-  adds only `CurveError::insufficient_continuity`;
-- `include/apmesh/geometry/nurbs.hpp`:
-  adds explicit multiplicity factory/accessors/storage while preserving the
-  simple-knot factory;
-- `src/geometry/multi_span_nurbs.cpp`:
-  validates multiplicities 1/2, constructs a private flat-knot cache once,
-  preserves local de Boor value/D1/D2, and rejects ordinary D2 exactly at a
-  double knot;
-- `tests/cubic_nurbs_double_knot_continuity.cpp`:
-  independent repeated-knot rational basis, C1 one-sided evidence,
-  homogeneous repeated-knot insertion, simple-path regression, reversal,
-  embedding, constant-geometry and deterministic typed-failure evidence;
-- `CMakeLists.txt`:
-  registers the 25th ordinary semantic contract.
-
-Candidate validation:
-
-- candidate head:
-  `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
-- FAST `35756479210`: PASS, 25/25 tests;
-- INTEGRATION `35756479108`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 25/25 tests in each cell;
-- `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS in all three jobs;
-- every prior ordinary semantic contract remained PASS.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no multiplicity three / C0;
-- no arbitrary degree;
-- no periodicity;
-- no one-sided derivative API;
-- no production knot insertion/removal;
-- no analytic conic;
-- no heterogeneous composition/polycurve;
-- no surface representation;
-- no boundary discretization, sizing or meshing;
-- no Quad-Dominant or parallel work.
-
-## Next admissible transition
-
-Complete only this implementation, validate 25/25 in FAST and both
-INTEGRATION compiler cells, integrate through one PR, validate the protected
-`main`, close the implementation checkpoint, and only then open a fresh
-literature-backed decision comparing surface readiness against the remaining
-curve-breadth candidates.
+Surface source code, boundary discretization, sizing, meshing, Quad-Dominant
+and parallel work remain blocked until their own explicit decisions.
