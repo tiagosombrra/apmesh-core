@@ -238,6 +238,9 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #96; bounded 2D certified simple-inflection implementation.
 - `docs/certified-simple-inflection-implementation-closure`:
   **CLOSURE-ONLY**; records PR #96 integration and post-merge validation.
+- `curve/parametric-curve-family-abstraction-decision`: **ACTIVE**;
+  literature-backed representation-breadth transition decision only; no
+  production geometry implementation.
 
 The presence of historical branches on the remote does not make them active.
 
