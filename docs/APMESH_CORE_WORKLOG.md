@@ -314,119 +314,81 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   PR #128; bounded multi-span cubic NURBS breadth decision.
 - `docs/multi-span-cubic-nurbs-decision-closure`: **MERGED / HISTORICAL**
   via PR #129; closes the multi-span cubic NURBS decision checkpoint.
-- `curve/multi-span-cubic-nurbs`: **ACTIVE**; bounded runtime-variable
-  span-count cubic positive-weight NURBS implementation under the closed
-  decision.
+- `curve/multi-span-cubic-nurbs`: **MERGED / HISTORICAL** via PR #130;
+  bounded runtime-variable span-count cubic positive-weight NURBS
+  implementation.
+- `docs/multi-span-cubic-nurbs-implementation-closure`: **CLOSURE-ONLY**;
+  records PR #130 integration and post-merge validation before the next
+  breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
-with Simple Interior Knots — ACTIVE / IMPLEMENTATION IN PROGRESS /
-NOT QUALIFIED.**
+**None. Multi-Span Clamped Cubic Positive-Weight NURBS implementation is
+integrated and ready for closure.**
 
-Active branch:
-`curve/multi-span-cubic-nurbs`.
+Implementation integration evidence:
 
-Decision authority:
-`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
+1. decision authority:
+   `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
+2. implementation PR #130 merged as
+   `153bf6b874b0deac304ea07562cd897785f631df`;
+3. first complete candidate head:
+   `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
+4. candidate FAST `35751863096`: PASS, 24/24;
+5. candidate INTEGRATION `35751863450`: PASS, 24/24 in GCC 13 Debug
+   and Clang 18/libc++ Debug;
+6. final documentation-synchronized head:
+   `3a600bba2b521ba4fea12be0b85dd55161205f15`;
+7. final PR FAST `35752117689`: PASS, 24/24;
+8. final PR INTEGRATION `35752117850`: PASS, 24/24 in both compiler
+   cells;
+9. implementation post-merge FAST `35752335649`: PASS, 24/24;
+10. implementation post-merge INTEGRATION `35752335629`: PASS, 24/24
+    in GCC 13 Debug and Clang 18/libc++ Debug;
+11. `apmesh_core.multi_span_cubic_nurbs`: PASS in every candidate/final/
+    post-merge job;
+12. every prior ordinary semantic contract remained PASS;
+13. `include/apmesh/geometry/parametric_curve.hpp` remains unchanged;
+14. fixed `src/geometry/nurbs.cpp` remains unchanged;
+15. the original Cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-Closed decision checkpoint:
+Integrated production scope:
 
-- decision PR #128:
-  `77a7773cdb431469402f773b52c70d171d805201`;
-- decision post-merge FAST `35749735576`: PASS;
-- decision post-merge INTEGRATION `35749735502`: PASS;
-- decision closure PR #129:
-  `4f59898b40717cef91ea0fbf70f72493d715d4a3`;
-- closure PR FAST `35749973962`: PASS;
-- closure PR INTEGRATION `35749973927`: PASS;
-- closure post-merge FAST `35750063544`: PASS;
-- closure post-merge INTEGRATION `35750063493`: PASS.
-
-Authorized repository mapping:
-
-1. public family extension:
-   `include/apmesh/geometry/nurbs.hpp`;
-2. production implementation:
-   `src/geometry/multi_span_nurbs.cpp`;
-3. focused semantic/reference contract:
-   `tests/multi_span_cubic_nurbs.cpp`;
-4. build/test registration:
-   `CMakeLists.txt`;
-5. synchronized STATE / ROADMAP / WORKLOG / decision.
-
-Required scope:
-
+- `MultiSpanCubicNURBS2/3`;
 - degree exactly 3;
-- at least two spans;
 - runtime-variable controls/weights/simple interior knots;
-- `control_count == weight_count == interior_knot_count + 4`;
-- endpoint multiplicity 4 and every interior multiplicity 1;
+- at least two spans;
+- clamped endpoints, simple interior multiplicity only;
 - finite strictly positive weights;
-- non-periodic bounded domain;
-- immutable owning `std::vector` storage with read-only `std::span` views;
-- deterministic right-span knot policy;
-- local homogeneous value/D1/D2 after `O(log S)` span location;
-- fixed two-span parity;
-- independent rational-basis oracle;
-- test-only geometry-preserving knot-insertion parity;
-- local support on both sides;
-- weight-scale, reversal, affine/embedding, extreme-finite and determinism
-  evidence;
-- expected ordinary inventory: 24 tests.
+- immutable owning vectors/read-only spans;
+- exact right-span location;
+- local homogeneous value/D1/D2;
+- 24-test focused/prerequisite regression.
 
-Candidate implementation mapping:
+Work-unit status before closure merge:
 
-- public extension:
-  `include/apmesh/geometry/nurbs.hpp`;
-- production:
-  `src/geometry/multi_span_nurbs.cpp`;
-- focused contract:
-  `tests/multi_span_cubic_nurbs.cpp`;
-- build/test registration:
-  `CMakeLists.txt`;
-- fixed `src/geometry/nurbs.cpp` remains byte-untouched by this branch;
-- `parametric_curve.hpp` remains unchanged;
-- production uses exact `upper_bound`-equivalent right-span location,
-  four-control local homogeneous de Boor evaluation, local common weight
-  scaling and analytic local D1/D2;
-- focused evidence covers the complete decision matrix, including 2/3D fixed
-  parity, independent multi-span rational basis, test-only knot insertion,
-  two-sided local support, right-span knot policy, weight scale, reversal,
-  affine/embedding, extreme-finite and deterministic behavior.
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 
-Candidate validation:
+No production work item is active in this closure PR.
 
-- candidate head:
-  `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
-- FAST `35751863096`: PASS, 24/24 tests;
-- INTEGRATION `35751863450`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 24/24 tests in each cell;
-- `apmesh_core.multi_span_cubic_nurbs`: PASS in all three jobs;
-- every prior ordinary semantic contract remained PASS.
+## Next admissible work item after closure
 
-Current implementation status:
+Only after this closure is integrated and post-merge FAST/INTEGRATION pass,
+open exactly one fresh literature-backed Curve Representation Breadth decision.
 
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+That decision must recompare at minimum:
 
-Explicit non-actions:
+1. repeated-knot/continuity breadth;
+2. arbitrary-degree polynomial/rational Bézier and/or arbitrary spline degree;
+3. analytic conic after arbitrary 3D placement prerequisites;
+4. heterogeneous composition/polycurve;
+5. whether curve breadth is sufficient to prepare the separate Surface
+   Representation entry decision.
 
-- no arbitrary degree;
-- no repeated interior knots;
-- no periodicity;
-- no one-span rational cubic admission;
-- no production knot insertion/removal;
-- no custom allocator or third-party container;
-- no analytic conic;
-- no heterogeneous composition/polycurve;
-- no surface/discretization/sizing/meshing;
-- no Quad-Dominant or parallel work.
+No candidate is pre-authorized.
 
-## Next admissible transition
-
-Complete only this implementation, pass FAST/INTEGRATION in GCC and Clang,
-integrate through one PR, pass post-merge validation, close the implementation
-checkpoint, and only then open a fresh literature-backed breadth decision.
+No repeated knots, arbitrary degree, periodicity, analytic conic,
+heterogeneous composition, surface, boundary-discretization, sizing, meshing,
+Quad-Dominant or parallel implementation is authorized by this closure.
