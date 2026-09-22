@@ -273,6 +273,17 @@ Active branch:
 Decision authority:
 `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
+Closed decision checkpoint:
+
+- PR #103 merged as
+  `2b42c78a2dbf0ede225144339dbf100900bef672`;
+- decision post-merge FAST `35719435059`: PASS;
+- decision post-merge INTEGRATION `35719434961`: PASS;
+- closure PR #104 merged as
+  `326ffdf724912e8841a74c3c0b69756ca23e14c2`;
+- closure post-merge FAST `35719744251`: PASS;
+- closure post-merge INTEGRATION `35719744291`: PASS.
+
 Authorized repository mapping:
 
 1. public value family:
