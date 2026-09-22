@@ -320,69 +320,80 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/multi-span-cubic-nurbs-implementation-closure`: **MERGED /
   HISTORICAL** via PR #131; closes the multi-span cubic NURBS implementation
   checkpoint.
-- `docs/multi-span-cubic-nurbs-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles PR #131 and its post-merge
-  validation before the next breadth decision.
+- `docs/multi-span-cubic-nurbs-closure-sync`: **MERGED / HISTORICAL**
+  via PR #132; terminally reconciles the multi-span NURBS implementation
+  closure.
+- `curve/cubic-nurbs-double-knot-continuity-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; literature-backed repeated-knot continuity decision;
+  no production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Multi-Span Clamped Cubic Positive-Weight NURBS implementation is
-closed; terminal documentation synchronization is active.**
+**Cubic NURBS Double-Knot C1 Continuity — DECISION ACTIVE /
+DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal closure evidence:
+Active branch:
+`curve/cubic-nurbs-double-knot-continuity-decision`.
 
-1. implementation PR #130:
-   `153bf6b874b0deac304ea07562cd897785f631df`;
-2. first candidate head:
-   `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
-3. candidate FAST `35751863096`: PASS, 24/24;
-4. candidate INTEGRATION `35751863450`: PASS, 24/24 in GCC/Clang;
-5. final head:
-   `3a600bba2b521ba4fea12be0b85dd55161205f15`;
-6. final PR FAST `35752117689`: PASS, 24/24;
-7. final PR INTEGRATION `35752117850`: PASS, 24/24 in GCC/Clang;
-8. implementation post-merge FAST `35752335649`: PASS, 24/24;
-9. implementation post-merge INTEGRATION `35752335629`: PASS, 24/24
-   in GCC/Clang;
-10. implementation closure PR #131 merged as
-    `d71ada7b280b443c4eb303c44b57e7ce429fb24a`;
-11. closure PR FAST `35752743478`: PASS;
-12. closure PR INTEGRATION `35752743439`: PASS in GCC 13 Debug and Clang
-    18/libc++ Debug;
-13. closure post-merge FAST `35752844947`: PASS, 24/24;
-14. closure post-merge INTEGRATION `35752844817`: PASS, 24/24 in GCC 13
-    Debug and Clang 18/libc++ Debug;
-15. `apmesh_core.multi_span_cubic_nurbs`: PASS throughout;
-16. every prior ordinary semantic contract remained PASS;
-17. common bounded-parametric concepts remain unchanged;
-18. fixed two-span NURBS production remains unchanged;
-19. original Cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+Decision-entry authority:
 
-Final work-unit result:
+- multi-span implementation closure PR #131:
+  `d71ada7b280b443c4eb303c44b57e7ce429fb24a`;
+- closure post-merge FAST `35752844947`: PASS, 24/24;
+- closure post-merge INTEGRATION `35752844817`: PASS, 24/24;
+- terminal sync PR #132:
+  `a37e8c266b0057b2d813f5f690faa6a1e6a710a1`;
+- sync PR FAST `35753336320`: PASS;
+- sync PR INTEGRATION `35753336303`: PASS;
+- sync post-merge FAST `35753496462`: PASS;
+- sync post-merge INTEGRATION `35753496400`: PASS;
+- no open PR and no active production work item at decision entry.
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-No production work item is active.
+Fresh comparison:
 
-## Next admissible work item after terminal sync
-
-After this terminal sync is integrated and post-merge FAST/INTEGRATION pass,
-open exactly one fresh **literature-backed Curve Representation Breadth
-decision**.
-
-The fresh comparison must include at minimum:
-
-1. repeated-knot/continuity breadth;
-2. arbitrary-degree polynomial/rational Bézier and/or arbitrary spline degree;
-3. analytic conic after arbitrary 3D placement prerequisites;
+1. repeated-knot / continuity breadth;
+2. arbitrary-degree Bézier/spline breadth;
+3. analytic conics after arbitrary-placement prerequisites;
 4. heterogeneous composition/polycurve;
-5. whether curve breadth is sufficient to prepare the separate Surface
-   Representation entry decision.
+5. readiness to open Surface Representation.
 
-No candidate is pre-authorized.
+Selected bounded future work unit:
 
-No new curve family, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized.
+**Cubic Positive-Weight Multi-Span NURBS with Interior Knot Multiplicity One
+or Two and explicit C1/D2 semantics.**
+
+The decision freezes:
+
+- degree 3;
+- endpoint multiplicity 4;
+- each unique interior multiplicity in {1,2};
+- positive finite weights;
+- non-periodic bounded domain;
+- unique interior knots plus explicit multiplicity storage;
+- legacy simple-knot factory/API preserved;
+- `CurveError::insufficient_continuity` as the sole common-vocabulary
+  extension;
+- value and D1 succeed at a double knot when representable;
+- ordinary D2 at an exact double knot fails with
+  `insufficient_continuity`;
+- D2 away from the double knot remains available;
+- no one-sided derivative public API.
+
+This branch may change only documentation/research/decision authorities.
+No repeated-knot production code, surface, degree generalization, conic,
+polycurve, discretization or meshing code is authorized.
+
+## Next admissible transition after this decision
+
+Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision checkpoint closes may one implementation branch be opened for
+the selected double-knot C1 work unit.
+
+Multiplicity three/C0, arbitrary degree, periodicity, one-sided derivative
+APIs, analytic conics, heterogeneous composition and every surface capability
+remain separate later decisions.
