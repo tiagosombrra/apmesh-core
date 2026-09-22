@@ -1,5 +1,6 @@
 #include "apmesh/geometry/curve.hpp"
-#include "apmesh/geometry/frame.hpp"
+
+#include "apmesh/core/numeric.hpp"
 
 #include <algorithm>
 #include <array>
