@@ -928,3 +928,52 @@ FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No rational, B-spline/NURBS, Coons, analytic elementary, swept, trimmed,
 surface differential geometry or meshing capability is implied.
+
+
+## 38. Bicubic patch implementation integration checkpoint
+
+The bounded first Surface Representation work unit was integrated by PR #140.
+
+Candidate head:
+
+`f9c94d95540d93eace7bbf1401c35f17a27d145b`.
+
+Candidate validation:
+
+- FAST `35765755483`: PASS, 26/26 ordinary semantic tests;
+- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell.
+
+Final PR head:
+
+`453ff3b7e3a33ab0410db8c86fd8ac5a2531b226`.
+
+Final-head validation:
+
+- INTEGRATION `35765951784`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell;
+- FAST `35765951781` attempt 1: CANCELLED mechanically by workflow
+  concurrency after the documentation synchronization commits;
+- FAST `35765951781` attempt 2: PASS, 26/26 on the same immutable final head.
+
+PR #140 merged as:
+
+`2d6d01e4202367d62db6017939cde0f2b8e83c65`.
+
+Post-merge validation:
+
+- FAST `35766651557`: PASS, 26/26;
+- INTEGRATION `35766651497`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell.
+
+Integrated result:
+
+**SURFACE REPRESENTATION STAGE OPEN /
+BICUBIC BÉZIER PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+
+No rational, spline/NURBS, Coons, analytic elementary, swept, trimmed,
+surface-differential-geometry or meshing capability is implied.
+
+After closure, a fresh Surface Representation breadth decision must select the
+next family. No option is pre-authorized.
