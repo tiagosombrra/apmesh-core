@@ -742,3 +742,34 @@ Curve Differential Geometry remains paused/unqualified.
 
 Boundary Curve Discretization and Surface Representation remain blocked until
 their prerequisite representation-breadth decisions are explicitly closed.
+
+
+## 32. Decision integration checkpoint
+
+PR #116 integrated this bounded decision as
+`0978256b53d8eba7f974229da06cd74b21d3ee53`.
+
+Final decision-head validation:
+
+- FAST `35732529892`: PASS;
+- INTEGRATION `35732529957`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35734755167`: PASS;
+- INTEGRATION `35734755301`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The integrated decision selects only:
+
+**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D.**
+
+This decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the implementation bounded by Sections 5–29.
+
+General B-spline, NURBS, arbitrary degree/count, repeated interior knots,
+periodicity, analytic conics, heterogeneous composition, surfaces and
+downstream meshing remain unauthorized.

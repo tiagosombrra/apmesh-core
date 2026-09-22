@@ -283,62 +283,56 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/trimmed-parametric-subcurve-implementation-closure`: **MERGED /
   HISTORICAL** via PR #115; closes the trimmed-subcurve implementation
   checkpoint.
-- `curve/two-span-cubic-bspline-decision`: **ACTIVE**; literature-backed
-  next breadth decision only; no production implementation.
+- `curve/two-span-cubic-bspline-decision`: **MERGED / HISTORICAL** via
+  PR #116; literature-backed bounded first B-spline decision.
+- `docs/two-span-cubic-bspline-decision-closure`: **CLOSURE-ONLY**;
+  records PR #116 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Two-Span Clamped Cubic B-Spline Representation — DECISION ACTIVE /
-DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
+**None. Two-Span Clamped Cubic B-Spline decision is integrated and ready for
+closure.**
 
-Active branch:
-`curve/two-span-cubic-bspline-decision`.
+Decision closure evidence:
 
-Entry evidence:
+1. decision authority:
+   `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
+2. decision PR #116 merged as
+   `0978256b53d8eba7f974229da06cd74b21d3ee53`;
+3. final PR FAST `35732529892`: PASS;
+4. final PR INTEGRATION `35732529957`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. post-merge FAST `35734755167`: PASS;
+6. post-merge INTEGRATION `35734755301`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. all prior curve integrations remain unchanged;
+8. no B-spline production code is present in this closure change.
 
-1. trimmed-subcurve implementation PR #114 merged as
-   `133a98ea056b12d86049e36abc0370208776106b`;
-2. implementation post-merge FAST `35731127728`: PASS;
-3. implementation post-merge INTEGRATION `35731127685`: PASS;
-4. implementation closure PR #115 merged as
-   `e29a08b07c175a91410123f99867eef4190b983b`;
-5. closure post-merge FAST `35731529518`: PASS;
-6. closure post-merge INTEGRATION `35731529546`: PASS;
-7. production contains cubic Bézier, line segment, rational quadratic Bézier
-   and oriented trimming semantics;
-8. no B-spline, NURBS, arbitrary-degree Bézier, analytic conic or heterogeneous
-   composition family is implemented.
+No production work item is active.
 
-Decision question:
+## Next admissible work item after closure
 
-**Which remaining representation-breadth step should be introduced next, and
-what is the smallest scientifically useful scope that isolates its new
-semantics without combining unrelated complexity?**
+Open exactly one implementation branch for:
 
-The decision compares at minimum:
+**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D.**
 
-- bounded non-periodic B-spline;
-- NURBS after B-spline semantics;
-- arbitrary-degree polynomial/rational Bézier;
-- analytic conic plus arbitrary 3D supporting-plane/orientation;
-- heterogeneous composition/polycurve.
+The implementation must remain within the integrated decision:
 
-The selected candidate is a deliberately bounded first B-spline work unit:
-**Two-Span Clamped Cubic Polynomial B-Spline in 2D and 3D**, with exactly five
-control points, one simple interior knot, clamped endpoint multiplicity four,
-non-periodic and non-rational semantics.
+- degree exactly three;
+- five finite control points;
+- knots `[a,a,a,a,k,b,b,b,b]` with finite strict `a<k<b`;
+- two nonzero spans;
+- one simple interior knot;
+- polynomial/non-rational;
+- non-periodic;
+- value, D1 and D2;
+- de Boor production evaluation;
+- independent basis/derivative reference;
+- local-support, knot, reversal and Bézier knot-insertion parity evidence;
+- expected ordinary inventory: existing 21 tests plus one B-spline contract.
 
-This branch may change only documentation/research/decision authorities.
-No production C++, B-spline type, surface, boundary-discretization, sizing,
-meshing, Quad-Dominant or parallel implementation is authorized.
-
-## Next admissible transition after this decision
-
-Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
-and its checkpoint is separately closed may one implementation branch be
-opened for the fixed two-span cubic B-spline work unit.
-
-General/multi-span B-spline, arbitrary degree, repeated interior knots,
-periodicity, NURBS and spline surfaces remain separate later decisions.
+No general B-spline, NURBS, arbitrary degree/count, repeated interior knots,
+periodicity, analytic conic, heterogeneous composition, surface, downstream
+meshing, Quad-Dominant or parallel work is authorized.

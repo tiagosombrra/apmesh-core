@@ -286,56 +286,39 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the Two-Span Clamped Cubic Polynomial B-Spline decision; no
-production implementation is authorized on this branch.**
+**Implement Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D
+and 3D after this decision closure is integrated and post-merge validated.**
 
-Closed trim evidence:
+Decision evidence:
 
-- trim implementation PR #114 merged as
-  `133a98ea056b12d86049e36abc0370208776106b`;
-- trim post-merge FAST `35731127728`: PASS;
-- trim post-merge INTEGRATION `35731127685`: PASS;
-- trim implementation closure PR #115 merged as
-  `e29a08b07c175a91410123f99867eef4190b983b`;
-- closure post-merge FAST `35731529518`: PASS;
-- closure post-merge INTEGRATION `35731529546`: PASS.
+- PR #116 merged as
+  `0978256b53d8eba7f974229da06cd74b21d3ee53`;
+- decision PR FAST `35732529892`: PASS;
+- decision PR INTEGRATION `35732529957`: PASS;
+- decision post-merge FAST `35734755167`: PASS;
+- decision post-merge INTEGRATION `35734755301`: PASS.
 
-Active branch:
-`curve/two-span-cubic-bspline-decision`.
+Decision closure branch:
+`docs/two-span-cubic-bspline-decision-closure`.
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-The decision compares bounded B-spline, NURBS, arbitrary-degree Bézier,
-analytic conic/orientation and heterogeneous composition.
+The sole authorized future production scope is the fixed two-span clamped cubic
+polynomial B-spline family defined by that decision.
 
-It selects the smallest knot-bearing family:
-
-**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D.**
-
-The selected future work unit is fixed to five control points and knot vector
-
-`[a,a,a,a,k,b,b,b,b]`
-
-with finite `a<k<b`, one simple interior knot, non-rational and
-non-periodic semantics.
-
-If this decision is integrated, post-merge validation passes, and a separate
-decision checkpoint closes, the sole next implementation work item is the
-mapped two-span cubic B-spline family.
-
-No general/multi-span B-spline, NURBS, arbitrary-degree Bézier, analytic
-conic, heterogeneous composition, surface, discretization or meshing work is
-authorized yet.
+No general B-spline, NURBS, arbitrary-degree Bézier, analytic conic,
+heterogeneous composition, surface, discretization or meshing work is
+authorized.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic B-Spline —
-DECISION ACTIVE / DOCUMENTATION ONLY / NO B-SPLINE IMPLEMENTATION /
-TRIM, RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
-CUBIC BASELINE QUALIFICATION PRESERVED**
+DECISION INTEGRATED / CHECKPOINT CLOSURE PENDING / IMPLEMENTATION AUTHORIZED
+ONLY AFTER CLOSURE / NOT QUALIFIED / TRIM, RATIONAL-QUADRATIC AND LINE-SEGMENT
+INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 

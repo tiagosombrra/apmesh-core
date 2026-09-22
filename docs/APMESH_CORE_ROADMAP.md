@@ -1874,44 +1874,43 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Polynomial
-B-Spline — DECISION ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION
-IMPLEMENTATION**
+B-Spline — DECISION INTEGRATED / CHECKPOINT CLOSURE PENDING /
+NO PRODUCTION IMPLEMENTATION**
 
-Closed prerequisite evidence:
-
-- trim implementation PR #114:
-  `133a98ea056b12d86049e36abc0370208776106b`;
-- trim implementation closure PR #115:
-  `e29a08b07c175a91410123f99867eef4190b983b`;
-- closure post-merge FAST `35731529518`: PASS;
-- closure post-merge INTEGRATION `35731529546`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-The decision selects exactly one bounded first spline representation:
+Decision evidence:
 
-- polynomial degree 3;
-- five controls;
-- knots `[a,a,a,a,k,b,b,b,b]`;
-- finite `a<k<b`;
+- PR #116:
+  `0978256b53d8eba7f974229da06cd74b21d3ee53`;
+- PR FAST `35732529892`: PASS;
+- PR INTEGRATION `35732529957`: PASS;
+- post-merge FAST `35734755167`: PASS;
+- post-merge INTEGRATION `35734755301`: PASS.
+
+After this closure is integrated and its own post-merge validation passes, the
+sole next implementation work item is:
+
+**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D.**
+
+The authorized implementation remains fixed to:
+
+- degree 3;
+- five control points;
+- full knot vector `[a,a,a,a,k,b,b,b,b]`;
+- strict finite `a<k<b`;
 - exactly two nonzero spans;
-- one simple interior knot, therefore C2 representation continuity;
-- non-rational;
-- non-periodic;
+- one simple interior knot / C2 representation continuity;
+- non-rational and non-periodic semantics;
 - value, D1 and D2;
 - de Boor production evaluation;
-- independent Cox–de Boor/basis reference;
-- parity with a qualified cubic Bézier after one knot insertion;
-- local-support and reversal evidence.
+- independent basis/derivative evidence;
+- local support, reversal and Bézier knot-insertion parity.
 
-General B-spline containers, arbitrary degree/count, repeated interior knots,
-periodicity, NURBS, arbitrary-degree Bézier, analytic conic and heterogeneous
-composition remain later decisions.
-
-No implementation is authorized until this decision is integrated,
-post-merge FAST/INTEGRATION pass, and the decision checkpoint is separately
-closed.
+No general B-spline container, NURBS, arbitrary degree/count, repeated interior
+knots, periodicity, analytic conic, heterogeneous composition or downstream
+stage is authorized.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
