@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstddef>
 #include <expected>
 #include <limits>
 
@@ -213,6 +214,9 @@ rational_second_derivative_component(
     if (parameter == 1.0) {
         return points[2];
     }
+    if (points[0] == points[1] && points[1] == points[2]) {
+        return points[0];
+    }
 
     const auto data = make_basis(weights, parameter);
     if (!data.has_value()) {
@@ -249,6 +253,9 @@ rational_second_derivative_component(
     }
     if (parameter == 1.0) {
         return points[2];
+    }
+    if (points[0] == points[1] && points[1] == points[2]) {
+        return points[0];
     }
 
     const auto data = make_basis(weights, parameter);
