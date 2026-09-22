@@ -911,9 +911,20 @@ The candidate implements:
 
 Expected ordinary semantic inventory: **26 tests**.
 
+Candidate validation:
+
+- candidate head:
+  `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
+- FAST `35765755483`: PASS, 26/26 ordinary semantic tests;
+- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell;
+- `apmesh_core.surface_bicubic_bezier`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No rational, B-spline/NURBS, Coons, analytic elementary, swept, trimmed,
 surface differential geometry or meshing capability is implied.
