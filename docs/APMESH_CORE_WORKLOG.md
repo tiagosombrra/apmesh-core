@@ -304,18 +304,18 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   fixed five-control/two-span cubic positive-weight NURBS implementation.
 - `docs/two-span-cubic-nurbs-implementation-closure`: **MERGED /
   HISTORICAL** via PR #125; closes the fixed NURBS implementation checkpoint.
-- `docs/two-span-cubic-nurbs-implementation-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles PR #125 and its post-merge
-  validation before the next scientific decision.
+- `docs/two-span-cubic-nurbs-implementation-closure-sync`: **MERGED /
+  HISTORICAL** via PR #126; terminally reconciles the fixed NURBS
+  implementation closure.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Two-Span Clamped Cubic Positive-Weight NURBS implementation is closed;
-terminal documentation synchronization is active.**
+**None. The fixed Two-Span Clamped Cubic Positive-Weight NURBS work unit is
+terminally closed and no new representation family is active.**
 
-Terminal closure evidence:
+Terminal closure/synchronization evidence:
 
 1. implementation PR #124:
    `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
@@ -328,26 +328,30 @@ Terminal closure evidence:
 8. implementation closure PR #125:
    `465dc5b5f1948d4d27ca67d777aa2493f9c8968e`;
 9. closure PR FAST `35746421742`: PASS;
-10. closure PR INTEGRATION `35746421809`: PASS in GCC 13 Debug and
-    Clang 18/libc++ Debug;
+10. closure PR INTEGRATION `35746421809`: PASS;
 11. closure post-merge FAST `35746603445`: PASS;
 12. closure post-merge INTEGRATION `35746603448`: PASS;
-13. the common bounded-parametric concepts remain unchanged;
-14. every prior ordinary semantic contract remains passing;
-15. the original Cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+13. terminal sync PR #126:
+    `eaba130eaa5da79fc827b8f770df4123524fc455`;
+14. sync PR FAST `35747044794`: PASS;
+15. sync PR INTEGRATION `35747044719`: PASS;
+16. sync post-merge FAST `35747249752`: PASS;
+17. sync post-merge INTEGRATION `35747249889`: PASS;
+18. the common bounded-parametric concepts remain unchanged;
+19. every prior ordinary semantic contract remains passing;
+20. the original Cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-The fixed NURBS work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED**.
+Final fixed-NURBS work-unit result:
 
-No production work item is active.
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
 
-## Next admissible work item after terminal sync
+## Next admissible work item
 
-After this documentation sync is integrated and its own post-merge
-FAST/INTEGRATION pass, open exactly one new **literature-backed Curve
-Representation Breadth decision**.
+Open exactly one fresh **literature-backed Curve Representation Breadth
+decision**.
 
-The fresh comparison must include at minimum:
+The comparison must include at minimum:
 
 - general bounded clamped cubic B-spline/NURBS span-count expansion;
 - arbitrary-degree polynomial/rational Bézier;
@@ -356,7 +360,8 @@ The fresh comparison must include at minimum:
   prerequisite;
 - heterogeneous composition/polycurve.
 
-No winner is pre-authorized.
+No candidate is pre-authorized and no production implementation may begin
+until that decision is integrated, post-merge validated and separately closed.
 
-No new curve family, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized.
+Surface Representation, Boundary Curve Discretization, sizing, meshing,
+Quad-Dominant and parallel work remain blocked.
