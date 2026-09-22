@@ -1876,45 +1876,46 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Multi-Span Clamped Cubic
-Positive-Weight NURBS — DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+Positive-Weight NURBS — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Decision validation:
+Closed decision lineage:
 
-- PR #128:
+- decision PR #128:
   `77a7773cdb431469402f773b52c70d171d805201`;
-- PR FAST `35749650284`: PASS;
-- PR INTEGRATION `35749650175`: PASS;
-- post-merge FAST `35749735576`: PASS;
-- post-merge INTEGRATION `35749735502`: PASS.
+- decision post-merge FAST `35749735576`: PASS;
+- decision post-merge INTEGRATION `35749735502`: PASS;
+- closure PR #129:
+  `4f59898b40717cef91ea0fbf70f72493d715d4a3`;
+- closure post-merge FAST `35750063544`: PASS;
+- closure post-merge INTEGRATION `35750063493`: PASS.
 
-Closure branch:
-`docs/multi-span-cubic-nurbs-decision-closure`.
+Active implementation branch:
+`curve/multi-span-cubic-nurbs`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized scope:
 
-**Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
-with Simple Interior Knots.**
-
-Authorized future scope remains:
-
+- `MultiSpanCubicNURBS2/3`;
 - degree 3;
-- runtime-variable span/control/weight/simple-knot count;
-- positive finite weights;
+- at least two spans;
+- runtime-variable controls/weights/simple interior knots;
 - clamped endpoint multiplicity 4;
-- simple interior knots only;
-- non-periodic bounded domain;
-- standard owning vectors and read-only spans;
-- deterministic right-span selection;
-- local homogeneous value/D1/D2 after span location;
-- one new focused semantic contract, targeting 24 ordinary tests.
+- all interior multiplicities 1;
+- finite positive weights;
+- immutable owning vectors/read-only spans;
+- deterministic right-span location;
+- local homogeneous value/D1/D2 after logarithmic span search;
+- fixed two-span parity, independent rational-basis oracle, test-only knot
+  insertion parity, local support, reversal, affine/embedding, extreme-finite
+  and deterministic evidence;
+- one focused contract, targeting 24 ordinary tests.
 
-Arbitrary degree, repeated knots, periodicity, dedicated analytic conics and
-heterogeneous composition remain later decisions.
+The common `BoundedParametricCurve2/3` contract must remain unchanged.
+
+Arbitrary degree, repeated knots, periodicity, dedicated analytic conics,
+heterogeneous composition and every surface capability remain blocked.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
