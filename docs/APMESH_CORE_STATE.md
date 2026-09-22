@@ -318,6 +318,32 @@ reversal, boundary parity and one focused semantic/reference contract.
 No rational, spline/NURBS, Coons, analytic elementary, swept, trimmed,
 surface-differential-geometry or meshing capability is authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/parametric_surface.hpp`;
+- `include/apmesh/geometry/surface.hpp`;
+- `src/geometry/surface.cpp`;
+- `tests/surface_bicubic_bezier.cpp`;
+- `CMakeLists.txt`.
+
+Candidate semantics:
+
+- exact [0,1]^2 domain for this concrete patch;
+- immutable 4x4 U-major Point3 control net;
+- V-then-U tensor-product de Casteljau;
+- analytic Su, Sv, Suu, Suv and Svv;
+- U/V reversal without a normal API;
+- exact corner identities and curve-boundary parity;
+- constant/rank-deficient patches remain valid representations;
+- parameter validation order is U finite, V finite, U domain, V domain;
+- final unrepresentable arithmetic returns
+  `SurfaceError::non_finite_result`;
+- 26 ordinary tests are expected after registration.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC BÉZIER PATCH
