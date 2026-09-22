@@ -296,56 +296,77 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #120; terminally reconciles the fixed B-spline closure.
 - `curve/two-span-cubic-nurbs-decision`: **MERGED / HISTORICAL** via
   PR #121; bounded fixed NURBS decision.
-- `docs/two-span-cubic-nurbs-decision-closure`: **CLOSURE-ONLY**;
-  records PR #121 integration and post-merge validation.
+- `docs/two-span-cubic-nurbs-decision-closure`: **MERGED / HISTORICAL**
+  via PR #122; closes the fixed NURBS decision checkpoint.
+- `curve/two-span-cubic-nurbs`: **ACTIVE**; fixed five-control/two-span
+  cubic positive-weight NURBS implementation under the closed decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Two-Span Clamped Cubic Positive-Weight NURBS decision is integrated
-and ready for closure.**
+**Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D —
+ACTIVE / IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`curve/two-span-cubic-nurbs`.
 
-1. decision authority:
-   `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
-2. decision PR #121 merged as
-   `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-3. final PR FAST `35740954735`: PASS;
-4. final PR INTEGRATION `35740954945`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. post-merge FAST `35741064912`: PASS;
-6. post-merge INTEGRATION `35741064906`: PASS;
-7. no NURBS production family has yet been implemented;
-8. the common bounded-parametric concepts remain unchanged;
-9. all prior integrated curve families remain frozen prerequisites.
+Decision authority:
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-No production work item is active in this closure change.
+Closed decision checkpoint:
 
-## Next admissible work item
+- decision PR #121 merged as
+  `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
+- decision post-merge FAST `35741064912`: PASS;
+- decision post-merge INTEGRATION `35741064906`: PASS;
+- decision closure PR #122 merged as
+  `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
+- closure post-merge FAST `35741432913`: PASS;
+- closure post-merge INTEGRATION `35741432864`: PASS.
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
+Authorized repository mapping:
 
-**Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D.**
+1. public family:
+   `include/apmesh/geometry/nurbs.hpp`;
+2. production implementation:
+   `src/geometry/nurbs.cpp`;
+3. focused semantic/header contract:
+   `tests/two_span_cubic_nurbs.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized authorities:
+   STATE, ROADMAP, this WORKLOG and the decision.
 
-Implementation must remain within
-`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`:
+Required scope:
 
-- degree 3;
-- exactly five controls and five finite strictly positive weights;
-- knots `[a,a,a,a,k,b,b,b,b]` with strict finite `a<k<b`;
-- exactly two spans and one simple interior knot;
-- non-periodic;
-- point, D1 and D2;
+- degree exactly 3;
+- exactly five finite controls;
+- exactly five finite strictly positive weights;
+- knots `[a,a,a,a,k,b,b,b,b]`, strict finite `a<k<b`;
+- exactly two spans, one simple interior knot, non-periodic;
+- point/D1/D2;
 - homogeneous de Boor or algebraically equivalent rational evaluation;
-- all-one-weight B-spline parity;
+- equal-weight parity with `TwoSpanCubicBSpline2/3`;
 - rational-quadratic homogeneous degree-elevation/knot-insertion parity;
-- independent rational-basis reference;
-- local-support, weight-scale, reversal and extreme-finite evidence;
+- independent rational-basis oracle;
+- local support, common weight-scale, reversal, constant/extreme-finite,
+  affine/embedding and determinism evidence;
 - expected ordinary inventory: 23 tests.
 
-No broader NURBS/B-spline, arbitrary-degree Bézier, conic, composition,
-surface, boundary-discretization, sizing, meshing, Quad-Dominant or parallel
-work is authorized.
+Explicit non-actions:
+
+- no general/multi-span NURBS or B-spline;
+- no variable degree/count/container;
+- no repeated knots or periodicity;
+- no arbitrary-degree Bézier;
+- no analytic conic class;
+- no heterogeneous composition;
+- no surface/discretization/sizing/meshing;
+- no Quad-Dominant or parallel work.
+
+## Next admissible transition
+
+Complete only this implementation, pass FAST/INTEGRATION in GCC and Clang,
+integrate through one PR, pass post-merge validation, close the implementation
+checkpoint, and only then open a new literature-backed breadth decision.
