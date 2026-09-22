@@ -220,67 +220,59 @@ writing.
   PR #90; literature-backed decision only; no production implementation.
 - `docs/signed-planar-curvature-decision-closure`: **CLOSURE-ONLY**; records
   PR #90 integration and post-merge validation.
-- `curve/certified-simple-inflection-isolation-decision`: **ACTIVE /
-  VALIDATED_UNMERGED**; literature-backed decision and repository mapping only;
-  no production root-isolation implementation.
+- `curve/certified-simple-inflection-isolation-decision`: **MERGED /
+  HISTORICAL** via PR #94; literature-backed decision and repository mapping
+  only; no production root-isolation implementation.
+- `docs/certified-simple-inflection-decision-closure`: **CLOSURE-ONLY**;
+  records PR #94 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Certified Simple Planar Inflection Isolation decision —
-VALIDATED_UNMERGED / IMPLEMENTATION NOT STARTED.**
+**None. Certified Simple Planar Inflection Isolation decision is integrated and
+closed.**
 
-Active branch:
-`curve/certified-simple-inflection-isolation-decision`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
+1. decision authority:
+   `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+2. decision PR #94 merged as
+   `44e04205c604abec8dc92f31930a371dc0c56cd1`;
+3. final PR FAST `35677428464`: PASS;
+4. final PR INTEGRATION `35677428431`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. post-merge FAST `35677498659`: PASS;
+6. post-merge INTEGRATION `35677498682`: PASS;
+7. the decision explicitly accounts for internal subdivision-boundary roots;
+8. the exact quadratic Bernstein numerator contract and repository mapping are
+   frozen for the next work unit;
+9. no production implementation was included in the decision PR;
+10. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-The decision admits exactly one future production work unit:
+No work item is active.
+
+## Next admissible work item after closure
+
+Implement only:
 
 **Certified Simple Planar Inflection Isolation on Globally Regular Cubic Bézier
 Curves.**
 
-Scientific boundary:
+The implementation work item is constrained to the integrated decision:
 
-1. 2D `CubicBezier2` only;
-2. global regularity must first be certified by the integrated regularity
-   authority;
-3. isolate roots of the exact mathematical curvature numerator
-   `N(t)=det(B'(t),B''(t))`, not sampled signed-curvature values;
-4. exploit the exact quadratic Bernstein reduction with coefficients
-   `2 det(D0,D1)`, `det(D0,D2)`, `2 det(D1,D2)`;
-5. zero sign variations certify no interior root;
-6. one sign variation certifies exactly one simple interior root and therefore
-   one sign-changing inflection on a regular curve;
-7. unresolved/multiple/tangential roots remain `indeterminate`;
-8. roots that fall exactly on an internal subdivision boundary cannot disappear
-   through open-interval sign counting; each such boundary is explicitly
-   discharged, certified once, or remains `indeterminate`;
-9. returned root brackets are bounded by an explicit parameter tolerance that
-   is not a curvature or determinant epsilon;
-10. no public general polynomial solver or interval API is admitted;
-11. no discretization, sizing, surface, meshing, Quad-Dominant or parallel
-    capability is authorized.
+1. `CubicBezier2` only;
+2. explicit global regularity prerequisite;
+3. certified conservative quadratic Bernstein numerator evidence;
+4. no sampled signed-curvature proof;
+5. explicit `complete` versus `indeterminate` result vocabulary;
+6. at most two ordered certified simple-root brackets;
+7. internal subdivision-boundary root obligations must never be lost;
+8. explicit resource policy and bracket-width tolerance only;
+9. focused analytic/metamorphic/adversarial contracts;
+10. preservation of every qualified prerequisite and integrated curve
+    contract.
 
-Repository mapping is retained inside the decision and names the current public
-curve header/source, private interval machinery, prerequisite tests and expected
-future focused test path.
-
-No production file is changed in this decision work item.
-
-## Next admissible work item after closure
-
-After this decision is merged, post-merge FAST/INTEGRATION pass, and its
-checkpoint is closed, implement only:
-
-**Certified Simple Planar Inflection Isolation on Globally Regular Cubic Bézier
-Curves**
-
-within the exact decision contract.
-
-The implementation must preserve all qualified prerequisites and the integrated
-pointwise curvature/signed-curvature contracts. It must add no later
-Curve Differential Geometry capability.
+No later Curve Differential Geometry or downstream meshing capability is
+authorized by this work item.
 
