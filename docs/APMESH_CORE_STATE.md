@@ -294,41 +294,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the bounded bicubic positive-weight NURBS surface work unit.**
+**Implement the bounded bicubic positive-weight NURBS surface work unit with
+runtime-variable U/V span counts and simple interior knots.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #149 head:
-  `e44a53ae0cb9ce0329dc5036ce13c52feeea9b86`;
-- PR FAST `35797633074`: PASS;
-- PR INTEGRATION `35797633084`: PASS;
-- merge:
+- decision PR #149:
   `d6d9c8c30c716540c95fe449dee53227e6722c22`;
-- post-merge FAST `35797779574`: PASS;
-- post-merge INTEGRATION `35797779547`: PASS.
+- decision post-merge FAST `35797779574`: PASS;
+- decision post-merge INTEGRATION `35797779547`: PASS;
+- closure PR #150:
+  `cd48a635165c80f4ac1248a9fb164d824ebf9ed0`;
+- closure post-merge FAST `35798149208`: PASS;
+- closure post-merge INTEGRATION `35798149304`: PASS.
 
-Closure branch:
-`docs/surface-bicubic-nurbs-decision-closure`.
+Active branch:
+`surface/bicubic-nurbs`.
 
 Decision authority:
 `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
 
-The sole next implementation keeps degree 3, positive weights,
-non-periodicity and simple interior knots while generalizing U/V span counts
-and rectangular control/weight storage.
+The implementation may add only `BicubicNURBSSurface3` plus its private
+production machinery and focused contract. The existing common bounded-surface
+contract remains frozen.
 
 No repeated surface knots, arbitrary degree, periodicity, Coons/transfinite,
-analytic elementary, swept, trimmed, differential-geometry or meshing
-capability is authorized.
+analytic elementary, swept, trimmed, differential-geometry or meshing work is
+authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED / POLYNOMIAL AND RATIONAL BICUBIC PREREQUISITES PRESERVED**
+IMPLEMENTATION ACTIVE / NOT QUALIFIED /
+POLYNOMIAL AND RATIONAL BICUBIC PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
