@@ -818,3 +818,25 @@ the implementation bounded by Sections 5–32.
 
 No multiplicity-three, arbitrary-degree, periodic, conic, composite, surface
 or downstream capability is authorized.
+
+
+## 36. Decision closure checkpoint
+
+Decision closure PR #134 merged as
+`8e47a35922f5f0dd246b238294e58980baf91277`.
+
+Closure post-merge validation:
+
+- FAST `35754917335`: PASS;
+- INTEGRATION `35754917556`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the multiplicity-1/2 cubic
+positive-weight multi-span NURBS extension bounded by Sections 5–32.
+
+No multiplicity-three, arbitrary-degree, periodic, conic, composite, surface
+or downstream capability is authorized.
