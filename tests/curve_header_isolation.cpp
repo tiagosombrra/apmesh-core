@@ -5,6 +5,15 @@
 #include <expected>
 #include <type_traits>
 
+template <typename Curve>
+concept SupportsSignedCurvature =
+    requires(const Curve& curve) {
+        {
+            curve.signed_curvature(0.5)
+        } -> std::same_as<
+            std::expected<double, apmesh::core::CurveError>>;
+    };
+
 int main() {
     using apmesh::core::CubicBezier2;
     using apmesh::core::CubicBezier3;
@@ -50,12 +59,8 @@ int main() {
     static_assert(std::same_as<
         decltype(std::declval<const CubicBezier3&>().speed(0.5)),
         std::expected<double, CurveError>>);
-    static_assert(std::same_as<
-        decltype(std::declval<const CubicBezier2&>().signed_curvature(0.5)),
-        std::expected<double, CurveError>>);
-    static_assert(!requires(const CubicBezier3& curve) {
-        curve.signed_curvature(0.5);
-    });
+    static_assert(SupportsSignedCurvature<CubicBezier2>);
+    static_assert(!SupportsSignedCurvature<CubicBezier3>);
     static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().certify_regularity(
             std::declval<const CurveRegularityPolicy&>())),
