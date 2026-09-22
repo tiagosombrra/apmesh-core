@@ -324,7 +324,18 @@ Validation history:
 - no production, mathematical, decision, expected-result or acceptance
   semantics changed in response;
 - correction commit `0e915dc1bf9cc038fe09fb0c9dc5e8f04b521975`
-  restores only the missing test aliases; corrected validation is pending.
+  restores only the missing test aliases;
+- corrected candidate head `482ea0acd00b51a7bc772935d344008d2797474c`:
+  FAST `35720421004` PASS, 19/19 tests;
+- corrected candidate INTEGRATION `35720420984` PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug, 19/19 tests in each cell;
+- `apmesh_core.line_segment` passed in all three corrected validation jobs;
+- no production, mathematical, decision, expected-result or acceptance
+  semantics changed between the initial failed head and the corrected passing
+  candidate.
+
+The implementation candidate is therefore **FOCUSED CONTRACTS PASS / READY FOR
+FINAL PR-HEAD REVALIDATION AFTER THIS DOCUMENTATION SYNC / NOT QUALIFIED**.
 
 Explicit non-actions:
 
