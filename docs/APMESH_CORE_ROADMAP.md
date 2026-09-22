@@ -1510,6 +1510,7 @@ candidates before authorizing any production implementation.
 Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
 BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
 BOUNDED LINE SEGMENT IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+SECOND FAMILY DECISION ACTIVE / RATIONAL QUADRATIC BÉZIER SELECTED /
 NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1613,6 +1614,23 @@ Validation history is retained:
 Production now contains `LineSegment2` and `LineSegment3`. The common
 parametric contract was not changed. The family work unit is integrated but
 not scientifically qualified as a broadened representation stage.
+
+Implementation closure PR #106 merged as
+`b435ddbbf93f94741014b26d081dbf5bdbb7c9e6`. Closure post-merge FAST
+`35722144861` and INTEGRATION `35722144806` passed.
+
+The active second-family decision is
+`docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
+
+It compares dedicated analytic conics, rational/arbitrary-degree Bézier,
+B-spline, NURBS and composition/trimming and selects **Positive-Weight Rational
+Quadratic Bézier Representation in 2D and 3D** as the next candidate.
+
+Repository-specific sequencing matters: the qualified Cartesian-frame claim
+does not include arbitrary-angle rotations, so a general analytic 3D circle
+would require a separate arbitrary supporting-plane/orientation decision.
+Rational control geometry supplies a smaller 2D/3D conic-capable step without
+silently weakening that prerequisite.
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
 
@@ -1787,45 +1805,51 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Bounded Directed Line Segment
-Representation in 2D and 3D — IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / NOT QUALIFIED**
+**Curve Representation Breadth Gate — Second Concrete Curve Family Decision —
+ACTIVE / POSITIVE-WEIGHT RATIONAL QUADRATIC BÉZIER SELECTED /
+DOCUMENTATION ONLY**
 
-Implementation authority:
-`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
+Closed line-segment evidence:
 
-Integrated evidence:
-
-- PR #105:
+- implementation PR #105:
   `87ced22d033e5478c134aa66c2eef4b6017a4596`;
-- retained initial mechanical FAST/INTEGRATION failure:
-  `35720284585` / `35720284182`;
-- corrected candidate:
-  FAST `35720421004`, INTEGRATION `35720420984`, 19/19;
-- final PR head:
-  FAST `35721616589`, INTEGRATION `35721616596`, 19/19;
-- post-merge:
-  FAST `35721779942`, INTEGRATION `35721779739`, 19/19.
+- implementation closure PR #106:
+  `b435ddbbf93f94741014b26d081dbf5bdbb7c9e6`;
+- closure post-merge FAST `35722144861`: PASS;
+- closure post-merge INTEGRATION `35722144806`: PASS.
 
-Production breadth now includes:
+Active decision:
+`docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-- polynomial cubic Bézier (`CubicBezier2/3`), with its original CGR0–CGR7
-  qualification retained exactly;
-- bounded directed line segments (`LineSegment2/3`), integrated under focused
-  contracts but not covered by CGR qualification.
+Selected bounded candidate:
 
-The next bounded action after this closure is one new literature-backed
-decision for the next concrete family. Bounded circular/conic arc,
-rational/arbitrary-degree Bézier, B-spline, NURBS and composite/trimmed curves
-remain candidates rather than authorization.
+**Positive-Weight Rational Quadratic Bézier Representation in 2D and 3D.**
+
+The decision fixes:
+
+- three finite control points;
+- three finite strictly positive weights;
+- exact `[0,1]` parameter domain;
+- common bounded-parametric concept conformance;
+- rational point evaluation;
+- rational D1/D2;
+- control/weight reversal;
+- common positive weight-scale invariance;
+- equal-weight polynomial parity through independently degree-elevated existing
+  cubic Bézier fixtures;
+- conic and quarter-circle reference evidence;
+- no knots, periodicity or trimming.
+
+No production implementation is authorized until this decision is integrated,
+post-merge FAST/INTEGRATION pass and its checkpoint is separately closed.
+
+Dedicated analytic conics, arbitrary-degree Bézier, B-spline, NURBS and
+composite/trimmed curves remain later decisions.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during the representation-breadth sequence.
 
-Boundary Curve Discretization remains blocked because the declared
-`line/arc/Bezier` regression still lacks an admitted exact arc/conic family.
-Surface Representation remains blocked pending its own entry decision and the
-necessary boundary/trimming prerequisites.
+Boundary Curve Discretization and Surface Representation remain blocked.
 
 The long-term ordering remains:
 

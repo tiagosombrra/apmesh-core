@@ -601,6 +601,71 @@ Project relevance:
 - does not define AP Mesh parameterization, error semantics or qualification
   criteria.
 
+### Rational Bézier and conic-section notes — weighted quadratic bridge
+
+Status: `FOUNDATIONAL` for the second concrete curve-family decision,
+reviewed 2026-09-22.
+
+Michigan Technological University references:
+
+- https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS/RB.html
+- https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS/RB-conics.html
+- https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS/RB-circles.html
+
+Project relevance:
+
+- rational Bézier curves are a knot-free special case of NURBS;
+- quadratic rational Bézier curves represent conic segments;
+- suitable positive weights represent circular arcs, including the standard
+  quarter-circle construction;
+- supports introducing weighted denominator semantics before B-spline knot and
+  NURBS complexity;
+- the pages are mathematical/reference evidence only and are not admitted as
+  runtime code or a floating-point oracle.
+
+### Open CASCADE conic and trimmed-curve semantics — analytic alternative
+
+Status: `FOUNDATIONAL / SCOPING` evidence for comparing a dedicated analytic
+arc against the selected rational representation, reviewed 2026-09-22.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom___conic.html
+- https://dev.opencascade.org/doc/refman/html/class_geom2d___circle.html
+- https://dev.opencascade.org/doc/refman/html/class_geom___trimmed_curve.html
+
+Project relevance:
+
+- mature CAD kernels keep circle, ellipse, hyperbola and parabola as explicit
+  analytic conic families;
+- circles have angular periodic semantics rather than the AP Mesh bounded
+  `[0,1]` convention used by current concrete families;
+- trimmed curves introduce basis-curve, orientation and parameter-bound
+  semantics as a distinct concern;
+- supports retaining dedicated analytic conics/trimming as later explicit work,
+  rather than conflating them with the first rational quadratic family;
+- AP Mesh does not adopt Open CASCADE inheritance, tolerances, ownership or a
+  runtime dependency.
+
+### Internal arbitrary-orientation constraint — qualified Cartesian Frames
+
+Status: `FOUNDATIONAL / INTERNAL` sequencing constraint for the second
+concrete-family decision.
+
+Authority:
+`docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`.
+
+Project relevance:
+
+- qualified frames admit exact signed-permutation bases and reciprocal-safe
+  power-of-two scale only;
+- arbitrary-angle rotations and approximate frames are explicitly outside the
+  qualified claim;
+- a general analytic 3D circular arc cannot silently treat this qualified frame
+  as an arbitrary supporting-plane frame;
+- rational control geometry can represent planar conic segments in arbitrary
+  2D/3D positions without first broadening frame semantics.
+
 ### Global cubic regularity — Bernstein zero-exclusion references
 
 Status: `FOUNDATIONAL` for the bounded Global Cubic Regularity Certification
