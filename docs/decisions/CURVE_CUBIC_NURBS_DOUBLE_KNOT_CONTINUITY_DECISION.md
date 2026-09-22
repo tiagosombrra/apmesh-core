@@ -878,6 +878,17 @@ reflection, 2D/3D embedding and accidental-smoothness protection.
 
 Expected ordinary semantic inventory: **25 tests**.
 
+Candidate validation:
+
+- candidate head:
+  `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
+- FAST `35756479210`: PASS, 25/25 ordinary semantic tests;
+- INTEGRATION `35756479108`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 25/25 tests per cell;
+- `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
