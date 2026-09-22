@@ -956,3 +956,32 @@ heterogeneous composition, surfaces or downstream meshing.
 
 After terminal documentation synchronization, a fresh literature-backed breadth
 decision is mandatory before any next representation implementation.
+
+
+## 38. Terminal implementation synchronization
+
+Terminal synchronization PR #126 merged as
+`eaba130eaa5da79fc827b8f770df4123524fc455`.
+
+Synchronization validation:
+
+- PR FAST `35747044794`: PASS;
+- PR INTEGRATION `35747044719`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35747249752`: PASS;
+- post-merge INTEGRATION `35747249889`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+Terminal fixed-NURBS result:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
+
+No fixed-NURBS implementation or documentation work remains active.
+
+The next admissible action is one fresh literature-backed Curve Representation
+Breadth decision comparing the remaining candidates listed in Section 31.
+No candidate is pre-authorized.
+
+The original Cubic-Bézier CGR0–CGR7 qualification remains unchanged and no
+surface or downstream meshing capability is implied.
