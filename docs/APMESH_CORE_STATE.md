@@ -284,53 +284,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the second-concrete-family decision selecting Positive-Weight
-Rational Quadratic Bézier Representation in 2D and 3D. No production
-implementation is authorized on this branch.**
+**Implement Positive-Weight Rational Quadratic Bézier Representation in 2D and
+3D under the closed decision.**
 
-Terminal line-segment closure evidence:
+Decision evidence:
 
-- implementation closure PR #106 merged as
-  `b435ddbbf93f94741014b26d081dbf5bdbb7c9e6`;
-- closure PR FAST `35722026674`: PASS;
-- closure PR INTEGRATION `35722026746`: PASS;
-- closure post-merge FAST `35722144861`: PASS;
-- closure post-merge INTEGRATION `35722144806`: PASS.
+- PR #107 merged as
+  `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
+- decision PR FAST `35722805362`: PASS;
+- decision PR INTEGRATION `35722805446`: PASS;
+- decision post-merge FAST `35722894744`: PASS;
+- decision post-merge INTEGRATION `35722894725`: PASS;
+- decision closure authority: PR #108.
 
-Active branch:
-`curve/rational-quadratic-bezier-decision`.
-
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-The decision compares analytic circle/conic arcs, rational/arbitrary-degree
-Bézier, B-spline, NURBS and composition/trimming. It selects a fixed
-positive-weight rational quadratic Bézier family because it:
+The sole authorized production scope is the fixed-degree positive-weight
+rational quadratic family in 2D/3D plus its focused evidence.
 
-- provides bounded 2D/3D weighted rational semantics;
-- represents conic segments in real arithmetic;
-- requires no knot vector or periodic spline machinery;
-- avoids falsely reusing the qualified signed-permutation Cartesian frames as
-  arbitrary 3D plane/orientation frames;
-- forms a direct semantic bridge toward NURBS.
+The common bounded-parametric concepts must remain unchanged.
 
-If the decision is integrated and separately closed, the sole next
-implementation work item is:
+No analytic conic class, arbitrary-degree Bézier, B-spline, NURBS,
+composition/trimming, surface, discretization or meshing implementation is
+authorized.
 
-**Positive-Weight Rational Quadratic Bézier Representation in 2D and 3D.**
-
-No analytic circle/conic class, arbitrary-degree Bézier, B-spline, NURBS,
-composite/trimmed curve, surface, discretization or meshing implementation is
-authorized yet.
+Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and is
+paused during this representation-breadth sequence.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — Second Concrete Curve Family Decision —
-ACTIVE / POSITIVE-WEIGHT RATIONAL QUADRATIC BÉZIER SELECTED /
-DOCUMENTATION ONLY / LINE-SEGMENT INTEGRATION PRESERVED /
-CUBIC BASELINE QUALIFICATION PRESERVED**
+**Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
+Bézier — DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
+LINE-SEGMENT INTEGRATION PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
