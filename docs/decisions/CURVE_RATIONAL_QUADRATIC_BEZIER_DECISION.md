@@ -699,8 +699,19 @@ degree-elevation and conic residual fixtures.
 
 Expected ordinary FAST/INTEGRATION inventory after registration: **20 tests**.
 
-Status before CI:
+Candidate validation:
 
-**IMPLEMENTED CANDIDATE / FOCUSED VALIDATION PENDING / NOT QUALIFIED.**
+- candidate head:
+  `a68134daae06207f1ec32cf7df1f613a7e8cb693`;
+- FAST `35726985299`: PASS, 20/20 tests;
+- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 20/20 tests in each cell;
+- `apmesh_core.rational_quadratic_bezier`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
 
 No other family or downstream capability is implied.
