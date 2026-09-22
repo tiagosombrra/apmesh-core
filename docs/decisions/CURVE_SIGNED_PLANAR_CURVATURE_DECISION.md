@@ -391,3 +391,21 @@ Those are roadmap candidates only and are not authorized by this document.
 Curve Differential Geometry remains unqualified until a later cumulative
 stage-exit campaign covers all admitted work units and every qualified
 prerequisite.
+
+## 15. Integration checkpoint
+
+PR #90 integrated this decision as
+`8da6ad656871c23f26f74f148298283970338583`.
+
+Validation:
+
+- PR FAST `35674524237`: PASS;
+- PR INTEGRATION `35674524211`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35674581493`: PASS;
+- post-merge INTEGRATION `35674581550`: PASS.
+
+The decision checkpoint is closed. The sole next bounded work item is
+implementation of **Pointwise Signed Curvature on Regular Planar Cubic Bézier
+Curves** within the contract above. No later Curve Differential Geometry
+capability is authorized by this checkpoint.

@@ -212,52 +212,51 @@ writing.
   production curvature implementation.
 - `docs/curve-differential-entry-closure`: **CLOSURE-ONLY**; records PR #86
   integration and post-merge validation.
-- `curve/pointwise-curvature-magnitude`: **ACTIVE**; bounded first Curve
-  Differential Geometry production work unit only.
+- `curve/pointwise-curvature-magnitude`: **MERGED / HISTORICAL** via PR #88;
+  bounded first Curve Differential Geometry production work unit only.
+- `docs/curve-pointwise-curvature-closure`: **MERGED / HISTORICAL** via
+  PR #89; closes the first Curve Differential Geometry work unit.
+- `curve/signed-planar-curvature-decision`: **MERGED / HISTORICAL** via
+  PR #90; literature-backed decision only; no production implementation.
+- `docs/signed-planar-curvature-decision-closure`: **CLOSURE-ONLY**; records
+  PR #90 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Define Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves —
-VALIDATED_UNMERGED / DECISION ONLY.**
+**None. The Pointwise Signed Curvature decision checkpoint is closed.**
 
-Active branch: `curve/signed-planar-curvature-decision`.
+Closure evidence:
 
-Authority:
-`docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
+1. decision authority:
+   `docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`;
+2. decision PR #90 merged as
+   `8da6ad656871c23f26f74f148298283970338583`;
+3. PR FAST `35674524237`: PASS;
+4. PR INTEGRATION `35674524211`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+5. post-merge FAST `35674581493`: PASS;
+6. post-merge INTEGRATION `35674581550`: PASS;
+7. no production signed-curvature implementation was included in the decision;
+8. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Decision scope:
-
-1. one 2D-only public pointwise signed-curvature query;
-2. standard ordered `(x,y)` orientation;
-3. `det(B',B'') / ||B'||^3` on regular parameters;
-4. exact singular-parameter failure;
-5. canonical `+0.0` at successful exact zero curvature;
-6. same scale-aware internal planar curvature core as magnitude;
-7. reversal sign flip;
-8. orientation-preserving frame invariance;
-9. orientation-reversing frame sign flip;
-10. reciprocal uniform-scale covariance;
-11. explicit magnitude parity;
-12. no certified inflection/extrema/global-feature claim.
-
-Research mapping was added to
-`docs/research/REFERENCE_REGISTER.md` using Farin and the MIT
-Patrikalakis–Maekawa–Cho Hyperbook as mathematical/scoping authorities.
-
-No production code is included in this decision work item.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this decision is merged, post-merge FAST/INTEGRATION pass, and the
-decision checkpoint is closed, implement exactly:
+Implement exactly:
 
 **Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves**
 
-within the accepted decision boundary.
+within `docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
 
-No inflection isolation, global curvature bound, extrema classifier, feature
-classifier, discretization, sizing, surface, meshing, Quad-Dominant or parallel
-capability is authorized.
+The implementation must remain 2D-only, reuse the qualified derivative and
+scale-aware planar-curvature semantics, preserve canonical successful
+`+0.0`, test reversal/reflection/orientation laws and magnitude parity, and
+preserve all qualified prerequisites.
+
+No certified inflection isolation, global curvature bounds, extrema,
+classification, discretization, sizing, surfaces, meshing, Quad-Dominant or
+parallel capability is authorized.
 
