@@ -262,13 +262,44 @@ A coefficient sign is certified only when its entire enclosure is:
 An exact interval `[0,0]` is an exact zero coefficient; otherwise an interval
 containing zero has unknown sign.
 
-After exact-zero coefficients are removed for sign-variation counting:
+For the **open interior** `(a,b)`, Bernstein/Descartes sign-variation
+reasoning removes exact-zero coefficients from the coefficient sign sequence:
 
-- zero certified sign variations proves no interior root in `(a,b)`;
-- one certified sign variation proves exactly one interior real root, counted
-  with multiplicity; because total multiplicity is one, that root is simple;
+- zero certified sign variations proves no root in `(a,b)`;
+- one certified sign variation proves exactly one real root in `(a,b)`,
+  counted with multiplicity; because total multiplicity is one, that root is
+  simple;
 - two sign variations or any unresolved coefficient sign requires subdivision
   or `indeterminate`.
+
+This open-interval statement is not, by itself, sufficient for complete
+coverage after subdivision because an interior root may lie exactly on a
+shared child boundary.
+
+Therefore every root-analysis node must separately retain **boundary-root
+obligations** for its finite endpoints.
+
+For the global root node:
+
+- `t=0` and `t=1` are physical curve-domain boundaries and are excluded from
+  the admitted interior-inflection set.
+
+For every boundary created by subdivision inside `(0,1)`:
+
+- the boundary parameter belongs to the global interior domain;
+- if the endpoint coefficient enclosure excludes zero, the boundary is
+  certified root-free;
+- if the endpoint coefficient can contain zero, the boundary remains an
+  unresolved root obligation unless a separately admitted exact/simple-root
+  witness certifies and owns it exactly once.
+
+A child interval may therefore have zero open-interior sign variations and
+still be **not root-free globally** when one of its internal subdivision
+boundaries carries an unresolved zero obligation.
+
+No internal-boundary root may disappear merely because exact-zero Bernstein
+endpoint coefficients are removed during open-interval sign-variation
+counting.
 
 The implementation must not infer a root count from midpoint samples or
 ordinary rounded coefficient signs.
@@ -281,38 +312,66 @@ For one globally regular `CubicBezier2`:
 2. certify global regularity;
 3. construct conservative enclosures for `D0,D1,D2`;
 4. construct conservative enclosures for `N0,N1,N2`;
-5. initialize one root-analysis node for `[0,1]`;
-6. analyze sign variation using certified coefficient signs;
-7. if variation is zero, mark the interval root-free;
-8. if variation is one:
-   - it contains exactly one simple interior root;
-   - if interval width is within the explicit parameter-bracket tolerance,
+5. initialize one root-analysis node for `[0,1]` with the physical endpoints
+   marked as excluded boundary events;
+6. analyze certified sign variation on the open interior of the node;
+7. separately evaluate the node's endpoint root obligations:
+   - physical `0`/`1` endpoints remain excluded from the feature set;
+   - internal subdivision boundaries must be proved root-free, separately
+     certified as one exact simple root, or retained unresolved;
+8. if open-interior variation is zero and all relevant internal-boundary
+   obligations are root-free/resolved, mark that covered portion root-free;
+9. if open-interior variation is one:
+   - it contains exactly one simple open-interior root;
+   - if interval width is within the explicit parameter-bracket tolerance and
+     no unresolved internal-boundary obligation would alias the same root,
      retain it as one certified inflection bracket;
    - otherwise subdivide;
-9. if variation is two or coefficient signs remain unresolved, subdivide if
-   policy resources permit;
-10. if subdivision/resources are exhausted while unresolved evidence remains,
-    return `indeterminate`;
-11. return `complete` only when the full open interval is covered by
-    root-free leaves and pairwise-disjoint certified simple-root brackets.
+10. if variation is two, a coefficient sign remains unresolved, or an internal
+    boundary remains unresolved, subdivide if the policy/resource limits permit
+    and if subdivision can refine the relevant evidence;
+11. when subdividing at midpoint `m`, create one shared boundary obligation for
+    `m`; it must be accounted for exactly once across the two children;
+12. if subdivision/resources are exhausted while any open-interior or internal-
+    boundary root obligation remains unresolved, return `indeterminate`;
+13. return `complete` only when the entire global open interval `(0,1)` is
+    covered by root-free regions and pairwise-disjoint certified simple-root
+    brackets, with no unresolved internal subdivision boundary.
 
 Quadratic midpoint subdivision must use Bernstein/de Casteljau arithmetic and
-retain exact child interval coverage.
+retain exact child parameter coverage.
+
+A future implementation may optionally admit a zero-width bracket for an exact
+representable internal root only if that root and its simplicity are
+independently and rigorously certified. This decision does not require such an
+exact-root witness; returning `indeterminate` is valid when conservative
+floating enclosures cannot discharge an internal-boundary zero obligation.
 
 No Newton iteration, quadratic formula, companion matrix, sampled
 signed-curvature sign scan, or third-party solver is part of the proof.
 
-## 10. Endpoint semantics
+## 10. Endpoint and subdivision-boundary semantics
 
 This work unit isolates **interior** inflections on `t∈(0,1)`.
 
-A zero of `N` exactly at `t=0` or `t=1` is a boundary zero-curvature
-event, not an interior inflection under this contract.
+A zero of `N` exactly at the physical curve-domain endpoints `t=0` or
+`t=1` is a boundary zero-curvature event, not an interior inflection under
+this contract.
 
-Endpoint zero coefficients are therefore excluded from the interior root count
-according to the Bernstein/Descartes open-interval semantics.
+Those two physical endpoint zeros are excluded from the interior feature set
+according to Bernstein/Descartes open-interval semantics.
 
-The work unit does not introduce a separate boundary-feature classification.
+By contrast, a midpoint or other endpoint produced by recursive subdivision is
+an **internal bookkeeping boundary**, not a physical curve-domain boundary. An
+interior root at such a parameter remains part of `(0,1)` and must not be
+discarded.
+
+Consequently, a complete result requires explicit accounting for every
+subdivision boundary at which the curvature-numerator enclosure can contain
+zero.
+
+The work unit does not introduce a separate physical boundary-feature
+classification.
 
 ## 11. Public result vocabulary
 
@@ -436,6 +495,7 @@ A dedicated focused contract must cover at minimum:
 | Translation | Brackets/count unchanged. |
 | Power-of-two uniform scale | Brackets/count unchanged. |
 | Endpoint zero-curvature numerator | Boundary zero is not reported as an interior inflection. |
+| Root exactly on an internal subdivision boundary | Must not disappear through open-interval sign counting; either certify/own it exactly once or return `indeterminate`. |
 | Exact double interior zero | Must not be reported as a certified simple inflection; result may be `indeterminate`. |
 | Near-double / ill-conditioned fixture | No guessed simple-root classification; complete only if coefficient evidence proves it. |
 | Globally degenerate curve | No successful complete inflection result. |
