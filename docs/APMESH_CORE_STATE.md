@@ -255,10 +255,11 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-5. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-6. the latest relevant audit under `docs/audits/`;
-7. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+5. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+6. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+7. the latest relevant audit under `docs/audits/`;
+8. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -281,38 +282,53 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Open one new literature-backed bounded decision for the next Curve
-Differential Geometry investigation.**
+**Integrate the Parametric Curve Family Abstraction and Representation Breadth
+decision; no production implementation is authorized on this branch.**
 
-Certified Simple Planar Inflection Isolation was integrated by PR #96 as
-`c4905589c2ee8700c58560ef1a99a49a3821af4e`.
+Operational prerequisite closure:
 
-Validation:
+- PR #97 merged as
+  `13ec3ac80a88434d73c09ae25c9d542182109c51`;
+- post-merge FAST `35707518191`: PASS;
+- post-merge INTEGRATION `35707518122`: PASS.
 
-- final PR FAST `35678624215`: PASS;
-- final PR INTEGRATION `35678624192`: PASS;
-- post-merge FAST `35678808956`: PASS;
-- post-merge INTEGRATION `35678808941`: PASS.
+Active branch:
+`curve/parametric-curve-family-abstraction-decision`.
 
-The work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-NOT QUALIFIED**.
+Decision authority:
+`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
 
-No next Curve Differential Geometry capability is pre-authorized. A separate
-literature-backed decision must compare the remaining candidates and freeze a
-new bounded contract before production code is written.
+The decision chooses a minimal static bounded parametric-curve semantic seam
+before another Cubic-Bézier-specific differential feature or a second concrete
+curve family. It preserves the qualified cubic-Bézier CGR0–CGR7 baseline.
 
-Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
+If the decision is integrated, post-merge validation passes, and a separate
+decision checkpoint closes, the sole next implementation work unit is:
 
+**Bounded Parametric Curve Contract and Cubic Bézier Conformance.**
+
+No line/arc/rational/B-spline/NURBS/surface production implementation is
+authorized yet.
+
+Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and is
+temporarily paused for the representation-breadth seam.
 
 ## Current active stage
+
+**Curve Representation Breadth Gate — Parametric Curve Family Abstraction —
+DECISION ACTIVE / DOCUMENTATION ONLY / NO NEW FAMILY IMPLEMENTED /
+CUBIC BASELINE QUALIFICATION PRESERVED**
+
+Paused prerequisite investigation:
 
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
 SIMPLE-INFLECTION INTEGRATED /
-FOCUSED CONTRACTS PASS / NOT QUALIFIED**
+FOCUSED CONTRACTS PASS / NOT QUALIFIED / PAUSED FOR REPRESENTATION-BREADTH
+SEAM**
 
 ## Representation breadth retained limitation
 
