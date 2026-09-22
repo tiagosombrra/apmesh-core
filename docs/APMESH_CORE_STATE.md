@@ -288,30 +288,33 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the Multi-Span Clamped Cubic Positive-Weight NURBS work unit with simple
-interior knots.**
+**Implement the closed-decision Multi-Span Clamped Cubic Positive-Weight NURBS
+work unit with simple interior knots.**
 
-Decision evidence:
+Decision/closure evidence:
 
-- PR #128:
+- decision PR #128:
   `77a7773cdb431469402f773b52c70d171d805201`;
-- PR FAST `35749650284`: PASS;
-- PR INTEGRATION `35749650175`: PASS;
-- post-merge FAST `35749735576`: PASS;
-- post-merge INTEGRATION `35749735502`: PASS.
+- decision post-merge FAST `35749735576`: PASS;
+- decision post-merge INTEGRATION `35749735502`: PASS;
+- closure PR #129:
+  `4f59898b40717cef91ea0fbf70f72493d715d4a3`;
+- closure PR FAST `35749973962`: PASS;
+- closure PR INTEGRATION `35749973927`: PASS;
+- closure post-merge FAST `35750063544`: PASS;
+- closure post-merge INTEGRATION `35750063493`: PASS.
 
-Closure branch:
-`docs/multi-span-cubic-nurbs-decision-closure`.
+Active branch:
+`curve/multi-span-cubic-nurbs`.
 
 Decision authority:
 `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
 
-The sole authorized next implementation keeps degree 3, simple interior knots,
-positive weights and non-periodicity while generalizing only runtime
-span/control/knot count.
+The implementation may generalize only runtime span/control/weight/simple-knot
+count. Degree 3, simple interior multiplicity, positive weights,
+non-periodicity and the common bounded-parametric contract remain frozen.
 
 No arbitrary degree, repeated knots, periodicity, analytic conic,
 heterogeneous composition, surface, discretization or meshing work is
@@ -319,10 +322,10 @@ authorized.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — MULTI-SPAN CUBIC NURBS DECISION
-INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED / FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
-INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
+**Curve Representation Breadth Gate — MULTI-SPAN CUBIC NURBS
+IMPLEMENTATION ACTIVE / NOT QUALIFIED / FIXED NURBS, B-SPLINE, RATIONAL,
+TRIM AND LINE INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION
+PRESERVED**
 
 Paused prerequisite investigation:
 
