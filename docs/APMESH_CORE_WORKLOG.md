@@ -310,73 +310,61 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/fixed-nurbs-terminal-state`: **MERGED / HISTORICAL** via PR #127;
   removes the final stale sync marker and establishes a genuinely idle
   representation-breadth checkpoint.
-- `curve/multi-span-cubic-nurbs-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; literature-backed next breadth decision; no production
-  implementation.
+- `curve/multi-span-cubic-nurbs-decision`: **MERGED / HISTORICAL** via
+  PR #128; bounded multi-span cubic NURBS breadth decision.
+- `docs/multi-span-cubic-nurbs-decision-closure`: **CLOSURE-ONLY**;
+  records PR #128 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Multi-Span Clamped Cubic Positive-Weight NURBS Breadth Decision —
-ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
-NOT QUALIFIED.**
+**None. Multi-Span Clamped Cubic Positive-Weight NURBS breadth decision is
+integrated and ready for closure.**
 
-Active branch:
-`curve/multi-span-cubic-nurbs-decision`.
+Decision closure evidence:
 
-Entry authority:
+1. decision authority:
+   `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
+2. decision PR #128 merged as
+   `77a7773cdb431469402f773b52c70d171d805201`;
+3. decision PR FAST `35749650284`: PASS;
+4. decision PR INTEGRATION `35749650175`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. decision post-merge FAST `35749735576`: PASS;
+6. decision post-merge INTEGRATION `35749735502`: PASS;
+7. no multi-span production NURBS family has yet been implemented;
+8. the common bounded-parametric concepts remain unchanged;
+9. the fixed two-span NURBS/B-spline and all prior curve families remain frozen
+   prerequisites.
 
-- terminal fixed-NURBS main:
-  `eb48bd648c75efe044dd4bc34c3aa34b4b72cda2`;
-- terminal-state PR #127 FAST `35748224182`: PASS;
-- terminal-state PR #127 INTEGRATION `35748224260`: PASS;
-- terminal-state post-merge FAST `35748370784`: PASS;
-- terminal-state post-merge INTEGRATION `35748370519`: PASS;
-- no open PR and no active production implementation at decision entry.
+No production work item is active in this closure change.
 
-Decision authority:
-`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
+## Next admissible work item after closure
 
-Fresh comparison:
-
-1. runtime span-count expansion for clamped cubic B-spline/NURBS;
-2. arbitrary-degree polynomial/rational Bézier;
-3. repeated-knot/continuity breadth;
-4. analytic conic after arbitrary 3D placement prerequisites;
-5. heterogeneous composition/polycurve.
-
-Selected bounded future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
 with Simple Interior Knots.**
 
-The decision freezes:
+Implementation must remain within
+`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`:
 
 - degree 3;
 - at least two spans;
-- runtime-variable finite control/weight/interior-knot count;
-- simple strictly increasing interior knots only;
-- positive finite weights;
-- non-periodic bounded domain;
-- immutable owning `std::vector` storage with read-only `std::span` views;
+- runtime-variable controls/weights/simple interior knots;
+- `control_count == weight_count == interior_knot_count + 4`;
+- finite strictly positive weights;
+- non-periodic;
+- immutable owning vectors/read-only spans;
 - deterministic right-span knot policy;
-- local homogeneous value/D1/D2 evaluation after `O(log S)` span location;
-- fixed two-span parity, independent rational-basis oracle and test-only
-  geometry-preserving knot-insertion parity.
+- local homogeneous value/D1/D2 after span location;
+- fixed-family parity, independent rational-basis oracle, test-only knot
+  insertion parity, local support, reversal, affine/embedding, extreme-finite
+  and determinism evidence;
+- expected ordinary inventory: 24 tests.
 
-This branch may change only documentation/research/decision authorities.
-No multi-span production NURBS, arbitrary degree, repeated knots, analytic
-conics, polycurve, surface, discretization or meshing implementation is
-authorized.
-
-## Next admissible transition after this decision
-
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision checkpoint closes may one implementation branch be opened for
-the selected multi-span cubic NURBS work unit.
-
-If implementation requires degree variation, repeated knots, periodicity,
-one-span rational cubic admission, a common parametric-contract change, custom
-allocator policy, surface code or a second new family, stop and require a new
-decision.
+No arbitrary degree, repeated knots, periodicity, analytic conic,
+heterogeneous composition, surface, boundary-discretization, sizing, meshing,
+Quad-Dominant or parallel work is authorized.

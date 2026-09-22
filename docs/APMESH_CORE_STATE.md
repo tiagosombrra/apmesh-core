@@ -288,54 +288,39 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed Multi-Span Clamped Cubic Positive-Weight
-NURBS breadth decision; no production implementation is authorized on this
-branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the Multi-Span Clamped Cubic Positive-Weight NURBS work unit with simple
+interior knots.**
 
-Decision-entry authority:
+Decision evidence:
 
-- terminal `main`:
-  `eb48bd648c75efe044dd4bc34c3aa34b4b72cda2`;
-- terminal-state PR #127 FAST `35748224182`: PASS;
-- terminal-state PR #127 INTEGRATION `35748224260`: PASS;
-- terminal-state post-merge FAST `35748370784`: PASS;
-- terminal-state post-merge INTEGRATION `35748370519`: PASS.
+- PR #128:
+  `77a7773cdb431469402f773b52c70d171d805201`;
+- PR FAST `35749650284`: PASS;
+- PR INTEGRATION `35749650175`: PASS;
+- post-merge FAST `35749735576`: PASS;
+- post-merge INTEGRATION `35749735502`: PASS.
 
-Active branch:
-`curve/multi-span-cubic-nurbs-decision`.
+Closure branch:
+`docs/multi-span-cubic-nurbs-decision-closure`.
 
 Decision authority:
 `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
 
-The decision compares the five required breadth candidates and selects only:
+The sole authorized next implementation keeps degree 3, simple interior knots,
+positive weights and non-periodicity while generalizing only runtime
+span/control/knot count.
 
-**Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
-with Simple Interior Knots.**
-
-Selected future semantics:
-
-- degree remains exactly 3;
-- at least two spans;
-- runtime-variable controls, weights and simple interior knots;
-- `control_count == weight_count == interior_knot_count + 4`;
-- positive finite weights;
-- non-periodic;
-- immutable `std::vector` ownership / read-only `std::span` inspection;
-- deterministic exact span location with the right span selected at an
-  interior knot;
-- local homogeneous value/D1/D2 evaluation;
-- no per-query allocation or global weight scan after span location.
-
-No production implementation, repeated knots, arbitrary degree, analytic
-conics, heterogeneous composition, surface, discretization or meshing work is
+No arbitrary degree, repeated knots, periodicity, analytic conic,
+heterogeneous composition, surface, discretization or meshing work is
 authorized.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — MULTI-SPAN CUBIC NURBS DECISION
-ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED / FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
 INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
