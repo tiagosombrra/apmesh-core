@@ -287,82 +287,47 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Implement the Positive-Weight Rational Tensor-Product Bicubic Bézier Patch
-in 3D.**
+**After this implementation closure is integrated and post-merge validated,
+open one fresh literature-backed Surface Representation breadth decision.**
 
-Closed decision evidence:
+Integrated rational bicubic evidence:
 
-- decision PR #143:
-  `281626d6ec02763be57b15fff15a82b0daa9129d`;
-- decision post-merge FAST `35780994515`: PASS;
-- decision post-merge INTEGRATION `35780994410`: PASS;
-- closure PR #144:
-  `0e2e9620052f2bee3237eb8428065b68facff0fd`;
-- closure post-merge FAST `35781441396`: PASS;
-- closure post-merge INTEGRATION `35781441405`: PASS.
+- candidate correction head:
+  `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
+- corrected FAST `35782907623`: PASS, 27/27;
+- corrected INTEGRATION `35782907574`: PASS, 27/27;
+- final PR head:
+  `9677c98882ce32569e537a9b5d91f23cffabec69`;
+- final PR FAST `35783120161`: PASS, 27/27;
+- final PR INTEGRATION `35783120208`: PASS, 27/27;
+- PR #145 merge:
+  `8ac1abd913bf15ff1dc4d60595f809491902c055`;
+- post-merge FAST `35783312495`: PASS, 27/27;
+- post-merge INTEGRATION `35783312402`: PASS, 27/27.
 
-Active branch:
-`surface/rational-bicubic-bezier`.
+Closure branch:
+`docs/surface-rational-bicubic-bezier-implementation-closure`.
 
-Decision authority:
-`docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
+The integrated Surface Representation production set now includes:
 
-The implementation may add only the fixed 4x4 positive weight net and the
-rational homogeneous evaluation/partial semantics frozen by the decision.
+- `BicubicBezierPatch3`;
+- `RationalBicubicBezierPatch3`.
 
-The common `BoundedParametricSurface3` contract and integrated polynomial
-bicubic patch remain frozen.
+The common bounded-surface contract and polynomial bicubic implementation
+remain unchanged.
 
-NURBS surface, Coons/transfinite, analytic elementary, swept and trimmed
-surfaces remain explicit later work.
+No production work item is active.
 
-Candidate repository mapping:
-
-- `include/apmesh/geometry/surface.hpp`;
-- `src/geometry/rational_surface.cpp`;
-- `tests/surface_rational_bicubic_bezier.cpp`;
-- `CMakeLists.txt`.
-
-Candidate semantics:
-
-- finite strictly positive 4x4 weights are validated explicitly;
-- stored weights remain the exact inputs;
-- homogeneous controls use a common internal weight scale before coordinate
-  multiplication;
-- value and homogeneous first/second partial nets are evaluated
-  deterministically V-then-U;
-- rational quotient formulas produce Su/Sv/Suu/Suv/Svv;
-- exact corners and constant-patch identities are preserved;
-- polynomial `BicubicBezierPatch3` and the common surface concept are
-  unchanged;
-- expected ordinary inventory: 27 tests.
-
-Validation history:
-
-- initial head `83d1aedd68cbd4457e36021c704604b3a616fd8a`;
-- FAST `35782696019` and INTEGRATION `35782696016`: FAIL during focused
-  test compilation because two test-only `ControlNet` objects attempted
-  default construction of `Point3`;
-- production `rational_surface.cpp` compiled successfully in those failed
-  jobs;
-- correction changed test construction only;
-- corrected head `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
-- FAST `35782907623`: PASS, 27/27;
-- INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 27/27 per cell;
-- focused rational bicubic contract: PASS.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+The next breadth decision must recompare NURBS, Coons/transfinite, analytic
+elementary, swept and trimmed surface families. No winner is pre-authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — RATIONAL BICUBIC
-BÉZIER IMPLEMENTATION ACTIVE / NOT QUALIFIED /
+BÉZIER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED /
 POLYNOMIAL BICUBIC PATCH AND CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
