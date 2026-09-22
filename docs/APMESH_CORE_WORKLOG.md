@@ -262,62 +262,61 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/bounded-line-segment-implementation-closure`: **MERGED /
   HISTORICAL** via PR #106; records PR #105 integration, retained initial
   mechanical validation failure, corrected final validation and closure.
-- `curve/rational-quadratic-bezier-decision`: **ACTIVE**;
-  literature-backed second-concrete-family decision only; no production
-  rational-curve implementation.
+- `curve/rational-quadratic-bezier-decision`: **MERGED / HISTORICAL**
+  via PR #107; literature-backed second-concrete-family decision only.
+- `docs/rational-quadratic-bezier-decision-closure`: **MERGED /
+  HISTORICAL** via PR #108; closes the rational-quadratic decision checkpoint
+  and authorizes only its bounded implementation as the next work item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Second Concrete Curve Family — Rational Quadratic Bézier Decision —
-ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
+**None. Positive-Weight Rational Quadratic Bézier decision is integrated and
+closed.**
 
-Active branch:
-`curve/rational-quadratic-bezier-decision`.
+Decision closure evidence:
 
-Closed line-segment checkpoint:
+1. decision authority:
+   `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
+2. decision PR #107 merged as
+   `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
+3. decision PR FAST `35722805362`: PASS;
+4. decision PR INTEGRATION `35722805446`: PASS;
+5. decision post-merge FAST `35722894744`: PASS;
+6. decision post-merge INTEGRATION `35722894725`: PASS;
+7. closure authority: PR #108;
+8. line-segment integration remains preserved;
+9. common bounded-parametric semantics remain unchanged;
+10. cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-1. implementation closure PR #106 merged as
-   `b435ddbbf93f94741014b26d081dbf5bdbb7c9e6`;
-2. closure PR FAST `35722026674`: PASS;
-3. closure PR INTEGRATION `35722026746`: PASS;
-4. closure post-merge FAST `35722144861`: PASS;
-5. closure post-merge INTEGRATION `35722144806`: PASS;
-6. `LineSegment2/3` remain integrated;
-7. the common parametric contract remains unchanged;
-8. the original cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+No production work item is active in this closure change.
 
-Decision question:
+## Next admissible work item
 
-**Which concrete family should follow bounded line segments: an analytic
-circle/conic arc, rational/arbitrary-degree Bézier, B-spline, NURBS, or
-composition/trimming?**
+Open exactly one implementation branch for:
 
-Repository-specific constraint:
+**Positive-Weight Rational Quadratic Bézier Representation in 2D and 3D.**
 
-- the qualified `CartesianFrame2/3` capability admits exact
-  signed-permutation bases and power-of-two scaling only;
-- its qualification explicitly excludes arbitrary-angle rotations;
-- therefore a general analytic 3D circular arc based on an arbitrary oriented
-  plane would require a separate frame/plane decision or a new independent
-  orientation representation.
+Implementation must remain inside
+`docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`:
 
-The decision must compare whether a fixed-degree positive-weight rational
-quadratic Bézier family can provide the next smallest 2D/3D step while
-representing conic segments without introducing knots, periodic parent-curve
-semantics or an arbitrary 3D frame.
+- three finite control points;
+- three finite strictly positive weights;
+- validated construction;
+- exact `[0,1]` domain;
+- `BoundedParametricCurve2/3` conformance without changing those concepts;
+- rational value, D1 and D2;
+- reversal by reversed controls/weights;
+- positive common weight-scale invariance;
+- equal-weight parity against degree-elevated existing cubic Bézier fixtures;
+- independent conic/quarter-circle evidence;
+- focused GCC/Clang regression preserving the current 19-test inventory plus
+  the new rational test.
 
-This branch may change only documentation/research/decision authorities.
+No dedicated analytic conic, arbitrary-degree Bézier, B-spline, NURBS,
+composition/trimming, surface, boundary-discretization, sizing, meshing,
+Quad-Dominant or parallel implementation is authorized.
 
-No rational curve, analytic arc, spline, NURBS, composite/trimmed curve,
-surface, discretization, sizing, meshing, Quad-Dominant or parallel production
-implementation is authorized.
-
-## Next admissible transition
-
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision checkpoint closes may exactly one selected implementation
-work item begin.
-
-No later family is automatically authorized.
+After this rational-quadratic implementation is integrated and closed, a fresh
+literature-backed decision is required before another family.
