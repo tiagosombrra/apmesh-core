@@ -320,6 +320,32 @@ int main() {
                  "reverse trim D2 covariance differs") &&
              passed;
 
+    const auto mapped_reverse3 =
+        reversed_parameter(reverse_line3->parameter_domain(), reverse_query);
+    if (!mapped_reverse3) {
+        return 1;
+    }
+    const auto reverse_value3 = reverse_line3->evaluate(reverse_query);
+    const auto mapped_basis_value3 = line3.evaluate(*mapped_reverse3);
+    const auto reverse_d13 = reverse_line3->first_derivative(reverse_query);
+    const auto mapped_basis_d13 = line3.first_derivative(*mapped_reverse3);
+    const auto reverse_d23 = reverse_line3->second_derivative(reverse_query);
+    const auto mapped_basis_d23 = line3.second_derivative(*mapped_reverse3);
+    passed = require(
+                 reverse_value3 && mapped_basis_value3 &&
+                     close_point(*reverse_value3, *mapped_basis_value3, 16.0) &&
+                     reverse_d13 && mapped_basis_d13 &&
+                     close_scalar(
+                         reverse_d13->x(), -mapped_basis_d13->x(), 16.0) &&
+                     close_scalar(
+                         reverse_d13->y(), -mapped_basis_d13->y(), 16.0) &&
+                     close_scalar(
+                         reverse_d13->z(), -mapped_basis_d13->z(), 16.0) &&
+                     reverse_d23 && mapped_basis_d23 &&
+                     close_vector(*reverse_d23, *mapped_basis_d23, 16.0),
+                 "reverse 3D line trim covariance differs") &&
+             passed;
+
     const auto reversed_forward = forward_line->reversed();
     passed = require(
                  reversed_forward == *reverse_line &&
@@ -377,7 +403,10 @@ int main() {
         TrimmedCurve2<CubicBezier2>::make(cubic2, 0.9, 0.1);
     const auto cubic_forward3 =
         TrimmedCurve3<CubicBezier3>::make(cubic3, 0.1, 0.9);
-    if (!cubic_forward || !cubic_reverse || !cubic_forward3) {
+    const auto cubic_reverse3 =
+        TrimmedCurve3<CubicBezier3>::make(cubic3, 0.9, 0.1);
+    if (!cubic_forward || !cubic_reverse || !cubic_forward3 ||
+        !cubic_reverse3) {
         return 1;
     }
 
@@ -428,6 +457,38 @@ int main() {
                  "reverse cubic trim parity differs") &&
              passed;
 
+    const auto cubic_reverse_mapped3 =
+        reversed_parameter(cubic_reverse3->parameter_domain(), cubic_query);
+    if (!cubic_reverse_mapped3) {
+        return 1;
+    }
+    const auto cubic_reverse_value3 = cubic_reverse3->evaluate(cubic_query);
+    const auto cubic_mapped_value3 = cubic3.evaluate(*cubic_reverse_mapped3);
+    const auto cubic_reverse_d13 =
+        cubic_reverse3->first_derivative(cubic_query);
+    const auto cubic_mapped_d13 =
+        cubic3.first_derivative(*cubic_reverse_mapped3);
+    const auto cubic_reverse_d23 =
+        cubic_reverse3->second_derivative(cubic_query);
+    const auto cubic_mapped_d23 =
+        cubic3.second_derivative(*cubic_reverse_mapped3);
+    passed = require(
+                 cubic_reverse_value3 && cubic_mapped_value3 &&
+                     close_point(
+                         *cubic_reverse_value3, *cubic_mapped_value3, 16.0) &&
+                     cubic_reverse_d13 && cubic_mapped_d13 &&
+                     close_scalar(
+                         cubic_reverse_d13->x(), -cubic_mapped_d13->x(), 32.0) &&
+                     close_scalar(
+                         cubic_reverse_d13->y(), -cubic_mapped_d13->y(), 32.0) &&
+                     close_scalar(
+                         cubic_reverse_d13->z(), -cubic_mapped_d13->z(), 32.0) &&
+                     cubic_reverse_d23 && cubic_mapped_d23 &&
+                     close_vector(
+                         *cubic_reverse_d23, *cubic_mapped_d23, 64.0),
+                 "reverse 3D cubic trim parity differs") &&
+             passed;
+
     const auto rational20 = Point2::make(1.0, 0.0);
     const auto rational21 = Point2::make(1.0, 1.0);
     const auto rational22 = Point2::make(0.0, 1.0);
@@ -454,7 +515,10 @@ int main() {
         TrimmedCurve2<RationalQuadraticBezier2>::make(*rational2, 0.85, 0.15);
     const auto rational_forward3 =
         TrimmedCurve3<RationalQuadraticBezier3>::make(*rational3, 0.15, 0.85);
-    if (!rational_forward || !rational_reverse || !rational_forward3) {
+    const auto rational_reverse3 =
+        TrimmedCurve3<RationalQuadraticBezier3>::make(*rational3, 0.85, 0.15);
+    if (!rational_forward || !rational_reverse || !rational_forward3 ||
+        !rational_reverse3) {
         return 1;
     }
 
@@ -517,6 +581,46 @@ int main() {
                      close_vector(
                          *rational_reverse_d2, *rational_mapped_d2, 16.0),
                  "reverse rational trim parity differs") &&
+             passed;
+
+    const auto rational_reverse_mapped3 =
+        reversed_parameter(rational_reverse3->parameter_domain(), rational_query);
+    if (!rational_reverse_mapped3) {
+        return 1;
+    }
+    const auto rational_reverse_value3 =
+        rational_reverse3->evaluate(rational_query);
+    const auto rational_mapped_value3 =
+        rational3->evaluate(*rational_reverse_mapped3);
+    const auto rational_reverse_d13 =
+        rational_reverse3->first_derivative(rational_query);
+    const auto rational_mapped_d13 =
+        rational3->first_derivative(*rational_reverse_mapped3);
+    const auto rational_reverse_d23 =
+        rational_reverse3->second_derivative(rational_query);
+    const auto rational_mapped_d23 =
+        rational3->second_derivative(*rational_reverse_mapped3);
+    passed = require(
+                 rational_reverse_value3 && rational_mapped_value3 &&
+                     close_point(
+                         *rational_reverse_value3, *rational_mapped_value3, 4.0) &&
+                     rational_reverse_d13 && rational_mapped_d13 &&
+                     close_scalar(
+                         rational_reverse_d13->x(),
+                         -rational_mapped_d13->x(),
+                         8.0) &&
+                     close_scalar(
+                         rational_reverse_d13->y(),
+                         -rational_mapped_d13->y(),
+                         8.0) &&
+                     close_scalar(
+                         rational_reverse_d13->z(),
+                         -rational_mapped_d13->z(),
+                         8.0) &&
+                     rational_reverse_d23 && rational_mapped_d23 &&
+                     close_vector(
+                         *rational_reverse_d23, *rational_mapped_d23, 16.0),
+                 "reverse 3D rational trim parity differs") &&
              passed;
 
     const auto full_line =
