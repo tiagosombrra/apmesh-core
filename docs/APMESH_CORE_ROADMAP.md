@@ -1853,25 +1853,48 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED**
+IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-Decision evidence:
+Closed prerequisite evidence:
 
-- PR #112:
+- decision PR #112:
   `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
-- PR FAST `35729461953`: PASS;
-- PR INTEGRATION `35729462003`: PASS;
-- post-merge FAST `35729581995`: PASS;
-- post-merge INTEGRATION `35729581937`: PASS.
+- decision post-merge FAST `35729581995`: PASS;
+- decision post-merge INTEGRATION `35729581937`: PASS;
+- closure PR #113:
+  `74cafc0f7e64abe159303fe7116dcbaac4d8fad7`;
+- closure post-merge FAST `35729923695`: PASS;
+- closure post-merge INTEGRATION `35729923468`: PASS.
 
-After this closure is integrated and post-merge validation passes, the sole
-next implementation work unit is the static oriented trim wrapper fixed by the
-decision.
+Active implementation branch:
+`curve/trimmed-parametric-subcurve`.
 
-No other curve family or downstream stage is authorized.
+Implemented candidate scope:
+
+- header-only `TrimmedCurve2<Curve>` and `TrimmedCurve3<Curve>`;
+- validated finite distinct source/target basis parameters;
+- basis stored by value;
+- exposed domain `[min(u_s,u_e),max(u_s,u_e)]`;
+- forward parameter identity;
+- reverse parameter mapping through existing `reversed_parameter`;
+- reverse D1 sign and D2 preservation;
+- reversal by trim-endpoint swap only;
+- typed query failure propagation;
+- focused semantic evidence over line segment, cubic Bézier and rational
+  quadratic Bézier in 2D/3D;
+- local extreme-domain probe for overflow-safe reversal mapping;
+- one additional ordinary semantic test, targeting **21 tests**.
+
+No heterogeneous composition/type erasure, periodic trim, analytic conic,
+arbitrary-degree Bézier, B-spline/NURBS, surface, boundary discretization,
+sizing or meshing work is included.
+
+The branch must pass FAST and both INTEGRATION compiler cells before
+integration. Passing yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / NOT QUALIFIED**.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
