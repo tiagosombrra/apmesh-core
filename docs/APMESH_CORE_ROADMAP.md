@@ -1510,7 +1510,7 @@ candidates before authorizing any production implementation.
 Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
 BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
 BOUNDED LINE SEGMENT IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-SECOND FAMILY DECISION ACTIVE / RATIONAL QUADRATIC BÉZIER SELECTED /
+RATIONAL QUADRATIC BÉZIER DECISION CLOSED / IMPLEMENTATION AUTHORIZED /
 NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1625,6 +1625,14 @@ The active second-family decision is
 It compares dedicated analytic conics, rational/arbitrary-degree Bézier,
 B-spline, NURBS and composition/trimming and selects **Positive-Weight Rational
 Quadratic Bézier Representation in 2D and 3D** as the next candidate.
+
+PR #107 integrated that decision as
+`4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`. Decision-head FAST
+`35722805362`, INTEGRATION `35722805446`, post-merge FAST
+`35722894744` and post-merge INTEGRATION `35722894725` all passed.
+
+Closure authority is PR #108. After closure merge and post-merge validation,
+the rational-quadratic implementation is the sole next production work item.
 
 Repository-specific sequencing matters: the qualified Cartesian-frame claim
 does not include arbitrary-angle rotations, so a general analytic 3D circle
@@ -1805,49 +1813,43 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Second Concrete Curve Family Decision —
-ACTIVE / POSITIVE-WEIGHT RATIONAL QUADRATIC BÉZIER SELECTED /
-DOCUMENTATION ONLY**
+**Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
+Bézier Representation in 2D and 3D — DECISION CLOSED / IMPLEMENTATION
+AUTHORIZED / NOT STARTED**
 
-Closed line-segment evidence:
-
-- implementation PR #105:
-  `87ced22d033e5478c134aa66c2eef4b6017a4596`;
-- implementation closure PR #106:
-  `b435ddbbf93f94741014b26d081dbf5bdbb7c9e6`;
-- closure post-merge FAST `35722144861`: PASS;
-- closure post-merge INTEGRATION `35722144806`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-Selected bounded candidate:
+Decision evidence:
 
-**Positive-Weight Rational Quadratic Bézier Representation in 2D and 3D.**
+- PR #107:
+  `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
+- PR FAST `35722805362`: PASS;
+- PR INTEGRATION `35722805446`: PASS;
+- post-merge FAST `35722894744`: PASS;
+- post-merge INTEGRATION `35722894725`: PASS;
+- decision closure authority: PR #108.
 
-The decision fixes:
+The next implementation is limited to:
 
+- fixed degree two;
 - three finite control points;
 - three finite strictly positive weights;
+- validated construction;
 - exact `[0,1]` parameter domain;
-- common bounded-parametric concept conformance;
-- rational point evaluation;
-- rational D1/D2;
-- control/weight reversal;
+- rational value/D1/D2;
+- existing bounded-parametric concept conformance;
+- reversal by reversed controls/weights;
 - common positive weight-scale invariance;
-- equal-weight polynomial parity through independently degree-elevated existing
-  cubic Bézier fixtures;
-- conic and quarter-circle reference evidence;
-- no knots, periodicity or trimming.
+- equal-weight polynomial parity against degree-elevated existing cubic Bézier;
+- conic/quarter-circle evidence;
+- focused regression preserving every existing ordinary contract.
 
-No production implementation is authorized until this decision is integrated,
-post-merge FAST/INTEGRATION pass and its checkpoint is separately closed.
-
-Dedicated analytic conics, arbitrary-degree Bézier, B-spline, NURBS and
-composite/trimmed curves remain later decisions.
+No dedicated analytic conic, arbitrary-degree Bézier, B-spline, NURBS,
+composition/trimming or downstream geometry/meshing capability is authorized.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
-paused during the representation-breadth sequence.
+paused during representation breadth.
 
 Boundary Curve Discretization and Surface Representation remain blocked.
 
