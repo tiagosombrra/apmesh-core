@@ -1874,32 +1874,38 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Polynomial
-B-Spline — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-NOT QUALIFIED / IMPLEMENTATION CLOSURE PENDING**
+B-Spline — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / TERMINAL DOCUMENTATION SYNC ACTIVE**
 
 Implementation authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-Validation lineage:
+Terminal validation lineage:
 
 - implementation PR #118:
   `c336460b751fa600c893aa6a96f9d594cdcd9a9e`;
-- initial FAST `35736203787` and INTEGRATION `35736203805`:
-  mechanical focused-test compile failure;
-- correction commit
+- retained initial mechanical focused-test compile failure:
+  FAST `35736203787`, INTEGRATION `35736203805`;
+- correction commit:
   `e42484c6c81163b13bd01761603421dcfff34ff1`;
 - corrected FAST `35736410584`: PASS, 22/22;
 - corrected INTEGRATION `35736410585`: PASS, 22/22 in GCC and Clang;
 - final PR FAST `35736642982`: PASS;
 - final PR INTEGRATION `35736642765`: PASS;
-- post-merge FAST `35736839516`: PASS;
-- post-merge INTEGRATION `35736839526`: PASS.
+- implementation post-merge FAST `35736839516`: PASS;
+- implementation post-merge INTEGRATION `35736839526`: PASS;
+- closure PR #119:
+  `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
+- closure PR FAST `35737384883`: PASS;
+- closure PR INTEGRATION `35737384888`: PASS;
+- closure post-merge FAST `35737514686`: PASS;
+- closure post-merge INTEGRATION `35737514493`: PASS.
 
 Production now includes the fixed two-span clamped cubic B-spline family,
 without widening the original cubic-Bézier CGR qualification claim.
 
-After this closure is integrated and its own post-merge validation passes, open
-exactly one literature-backed comparison decision among:
+After this terminal sync is integrated and post-merge validated, open exactly
+one fresh literature-backed comparison decision among:
 
 - general bounded clamped B-spline expansion;
 - NURBS;
