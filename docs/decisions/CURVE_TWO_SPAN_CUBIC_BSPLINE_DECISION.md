@@ -856,3 +856,63 @@ The initial failed validation remains retained above as part of the work-unit
 evidence and was not overwritten or reinterpreted.
 
 No general B-spline, NURBS or downstream capability is implied.
+
+
+## 34. Implementation integration checkpoint
+
+PR #118 integrated the authorized work unit as
+`c336460b751fa600c893aa6a96f9d594cdcd9a9e`.
+
+Validation lineage:
+
+- initial PR head:
+  `25ca05e122ab3961d70702fd6322b68b39f108e9`;
+- initial FAST `35736203787`: FAIL during focused-test compilation;
+- initial INTEGRATION `35736203805`: FAIL in GCC 13 and Clang 18 during
+  the same focused-test compilation;
+- production `src/geometry/bspline.cpp` compiled before the focused test
+  failed;
+- correction commit
+  `e42484c6c81163b13bd01761603421dcfff34ff1` changed only fixture
+  initialization;
+- corrected candidate:
+  `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`;
+- corrected FAST `35736410584`: PASS, 22/22 tests;
+- corrected INTEGRATION `35736410585`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 22/22 tests per cell;
+- final documentation-synchronized head:
+  `01556ff836ea9f49e907c45c40f5a824bba3622e`;
+- final PR FAST `35736642982`: PASS;
+- final PR INTEGRATION `35736642765`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35736839516`: PASS;
+- post-merge INTEGRATION `35736839526`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+Integrated production scope:
+
+- `TwoSpanCubicBSpline2`;
+- `TwoSpanCubicBSpline3`;
+- degree exactly three;
+- five control points;
+- full knots `[a,a,a,a,k,b,b,b,b]`;
+- strict finite `a<k<b`;
+- two nonzero spans and one simple interior knot;
+- de Boor value evaluation;
+- fixed derivative B-spline D1/D2;
+- endpoint, local-support, knot, reversal, knot-insertion parity,
+  affine/embedding, extreme-finite and determinism evidence.
+
+The common bounded-parametric concepts were not changed.
+
+Work-unit result:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+This result does not qualify general B-spline, NURBS, arbitrary-degree Bézier,
+analytic conics, heterogeneous composition, spline surfaces or downstream
+meshing.
+
+After implementation closure integration/post-merge validation, a fresh
+literature-backed decision is mandatory before another representation-breadth
+work item.
