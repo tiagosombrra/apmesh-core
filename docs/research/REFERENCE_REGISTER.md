@@ -561,6 +561,46 @@ Project relevance:
   scientific qualification of curve evaluation.
 
 
+### CGAL Segment_2 / Segment_3 — directed bounded segment semantics
+
+Status: `FOUNDATIONAL` for the first concrete curve-family decision,
+reviewed 2026-09-22.
+
+Official references:
+
+- https://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Segment__2.html
+- https://doc.cgal.org/latest/Kernel_23/classCGAL_1_1Segment__3.html
+
+Project relevance:
+
+- models a segment as a directed closed straight segment between source and
+  target;
+- source and target are part of the segment;
+- reversal/opposite swaps source and target;
+- coincident source/target is explicitly classified as a degenerate segment;
+- provides independent mature-kernel evidence for keeping value representation
+  distinct from later regularity/admissibility claims;
+- CGAL is not admitted as a runtime dependency or numerical oracle.
+
+### CGAL Arrangement curve-family guidance — minimal family first
+
+Status: `FOUNDATIONAL / SCOPING` for representation-breadth sequencing,
+reviewed 2026-09-22.
+
+Official reference:
+https://doc.cgal.org/latest/Arrangement_on_surface_2/index.html
+
+Project relevance:
+
+- distinguishes line segments, circular/conic arcs, polylines, Bézier curves
+  and other curve-family traits;
+- explicitly recommends using the smallest traits model that satisfies the
+  actual need;
+- supports implementing the smallest independent linear family before adding
+  conic, rational or spline machinery;
+- does not define AP Mesh parameterization, error semantics or qualification
+  criteria.
+
 ### Global cubic regularity — Bernstein zero-exclusion references
 
 Status: `FOUNDATIONAL` for the bounded Global Cubic Regularity Certification
