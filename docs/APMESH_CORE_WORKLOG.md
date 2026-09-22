@@ -292,61 +292,59 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/two-span-cubic-bspline-implementation-closure`: **MERGED /
   HISTORICAL** via PR #119; closes the fixed two-span cubic B-spline
   implementation checkpoint.
-- `docs/two-span-cubic-bspline-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles PR #119 integration and its
-  post-merge validation before the next scientific decision.
+- `docs/two-span-cubic-bspline-closure-sync`: **MERGED / HISTORICAL**
+  via PR #120; terminally reconciles the fixed B-spline closure.
+- `curve/two-span-cubic-nurbs-decision`: **ACTIVE**; literature-backed
+  fixed NURBS decision only; no production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Two-Span Clamped Cubic Polynomial B-Spline implementation is closed;
-terminal documentation synchronization is active.**
+**Two-Span Clamped Cubic Positive-Weight NURBS — DECISION ACTIVE /
+DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
 
-Terminal closure evidence:
+Active branch:
+`curve/two-span-cubic-nurbs-decision`.
 
-1. implementation PR #118 merged as
+Entry evidence:
+
+1. fixed two-span cubic B-spline implementation PR #118:
    `c336460b751fa600c893aa6a96f9d594cdcd9a9e`;
-2. retained initial mechanical focused-test compile failure:
-   FAST `35736203787`, INTEGRATION `35736203805`;
-3. correction commit
-   `e42484c6c81163b13bd01761603421dcfff34ff1`;
-4. corrected candidate FAST `35736410584`: PASS, 22/22;
-5. corrected candidate INTEGRATION `35736410585`: PASS in GCC 13 Debug
-   and Clang 18/libc++ Debug, 22/22 per cell;
-6. final PR-head FAST `35736642982`: PASS;
-7. final PR-head INTEGRATION `35736642765`: PASS;
-8. implementation post-merge FAST `35736839516`: PASS;
-9. implementation post-merge INTEGRATION `35736839526`: PASS;
-10. implementation closure PR #119 merged as
-    `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
-11. closure PR FAST `35737384883`: PASS;
-12. closure PR INTEGRATION `35737384888`: PASS;
-13. closure post-merge FAST `35737514686`: PASS;
-14. closure post-merge INTEGRATION `35737514493`: PASS;
-15. `BoundedParametricCurve2/3` semantics remain unchanged;
-16. the original cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+2. implementation closure PR #119:
+   `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
+3. closure post-merge FAST `35737514686`: PASS;
+4. closure post-merge INTEGRATION `35737514493`: PASS;
+5. terminal sync PR #120:
+   `6e549d4f4b989108f8faacad326a207ee88238e7`;
+6. terminal sync FAST `35740316433`: PASS;
+7. terminal sync INTEGRATION `35740316620`: PASS;
+8. positive-weight rational quadratic Bézier semantics are integrated;
+9. fixed two-span cubic B-spline knot/local-support semantics are integrated;
+10. no NURBS production family exists.
 
-No production work item is active.
+Decision question:
 
-## Next admissible work item after terminal sync
+**Should the next bounded breadth step generalize B-spline span/container
+semantics, add NURBS by composing the two already isolated foundations, or
+prioritize another remaining family?**
 
-After this documentation sync is integrated and its own post-merge
-FAST/INTEGRATION pass, open exactly one new **literature-backed Curve
-Representation Breadth decision**.
+The decision compares general B-spline expansion, fixed NURBS,
+arbitrary-degree Bézier, analytic conic/orientation and heterogeneous
+composition.
 
-The decision must freshly compare at minimum:
+It selects only **Two-Span Clamped Cubic Positive-Weight NURBS in 2D/3D**.
 
-- general bounded clamped B-spline expansion beyond the fixed two-span family;
-- NURBS, now that polynomial B-spline and rational-weight semantics exist
-  independently;
-- arbitrary-degree polynomial/rational Bézier;
-- analytic conic after the unresolved arbitrary 3D supporting-plane/orientation
-  prerequisite;
-- heterogeneous composition/polycurve.
+This branch may change only documentation/research/decision authorities.
+No production NURBS, general B-spline, surface, boundary-discretization,
+sizing, meshing, Quad-Dominant or parallel implementation is authorized.
 
-No winner is pre-authorized by this closure or sync.
+## Next admissible transition after this decision
 
-No general B-spline, NURBS, arbitrary-degree Bézier, analytic conic,
-heterogeneous composition, surface, downstream meshing, Quad-Dominant or
-parallel implementation is authorized.
+Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
+and its checkpoint is separately closed may one implementation branch be
+opened for the fixed five-control/two-span cubic positive-weight NURBS work
+unit.
+
+General/multi-span NURBS, variable degree/count, repeated knots, periodicity,
+surface NURBS and all other curve families remain separate later decisions.

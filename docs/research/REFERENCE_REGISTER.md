@@ -792,6 +792,60 @@ Project relevance:
   introducing only one simple interior knot first;
 - Open CASCADE is not admitted as a dependency or numerical oracle.
 
+### NURBS local support and equal-weight reduction — MTU notes
+
+Status: `FOUNDATIONAL` for the fixed two-span cubic NURBS decision,
+reviewed 2026-09-22.
+
+Official reference:
+https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS-property.html
+
+Project relevance:
+
+- rational basis functions inherit local support from the B-spline basis;
+- at a knot of multiplicity `m`, continuity follows the underlying
+  degree/multiplicity relation;
+- equal nonzero weights reduce NURBS basis functions to ordinary B-spline
+  basis functions;
+- supports mandatory parity against the integrated fixed two-span polynomial
+  B-spline without introducing new continuity semantics.
+
+### NURBS weight influence and common scale semantics
+
+Status: `FOUNDATIONAL` for positive-weight storage/evidence, reviewed
+2026-09-22.
+
+Reference:
+https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS-mod-weight.html
+
+Project relevance:
+
+- NURBS adds control weights to degree/knot/control data;
+- weights modify rational influence while preserving the B-spline support
+  structure;
+- all-one weights recover the polynomial spline;
+- supports combining the already tested positive-weight rational layer with the
+  already tested two-span knot layer in a bounded work unit.
+
+### Open CASCADE / STEP rational B-spline data model
+
+Status: `FOUNDATIONAL / SCOPING` for the fixed NURBS decision, reviewed
+2026-09-22.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom___b_spline_curve.html
+- https://dev.opencascade.org/doc/refman/html/class_step_geom___b_spline_curve_with_knots_and_rational_b_spline_curve.html
+
+Project relevance:
+
+- mature CAD representations combine degree, controls, knots/multiplicities and
+  weights for rational B-spline geometry;
+- rational/non-rational and periodic/non-periodic semantics are explicit;
+- supports introducing weights on the already fixed cubic/two-span topology
+  before broadening degree, span count, multiplicity or periodicity;
+- Open CASCADE is not admitted as a runtime dependency or numerical oracle.
+
 ### Internal arbitrary-orientation constraint — qualified Cartesian Frames
 
 Status: `FOUNDATIONAL / INTERNAL` sequencing constraint for the second
