@@ -4,6 +4,7 @@
 #include <array>
 #include <cmath>
 #include <cstddef>
+#include <cstdint>
 #include <expected>
 #include <limits>
 #include <span>
@@ -76,32 +77,15 @@ struct Homogeneous3 {
     return ratio;
 }
 
-[[nodiscard]] double flat_knot(
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
-    const std::size_t control_count,
-    const std::size_t index) noexcept {
-    if (index < 4U) {
-        return lower;
-    }
-    if (index < control_count) {
-        return interior_knots[index - 4U];
-    }
-    return upper;
-}
-
-[[nodiscard]] std::size_t locate_span(
-    const std::span<const double> interior_knots,
-    const double upper,
+[[nodiscard]] std::size_t locate_flat_span(
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    if (parameter == upper) {
-        return interior_knots.size();
+    if (parameter == flat_knots.back()) {
+        return flat_knots.size() - 5U;
     }
-    return static_cast<std::size_t>(
-        std::upper_bound(
-            interior_knots.begin(), interior_knots.end(), parameter) -
-        interior_knots.begin());
+    const auto iterator =
+        std::upper_bound(flat_knots.begin(), flat_knots.end(), parameter);
+    return static_cast<std::size_t>(iterator - flat_knots.begin() - 1);
 }
 
 [[nodiscard]] Homogeneous2 lerp_homogeneous(
@@ -132,10 +116,7 @@ template <typename Homogeneous, std::size_t Degree>
     std::array<Homogeneous, Degree + 1U> work,
     const std::size_t spline_span,
     const std::size_t knot_offset,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
-    const std::size_t control_count,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
     for (int level = 1; level <= static_cast<int>(Degree); ++level) {
         for (int local = static_cast<int>(Degree); local >= level; --local) {
@@ -145,18 +126,8 @@ template <typename Homogeneous, std::size_t Degree>
                 knot_index + Degree - static_cast<std::size_t>(level) + 1U;
             const auto alpha = parameter_ratio(
                 parameter,
-                flat_knot(
-                    interior_knots,
-                    lower,
-                    upper,
-                    control_count,
-                    knot_index + knot_offset),
-                flat_knot(
-                    interior_knots,
-                    lower,
-                    upper,
-                    control_count,
-                    upper_index + knot_offset));
+                flat_knots[knot_index + knot_offset],
+                flat_knots[upper_index + knot_offset]);
             if (!alpha.has_value()) {
                 return std::unexpected{alpha.error()};
             }
