@@ -289,45 +289,39 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this implementation closure is integrated and post-merge validated,
-open one fresh literature-backed Surface Representation breadth decision.**
+**Open one fresh literature-backed Surface Representation breadth decision.**
 
-Integrated rational bicubic evidence:
+Terminal rational-bicubic evidence:
 
-- candidate correction head:
-  `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
-- corrected FAST `35782907623`: PASS, 27/27;
-- corrected INTEGRATION `35782907574`: PASS, 27/27;
-- final PR head:
-  `9677c98882ce32569e537a9b5d91f23cffabec69`;
-- final PR FAST `35783120161`: PASS, 27/27;
-- final PR INTEGRATION `35783120208`: PASS, 27/27;
-- PR #145 merge:
+- implementation PR #145:
   `8ac1abd913bf15ff1dc4d60595f809491902c055`;
-- post-merge FAST `35783312495`: PASS, 27/27;
-- post-merge INTEGRATION `35783312402`: PASS, 27/27.
-
-Closure branch:
-`docs/surface-rational-bicubic-bezier-implementation-closure`.
+- implementation post-merge FAST `35783312495`: PASS, 27/27;
+- implementation post-merge INTEGRATION `35783312402`: PASS, 27/27;
+- closure PR #146 head:
+  `2e1e514216db89d5a1ef5507a2f0f8a2473fa76c`;
+- closure PR FAST `35783557983`: PASS;
+- closure PR INTEGRATION `35783557757`: PASS;
+- closure merge:
+  `c7f7b32b180082421cadc74c39d2919f713ec775`;
+- closure post-merge FAST `35783715705`: PASS;
+- closure post-merge INTEGRATION `35783715671`: PASS.
 
 The integrated Surface Representation production set now includes:
 
 - `BicubicBezierPatch3`;
 - `RationalBicubicBezierPatch3`.
 
-The common bounded-surface contract and polynomial bicubic implementation
-remain unchanged.
-
 No production work item is active.
 
-The next breadth decision must recompare NURBS, Coons/transfinite, analytic
-elementary, swept and trimmed surface families. No winner is pre-authorized.
+The next breadth decision must recompare cubic B-spline/NURBS,
+Coons/transfinite, analytic elementary, swept and trimmed surface families.
+No winner is pre-authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — RATIONAL BICUBIC
 BÉZIER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED /
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
 POLYNOMIAL BICUBIC PATCH AND CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
@@ -356,9 +350,9 @@ The following are **not implemented and not covered by CGR qualification**:
 - general/multi-span/arbitrary-degree/repeated-knot/periodic NURBS semantics
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
-- rational Bézier, B-spline/NURBS, Coons/transfinite, analytic elementary,
-  swept and trimmed surface representations beyond the integrated polynomial
-  bicubic Bézier patch.
+- B-spline/NURBS, Coons/transfinite, analytic elementary, swept and trimmed
+  surface representations beyond the integrated polynomial and positive-weight
+  rational bicubic Bézier patches.
 
 This limitation does not invalidate the existing cubic-Bézier qualification.
 It prevents that qualification from being generalized to those families.
@@ -369,11 +363,12 @@ family scope-extension decision must admit the required analytic/rational/spline
 families and define how common differential/discretization algorithms reuse
 their semantics.
 
-Surface Representation is now open and its entry decision explicitly maps
+Surface Representation is open and its entry decision explicitly maps
 polynomial/rational free-form, spline/NURBS, Coons/transfinite, analytic,
-swept and trimmed families. Only the polynomial bicubic Bézier patch is already
-integrated; the rational bicubic patch is the current candidate. No other
-surface family is implicitly implemented or qualified.
+swept and trimmed families. Polynomial and positive-weight rational bicubic
+Bézier patches are integrated focused work units. No spline/NURBS,
+Coons/transfinite, analytic, swept or trimmed surface family is implicitly
+implemented or qualified.
 
 
 ## Most recently qualified stage
