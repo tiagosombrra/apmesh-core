@@ -588,10 +588,12 @@ int main() {
              passed;
 
     const auto constant_point = *Point3::make(3.0, -4.0, 2.0);
-    RationalBicubicBezierPatch3::ControlNet constant_controls{};
-    for (auto& row : constant_controls) {
-        row.fill(constant_point);
-    }
+    RationalBicubicBezierPatch3::ControlNet constant_controls{{
+        {{constant_point, constant_point, constant_point, constant_point}},
+        {{constant_point, constant_point, constant_point, constant_point}},
+        {{constant_point, constant_point, constant_point, constant_point}},
+        {{constant_point, constant_point, constant_point, constant_point}},
+    }};
     const auto constant_patch =
         RationalBicubicBezierPatch3::make(constant_controls, weights);
     if (!constant_patch) {
@@ -682,12 +684,18 @@ int main() {
     }
     const ElevatedCubic elevated = elevate_quadratic(qpoints, qweights);
 
-    RationalBicubicBezierPatch3::ControlNet extrusion_controls{};
-    RationalBicubicBezierPatch3::WeightNet extrusion_weights{};
-    for (std::size_t i = 0; i < 4U; ++i) {
-        extrusion_controls[i] = elevated.points;
-        extrusion_weights[i] = elevated.weights;
-    }
+    RationalBicubicBezierPatch3::ControlNet extrusion_controls{{
+        elevated.points,
+        elevated.points,
+        elevated.points,
+        elevated.points,
+    }};
+    RationalBicubicBezierPatch3::WeightNet extrusion_weights{{
+        elevated.weights,
+        elevated.weights,
+        elevated.weights,
+        elevated.weights,
+    }};
     const auto extrusion_patch =
         RationalBicubicBezierPatch3::make(
             extrusion_controls, extrusion_weights);
