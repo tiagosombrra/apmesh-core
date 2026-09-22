@@ -250,29 +250,33 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after decision integration:
 
-**Open one separate literature-backed decision for the next Curve Differential
-Geometry investigation.**
+**Implement only Certified Simple Planar Inflection Isolation on Globally
+Regular Cubic Bézier Curves.**
 
-Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves is integrated
-and closed.
+Decision authority:
+`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
 
-Evidence:
+The selected next problem is deliberately global but bounded:
 
-- PR #92 merge:
-  `170c8c8a8db8676933e8107a1eb8abb2dedd6204`;
-- final PR FAST `35675261376`: PASS;
-- final PR INTEGRATION `35675261409`: PASS;
-- post-merge FAST `35675349460`: PASS;
-- post-merge INTEGRATION `35675349468`: PASS.
+- certify regularity first;
+- reason on the exact quadratic Bernstein curvature-numerator polynomial;
+- certify simple interior roots through Bernstein sign-variation/subdivision
+  evidence;
+- return `indeterminate` for unresolved multiple/tangential/ill-conditioned
+  cases;
+- explicitly retain root obligations at internal subdivision boundaries so a
+  root cannot disappear under open-interval Bernstein sign counting;
+- never use sampled signed curvature as proof;
+- retain explicit resource limits and parameter-bracket tolerance;
+- preserve deterministic reversal/frame/scale relations.
 
-The implemented capability remains local and pointwise. It does not certify
-interval-wide determinant signs, zero isolation, inflection count/location,
-global curvature bounds, extrema or feature classes.
+Pointwise signed curvature remains a local prerequisite, not the proof
+mechanism.
 
-The stage remains `IN INVESTIGATION / NOT QUALIFIED`. The next problem must
-be decided separately before implementation.
+No implementation is authorized until this decision itself is merged,
+post-merge validated and closed.
 
 
 ## Current active stage
@@ -280,6 +284,7 @@ be decided separately before implementation.
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
+SIMPLE-INFLECTION DECISION VALIDATED_UNMERGED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 
 

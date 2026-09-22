@@ -220,41 +220,67 @@ writing.
   PR #90; literature-backed decision only; no production implementation.
 - `docs/signed-planar-curvature-decision-closure`: **CLOSURE-ONLY**; records
   PR #90 integration and post-merge validation.
+- `curve/certified-simple-inflection-isolation-decision`: **ACTIVE /
+  VALIDATED_UNMERGED**; literature-backed decision and repository mapping only;
+  no production root-isolation implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Pointwise Signed Curvature is integrated and closed.**
+**Certified Simple Planar Inflection Isolation decision —
+VALIDATED_UNMERGED / IMPLEMENTATION NOT STARTED.**
 
-Closure evidence:
+Active branch:
+`curve/certified-simple-inflection-isolation-decision`.
 
-1. decision authority:
-   `docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`;
-2. implementation PR #92 merged as
-   `170c8c8a8db8676933e8107a1eb8abb2dedd6204`;
-3. final PR FAST `35675261376`: PASS;
-4. final PR INTEGRATION `35675261409`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. post-merge FAST `35675349460`: PASS;
-6. post-merge INTEGRATION `35675349468`: PASS;
-7. production exposes 2D-only signed pointwise curvature with the accepted
-   orientation, singularity, zero, scale and magnitude-parity semantics;
-8. focused analytic/metamorphic/adversarial evidence is integrated;
-9. all qualified prerequisites remain passing;
-10. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
+Decision authority:
+`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
 
-No work item is active.
+The decision admits exactly one future production work unit:
+
+**Certified Simple Planar Inflection Isolation on Globally Regular Cubic Bézier
+Curves.**
+
+Scientific boundary:
+
+1. 2D `CubicBezier2` only;
+2. global regularity must first be certified by the integrated regularity
+   authority;
+3. isolate roots of the exact mathematical curvature numerator
+   `N(t)=det(B'(t),B''(t))`, not sampled signed-curvature values;
+4. exploit the exact quadratic Bernstein reduction with coefficients
+   `2 det(D0,D1)`, `det(D0,D2)`, `2 det(D1,D2)`;
+5. zero sign variations certify no interior root;
+6. one sign variation certifies exactly one simple interior root and therefore
+   one sign-changing inflection on a regular curve;
+7. unresolved/multiple/tangential roots remain `indeterminate`;
+8. roots that fall exactly on an internal subdivision boundary cannot disappear
+   through open-interval sign counting; each such boundary is explicitly
+   discharged, certified once, or remains `indeterminate`;
+9. returned root brackets are bounded by an explicit parameter tolerance that
+   is not a curvature or determinant epsilon;
+10. no public general polynomial solver or interval API is admitted;
+11. no discretization, sizing, surface, meshing, Quad-Dominant or parallel
+    capability is authorized.
+
+Repository mapping is retained inside the decision and names the current public
+curve header/source, private interval machinery, prerequisite tests and expected
+future focused test path.
+
+No production file is changed in this decision work item.
 
 ## Next admissible work item after closure
 
-Open one separate literature-backed scientific decision for the next
-**Curve Differential Geometry** investigation.
+After this decision is merged, post-merge FAST/INTEGRATION pass, and its
+checkpoint is closed, implement only:
 
-The decision must choose exactly one bounded problem and define its global/local
-claim, failure semantics, evidence and exclusions before implementation.
+**Certified Simple Planar Inflection Isolation on Globally Regular Cubic Bézier
+Curves**
 
-No certified inflection isolation, global curvature bound, extrema,
-classification, discretization, sizing, surfaces, meshing, Quad-Dominant or
-parallel implementation is authorized by this closure alone.
+within the exact decision contract.
+
+The implementation must preserve all qualified prerequisites and the integrated
+pointwise curvature/signed-curvature contracts. It must add no later
+Curve Differential Geometry capability.
 
