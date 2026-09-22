@@ -214,6 +214,158 @@ template <typename Vector>
     return *value;
 }
 
+[[nodiscard]] double max_abs_component(const Vector2& vector) noexcept {
+    return std::max(std::abs(vector.x()), std::abs(vector.y()));
+}
+
+[[nodiscard]] double max_abs_component(const Vector3& vector) noexcept {
+    return std::max(
+        std::max(std::abs(vector.x()), std::abs(vector.y())),
+        std::abs(vector.z()));
+}
+
+[[nodiscard]] std::expected<Vector2, CurveError> normalized_vector(
+    const Vector2& vector,
+    const double scale) noexcept {
+    const auto normalized = Vector2::make(
+        vector.x() / scale,
+        vector.y() / scale);
+    if (!normalized.has_value()) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+    return *normalized;
+}
+
+[[nodiscard]] std::expected<Vector3, CurveError> normalized_vector(
+    const Vector3& vector,
+    const double scale) noexcept {
+    const auto normalized = Vector3::make(
+        vector.x() / scale,
+        vector.y() / scale,
+        vector.z() / scale);
+    if (!normalized.has_value()) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+    return *normalized;
+}
+
+[[nodiscard]] std::expected<double, CurveError> scaled_curvature_result(
+    const double normalized_numerator,
+    const double normalized_speed,
+    const double velocity_scale,
+    const double acceleration_scale) noexcept {
+    if (normalized_numerator == 0.0) {
+        return 0.0;
+    }
+
+    int numerator_exponent = 0;
+    int velocity_exponent = 0;
+    int acceleration_exponent = 0;
+    const double numerator_mantissa =
+        std::frexp(normalized_numerator, &numerator_exponent);
+    const double velocity_mantissa =
+        std::frexp(velocity_scale, &velocity_exponent);
+    const double acceleration_mantissa =
+        std::frexp(acceleration_scale, &acceleration_exponent);
+
+    const double normalized_speed_squared =
+        normalized_speed * normalized_speed;
+    const double normalized_speed_cubed =
+        normalized_speed_squared * normalized_speed;
+    const double velocity_mantissa_squared =
+        velocity_mantissa * velocity_mantissa;
+
+    const double base =
+        (numerator_mantissa * acceleration_mantissa) /
+        (normalized_speed_cubed * velocity_mantissa_squared);
+    if (!std::isfinite(base) || base <= 0.0) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+
+    const int exponent =
+        numerator_exponent + acceleration_exponent -
+        2 * velocity_exponent;
+    const double result = std::scalbn(base, exponent);
+    if (!std::isfinite(result) || result == 0.0) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+    return result;
+}
+
+[[nodiscard]] std::expected<double, CurveError> curvature_magnitude_impl(
+    const Vector2& first,
+    const Vector2& second) noexcept {
+    const double velocity_scale = max_abs_component(first);
+    if (velocity_scale == 0.0) {
+        return std::unexpected{CurveError::singular_parameter};
+    }
+
+    const double acceleration_scale = max_abs_component(second);
+    if (acceleration_scale == 0.0) {
+        return 0.0;
+    }
+
+    const auto normalized_first = normalized_vector(first, velocity_scale);
+    const auto normalized_second = normalized_vector(second, acceleration_scale);
+    if (!normalized_first || !normalized_second) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+
+    const auto normalized_speed = norm(*normalized_first);
+    if (!normalized_speed || *normalized_speed == 0.0) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+
+    const double determinant =
+        normalized_first->x() * normalized_second->y() -
+        normalized_first->y() * normalized_second->x();
+    if (!std::isfinite(determinant)) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+
+    return scaled_curvature_result(
+        std::abs(determinant),
+        *normalized_speed,
+        velocity_scale,
+        acceleration_scale);
+}
+
+[[nodiscard]] std::expected<double, CurveError> curvature_magnitude_impl(
+    const Vector3& first,
+    const Vector3& second) noexcept {
+    const double velocity_scale = max_abs_component(first);
+    if (velocity_scale == 0.0) {
+        return std::unexpected{CurveError::singular_parameter};
+    }
+
+    const double acceleration_scale = max_abs_component(second);
+    if (acceleration_scale == 0.0) {
+        return 0.0;
+    }
+
+    const auto normalized_first = normalized_vector(first, velocity_scale);
+    const auto normalized_second = normalized_vector(second, acceleration_scale);
+    if (!normalized_first || !normalized_second) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+
+    const auto normalized_speed = norm(*normalized_first);
+    const auto normalized_cross = cross(*normalized_first, *normalized_second);
+    if (!normalized_speed || *normalized_speed == 0.0 || !normalized_cross) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+    const auto normalized_numerator = norm(*normalized_cross);
+    if (!normalized_numerator) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
+
+    return scaled_curvature_result(
+        *normalized_numerator,
+        *normalized_speed,
+        velocity_scale,
+        acceleration_scale);
+}
+
 constexpr std::size_t maximum_supported_length_depth = 64;
 
 [[nodiscard]] std::expected<void, CurveLengthError> validate_length_policy(
@@ -1526,6 +1678,23 @@ std::expected<double, CurveError> CubicBezier2::speed(
     return vector_speed(*derivative);
 }
 
+std::expected<double, CurveError> CubicBezier2::curvature_magnitude(
+    const double parameter) const noexcept {
+    const auto first = first_derivative(parameter);
+    if (!first.has_value()) {
+        return std::unexpected{first.error()};
+    }
+    if (max_abs_component(*first) == 0.0) {
+        return std::unexpected{CurveError::singular_parameter};
+    }
+
+    const auto second = second_derivative(parameter);
+    if (!second.has_value()) {
+        return std::unexpected{second.error()};
+    }
+    return curvature_magnitude_impl(*first, *second);
+}
+
 std::expected<CurveRegularityEvidence, CurveRegularityError>
 CubicBezier2::certify_regularity(
     const CurveRegularityPolicy& policy) const noexcept {
@@ -1617,6 +1786,23 @@ std::expected<double, CurveError> CubicBezier3::speed(
         return std::unexpected{derivative.error()};
     }
     return vector_speed(*derivative);
+}
+
+std::expected<double, CurveError> CubicBezier3::curvature_magnitude(
+    const double parameter) const noexcept {
+    const auto first = first_derivative(parameter);
+    if (!first.has_value()) {
+        return std::unexpected{first.error()};
+    }
+    if (max_abs_component(*first) == 0.0) {
+        return std::unexpected{CurveError::singular_parameter};
+    }
+
+    const auto second = second_derivative(parameter);
+    if (!second.has_value()) {
+        return std::unexpected{second.error()};
+    }
+    return curvature_magnitude_impl(*first, *second);
 }
 
 std::expected<CurveRegularityEvidence, CurveRegularityError>
