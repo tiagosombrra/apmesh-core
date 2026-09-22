@@ -1,6 +1,7 @@
 #include "apmesh/geometry/curve.hpp"
 
 #include "apmesh/core/numeric.hpp"
+#include "detail/curve_inflection_interval.hpp"
 #include "detail/curve_length_interval.hpp"
 #include "detail/curve_regularity_interval.hpp"
 
@@ -1195,6 +1196,283 @@ derivative_interval_controls(
     return controls;
 }
 
+
+constexpr std::size_t maximum_supported_inflection_depth = 64;
+
+[[nodiscard]] CurveInflectionError inflection_error(
+    const CurveRegularityError error) noexcept {
+    switch (error) {
+    case CurveRegularityError::invalid_policy:
+        return CurveInflectionError::invalid_policy;
+    case CurveRegularityError::non_finite_enclosure:
+        return CurveInflectionError::non_finite_enclosure;
+    }
+    return CurveInflectionError::non_finite_enclosure;
+}
+
+[[nodiscard]] std::expected<void, CurveInflectionError>
+validate_inflection_policy(
+    const CurveInflectionIsolationPolicy& policy) noexcept {
+    const auto regularity = validate_regularity_policy(policy.regularity_policy);
+    if (!regularity) {
+        return std::unexpected{CurveInflectionError::invalid_policy};
+    }
+    if (!std::isfinite(policy.parameter_tolerance) ||
+        policy.parameter_tolerance <= 0.0 ||
+        policy.max_processed_nodes == 0 ||
+        policy.max_subdivision_depth > maximum_supported_inflection_depth) {
+        return std::unexpected{CurveInflectionError::invalid_policy};
+    }
+    return {};
+}
+
+[[nodiscard]] std::expected<DerivativeIntervalControls<2>, CurveInflectionError>
+inflection_derivative_interval_controls(
+    const std::array<Point2, 4>& points) noexcept {
+    DerivativeIntervalControls<2> controls{};
+    for (std::size_t index = 0; index < 3; ++index) {
+        const auto x = detail::inflection_difference_scaled(
+            points[index + 1].x(),
+            points[index].x(),
+            3.0);
+        const auto y = detail::inflection_difference_scaled(
+            points[index + 1].y(),
+            points[index].y(),
+            3.0);
+        if (!x || !y) {
+            return std::unexpected{CurveInflectionError::non_finite_enclosure};
+        }
+        controls[index] = detail::IntervalVector<2>{*x, *y};
+    }
+    return controls;
+}
+
+[[nodiscard]] std::expected<detail::QuadraticIntervalCoefficients, CurveInflectionError>
+inflection_numerator_coefficients(
+    const DerivativeIntervalControls<2>& controls) noexcept {
+    const auto d01 = detail::inflection_determinant(controls[0], controls[1]);
+    const auto d02 = detail::inflection_determinant(controls[0], controls[2]);
+    const auto d12 = detail::inflection_determinant(controls[1], controls[2]);
+    if (!d01 || !d02 || !d12) {
+        return std::unexpected{CurveInflectionError::non_finite_enclosure};
+    }
+
+    const auto n0 = detail::inflection_multiply(*d01, 2.0);
+    const auto n2 = detail::inflection_multiply(*d12, 2.0);
+    if (!n0 || !n2) {
+        return std::unexpected{CurveInflectionError::non_finite_enclosure};
+    }
+
+    return detail::QuadraticIntervalCoefficients{
+        *n0,
+        *d02,
+        *n2,
+    };
+}
+
+struct InflectionNode {
+    detail::QuadraticIntervalCoefficients coefficients{};
+    double lower_parameter{};
+    double upper_parameter{};
+    std::size_t depth{};
+};
+
+[[nodiscard]] bool inflection_bracket_within_tolerance(
+    const double lower,
+    const double upper,
+    const double tolerance) noexcept {
+    const double raw_width = upper - lower;
+    if (!std::isfinite(raw_width) || raw_width < 0.0) {
+        return false;
+    }
+    if (raw_width == 0.0) {
+        return true;
+    }
+
+    const double conservative_width = std::nextafter(
+        raw_width,
+        std::numeric_limits<double>::infinity());
+    return std::isfinite(conservative_width) &&
+           conservative_width <= tolerance;
+}
+
+[[nodiscard]] CurveInflectionIsolationEvidence inflection_evidence(
+    const CurveInflectionIsolationResult result,
+    const CurveRegularityEvidence& regularity,
+    std::array<CurveInflectionBracket, 2> brackets,
+    const std::size_t inflection_count,
+    const std::size_t processed_nodes,
+    const std::size_t root_free_leaves,
+    const std::size_t isolated_root_leaves,
+    const std::size_t max_depth_reached) noexcept {
+    std::sort(
+        brackets.begin(),
+        brackets.begin() + inflection_count,
+        [](const CurveInflectionBracket& lhs, const CurveInflectionBracket& rhs) {
+            if (lhs.lower_parameter != rhs.lower_parameter) {
+                return lhs.lower_parameter < rhs.lower_parameter;
+            }
+            return lhs.upper_parameter < rhs.upper_parameter;
+        });
+
+    return CurveInflectionIsolationEvidence{
+        .result = result,
+        .regularity = regularity,
+        .brackets = brackets,
+        .inflection_count = inflection_count,
+        .processed_nodes = processed_nodes,
+        .root_free_leaves = root_free_leaves,
+        .isolated_root_leaves = isolated_root_leaves,
+        .max_depth_reached = max_depth_reached,
+    };
+}
+
+[[nodiscard]] std::expected<CurveInflectionIsolationEvidence, CurveInflectionError>
+isolate_simple_inflections_impl(
+    const DerivativeIntervalControls<2>& derivative_controls,
+    const CurveRegularityEvidence& regularity,
+    const CurveInflectionIsolationPolicy& policy) noexcept {
+    const auto root_coefficients =
+        inflection_numerator_coefficients(derivative_controls);
+    if (!root_coefficients) {
+        return std::unexpected{root_coefficients.error()};
+    }
+
+    const auto root_variation =
+        detail::quadratic_sign_variation(*root_coefficients);
+    if (root_variation.resolved && root_variation.all_zero) {
+        return inflection_evidence(
+            CurveInflectionIsolationResult::complete,
+            regularity,
+            {},
+            0,
+            1,
+            0,
+            0,
+            0);
+    }
+
+    std::array<InflectionNode, maximum_supported_inflection_depth + 1> stack{};
+    std::size_t stack_size = 1;
+    stack[0] = InflectionNode{
+        .coefficients = *root_coefficients,
+        .lower_parameter = 0.0,
+        .upper_parameter = 1.0,
+        .depth = 0,
+    };
+
+    std::array<CurveInflectionBracket, 2> brackets{};
+    std::size_t inflection_count = 0;
+    std::size_t processed_nodes = 0;
+    std::size_t root_free_leaves = 0;
+    std::size_t isolated_root_leaves = 0;
+    std::size_t max_depth_reached = 0;
+
+    const auto indeterminate = [&]() noexcept {
+        return inflection_evidence(
+            CurveInflectionIsolationResult::indeterminate,
+            regularity,
+            brackets,
+            inflection_count,
+            processed_nodes,
+            root_free_leaves,
+            isolated_root_leaves,
+            max_depth_reached);
+    };
+
+    while (stack_size > 0) {
+        if (processed_nodes >= policy.max_processed_nodes) {
+            return indeterminate();
+        }
+
+        const InflectionNode node = stack[--stack_size];
+        ++processed_nodes;
+        max_depth_reached = std::max(max_depth_reached, node.depth);
+
+        const auto variation =
+            detail::quadratic_sign_variation(node.coefficients);
+
+        if (variation.resolved && variation.all_zero) {
+            return inflection_evidence(
+                CurveInflectionIsolationResult::complete,
+                regularity,
+                {},
+                0,
+                processed_nodes,
+                root_free_leaves,
+                isolated_root_leaves,
+                max_depth_reached);
+        }
+
+        if (variation.resolved && variation.variations == 0) {
+            ++root_free_leaves;
+            continue;
+        }
+
+        if (variation.resolved &&
+            variation.variations == 1 &&
+            inflection_bracket_within_tolerance(
+                node.lower_parameter,
+                node.upper_parameter,
+                policy.parameter_tolerance)) {
+            if (inflection_count >= brackets.size()) {
+                return indeterminate();
+            }
+            brackets[inflection_count++] = CurveInflectionBracket{
+                .lower_parameter = node.lower_parameter,
+                .upper_parameter = node.upper_parameter,
+            };
+            ++isolated_root_leaves;
+            continue;
+        }
+
+        if (node.depth >= policy.max_subdivision_depth) {
+            return indeterminate();
+        }
+
+        const auto subdivision =
+            detail::subdivide_quadratic_midpoint(node.coefficients);
+        if (!subdivision) {
+            return std::unexpected{CurveInflectionError::non_finite_enclosure};
+        }
+
+        if (detail::interval_contains_zero(
+                subdivision->shared_boundary_value)) {
+            return indeterminate();
+        }
+
+        const double midpoint =
+            std::midpoint(node.lower_parameter, node.upper_parameter);
+        if (!(midpoint > node.lower_parameter) ||
+            !(midpoint < node.upper_parameter)) {
+            return indeterminate();
+        }
+
+        stack[stack_size++] = InflectionNode{
+            .coefficients = subdivision->right,
+            .lower_parameter = midpoint,
+            .upper_parameter = node.upper_parameter,
+            .depth = node.depth + 1,
+        };
+        stack[stack_size++] = InflectionNode{
+            .coefficients = subdivision->left,
+            .lower_parameter = node.lower_parameter,
+            .upper_parameter = midpoint,
+            .depth = node.depth + 1,
+        };
+    }
+
+    return inflection_evidence(
+        CurveInflectionIsolationResult::complete,
+        regularity,
+        brackets,
+        inflection_count,
+        processed_nodes,
+        root_free_leaves,
+        isolated_root_leaves,
+        max_depth_reached);
+}
+
 template <std::size_t Dimension>
 [[nodiscard]] std::expected<std::array<detail::ClosedInterval, 5>, CurveRegularityError>
 squared_speed_coefficients(
@@ -1764,6 +2042,42 @@ CubicBezier2::certify_regularity(
         return std::unexpected{controls.error()};
     }
     return certify_regularity_impl(control_points_, *controls, policy);
+}
+
+
+std::expected<CurveInflectionIsolationEvidence, CurveInflectionError>
+CubicBezier2::isolate_simple_inflections(
+    const CurveInflectionIsolationPolicy& policy) const noexcept {
+    const auto valid_policy = validate_inflection_policy(policy);
+    if (!valid_policy) {
+        return std::unexpected{valid_policy.error()};
+    }
+
+    const auto regularity = certify_regularity(policy.regularity_policy);
+    if (!regularity) {
+        return std::unexpected{inflection_error(regularity.error())};
+    }
+    if (regularity->result == CurveRegularityResult::degenerate) {
+        return std::unexpected{CurveInflectionError::curve_not_regular};
+    }
+    if (regularity->result == CurveRegularityResult::indeterminate) {
+        return inflection_evidence(
+            CurveInflectionIsolationResult::indeterminate,
+            *regularity,
+            {},
+            0,
+            0,
+            0,
+            0,
+            0);
+    }
+
+    const auto controls = inflection_derivative_interval_controls(control_points_);
+    if (!controls) {
+        return std::unexpected{controls.error()};
+    }
+
+    return isolate_simple_inflections_impl(*controls, *regularity, policy);
 }
 
 std::expected<CurveLengthEvidence, CurveLengthError>
