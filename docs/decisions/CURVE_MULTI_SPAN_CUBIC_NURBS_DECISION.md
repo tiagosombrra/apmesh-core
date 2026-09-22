@@ -866,3 +866,34 @@ Curve Differential Geometry remains paused/unqualified.
 
 Boundary Curve Discretization and Surface Representation remain blocked until
 their respective prerequisite decisions are explicitly opened and closed.
+
+
+## 38. Decision integration checkpoint
+
+PR #128 integrated this bounded decision as
+`77a7773cdb431469402f773b52c70d171d805201`.
+
+Final decision-head validation:
+
+- FAST `35749650284`: PASS;
+- INTEGRATION `35749650175`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35749735576`: PASS;
+- INTEGRATION `35749735502`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The integrated decision selects only:
+
+**Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
+with Simple Interior Knots.**
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the implementation bounded by Sections 5–35.
+
+Arbitrary degree, repeated knots, periodicity, analytic conics, heterogeneous
+composition, surfaces and downstream meshing remain unauthorized.
