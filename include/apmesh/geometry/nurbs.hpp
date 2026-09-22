@@ -164,7 +164,7 @@ public:
     [[nodiscard]] MultiSpanCubicNURBS2 reversed() const;
 
     [[nodiscard]] bool operator==(
-        const MultiSpanCubicNURBS2&) const noexcept = default;
+        const MultiSpanCubicNURBS2&) const = default;
 
 private:
     MultiSpanCubicNURBS2(
@@ -212,7 +212,7 @@ public:
     [[nodiscard]] MultiSpanCubicNURBS3 reversed() const;
 
     [[nodiscard]] bool operator==(
-        const MultiSpanCubicNURBS3&) const noexcept = default;
+        const MultiSpanCubicNURBS3&) const = default;
 
 private:
     MultiSpanCubicNURBS3(
