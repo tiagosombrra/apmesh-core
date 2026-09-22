@@ -250,38 +250,35 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after decision integration:
+Exact next bounded scientific action:
 
-**Close the Pointwise Signed Curvature decision checkpoint, then implement the
-2D-only bounded work unit.**
+**Implement Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves.**
 
-Decision authority:
+The decision checkpoint is closed.
+
+Integration evidence:
+
+- PR #90 merge:
+  `8da6ad656871c23f26f74f148298283970338583`;
+- PR FAST `35674524237`: PASS;
+- PR INTEGRATION `35674524211`: PASS;
+- post-merge FAST `35674581493`: PASS;
+- post-merge INTEGRATION `35674581550`: PASS.
+
+Implementation authority:
 `docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
 
-The decision admits only local planar signed curvature at a regular parameter,
-with explicit orientation semantics and no global inflection/feature claim.
-
-Required implementation properties include:
-
-- reuse of qualified first/second derivatives;
-- shared scale-aware planar curvature core;
-- exact singularity semantics;
-- canonical successful `+0.0`;
-- reversal sign flip;
-- orientation-preserving frame invariance;
-- orientation-reversing frame sign flip;
-- reciprocal scale covariance;
-- magnitude parity;
-- preserved qualified prerequisites.
-
-Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
+The implementation is limited to one 2D pointwise signed-curvature query with
+the explicit orientation, singularity, scale, reversal/reflection and magnitude
+parity contract already fixed by that decision.
 
 
 ## Current active stage
 
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
-SIGNED PLANAR CURVATURE DECISION VALIDATED_UNMERGED / NOT QUALIFIED**
+SIGNED PLANAR CURVATURE DECISION INTEGRATED / IMPLEMENTATION NOT STARTED /
+NOT QUALIFIED**
 
 
 ## Most recently qualified stage
