@@ -1509,7 +1509,7 @@ candidates before authorizing any production implementation.
 
 Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
 BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
-FIRST CONCRETE FAMILY DECISION ACTIVE / BOUNDED LINE SEGMENT SELECTED /
+BOUNDED LINE SEGMENT DECISION CLOSED / IMPLEMENTATION AUTHORIZED /
 NO NEW FAMILY IMPLEMENTED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1584,8 +1584,15 @@ The active first-concrete-family decision is
 
 It compares line/segment, circle/conic arc, rational/arbitrary-degree Bézier,
 B-spline and NURBS and selects **Bounded Directed Line Segment Representation
-in 2D and 3D** as the next implementation candidate after decision integration
-and closure. No production segment code exists on this decision branch.
+in 2D and 3D**.
+
+PR #103 integrated the decision as
+`2b42c78a2dbf0ede225144339dbf100900bef672`. Final PR FAST
+`35719338493`, PR INTEGRATION `35719338492`, post-merge FAST
+`35719435059`, and post-merge INTEGRATION `35719434961` all passed.
+
+Closure authority is PR #104. After that closure is authoritative on `main`,
+the bounded line-segment implementation is the sole next production work item.
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
 
@@ -1760,38 +1767,36 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — First Concrete Curve Family Decision —
-ACTIVE / BOUNDED DIRECTED LINE SEGMENT SELECTED / DOCUMENTATION ONLY**
+**Curve Representation Breadth Gate — Bounded Directed Line Segment
+Representation in 2D and 3D — DECISION CLOSED / IMPLEMENTATION AUTHORIZED /
+NOT STARTED**
 
-Closed prerequisite evidence:
-
-- parametric-contract PR #101:
-  `0674cd8531c3033a30282ba6bf95078b54d8c331`;
-- PR #101 FAST `35713249842`: PASS, 18/18;
-- PR #101 INTEGRATION `35713249775`: PASS, 18/18 in GCC and Clang;
-- post-merge FAST `35713409188`: PASS;
-- post-merge INTEGRATION `35713409166`: PASS;
-- closure PR #102:
-  `63479c8a7414a61be6f8ac1629e934f506d4f3de`;
-- closure post-merge FAST `35713788156`: PASS;
-- closure post-merge INTEGRATION `35713788216`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-The decision selects bounded directed line segments in 2D and 3D as the first
-new family. The future implementation must satisfy the already integrated
-`BoundedParametricCurve2/3` concepts, use exact `[0,1]` segment
-parameterization, preserve typed domain failures, support exact endpoint-swap
-reversal, constant first derivative, zero second derivative and explicitly
-tested degenerate-value semantics.
+Decision evidence:
 
-No implementation is authorized until this decision is integrated,
-post-merge FAST/INTEGRATION pass, and the decision checkpoint is separately
-closed.
+- PR #103:
+  `2b42c78a2dbf0ede225144339dbf100900bef672`;
+- PR FAST `35719338493`: PASS;
+- PR INTEGRATION `35719338492`: PASS;
+- post-merge FAST `35719435059`: PASS;
+- post-merge INTEGRATION `35719434961`: PASS;
+- decision closure authority: PR #104.
 
-Circle/conic arc, rational/arbitrary-degree Bézier, B-spline, NURBS and
-composite/trimmed curves remain later decisions.
+The next implementation is limited to:
+
+- `LineSegment2` and `LineSegment3`;
+- exact `[0,1]` bounded parameter domain;
+- common parametric-concept conformance;
+- finite overflow-aware interpolation;
+- constant first derivative;
+- exact zero second derivative;
+- endpoint-swap reversal and covariance;
+- explicit degenerate-value evidence;
+- focused regression preserving all current prerequisite contracts.
+
+No other concrete curve family is authorized.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during the representation-breadth sequence.
