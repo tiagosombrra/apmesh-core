@@ -1968,6 +1968,10 @@ const std::array<Point2, 4>& CubicBezier2::control_points() const noexcept {
     return control_points_;
 }
 
+CurveParameterDomain CubicBezier2::parameter_domain() const noexcept {
+    return *CurveParameterDomain::make(0.0, 1.0);
+}
+
 std::expected<Point2, CurveError> CubicBezier2::evaluate(
     const double parameter) const noexcept {
     const auto valid = validate_parameter(parameter);
@@ -2129,6 +2133,10 @@ CubicBezier2 CubicBezier2::reversed() const noexcept {
 
 const std::array<Point3, 4>& CubicBezier3::control_points() const noexcept {
     return control_points_;
+}
+
+CurveParameterDomain CubicBezier3::parameter_domain() const noexcept {
+    return *CurveParameterDomain::make(0.0, 1.0);
 }
 
 std::expected<Point3, CurveError> CubicBezier3::evaluate(
