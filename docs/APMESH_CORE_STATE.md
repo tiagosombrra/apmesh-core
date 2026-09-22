@@ -287,55 +287,38 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the fixed Two-Span Clamped Cubic Positive-Weight NURBS decision;
-no production implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the fixed Two-Span Clamped Cubic Positive-Weight NURBS work unit.**
 
-Terminal B-spline prerequisite:
+Decision evidence:
 
-- closure PR #119:
-  `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
-- closure post-merge FAST `35737514686`: PASS;
-- closure post-merge INTEGRATION `35737514493`: PASS;
-- terminal sync PR #120:
-  `6e549d4f4b989108f8faacad326a207ee88238e7`;
-- terminal sync FAST `35740316433`: PASS;
-- terminal sync INTEGRATION `35740316620`: PASS.
+- PR #121:
+  `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
+- PR FAST `35740954735`: PASS;
+- PR INTEGRATION `35740954945`: PASS;
+- post-merge FAST `35741064912`: PASS;
+- post-merge INTEGRATION `35741064906`: PASS.
 
-Active branch:
-`curve/two-span-cubic-nurbs-decision`.
+Closure branch:
+`docs/two-span-cubic-nurbs-decision-closure`.
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-The decision compares:
+The sole authorized next implementation is fixed to degree 3, five controls,
+five positive weights and the two-span simple-interior-knot topology already
+specified by the decision.
 
-- general bounded clamped B-spline expansion;
-- fixed NURBS;
-- arbitrary-degree polynomial/rational Bézier;
-- analytic conic/orientation;
-- heterogeneous composition.
-
-It selects the smallest rational spline composition:
-
-**Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D.**
-
-The selected future work unit keeps degree 3, five controls, five positive
-weights, one simple interior knot and exactly two spans.
-
-No general NURBS, general B-spline, arbitrary-degree Bézier, analytic conic,
-heterogeneous composition, surface, discretization or meshing work is
-authorized.
-
-If this decision is integrated, post-merge validation passes, and a separate
-decision checkpoint closes, the sole next implementation work item is the
-fixed NURBS family mapped by the decision.
+No general NURBS/B-spline, variable degree/count, repeated knots, periodicity,
+arbitrary-degree Bézier, analytic conic, heterogeneous composition, surface,
+discretization or meshing work is authorized.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Two-Span Cubic Positive-Weight NURBS —
-DECISION ACTIVE / DOCUMENTATION ONLY / NO NURBS IMPLEMENTATION /
+DECISION INTEGRATED / CLOSURE PENDING / NO NURBS IMPLEMENTATION /
 B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
