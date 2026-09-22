@@ -285,62 +285,47 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Complete Oriented Trimmed Parametric Subcurve Semantics in 2D and 3D on
-the single active implementation branch.**
+**After this implementation closure is integrated and post-merge validated,
+open one new literature-backed Curve Representation Breadth decision.**
 
-Closed decision evidence:
+Integrated trim evidence:
 
-- decision PR #112 merged as
-  `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
-- decision post-merge FAST `35729581995`: PASS;
-- decision post-merge INTEGRATION `35729581937`: PASS;
-- decision closure PR #113 merged as
-  `74cafc0f7e64abe159303fe7116dcbaac4d8fad7`;
-- closure post-merge FAST `35729923695`: PASS;
-- closure post-merge INTEGRATION `35729923468`: PASS.
+- implementation PR #114 merged as
+  `133a98ea056b12d86049e36abc0370208776106b`;
+- candidate FAST `35730750101`: PASS, 21/21;
+- candidate INTEGRATION `35730749747`: PASS, 21/21 in GCC and Clang;
+- final PR-head FAST `35730921629`: PASS;
+- final PR-head INTEGRATION `35730921744`: PASS;
+- post-merge FAST `35731127728`: PASS;
+- post-merge INTEGRATION `35731127685`: PASS.
 
-Active branch:
-`curve/trimmed-parametric-subcurve`.
+Closure branch:
+`docs/trimmed-parametric-subcurve-implementation-closure`.
 
 Decision authority:
 `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-Implemented candidate mapping on the active branch:
+Production representation breadth now includes:
 
-- `include/apmesh/geometry/trimmed_curve.hpp`:
-  static 2D/3D trim templates, construction error vocabulary, oriented
-  subdomain mapping, D1/D2 and reversal semantics;
-- `tests/trimmed_curve.cpp`:
-  concept, construction, forward/reverse, full-domain, extreme-domain,
-  2D/3D parity and determinism evidence across all admitted basis families;
-- `CMakeLists.txt`:
-  one additional ordinary semantic contract.
+- `CubicBezier2/3`;
+- `LineSegment2/3`;
+- `RationalQuadraticBezier2/3`;
+- static `TrimmedCurve2/3` semantics over admitted bounded basis families.
 
-The common `BoundedParametricCurve2/3` contract remains unchanged.
+The original CGR0–CGR7 qualification remains restricted to polynomial cubic
+Bézier. Later line, rational and trim work units are integrated focused
+extensions, not a broadened formal qualification claim.
 
-No heterogeneous composition, periodic trim, analytic conic,
-arbitrary-degree Bézier, B-spline/NURBS, surface, discretization or meshing
-implementation is included.
-
-Candidate validation:
-
-- head `fdb44db2478f50724242d9f83260bbca5d68ce0e`;
-- FAST `35730750101`: PASS, 21/21 tests;
-- INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 21/21 tests per cell;
-- focused `apmesh_core.trimmed_curve`: PASS in all three jobs.
-
-The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
-head passes and integration/post-merge closure completes.
+No additional family or downstream stage is authorized until a new decision
+is integrated and closed.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
-IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED /
-RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED / RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
@@ -367,7 +352,6 @@ The following are **not implemented and not covered by CGR qualification**:
 - B-spline curves;
 - NURBS curves;
 - heterogeneous composite/polycurve semantics;
-- integrated/qualified trimmed-subcurve semantics beyond the active candidate;
 - any production surface representation.
 
 This limitation does not invalidate the existing cubic-Bézier qualification.
