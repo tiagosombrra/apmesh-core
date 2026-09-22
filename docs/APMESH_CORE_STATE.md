@@ -289,74 +289,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Implement the Tensor-Product Bicubic Polynomial Bézier Patch in 3D work
-unit and the minimal bounded-surface contract.**
+**After this implementation closure is integrated and post-merge validated,
+open one fresh literature-backed Surface Representation breadth decision.**
 
-Closed decision evidence:
+Integrated bicubic patch evidence:
 
-- decision PR #138:
-  `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
-- decision post-merge FAST `35762956742`: PASS;
-- decision post-merge INTEGRATION `35762956709`: PASS;
-- closure PR #139:
-  `2300c5fdac3e79d4106f0a7821749dfc5de97ffd`;
-- closure post-merge FAST `35763548131`: PASS;
-- closure post-merge INTEGRATION `35763548244`: PASS.
+- candidate head:
+  `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
+- candidate FAST `35765755483`: PASS, 26/26;
+- candidate INTEGRATION `35765755475`: PASS, 26/26;
+- final head:
+  `453ff3b7e3a33ab0410db8c86fd8ac5a2531b226`;
+- final INTEGRATION `35765951784`: PASS, 26/26;
+- final FAST `35765951781` attempt 1: CANCELLED mechanically;
+- final FAST `35765951781` attempt 2: PASS, 26/26;
+- implementation PR #140:
+  `2d6d01e4202367d62db6017939cde0f2b8e83c65`;
+- post-merge FAST `35766651557`: PASS, 26/26;
+- post-merge INTEGRATION `35766651497`: PASS, 26/26.
 
-Active branch:
-`surface/bicubic-bezier-patch`.
+Closure branch:
+`docs/surface-bicubic-bezier-implementation-closure`.
 
-Decision authority:
-`docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
+The integrated first surface representation is a bounded tensor-product
+bicubic polynomial Bézier patch with analytic first/second partials, U/V
+reversal and curve-boundary parity.
 
-The sole authorized production work is the bounded 4x4 bicubic polynomial
-Bézier patch, exact [0,1]^2 domain, analytic first/second partials, U/V
-reversal, boundary parity and one focused semantic/reference contract.
-
-No rational, spline/NURBS, Coons, analytic elementary, swept, trimmed,
-surface-differential-geometry or meshing capability is authorized.
-
-Candidate repository mapping:
-
-- `include/apmesh/geometry/parametric_surface.hpp`;
-- `include/apmesh/geometry/surface.hpp`;
-- `src/geometry/surface.cpp`;
-- `tests/surface_bicubic_bezier.cpp`;
-- `CMakeLists.txt`.
-
-Candidate semantics:
-
-- exact [0,1]^2 domain for this concrete patch;
-- immutable 4x4 U-major Point3 control net;
-- V-then-U tensor-product de Casteljau;
-- analytic Su, Sv, Suu, Suv and Svv;
-- U/V reversal without a normal API;
-- exact corner identities and curve-boundary parity;
-- constant/rank-deficient patches remain valid representations;
-- parameter validation order is U finite, V finite, U domain, V domain;
-- final unrepresentable arithmetic returns
-  `SurfaceError::non_finite_result`;
-- 26 ordinary tests are expected after registration.
-
-Candidate validation:
-
-- head `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
-- FAST `35765755483`: PASS, 26/26 tests;
-- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 26/26 tests per cell;
-- focused `apmesh_core.surface_bicubic_bezier`: PASS in all three jobs.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+No broader surface family is authorized by this closure.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC BÉZIER PATCH
-IMPLEMENTATION ACTIVE / NOT QUALIFIED /
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED /
 CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
