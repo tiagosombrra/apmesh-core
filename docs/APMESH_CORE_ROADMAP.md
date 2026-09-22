@@ -1909,6 +1909,10 @@ Authorized first work unit:
 - constant/degenerate representation allowed;
 - target ordinary inventory: 26 tests.
 
+Candidate implementation is mapped to the authorized files and is awaiting
+FAST/INTEGRATION validation. It introduces no topology, trimming,
+surface-differential-geometry or meshing dependency.
+
 The retained future surface envelope remains:
 
 - rational Bézier;
