@@ -285,38 +285,53 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated,
-implement Oriented Trimmed Parametric Subcurve Semantics in 2D and 3D.**
+**Complete Oriented Trimmed Parametric Subcurve Semantics in 2D and 3D on
+the single active implementation branch.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #112 merged as
+- decision PR #112 merged as
   `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
-- decision PR FAST `35729461953`: PASS;
-- decision PR INTEGRATION `35729462003`: PASS;
 - decision post-merge FAST `35729581995`: PASS;
-- decision post-merge INTEGRATION `35729581937`: PASS.
+- decision post-merge INTEGRATION `35729581937`: PASS;
+- decision closure PR #113 merged as
+  `74cafc0f7e64abe159303fe7116dcbaac4d8fad7`;
+- closure post-merge FAST `35729923695`: PASS;
+- closure post-merge INTEGRATION `35729923468`: PASS.
 
-Closure branch:
-`docs/trimmed-parametric-subcurve-decision-closure`.
+Active branch:
+`curve/trimmed-parametric-subcurve`.
 
-Implementation authority:
+Decision authority:
 `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-The future implementation is limited to the static 2D/3D trim wrapper and its
-focused evidence. Existing line, cubic Bézier and rational quadratic values
-remain the admitted basis families for this work unit.
+Implemented candidate mapping on the active branch:
+
+- `include/apmesh/geometry/trimmed_curve.hpp`:
+  static 2D/3D trim templates, construction error vocabulary, oriented
+  subdomain mapping, D1/D2 and reversal semantics;
+- `tests/trimmed_curve.cpp`:
+  concept, construction, forward/reverse, full-domain, extreme-domain,
+  2D/3D parity and determinism evidence across all admitted basis families;
+- `CMakeLists.txt`:
+  one additional ordinary semantic contract.
+
+The common `BoundedParametricCurve2/3` contract remains unchanged.
 
 No heterogeneous composition, periodic trim, analytic conic,
-arbitrary-degree, B-spline, NURBS, surface, discretization or meshing work is
-authorized.
+arbitrary-degree Bézier, B-spline/NURBS, surface, discretization or meshing
+implementation is included.
+
+The implementation remains **ACTIVE / VALIDATION PENDING / NOT QUALIFIED**
+until PR FAST/INTEGRATION, integration, post-merge validation and closure
+complete.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
+IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED /
 RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
@@ -343,7 +358,8 @@ The following are **not implemented and not covered by CGR qualification**:
 - arbitrary-degree polynomial/rational Bézier curves;
 - B-spline curves;
 - NURBS curves;
-- composite/trimmed curve semantics;
+- heterogeneous composite/polycurve semantics;
+- integrated/qualified trimmed-subcurve semantics beyond the active candidate;
 - any production surface representation.
 
 This limitation does not invalidate the existing cubic-Bézier qualification.
