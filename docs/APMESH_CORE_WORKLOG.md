@@ -280,44 +280,44 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   HISTORICAL** via PR #113; closes the trim decision checkpoint.
 - `curve/trimmed-parametric-subcurve`: **MERGED / HISTORICAL** via PR #114;
   statically typed 2D/3D oriented trim wrapper implementation.
-- `docs/trimmed-parametric-subcurve-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #114 integration and post-merge validation.
+- `docs/trimmed-parametric-subcurve-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #115; closes the trimmed-subcurve implementation
+  checkpoint.
+- `curve/two-span-cubic-bspline-decision`: **ACTIVE**; literature-backed
+  next breadth decision only; no production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Oriented Trimmed Parametric Subcurve implementation is integrated and
-ready for closure.**
+**Two-Span Clamped Cubic B-Spline Representation — DECISION ACTIVE /
+DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
 
-Implementation closure evidence:
+Active branch:
+`curve/two-span-cubic-bspline-decision`.
 
-1. decision authority:
-   `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
-2. implementation PR #114 merged as
+Entry evidence:
+
+1. trimmed-subcurve implementation PR #114 merged as
    `133a98ea056b12d86049e36abc0370208776106b`;
-3. candidate FAST `35730750101`: PASS, 21/21 tests;
-4. candidate INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug, 21/21 tests per cell;
-5. final documentation-synchronized PR-head FAST `35730921629`: PASS;
-6. final documentation-synchronized PR-head INTEGRATION `35730921744`:
-   PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-7. post-merge FAST `35731127728`: PASS;
-8. post-merge INTEGRATION `35731127685`: PASS;
-9. `apmesh_core.trimmed_curve` passed in all candidate compiler cells;
-10. line, cubic Bézier and rational-quadratic prerequisite contracts remain
-    passing;
-11. `BoundedParametricCurve2/3` semantics remain unchanged;
-12. no heterogeneous composition or new mathematical curve family was added.
+2. implementation post-merge FAST `35731127728`: PASS;
+3. implementation post-merge INTEGRATION `35731127685`: PASS;
+4. implementation closure PR #115 merged as
+   `e29a08b07c175a91410123f99867eef4190b983b`;
+5. closure post-merge FAST `35731529518`: PASS;
+6. closure post-merge INTEGRATION `35731529546`: PASS;
+7. production contains cubic Bézier, line segment, rational quadratic Bézier
+   and oriented trimming semantics;
+8. no B-spline, NURBS, arbitrary-degree Bézier, analytic conic or heterogeneous
+   composition family is implemented.
 
-No production work item is active in this closure change.
+Decision question:
 
-## Next admissible work item after closure
+**Which remaining representation-breadth step should be introduced next, and
+what is the smallest scientifically useful scope that isolates its new
+semantics without combining unrelated complexity?**
 
-After this closure is integrated and post-merge FAST/INTEGRATION pass, open
-exactly one new **literature-backed Curve Representation Breadth decision**.
-
-The fresh comparison must consider at minimum:
+The decision compares at minimum:
 
 - bounded non-periodic B-spline;
 - NURBS after B-spline semantics;
@@ -325,8 +325,20 @@ The fresh comparison must consider at minimum:
 - analytic conic plus arbitrary 3D supporting-plane/orientation;
 - heterogeneous composition/polycurve.
 
-The decision must account for the now-integrated trim semantic and must not
-assume a winner.
+The selected candidate is a deliberately bounded first B-spline work unit:
+**Two-Span Clamped Cubic Polynomial B-Spline in 2D and 3D**, with exactly five
+control points, one simple interior knot, clamped endpoint multiplicity four,
+non-periodic and non-rational semantics.
 
-No new curve family, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized by this closure.
+This branch may change only documentation/research/decision authorities.
+No production C++, B-spline type, surface, boundary-discretization, sizing,
+meshing, Quad-Dominant or parallel implementation is authorized.
+
+## Next admissible transition after this decision
+
+Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
+and its checkpoint is separately closed may one implementation branch be
+opened for the fixed two-span cubic B-spline work unit.
+
+General/multi-span B-spline, arbitrary degree, repeated interior knots,
+periodicity, NURBS and spline surfaces remain separate later decisions.
