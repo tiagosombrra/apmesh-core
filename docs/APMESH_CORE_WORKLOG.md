@@ -257,54 +257,63 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/bounded-line-segment-decision-closure`: **MERGED / HISTORICAL**
   via PR #104; closes the bounded line-segment decision checkpoint and
   authorizes only its mapped implementation as the next work item.
+- `curve/bounded-line-segment`: **ACTIVE**; bounded 2D/3D directed
+  line-segment representation implementation under the closed decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. First Concrete Curve Family — Bounded Directed Line Segment decision is
-integrated and closed.**
+**Bounded Directed Line Segment Representation in 2D and 3D — ACTIVE /
+IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`curve/bounded-line-segment`.
 
-1. decision authority:
-   `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-2. decision PR #103 merged as
-   `2b42c78a2dbf0ede225144339dbf100900bef672`;
-3. final decision PR FAST `35719338493`: PASS;
-4. final decision PR INTEGRATION `35719338492`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-5. decision post-merge FAST `35719435059`: PASS;
-6. decision post-merge INTEGRATION `35719434961`: PASS;
-7. closure authority: PR #104;
-8. the qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved;
-9. the common bounded parametric contract remains integrated;
-10. no concrete second curve family has yet been implemented.
+Decision authority:
+`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-No production work item is active in this closure change.
+Authorized repository mapping:
 
-## Next admissible work item
+1. public value family:
+   `include/apmesh/geometry/line_segment.hpp`;
+2. production implementation:
+   `src/geometry/line_segment.cpp`;
+3. focused semantic/header contract:
+   `tests/line_segment.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized authorities:
+   `docs/APMESH_CORE_STATE.md`,
+   `docs/APMESH_CORE_ROADMAP.md`,
+   this worklog, and the decision integration record.
 
-Open exactly one implementation branch for:
+Required semantics remain exactly those fixed by the decision:
 
-**Bounded Directed Line Segment Representation in 2D and 3D.**
-
-The implementation must remain within
-`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`:
-
-- add `LineSegment2` and `LineSegment3`;
-- satisfy `BoundedParametricCurve2/3`;
-- exact `[0,1]` domain;
-- overflow-aware finite value interpolation;
+- `LineSegment2` and `LineSegment3`;
+- existing `BoundedParametricCurve2/3` concept satisfaction;
+- exact `[0,1]` parameter domain;
+- finite overflow-aware interpolation;
 - constant first derivative with explicit unrepresentable-result failure;
 - exact zero second derivative;
-- endpoint-swap reversal and covariance;
-- tested degenerate-value semantics;
-- focused GCC/Clang regression preserving every current prerequisite.
+- endpoint-swap reversal/involution/covariance;
+- representable degenerate segments with constant value and zero derivatives;
+- typed parameter failures;
+- prerequisite regression preservation.
 
-No circle/conic, arbitrary-degree/rational Bézier, B-spline, NURBS,
-composite/trimmed curve, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized.
+Explicit non-actions:
 
-After the segment implementation is integrated and closed, a new
-literature-backed decision is required before the next concrete curve family.
+- no circle/conic arc;
+- no arbitrary-degree/rational Bézier;
+- no B-spline/NURBS;
+- no composite/trimmed curve;
+- no generic regularity/length/curvature refactor;
+- no surface/discretization/sizing/meshing;
+- no Quad-Dominant or parallel work.
+
+## Next admissible transition
+
+Complete only this implementation, pass focused FAST/INTEGRATION in GCC and
+Clang, integrate through one PR, pass post-merge validation, synchronize the
+implementation closure checkpoint, and only then open a new literature-backed
+decision for the next concrete curve family.
