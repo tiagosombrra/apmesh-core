@@ -329,17 +329,21 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #134; closes the double-knot C1 continuity decision checkpoint.
 - `curve/cubic-nurbs-double-knot-continuity`: **MERGED / HISTORICAL** via
   PR #135; bounded multiplicity-1/2 implementation work item.
-- `docs/cubic-nurbs-double-knot-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #135 integration and post-merge validation.
+- `docs/cubic-nurbs-double-knot-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #136; closes the multiplicity-1/2 implementation
+  checkpoint.
+- `docs/cubic-nurbs-double-knot-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed implementation
+  checkpoint before the next breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Cubic NURBS Double-Knot C1 Continuity implementation is integrated and
-ready for closure.**
+**None. Cubic NURBS Double-Knot C1 Continuity implementation is terminally
+closed.**
 
-Implementation closure evidence:
+Terminal implementation evidence:
 
 1. candidate head:
    `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
@@ -349,24 +353,29 @@ Implementation closure evidence:
    `ba0f5ec0ee038f176cc9abc405e2aa879a2e9b95`;
 5. final PR FAST `35756643568`: PASS, 25/25;
 6. final PR INTEGRATION `35756643616`: PASS, 25/25 in GCC and Clang;
-7. implementation PR #135 merged as
+7. implementation PR #135:
    `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`;
-8. post-merge FAST `35756910304`: PASS, 25/25;
-9. post-merge INTEGRATION `35756910340`: PASS, 25/25 in GCC and Clang;
-10. focused `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS in every
-    candidate/final/post-merge gate;
-11. all prior ordinary semantic contracts remained PASS;
-12. no surface implementation is active.
+8. implementation post-merge FAST `35756910304`: PASS, 25/25;
+9. implementation post-merge INTEGRATION `35756910340`: PASS, 25/25;
+10. implementation closure PR #136 head:
+    `bb5c524bc1642376689c6b8aa1a845364844de09`;
+11. closure PR FAST `35757407115`: PASS;
+12. closure PR INTEGRATION `35757407483`: PASS;
+13. closure PR #136 merged as:
+    `affc7a46b7fd4c5cc419679e6192fc293501654e`;
+14. closure post-merge FAST `35757554252`: PASS;
+15. closure post-merge INTEGRATION `35757554247`: PASS;
+16. focused `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS throughout;
+17. no production work item is active.
 
-Integrated work-unit result before this closure merges:
+Terminal work-unit result:
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED.**
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
 
-## Next admissible work item after closure
+## Next admissible work item
 
-After this closure is integrated and post-merge validated, open exactly one
-fresh literature-backed decision comparing:
+Open exactly one fresh literature-backed decision comparing:
 
 1. bounded Surface Representation entry readiness;
 2. multiplicity-three / C0 curve semantics;
@@ -374,7 +383,5 @@ fresh literature-backed decision comparing:
 4. analytic conics after arbitrary-placement prerequisites;
 5. heterogeneous composition/polycurve.
 
-No candidate is pre-authorized.
-
-Surface source code, boundary discretization, sizing, meshing, Quad-Dominant
-and parallel work remain blocked until their own explicit decisions.
+No candidate is pre-authorized. No production code may begin before that
+decision is integrated, post-merge validated and closed.

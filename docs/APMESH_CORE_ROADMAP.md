@@ -1877,33 +1877,28 @@ Current scientific work focus:
 
 **Curve Representation Breadth Gate — Cubic NURBS Double-Knot C1
 Continuity — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED**
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Decision authority:
-`docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
+Terminal closure evidence:
 
-Integrated validation:
-
-- candidate head
-  `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
-- candidate FAST `35756479210`: PASS, 25/25;
-- candidate INTEGRATION `35756479108`: PASS, 25/25;
-- final PR head
-  `ba0f5ec0ee038f176cc9abc405e2aa879a2e9b95`;
-- final PR FAST `35756643568`: PASS, 25/25;
-- final PR INTEGRATION `35756643616`: PASS, 25/25;
 - implementation PR #135:
   `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`;
-- post-merge FAST `35756910304`: PASS, 25/25;
-- post-merge INTEGRATION `35756910340`: PASS, 25/25.
+- implementation post-merge FAST `35756910304`: PASS, 25/25;
+- implementation post-merge INTEGRATION `35756910340`: PASS, 25/25;
+- closure PR #136 head:
+  `bb5c524bc1642376689c6b8aa1a845364844de09`;
+- closure PR FAST `35757407115`: PASS;
+- closure PR INTEGRATION `35757407483`: PASS;
+- closure merge:
+  `affc7a46b7fd4c5cc419679e6192fc293501654e`;
+- closure post-merge FAST `35757554252`: PASS;
+- closure post-merge INTEGRATION `35757554247`: PASS.
 
-Closure branch:
-`docs/cubic-nurbs-double-knot-implementation-closure`.
+Next admissible action:
 
-After closure integration and post-merge validation, the sole next action is a
-fresh literature-backed comparison among:
+Open one fresh literature-backed comparison among:
 
-- Surface Representation entry readiness;
+- bounded Surface Representation entry readiness;
 - multiplicity-three / C0 curve semantics;
 - arbitrary-degree spline/Bézier breadth;
 - analytic conics after arbitrary-placement prerequisites;
