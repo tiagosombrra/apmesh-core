@@ -298,6 +298,8 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   PR #121; bounded fixed NURBS decision.
 - `docs/two-span-cubic-nurbs-decision-closure`: **MERGED / HISTORICAL**
   via PR #122; closes the fixed NURBS decision checkpoint.
+- `docs/two-span-cubic-nurbs-closure-sync`: **MERGED / HISTORICAL**
+  via PR #123; terminally reconciles the decision closure before production.
 - `curve/two-span-cubic-nurbs`: **ACTIVE**; fixed five-control/two-span
   cubic positive-weight NURBS implementation under the closed decision.
 
@@ -324,6 +326,12 @@ Closed decision checkpoint:
   `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
 - closure post-merge FAST `35741432913`: PASS;
 - closure post-merge INTEGRATION `35741432864`: PASS.
+- terminal sync PR #123 merged as
+  `01a4f7f9e88b7df0ebddbec7e3c745893b86512b`;
+- sync PR FAST `35743947099`: PASS;
+- sync PR INTEGRATION `35743946835`: PASS;
+- sync post-merge FAST `35744071581`: PASS;
+- sync post-merge INTEGRATION `35744071575`: PASS.
 
 Authorized repository mapping:
 
@@ -353,6 +361,28 @@ Required scope:
 - local support, common weight-scale, reversal, constant/extreme-finite,
   affine/embedding and determinism evidence;
 - expected ordinary inventory: 23 tests.
+
+Candidate implementation currently mapped on this active branch:
+
+- public declarations:
+  `include/apmesh/geometry/nurbs.hpp`;
+- production implementation:
+  `src/geometry/nurbs.cpp`;
+- focused semantic/reference contract:
+  `tests/two_span_cubic_nurbs.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- current candidate retains original input weights, uses internally normalized
+  homogeneous controls, evaluates value/D1/D2 analytically, and preserves exact
+  endpoint and constant-curve semantics;
+- focused contract includes independent rational-basis evidence, equal-weight
+  B-spline parity, rational-quadratic degree-elevation/knot-insertion parity,
+  local support, weight-scale invariance, reversal, embedding, affine,
+  extreme-finite and determinism evidence.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED.**
 
 Explicit non-actions:
 
