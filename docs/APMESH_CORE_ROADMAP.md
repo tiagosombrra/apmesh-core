@@ -1876,58 +1876,50 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Multi-Span Clamped Cubic
-Positive-Weight NURBS — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+Positive-Weight NURBS — IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Closed decision lineage:
+Implementation validation lineage:
 
-- decision PR #128:
-  `77a7773cdb431469402f773b52c70d171d805201`;
-- decision post-merge FAST `35749735576`: PASS;
-- decision post-merge INTEGRATION `35749735502`: PASS;
-- closure PR #129:
-  `4f59898b40717cef91ea0fbf70f72493d715d4a3`;
-- closure post-merge FAST `35750063544`: PASS;
-- closure post-merge INTEGRATION `35750063493`: PASS.
+- implementation PR #130:
+  `153bf6b874b0deac304ea07562cd897785f631df`;
+- first candidate head:
+  `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
+- candidate FAST `35751863096`: PASS, 24/24;
+- candidate INTEGRATION `35751863450`: PASS, 24/24 per GCC/Clang cell;
+- final head:
+  `3a600bba2b521ba4fea12be0b85dd55161205f15`;
+- final PR FAST `35752117689`: PASS, 24/24;
+- final PR INTEGRATION `35752117850`: PASS, 24/24 per compiler cell;
+- post-merge FAST `35752335649`: PASS, 24/24;
+- post-merge INTEGRATION `35752335629`: PASS, 24/24 per compiler cell.
 
-Active implementation branch:
-`curve/multi-span-cubic-nurbs`.
+Integrated scope:
 
-Authorized scope:
+- runtime-variable span/control/weight/simple-interior-knot count;
+- degree 3 fixed;
+- positive weights;
+- non-periodic;
+- deterministic right-span search;
+- local homogeneous value/D1/D2;
+- fixed-family and polynomial-subset parity;
+- independent four-span rational basis;
+- test-only knot insertion parity;
+- local support, weight scale, reversal, affine/embedding, extreme finite and
+  deterministic evidence.
 
-- `MultiSpanCubicNURBS2/3`;
-- degree 3;
-- at least two spans;
-- runtime-variable controls/weights/simple interior knots;
-- clamped endpoint multiplicity 4;
-- all interior multiplicities 1;
-- finite positive weights;
-- immutable owning vectors/read-only spans;
-- deterministic right-span location;
-- local homogeneous value/D1/D2 after logarithmic span search;
-- fixed two-span parity, independent rational-basis oracle, test-only knot
-  insertion parity, local support, reversal, affine/embedding, extreme-finite
-  and deterministic evidence;
-- one focused contract, targeting 24 ordinary tests.
+The common bounded-parametric contract and fixed two-span NURBS production
+source remain unchanged.
 
-Candidate validation on head
-`78e086aa6744fb9bcdb2c5077b55b4122f883836`:
+This closure authorizes no new implementation.
 
-- FAST `35751863096`: PASS, 24/24 tests;
-- INTEGRATION `35751863450`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 24/24 tests per cell;
-- the new multi-span NURBS contract and every prerequisite ordinary semantic
-  contract passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration.
-
-The common `BoundedParametricCurve2/3` contract remains unchanged.
-
-Arbitrary degree, repeated knots, periodicity, dedicated analytic conics,
-heterogeneous composition and every surface capability remain blocked.
+After closure integration and post-merge validation, open one fresh
+literature-backed breadth decision comparing repeated-knot continuity,
+arbitrary degree, analytic conics, heterogeneous composition and readiness for
+the separate Surface Representation entry decision.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
