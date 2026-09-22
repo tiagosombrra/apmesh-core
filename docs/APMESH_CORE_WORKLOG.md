@@ -317,68 +317,63 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `curve/multi-span-cubic-nurbs`: **MERGED / HISTORICAL** via PR #130;
   bounded runtime-variable span-count cubic positive-weight NURBS
   implementation.
-- `docs/multi-span-cubic-nurbs-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #130 integration and post-merge validation before the next
-  breadth decision.
+- `docs/multi-span-cubic-nurbs-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #131; closes the multi-span cubic NURBS implementation
+  checkpoint.
+- `docs/multi-span-cubic-nurbs-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles PR #131 and its post-merge
+  validation before the next breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
 **None. Multi-Span Clamped Cubic Positive-Weight NURBS implementation is
-integrated and ready for closure.**
+closed; terminal documentation synchronization is active.**
 
-Implementation integration evidence:
+Terminal closure evidence:
 
-1. decision authority:
-   `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
-2. implementation PR #130 merged as
+1. implementation PR #130:
    `153bf6b874b0deac304ea07562cd897785f631df`;
-3. first complete candidate head:
+2. first candidate head:
    `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
-4. candidate FAST `35751863096`: PASS, 24/24;
-5. candidate INTEGRATION `35751863450`: PASS, 24/24 in GCC 13 Debug
-   and Clang 18/libc++ Debug;
-6. final documentation-synchronized head:
+3. candidate FAST `35751863096`: PASS, 24/24;
+4. candidate INTEGRATION `35751863450`: PASS, 24/24 in GCC/Clang;
+5. final head:
    `3a600bba2b521ba4fea12be0b85dd55161205f15`;
-7. final PR FAST `35752117689`: PASS, 24/24;
-8. final PR INTEGRATION `35752117850`: PASS, 24/24 in both compiler
-   cells;
-9. implementation post-merge FAST `35752335649`: PASS, 24/24;
-10. implementation post-merge INTEGRATION `35752335629`: PASS, 24/24
-    in GCC 13 Debug and Clang 18/libc++ Debug;
-11. `apmesh_core.multi_span_cubic_nurbs`: PASS in every candidate/final/
-    post-merge job;
-12. every prior ordinary semantic contract remained PASS;
-13. `include/apmesh/geometry/parametric_curve.hpp` remains unchanged;
-14. fixed `src/geometry/nurbs.cpp` remains unchanged;
-15. the original Cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+6. final PR FAST `35752117689`: PASS, 24/24;
+7. final PR INTEGRATION `35752117850`: PASS, 24/24 in GCC/Clang;
+8. implementation post-merge FAST `35752335649`: PASS, 24/24;
+9. implementation post-merge INTEGRATION `35752335629`: PASS, 24/24
+   in GCC/Clang;
+10. implementation closure PR #131 merged as
+    `d71ada7b280b443c4eb303c44b57e7ce429fb24a`;
+11. closure PR FAST `35752743478`: PASS;
+12. closure PR INTEGRATION `35752743439`: PASS in GCC 13 Debug and Clang
+    18/libc++ Debug;
+13. closure post-merge FAST `35752844947`: PASS, 24/24;
+14. closure post-merge INTEGRATION `35752844817`: PASS, 24/24 in GCC 13
+    Debug and Clang 18/libc++ Debug;
+15. `apmesh_core.multi_span_cubic_nurbs`: PASS throughout;
+16. every prior ordinary semantic contract remained PASS;
+17. common bounded-parametric concepts remain unchanged;
+18. fixed two-span NURBS production remains unchanged;
+19. original Cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-Integrated production scope:
+Final work-unit result:
 
-- `MultiSpanCubicNURBS2/3`;
-- degree exactly 3;
-- runtime-variable controls/weights/simple interior knots;
-- at least two spans;
-- clamped endpoints, simple interior multiplicity only;
-- finite strictly positive weights;
-- immutable owning vectors/read-only spans;
-- exact right-span location;
-- local homogeneous value/D1/D2;
-- 24-test focused/prerequisite regression.
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
 
-Work-unit status before closure merge:
+No production work item is active.
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+## Next admissible work item after terminal sync
 
-No production work item is active in this closure PR.
+After this terminal sync is integrated and post-merge FAST/INTEGRATION pass,
+open exactly one fresh **literature-backed Curve Representation Breadth
+decision**.
 
-## Next admissible work item after closure
-
-Only after this closure is integrated and post-merge FAST/INTEGRATION pass,
-open exactly one fresh literature-backed Curve Representation Breadth decision.
-
-That decision must recompare at minimum:
+The fresh comparison must include at minimum:
 
 1. repeated-knot/continuity breadth;
 2. arbitrary-degree polynomial/rational Bézier and/or arbitrary spline degree;
@@ -389,6 +384,5 @@ That decision must recompare at minimum:
 
 No candidate is pre-authorized.
 
-No repeated knots, arbitrary degree, periodicity, analytic conic,
-heterogeneous composition, surface, boundary-discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized by this closure.
+No new curve family, surface, boundary-discretization, sizing, meshing,
+Quad-Dominant or parallel implementation is authorized.
