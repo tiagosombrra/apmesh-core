@@ -209,8 +209,14 @@ int main() {
         {1.0, 1.0},
         {2.0, 1.0},
     }});
+    const auto exact_double_root = make_curve({{
+        {0.0, 0.0},
+        {1.0, 0.0},
+        {1.0, 1.0},
+        {0.0, -1.0},
+    }});
     if (!line || !no_inflection || !one_inflection || !two_inflections ||
-        !endpoint_zero || !midpoint_root) {
+        !endpoint_zero || !midpoint_root || !exact_double_root) {
         return 1;
     }
 
@@ -277,6 +283,35 @@ int main() {
                          CurveInflectionIsolationResult::indeterminate &&
                      midpoint_result->inflection_count == 0,
                  "internal subdivision-boundary root was silently lost") &&
+             passed;
+
+    passed = require_error(
+                 exact_double_root->isolate_simple_inflections(policy),
+                 CurveInflectionError::curve_not_regular,
+                 "double-root stationary fixture was misclassified as a simple inflection") &&
+             passed;
+
+    constexpr double near_multiple_delta = 0x1p-30;
+    const auto near_multiple = make_curve({{
+        {0.0, 0.0},
+        {1.0, 0.0},
+        {2.0, 1.0},
+        {-1.0 - 2.0 * near_multiple_delta,
+         -1.0 - 2.0 * near_multiple_delta},
+    }});
+    if (!near_multiple) {
+        return 1;
+    }
+    const auto near_multiple_result =
+        near_multiple->isolate_simple_inflections(policy);
+    passed = require(
+                 near_multiple_result &&
+                     (near_multiple_result->result ==
+                          CurveInflectionIsolationResult::indeterminate ||
+                      valid_complete_evidence(
+                          *near_multiple_result,
+                          bracket_tolerance)),
+                 "near-multiple fixture produced unsound inflection evidence") &&
              passed;
 
     const CurveInflectionIsolationPolicy coarse_policy{
@@ -404,6 +439,14 @@ int main() {
                 -point.y(),
             };
         });
+    const auto rotated = transform_curve(
+        *one_inflection,
+        [](const apmesh::core::Point2& point) {
+            return std::array<double, 2>{
+                -point.y(),
+                point.x(),
+            };
+        });
     const auto scaled = transform_curve(
         *one_inflection,
         [](const apmesh::core::Point2& point) {
@@ -412,7 +455,7 @@ int main() {
                 point.y() * 8.0,
             };
         });
-    if (!translated || !reflected || !scaled) {
+    if (!translated || !reflected || !rotated || !scaled) {
         return 1;
     }
 
@@ -420,6 +463,8 @@ int main() {
         translated->isolate_simple_inflections(policy);
     const auto reflected_result =
         reflected->isolate_simple_inflections(policy);
+    const auto rotated_result =
+        rotated->isolate_simple_inflections(policy);
     const auto scaled_result =
         scaled->isolate_simple_inflections(policy);
     passed = require(
@@ -439,6 +484,15 @@ int main() {
                      reflected_result->brackets[0] ==
                          one_result->brackets[0],
                  "reflection changed inflection bracket") &&
+             passed;
+    passed = require(
+                 one_result && rotated_result &&
+                     rotated_result->result ==
+                         CurveInflectionIsolationResult::complete &&
+                     rotated_result->inflection_count == 1 &&
+                     rotated_result->brackets[0] ==
+                         one_result->brackets[0],
+                 "orientation-preserving rotation changed inflection bracket") &&
              passed;
     passed = require(
                  one_result && scaled_result &&
