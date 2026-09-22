@@ -343,9 +343,19 @@ Candidate semantics:
   before any accidental-smoothness shortcut;
 - 25 ordinary tests are expected after registration.
 
+Candidate validation:
+
+- head `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
+- FAST `35756479210`: PASS, 25/25 tests;
+- INTEGRATION `35756479108`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 25/25 tests per cell;
+- focused `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS in all
+  three jobs.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
