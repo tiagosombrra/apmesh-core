@@ -1909,9 +1909,18 @@ Authorized first work unit:
 - constant/degenerate representation allowed;
 - target ordinary inventory: 26 tests.
 
-Candidate implementation is mapped to the authorized files and is awaiting
-FAST/INTEGRATION validation. It introduces no topology, trimming,
-surface-differential-geometry or meshing dependency.
+Candidate validation on head
+`f9c94d95540d93eace7bbf1401c35f17a27d145b`:
+
+- FAST `35765755483`: PASS, 26/26 tests;
+- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell;
+- the new bicubic surface contract and every prior ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. No topology, trimming,
+surface-differential-geometry or meshing dependency was introduced.
 
 The retained future surface envelope remains:
 
