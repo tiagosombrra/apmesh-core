@@ -741,3 +741,51 @@ Current status:
 REVALIDATION PENDING / NOT QUALIFIED.**
 
 No heterogeneous composition or new mathematical curve family is implied.
+
+
+## 27. Implementation integration checkpoint
+
+PR #114 integrated the authorized work unit as
+`133a98ea056b12d86049e36abc0370208776106b`.
+
+Validation lineage:
+
+- first complete candidate head:
+  `fdb44db2478f50724242d9f83260bbca5d68ce0e`;
+- candidate FAST `35730750101`: PASS, 21/21 tests;
+- candidate INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 21/21 tests per cell;
+- final documentation-synchronized head:
+  `a5ca8c26e9e5057cfdc5b1a44bcefff17c0137db`;
+- final PR FAST `35730921629`: PASS;
+- final PR INTEGRATION `35730921744`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35731127728`: PASS;
+- post-merge INTEGRATION `35731127685`: PASS.
+
+Integrated production scope:
+
+- header-only `TrimmedCurve2<Curve>` and `TrimmedCurve3<Curve>`;
+- explicit trim-construction failure vocabulary;
+- bounded oriented basis subdomains without normalized reparameterization;
+- forward basis-parameter identity;
+- reverse mapping via the existing overflow-aware reversal primitive;
+- reverse D1 sign and D2 preservation;
+- exact trim reversal by endpoint swap;
+- focused 2D/3D evidence over line, cubic Bézier and rational quadratic
+  Bézier;
+- extreme finite-domain mapping evidence.
+
+The common bounded-parametric concepts were not changed.
+
+Work-unit result:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+This result does not qualify heterogeneous composition, analytic conics,
+arbitrary-degree Bézier, B-spline, NURBS, surface trimming or downstream
+meshing.
+
+After implementation closure integration/post-merge validation, a fresh
+literature-backed breadth decision is mandatory before another representation
+family/semantic step.
