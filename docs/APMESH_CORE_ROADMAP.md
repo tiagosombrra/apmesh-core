@@ -1714,7 +1714,7 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `RATIONAL BICUBIC BÉZIER DECISION ACTIVE / NOT QUALIFIED`
+Status: `RATIONAL BICUBIC BÉZIER DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1876,53 +1876,48 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Rational Bicubic
-Bézier Surface Breadth Decision — ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Bézier Surface — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
-
-- terminal polynomial bicubic sync:
-  `bf218b31eb2b71d7ed651183b0cfc649c96b8c7c`;
-- PR #142 FAST `35767725994`: PASS;
-- PR #142 INTEGRATION `35767725955`: PASS;
-- post-merge FAST `35768039368`: PASS;
-- post-merge INTEGRATION `35768039528`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
 
-Selected future implementation:
+Decision validation:
+
+- PR #143 head:
+  `af09c54f6c3f6c963fac140d02ae56d0bf40a886`;
+- PR FAST `35780844901`: PASS;
+- PR INTEGRATION `35780844932`: PASS;
+- merge:
+  `281626d6ec02763be57b15fff15a82b0daa9129d`;
+- post-merge FAST `35780994515`: PASS;
+- post-merge INTEGRATION `35780994410`: PASS.
+
+Closure branch:
+`docs/surface-rational-bicubic-bezier-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D.**
 
-The decision deliberately adds only:
+Authorized future scope remains:
 
-- 4x4 positive finite weights;
-- deterministic scale-aware homogeneous V-then-U evaluation;
-- analytic rational Su/Sv/Suu/Suv/Svv;
+- 4x4 finite Point3 controls;
+- 4x4 finite strictly positive weights;
+- exact [0,1]^2 domain;
+- non-periodic;
+- scale-aware homogeneous V-then-U evaluation;
+- analytic Su/Sv/Suu/Suv/Svv;
 - equal-weight parity with `BicubicBezierPatch3`;
-- independent rational Bernstein reference;
-- weight-scale, reversal, affine, extreme-finite and deterministic evidence;
-- one new focused semantic contract, targeting 27 ordinary tests.
+- independent rational Bernstein and rational-edge references;
+- U/V reversal, common-weight scale, affine, extreme-finite and deterministic
+  evidence;
+- one focused semantic contract, targeting 27 tests.
 
-Why not NURBS in the same work unit:
-
-- NURBS adds independent U/V runtime control counts, knots, multiplicities,
-  span search and continuity lines in addition to rational weighting;
-- after this rational surface seam closes, NURBS surface is retained as the
-  immediate high-priority breadth candidate.
-
-Still retained:
-
-- B-spline/NURBS surfaces;
-- Coons/transfinite patches;
-- analytic plane/cylinder/cone/sphere/torus;
-- ruled/extrusion/revolution surfaces;
-- rectangular/general trimmed surfaces;
-- remaining curve breadth.
-
-No implementation may start until the decision PR is integrated, post-merge
-FAST/INTEGRATION pass and a separate decision checkpoint closes.
+NURBS surface remains the immediate high-priority candidate after this work
+unit. Coons/transfinite, analytic elementary, swept and trimmed surfaces remain
+later decisions.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
