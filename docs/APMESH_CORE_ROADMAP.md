@@ -1917,9 +1917,18 @@ Candidate implementation scope:
 
 The common `BoundedParametricCurve2/3` contract is unchanged.
 
-The branch must pass FAST and both INTEGRATION compiler cells before
-integration. A passing work unit remains only **IMPLEMENTED / FOCUSED
-CONTRACTS PASS / INTEGRATED / NOT QUALIFIED**.
+Candidate validation on head
+`a096b00438f8acf08adce58327439e888037818f`:
+
+- FAST `35745044617`: PASS, 23/23 tests;
+- INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 23/23 tests per cell;
+- the new NURBS contract and every prerequisite ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. A passing work unit remains only
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED**.
 
 General/multi-span B-spline/NURBS, arbitrary degree/count, repeated knots,
 periodicity, arbitrary-degree Bézier, analytic conic and heterogeneous
