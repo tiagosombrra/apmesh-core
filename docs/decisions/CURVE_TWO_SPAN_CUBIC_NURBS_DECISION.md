@@ -807,3 +807,57 @@ item is the implementation bounded by Sections 5–30.
 General/multi-span B-spline or NURBS, variable degree/count, repeated knots,
 periodicity, arbitrary-degree Bézier, analytic conics, heterogeneous
 composition, surfaces and downstream meshing remain unauthorized.
+
+
+## 35. Active implementation mapping
+
+Terminal decision closure synchronization PR #123 merged as
+`01a4f7f9e88b7df0ebddbec7e3c745893b86512b`.
+
+Sync validation:
+
+- PR FAST `35743947099`: PASS;
+- PR INTEGRATION `35743946835`: PASS;
+- post-merge FAST `35744071581`: PASS;
+- post-merge INTEGRATION `35744071575`: PASS.
+
+The sole authorized implementation is active on:
+
+`curve/two-span-cubic-nurbs`.
+
+Candidate repository mapping:
+
+- public value family:
+  `include/apmesh/geometry/nurbs.hpp`;
+- production implementation:
+  `src/geometry/nurbs.cpp`;
+- focused semantic/reference contract:
+  `tests/two_span_cubic_nurbs.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Candidate production semantics:
+
+- validated five-control/five-positive-weight storage;
+- exact fixed knot topology and parameter domain;
+- common positive internal weight scaling before homogeneous control creation;
+- fixed cubic homogeneous de Boor value evaluation;
+- first/second homogeneous derivative control polygons;
+- analytic rational D1/D2 dehomogenization;
+- exact endpoint values;
+- exact constant-curve value and zero derivatives;
+- reflected interior-knot reversal through the common reversal primitive;
+- unchanged bounded-parametric concepts.
+
+The focused contract includes every Section 22 evidence category, including
+the independent rational-basis oracle and the rational-quadratic
+degree-elevation/knot-insertion conic parity fixture.
+
+Expected ordinary FAST/INTEGRATION inventory after registration: **23 tests**.
+
+Current status before PR CI:
+
+**IMPLEMENTED CANDIDATE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED.**
+
+No broader NURBS/B-spline or downstream capability is implied.
