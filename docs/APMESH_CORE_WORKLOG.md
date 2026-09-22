@@ -269,15 +269,19 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   and authorizes only its bounded implementation as the next work item.
 - `curve/rational-quadratic-bezier`: **MERGED / HISTORICAL** via PR #109;
   fixed-degree positive-weight 2D/3D rational quadratic Bézier implementation.
-- `docs/rational-quadratic-bezier-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #109 integration and post-merge validation.
+- `docs/rational-quadratic-bezier-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #110; records PR #109 integration and post-merge
+  validation.
+- `docs/rational-quadratic-bezier-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the already merged closure
+  before the next scientific decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Positive-Weight Rational Quadratic Bézier implementation is integrated
-and ready for closure.**
+**None. Positive-Weight Rational Quadratic Bézier implementation and its
+closure are integrated.**
 
 Implementation closure evidence:
 
@@ -293,14 +297,23 @@ Implementation closure evidence:
    PASS in GCC 13 Debug and Clang 18/libc++ Debug;
 7. post-merge FAST `35727296946`: PASS;
 8. post-merge INTEGRATION `35727296931`: PASS;
-9. `apmesh_core.rational_quadratic_bezier` passed in all required cells;
-10. the line-segment family and all prior ordinary contracts remain passing;
-11. `BoundedParametricCurve2/3` semantics remain unchanged;
-12. cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+9. implementation closure PR #110 merged as
+   `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
+10. closure PR FAST `35727517602`: PASS;
+11. closure PR INTEGRATION `35727517607`: PASS;
+12. closure post-merge FAST `35727653016`: PASS;
+13. closure post-merge INTEGRATION `35727652961`: PASS;
+14. `apmesh_core.rational_quadratic_bezier` passed in all required cells;
+15. the line-segment family and all prior ordinary contracts remain passing;
+16. `BoundedParametricCurve2/3` semantics remain unchanged;
+17. cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-No production work item is active in this closure change.
+No production work item is active.
 
-## Next admissible work item after closure
+This sync contains no scientific or production change; it only records the
+terminally merged closure state.
+
+## Next admissible work item
 
 Open exactly one new **literature-backed bounded scientific decision** for the
 next Curve Representation Breadth family/semantic step.

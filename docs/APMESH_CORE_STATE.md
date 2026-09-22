@@ -286,9 +286,9 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this implementation closure is integrated and post-merge validated,
-open one new literature-backed decision for the next Curve Representation
-Breadth step.**
+**Open one new literature-backed decision for the next Curve Representation
+Breadth step after this terminal documentation sync is integrated and
+post-merge validated.**
 
 Integrated rational-quadratic evidence:
 
@@ -299,10 +299,16 @@ Integrated rational-quadratic evidence:
 - final PR-head FAST `35727147220`: PASS;
 - final PR-head INTEGRATION `35727147303`: PASS;
 - post-merge FAST `35727296946`: PASS;
-- post-merge INTEGRATION `35727296931`: PASS.
+- post-merge INTEGRATION `35727296931`: PASS;
+- implementation closure PR #110 merged as
+  `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
+- closure PR FAST `35727517602`: PASS;
+- closure PR INTEGRATION `35727517607`: PASS;
+- closure post-merge FAST `35727653016`: PASS;
+- closure post-merge INTEGRATION `35727652961`: PASS.
 
-Closure branch:
-`docs/rational-quadratic-bezier-implementation-closure`.
+Terminal sync branch:
+`docs/rational-quadratic-bezier-closure-sync`.
 
 Decision authority:
 `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
@@ -323,8 +329,8 @@ new decision is integrated and closed.
 ## Current active stage
 
 **Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
-Bézier — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
-CLOSURE PENDING / LINE-SEGMENT INTEGRATION PRESERVED /
+Bézier — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / LINE-SEGMENT INTEGRATION PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
@@ -346,7 +352,6 @@ work units.
 
 The following are **not implemented and not covered by CGR qualification**:
 
-- analytic circular/general conic arc curve types;
 - dedicated analytic circular/general conic arc curve types;
 - arbitrary-degree polynomial/rational Bézier curves;
 - B-spline curves;
