@@ -1875,36 +1875,33 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Two-Span Clamped Cubic Positive-Weight
-NURBS — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / TERMINAL DOCUMENTATION SYNC ACTIVE**
+**Curve Representation Breadth Gate — NO ACTIVE REPRESENTATION WORK ITEM /
+FIXED TWO-SPAN CUBIC POSITIVE-WEIGHT NURBS TERMINALLY CLOSED /
+NOT QUALIFIED / FRESH BREADTH DECISION REQUIRED**
 
-Implementation authority:
-`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
-
-Terminal validation lineage:
+Terminal fixed-NURBS lineage:
 
 - implementation PR #124:
   `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
-- candidate FAST `35745044617`: PASS, 23/23;
-- candidate INTEGRATION `35745044483`: PASS, 23/23 in GCC and Clang;
-- final PR FAST `35745222050`: PASS;
-- final PR INTEGRATION `35745221931`: PASS;
 - implementation post-merge FAST `35746004007`: PASS;
 - implementation post-merge INTEGRATION `35746003953`: PASS;
 - closure PR #125:
   `465dc5b5f1948d4d27ca67d777aa2493f9c8968e`;
-- closure PR FAST `35746421742`: PASS;
-- closure PR INTEGRATION `35746421809`: PASS;
 - closure post-merge FAST `35746603445`: PASS;
-- closure post-merge INTEGRATION `35746603448`: PASS.
+- closure post-merge INTEGRATION `35746603448`: PASS;
+- terminal sync PR #126:
+  `eaba130eaa5da79fc827b8f770df4123524fc455`;
+- sync PR FAST `35747044794`: PASS;
+- sync PR INTEGRATION `35747044719`: PASS;
+- sync post-merge FAST `35747249752`: PASS;
+- sync post-merge INTEGRATION `35747249889`: PASS.
 
-Production includes the fixed two-span cubic positive-weight NURBS family.
-This closes that focused work unit without widening the original Cubic-Bézier
-CGR qualification.
+The fixed NURBS work unit is:
 
-After this terminal sync is integrated and post-merge validated, open exactly
-one fresh literature-backed comparison decision among:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
+
+The sole next scientific work item is one literature-backed comparison among:
 
 - general bounded clamped cubic B-spline/NURBS span-count expansion;
 - arbitrary-degree polynomial/rational Bézier;
