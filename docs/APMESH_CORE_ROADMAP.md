@@ -1507,8 +1507,8 @@ candidates before authorizing any production implementation.
 
 ### Curve Representation Breadth Gate — Analytic, Rational, and Spline Families
 
-Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION INTEGRATED /
-CHECKPOINT CLOSURE PENDING / NO NEW FAMILY IMPLEMENTED /
+Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
+IMPLEMENTATION NOT STARTED / NO NEW FAMILY IMPLEMENTED /
 CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1741,31 +1741,33 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Parametric Curve Family Abstraction —
-DECISION INTEGRATED / CHECKPOINT CLOSURE PENDING / DOCUMENTATION ONLY**
+**Curve Representation Breadth Gate — Bounded Parametric Curve Contract and
+Cubic Bézier Conformance — AUTHORIZED / IMPLEMENTATION NOT STARTED**
 
-Decision integration evidence:
+Decision and closure evidence:
 
-- PR #98 merged as
+- decision PR #98 merged as
   `12ecbf584751dadb0dd142c485b1cd4f220736d8`;
-- final PR FAST `35711481469`: PASS;
-- final PR INTEGRATION `35711481473`: PASS;
-- post-merge FAST `35711563476`: PASS;
-- post-merge INTEGRATION `35711563585`: PASS.
+- decision PR FAST `35711481469` and INTEGRATION `35711481473`: PASS;
+- decision post-merge FAST `35711563476` and INTEGRATION
+  `35711563585`: PASS;
+- closure PR #99 merged as
+  `60e7677323300d4263d53c616b3081dd2fa03d0f`;
+- closure PR FAST `35711824443` and INTEGRATION `35711824521`: PASS;
+- closure post-merge FAST `35711924946` and INTEGRATION
+  `35711924910`: PASS.
 
 Decision authority:
 `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
 
-This closure branch authorizes no production implementation. After the closure
-is integrated and its post-merge checks pass, the sole next work item becomes:
-
-**Bounded Parametric Curve Contract and Cubic Bézier Conformance.**
-
-The qualified polynomial cubic-Bézier CGR0–CGR7 baseline remains unchanged and
-frozen as a prerequisite.
+The sole next bounded work item is **Bounded Parametric Curve Contract and
+Cubic Bézier Conformance**. It must preserve the qualified polynomial
+cubic-Bézier CGR0–CGR7 baseline byte/semantic authority and may not introduce a
+second concrete curve family.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
-paused only to prevent further concrete-family coupling.
+paused only to prevent further concrete-family coupling while the reusable
+representation seam is established.
 
 The planned later concrete-family sequence remains bounded line/segment,
 bounded circle/conic arc, rational/arbitrary-degree Bézier, B-spline, NURBS,
@@ -1779,4 +1781,3 @@ The long-term ordering remains:
 Tensor/Anisotropic Extension.**
 
 Parallel execution must not precede serial Quad-Dominant qualification.
-

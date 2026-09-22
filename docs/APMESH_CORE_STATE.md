@@ -282,33 +282,39 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Close the integrated Parametric Curve Family Abstraction decision checkpoint;
-no production implementation is present on this branch.**
+**Open the implementation work item Bounded Parametric Curve Contract and Cubic
+Bézier Conformance.**
 
-Decision integration evidence:
+Decision and closure evidence:
 
-- PR #98 merged as
+- decision PR #98 merged as
   `12ecbf584751dadb0dd142c485b1cd4f220736d8`;
-- final PR FAST `35711481469`: PASS;
-- final PR INTEGRATION `35711481473`: PASS;
-- post-merge FAST `35711563476`: PASS;
-- post-merge INTEGRATION `35711563585`: PASS.
+- decision final PR FAST `35711481469`: PASS;
+- decision final PR INTEGRATION `35711481473`: PASS;
+- decision post-merge FAST `35711563476`: PASS;
+- decision post-merge INTEGRATION `35711563585`: PASS;
+- closure PR #99 merged as
+  `60e7677323300d4263d53c616b3081dd2fa03d0f`;
+- closure final PR FAST `35711824443`: PASS;
+- closure final PR INTEGRATION `35711824521`: PASS;
+- closure post-merge FAST `35711924946`: PASS;
+- closure post-merge INTEGRATION `35711924910`: PASS.
 
 Decision authority:
 `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
 
-The decision checkpoint is represented by this closure branch. Once this
-closure is integrated and its post-merge FAST/INTEGRATION pass, the sole next
-implementation work unit is:
+The decision checkpoint is closed and synchronized. No production implementation
+is active at this checkpoint.
+
+The sole next implementation work unit is:
 
 **Bounded Parametric Curve Contract and Cubic Bézier Conformance.**
 
-That implementation may add only the finite closed parameter-domain
-vocabulary, static 2D/3D C++23 parametric-curve concepts,
-reversal-parameter semantics, unchanged Cubic-Bézier conformance, focused
-contracts and build registration.
+It may add only the finite closed parameter-domain vocabulary, static 2D/3D
+C++23 parametric-curve concepts, reversal-parameter semantics, unchanged
+Cubic-Bézier conformance, focused contracts and required build registration.
 
 No line/arc/rational/arbitrary-degree Bézier/B-spline/NURBS/composite/trimmed
 curve or surface production implementation is authorized yet.
@@ -319,7 +325,7 @@ paused for the representation-breadth seam.
 ## Current active stage
 
 **Curve Representation Breadth Gate — Parametric Curve Family Abstraction —
-DECISION INTEGRATED / CHECKPOINT CLOSURE PENDING / NO NEW FAMILY IMPLEMENTED /
+DECISION CLOSED / IMPLEMENTATION NOT STARTED / NO NEW FAMILY IMPLEMENTED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:

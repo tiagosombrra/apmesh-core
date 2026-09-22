@@ -585,3 +585,26 @@ within Sections 6–17 of this decision.
 No line/segment, circle/conic arc, arbitrary-degree/rational Bézier, B-spline,
 NURBS, composite/trimmed curve, surface, discretization, sizing, meshing,
 Quad-Dominant or parallel work is authorized by this checkpoint.
+
+
+## 23. Closure synchronization
+
+PR #99 merged the decision-closure checkpoint as
+`60e7677323300d4263d53c616b3081dd2fa03d0f`.
+
+Validation:
+
+- final closure PR FAST `35711824443`: PASS;
+- final closure PR INTEGRATION `35711824521`: PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug;
+- post-merge FAST `35711924946`: PASS;
+- post-merge INTEGRATION `35711924910`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+The decision lifecycle is therefore **CLOSED / SYNCHRONIZED**.
+
+The sole next admissible work item is implementation of **Bounded Parametric
+Curve Contract and Cubic Bézier Conformance** within Sections 6–17.
+
+No second concrete curve family, surface, discretization, sizing, meshing,
+Quad-Dominant or parallel capability is authorized by this synchronization.
