@@ -411,6 +411,26 @@ Required implementation scope:
 - U/V reversal;
 - target ordinary inventory: 27 tests.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/surface.hpp`:
+  adds validated `RationalBicubicBezierPatch3` plus fixed 4x4 weight storage;
+- `src/geometry/rational_surface.cpp`:
+  implements scale-aware homogeneous tensor evaluation and analytic rational
+  Su/Sv/Suu/Suv/Svv without modifying the polynomial source;
+- `tests/surface_rational_bicubic_bezier.cpp`:
+  independent rational Bernstein oracle, equal-weight polynomial parity,
+  RationalQuadraticBezier3 degree-elevation relation, reversal, weight-scale,
+  affine, extreme-finite and deterministic evidence;
+- `CMakeLists.txt`:
+  links the rational source and registers the 27th ordinary surface contract;
+- `include/apmesh/geometry/parametric_surface.hpp` remains unchanged;
+- `src/geometry/surface.cpp` remains unchanged.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no U/V knots or multiplicities;
