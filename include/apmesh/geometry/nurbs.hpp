@@ -4,6 +4,7 @@
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <expected>
 #include <span>
 #include <vector>
@@ -127,6 +128,8 @@ enum class MultiSpanNURBSConstructionError {
     insufficient_control_points,
     control_weight_count_mismatch,
     interior_knot_count_mismatch,
+    interior_multiplicity_count_mismatch,
+    unsupported_interior_multiplicity,
     non_finite_lower_knot,
     non_finite_interior_knot,
     non_finite_upper_knot,
@@ -147,9 +150,22 @@ public:
         double lower_knot,
         double upper_knot);
 
+    [[nodiscard]] static std::expected<
+        MultiSpanCubicNURBS2,
+        MultiSpanNURBSConstructionError>
+    make(
+        std::vector<Point2> control_points,
+        std::vector<double> weights,
+        std::vector<double> interior_knots,
+        std::vector<std::uint8_t> interior_multiplicities,
+        double lower_knot,
+        double upper_knot);
+
     [[nodiscard]] std::span<const Point2> control_points() const noexcept;
     [[nodiscard]] std::span<const double> weights() const noexcept;
     [[nodiscard]] std::span<const double> interior_knots() const noexcept;
+    [[nodiscard]] std::span<const std::uint8_t>
+    interior_multiplicities() const noexcept;
     [[nodiscard]] std::size_t span_count() const noexcept;
     [[nodiscard]] double lower_knot() const noexcept;
     [[nodiscard]] double upper_knot() const noexcept;
@@ -171,6 +187,8 @@ private:
         std::vector<Point2> control_points,
         std::vector<double> weights,
         std::vector<double> interior_knots,
+        std::vector<std::uint8_t> interior_multiplicities,
+        std::vector<std::size_t> span_control_starts,
         double lower_knot,
         double upper_knot,
         bool constant);
@@ -178,6 +196,8 @@ private:
     std::vector<Point2> control_points_;
     std::vector<double> weights_;
     std::vector<double> interior_knots_;
+    std::vector<std::uint8_t> interior_multiplicities_;
+    std::vector<std::size_t> span_control_starts_;
     double lower_knot_{};
     double upper_knot_{};
     bool constant_{};
@@ -195,9 +215,22 @@ public:
         double lower_knot,
         double upper_knot);
 
+    [[nodiscard]] static std::expected<
+        MultiSpanCubicNURBS3,
+        MultiSpanNURBSConstructionError>
+    make(
+        std::vector<Point3> control_points,
+        std::vector<double> weights,
+        std::vector<double> interior_knots,
+        std::vector<std::uint8_t> interior_multiplicities,
+        double lower_knot,
+        double upper_knot);
+
     [[nodiscard]] std::span<const Point3> control_points() const noexcept;
     [[nodiscard]] std::span<const double> weights() const noexcept;
     [[nodiscard]] std::span<const double> interior_knots() const noexcept;
+    [[nodiscard]] std::span<const std::uint8_t>
+    interior_multiplicities() const noexcept;
     [[nodiscard]] std::size_t span_count() const noexcept;
     [[nodiscard]] double lower_knot() const noexcept;
     [[nodiscard]] double upper_knot() const noexcept;
@@ -219,6 +252,8 @@ private:
         std::vector<Point3> control_points,
         std::vector<double> weights,
         std::vector<double> interior_knots,
+        std::vector<std::uint8_t> interior_multiplicities,
+        std::vector<std::size_t> span_control_starts,
         double lower_knot,
         double upper_knot,
         bool constant);
@@ -226,6 +261,8 @@ private:
     std::vector<Point3> control_points_;
     std::vector<double> weights_;
     std::vector<double> interior_knots_;
+    std::vector<std::uint8_t> interior_multiplicities_;
+    std::vector<std::size_t> span_control_starts_;
     double lower_knot_{};
     double upper_knot_{};
     bool constant_{};
