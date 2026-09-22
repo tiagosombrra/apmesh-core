@@ -374,3 +374,20 @@ only.
 
 Boundary Curve Discretization, sizing, meshing, Quad-Dominant and parallel
 execution remain blocked.
+
+## Integration checkpoint
+
+PR #86 integrated this entry decision as
+`e728e89f08b23cd0720e502e3efe0c565198d376`.
+
+Validation:
+
+- PR FAST `35671674354`: PASS;
+- PR INTEGRATION `35671674360`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35671824327`: PASS;
+- post-merge INTEGRATION `35671824323`: PASS in both cells.
+
+The entry-decision checkpoint is closed. The sole next bounded work item is
+implementation of **Pointwise Curvature Magnitude on Regular Cubic Bézier
+Curves** within the scope fixed above.

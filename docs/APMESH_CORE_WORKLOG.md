@@ -207,56 +207,47 @@ writing.
   campaign.
 - `docs/curve-representation-qualification-closure`: **CLOSURE-ONLY**;
   closes the qualified Curve Representation stage before the next stage entry.
-- `curve/differential-geometry-entry-decision`: **ACTIVE /
-  VALIDATED_UNMERGED**; literature-backed entry decision and repository mapping
-  only; no production curvature implementation.
+- `curve/differential-geometry-entry-decision`: **MERGED / HISTORICAL**
+  via PR #86; literature-backed entry decision and repository mapping only; no
+  production curvature implementation.
+- `docs/curve-differential-entry-closure`: **CLOSURE-ONLY**; records PR #86
+  integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Define Curve Differential Geometry entry and first bounded work unit —
-VALIDATED_UNMERGED.**
+**None. Curve Differential Geometry entry decision is closed.**
 
-Active branch: `curve/differential-geometry-entry-decision`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
+1. entry decision PR #86 merged as
+   `e728e89f08b23cd0720e502e3efe0c565198d376`;
+2. PR #86 FAST `35671674354`: PASS;
+3. PR #86 INTEGRATION `35671674360`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. post-merge FAST `35671824327`: PASS;
+5. post-merge INTEGRATION `35671824323`: PASS in both cells;
+6. decision authority:
+   `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+7. research mapping is retained in
+   `docs/research/REFERENCE_REGISTER.md`;
+8. no curvature production implementation has begun.
 
-Mapped entry result:
-
-1. Curve Representation prerequisite is closed/qualified by CGR0–CGR7 PASS;
-2. first bounded work unit is **Pointwise Curvature Magnitude on Regular Cubic
-   Bézier Curves**;
-3. 2D curvature magnitude uses
-   `|det(B',B'')| / ||B'||^3`;
-4. 3D curvature magnitude uses
-   `||B'×B''|| / ||B'||^3`;
-5. curvature is defined only where the qualified first derivative is nonzero;
-6. exact singular parameters fail explicitly; no speed epsilon is admitted;
-7. regular inflection points return zero curvature, not singular failure;
-8. reversal, translation, orthogonal-frame, uniform-scale and 2D/3D embedding
-   relations are required evidence;
-9. numerical evaluation must avoid avoidable unscaled intermediate
-   overflow/underflow when the final curvature is representable;
-10. global curvature extrema, monotonicity, signed-curvature semantics,
-    inflection isolation, Frenet frames, torsion and feature extraction remain
-    excluded;
-11. Boundary Curve Discretization, sizing, meshing, Quad-Dominant and parallel
-    execution remain blocked;
-12. research mapping is recorded in
-    `docs/research/REFERENCE_REGISTER.md`.
-
-No production code is changed by this work item.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this entry-decision PR is merged, post-merge FAST/INTEGRATION pass, and
-its checkpoint is closed, implement exactly one bounded work unit:
+Implement exactly one bounded work unit:
 
 **Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
 
-Implementation must stay inside the entry decision and must not introduce
-global feature classification, discretization, sizing, surfaces, meshing or
-parallel execution.
+Implementation must obey the integrated entry decision:
+
+- reuse qualified first/second derivatives;
+- exact singularity semantics, no epsilon;
+- scale-aware finite curvature evaluation;
+- required reversal/frame/scale/embedding evidence;
+- no global feature classification, discretization, sizing, surfaces, meshing
+  or parallel execution.
 
