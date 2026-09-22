@@ -289,38 +289,78 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the Cubic NURBS Double-Knot C1 Continuity work unit.**
+**Implement the bounded Cubic Positive-Weight Multi-Span NURBS interior
+multiplicity-1/2 work unit with explicit C1/D2 failure semantics.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #133 merged as
+- decision PR #133:
   `ea65372bb6a9ed9a6bde94a3e3eed551e96fd3b9`;
-- PR FAST `35754225028`: PASS;
-- PR INTEGRATION `35754225224`: PASS;
-- post-merge FAST `35754389148`: PASS;
-- post-merge INTEGRATION `35754389151`: PASS.
+- decision post-merge FAST `35754389148`: PASS;
+- decision post-merge INTEGRATION `35754389151`: PASS;
+- closure PR #134:
+  `8e47a35922f5f0dd246b238294e58980baf91277`;
+- closure post-merge FAST `35754917335`: PASS;
+- closure post-merge INTEGRATION `35754917556`: PASS.
 
-Closure branch:
-`docs/cubic-nurbs-double-knot-decision-closure`.
+Active branch:
+`curve/cubic-nurbs-double-knot-continuity`.
 
 Decision authority:
 `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-The sole authorized next implementation admits interior multiplicity 1/2 at
-fixed cubic degree and introduces typed ordinary-D2 failure exactly at double
-knots.
+The implementation may add exactly one common query error,
+`CurveError::insufficient_continuity`, explicit interior multiplicities 1/2,
+and parameter-local D2 failure at exact double knots.
 
-Surface Representation remains blocked until that implementation closes and a
-separate surface-readiness/entry decision explicitly opens it.
+The simple-knot path, degree 3, positive weights, non-periodicity and all prior
+curve families remain frozen prerequisites.
+
+No multiplicity-three, arbitrary-degree, periodic, one-sided derivative,
+analytic-conic, polycurve, surface, discretization or meshing work is
+authorized.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/parametric_curve.hpp`;
+- `include/apmesh/geometry/nurbs.hpp`;
+- `src/geometry/multi_span_nurbs.cpp`;
+- `tests/cubic_nurbs_double_knot_continuity.cpp`;
+- `CMakeLists.txt`.
+
+Candidate semantics:
+
+- the legacy simple-knot factory synthesizes multiplicity one and remains
+  source-compatible;
+- explicit multiplicities are unique-knot metadata restricted to 1/2;
+- a private flat-knot cache is built once at construction and never allocated
+  per query;
+- exact interior-knot queries still select the right span;
+- value/D1 remain available at a double knot;
+- ordinary D2 returns `CurveError::insufficient_continuity` exactly there,
+  before any accidental-smoothness shortcut;
+- 25 ordinary tests are expected after registration.
+
+Candidate validation:
+
+- head `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
+- FAST `35756479210`: PASS, 25/25 tests;
+- INTEGRATION `35756479108`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 25/25 tests per cell;
+- focused `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS in all
+  three jobs.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — CUBIC NURBS DOUBLE-KNOT C1
-CONTINUITY DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
+CONTINUITY IMPLEMENTATION ACTIVE / NOT QUALIFIED /
 MULTI-SPAN NURBS, FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
 INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 

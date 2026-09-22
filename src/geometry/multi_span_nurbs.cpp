@@ -4,6 +4,7 @@
 #include <array>
 #include <cmath>
 #include <cstddef>
+#include <cstdint>
 #include <expected>
 #include <limits>
 #include <span>
@@ -76,32 +77,15 @@ struct Homogeneous3 {
     return ratio;
 }
 
-[[nodiscard]] double flat_knot(
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
-    const std::size_t control_count,
-    const std::size_t index) noexcept {
-    if (index < 4U) {
-        return lower;
-    }
-    if (index < control_count) {
-        return interior_knots[index - 4U];
-    }
-    return upper;
-}
-
-[[nodiscard]] std::size_t locate_span(
-    const std::span<const double> interior_knots,
-    const double upper,
+[[nodiscard]] std::size_t locate_flat_span(
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    if (parameter == upper) {
-        return interior_knots.size();
+    if (parameter == flat_knots.back()) {
+        return flat_knots.size() - 5U;
     }
-    return static_cast<std::size_t>(
-        std::upper_bound(
-            interior_knots.begin(), interior_knots.end(), parameter) -
-        interior_knots.begin());
+    const auto iterator =
+        std::upper_bound(flat_knots.begin(), flat_knots.end(), parameter);
+    return static_cast<std::size_t>(iterator - flat_knots.begin() - 1);
 }
 
 [[nodiscard]] Homogeneous2 lerp_homogeneous(
@@ -132,10 +116,7 @@ template <typename Homogeneous, std::size_t Degree>
     std::array<Homogeneous, Degree + 1U> work,
     const std::size_t spline_span,
     const std::size_t knot_offset,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
-    const std::size_t control_count,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
     for (int level = 1; level <= static_cast<int>(Degree); ++level) {
         for (int local = static_cast<int>(Degree); local >= level; --local) {
@@ -145,18 +126,8 @@ template <typename Homogeneous, std::size_t Degree>
                 knot_index + Degree - static_cast<std::size_t>(level) + 1U;
             const auto alpha = parameter_ratio(
                 parameter,
-                flat_knot(
-                    interior_knots,
-                    lower,
-                    upper,
-                    control_count,
-                    knot_index + knot_offset),
-                flat_knot(
-                    interior_knots,
-                    lower,
-                    upper,
-                    control_count,
-                    upper_index + knot_offset));
+                flat_knots[knot_index + knot_offset],
+                flat_knots[upper_index + knot_offset]);
             if (!alpha.has_value()) {
                 return std::unexpected{alpha.error()};
             }
@@ -287,10 +258,7 @@ template <typename Homogeneous>
 [[nodiscard]] std::expected<std::array<Homogeneous, 3>, CurveError>
 first_derivative_controls(
     const std::array<Homogeneous, 4>& controls,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
-    const std::size_t control_count,
+    const std::span<const double> flat_knots,
     const std::size_t start) noexcept {
     std::array<Homogeneous, 3> result{};
     for (std::size_t local = 0; local < result.size(); ++local) {
@@ -299,10 +267,8 @@ first_derivative_controls(
             controls[local],
             controls[local + 1U],
             3,
-            flat_knot(
-                interior_knots, lower, upper, control_count, index + 1U),
-            flat_knot(
-                interior_knots, lower, upper, control_count, index + 4U));
+            flat_knots[index + 1U],
+            flat_knots[index + 4U]);
         if (!value.has_value()) {
             return std::unexpected{value.error()};
         }
@@ -315,10 +281,7 @@ template <typename Homogeneous>
 [[nodiscard]] std::expected<std::array<Homogeneous, 2>, CurveError>
 second_derivative_controls(
     const std::array<Homogeneous, 3>& controls,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
-    const std::size_t control_count,
+    const std::span<const double> flat_knots,
     const std::size_t start) noexcept {
     std::array<Homogeneous, 2> result{};
     for (std::size_t local = 0; local < result.size(); ++local) {
@@ -327,10 +290,8 @@ second_derivative_controls(
             controls[local],
             controls[local + 1U],
             2,
-            flat_knot(
-                interior_knots, lower, upper, control_count, index + 2U),
-            flat_knot(
-                interior_knots, lower, upper, control_count, index + 4U));
+            flat_knots[index + 2U],
+            flat_knots[index + 4U]);
         if (!value.has_value()) {
             return std::unexpected{value.error()};
         }
@@ -342,44 +303,34 @@ second_derivative_controls(
 [[nodiscard]] std::expected<Homogeneous2, CurveError> evaluate_homogeneous(
     const std::span<const Point2> points,
     const std::span<const double> weights,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    const std::size_t start =
-        locate_span(interior_knots, upper, parameter);
+    const std::size_t spline_span = locate_flat_span(flat_knots, parameter);
+    const std::size_t start = spline_span - 3U;
     const auto controls =
         local_homogeneous_controls(points, weights, start);
     return de_boor_local<Homogeneous2, 3>(
         controls,
-        start + 3U,
+        spline_span,
         0U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
 }
 
 [[nodiscard]] std::expected<Homogeneous3, CurveError> evaluate_homogeneous(
     const std::span<const Point3> points,
     const std::span<const double> weights,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    const std::size_t start =
-        locate_span(interior_knots, upper, parameter);
+    const std::size_t spline_span = locate_flat_span(flat_knots, parameter);
+    const std::size_t start = spline_span - 3U;
     const auto controls =
         local_homogeneous_controls(points, weights, start);
     return de_boor_local<Homogeneous3, 3>(
         controls,
-        start + 3U,
+        spline_span,
         0U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
 }
 
@@ -387,61 +338,40 @@ second_derivative_controls(
 evaluate_homogeneous_jet(
     const std::span<const Point2> points,
     const std::span<const double> weights,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    const std::size_t start =
-        locate_span(interior_knots, upper, parameter);
+    const std::size_t spline_span = locate_flat_span(flat_knots, parameter);
+    const std::size_t start = spline_span - 3U;
     const auto controls =
         local_homogeneous_controls(points, weights, start);
-    const auto first = first_derivative_controls(
-        controls,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
-        start);
+    const auto first =
+        first_derivative_controls(controls, flat_knots, start);
     if (!first.has_value()) {
         return std::unexpected{first.error()};
     }
-    const auto second = second_derivative_controls(
-        *first,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
-        start);
+    const auto second =
+        second_derivative_controls(*first, flat_knots, start);
     if (!second.has_value()) {
         return std::unexpected{second.error()};
     }
 
     const auto value = de_boor_local<Homogeneous2, 3>(
         controls,
-        start + 3U,
+        spline_span,
         0U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
     const auto d1 = de_boor_local<Homogeneous2, 2>(
         *first,
-        start + 2U,
+        spline_span - 1U,
         1U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
     const auto d2 = de_boor_local<Homogeneous2, 1>(
         *second,
-        start + 1U,
+        spline_span - 2U,
         2U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
 
     if (!value || !d1 || !d2) {
@@ -454,61 +384,40 @@ evaluate_homogeneous_jet(
 evaluate_homogeneous_jet(
     const std::span<const Point3> points,
     const std::span<const double> weights,
-    const std::span<const double> interior_knots,
-    const double lower,
-    const double upper,
+    const std::span<const double> flat_knots,
     const double parameter) noexcept {
-    const std::size_t start =
-        locate_span(interior_knots, upper, parameter);
+    const std::size_t spline_span = locate_flat_span(flat_knots, parameter);
+    const std::size_t start = spline_span - 3U;
     const auto controls =
         local_homogeneous_controls(points, weights, start);
-    const auto first = first_derivative_controls(
-        controls,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
-        start);
+    const auto first =
+        first_derivative_controls(controls, flat_knots, start);
     if (!first.has_value()) {
         return std::unexpected{first.error()};
     }
-    const auto second = second_derivative_controls(
-        *first,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
-        start);
+    const auto second =
+        second_derivative_controls(*first, flat_knots, start);
     if (!second.has_value()) {
         return std::unexpected{second.error()};
     }
 
     const auto value = de_boor_local<Homogeneous3, 3>(
         controls,
-        start + 3U,
+        spline_span,
         0U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
     const auto d1 = de_boor_local<Homogeneous3, 2>(
         *first,
-        start + 2U,
+        spline_span - 1U,
         1U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
     const auto d2 = de_boor_local<Homogeneous3, 1>(
         *second,
-        start + 1U,
+        spline_span - 2U,
         2U,
-        interior_knots,
-        lower,
-        upper,
-        points.size(),
+        flat_knots,
         parameter);
 
     if (!value || !d1 || !d2) {
@@ -705,6 +614,7 @@ validate_layout(
     const std::size_t control_count,
     const std::size_t weight_count,
     const std::span<const double> interior_knots,
+    const std::span<const std::uint8_t> interior_multiplicities,
     const double lower,
     const double upper) noexcept {
     if (control_count < 5U) {
@@ -715,10 +625,26 @@ validate_layout(
         return std::unexpected{
             MultiSpanNURBSConstructionError::control_weight_count_mismatch};
     }
-    if (interior_knots.size() != control_count - 4U) {
+    if (interior_multiplicities.size() != interior_knots.size()) {
+        return std::unexpected{
+            MultiSpanNURBSConstructionError::
+                interior_multiplicity_count_mismatch};
+    }
+
+    std::size_t flat_interior_count = 0U;
+    for (const std::uint8_t multiplicity : interior_multiplicities) {
+        if (multiplicity != 1U && multiplicity != 2U) {
+            return std::unexpected{
+                MultiSpanNURBSConstructionError::
+                    unsupported_interior_multiplicity};
+        }
+        flat_interior_count += static_cast<std::size_t>(multiplicity);
+    }
+    if (control_count != flat_interior_count + 4U) {
         return std::unexpected{
             MultiSpanNURBSConstructionError::interior_knot_count_mismatch};
     }
+
     if (!std::isfinite(lower)) {
         return std::unexpected{
             MultiSpanNURBSConstructionError::non_finite_lower_knot};
@@ -762,18 +688,64 @@ validate_weights(const std::span<const double> weights) noexcept {
     return {};
 }
 
+[[nodiscard]] std::vector<double> build_flat_knots(
+    const std::span<const double> interior_knots,
+    const std::span<const std::uint8_t> interior_multiplicities,
+    const double lower,
+    const double upper) {
+    std::size_t interior_count = 0U;
+    for (const std::uint8_t multiplicity : interior_multiplicities) {
+        interior_count += static_cast<std::size_t>(multiplicity);
+    }
+
+    std::vector<double> flat_knots;
+    flat_knots.reserve(interior_count + 8U);
+    for (int index = 0; index < 4; ++index) {
+        flat_knots.push_back(lower);
+    }
+    for (std::size_t index = 0; index < interior_knots.size(); ++index) {
+        for (std::uint8_t repeat = 0U;
+             repeat < interior_multiplicities[index];
+             ++repeat) {
+            flat_knots.push_back(interior_knots[index]);
+        }
+    }
+    for (int index = 0; index < 4; ++index) {
+        flat_knots.push_back(upper);
+    }
+    return flat_knots;
+}
+
+[[nodiscard]] bool is_double_knot(
+    const std::span<const double> interior_knots,
+    const std::span<const std::uint8_t> interior_multiplicities,
+    const double parameter) noexcept {
+    const auto iterator =
+        std::lower_bound(interior_knots.begin(), interior_knots.end(), parameter);
+    if (iterator == interior_knots.end() || *iterator != parameter) {
+        return false;
+    }
+    const std::size_t index =
+        static_cast<std::size_t>(iterator - interior_knots.begin());
+    return interior_multiplicities[index] == 2U;
+}
+
 } // namespace
 
 MultiSpanCubicNURBS2::MultiSpanCubicNURBS2(
     std::vector<Point2> control_points,
     std::vector<double> weights,
     std::vector<double> interior_knots,
+    std::vector<std::uint8_t> interior_multiplicities,
+    std::vector<double> flat_knots,
     const double lower_knot,
     const double upper_knot,
     const bool constant)
     : control_points_(std::move(control_points)),
       weights_(std::move(weights)),
       interior_knots_(std::move(interior_knots)),
+      interior_multiplicities_(std::move(interior_multiplicities)),
+      flat_knots_(std::move(flat_knots)),
       lower_knot_(lower_knot),
       upper_knot_(upper_knot),
       constant_(constant) {}
@@ -785,10 +757,29 @@ MultiSpanCubicNURBS2::make(
     std::vector<double> interior_knots,
     const double lower_knot,
     const double upper_knot) {
+    std::vector<std::uint8_t> multiplicities(interior_knots.size(), 1U);
+    return make(
+        std::move(control_points),
+        std::move(weights),
+        std::move(interior_knots),
+        std::move(multiplicities),
+        lower_knot,
+        upper_knot);
+}
+
+std::expected<MultiSpanCubicNURBS2, MultiSpanNURBSConstructionError>
+MultiSpanCubicNURBS2::make(
+    std::vector<Point2> control_points,
+    std::vector<double> weights,
+    std::vector<double> interior_knots,
+    std::vector<std::uint8_t> interior_multiplicities,
+    const double lower_knot,
+    const double upper_knot) {
     const auto layout = validate_layout(
         control_points.size(),
         weights.size(),
         interior_knots,
+        interior_multiplicities,
         lower_knot,
         upper_knot);
     if (!layout.has_value()) {
@@ -798,12 +789,20 @@ MultiSpanCubicNURBS2::make(
     if (!valid_weights.has_value()) {
         return std::unexpected{valid_weights.error()};
     }
+
+    auto flat_knots = build_flat_knots(
+        interior_knots,
+        interior_multiplicities,
+        lower_knot,
+        upper_knot);
     const bool constant =
         constant_points(std::span<const Point2>{control_points});
     return MultiSpanCubicNURBS2{
         std::move(control_points),
         std::move(weights),
         std::move(interior_knots),
+        std::move(interior_multiplicities),
+        std::move(flat_knots),
         lower_knot,
         upper_knot,
         constant};
@@ -821,8 +820,13 @@ std::span<const double> MultiSpanCubicNURBS2::interior_knots() const noexcept {
     return std::span<const double>{interior_knots_};
 }
 
+std::span<const std::uint8_t>
+MultiSpanCubicNURBS2::interior_multiplicities() const noexcept {
+    return std::span<const std::uint8_t>{interior_multiplicities_};
+}
+
 std::size_t MultiSpanCubicNURBS2::span_count() const noexcept {
-    return control_points_.size() - 3U;
+    return interior_knots_.size() + 1U;
 }
 
 double MultiSpanCubicNURBS2::lower_knot() const noexcept {
@@ -853,13 +857,8 @@ std::expected<Point2, CurveError> MultiSpanCubicNURBS2::evaluate(
         return control_points_.front();
     }
 
-    const auto value = evaluate_homogeneous(
-        control_points(),
-        weights(),
-        interior_knots(),
-        lower_knot_,
-        upper_knot_,
-        parameter);
+    const auto value =
+        evaluate_homogeneous(control_points(), weights(), flat_knots_, parameter);
     if (!value.has_value()) {
         return std::unexpected{value.error()};
     }
@@ -878,12 +877,7 @@ MultiSpanCubicNURBS2::first_derivative(
     }
 
     const auto jet = evaluate_homogeneous_jet(
-        control_points(),
-        weights(),
-        interior_knots(),
-        lower_knot_,
-        upper_knot_,
-        parameter);
+        control_points(), weights(), flat_knots_, parameter);
     if (!jet.has_value()) {
         return std::unexpected{jet.error()};
     }
@@ -897,17 +891,16 @@ MultiSpanCubicNURBS2::second_derivative(
     if (!valid.has_value()) {
         return std::unexpected{valid.error()};
     }
+    if (is_double_knot(
+            interior_knots(), interior_multiplicities(), parameter)) {
+        return std::unexpected{CurveError::insufficient_continuity};
+    }
     if (constant_) {
         return *Vector2::make(0.0, 0.0);
     }
 
     const auto jet = evaluate_homogeneous_jet(
-        control_points(),
-        weights(),
-        interior_knots(),
-        lower_knot_,
-        upper_knot_,
-        parameter);
+        control_points(), weights(), flat_knots_, parameter);
     if (!jet.has_value()) {
         return std::unexpected{jet.error()};
     }
@@ -929,11 +922,21 @@ MultiSpanCubicNURBS2 MultiSpanCubicNURBS2::reversed() const {
         const auto mapped = reversed_parameter(domain, *iterator);
         reversed_knots.push_back(*mapped);
     }
+    std::vector<std::uint8_t> reversed_multiplicities(
+        interior_multiplicities_.rbegin(),
+        interior_multiplicities_.rend());
+    auto reversed_flat_knots = build_flat_knots(
+        reversed_knots,
+        reversed_multiplicities,
+        lower_knot_,
+        upper_knot_);
 
     return MultiSpanCubicNURBS2{
         std::move(reversed_points),
         std::move(reversed_weights),
         std::move(reversed_knots),
+        std::move(reversed_multiplicities),
+        std::move(reversed_flat_knots),
         lower_knot_,
         upper_knot_,
         constant_};
@@ -943,12 +946,16 @@ MultiSpanCubicNURBS3::MultiSpanCubicNURBS3(
     std::vector<Point3> control_points,
     std::vector<double> weights,
     std::vector<double> interior_knots,
+    std::vector<std::uint8_t> interior_multiplicities,
+    std::vector<double> flat_knots,
     const double lower_knot,
     const double upper_knot,
     const bool constant)
     : control_points_(std::move(control_points)),
       weights_(std::move(weights)),
       interior_knots_(std::move(interior_knots)),
+      interior_multiplicities_(std::move(interior_multiplicities)),
+      flat_knots_(std::move(flat_knots)),
       lower_knot_(lower_knot),
       upper_knot_(upper_knot),
       constant_(constant) {}
@@ -960,10 +967,29 @@ MultiSpanCubicNURBS3::make(
     std::vector<double> interior_knots,
     const double lower_knot,
     const double upper_knot) {
+    std::vector<std::uint8_t> multiplicities(interior_knots.size(), 1U);
+    return make(
+        std::move(control_points),
+        std::move(weights),
+        std::move(interior_knots),
+        std::move(multiplicities),
+        lower_knot,
+        upper_knot);
+}
+
+std::expected<MultiSpanCubicNURBS3, MultiSpanNURBSConstructionError>
+MultiSpanCubicNURBS3::make(
+    std::vector<Point3> control_points,
+    std::vector<double> weights,
+    std::vector<double> interior_knots,
+    std::vector<std::uint8_t> interior_multiplicities,
+    const double lower_knot,
+    const double upper_knot) {
     const auto layout = validate_layout(
         control_points.size(),
         weights.size(),
         interior_knots,
+        interior_multiplicities,
         lower_knot,
         upper_knot);
     if (!layout.has_value()) {
@@ -973,12 +999,20 @@ MultiSpanCubicNURBS3::make(
     if (!valid_weights.has_value()) {
         return std::unexpected{valid_weights.error()};
     }
+
+    auto flat_knots = build_flat_knots(
+        interior_knots,
+        interior_multiplicities,
+        lower_knot,
+        upper_knot);
     const bool constant =
         constant_points(std::span<const Point3>{control_points});
     return MultiSpanCubicNURBS3{
         std::move(control_points),
         std::move(weights),
         std::move(interior_knots),
+        std::move(interior_multiplicities),
+        std::move(flat_knots),
         lower_knot,
         upper_knot,
         constant};
@@ -996,8 +1030,13 @@ std::span<const double> MultiSpanCubicNURBS3::interior_knots() const noexcept {
     return std::span<const double>{interior_knots_};
 }
 
+std::span<const std::uint8_t>
+MultiSpanCubicNURBS3::interior_multiplicities() const noexcept {
+    return std::span<const std::uint8_t>{interior_multiplicities_};
+}
+
 std::size_t MultiSpanCubicNURBS3::span_count() const noexcept {
-    return control_points_.size() - 3U;
+    return interior_knots_.size() + 1U;
 }
 
 double MultiSpanCubicNURBS3::lower_knot() const noexcept {
@@ -1028,13 +1067,8 @@ std::expected<Point3, CurveError> MultiSpanCubicNURBS3::evaluate(
         return control_points_.front();
     }
 
-    const auto value = evaluate_homogeneous(
-        control_points(),
-        weights(),
-        interior_knots(),
-        lower_knot_,
-        upper_knot_,
-        parameter);
+    const auto value =
+        evaluate_homogeneous(control_points(), weights(), flat_knots_, parameter);
     if (!value.has_value()) {
         return std::unexpected{value.error()};
     }
@@ -1053,12 +1087,7 @@ MultiSpanCubicNURBS3::first_derivative(
     }
 
     const auto jet = evaluate_homogeneous_jet(
-        control_points(),
-        weights(),
-        interior_knots(),
-        lower_knot_,
-        upper_knot_,
-        parameter);
+        control_points(), weights(), flat_knots_, parameter);
     if (!jet.has_value()) {
         return std::unexpected{jet.error()};
     }
@@ -1072,17 +1101,16 @@ MultiSpanCubicNURBS3::second_derivative(
     if (!valid.has_value()) {
         return std::unexpected{valid.error()};
     }
+    if (is_double_knot(
+            interior_knots(), interior_multiplicities(), parameter)) {
+        return std::unexpected{CurveError::insufficient_continuity};
+    }
     if (constant_) {
         return *Vector3::make(0.0, 0.0, 0.0);
     }
 
     const auto jet = evaluate_homogeneous_jet(
-        control_points(),
-        weights(),
-        interior_knots(),
-        lower_knot_,
-        upper_knot_,
-        parameter);
+        control_points(), weights(), flat_knots_, parameter);
     if (!jet.has_value()) {
         return std::unexpected{jet.error()};
     }
@@ -1104,11 +1132,21 @@ MultiSpanCubicNURBS3 MultiSpanCubicNURBS3::reversed() const {
         const auto mapped = reversed_parameter(domain, *iterator);
         reversed_knots.push_back(*mapped);
     }
+    std::vector<std::uint8_t> reversed_multiplicities(
+        interior_multiplicities_.rbegin(),
+        interior_multiplicities_.rend());
+    auto reversed_flat_knots = build_flat_knots(
+        reversed_knots,
+        reversed_multiplicities,
+        lower_knot_,
+        upper_knot_);
 
     return MultiSpanCubicNURBS3{
         std::move(reversed_points),
         std::move(reversed_weights),
         std::move(reversed_knots),
+        std::move(reversed_multiplicities),
+        std::move(reversed_flat_knots),
         lower_knot_,
         upper_knot_,
         constant_};

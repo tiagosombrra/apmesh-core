@@ -14,6 +14,7 @@ enum class CurveError {
     parameter_out_of_domain,
     non_finite_result,
     singular_parameter,
+    insufficient_continuity,
 };
 
 enum class CurveParameterDomainError {

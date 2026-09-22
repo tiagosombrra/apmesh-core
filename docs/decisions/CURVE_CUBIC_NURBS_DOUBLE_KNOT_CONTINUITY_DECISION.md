@@ -818,3 +818,77 @@ the implementation bounded by Sections 5–32.
 
 No multiplicity-three, arbitrary-degree, periodic, conic, composite, surface
 or downstream capability is authorized.
+
+
+## 36. Decision closure checkpoint
+
+Decision closure PR #134 merged as
+`8e47a35922f5f0dd246b238294e58980baf91277`.
+
+Closure post-merge validation:
+
+- FAST `35754917335`: PASS;
+- INTEGRATION `35754917556`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the multiplicity-1/2 cubic
+positive-weight multi-span NURBS extension bounded by Sections 5–32.
+
+No multiplicity-three, arbitrary-degree, periodic, conic, composite, surface
+or downstream capability is authorized.
+
+
+## 37. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`curve/cubic-nurbs-double-knot-continuity`.
+
+Candidate mapping:
+
+- common error vocabulary:
+  `include/apmesh/geometry/parametric_curve.hpp`;
+- public multiplicity API/storage:
+  `include/apmesh/geometry/nurbs.hpp`;
+- production:
+  `src/geometry/multi_span_nurbs.cpp`;
+- focused contract:
+  `tests/cubic_nurbs_double_knot_continuity.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate implementation preserves the existing simple-knot factory and adds:
+
+- explicit multiplicities restricted to one/two;
+- construction-time flat-knot cache;
+- exact right-span selection on the cached flat sequence;
+- parameter-local `CurveError::insufficient_continuity` for ordinary D2 at
+  multiplicity-two knots;
+- unchanged value/D1 at those knots;
+- no one-sided derivative API.
+
+The focused contract includes an independent flat-knot Cox-de Boor rational
+oracle, a generic C1 fixture with materially distinct one-sided D2, test-only
+homogeneous insertion of an already-simple knot, reversal/multiplicity
+reflection, 2D/3D embedding and accidental-smoothness protection.
+
+Expected ordinary semantic inventory: **25 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
+- FAST `35756479210`: PASS, 25/25 ordinary semantic tests;
+- INTEGRATION `35756479108`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 25/25 tests per cell;
+- `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
