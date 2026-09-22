@@ -872,3 +872,48 @@ The sole active production work item is the tensor-product bicubic polynomial
 Bézier patch bounded by Sections 6–32.
 
 No other surface family or downstream capability is authorized.
+
+
+## 37. Active bicubic patch implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/bicubic-bezier-patch`.
+
+Candidate mapping:
+
+- common bounded-surface contract:
+  `include/apmesh/geometry/parametric_surface.hpp`;
+- public bicubic patch API:
+  `include/apmesh/geometry/surface.hpp`;
+- production:
+  `src/geometry/surface.cpp`;
+- focused semantic/reference contract:
+  `tests/surface_bicubic_bezier.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+The candidate implements:
+
+- exact [0,1]^2 domain for the bicubic family;
+- 4x4 U-major Point3 control storage;
+- deterministic V-then-U tensor-product de Casteljau;
+- analytic Su, Sv, Suu, Suv and Svv;
+- U/V reversal and exact stored-net involution;
+- exact four-corner identity;
+- boundary value/tangent parity against the existing `CubicBezier3`;
+- independent direct Bernstein value/partial reference;
+- analytic plane and saddle fixtures;
+- constant and rank-deficient representation acceptance;
+- translation/power-of-two scale covariance;
+- extreme finite success and explicit non-finite-result failure;
+- deterministic repeated successes/failures.
+
+Expected ordinary semantic inventory: **26 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
+No rational, B-spline/NURBS, Coons, analytic elementary, swept, trimmed,
+surface differential geometry or meshing capability is implied.
