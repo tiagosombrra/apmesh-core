@@ -1511,7 +1511,7 @@ Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
 BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
 BOUNDED LINE SEGMENT IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
 RATIONAL QUADRATIC BÉZIER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
+CLOSED / NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
 frozen polynomial cubic Bézier scope implemented by `CubicBezier2` and
@@ -1650,6 +1650,14 @@ Validation:
 Production now contains `RationalQuadraticBezier2/3`. The common
 bounded-parametric concept remains unchanged. This focused integration does not
 widen the original CGR qualification claim.
+
+Implementation closure PR #110 merged as
+`93b082ce660fd8d2c012b96ef7319b240de6d9d2`. Closure PR FAST
+`35727517602`, PR INTEGRATION `35727517607`, post-merge FAST
+`35727653016`, and post-merge INTEGRATION `35727652961` all passed.
+
+The rational-quadratic work unit is therefore closed. No later family is
+authorized by that closure.
 
 Repository-specific sequencing matters: the qualified Cartesian-frame claim
 does not include arbitrary-angle rotations, so a general analytic 3D circle
@@ -1830,35 +1838,39 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
-Bézier — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
-IMPLEMENTATION CLOSURE PENDING**
+**Curve Representation Breadth Gate — Rational Quadratic Work Unit CLOSED /
+NO ACTIVE PRODUCTION WORK ITEM / NEXT DECISION REQUIRED**
 
-Implementation authority:
-`docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
+Terminal evidence:
 
-Integrated evidence:
-
-- PR #109:
+- implementation PR #109:
   `6600875dfbb33d1a37603e32bcf452625373c462`;
-- candidate FAST `35726985299`: PASS, 20/20;
-- candidate INTEGRATION `35726985356`: PASS, 20/20 per GCC/Clang cell;
-- final PR-head FAST `35727147220`: PASS;
-- final PR-head INTEGRATION `35727147303`: PASS;
-- post-merge FAST `35727296946`: PASS;
-- post-merge INTEGRATION `35727296931`: PASS.
+- implementation PR/post-merge FAST/INTEGRATION: PASS;
+- implementation closure PR #110:
+  `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
+- closure PR FAST `35727517602`: PASS;
+- closure PR INTEGRATION `35727517607`: PASS;
+- closure post-merge FAST `35727653016`: PASS;
+- closure post-merge INTEGRATION `35727652961`: PASS.
 
-After this closure is integrated and its own post-merge validation passes, the
-next work item is one literature-backed comparison decision among:
+After this terminal documentation sync is integrated and its post-merge
+FAST/INTEGRATION pass, open exactly one literature-backed bounded comparison
+decision among:
 
-- analytic circle/general conic representation plus its 3D orientation
-  prerequisite;
+- analytic circle/general conic representation plus the arbitrary 3D
+  supporting-plane/orientation prerequisite;
 - arbitrary-degree polynomial/rational Bézier;
 - B-spline;
 - NURBS;
 - composition/trimming.
 
-No option is preselected by this closure.
+The decision must account for production already containing:
+
+- `CubicBezier2/3`;
+- `LineSegment2/3`;
+- `RationalQuadraticBezier2/3`.
+
+No candidate is preselected and no production implementation is authorized.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
