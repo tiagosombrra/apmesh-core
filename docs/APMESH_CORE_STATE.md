@@ -326,9 +326,17 @@ No analytic conic class, arbitrary-degree rational/polynomial Bézier,
 B-spline/NURBS, knots, trimming, surface, discretization or meshing work is
 authorized.
 
-The implementation remains **ACTIVE / VALIDATION PENDING / NOT QUALIFIED**
-until focused PR validation, integration, post-merge validation and closure
-complete.
+Candidate validation:
+
+- head `a68134daae06207f1ec32cf7df1f613a7e8cb693`;
+- FAST `35726985299`: PASS, 20/20 tests;
+- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 20/20 tests per cell;
+- focused `apmesh_core.rational_quadratic_bezier`: PASS in all three jobs.
+
+The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
+head passes and integration/post-merge closure completes.
 
 ## Current active stage
 
