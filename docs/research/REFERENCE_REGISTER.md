@@ -846,6 +846,80 @@ Project relevance:
   before broadening degree, span count, multiplicity or periodicity;
 - Open CASCADE is not admitted as a runtime dependency or numerical oracle.
 
+### Open CASCADE 8.0.1 — variable-span B-spline/NURBS curve data
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the multi-span cubic NURBS
+breadth decision, reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___b_spline_curve.html
+
+Project relevance:
+
+- mature CAD spline curves own runtime-sized pole, weight, knot and
+  multiplicity arrays;
+- the flat knot-sequence length is tied to pole count and degree;
+- rational/non-rational, periodic/non-periodic, degree and multiplicity are
+  independent semantics;
+- supports isolating runtime span/control/knot count now while keeping degree
+  three, simple knots and non-periodicity frozen;
+- Open CASCADE is design/reference evidence only, not a runtime dependency or
+  numerical oracle.
+
+### Open CASCADE 8.0.1 — B-spline surface data model as sequencing evidence
+
+Status: `FOUNDATIONAL / SEQUENCING` for future Surface Representation,
+reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___b_spline_surface.html
+
+Project relevance:
+
+- B-spline/NURBS surfaces combine a control-point grid, weights, independent
+  U/V knot arrays, multiplicities and U/V degrees;
+- variable 1D control/knot ownership and deterministic span location are
+  therefore direct curve-level prerequisites for later tensor-product surface
+  work;
+- this source does not authorize a surface implementation in the current curve
+  stage.
+
+### C++ `std::vector` and `std::span` — runtime spline storage seam
+
+Status: `FOUNDATIONAL / ENGINEERING` for the multi-span cubic NURBS storage
+policy, reviewed 2026-09-22.
+
+References:
+
+- https://en.cppreference.com/cpp/container/vector
+- https://en.cppreference.com/cpp/container/span
+
+Project relevance:
+
+- `std::vector` provides owning contiguous runtime-sized storage;
+- `std::span` provides a non-owning contiguous view;
+- supports immutable owning spline data with read-only public views without a
+  custom allocator, arbitrary compile-time capacity or third-party container;
+- allocation/resource failure remains ordinary C++ resource behavior and is not
+  reclassified as a scientific curve-domain error.
+
+### Open CASCADE 8.0.1 — arbitrary-degree Bézier deferral evidence
+
+Status: `FOUNDATIONAL / SCOPING` for the breadth comparison, reviewed
+2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___bezier_curve.html
+
+Project relevance:
+
+- mature Bézier curves support runtime pole count, rational weights and degree
+  greater than the current cubic baseline;
+- this is a distinct degree/storage generalization but remains single-span and
+  globally supported;
+- supports deferring arbitrary-degree Bézier while the newly available spline
+  seam is generalized across multiple spans.
+
 ### Internal arbitrary-orientation constraint — qualified Cartesian Frames
 
 Status: `FOUNDATIONAL / INTERNAL` sequencing constraint for the second
