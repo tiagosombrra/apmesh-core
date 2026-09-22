@@ -284,41 +284,42 @@ Topological Model qualification decision is recorded below.
 
 Exact current bounded scientific action:
 
-**Integrate the Parametric Curve Family Abstraction and Representation Breadth
-decision; no production implementation is authorized on this branch.**
+**Close the integrated Parametric Curve Family Abstraction decision checkpoint;
+no production implementation is present on this branch.**
 
-Operational prerequisite closure:
+Decision integration evidence:
 
-- PR #97 merged as
-  `13ec3ac80a88434d73c09ae25c9d542182109c51`;
-- post-merge FAST `35707518191`: PASS;
-- post-merge INTEGRATION `35707518122`: PASS.
-
-Active branch:
-`curve/parametric-curve-family-abstraction-decision`.
+- PR #98 merged as
+  `12ecbf584751dadb0dd142c485b1cd4f220736d8`;
+- final PR FAST `35711481469`: PASS;
+- final PR INTEGRATION `35711481473`: PASS;
+- post-merge FAST `35711563476`: PASS;
+- post-merge INTEGRATION `35711563585`: PASS.
 
 Decision authority:
 `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
 
-The decision chooses a minimal static bounded parametric-curve semantic seam
-before another Cubic-Bézier-specific differential feature or a second concrete
-curve family. It preserves the qualified cubic-Bézier CGR0–CGR7 baseline.
-
-If the decision is integrated, post-merge validation passes, and a separate
-decision checkpoint closes, the sole next implementation work unit is:
+The decision checkpoint is represented by this closure branch. Once this
+closure is integrated and its post-merge FAST/INTEGRATION pass, the sole next
+implementation work unit is:
 
 **Bounded Parametric Curve Contract and Cubic Bézier Conformance.**
 
-No line/arc/rational/B-spline/NURBS/surface production implementation is
-authorized yet.
+That implementation may add only the finite closed parameter-domain
+vocabulary, static 2D/3D C++23 parametric-curve concepts,
+reversal-parameter semantics, unchanged Cubic-Bézier conformance, focused
+contracts and build registration.
 
-Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and is
-temporarily paused for the representation-breadth seam.
+No line/arc/rational/arbitrary-degree Bézier/B-spline/NURBS/composite/trimmed
+curve or surface production implementation is authorized yet.
+
+Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and
+paused for the representation-breadth seam.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Parametric Curve Family Abstraction —
-DECISION ACTIVE / DOCUMENTATION ONLY / NO NEW FAMILY IMPLEMENTED /
+DECISION INTEGRATED / CHECKPOINT CLOSURE PENDING / NO NEW FAMILY IMPLEMENTED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
