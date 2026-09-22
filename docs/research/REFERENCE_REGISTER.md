@@ -1166,6 +1166,46 @@ Project relevance:
 - supports a dedicated two-parameter bounded-surface contract rather than
   reusing a one-parameter curve interface implicitly.
 
+### Open CASCADE Geom_BezierSurface — rational-weight surface seam
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the rational bicubic surface
+breadth decision, reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___bezier_surface.html
+
+Project relevance:
+
+- the same 2D pole/control-net model supports polynomial and rational Bézier
+  surfaces;
+- rationality is introduced through a weight array associated with the control
+  net, while the U/V tensor-product structure remains unchanged;
+- supports isolating positive rational weighting after the polynomial bicubic
+  patch and before U/V knot/multiplicity semantics;
+- Open CASCADE is design evidence only, not a runtime dependency or numerical
+  oracle.
+
+### Open CASCADE BSplSLib / STEP — why NURBS follows rational Bézier
+
+Status: `FOUNDATIONAL / SEQUENCING` for the surface breadth decision,
+reviewed 2026-09-22.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_b_spl_s_lib.html
+- https://dev.opencascade.org/doc/refman/html/class_step_geom___b_spline_surface_with_knots_and_rational_b_spline_surface.html
+- https://dev.opencascade.org/doc/refman/html/class_geom_convert___b_spline_surface_knot_splitting.html
+
+Project relevance:
+
+- NURBS surfaces combine a two-dimensional control/weight net with independent
+  U/V degrees, knots, multiplicities and periodicity state;
+- U/V knot multiplicity controls continuity independently by parametric
+  direction;
+- supports validating the rational surface quotient seam first, then combining
+  it with already-established curve spline/knot semantics in a later NURBS
+  surface work unit.
+
 ### Open CASCADE Geom_BezierSurface — tensor-product control-net surface
 
 Status: `FOUNDATIONAL / ACTIVE REVIEW` for the first surface work unit,

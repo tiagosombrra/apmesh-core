@@ -86,16 +86,16 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed representation-breadth anchor: Cubic NURBS Double-Knot C1
-  Continuity, implementation PR #135
-  `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`, closure PR #136
-  `affc7a46b7fd4c5cc419679e6192fc293501654e`, terminal sync PR #137
-  `c40175174a9487acb7dca09eeb2fa9b3615766ee`;
-- terminal sync FAST `35761691320` and INTEGRATION `35761691184`: PASS;
-- terminal sync post-merge FAST `35761803424` and INTEGRATION
-  `35761803482`: PASS;
+- latest closed surface-representation anchor: Tensor-Product Bicubic
+  Polynomial Bézier Patch in 3D, implementation PR #140
+  `2d6d01e4202367d62db6017939cde0f2b8e83c65`, closure PR #141
+  `e964465fd7f7ffcf9d2403752cf9f791b8666433`, terminal sync PR #142
+  `bf218b31eb2b71d7ed651183b0cfc649c96b8c7c`;
+- terminal sync PR FAST `35767725994` and INTEGRATION `35767725955`: PASS;
+- terminal sync post-merge FAST `35768039368` and INTEGRATION
+  `35768039528`: PASS;
 - current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — BICUBIC BÉZIER PATCH IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
+  Geometry — RATIONAL BICUBIC BÉZIER DECISION ACTIVE / NOT QUALIFIED**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -289,41 +289,48 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Open one fresh literature-backed Surface Representation breadth decision.**
+**Integrate the literature-backed Rational Bicubic Bézier Surface breadth
+decision; no rational surface production code is authorized on this branch.**
 
-Terminal bicubic patch evidence:
+Entry authority:
 
-- implementation PR #140:
-  `2d6d01e4202367d62db6017939cde0f2b8e83c65`;
-- implementation post-merge FAST `35766651557`: PASS, 26/26;
-- implementation post-merge INTEGRATION `35766651497`: PASS, 26/26;
-- closure PR #141 head:
-  `25e2a3cb286a967a14c048944d6a45c0fec3bb30`;
-- closure PR FAST `35767109267`: PASS;
-- closure PR INTEGRATION `35767109201`: PASS;
-- closure merge:
-  `e964465fd7f7ffcf9d2403752cf9f791b8666433`;
-- closure post-merge FAST `35767269783`: PASS;
-- closure post-merge INTEGRATION `35767269772`: PASS.
+- terminal bicubic sync PR #142:
+  `bf218b31eb2b71d7ed651183b0cfc649c96b8c7c`;
+- PR #142 FAST `35767725994`: PASS;
+- PR #142 INTEGRATION `35767725955`: PASS;
+- post-merge FAST `35768039368`: PASS;
+- post-merge INTEGRATION `35768039528`: PASS.
 
-The integrated first surface representation is a bounded tensor-product
-bicubic polynomial Bézier patch with analytic first/second partials, U/V
-reversal, exact corner identity and curve-boundary parity.
+Active branch:
+`surface/rational-bicubic-bezier-decision`.
 
-No production work item is active.
+Decision authority:
+`docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
 
-The next breadth decision must compare rational Bézier, B-spline/NURBS,
-Coons/transfinite, analytic elementary, swept and trimmed surface families.
-No winner is pre-authorized.
+Selected future work unit:
+
+**Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D.**
+
+The work unit freezes degree, 4x4 control-net size and [0,1]^2 domain and adds
+only positive rational weights and homogeneous quotient partial derivatives.
+
+B-spline/NURBS surfaces remain the next high-priority candidate after this
+rational seam closes. Coons/transfinite, analytic elementary, swept and
+trimmed surfaces remain explicit retained obligations.
+
+Remaining curve breadth remains retained.
+
+No production rational/NURBS/analytic/trimmed surface, surface differential
+geometry, boundary discretization or meshing code is authorized.
 
 ## Current active stage
 
-**Surface Representation — Continuous Patch Geometry — BICUBIC BÉZIER PATCH
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
-CURVE REPRESENTATION PREREQUISITES PRESERVED**
+**Surface Representation — Continuous Patch Geometry — RATIONAL BICUBIC
+BÉZIER DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+POLYNOMIAL BICUBIC PATCH AND CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
