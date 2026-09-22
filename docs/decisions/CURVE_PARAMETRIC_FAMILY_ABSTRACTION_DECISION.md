@@ -671,7 +671,39 @@ FAST/INTEGRATION focused-contract labels.
 
 ### Candidate status
 
-**IMPLEMENTED / VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 
 No line/segment, circle/conic, rational/arbitrary-degree Bézier, B-spline,
 NURBS, composite/trimmed curve or surface implementation is present.
+
+
+## 25. Bounded implementation integration checkpoint
+
+PR #101 integrated **Bounded Parametric Curve Contract and Cubic Bézier
+Conformance** as
+`0674cd8531c3033a30282ba6bf95078b54d8c331`.
+
+Final PR-head validation:
+
+- FAST `35713249842`: PASS, 18/18 tests;
+- INTEGRATION `35713249775`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 18/18 tests in each cell;
+- `apmesh_core.parametric_curve_contract`: PASS in every admitted
+  FAST/INTEGRATION cell;
+- all previously selected curve contracts remain PASS.
+
+Post-merge validation:
+
+- FAST `35713409188`: PASS;
+- INTEGRATION `35713409166`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The bounded implementation is therefore:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+The qualified polynomial cubic-Bézier CGR0–CGR7 baseline remains preserved.
+No second concrete curve family or surface capability was introduced.
+
+A new literature-backed decision is required before the next concrete
+representation family. No family is pre-authorized by this implementation.
