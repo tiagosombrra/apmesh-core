@@ -1853,44 +1853,25 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
-DECISION ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION**
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED**
 
-Terminal prerequisite evidence:
-
-- rational-quadratic closure PR #110:
-  `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
-- closure post-merge FAST `35727653016`: PASS;
-- closure post-merge INTEGRATION `35727652961`: PASS;
-- terminal sync PR #111:
-  `7579254ebd0d6843fdc3761376132a2b7d9fa43c`;
-- terminal sync FAST `35728104539`: PASS;
-- terminal sync INTEGRATION `35728104607`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-The decision selects a statically typed trim wrapper over one existing bounded
-basis curve before another mathematical family.
+Decision evidence:
 
-Planned semantics after decision closure:
+- PR #112:
+  `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
+- PR FAST `35729461953`: PASS;
+- PR INTEGRATION `35729462003`: PASS;
+- post-merge FAST `35729581995`: PASS;
+- post-merge INTEGRATION `35729581937`: PASS.
 
-- oriented source/target basis parameters;
-- nonzero finite trim interval inside the basis domain;
-- exposed domain `[min(u_s,u_e), max(u_s,u_e)]`;
-- forward trim preserves basis parameter;
-- reverse trim uses the existing overflow-aware `reversed_parameter`;
-- forward D1/D2 parity;
-- reverse D1 sign change with D2 preserved;
-- exact trim reversal by swapping oriented endpoints;
-- coverage over line segment, cubic Bézier and rational quadratic Bézier in
-  both 2D and 3D.
+After this closure is integrated and post-merge validation passes, the sole
+next implementation work unit is the static oriented trim wrapper fixed by the
+decision.
 
-Heterogeneous polycurve/composition, periodic trim, analytic conic,
-arbitrary-degree Bézier, B-spline and NURBS remain later decisions.
-
-No implementation is authorized until this decision is integrated,
-post-merge FAST/INTEGRATION pass, and the decision checkpoint is separately
-closed.
+No other curve family or downstream stage is authorized.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
