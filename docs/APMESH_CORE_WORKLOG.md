@@ -319,6 +319,20 @@ Required semantics:
 - degenerate constant-curve semantics;
 - prerequisite preservation.
 
+Validation history:
+
+- candidate head `a68134daae06207f1ec32cf7df1f613a7e8cb693`;
+- FAST `35726985299`: PASS, 20/20 tests;
+- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 20/20 tests in each cell;
+- `apmesh_core.rational_quadratic_bezier`: PASS in all three jobs;
+- line-segment and all prior ordinary semantic contracts remained PASS;
+- no production/math/decision acceptance criteria changed during this
+  candidate validation.
+
+The implementation candidate is therefore **FOCUSED CONTRACTS PASS / READY FOR
+FINAL PR-HEAD REVALIDATION AFTER DOCUMENTATION SYNC / NOT QUALIFIED**.
+
 Explicit non-actions:
 
 - no analytic circle/conic type;
