@@ -760,9 +760,41 @@ Focused contract includes:
 
 Expected ordinary semantic inventory: **27 tests**.
 
+Validation history:
+
+Initial PR head:
+
+`83d1aedd68cbd4457e36021c704604b3a616fd8a`.
+
+Initial validation:
+
+- FAST `35782696019`: FAIL during focused-test compilation;
+- INTEGRATION `35782696016`: FAIL during the same focused-test compilation
+  in GCC 13 Debug and Clang 18/libc++ Debug;
+- diagnosis: two test-only `ControlNet` instances used empty aggregate
+  initialization even though `Point3` is deliberately non-default-
+  constructible;
+- `src/geometry/rational_surface.cpp` compiled successfully in all initial
+  jobs;
+- the correction initialized the two test nets explicitly and changed no
+  production, API or scientific semantics.
+
+Corrected candidate head:
+
+`3ac7b36db5a2a94f77a81fd441d9d871233653a3`.
+
+Corrected validation:
+
+- FAST `35782907623`: PASS, 27/27 ordinary semantic tests;
+- INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 27/27 tests per cell;
+- `apmesh_core.surface_rational_bicubic_bezier`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No U/V knot, NURBS, Coons, analytic, swept, trimmed, differential-geometry or
 meshing capability is implied.
