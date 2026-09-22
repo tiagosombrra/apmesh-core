@@ -619,3 +619,33 @@ line/arc/Bezier regression envelope is scientifically admitted.
 
 Surface Representation remains blocked pending its later explicit family and
 trimming decision.
+
+
+## 26. Decision integration checkpoint
+
+PR #107 integrated this bounded decision as
+`4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`.
+
+Final decision-head validation:
+
+- FAST `35722805362`: PASS;
+- INTEGRATION `35722805446`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35722894744`: PASS;
+- INTEGRATION `35722894725`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The integrated decision selects only:
+
+**Positive-Weight Rational Quadratic Bézier Representation in 2D and 3D.**
+
+After the separate decision closure is integrated and its post-merge
+validation passes, that bounded implementation becomes the sole authorized
+production work item.
+
+No analytic circle/conic class, arbitrary-degree Bézier, B-spline, NURBS,
+composition/trimming, surface, discretization, sizing, meshing, Quad-Dominant
+or parallel implementation is authorized by this checkpoint.
