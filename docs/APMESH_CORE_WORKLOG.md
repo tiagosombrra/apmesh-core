@@ -219,37 +219,45 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Pointwise Curvature Magnitude is integrated and closed.**
+**Define Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves —
+VALIDATED_UNMERGED / DECISION ONLY.**
 
-Closure evidence:
+Active branch: `curve/signed-planar-curvature-decision`.
 
-1. entry authority:
-   `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-2. implementation PR #88 merged as
-   `b1a279fbe2592cd4fe7f5a688318ac50f0e60d35`;
-3. PR FAST `35672497018`: PASS;
-4. PR INTEGRATION `35672497040`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-5. post-merge FAST `35673041777`: PASS;
-6. post-merge INTEGRATION `35673041859`: PASS;
-7. production API now provides 2D/3D nonnegative pointwise curvature magnitude
-   with exact singular-parameter and explicit non-finite-result semantics;
-8. focused analytic/metamorphic/adversarial evidence is integrated;
-9. qualified Curve Representation prerequisites remain passing;
-10. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
+Authority:
+`docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
 
-No work item is active.
+Decision scope:
+
+1. one 2D-only public pointwise signed-curvature query;
+2. standard ordered `(x,y)` orientation;
+3. `det(B',B'') / ||B'||^3` on regular parameters;
+4. exact singular-parameter failure;
+5. canonical `+0.0` at successful exact zero curvature;
+6. same scale-aware internal planar curvature core as magnitude;
+7. reversal sign flip;
+8. orientation-preserving frame invariance;
+9. orientation-reversing frame sign flip;
+10. reciprocal uniform-scale covariance;
+11. explicit magnitude parity;
+12. no certified inflection/extrema/global-feature claim.
+
+Research mapping was added to
+`docs/research/REFERENCE_REGISTER.md` using Farin and the MIT
+Patrikalakis–Maekawa–Cho Hyperbook as mathematical/scoping authorities.
+
+No production code is included in this decision work item.
 
 ## Next admissible work item after closure
 
-Open one separate literature-backed scientific decision for the next
-**Curve Differential Geometry** investigation.
+After this decision is merged, post-merge FAST/INTEGRATION pass, and the
+decision checkpoint is closed, implement exactly:
 
-The next decision must select exactly one bounded problem from the remaining
-stage candidates and define its mathematics, evidence, failure semantics and
-explicit exclusions before implementation.
+**Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves**
 
-No signed curvature, global bound, extrema, inflection classifier, feature
-classifier, discretization or sizing implementation is authorized by this
-closure alone.
+within the accepted decision boundary.
+
+No inflection isolation, global curvature bound, extrema classifier, feature
+classifier, discretization, sizing, surface, meshing, Quad-Dominant or parallel
+capability is authorized.
 

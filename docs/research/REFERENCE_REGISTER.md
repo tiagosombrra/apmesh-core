@@ -679,6 +679,49 @@ Project relevance:
 - does not establish a general extrema/monotonicity classifier for arbitrary
   cubic Bézier curves.
 
+### Farin 2002 — Planar signed curvature
+
+Status: `FOUNDATIONAL` for the bounded signed-curvature decision, reviewed
+2026-09-21.
+
+Gerald Farin. *Curves and Surfaces for CAGD: A Practical Guide*, 5th ed.,
+Morgan Kaufmann / Academic Press, 2002.
+
+References:
+
+- https://www.sciencedirect.com/book/9781558607378/curves-and-surfaces-for-cagd
+- https://www.sciencedirect.com/science/article/pii/B9781558607378500107
+
+Project relevance:
+
+- records that a planar parametric curve can use the sign of
+  `det(B',B'')` to define signed curvature;
+- distinguishes orientation-sensitive planar signed curvature from ordinary
+  nonnegative spatial curvature;
+- supports an explicitly 2D-only AP Mesh signed-curvature contract;
+- does not certify floating determinant signs near cancellation and does not
+  establish global inflection isolation.
+
+### Patrikalakis, Maekawa and Cho — signed/zero curvature points
+
+Status: `FOUNDATIONAL / SCOPING` for signed curvature and later inflection
+work, reviewed 2026-09-21.
+
+MIT Hyperbook references:
+
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node153.html
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node219.html
+
+Project relevance:
+
+- records the signed-curvature formulation for regular planar parametric
+  curves;
+- makes an explicit planar sign convention relevant to orientation-sensitive
+  geometric quantities;
+- relates zero curvature to inflection-point investigation under regularity;
+- supports separating a pointwise signed-curvature value from certified
+  interval-wide inflection isolation.
+
 ### Existing qualified AP Mesh curve evidence
 
 Status: `FOUNDATIONAL / INTERNAL` prerequisite authority.

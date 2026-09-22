@@ -432,3 +432,8 @@ PR #88 merged as
 The first work-unit checkpoint is closed. No later Curve Differential Geometry
 work unit or stage qualification is authorized by this result. The next
 investigation requires a separate literature-backed decision.
+
+That separate next decision is now proposed in
+`docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`. It remains
+decision-only until independently integrated and closed; this entry document
+does not itself authorize the signed-curvature implementation.

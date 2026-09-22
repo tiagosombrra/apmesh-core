@@ -1345,7 +1345,7 @@ work is the separate Curve Differential Geometry entry decision only.
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
-FOCUSED CONTRACTS PASS / NOT QUALIFIED`
+SIGNED PLANAR CURVATURE DECISION VALIDATED_UNMERGED / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
 discretization without conflating local differential evaluation with global
@@ -1405,6 +1405,16 @@ Pointwise Curvature Magnitude is therefore **IMPLEMENTED / FOCUSED CONTRACTS
 PASS / INTEGRATED / NOT QUALIFIED**. The next Curve Differential Geometry
 investigation requires a separate literature-backed decision; no later work
 unit is implied by this closure.
+
+The next bounded decision is now
+`docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
+
+It admits only **Pointwise Signed Curvature on Regular Planar Cubic Bézier
+Curves**: a 2D orientation-sensitive local value with reversal/reflection sign
+laws, exact singularity semantics, scale-aware evaluation and explicit
+magnitude parity. Certified inflection isolation, global curvature bounds,
+extrema/monotonicity and feature classification remain separate later
+investigations.
 
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
