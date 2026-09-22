@@ -390,6 +390,28 @@ Required scope:
 - current 24-test baseline preserved;
 - one new focused contract, targeting 25 ordinary tests.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/parametric_curve.hpp`:
+  adds only `CurveError::insufficient_continuity`;
+- `include/apmesh/geometry/nurbs.hpp`:
+  adds explicit multiplicity factory/accessors/storage while preserving the
+  simple-knot factory;
+- `src/geometry/multi_span_nurbs.cpp`:
+  validates multiplicities 1/2, constructs a private flat-knot cache once,
+  preserves local de Boor value/D1/D2, and rejects ordinary D2 exactly at a
+  double knot;
+- `tests/cubic_nurbs_double_knot_continuity.cpp`:
+  independent repeated-knot rational basis, C1 one-sided evidence,
+  homogeneous repeated-knot insertion, simple-path regression, reversal,
+  embedding, constant-geometry and deterministic typed-failure evidence;
+- `CMakeLists.txt`:
+  registers the 25th ordinary semantic contract.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no multiplicity three / C0;
