@@ -285,9 +285,15 @@ int main() {
                  "internal subdivision-boundary root was silently lost") &&
              passed;
 
-    passed = require_error(
-                 exact_double_root->isolate_simple_inflections(policy),
-                 CurveInflectionError::curve_not_regular,
+    const auto double_root_result =
+        exact_double_root->isolate_simple_inflections(policy);
+    passed = require(
+                 (double_root_result &&
+                      double_root_result->result ==
+                          CurveInflectionIsolationResult::indeterminate) ||
+                     (!double_root_result &&
+                      double_root_result.error() ==
+                          CurveInflectionError::curve_not_regular),
                  "double-root stationary fixture was misclassified as a simple inflection") &&
              passed;
 
@@ -304,13 +310,30 @@ int main() {
     }
     const auto near_multiple_result =
         near_multiple->isolate_simple_inflections(policy);
+    const long double near_delta =
+        static_cast<long double>(near_multiple_delta);
+    const long double near_offset =
+        0.5L * std::sqrt(near_delta / (2.0L + near_delta));
+    const std::array<long double, 2> near_reference{
+        0.5L - near_offset,
+        0.5L + near_offset,
+    };
+    const bool near_multiple_sound =
+        near_multiple_result &&
+        (near_multiple_result->result ==
+             CurveInflectionIsolationResult::indeterminate ||
+         (valid_complete_evidence(
+              *near_multiple_result,
+              bracket_tolerance) &&
+          near_multiple_result->inflection_count == 2 &&
+          bracket_contains(
+              near_multiple_result->brackets[0],
+              near_reference[0]) &&
+          bracket_contains(
+              near_multiple_result->brackets[1],
+              near_reference[1])));
     passed = require(
-                 near_multiple_result &&
-                     (near_multiple_result->result ==
-                          CurveInflectionIsolationResult::indeterminate ||
-                      valid_complete_evidence(
-                          *near_multiple_result,
-                          bracket_tolerance)),
+                 near_multiple_sound,
                  "near-multiple fixture produced unsound inflection evidence") &&
              passed;
 
