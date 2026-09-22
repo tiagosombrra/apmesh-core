@@ -188,7 +188,7 @@ private:
         std::vector<double> weights,
         std::vector<double> interior_knots,
         std::vector<std::uint8_t> interior_multiplicities,
-        std::vector<std::size_t> span_control_starts,
+        std::vector<double> flat_knots,
         double lower_knot,
         double upper_knot,
         bool constant);
@@ -197,7 +197,7 @@ private:
     std::vector<double> weights_;
     std::vector<double> interior_knots_;
     std::vector<std::uint8_t> interior_multiplicities_;
-    std::vector<std::size_t> span_control_starts_;
+    std::vector<double> flat_knots_;
     double lower_knot_{};
     double upper_knot_{};
     bool constant_{};
@@ -253,7 +253,7 @@ private:
         std::vector<double> weights,
         std::vector<double> interior_knots,
         std::vector<std::uint8_t> interior_multiplicities,
-        std::vector<std::size_t> span_control_starts,
+        std::vector<double> flat_knots,
         double lower_knot,
         double upper_knot,
         bool constant);
@@ -262,7 +262,7 @@ private:
     std::vector<double> weights_;
     std::vector<double> interior_knots_;
     std::vector<std::uint8_t> interior_multiplicities_;
-    std::vector<std::size_t> span_control_starts_;
+    std::vector<double> flat_knots_;
     double lower_knot_{};
     double upper_knot_{};
     bool constant_{};
