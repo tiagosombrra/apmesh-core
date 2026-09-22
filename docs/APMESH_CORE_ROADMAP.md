@@ -1912,7 +1912,19 @@ Authorized scope:
   and deterministic evidence;
 - one focused contract, targeting 24 ordinary tests.
 
-The common `BoundedParametricCurve2/3` contract must remain unchanged.
+Candidate validation on head
+`78e086aa6744fb9bcdb2c5077b55b4122f883836`:
+
+- FAST `35751863096`: PASS, 24/24 tests;
+- INTEGRATION `35751863450`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 24/24 tests per cell;
+- the new multi-span NURBS contract and every prerequisite ordinary semantic
+  contract passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration.
+
+The common `BoundedParametricCurve2/3` contract remains unchanged.
 
 Arbitrary degree, repeated knots, periodicity, dedicated analytic conics,
 heterogeneous composition and every surface capability remain blocked.
