@@ -156,6 +156,17 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.curve_representation
     )
 
+    add_executable(apmesh_core.parametric_curve_contract
+        tests/parametric_curve_contract.cpp
+    )
+    target_link_libraries(apmesh_core.parametric_curve_contract PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.parametric_curve_contract)
+
+    add_test(
+        NAME apmesh_core.parametric_curve_contract
+        COMMAND apmesh_core.parametric_curve_contract
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -320,6 +331,7 @@ if(BUILD_TESTING)
     )
     set_tests_properties(
         apmesh_core.curve_representation
+        apmesh_core.parametric_curve_contract
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
         apmesh_core.curve_signed_curvature
