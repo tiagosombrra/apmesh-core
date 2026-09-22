@@ -841,3 +841,34 @@ item is the bicubic polynomial Bézier patch implementation bounded by
 Sections 6–32.
 
 No other surface family or downstream capability is authorized.
+
+
+## 36. Decision closure checkpoint
+
+Decision closure PR #139 used head
+`050d1b5b919b9bba0b360b37657c07c5bac70eef`.
+
+Closure PR validation:
+
+- FAST `35763315317`: PASS;
+- INTEGRATION `35763315277`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #139 merged as
+`2300c5fdac3e79d4106f0a7821749dfc5de97ffd`.
+
+Closure post-merge validation:
+
+- FAST `35763548131`: PASS;
+- INTEGRATION `35763548244`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / SURFACE REPRESENTATION STAGE OPEN /
+BICUBIC BÉZIER PATCH IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the tensor-product bicubic polynomial
+Bézier patch bounded by Sections 6–32.
+
+No other surface family or downstream capability is authorized.
