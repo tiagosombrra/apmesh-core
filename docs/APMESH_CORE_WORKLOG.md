@@ -43,35 +43,22 @@ writing.
 
 ## Last closed work-item anchor
 
-- Curve Representation formal infrastructure: PR #79 merged as
-  `a0232e0c00aae1338b55ba0b45997db1a3c00464`;
-- formal CGR PREPARED package: run `35620525792`, candidate
-  `f7dc8d82d881858b6481d6d2d1383d8a561684c5`, artifact
-  `10649325906`;
-- PREPARED audit: **PASS / PREPARED / NOT EXECUTED**, integrated by PR #81
-  as `988d0877d78ccd0c1ed4d368a802a8a4cad28d7b`;
-- PREPARED audit checkpoint: closed by commit
-  `a8a4e6a5922f80bd7e6f838b7aad120922883d3a`;
-- exact formal CGR authorization: PR #83, one file / 14 lines, merged as
-  `e8b17256924e907d0859b8ac7061600ffc404b9e`;
-- formal CGR execution: protected-main run `35630423134`, one-shot attempt
-  consumed;
-- immutable claim:
-  `cgr-execution-claim-201a38120ab3858f1621ab19041898d0eb7f8a915e32b9aa7e7354b7937531fd`;
-- terminal artifact: `10654358199`, archive SHA-256
-  `a4b59453dcc9f9cacb4265ba540e1a3a443f3b6c80509411e0d6d4b18eff7aa6`;
-- independent terminal scientific audit:
-  **CGR0–CGR7 PASS / OVERALL PASS**;
-- Curve Representation qualification:
+- Curve Representation formal CGR terminal audit: **CGR0–CGR7 PASS /
+  OVERALL PASS**;
+- qualification PR #84 merged as
+  `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
+- qualification post-merge FAST `35634295936`: PASS;
+- qualification post-merge INTEGRATION `35634295812`: PASS;
+- qualification-closure PR #85 merged as
+  `e5c068512dbf8281fefbe4281b2e28333ab37758`;
+- closure post-merge FAST `35671327376`: PASS;
+- closure post-merge INTEGRATION `35671327409`: PASS;
+- Curve Representation status:
   **QUALIFIED in the exact admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud
   envelope**;
-- next scientific transition after audit integration/closure:
-  **Curve Differential Geometry — Curvature, Regularity, and Features entry
-  decision only**.
-- CGR terminal-audit PR #84 merged as
-  `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
-- PR #84 FAST `35634165038` and INTEGRATION `35634165026`: PASS;
-- post-merge FAST `35634295936` and INTEGRATION `35634295812`: PASS.
+- next scientific stage:
+  **Curve Differential Geometry — Curvature, Regularity, and Features**.
+
 
 ## Work-item ledger
 
@@ -220,42 +207,56 @@ writing.
   campaign.
 - `docs/curve-representation-qualification-closure`: **CLOSURE-ONLY**;
   closes the qualified Curve Representation stage before the next stage entry.
+- `curve/differential-geometry-entry-decision`: **ACTIVE /
+  VALIDATED_UNMERGED**; literature-backed entry decision and repository mapping
+  only; no production curvature implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Curve Representation qualification is closed.**
+**Define Curve Differential Geometry entry and first bounded work unit —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/differential-geometry-entry-decision`.
 
-1. terminal scientific audit PR #84 merged as
-   `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
-2. PR FAST `35634165038`: PASS;
-3. PR INTEGRATION `35634165026`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35634295936`: PASS;
-5. post-merge INTEGRATION `35634295812`: PASS in both cells;
-6. authoritative audit records CGR0–CGR7 PASS and overall PASS;
-7. Curve Representation is QUALIFIED only in the exact admitted GitHub-hosted
-   Ubuntu 24.04 x86_64 cloud envelope;
-8. no WSL/cloud equivalence or downstream physical-discretization claim is
-   made;
-9. no Curve Differential Geometry production implementation has begun.
+Decision authority:
+`docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-No work item is active.
+Mapped entry result:
+
+1. Curve Representation prerequisite is closed/qualified by CGR0–CGR7 PASS;
+2. first bounded work unit is **Pointwise Curvature Magnitude on Regular Cubic
+   Bézier Curves**;
+3. 2D curvature magnitude uses
+   `|det(B',B'')| / ||B'||^3`;
+4. 3D curvature magnitude uses
+   `||B'×B''|| / ||B'||^3`;
+5. curvature is defined only where the qualified first derivative is nonzero;
+6. exact singular parameters fail explicitly; no speed epsilon is admitted;
+7. regular inflection points return zero curvature, not singular failure;
+8. reversal, translation, orthogonal-frame, uniform-scale and 2D/3D embedding
+   relations are required evidence;
+9. numerical evaluation must avoid avoidable unscaled intermediate
+   overflow/underflow when the final curvature is representable;
+10. global curvature extrema, monotonicity, signed-curvature semantics,
+    inflection isolation, Frenet frames, torsion and feature extraction remain
+    excluded;
+11. Boundary Curve Discretization, sizing, meshing, Quad-Dominant and parallel
+    execution remain blocked;
+12. research mapping is recorded in
+    `docs/research/REFERENCE_REGISTER.md`.
+
+No production code is changed by this work item.
 
 ## Next admissible work item after closure
 
-Open one separate literature-backed scientific entry-decision work item for:
+After this entry-decision PR is merged, post-merge FAST/INTEGRATION pass, and
+its checkpoint is closed, implement exactly one bounded work unit:
 
-**Curve Differential Geometry — Curvature, Regularity, and Features.**
+**Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
 
-The entry decision must define the first bounded investigation problem,
-mathematical definitions and invariance laws, explicit domain/failure
-semantics, evidence fixtures, exclusions, prerequisite preservation and the
-future stage-exit regression boundary before production implementation begins.
-
-Boundary Curve Discretization remains blocked until its own prerequisites and
-entry decision are satisfied.
+Implementation must stay inside the entry decision and must not introduce
+global feature classification, discretization, sizing, surfaces, meshing or
+parallel execution.
 
