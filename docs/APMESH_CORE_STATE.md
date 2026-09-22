@@ -255,14 +255,15 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
-5. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
-6. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-7. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-8. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-9. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-10. the latest relevant audit under `docs/audits/`;
-11. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
+5. `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
+6. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
+7. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
+8. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+9. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+10. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+11. the latest relevant audit under `docs/audits/`;
+12. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -285,47 +286,55 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this implementation closure is integrated and post-merge validated,
-open one new literature-backed Curve Representation Breadth decision.**
+**Integrate the Two-Span Clamped Cubic Polynomial B-Spline decision; no
+production implementation is authorized on this branch.**
 
-Integrated trim evidence:
+Closed trim evidence:
 
-- implementation PR #114 merged as
+- trim implementation PR #114 merged as
   `133a98ea056b12d86049e36abc0370208776106b`;
-- candidate FAST `35730750101`: PASS, 21/21;
-- candidate INTEGRATION `35730749747`: PASS, 21/21 in GCC and Clang;
-- final PR-head FAST `35730921629`: PASS;
-- final PR-head INTEGRATION `35730921744`: PASS;
-- post-merge FAST `35731127728`: PASS;
-- post-merge INTEGRATION `35731127685`: PASS.
+- trim post-merge FAST `35731127728`: PASS;
+- trim post-merge INTEGRATION `35731127685`: PASS;
+- trim implementation closure PR #115 merged as
+  `e29a08b07c175a91410123f99867eef4190b983b`;
+- closure post-merge FAST `35731529518`: PASS;
+- closure post-merge INTEGRATION `35731529546`: PASS.
 
-Closure branch:
-`docs/trimmed-parametric-subcurve-implementation-closure`.
+Active branch:
+`curve/two-span-cubic-bspline-decision`.
 
 Decision authority:
-`docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-Production representation breadth now includes:
+The decision compares bounded B-spline, NURBS, arbitrary-degree Bézier,
+analytic conic/orientation and heterogeneous composition.
 
-- `CubicBezier2/3`;
-- `LineSegment2/3`;
-- `RationalQuadraticBezier2/3`;
-- static `TrimmedCurve2/3` semantics over admitted bounded basis families.
+It selects the smallest knot-bearing family:
 
-The original CGR0–CGR7 qualification remains restricted to polynomial cubic
-Bézier. Later line, rational and trim work units are integrated focused
-extensions, not a broadened formal qualification claim.
+**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D.**
 
-No additional family or downstream stage is authorized until a new decision
-is integrated and closed.
+The selected future work unit is fixed to five control points and knot vector
+
+`[a,a,a,a,k,b,b,b,b]`
+
+with finite `a<k<b`, one simple interior knot, non-rational and
+non-periodic semantics.
+
+If this decision is integrated, post-merge validation passes, and a separate
+decision checkpoint closes, the sole next implementation work item is the
+mapped two-span cubic B-spline family.
+
+No general/multi-span B-spline, NURBS, arbitrary-degree Bézier, analytic
+conic, heterogeneous composition, surface, discretization or meshing work is
+authorized yet.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
-NOT QUALIFIED / RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
+**Curve Representation Breadth Gate — Two-Span Clamped Cubic B-Spline —
+DECISION ACTIVE / DOCUMENTATION ONLY / NO B-SPLINE IMPLEMENTATION /
+TRIM, RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
