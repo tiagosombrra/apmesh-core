@@ -276,52 +276,85 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #111; terminally reconciles the rational-quadratic closure.
 - `curve/trimmed-parametric-subcurve-decision`: **MERGED / HISTORICAL**
   via PR #112; literature-backed trimming-vs-family comparison decision.
-- `docs/trimmed-parametric-subcurve-decision-closure`: **CLOSURE-ONLY**;
-  records PR #112 integration and post-merge validation.
+- `docs/trimmed-parametric-subcurve-decision-closure`: **MERGED /
+  HISTORICAL** via PR #113; closes the trim decision checkpoint.
+- `curve/trimmed-parametric-subcurve`: **ACTIVE**; statically typed
+  2D/3D oriented trim wrapper implementation under the closed decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Oriented Trimmed Parametric Subcurve decision is integrated and
-awaiting closure integration.**
+**Oriented Trimmed Parametric Subcurve Semantics in 2D and 3D — ACTIVE /
+IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`curve/trimmed-parametric-subcurve`.
 
-1. decision authority:
-   `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
-2. decision PR #112 merged as
-   `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
-3. decision PR FAST `35729461953`: PASS;
-4. decision PR INTEGRATION `35729462003`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. decision post-merge FAST `35729581995`: PASS;
-6. decision post-merge INTEGRATION `35729581937`: PASS;
-7. all current production curve families remain unchanged;
-8. the common bounded-parametric concepts remain unchanged.
+Decision authority:
+`docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-No production work item is active in this closure change.
+Closed decision checkpoint:
 
-## Next admissible work item after closure
+- decision PR #112 merged as
+  `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
+- decision post-merge FAST `35729581995`: PASS;
+- decision post-merge INTEGRATION `35729581937`: PASS;
+- closure PR #113 merged as
+  `74cafc0f7e64abe159303fe7116dcbaac4d8fad7`;
+- closure post-merge FAST `35729923695`: PASS;
+- closure post-merge INTEGRATION `35729923468`: PASS.
 
-After this closure is integrated and post-merge FAST/INTEGRATION pass, open
-exactly one implementation branch for:
+Authorized repository mapping:
 
-**Oriented Trimmed Parametric Subcurve Semantics in 2D and 3D.**
+1. `include/apmesh/geometry/trimmed_curve.hpp`;
+2. `tests/trimmed_curve.cpp`;
+3. `CMakeLists.txt`;
+4. synchronized STATE / ROADMAP / WORKLOG / decision mapping.
 
-Implementation must remain inside
-`docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`:
+Required semantics:
 
-- static trim wrapper over one bounded basis curve;
-- basis stored by value;
-- finite nonzero oriented source/target parameters inside the basis domain;
+- one bounded basis curve stored by value;
+- finite distinct oriented source/target basis parameters;
+- both endpoints contained in the basis domain;
 - exposed domain `[min(u_s,u_e),max(u_s,u_e)]`;
-- reverse orientation through existing `reversed_parameter`;
-- D1 sign reversal and D2 preservation;
-- exact reversal by swapping trim endpoints;
+- forward trim preserves basis parameter/value/D1/D2;
+- reverse trim uses existing overflow-aware `reversed_parameter`;
+- reverse D1 changes sign and D2 is preserved;
+- reversal swaps only oriented trim endpoints;
+- typed query failures;
 - focused coverage over line, cubic Bézier and rational quadratic Bézier in
-  2D/3D.
+  2D/3D;
+- one extreme-domain local probe only for overflow-safe mapping evidence;
+- prerequisite preservation.
 
-No heterogeneous composition, periodic trim, analytic conic,
-arbitrary-degree Bézier, B-spline/NURBS, surface, discretization or meshing
-implementation is authorized.
+Validation history:
+
+- candidate head `fdb44db2478f50724242d9f83260bbca5d68ce0e`;
+- FAST `35730750101`: PASS, 21/21 tests;
+- INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 21/21 tests per cell;
+- `apmesh_core.trimmed_curve`: PASS in all three jobs;
+- all prior ordinary semantic contracts remained PASS;
+- no common-concept, mathematical or acceptance semantics changed during
+  candidate validation.
+
+The implementation candidate is **FOCUSED CONTRACTS PASS / READY FOR FINAL
+PR-HEAD REVALIDATION AFTER DOCUMENTATION SYNC / NOT QUALIFIED**.
+
+Explicit non-actions:
+
+- no heterogeneous composition/polycurve;
+- no type erasure or universal runtime base;
+- no periodic wrapping;
+- no analytic conic;
+- no arbitrary-degree Bézier;
+- no B-spline/NURBS;
+- no surface/discretization/sizing/meshing;
+- no Quad-Dominant or parallel work.
+
+## Next admissible transition
+
+Complete only this implementation, validate FAST and both INTEGRATION compiler
+cells, integrate, validate the merge, close the implementation checkpoint, and
+only then open a new literature-backed breadth decision.

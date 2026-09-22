@@ -683,3 +683,61 @@ No heterogeneous composition, periodic trim, analytic conic,
 arbitrary-degree Bézier, B-spline, NURBS, surface, discretization, sizing,
 meshing, Quad-Dominant or parallel implementation is authorized by this
 checkpoint.
+
+
+## 26. Active implementation mapping
+
+Decision closure PR #113 merged as
+`74cafc0f7e64abe159303fe7116dcbaac4d8fad7`.
+
+Closure post-merge validation:
+
+- FAST `35729923695`: PASS;
+- INTEGRATION `35729923468`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The sole authorized implementation is active on:
+
+`curve/trimmed-parametric-subcurve`.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/trimmed_curve.hpp`;
+- `tests/trimmed_curve.cpp`;
+- `CMakeLists.txt`;
+- synchronized `STATE`, `ROADMAP`, `WORKLOG` and this decision.
+
+Candidate semantics:
+
+- generic header-only wrappers constrained by the existing bounded 2D/3D
+  concepts;
+- basis curve stored by value;
+- explicit construction failures for non-finite, out-of-domain and zero-width
+  trim endpoints;
+- exposed parameter domain retains the basis parameter magnitudes;
+- reverse orientation reuses `reversed_parameter`;
+- reverse first derivative is sign-negated; second derivative is preserved;
+- reversal swaps trim endpoints without reversing the stored basis.
+
+Focused evidence includes all currently admitted basis families in 2D and 3D,
+plus an extreme-domain local probe that is evidence only and does not widen the
+scientifically admitted basis set.
+
+Expected ordinary FAST/INTEGRATION inventory after registration: **21 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `fdb44db2478f50724242d9f83260bbca5d68ce0e`;
+- FAST `35730750101`: PASS, 21/21 tests;
+- INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 21/21 tests per cell;
+- `apmesh_core.trimmed_curve`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
+
+No heterogeneous composition or new mathematical curve family is implied.

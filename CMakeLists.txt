@@ -194,6 +194,17 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.rational_quadratic_bezier
     )
 
+    add_executable(apmesh_core.trimmed_curve
+        tests/trimmed_curve.cpp
+    )
+    target_link_libraries(apmesh_core.trimmed_curve PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.trimmed_curve)
+
+    add_test(
+        NAME apmesh_core.trimmed_curve
+        COMMAND apmesh_core.trimmed_curve
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -361,6 +372,7 @@ if(BUILD_TESTING)
         apmesh_core.parametric_curve_contract
         apmesh_core.line_segment
         apmesh_core.rational_quadratic_bezier
+        apmesh_core.trimmed_curve
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
         apmesh_core.curve_signed_curvature
