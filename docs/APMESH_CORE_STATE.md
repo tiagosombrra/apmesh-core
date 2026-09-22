@@ -290,28 +290,31 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Integrate the Multi-Span Clamped Cubic Positive-Weight NURBS implementation
-closure; no new representation implementation is authorized during closure.**
+**After this terminal documentation synchronization is integrated and
+post-merge validated, open one fresh literature-backed Curve Representation
+Breadth decision.**
 
-Implementation integration evidence:
+Terminal multi-span cubic NURBS evidence:
 
-- PR #130 merged as
+- implementation PR #130:
   `153bf6b874b0deac304ea07562cd897785f631df`;
-- candidate head:
-  `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
-- candidate FAST `35751863096`: PASS, 24/24;
-- candidate INTEGRATION `35751863450`: PASS, 24/24 in GCC/Clang;
-- final head:
-  `3a600bba2b521ba4fea12be0b85dd55161205f15`;
 - final PR FAST `35752117689`: PASS, 24/24;
 - final PR INTEGRATION `35752117850`: PASS, 24/24 in GCC/Clang;
-- post-merge FAST `35752335649`: PASS, 24/24;
-- post-merge INTEGRATION `35752335629`: PASS, 24/24 in GCC/Clang.
+- implementation post-merge FAST `35752335649`: PASS, 24/24;
+- implementation post-merge INTEGRATION `35752335629`: PASS, 24/24 in
+  GCC/Clang;
+- closure PR #131:
+  `d71ada7b280b443c4eb303c44b57e7ce429fb24a`;
+- closure PR FAST `35752743478`: PASS;
+- closure PR INTEGRATION `35752743439`: PASS;
+- closure post-merge FAST `35752844947`: PASS, 24/24;
+- closure post-merge INTEGRATION `35752844817`: PASS, 24/24 in
+  GCC/Clang.
 
-Closure branch:
-`docs/multi-span-cubic-nurbs-implementation-closure`.
+Terminal sync branch:
+`docs/multi-span-cubic-nurbs-closure-sync`.
 
-Integrated representation breadth now includes:
+Production representation breadth now contains:
 
 - `CubicBezier2/3`;
 - `LineSegment2/3`;
@@ -319,21 +322,22 @@ Integrated representation breadth now includes:
 - static `TrimmedCurve2/3`;
 - `TwoSpanCubicBSpline2/3`;
 - `TwoSpanCubicNURBS2/3`;
-- `MultiSpanCubicNURBS2/3` with degree 3, positive weights and simple
-  interior knots.
+- `MultiSpanCubicNURBS2/3` for degree-three, positive-weight,
+  simple-interior-knot, non-periodic splines.
 
-The multi-span work unit remains **NOT QUALIFIED** as a broadened
-representation-stage claim.
+The multi-span NURBS work unit is closed but remains outside the original
+CGR0–CGR7 qualification claim.
 
-No repeated-knot, arbitrary-degree, periodic, conic, composite, surface,
-discretization or meshing work is authorized.
+No repeated-knot, arbitrary-degree, periodic, analytic-conic, heterogeneous
+composition, surface, discretization or meshing capability is authorized.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — MULTI-SPAN CUBIC NURBS
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
-NOT QUALIFIED / FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
-INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / TERMINAL SYNC ACTIVE / FIXED NURBS, B-SPLINE, RATIONAL,
+TRIM AND LINE INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION
+PRESERVED**
 
 Paused prerequisite investigation:
 

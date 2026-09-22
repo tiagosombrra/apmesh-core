@@ -1877,49 +1877,48 @@ Current scientific work focus:
 
 **Curve Representation Breadth Gate — Multi-Span Clamped Cubic
 Positive-Weight NURBS — IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**
+INTEGRATED / CLOSED / NOT QUALIFIED / TERMINAL DOCUMENTATION SYNC ACTIVE**
 
 Decision authority:
 `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Implementation validation lineage:
+Terminal validation lineage:
 
 - implementation PR #130:
   `153bf6b874b0deac304ea07562cd897785f631df`;
-- first candidate head:
-  `78e086aa6744fb9bcdb2c5077b55b4122f883836`;
 - candidate FAST `35751863096`: PASS, 24/24;
-- candidate INTEGRATION `35751863450`: PASS, 24/24 per GCC/Clang cell;
-- final head:
-  `3a600bba2b521ba4fea12be0b85dd55161205f15`;
+- candidate INTEGRATION `35751863450`: PASS, 24/24 in GCC/Clang;
 - final PR FAST `35752117689`: PASS, 24/24;
-- final PR INTEGRATION `35752117850`: PASS, 24/24 per compiler cell;
-- post-merge FAST `35752335649`: PASS, 24/24;
-- post-merge INTEGRATION `35752335629`: PASS, 24/24 per compiler cell.
+- final PR INTEGRATION `35752117850`: PASS, 24/24 in GCC/Clang;
+- implementation post-merge FAST `35752335649`: PASS, 24/24;
+- implementation post-merge INTEGRATION `35752335629`: PASS, 24/24 in
+  GCC/Clang;
+- closure PR #131:
+  `d71ada7b280b443c4eb303c44b57e7ce429fb24a`;
+- closure PR FAST `35752743478`: PASS;
+- closure PR INTEGRATION `35752743439`: PASS;
+- closure post-merge FAST `35752844947`: PASS, 24/24;
+- closure post-merge INTEGRATION `35752844817`: PASS, 24/24 in GCC/Clang.
 
-Integrated scope:
+Final focused result:
 
-- runtime-variable span/control/weight/simple-interior-knot count;
-- degree 3 fixed;
-- positive weights;
-- non-periodic;
-- deterministic right-span search;
-- local homogeneous value/D1/D2;
-- fixed-family and polynomial-subset parity;
-- independent four-span rational basis;
-- test-only knot insertion parity;
-- local support, weight scale, reversal, affine/embedding, extreme finite and
-  deterministic evidence.
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
 
-The common bounded-parametric contract and fixed two-span NURBS production
-source remain unchanged.
+Production includes the multi-span degree-three positive-weight NURBS family
+with simple interior knots. This does not widen the original Cubic-Bézier CGR
+qualification.
 
-This closure authorizes no new implementation.
+After this terminal sync is integrated and post-merge validated, open one fresh
+literature-backed breadth decision comparing:
 
-After closure integration and post-merge validation, open one fresh
-literature-backed breadth decision comparing repeated-knot continuity,
-arbitrary degree, analytic conics, heterogeneous composition and readiness for
-the separate Surface Representation entry decision.
+- repeated-knot/continuity breadth;
+- arbitrary-degree polynomial/rational Bézier and/or arbitrary spline degree;
+- analytic conic after arbitrary 3D orientation prerequisites;
+- heterogeneous composition/polycurve;
+- readiness for the separate Surface Representation entry decision.
+
+No option is preselected.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.

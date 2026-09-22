@@ -1035,3 +1035,35 @@ stage.
 
 A separate implementation closure is mandatory before any next breadth
 decision.
+
+
+## 42. Implementation closure checkpoint
+
+Implementation closure PR #131 merged as
+`d71ada7b280b443c4eb303c44b57e7ce429fb24a`.
+
+Closure PR validation:
+
+- FAST `35752743478`: PASS;
+- INTEGRATION `35752743439`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Closure post-merge validation:
+
+- FAST `35752844947`: PASS, 24/24 ordinary tests;
+- INTEGRATION `35752844817`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 24/24 tests per cell.
+
+Final multi-span work-unit result:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
+
+The original Cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+
+No repeated-knot, arbitrary-degree, periodic, analytic-conic, heterogeneous
+composition, surface or downstream capability is authorized by this closure.
+
+After terminal documentation synchronization, a fresh literature-backed
+Curve Representation Breadth decision is mandatory before any next
+representation implementation.
