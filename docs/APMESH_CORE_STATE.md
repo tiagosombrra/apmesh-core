@@ -282,50 +282,40 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Open the implementation work item Bounded Parametric Curve Contract and Cubic
-Bézier Conformance.**
+**Validate and integrate Bounded Parametric Curve Contract and Cubic Bézier
+Conformance.**
 
-Decision and closure evidence:
-
-- decision PR #98 merged as
-  `12ecbf584751dadb0dd142c485b1cd4f220736d8`;
-- decision final PR FAST `35711481469`: PASS;
-- decision final PR INTEGRATION `35711481473`: PASS;
-- decision post-merge FAST `35711563476`: PASS;
-- decision post-merge INTEGRATION `35711563585`: PASS;
-- closure PR #99 merged as
-  `60e7677323300d4263d53c616b3081dd2fa03d0f`;
-- closure final PR FAST `35711824443`: PASS;
-- closure final PR INTEGRATION `35711824521`: PASS;
-- closure post-merge FAST `35711924946`: PASS;
-- closure post-merge INTEGRATION `35711924910`: PASS.
+Active branch:
+`curve/bounded-parametric-curve-contract`.
 
 Decision authority:
 `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
 
-The decision checkpoint is closed and synchronized. No production implementation
-is active at this checkpoint.
+Implemented bounded mapping:
 
-The sole next implementation work unit is:
+- `include/apmesh/geometry/parametric_curve.hpp`: typed finite closed
+  parameter-domain vocabulary, `CurveError` common query vocabulary, robust
+  bounded reversal mapping, and static 2D/3D concepts;
+- `include/apmesh/geometry/curve.hpp`: Cubic Bézier conformance surface only;
+- `src/geometry/curve.cpp`: exact `[0,1]` domain exposure only;
+- `tests/parametric_curve_contract.cpp`: focused semantic contract;
+- `tests/curve_header_isolation.cpp`: public compile-time conformance;
+- `CMakeLists.txt`: focused test registration.
 
-**Bounded Parametric Curve Contract and Cubic Bézier Conformance.**
+No existing Cubic-Bézier evaluator, derivative, regularity, arc-length,
+curvature or inflection algorithm is replaced by this work unit.
 
-It may add only the finite closed parameter-domain vocabulary, static 2D/3D
-C++23 parametric-curve concepts, reversal-parameter semantics, unchanged
-Cubic-Bézier conformance, focused contracts and required build registration.
+No second concrete curve family or surface capability is implemented.
 
-No line/arc/rational/arbitrary-degree Bézier/B-spline/NURBS/composite/trimmed
-curve or surface production implementation is authorized yet.
-
-Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED` and
-paused for the representation-breadth seam.
+The work unit remains **ACTIVE / NOT QUALIFIED** until FAST/INTEGRATION,
+integration and post-merge validation pass.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — Parametric Curve Family Abstraction —
-DECISION CLOSED / IMPLEMENTATION NOT STARTED / NO NEW FAMILY IMPLEMENTED /
+**Curve Representation Breadth Gate — Bounded Parametric Curve Contract —
+IMPLEMENTATION ACTIVE / NO NEW FAMILY IMPLEMENTED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:

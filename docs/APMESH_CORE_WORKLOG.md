@@ -243,51 +243,55 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   decision only; no production geometry implementation.
 - `docs/parametric-curve-family-abstraction-decision-closure`: **MERGED /
   HISTORICAL** via PR #99; closes the decision checkpoint.
-- `docs/parametric-curve-family-abstraction-closure-sync`: **CLOSURE-ONLY /
-  SYNCHRONIZATION**; reconciles the terminal post-PR #99 authority without
-  changing scientific or production scope.
+- `docs/parametric-curve-family-abstraction-closure-sync`: **MERGED /
+  HISTORICAL** via PR #100; reconciles the terminal post-PR #99 authority
+  without changing scientific or production scope.
+- `curve/bounded-parametric-curve-contract`: **ACTIVE**; bounded
+  parameter-domain/static-concept/Cubic-Bézier conformance implementation only.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Parametric Curve Family Abstraction and Representation Breadth decision
-is integrated, closed, and terminally synchronized.**
+**Bounded Parametric Curve Contract and Cubic Bézier Conformance —
+ACTIVE / IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
 
-Closure evidence:
+Active branch:
+`curve/bounded-parametric-curve-contract`.
 
-1. decision authority:
-   `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-2. decision PR #98 merged as
-   `12ecbf584751dadb0dd142c485b1cd4f220736d8`;
-3. decision final PR FAST `35711481469`: PASS;
-4. decision final PR INTEGRATION `35711481473`: PASS;
-5. decision post-merge FAST `35711563476`: PASS;
-6. decision post-merge INTEGRATION `35711563585`: PASS;
-7. closure PR #99 merged as
-   `60e7677323300d4263d53c616b3081dd2fa03d0f`;
-8. closure final PR FAST `35711824443`: PASS;
-9. closure final PR INTEGRATION `35711824521`: PASS;
-10. closure post-merge FAST `35711924946`: PASS;
-11. closure post-merge INTEGRATION `35711924910`: PASS;
-12. the qualified cubic-Bézier CGR0–CGR7 baseline remains unchanged;
-13. no concrete new curve family or surface implementation was introduced.
+Entry authority:
+`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
 
-No production work item is active at this checkpoint.
+Pre-implementation checkpoint:
 
-## Next admissible work item
+- synchronization PR #100 merged as
+  `da18cb619bb853ddf921f36b67f290014eccb1fe`;
+- PR #100 FAST `35712465709`: PASS;
+- PR #100 INTEGRATION `35712465775`: PASS;
+- post-merge FAST `35712548652`: PASS;
+- post-merge INTEGRATION `35712548564`: PASS;
+- no open PR existed when this branch was opened.
 
-Open exactly one implementation work item:
+Authorized implementation mapping:
 
-**Bounded Parametric Curve Contract and Cubic Bézier Conformance.**
+1. `include/apmesh/geometry/parametric_curve.hpp`;
+2. `include/apmesh/geometry/curve.hpp`;
+3. `src/geometry/curve.cpp`;
+4. `tests/parametric_curve_contract.cpp`;
+5. `tests/curve_header_isolation.cpp`;
+6. `CMakeLists.txt`;
+7. synchronized STATE/ROADMAP/WORKLOG/decision mapping.
 
-The implementation is constrained by
-`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md` and may add
-only the common finite closed parameter-domain vocabulary, static 2D/3D C++23
-curve concepts, reversal-parameter semantics, unchanged Cubic-Bézier
-conformance, focused contracts and required build registration.
+No second concrete curve family, surface, discretization, sizing, meshing,
+Quad-Dominant or parallel implementation is authorized.
 
-Concrete line/arc/rational/arbitrary-degree Bézier/B-spline/NURBS,
-composite/trimmed curve and all surface implementations remain separate later
-decisions/work units.
+## Next admissible transition
 
+Only after this implementation passes focused FAST/INTEGRATION, is merged, and
+its post-merge validation plus checkpoint synchronization are complete may a
+new scientific decision/work item be opened.
+
+The next concrete family is not pre-authorized by this implementation. A later
+literature-backed decision must choose among bounded line/segment, bounded
+circle/conic arc, rational/arbitrary-degree Bézier, B-spline, NURBS, or another
+admitted breadth need.

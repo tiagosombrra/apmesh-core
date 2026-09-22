@@ -34,6 +34,7 @@ int main() {
     using apmesh::core::CurveInflectionError;
     using apmesh::core::CurveInflectionIsolationEvidence;
     using apmesh::core::CurveInflectionIsolationPolicy;
+    using apmesh::core::CurveParameterDomain;
     using apmesh::core::CurveLengthError;
     using apmesh::core::CurveLengthEvidence;
     using apmesh::core::CurveLengthPolicy;
@@ -51,6 +52,14 @@ int main() {
     static_assert(std::is_copy_constructible_v<CubicBezier2>);
     static_assert(std::is_copy_assignable_v<CubicBezier2>);
     static_assert(std::is_copy_constructible_v<CubicBezier3>);
+    static_assert(apmesh::core::BoundedParametricCurve2<CubicBezier2>);
+    static_assert(apmesh::core::BoundedParametricCurve3<CubicBezier3>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().parameter_domain()),
+        CurveParameterDomain>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier3&>().parameter_domain()),
+        CurveParameterDomain>);
     static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().evaluate(0.5)),
         std::expected<Point2, CurveError>>);
