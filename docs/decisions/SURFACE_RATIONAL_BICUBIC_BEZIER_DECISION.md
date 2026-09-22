@@ -707,3 +707,62 @@ Sections 5–31.
 
 No NURBS, Coons, analytic, swept, trimmed or downstream surface capability is
 authorized.
+
+
+## 36. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/rational-bicubic-bezier`.
+
+Candidate mapping:
+
+- public value/API extension:
+  `include/apmesh/geometry/surface.hpp`;
+- production:
+  `src/geometry/rational_surface.cpp`;
+- focused semantic/reference contract:
+  `tests/surface_rational_bicubic_bezier.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Frozen prerequisites:
+
+- `include/apmesh/geometry/parametric_surface.hpp`: unchanged;
+- `src/geometry/surface.cpp`: unchanged;
+- `BicubicBezierPatch3`: prerequisite polynomial oracle/production family.
+
+Candidate production semantics:
+
+- exact stored 4x4 controls and input weights;
+- explicit finite/positive weight construction validation;
+- common internal weight normalization;
+- deterministic V-then-U homogeneous de Casteljau;
+- homogeneous derivative nets through degree reduction;
+- analytic rational Su/Sv/Suu/Suv/Svv dehomogenization;
+- exact corners;
+- exact constant-geometry shortcut;
+- U/V reversal of controls and weights.
+
+Focused contract includes:
+
+- independent rational Bernstein value/partial oracle;
+- all-equal non-unit weight parity with `BicubicBezierPatch3`;
+- common weight-scale invariance;
+- U/V reversal and derivative covariance;
+- homogeneous degree elevation from integrated
+  `RationalQuadraticBezier3` as cross-family evidence;
+- translation and coordinate-scale covariance;
+- extreme finite positive weights;
+- explicit unrepresentable-result failure;
+- deterministic repeated success/failure evidence.
+
+Expected ordinary semantic inventory: **27 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
+No U/V knot, NURBS, Coons, analytic, swept, trimmed, differential-geometry or
+meshing capability is implied.
