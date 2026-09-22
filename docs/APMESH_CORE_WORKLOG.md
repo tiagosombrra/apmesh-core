@@ -241,15 +241,18 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `curve/parametric-curve-family-abstraction-decision`: **MERGED /
   HISTORICAL** via PR #98; literature-backed representation-breadth transition
   decision only; no production geometry implementation.
-- `docs/parametric-curve-family-abstraction-decision-closure`:
-  **CLOSURE-ONLY**; records PR #98 integration and post-merge validation.
+- `docs/parametric-curve-family-abstraction-decision-closure`: **MERGED /
+  HISTORICAL** via PR #99; closes the decision checkpoint.
+- `docs/parametric-curve-family-abstraction-closure-sync`: **CLOSURE-ONLY /
+  SYNCHRONIZATION**; reconciles the terminal post-PR #99 authority without
+  changing scientific or production scope.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
 **None. Parametric Curve Family Abstraction and Representation Breadth decision
-is integrated and its checkpoint is closed.**
+is integrated, closed, and terminally synchronized.**
 
 Closure evidence:
 
@@ -257,22 +260,24 @@ Closure evidence:
    `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
 2. decision PR #98 merged as
    `12ecbf584751dadb0dd142c485b1cd4f220736d8`;
-3. final PR FAST `35711481469`: PASS;
-4. final PR INTEGRATION `35711481473`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-5. post-merge FAST `35711563476`: PASS;
-6. post-merge INTEGRATION `35711563585`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. the decision selects a minimal bounded static parametric-curve semantic seam;
-8. the qualified cubic-Bézier CGR0–CGR7 baseline is preserved unchanged;
-9. no concrete new curve family or surface implementation was introduced.
+3. decision final PR FAST `35711481469`: PASS;
+4. decision final PR INTEGRATION `35711481473`: PASS;
+5. decision post-merge FAST `35711563476`: PASS;
+6. decision post-merge INTEGRATION `35711563585`: PASS;
+7. closure PR #99 merged as
+   `60e7677323300d4263d53c616b3081dd2fa03d0f`;
+8. closure final PR FAST `35711824443`: PASS;
+9. closure final PR INTEGRATION `35711824521`: PASS;
+10. closure post-merge FAST `35711924946`: PASS;
+11. closure post-merge INTEGRATION `35711924910`: PASS;
+12. the qualified cubic-Bézier CGR0–CGR7 baseline remains unchanged;
+13. no concrete new curve family or surface implementation was introduced.
 
-No work item is active on this closure branch.
+No production work item is active at this checkpoint.
 
-## Next admissible work item after this decision
+## Next admissible work item
 
-After this closure PR is integrated and its post-merge FAST/INTEGRATION checks
-pass, open exactly one implementation work item:
+Open exactly one implementation work item:
 
 **Bounded Parametric Curve Contract and Cubic Bézier Conformance.**
 
