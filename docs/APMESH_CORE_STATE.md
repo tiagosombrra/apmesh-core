@@ -255,17 +255,18 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
-5. `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
-6. `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
-7. `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
-8. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
-9. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-10. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-11. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-12. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-13. the latest relevant audit under `docs/audits/`;
-14. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+5. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
+6. `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
+7. `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
+8. `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
+9. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
+10. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
+11. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+12. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+13. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+14. the latest relevant audit under `docs/audits/`;
+15. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -288,56 +289,50 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this terminal documentation synchronization is integrated and
-post-merge validated, open one fresh literature-backed Curve Representation
-Breadth decision.**
+**Integrate the literature-backed Cubic NURBS Double-Knot C1 Continuity
+decision; no production implementation is authorized on this branch.**
 
-Terminal multi-span cubic NURBS evidence:
+Decision-entry authority:
 
-- implementation PR #130:
-  `153bf6b874b0deac304ea07562cd897785f631df`;
-- final PR FAST `35752117689`: PASS, 24/24;
-- final PR INTEGRATION `35752117850`: PASS, 24/24 in GCC/Clang;
-- implementation post-merge FAST `35752335649`: PASS, 24/24;
-- implementation post-merge INTEGRATION `35752335629`: PASS, 24/24 in
-  GCC/Clang;
-- closure PR #131:
-  `d71ada7b280b443c4eb303c44b57e7ce429fb24a`;
-- closure PR FAST `35752743478`: PASS;
-- closure PR INTEGRATION `35752743439`: PASS;
-- closure post-merge FAST `35752844947`: PASS, 24/24;
-- closure post-merge INTEGRATION `35752844817`: PASS, 24/24 in
-  GCC/Clang.
+- terminal multi-span NURBS state:
+  `a37e8c266b0057b2d813f5f690faa6a1e6a710a1`;
+- sync PR #132 FAST `35753336320`: PASS;
+- sync PR #132 INTEGRATION `35753336303`: PASS;
+- sync post-merge FAST `35753496462`: PASS;
+- sync post-merge INTEGRATION `35753496400`: PASS.
 
-Terminal sync branch:
-`docs/multi-span-cubic-nurbs-closure-sync`.
+Active branch:
+`curve/cubic-nurbs-double-knot-continuity-decision`.
 
-Production representation breadth now contains:
+Decision authority:
+`docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-- `CubicBezier2/3`;
-- `LineSegment2/3`;
-- `RationalQuadraticBezier2/3`;
-- static `TrimmedCurve2/3`;
-- `TwoSpanCubicBSpline2/3`;
-- `TwoSpanCubicNURBS2/3`;
-- `MultiSpanCubicNURBS2/3` for degree-three, positive-weight,
-  simple-interior-knot, non-periodic splines.
+The decision selects only the first reduced-continuity spline step:
 
-The multi-span NURBS work unit is closed but remains outside the original
-CGR0–CGR7 qualification claim.
+- degree remains 3;
+- each interior multiplicity remains 1 or 2;
+- multiplicity two guarantees C1;
+- value and D1 remain ordinary successful queries at a double knot;
+- ordinary D2 at the exact double knot returns
+  `CurveError::insufficient_continuity`;
+- D2 away from that knot remains available;
+- no one-sided derivative API is authorized.
 
-No repeated-knot, arbitrary-degree, periodic, analytic-conic, heterogeneous
-composition, surface, discretization or meshing capability is authorized.
+Surface Representation remains blocked because the same multiplicity/partial
+derivative ambiguity would otherwise be duplicated in U/V.
+
+No production repeated-knot, arbitrary-degree, periodic, conic, polycurve,
+surface, discretization or meshing work is authorized.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — MULTI-SPAN CUBIC NURBS
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / TERMINAL SYNC ACTIVE / FIXED NURBS, B-SPLINE, RATIONAL,
-TRIM AND LINE INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION
-PRESERVED**
+**Curve Representation Breadth Gate — CUBIC NURBS DOUBLE-KNOT C1
+CONTINUITY DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+MULTI-SPAN NURBS, FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
+INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
