@@ -255,10 +255,13 @@ Scientific boundary:
 6. one sign variation certifies exactly one simple interior root and therefore
    one sign-changing inflection on a regular curve;
 7. unresolved/multiple/tangential roots remain `indeterminate`;
-8. returned root brackets are bounded by an explicit parameter tolerance that
+8. roots that fall exactly on an internal subdivision boundary cannot disappear
+   through open-interval sign counting; each such boundary is explicitly
+   discharged, certified once, or remains `indeterminate`;
+9. returned root brackets are bounded by an explicit parameter tolerance that
    is not a curvature or determinant epsilon;
-9. no public general polynomial solver or interval API is admitted;
-10. no discretization, sizing, surface, meshing, Quad-Dominant or parallel
+10. no public general polynomial solver or interval API is admitted;
+11. no discretization, sizing, surface, meshing, Quad-Dominant or parallel
     capability is authorized.
 
 Repository mapping is retained inside the decision and names the current public
