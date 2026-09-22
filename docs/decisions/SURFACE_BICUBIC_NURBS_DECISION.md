@@ -846,3 +846,37 @@ Sections 5–36.
 
 No repeated-knot, Coons, analytic, swept, trimmed or downstream surface
 capability is authorized.
+
+
+## 40. Decision closure checkpoint
+
+Decision closure PR #150 used head:
+
+`f5ea389433c01591aaf1d025ff3b9cd81221d05e`.
+
+Closure PR validation:
+
+- FAST `35798034499`: PASS;
+- INTEGRATION `35798034492`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #150 merged as:
+
+`cd48a635165c80f4ac1248a9fb164d824ebf9ed0`.
+
+Closure post-merge validation:
+
+- FAST `35798149208`: PASS;
+- INTEGRATION `35798149304`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / BICUBIC NURBS SURFACE IMPLEMENTATION AUTHORIZED /
+NOT QUALIFIED.**
+
+The sole active production work item is the simple-knot bicubic NURBS surface
+bounded by Sections 5–36.
+
+No repeated-knot, Coons, analytic, swept, trimmed or downstream surface
+capability is authorized.
