@@ -410,9 +410,20 @@ Candidate implementation mapping:
 - `CMakeLists.txt`:
   production source plus the 26th ordinary semantic contract.
 
+Candidate validation:
+
+- candidate head:
+  `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
+- FAST `35765755483`: PASS, 26/26 tests;
+- INTEGRATION `35765755475`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 26/26 tests per cell;
+- `apmesh_core.surface_bicubic_bezier`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
