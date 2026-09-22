@@ -652,3 +652,34 @@ representation-breadth gate is explicitly closed by later decisions.
 Surface Representation remains blocked, but this decision establishes a
 curve-level trimming semantic that later surface-boundary work may reference
 without retroactive reinterpretation.
+
+
+## 25. Decision integration checkpoint
+
+PR #112 integrated this bounded decision as
+`13b5b0c77c5ff96ecc30326ff10970b3976d6e84`.
+
+Final decision-head validation:
+
+- FAST `35729461953`: PASS;
+- INTEGRATION `35729462003`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35729581995`: PASS;
+- INTEGRATION `35729581937`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The integrated decision selects only:
+
+**Oriented Trimmed Parametric Subcurve Semantics in 2D and 3D.**
+
+After this separate closure checkpoint is integrated and its post-merge
+validation passes, Sections 5–22 become the sole authorized implementation
+scope.
+
+No heterogeneous composition, periodic trim, analytic conic,
+arbitrary-degree Bézier, B-spline, NURBS, surface, discretization, sizing,
+meshing, Quad-Dominant or parallel implementation is authorized by this
+checkpoint.
