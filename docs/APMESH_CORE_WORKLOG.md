@@ -238,55 +238,51 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #96; bounded 2D certified simple-inflection implementation.
 - `docs/certified-simple-inflection-implementation-closure`:
   **CLOSURE-ONLY**; records PR #96 integration and post-merge validation.
-- `curve/parametric-curve-family-abstraction-decision`: **ACTIVE**;
-  literature-backed representation-breadth transition decision only; no
-  production geometry implementation.
+- `curve/parametric-curve-family-abstraction-decision`: **MERGED /
+  HISTORICAL** via PR #98; literature-backed representation-breadth transition
+  decision only; no production geometry implementation.
+- `docs/parametric-curve-family-abstraction-decision-closure`:
+  **CLOSURE-ONLY**; records PR #98 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Parametric Curve Family Abstraction and Representation Breadth — DECISION
-ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
+**None. Parametric Curve Family Abstraction and Representation Breadth decision
+is integrated and its checkpoint is closed.**
 
-Active branch:
-`curve/parametric-curve-family-abstraction-decision`.
+Closure evidence:
 
-Entry evidence for this work item:
+1. decision authority:
+   `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+2. decision PR #98 merged as
+   `12ecbf584751dadb0dd142c485b1cd4f220736d8`;
+3. final PR FAST `35711481469`: PASS;
+4. final PR INTEGRATION `35711481473`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+5. post-merge FAST `35711563476`: PASS;
+6. post-merge INTEGRATION `35711563585`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. the decision selects a minimal bounded static parametric-curve semantic seam;
+8. the qualified cubic-Bézier CGR0–CGR7 baseline is preserved unchanged;
+9. no concrete new curve family or surface implementation was introduced.
 
-1. PR #97 merged as
-   `13ec3ac80a88434d73c09ae25c9d542182109c51`;
-2. post-merge FAST `35707518191`: PASS;
-3. post-merge INTEGRATION `35707518122`: PASS;
-4. the qualified Curve Representation baseline remains polynomial cubic Bézier
-   only;
-5. the live public API exposes only `CubicBezier2` and `CubicBezier3`;
-6. the current `curve.cpp` concentrates family-specific value,
-   differential, regularity, length and curvature entry points on those
-   concrete types;
-7. Boundary Curve Discretization already requires future
-   `line/arc/Bezier` regression, so representation breadth must be made
-   explicit before that stage can qualify.
-
-Decision question:
-
-**Should the next work unit continue adding Cubic-Bézier-specific differential
-capabilities, introduce a new concrete curve family directly, or first define a
-minimal bounded parametric-curve semantic contract that the qualified cubic
-Bézier types satisfy unchanged and later families can reuse?**
-
-This branch may change only documentation/research/decision authorities.
-No production C++, new curve type, surface type, discretization, sizing,
-meshing, Quad-Dominant or parallel implementation is authorized.
+No work item is active on this closure branch.
 
 ## Next admissible work item after this decision
 
-Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
-and its checkpoint is separately closed may one implementation work item be
-opened.
+After this closure PR is integrated and its post-merge FAST/INTEGRATION checks
+pass, open exactly one implementation work item:
 
-If the decision selects the parametric-curve abstraction, that implementation
-must remain bounded to the exact contract admitted by the decision and preserve
-the existing Cubic-Bézier scientific outputs. Concrete line/arc/rational/
-B-spline/NURBS implementations remain separate later decisions/work units.
+**Bounded Parametric Curve Contract and Cubic Bézier Conformance.**
+
+The implementation is constrained by
+`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md` and may add
+only the common finite closed parameter-domain vocabulary, static 2D/3D C++23
+curve concepts, reversal-parameter semantics, unchanged Cubic-Bézier
+conformance, focused contracts and required build registration.
+
+Concrete line/arc/rational/arbitrary-degree Bézier/B-spline/NURBS,
+composite/trimmed curve and all surface implementations remain separate later
+decisions/work units.
 
