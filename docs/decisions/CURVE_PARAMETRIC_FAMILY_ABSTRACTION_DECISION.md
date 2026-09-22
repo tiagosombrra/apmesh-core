@@ -608,3 +608,70 @@ Curve Contract and Cubic Bézier Conformance** within Sections 6–17.
 
 No second concrete curve family, surface, discretization, sizing, meshing,
 Quad-Dominant or parallel capability is authorized by this synchronization.
+
+
+## 24. Bounded implementation candidate
+
+Implementation branch:
+`curve/bounded-parametric-curve-contract`.
+
+The candidate remains inside the authorized repository mapping.
+
+### Common public semantic vocabulary
+
+`include/apmesh/geometry/parametric_curve.hpp` introduces:
+
+- `CurveError` as the existing common point-query failure vocabulary moved
+  out of the Cubic-Bézier-specific header without changing its enumerators;
+- `CurveParameterDomainError` with distinct non-finite lower, non-finite
+  upper, reversed-interval and zero-width failures;
+- immutable `CurveParameterDomain` with finite closed-interval validation and
+  typed containment;
+- `reversed_parameter(domain,u)` with exact endpoint exchange and
+  midpoint-selected arithmetic to avoid the naïve `a+b-u` overflow path;
+- `BoundedParametricCurve2` and `BoundedParametricCurve3` static C++23
+  concepts requiring domain, value, first derivative, second derivative and
+  same-type reversal semantics.
+
+The common header depends only on Geometry Primitives and the C++ standard
+library. It introduces no topology, surface, mesh, I/O, threading or
+third-party dependency.
+
+### Cubic Bézier conformance
+
+`CubicBezier2` and `CubicBezier3` expose
+`parameter_domain()` returning exactly `[0,1]`.
+
+Existing value, derivative, regularity, length, inverse-length, curvature,
+signed-curvature and inflection implementations are not replaced or forked.
+
+### Focused evidence
+
+`tests/parametric_curve_contract.cpp` covers:
+
+- positive 2D/3D concept satisfaction;
+- negative incomplete-type concept fixtures;
+- every domain-construction failure class;
+- finite endpoint/interior/outside containment;
+- explicit non-finite containment failure;
+- non-normalized interval reversal;
+- endpoint exchange and out-of-domain/non-finite reversal failures;
+- extreme finite symmetric-domain reversal without avoidable overflow;
+- exact Cubic-Bézier `[0,1]` domain;
+- reversal involution;
+- value, first-derivative and second-derivative reversal covariance;
+- preservation of existing parameter-query failures.
+
+`tests/curve_header_isolation.cpp` additionally asserts Cubic-Bézier concept
+conformance and the public domain return types.
+
+`CMakeLists.txt` registers
+`apmesh_core.parametric_curve_contract` under the existing curve
+FAST/INTEGRATION focused-contract labels.
+
+### Candidate status
+
+**IMPLEMENTED / VALIDATION PENDING / NOT QUALIFIED.**
+
+No line/segment, circle/conic, rational/arbitrary-degree Bézier, B-spline,
+NURBS, composite/trimmed curve or surface implementation is present.
