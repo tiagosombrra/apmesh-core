@@ -1714,7 +1714,7 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `NOT STARTED`
+Status: `ENTRY DECISION ACTIVE / NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1875,44 +1875,54 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Cubic NURBS Double-Knot C1
-Continuity — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Representation — Continuous Patch Geometry — ENTRY DECISION
+ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED**
 
-Terminal closure evidence:
+Decision-entry authority:
 
-- implementation PR #135:
-  `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`;
-- implementation post-merge FAST `35756910304`: PASS, 25/25;
-- implementation post-merge INTEGRATION `35756910340`: PASS, 25/25;
-- closure PR #136 head:
-  `bb5c524bc1642376689c6b8aa1a845364844de09`;
-- closure PR FAST `35757407115`: PASS;
-- closure PR INTEGRATION `35757407483`: PASS;
-- closure merge:
-  `affc7a46b7fd4c5cc419679e6192fc293501654e`;
-- closure post-merge FAST `35757554252`: PASS;
-- closure post-merge INTEGRATION `35757554247`: PASS.
+- terminal Curve Representation breadth sync:
+  `c40175174a9487acb7dca09eeb2fa9b3615766ee`;
+- PR #137 FAST `35761691320`: PASS;
+- PR #137 INTEGRATION `35761691184`: PASS;
+- post-merge FAST `35761803424`: PASS;
+- post-merge INTEGRATION `35761803482`: PASS.
 
-Next admissible action:
+Active decision:
+`docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
 
-Open one fresh literature-backed comparison among:
+Selected stage transition:
 
-- bounded Surface Representation entry readiness;
-- multiplicity-three / C0 curve semantics;
-- arbitrary-degree spline/Bézier breadth;
-- analytic conics after arbitrary-placement prerequisites;
-- heterogeneous composition/polycurve.
+**Open Surface Representation now.**
 
-No candidate is preselected.
+Selected first future implementation:
+
+**Tensor-Product Bicubic Polynomial Bézier Patch in 3D.**
+
+The entry decision keeps the full surface-family obligation visible:
+
+- polynomial tensor-product patches;
+- rational Bézier patches;
+- B-spline/NURBS surfaces;
+- Coons/transfinite patches;
+- analytic plane/cylinder/cone/sphere/torus;
+- ruled/extrusion/revolution surfaces;
+- trimmed surfaces with explicit separation of supporting geometry, trim
+  curves and topology identity.
+
+Only the first bicubic polynomial patch is selected for the next work unit.
+
+Remaining curve breadth (multiplicity-three/C0, arbitrary degree, analytic
+conics and heterogeneous polycurve) remains retained and may be reopened when
+required by trimming, CAD breadth or Boundary Curve Discretization.
+
+No implementation may start until the decision PR is integrated, post-merge
+FAST/INTEGRATION pass and a separate decision checkpoint closes.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
-paused during representation breadth.
+paused.
 
 Boundary Curve Discretization remains blocked.
-
-Surface Representation remains blocked until the fresh decision explicitly
-opens it.
 
 The long-term ordering remains:
 

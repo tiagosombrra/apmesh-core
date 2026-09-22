@@ -332,50 +332,39 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/cubic-nurbs-double-knot-implementation-closure`: **MERGED /
   HISTORICAL** via PR #136; closes the multiplicity-1/2 implementation
   checkpoint.
-- `docs/cubic-nurbs-double-knot-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles the closed implementation
-  checkpoint before the next breadth decision.
+- `docs/cubic-nurbs-double-knot-closure-sync`: **MERGED / HISTORICAL**
+  via PR #137; terminally reconciles the closed C1 implementation.
+- `surface/representation-entry-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; literature-backed Surface Representation entry
+  decision; no production surface code.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Cubic NURBS Double-Knot C1 Continuity implementation is terminally
-closed.**
+**Surface Representation Entry Decision — ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal implementation evidence:
+Active branch:
+`surface/representation-entry-decision`.
 
-1. candidate head:
-   `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
-2. candidate FAST `35756479210`: PASS, 25/25;
-3. candidate INTEGRATION `35756479108`: PASS, 25/25 in GCC and Clang;
-4. final PR head:
-   `ba0f5ec0ee038f176cc9abc405e2aa879a2e9b95`;
-5. final PR FAST `35756643568`: PASS, 25/25;
-6. final PR INTEGRATION `35756643616`: PASS, 25/25 in GCC and Clang;
-7. implementation PR #135:
-   `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`;
-8. implementation post-merge FAST `35756910304`: PASS, 25/25;
-9. implementation post-merge INTEGRATION `35756910340`: PASS, 25/25;
-10. implementation closure PR #136 head:
-    `bb5c524bc1642376689c6b8aa1a845364844de09`;
-11. closure PR FAST `35757407115`: PASS;
-12. closure PR INTEGRATION `35757407483`: PASS;
-13. closure PR #136 merged as:
-    `affc7a46b7fd4c5cc419679e6192fc293501654e`;
-14. closure post-merge FAST `35757554252`: PASS;
-15. closure post-merge INTEGRATION `35757554247`: PASS;
-16. focused `apmesh_core.cubic_nurbs_double_knot_continuity`: PASS throughout;
-17. no production work item is active.
+Entry authority:
 
-Terminal work-unit result:
+- terminal C1 sync PR #137 head:
+  `22bb27133b626b3455e560294cc738fda387908b`;
+- PR #137 FAST `35761691320`: PASS;
+- PR #137 INTEGRATION `35761691184`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- PR #137 merged as
+  `c40175174a9487acb7dca09eeb2fa9b3615766ee`;
+- post-merge FAST `35761803424`: PASS;
+- post-merge INTEGRATION `35761803482`: PASS;
+- no open PR or active production work item at decision entry.
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
 
-## Next admissible work item
-
-Open exactly one fresh literature-backed decision comparing:
+Required comparison:
 
 1. bounded Surface Representation entry readiness;
 2. multiplicity-three / C0 curve semantics;
@@ -383,5 +372,34 @@ Open exactly one fresh literature-backed decision comparing:
 4. analytic conics after arbitrary-placement prerequisites;
 5. heterogeneous composition/polycurve.
 
-No candidate is pre-authorized. No production code may begin before that
-decision is integrated, post-merge validated and closed.
+Selected future stage transition:
+
+**Open Surface Representation — Continuous Patch Geometry.**
+
+Selected first future implementation work unit:
+
+**Tensor-Product Bicubic Polynomial Bézier Patch in 3D.**
+
+The decision also retains an explicit surface-family coverage map for:
+
+- rational Bézier patches;
+- B-spline/NURBS surfaces;
+- Coons/transfinite patches;
+- analytic plane/cylinder/cone/sphere/torus;
+- ruled/extrusion/revolution surfaces;
+- trimmed-surface semantics and topology separation.
+
+Remaining curve breadth is retained, not cancelled.
+
+This branch may modify only documentation/research/decision authorities.
+No surface production code is authorized before the decision is integrated,
+post-merge validated and separately closed.
+
+## Next admissible transition after this decision
+
+Only after decision integration, post-merge FAST/INTEGRATION and separate
+decision closure may one implementation branch open for the selected bicubic
+polynomial Bézier patch.
+
+No rational, NURBS, analytic, Coons, trimmed or meshing surface capability is
+pre-authorized.

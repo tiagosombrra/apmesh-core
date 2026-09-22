@@ -86,16 +86,16 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed functional anchor: Certified Simple Planar Inflection Isolation,
-  integrated by PR #96 as
-  `c4905589c2ee8700c58560ef1a99a49a3821af4e`;
-- final PR FAST `35678624215`: PASS;
-- final PR INTEGRATION `35678624192`: PASS in GCC 13 Debug and
-  Clang 18/libc++ Debug;
-- post-merge FAST `35678808956`: PASS;
-- post-merge INTEGRATION `35678808941`: PASS;
-- current scientific stage: **Curve Differential Geometry — Curvature,
-  Regularity, and Features — IN INVESTIGATION / NOT QUALIFIED**;
+- latest closed representation-breadth anchor: Cubic NURBS Double-Knot C1
+  Continuity, implementation PR #135
+  `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`, closure PR #136
+  `affc7a46b7fd4c5cc419679e6192fc293501654e`, terminal sync PR #137
+  `c40175174a9487acb7dca09eeb2fa9b3615766ee`;
+- terminal sync FAST `35761691320` and INTEGRATION `35761691184`: PASS;
+- terminal sync post-merge FAST `35761803424` and INTEGRATION
+  `35761803482`: PASS;
+- current scientific stage: **Surface Representation — Continuous Patch
+  Geometry — ENTRY DECISION ACTIVE / NOT QUALIFIED**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -289,42 +289,44 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Open one fresh literature-backed Curve/Surface breadth decision.**
+**Integrate the literature-backed Surface Representation entry decision; no
+production surface implementation is authorized on this branch.**
 
-Terminal C1 work-unit evidence:
+Entry authority:
 
-- implementation PR #135:
-  `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`;
-- implementation post-merge FAST `35756910304`: PASS, 25/25;
-- implementation post-merge INTEGRATION `35756910340`: PASS, 25/25;
-- closure PR #136 head:
-  `bb5c524bc1642376689c6b8aa1a845364844de09`;
-- closure PR FAST `35757407115`: PASS;
-- closure PR INTEGRATION `35757407483`: PASS;
-- closure merge:
-  `affc7a46b7fd4c5cc419679e6192fc293501654e`;
-- closure post-merge FAST `35757554252`: PASS;
-- closure post-merge INTEGRATION `35757554247`: PASS.
+- terminal sync PR #137:
+  `c40175174a9487acb7dca09eeb2fa9b3615766ee`;
+- sync PR FAST `35761691320`: PASS;
+- sync PR INTEGRATION `35761691184`: PASS;
+- sync post-merge FAST `35761803424`: PASS;
+- sync post-merge INTEGRATION `35761803482`: PASS.
 
-The integrated representation supports cubic positive-weight multi-span NURBS
-with unique interior multiplicities 1/2 and parameter-local ordinary-D2
-continuity failure at double knots.
+Active branch:
+`surface/representation-entry-decision`.
 
-No production work item is active.
+Decision authority:
+`docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
 
-The next decision must compare Surface Representation readiness against
-multiplicity-three/C0, arbitrary-degree spline/Bézier, analytic conics and
-heterogeneous composition/polycurve. No winner is pre-authorized.
+The decision selects Surface Representation now and freezes the first future
+work unit to a tensor-product bicubic polynomial Bézier patch in 3D.
+
+The full retained surface envelope explicitly includes rational Bézier,
+B-spline/NURBS, Coons/transfinite, analytic elementary, swept and trimmed
+surfaces; none is implicitly covered by the first patch.
+
+Remaining curve breadth — C0 knots, arbitrary degree, analytic conics and
+polycurve — remains retained but is not a prerequisite for the first patch.
+
+No production surface, differential-geometry, trimming, topology, boundary
+discretization or meshing code is authorized.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — CUBIC NURBS DOUBLE-KNOT C1
-CONTINUITY IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
-MULTI-SPAN NURBS, FIXED NURBS, B-SPLINE, RATIONAL, TRIM AND LINE
-INTEGRATIONS PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
+**Surface Representation — Continuous Patch Geometry — ENTRY DECISION
+ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED / CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
