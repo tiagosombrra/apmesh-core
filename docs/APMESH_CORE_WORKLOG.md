@@ -274,57 +274,54 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   validation.
 - `docs/rational-quadratic-bezier-closure-sync`: **MERGED / HISTORICAL**
   via PR #111; terminally reconciles the rational-quadratic closure.
-- `curve/trimmed-parametric-subcurve-decision`: **ACTIVE**;
-  literature-backed trimming-vs-family comparison decision only; no
-  production implementation.
+- `curve/trimmed-parametric-subcurve-decision`: **MERGED / HISTORICAL**
+  via PR #112; literature-backed trimming-vs-family comparison decision.
+- `docs/trimmed-parametric-subcurve-decision-closure`: **CLOSURE-ONLY**;
+  records PR #112 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Oriented Trimmed Parametric Subcurve — DECISION ACTIVE /
-DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
+**None. Oriented Trimmed Parametric Subcurve decision is integrated and
+awaiting closure integration.**
 
-Active branch:
-`curve/trimmed-parametric-subcurve-decision`.
+Decision closure evidence:
 
-Entry evidence:
+1. decision authority:
+   `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`;
+2. decision PR #112 merged as
+   `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
+3. decision PR FAST `35729461953`: PASS;
+4. decision PR INTEGRATION `35729462003`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. decision post-merge FAST `35729581995`: PASS;
+6. decision post-merge INTEGRATION `35729581937`: PASS;
+7. all current production curve families remain unchanged;
+8. the common bounded-parametric concepts remain unchanged.
 
-1. rational-quadratic implementation PR #109 merged as
-   `6600875dfbb33d1a37603e32bcf452625373c462`;
-2. implementation closure PR #110 merged as
-   `93b082ce660fd8d2c012b96ef7319b240de6d9d2`;
-3. closure post-merge FAST `35727653016`: PASS;
-4. closure post-merge INTEGRATION `35727652961`: PASS;
-5. terminal reconciliation PR #111 merged as
-   `7579254ebd0d6843fdc3761376132a2b7d9fa43c`;
-6. terminal sync FAST `35728104539`: PASS;
-7. terminal sync INTEGRATION `35728104607`: PASS;
-8. production contains `CubicBezier2/3`, `LineSegment2/3` and
-   `RationalQuadraticBezier2/3`;
-9. no trim/composition, analytic conic, arbitrary-degree, B-spline, NURBS or
-   surface representation is implemented.
+No production work item is active in this closure change.
 
-Decision question:
+## Next admissible work item after closure
 
-**Should the next representation-breadth work unit add another mathematical
-family immediately, or first establish oriented trimming of the bounded
-families already present?**
+After this closure is integrated and post-merge FAST/INTEGRATION pass, open
+exactly one implementation branch for:
 
-The decision compares analytic conic, arbitrary-degree Bézier, B-spline,
-NURBS, heterogeneous composition and trimming. It selects only **Oriented
-Trimmed Parametric Subcurve Semantics**.
+**Oriented Trimmed Parametric Subcurve Semantics in 2D and 3D.**
 
-This branch may change only documentation/research/decision authorities.
-No production C++, third family, surface, boundary-discretization, sizing,
-meshing, Quad-Dominant or parallel implementation is authorized.
+Implementation must remain inside
+`docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`:
 
-## Next admissible transition after this decision
+- static trim wrapper over one bounded basis curve;
+- basis stored by value;
+- finite nonzero oriented source/target parameters inside the basis domain;
+- exposed domain `[min(u_s,u_e),max(u_s,u_e)]`;
+- reverse orientation through existing `reversed_parameter`;
+- D1 sign reversal and D2 preservation;
+- exact reversal by swapping trim endpoints;
+- focused coverage over line, cubic Bézier and rational quadratic Bézier in
+  2D/3D.
 
-Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
-and its checkpoint is separately closed may one implementation work item be
-opened for the mapped trim wrapper.
-
-The implementation remains limited to a statically typed bounded basis curve.
-Heterogeneous polycurve/composition, periodic trim, B-spline/NURBS and analytic
-conics remain separate later decisions.
+No heterogeneous composition, periodic trim, analytic conic,
+arbitrary-degree Bézier, B-spline/NURBS, surface, discretization or meshing
+implementation is authorized.
