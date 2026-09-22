@@ -255,12 +255,13 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
-5. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
-6. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-7. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-8. the latest relevant audit under `docs/audits/`;
-9. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`;
+5. `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`;
+6. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+7. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+8. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+9. the latest relevant audit under `docs/audits/`;
+10. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -283,48 +284,52 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Close the integrated Bounded Directed Line Segment implementation, then open
-one literature-backed decision for the next concrete curve family.**
+**Integrate the second-concrete-family decision selecting Positive-Weight
+Rational Quadratic Bézier Representation in 2D and 3D. No production
+implementation is authorized on this branch.**
 
-Integrated implementation evidence:
+Terminal line-segment closure evidence:
 
-- PR #105 merged as
-  `87ced22d033e5478c134aa66c2eef4b6017a4596`;
-- retained initial mechanical validation failure:
-  FAST `35720284585`, INTEGRATION `35720284182`;
-- corrected candidate:
-  FAST `35720421004`, INTEGRATION `35720420984`, all PASS, 19/19;
-- final documentation-synchronized PR head:
-  FAST `35721616589`, INTEGRATION `35721616596`, all PASS, 19/19;
-- post-merge FAST `35721779942`: PASS, 19/19;
-- post-merge INTEGRATION `35721779739`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 19/19 per cell.
+- implementation closure PR #106 merged as
+  `b435ddbbf93f94741014b26d081dbf5bdbb7c9e6`;
+- closure PR FAST `35722026674`: PASS;
+- closure PR INTEGRATION `35722026746`: PASS;
+- closure post-merge FAST `35722144861`: PASS;
+- closure post-merge INTEGRATION `35722144806`: PASS.
 
-Implementation authority:
-`docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
+Active branch:
+`curve/rational-quadratic-bezier-decision`.
 
-Production now exposes a second concrete bounded curve family:
+Decision authority:
+`docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-- `LineSegment2`;
-- `LineSegment3`.
+The decision compares analytic circle/conic arcs, rational/arbitrary-degree
+Bézier, B-spline, NURBS and composition/trimming. It selects a fixed
+positive-weight rational quadratic Bézier family because it:
 
-They use the unchanged `BoundedParametricCurve2/3` semantics with exact
-`[0,1]` domain, finite interpolation, constant first derivative, exact zero
-second derivative, endpoint-swap reversal and representable degenerate values.
+- provides bounded 2D/3D weighted rational semantics;
+- represents conic segments in real arithmetic;
+- requires no knot vector or periodic spline machinery;
+- avoids falsely reusing the qualified signed-permutation Cartesian frames as
+  arbitrary 3D plane/orientation frames;
+- forms a direct semantic bridge toward NURBS.
 
-The work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-NOT QUALIFIED**.
+If the decision is integrated and separately closed, the sole next
+implementation work item is:
 
-No next concrete curve family is authorized until a new decision is integrated
-and closed. Curve Differential Geometry remains `IN INVESTIGATION /
-NOT QUALIFIED` and paused during the representation-breadth sequence.
+**Positive-Weight Rational Quadratic Bézier Representation in 2D and 3D.**
+
+No analytic circle/conic class, arbitrary-degree Bézier, B-spline, NURBS,
+composite/trimmed curve, surface, discretization or meshing implementation is
+authorized yet.
 
 ## Current active stage
 
-**Curve Representation Breadth Gate — Bounded Directed Line Segment —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
+**Curve Representation Breadth Gate — Second Concrete Curve Family Decision —
+ACTIVE / POSITIVE-WEIGHT RATIONAL QUADRATIC BÉZIER SELECTED /
+DOCUMENTATION ONLY / LINE-SEGMENT INTEGRATION PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
