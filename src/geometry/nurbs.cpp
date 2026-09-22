@@ -421,15 +421,17 @@ derive_controls(
     const Homogeneous2& value,
     const Homogeneous2& first,
     const Homogeneous2& second) noexcept {
-    const auto d1 = dehomogenize_first(value, first);
-    if (!d1.has_value() || !std::isfinite(value.w) || value.w <= 0.0L) {
+    if (!std::isfinite(value.w) || value.w <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
     const long double cx = value.x / value.w;
     const long double cy = value.y / value.w;
-    const long double d1x = static_cast<long double>(d1->x());
-    const long double d1y = static_cast<long double>(d1->y());
+    const long double d1x = (first.x - cx * first.w) / value.w;
+    const long double d1y = (first.y - cy * first.w) / value.w;
+    if (!std::isfinite(d1x) || !std::isfinite(d1y)) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
 
     const auto x = to_double(
         (second.x - 2.0L * d1x * first.w - cx * second.w) / value.w);
@@ -450,17 +452,19 @@ derive_controls(
     const Homogeneous3& value,
     const Homogeneous3& first,
     const Homogeneous3& second) noexcept {
-    const auto d1 = dehomogenize_first(value, first);
-    if (!d1.has_value() || !std::isfinite(value.w) || value.w <= 0.0L) {
+    if (!std::isfinite(value.w) || value.w <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
     const long double cx = value.x / value.w;
     const long double cy = value.y / value.w;
     const long double cz = value.z / value.w;
-    const long double d1x = static_cast<long double>(d1->x());
-    const long double d1y = static_cast<long double>(d1->y());
-    const long double d1z = static_cast<long double>(d1->z());
+    const long double d1x = (first.x - cx * first.w) / value.w;
+    const long double d1y = (first.y - cy * first.w) / value.w;
+    const long double d1z = (first.z - cz * first.w) / value.w;
+    if (!std::isfinite(d1x) || !std::isfinite(d1y) || !std::isfinite(d1z)) {
+        return std::unexpected{CurveError::non_finite_result};
+    }
 
     const auto x = to_double(
         (second.x - 2.0L * d1x * first.w - cx * second.w) / value.w);
