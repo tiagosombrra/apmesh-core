@@ -702,6 +702,96 @@ Project relevance:
 - supports treating B-spline/NURBS as later bounded decisions rather than
   combining knot/continuity/periodic semantics with the first trim wrapper.
 
+### B-spline basis, knots and local support — MTU notes
+
+Status: `FOUNDATIONAL` for the bounded two-span cubic B-spline decision,
+reviewed 2026-09-22.
+
+Official teaching/reference notes:
+
+- https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/bspline-basis.html
+- https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/B-spline/bspline-property.html
+
+Project relevance:
+
+- defines B-spline basis functions through a nondecreasing knot vector and
+  degree;
+- identifies knot spans and local support as semantics absent from global
+  Bézier basis functions;
+- records continuity `C^(p-k)` at a knot of multiplicity `k`;
+- supports choosing one simple interior knot in a degree-three curve to isolate
+  C2 multi-span semantics;
+- does not pre-authorize arbitrary degree, multiplicity, periodicity or dynamic
+  spline storage.
+
+### de Boor evaluation and Bézier special case — MTU notes
+
+Status: `FOUNDATIONAL` for the bounded production/reference split, reviewed
+2026-09-22.
+
+References:
+
+- https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/de-Boor.html
+- https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/B-spline/de-boor-special-case.html
+
+Project relevance:
+
+- de Boor provides the standard local B-spline point-evaluation construction;
+- with endpoint-only clamped knots it reduces to de Casteljau;
+- supports production de Boor evaluation while using existing cubic Bézier
+  parity after one knot insertion as an independent prerequisite oracle.
+
+### B-spline derivatives — MTU notes
+
+Status: `FOUNDATIONAL` for D1/D2 semantics, reviewed 2026-09-22.
+
+Reference:
+https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/B-spline/bspline-derv.html
+
+Project relevance:
+
+- the derivative of a degree-`p` B-spline is another B-spline of degree
+  `p-1` with derived control points;
+- higher derivatives follow recursively;
+- clamped curves pass through endpoint controls and have explicit endpoint
+  tangent relations;
+- supports independent derivative-control-polygon evidence for the fixed cubic
+  work unit.
+
+### B-spline before NURBS — weighted extension evidence
+
+Status: `FOUNDATIONAL / SEQUENCING` for isolating knots before NURBS,
+reviewed 2026-09-22.
+
+Reference:
+https://pages.mtu.edu/~shene/PUBLICATIONS/2004/NURBS.pdf
+
+Project relevance:
+
+- a B-spline is defined by controls, knots and degree;
+- NURBS adds control weights/rational basis normalization;
+- all-one NURBS weights reduce to the underlying B-spline;
+- supports isolating knot/local-support semantics before combining them with
+  the already separately tested rational-weight layer.
+
+### Open CASCADE B-spline breadth — mature CAD comparison
+
+Status: `FOUNDATIONAL / SCOPING` for why the first spline work unit is fixed
+and non-periodic, reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___b_spline_curve.html
+
+Project relevance:
+
+- mature CAD B-splines expose degree, knots and multiplicities;
+- general production B-splines may be rational/non-rational and
+  periodic/non-periodic;
+- continuity depends on degree and multiplicity;
+- supports deferring general degree/count/multiplicity/periodicity while
+  introducing only one simple interior knot first;
+- Open CASCADE is not admitted as a dependency or numerical oracle.
+
 ### Internal arbitrary-orientation constraint — qualified Cartesian Frames
 
 Status: `FOUNDATIONAL / INTERNAL` sequencing constraint for the second
