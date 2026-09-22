@@ -1815,9 +1815,19 @@ No circle/conic, arbitrary-degree/rational Bézier, B-spline, NURBS,
 composite/trimmed curve, generic regularity/length/curvature refactor, surface,
 boundary discretization, sizing or meshing work is included.
 
-The branch must pass FAST and both INTEGRATION cells before review/integration.
-Passing yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-NOT QUALIFIED** for this family work unit.
+Corrected candidate validation on head
+`482ea0acd00b51a7bc772935d344008d2797474c`:
+
+- FAST `35720421004`: PASS, 19/19 tests;
+- INTEGRATION `35720420984`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 19/19 tests per cell;
+- the new `apmesh_core.line_segment` contract and every prerequisite ordinary
+  semantic contract passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before review/integration. Passing the full work unit
+still yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED** for this family.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during the representation-breadth sequence.
