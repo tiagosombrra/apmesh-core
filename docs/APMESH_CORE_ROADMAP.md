@@ -1510,9 +1510,8 @@ candidates before authorizing any production implementation.
 Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
 BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
 BOUNDED LINE SEGMENT IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-RATIONAL QUADRATIC BÉZIER DECISION CLOSED / IMPLEMENTATION ACTIVE /
-FOCUSED VALIDATION PENDING / NOT QUALIFIED /
-CUBIC BASELINE QUALIFICATION PRESERVED`
+RATIONAL QUADRATIC BÉZIER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
 frozen polynomial cubic Bézier scope implemented by `CubicBezier2` and
@@ -1636,10 +1635,21 @@ Closure PR #108 merged as
 `30f32997dec0aa7937c9730eb5ce24e2f80bb964`. Closure post-merge FAST
 `35723209087` and INTEGRATION `35723209143` passed.
 
-The rational-quadratic implementation is active on
-`curve/rational-quadratic-bezier`. The common bounded-parametric concept is
-unchanged and the branch is restricted to the declared rational header/source,
-one focused semantic test, CMake registration and synchronized documentation.
+The rational-quadratic implementation was integrated by PR #109 as
+`6600875dfbb33d1a37603e32bcf452625373c462`.
+
+Validation:
+
+- candidate FAST `35726985299`: PASS, 20/20;
+- candidate INTEGRATION `35726985356`: PASS, 20/20 in GCC and Clang;
+- final PR-head FAST `35727147220`: PASS;
+- final PR-head INTEGRATION `35727147303`: PASS;
+- post-merge FAST `35727296946`: PASS;
+- post-merge INTEGRATION `35727296931`: PASS.
+
+Production now contains `RationalQuadraticBezier2/3`. The common
+bounded-parametric concept remains unchanged. This focused integration does not
+widen the original CGR qualification claim.
 
 Repository-specific sequencing matters: the qualified Cartesian-frame claim
 does not include arbitrary-angle rotations, so a general analytic 3D circle
@@ -1821,62 +1831,34 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
-Bézier Representation in 2D and 3D — IMPLEMENTATION ACTIVE /
-FOCUSED VALIDATION PENDING / NOT QUALIFIED**
+Bézier — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
+IMPLEMENTATION CLOSURE PENDING**
 
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-Closed prerequisite evidence:
+Integrated evidence:
 
-- decision PR #107:
-  `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
-- decision post-merge FAST `35722894744`: PASS;
-- decision post-merge INTEGRATION `35722894725`: PASS;
-- closure PR #108:
-  `30f32997dec0aa7937c9730eb5ce24e2f80bb964`;
-- closure post-merge FAST `35723209087`: PASS;
-- closure post-merge INTEGRATION `35723209143`: PASS.
+- PR #109:
+  `6600875dfbb33d1a37603e32bcf452625373c462`;
+- candidate FAST `35726985299`: PASS, 20/20;
+- candidate INTEGRATION `35726985356`: PASS, 20/20 per GCC/Clang cell;
+- final PR-head FAST `35727147220`: PASS;
+- final PR-head INTEGRATION `35727147303`: PASS;
+- post-merge FAST `35727296946`: PASS;
+- post-merge INTEGRATION `35727296931`: PASS.
 
-Active implementation branch:
-`curve/rational-quadratic-bezier`.
+After this closure is integrated and its own post-merge validation passes, the
+next work item is one literature-backed comparison decision among:
 
-Implemented candidate scope:
+- analytic circle/general conic representation plus its 3D orientation
+  prerequisite;
+- arbitrary-degree polynomial/rational Bézier;
+- B-spline;
+- NURBS;
+- composition/trimming.
 
-- fixed-degree `RationalQuadraticBezier2` and
-  `RationalQuadraticBezier3`;
-- validated finite strictly positive weights;
-- exact `[0,1]` domain;
-- unchanged `BoundedParametricCurve2/3` conformance;
-- scaled rational value evaluation with exact endpoint return;
-- analytic rational D1/D2 and typed non-finite-result failure;
-- reversal by exact control/weight order reversal;
-- common power-of-two weight-scale invariance;
-- equal-weight parity with degree-elevated qualified cubic Bézier;
-- non-circular conic and stored-double quarter-circle residual evidence;
-- constant/degenerate value semantics;
-- extreme finite-control/weight evidence;
-- translation, 2D/3D embedding and deterministic evidence;
-- one additional focused semantic test, targeting a 20-test ordinary
-  FAST/INTEGRATION inventory.
-
-No analytic circle/conic class, arbitrary-degree Bézier, B-spline, NURBS,
-composition/trimming, generic regularity/length/curvature expansion, surface,
-boundary discretization, sizing or meshing work is included.
-
-Candidate validation on head
-`a68134daae06207f1ec32cf7df1f613a7e8cb693`:
-
-- FAST `35726985299`: PASS, 20/20 tests;
-- INTEGRATION `35726985356`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 20/20 tests per cell;
-- the new rational-quadratic contract and every prerequisite ordinary
-  semantic contract passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. Passing the full work unit still
-yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-NOT QUALIFIED**.
+No option is preselected by this closure.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
