@@ -892,3 +892,43 @@ Current status:
 
 **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
 FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 38. Implementation integration checkpoint
+
+The bounded implementation was integrated by PR #135 as
+`eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`.
+
+Candidate validation:
+
+- candidate head:
+  `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
+- FAST `35756479210`: PASS, 25/25;
+- INTEGRATION `35756479108`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 25/25 tests per cell.
+
+Final PR-head validation:
+
+- final head:
+  `ba0f5ec0ee038f176cc9abc405e2aa879a2e9b95`;
+- FAST `35756643568`: PASS, 25/25;
+- INTEGRATION `35756643616`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 25/25 tests per cell.
+
+Post-merge validation:
+
+- FAST `35756910304`: PASS, 25/25;
+- INTEGRATION `35756910340`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 25/25 tests per cell.
+
+Integrated result:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED.**
+
+The implementation preserves simple-knot behavior, adds only multiplicities
+1/2 and `CurveError::insufficient_continuity`, and keeps every broader
+curve/surface capability outside scope.
+
+After closure, a fresh decision must compare Surface Representation readiness
+against the remaining curve-breadth candidates. No winner is pre-authorized.
