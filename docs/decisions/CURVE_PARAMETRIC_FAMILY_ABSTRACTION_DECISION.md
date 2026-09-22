@@ -552,3 +552,36 @@ No concrete line/arc/rational/B-spline/NURBS implementation begins
 automatically.
 
 Boundary Curve Discretization and Surface Representation remain blocked.
+
+
+## 22. Decision integration checkpoint
+
+PR #98 integrated this decision as
+`12ecbf584751dadb0dd142c485b1cd4f220736d8`.
+
+Final PR-head validation:
+
+- FAST `35711481469`: PASS;
+- INTEGRATION `35711481473`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35711563476`: PASS;
+- INTEGRATION `35711563585`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision checkpoint is closed.
+
+The qualified polynomial cubic-Bézier CGR0–CGR7 baseline remains unchanged.
+No concrete new curve family or surface capability was added by the decision.
+
+The sole next bounded implementation work item is:
+
+**Bounded Parametric Curve Contract and Cubic Bézier Conformance**
+
+within Sections 6–17 of this decision.
+
+No line/segment, circle/conic arc, arbitrary-degree/rational Bézier, B-spline,
+NURBS, composite/trimmed curve, surface, discretization, sizing, meshing,
+Quad-Dominant or parallel work is authorized by this checkpoint.
