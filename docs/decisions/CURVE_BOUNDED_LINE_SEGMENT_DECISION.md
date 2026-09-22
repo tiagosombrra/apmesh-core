@@ -491,3 +491,34 @@ Boundary Curve Discretization and Surface Representation remain blocked.
 
 No circle/conic, rational Bézier, B-spline, NURBS or composite/trimmed family
 is pre-authorized by this decision.
+
+
+## 19. Decision integration checkpoint
+
+PR #103 integrated this bounded decision as
+`2b42c78a2dbf0ede225144339dbf100900bef672`.
+
+Final decision-head validation:
+
+- FAST `35719338493`: PASS;
+- INTEGRATION `35719338492`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35719435059`: PASS;
+- INTEGRATION `35719434961`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The integrated decision selects only:
+
+**Bounded Directed Line Segment Representation in 2D and 3D.**
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the selected implementation within Sections 5–16 of this decision.
+
+No circle/conic, rational/arbitrary-degree Bézier, B-spline, NURBS,
+composite/trimmed curve, surface, boundary-discretization, sizing, meshing,
+Quad-Dominant or parallel implementation is authorized by this checkpoint.
