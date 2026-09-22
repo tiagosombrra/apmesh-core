@@ -1382,6 +1382,13 @@ Mandatory stage regression remains later: all admitted curve-differential
 fixtures plus every qualified prerequisite regression and regenerated
 curvature/reference evidence before stage qualification.
 
+PR #86 integrated the entry decision as
+`e728e89f08b23cd0720e502e3efe0c565198d376`. PR FAST
+`35671674354`, PR INTEGRATION `35671674360`, post-merge FAST
+`35671824327`, and post-merge INTEGRATION `35671824323` passed. The entry
+checkpoint is closed. The sole next bounded work item is implementation of
+**Pointwise Curvature Magnitude on Regular Cubic Bézier Curves**.
+
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
 
@@ -1531,15 +1538,17 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific stage:
 
 **Curve Differential Geometry — Curvature, Regularity, and Features —
-IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED**
+IN INVESTIGATION / ENTRY DECISION APPROVED**
 
-The qualified prerequisite is Curve Representation — Continuous Geometry Before
-Discretization, CGR0–CGR7 PASS in the admitted cloud envelope.
+The entry checkpoint is closed by PR #86 and its post-merge validation.
 
-The current branch is documentation/research only. After entry integration and
-checkpoint closure, the sole next bounded implementation is:
+The sole current bounded work item is:
 
 **Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
+
+Implementation must remain serial/deterministic, reuse qualified curve
+derivatives, preserve exact singularity semantics, and satisfy the focused
+analytic/metamorphic evidence defined by the entry decision.
 
 Boundary Curve Discretization remains blocked. The long-term ordering remains:
 
