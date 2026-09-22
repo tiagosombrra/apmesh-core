@@ -1,7 +1,7 @@
 # AP Mesh Core — Operational Work Ledger
 
 Status: AUTHORITATIVE FOR OPERATIONAL CONTINUITY  
-Last updated: 2026-09-21  
+Last updated: 2026-09-22  
 Canonical integration branch: `main`  
 Scientific continuation authority: `docs/APMESH_CORE_STATE.md`  
 Roadmap authority: `docs/APMESH_CORE_ROADMAP.md`
@@ -41,23 +41,32 @@ writing.
    `main` revision is always obtained from the remote audit. Persist only stable
    anchors such as closed work-item merge revisions, PRs, and completed runs.
 
-## Last closed work-item anchor
+## Last closed functional work-item anchor
 
-- Curve Representation formal CGR terminal audit: **CGR0–CGR7 PASS /
-  OVERALL PASS**;
-- qualification PR #84 merged as
-  `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
-- qualification post-merge FAST `35634295936`: PASS;
-- qualification post-merge INTEGRATION `35634295812`: PASS;
-- qualification-closure PR #85 merged as
-  `e5c068512dbf8281fefbe4281b2e28333ab37758`;
-- closure post-merge FAST `35671327376`: PASS;
-- closure post-merge INTEGRATION `35671327409`: PASS;
-- Curve Representation status:
-  **QUALIFIED in the exact admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud
-  envelope**;
-- next scientific stage:
-  **Curve Differential Geometry — Curvature, Regularity, and Features**.
+- Certified Simple Planar Inflection Isolation implementation: **IMPLEMENTED /
+  FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED**;
+- decision authority:
+  `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+- implementation PR #96 merged as
+  `c4905589c2ee8700c58560ef1a99a49a3821af4e`;
+- final PR FAST `35678624215`: PASS;
+- final PR INTEGRATION `35678624192`: PASS;
+- post-merge FAST `35678808956`: PASS;
+- post-merge INTEGRATION `35678808941`: PASS;
+- current stage: **Curve Differential Geometry — IN INVESTIGATION /
+  NOT QUALIFIED**;
+- most recently qualified prerequisite stage: **Curve Representation —
+  QUALIFIED / CGR0–CGR7 PASS** in the admitted cloud envelope.
+
+The current documentation-only closure lineage is
+`docs/certified-simple-inflection-implementation-closure` / PR #97.
+It does not authorize production code or a later curve capability.
+
+The fresh repository coverage audit also retains one architectural blocker:
+the qualified Curve Representation scope contains only polynomial cubic Bézier
+curves. Analytic arc/conic, rational Bézier, B-spline, NURBS and production
+surface families remain unimplemented/unqualified and require explicit future
+scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 
 
 ## Work-item ledger
@@ -262,8 +271,17 @@ No work item is active.
 
 ## Next admissible work item after closure
 
-Open one new **literature-backed bounded scientific decision** for the next
-Curve Differential Geometry investigation.
+After PR #97 is integrated and post-merge FAST/INTEGRATION pass, open exactly
+one new **literature-backed bounded scientific decision**.
+
+The fresh coverage regression requires that this decision first evaluate
+whether continuing Cubic-Bézier-specific differential work would create
+avoidable duplication before the mandatory Curve Representation breadth gate.
+It may retain Curve Differential Geometry as the immediate stage only if the
+decision demonstrates that the chosen capability remains representation-neutral
+or that deferring the curve-family abstraction is scientifically safe.
+
+No production implementation is authorized by this closure.
 
 The decision must:
 
