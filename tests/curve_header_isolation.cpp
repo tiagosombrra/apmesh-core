@@ -14,10 +14,26 @@ concept SupportsSignedCurvature =
             std::expected<double, apmesh::core::CurveError>>;
     };
 
+template <typename Curve>
+concept SupportsSimpleInflectionIsolation =
+    requires(
+        const Curve& curve,
+        const apmesh::core::CurveInflectionIsolationPolicy& policy) {
+        {
+            curve.isolate_simple_inflections(policy)
+        } -> std::same_as<
+            std::expected<
+                apmesh::core::CurveInflectionIsolationEvidence,
+                apmesh::core::CurveInflectionError>>;
+    };
+
 int main() {
     using apmesh::core::CubicBezier2;
     using apmesh::core::CubicBezier3;
     using apmesh::core::CurveError;
+    using apmesh::core::CurveInflectionError;
+    using apmesh::core::CurveInflectionIsolationEvidence;
+    using apmesh::core::CurveInflectionIsolationPolicy;
     using apmesh::core::CurveLengthError;
     using apmesh::core::CurveLengthEvidence;
     using apmesh::core::CurveLengthPolicy;
@@ -61,6 +77,11 @@ int main() {
         std::expected<double, CurveError>>);
     static_assert(SupportsSignedCurvature<CubicBezier2>);
     static_assert(!SupportsSignedCurvature<CubicBezier3>);
+    static_assert(SupportsSimpleInflectionIsolation<CubicBezier2>);
+    static_assert(!SupportsSimpleInflectionIsolation<CubicBezier3>);
+    static_assert(std::is_copy_constructible_v<CurveInflectionIsolationEvidence>);
+    static_assert(std::is_copy_constructible_v<CurveInflectionIsolationPolicy>);
+    static_assert(std::is_enum_v<CurveInflectionError>);
     static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().certify_regularity(
             std::declval<const CurveRegularityPolicy&>())),
@@ -69,6 +90,10 @@ int main() {
         decltype(std::declval<const CubicBezier3&>().certify_regularity(
             std::declval<const CurveRegularityPolicy&>())),
         std::expected<CurveRegularityEvidence, CurveRegularityError>>);
+    static_assert(std::same_as<
+        decltype(std::declval<const CubicBezier2&>().isolate_simple_inflections(
+            std::declval<const CurveInflectionIsolationPolicy&>())),
+        std::expected<CurveInflectionIsolationEvidence, CurveInflectionError>>);
     static_assert(std::same_as<
         decltype(std::declval<const CubicBezier2&>().arc_length_enclosure(
             std::declval<const CurveLengthPolicy&>())),

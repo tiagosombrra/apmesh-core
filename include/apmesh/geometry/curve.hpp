@@ -40,6 +40,45 @@ struct CurveRegularityEvidence {
     [[nodiscard]] bool operator==(const CurveRegularityEvidence&) const noexcept = default;
 };
 
+enum class CurveInflectionError {
+    invalid_policy,
+    curve_not_regular,
+    non_finite_enclosure,
+};
+
+enum class CurveInflectionIsolationResult {
+    complete,
+    indeterminate,
+};
+
+struct CurveInflectionBracket {
+    double lower_parameter{};
+    double upper_parameter{};
+
+    [[nodiscard]] bool operator==(const CurveInflectionBracket&) const noexcept = default;
+};
+
+struct CurveInflectionIsolationPolicy {
+    CurveRegularityPolicy regularity_policy{};
+    double parameter_tolerance{};
+    std::size_t max_subdivision_depth{};
+    std::size_t max_processed_nodes{};
+};
+
+struct CurveInflectionIsolationEvidence {
+    CurveInflectionIsolationResult result{};
+    CurveRegularityEvidence regularity{};
+    std::array<CurveInflectionBracket, 2> brackets{};
+    std::size_t inflection_count{};
+    std::size_t processed_nodes{};
+    std::size_t root_free_leaves{};
+    std::size_t isolated_root_leaves{};
+    std::size_t max_depth_reached{};
+
+    [[nodiscard]] bool operator==(
+        const CurveInflectionIsolationEvidence&) const noexcept = default;
+};
+
 
 enum class CurveLengthError {
     invalid_policy,
@@ -128,6 +167,9 @@ public:
     signed_curvature(double parameter) const noexcept;
     [[nodiscard]] std::expected<CurveRegularityEvidence, CurveRegularityError>
     certify_regularity(const CurveRegularityPolicy& policy) const noexcept;
+    [[nodiscard]] std::expected<CurveInflectionIsolationEvidence, CurveInflectionError>
+    isolate_simple_inflections(
+        const CurveInflectionIsolationPolicy& policy) const noexcept;
     [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>
     arc_length_enclosure(const CurveLengthPolicy& policy) const noexcept;
     [[nodiscard]] std::expected<CurveLengthEvidence, CurveLengthError>

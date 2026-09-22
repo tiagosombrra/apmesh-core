@@ -732,3 +732,137 @@ No global curvature bound, curvature-extrema analysis, feature
 classification, boundary discretization, sizing, surfaces, meshing,
 Quad-Dominant construction, parallel execution, or stage-level qualification is
 authorized by this checkpoint.
+
+## 22. Implementation mapping and focused evidence
+
+Implementation branch:
+`curve/certified-simple-inflection-isolation`.
+
+The bounded work unit is implemented without widening the scientific scope.
+
+### Public API
+
+`include/apmesh/geometry/curve.hpp` now contains:
+
+- `CurveInflectionError`;
+- `CurveInflectionIsolationResult`;
+- `CurveInflectionBracket`;
+- `CurveInflectionIsolationPolicy`;
+- `CurveInflectionIsolationEvidence`; and
+- `CubicBezier2::isolate_simple_inflections(...)`.
+
+No corresponding `CubicBezier3` method is introduced.
+
+For an `indeterminate` result, `inflection_count` is the number of already
+retained **certified** simple-root brackets, not a claim about the unknown total
+number of inflections. Only a `complete` result promotes that count to a
+complete global count.
+
+### Private certification machinery
+
+`src/geometry/detail/curve_inflection_interval.hpp` provides only private
+curve-local machinery:
+
+- exact-zero-preserving conservative interval products/differences where an
+  exact structural zero is already known from the represented inputs;
+- 2D determinant enclosure;
+- quadratic Bernstein midpoint subdivision;
+- certified coefficient sign classification; and
+- quadratic sign-variation evidence.
+
+It does not expose a public interval or polynomial API.
+
+`src/geometry/curve.cpp`:
+
+1. validates the explicit isolation policy;
+2. invokes the existing global regularity certifier;
+3. rejects a certified-degenerate prerequisite and propagates a regularity
+   `indeterminate` result without root claims;
+4. constructs the quadratic Bernstein curvature-numerator enclosure directly
+   from exact represented control coordinates;
+5. performs deterministic depth-first Bernstein subdivision;
+6. accepts a root bracket only from certified one-variation evidence and a
+   conservative bracket-width check;
+7. returns `indeterminate` immediately when a newly created internal
+   subdivision boundary can contain zero, because this work unit does not add
+   an exact boundary-root witness;
+8. preserves at most two fixed-capacity brackets and canonicalizes them into
+   increasing parameter order.
+
+The physical endpoints `0` and `1` remain outside the admitted interior
+feature set.
+
+### Focused contract
+
+`tests/curve_inflection_isolation.cpp` covers:
+
+- private sign-variation and midpoint-boundary evidence;
+- exact straight-line zero numerator;
+- regular root-free cubic;
+- independent analytic one-root fixture;
+- independent analytic two-root fixture;
+- physical endpoint zero;
+- exact internal midpoint root retained as `indeterminate`;
+- double-root/stationary fixture never promoted to a simple inflection;
+- near-multiple/ill-conditioned fixture with independent analytic references;
+- coarse versus increased resource policy;
+- regularity-indeterminate prerequisite;
+- globally degenerate prerequisite;
+- invalid isolation policies;
+- reversal;
+- translation;
+- orientation-reversing reflection;
+- orientation-preserving rotation;
+- power-of-two uniform scale;
+- deterministic repeated evidence;
+- extreme finite enclosure failure.
+
+`tests/curve_header_isolation.cpp` proves the new API is present only on
+`CubicBezier2`.
+
+`CMakeLists.txt` registers
+`apmesh_core.curve_inflection_isolation` under the existing curve FAST and
+INTEGRATION preservation labels.
+
+### Validation history
+
+Initial candidate validation:
+
+- FAST `35678235163`: PASS;
+- INTEGRATION `35678235124`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+After strengthening the required multiple-root/near-multiple/orientation
+fixtures, FAST `35678348013` and GCC INTEGRATION in `35678348005` failed
+only because the test required the exact double-root stationary fixture to
+return `curve_not_regular`. The existing global regularity authority
+correctly returned `indeterminate` instead, before any root-isolation claim.
+
+The test was corrected to admit only the two sound outcomes:
+
+- explicit `curve_not_regular`; or
+- `indeterminate` with zero certified simple-root brackets.
+
+Validation after that correction:
+
+- FAST `35678430176`: PASS;
+- INTEGRATION `35678430258`: PASS.
+
+The final strengthened code/test head, including explicit zero retained brackets
+for the double-root fixture, passed:
+
+- FAST `35678475990`: PASS;
+- INTEGRATION `35678475955`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+### Work-unit result
+
+The bounded implementation is therefore:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+No stage-level Curve Differential Geometry qualification is implied.
+
+After integration, post-merge validation, and checkpoint closure, another
+literature-backed decision is required before any further Curve Differential
+Geometry capability.

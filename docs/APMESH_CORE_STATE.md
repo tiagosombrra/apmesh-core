@@ -250,25 +250,28 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after implementation integration:
 
-**Implement only Certified Simple Planar Inflection Isolation on Globally
-Regular Cubic Bézier Curves.**
+**Close the Certified Simple Planar Inflection Isolation implementation
+checkpoint, then open one new literature-backed Curve Differential Geometry
+decision.**
 
-The bounded decision was integrated by PR #94 as
-`44e04205c604abec8dc92f31930a371dc0c56cd1`.
+The bounded implementation is complete on
+`curve/certified-simple-inflection-isolation` and conforms to
+`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
 
-Validation:
+Final focused validation:
 
-- final PR FAST `35677428464`: PASS;
-- final PR INTEGRATION `35677428431`: PASS;
-- post-merge FAST `35677498659`: PASS;
-- post-merge INTEGRATION `35677498682`: PASS.
+- FAST `35678475990`: PASS;
+- INTEGRATION `35678475955`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
 
-The implementation must conform to
-`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`,
-including explicit internal subdivision-boundary root accounting. No
-production root isolation exists yet.
+The implementation adds only the admitted 2D certified simple-inflection
+isolator, private quadratic Bernstein interval machinery, focused tests, header
+isolation and CMake registration.
+
+It does not add later Curve Differential Geometry or downstream mesh
+capability.
 
 Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
 
@@ -278,7 +281,8 @@ Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION DECISION INTEGRATED / IMPLEMENTATION NOT STARTED /
+SIMPLE-INFLECTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
+VALIDATED_UNMERGED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 
 

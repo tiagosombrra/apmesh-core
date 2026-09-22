@@ -230,49 +230,63 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Certified Simple Planar Inflection Isolation decision is integrated and
-closed.**
+**Certified Simple Planar Inflection Isolation implementation —
+VALIDATED_UNMERGED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
 
-Closure evidence:
+Active branch: `curve/certified-simple-inflection-isolation`.
 
-1. decision authority:
-   `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-2. decision PR #94 merged as
-   `44e04205c604abec8dc92f31930a371dc0c56cd1`;
-3. final PR FAST `35677428464`: PASS;
-4. final PR INTEGRATION `35677428431`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. post-merge FAST `35677498659`: PASS;
-6. post-merge INTEGRATION `35677498682`: PASS;
-7. the decision explicitly accounts for internal subdivision-boundary roots;
-8. the exact quadratic Bernstein numerator contract and repository mapping are
-   frozen for the next work unit;
-9. no production implementation was included in the decision PR;
-10. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
+Decision authority:
+`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
 
-No work item is active.
+Implemented repository mapping:
+
+1. public 2D-only API:
+   `include/apmesh/geometry/curve.hpp`;
+2. production orchestration:
+   `src/geometry/curve.cpp`;
+3. private quadratic Bernstein/enclosure machinery:
+   `src/geometry/detail/curve_inflection_interval.hpp`;
+4. dedicated focused evidence:
+   `tests/curve_inflection_isolation.cpp`;
+5. public-header isolation:
+   `tests/curve_header_isolation.cpp`;
+6. test registration/labels:
+   `CMakeLists.txt`.
+
+Validated semantics:
+
+- global regularity is mandatory;
+- `N(t)=det(B'(t),B''(t))` is handled in exact quadratic Bernstein structure;
+- no sampled signed-curvature proof exists in production;
+- zero/one/two simple-root cases are covered analytically;
+- physical endpoint zeros are not reported;
+- an internal subdivision-boundary zero cannot disappear and currently forces
+  `indeterminate` unless independently discharged;
+- double/multiple and ill-conditioned fixtures are never guessed;
+- reversal, reflection, rotation, translation and power-of-two scaling preserve
+  the admitted root parameters/count;
+- 3D, public interval/polynomial solvers, discretization and downstream mesh
+  capabilities remain absent.
+
+Validation history:
+
+- initial code head: FAST `35678235163`, INTEGRATION `35678235124` PASS;
+- strengthened test head exposed one test-expectation mismatch in
+  `35678348013/35678348005`, not a production-semantic defect;
+- corrected head: FAST `35678430176`, INTEGRATION `35678430258` PASS;
+- final strengthened head: FAST `35678475990`, INTEGRATION
+  `35678475955` PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+The work unit remains `VALIDATED_UNMERGED` until PR integration and
+post-merge validation.
 
 ## Next admissible work item after closure
 
-Implement only:
+After this implementation PR is merged, post-merge FAST/INTEGRATION pass, and
+the implementation checkpoint is closed, open one new literature-backed
+scientific decision for the next Curve Differential Geometry investigation.
 
-**Certified Simple Planar Inflection Isolation on Globally Regular Cubic Bézier
-Curves.**
-
-The implementation work item is constrained to the integrated decision:
-
-1. `CubicBezier2` only;
-2. explicit global regularity prerequisite;
-3. certified conservative quadratic Bernstein numerator evidence;
-4. no sampled signed-curvature proof;
-5. explicit `complete` versus `indeterminate` result vocabulary;
-6. at most two ordered certified simple-root brackets;
-7. internal subdivision-boundary root obligations must never be lost;
-8. explicit resource policy and bracket-width tolerance only;
-9. focused analytic/metamorphic/adversarial contracts;
-10. preservation of every qualified prerequisite and integrated curve
-    contract.
-
-No later Curve Differential Geometry or downstream meshing capability is
-authorized by this work item.
+No global curvature bound, curvature extrema, feature classification,
+Boundary Curve Discretization, sizing, surfaces, meshing, Quad-Dominant or
+parallel work is pre-authorized.
 

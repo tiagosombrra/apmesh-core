@@ -189,6 +189,24 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.curve_signed_curvature
     )
 
+    add_executable(apmesh_core.curve_inflection_isolation
+        tests/curve_inflection_isolation.cpp
+    )
+    target_link_libraries(
+        apmesh_core.curve_inflection_isolation
+        PRIVATE apmesh::core
+    )
+    target_include_directories(
+        apmesh_core.curve_inflection_isolation
+        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
+    )
+    apmesh_apply_target_defaults(apmesh_core.curve_inflection_isolation)
+
+    add_test(
+        NAME apmesh_core.curve_inflection_isolation
+        COMMAND apmesh_core.curve_inflection_isolation
+    )
+
     add_executable(apmesh_core.curve_arc_length
         tests/curve_arc_length.cpp
     )
@@ -305,6 +323,7 @@ if(BUILD_TESTING)
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
         apmesh_core.curve_signed_curvature
+        apmesh_core.curve_inflection_isolation
         apmesh_core.curve_regularity
         apmesh_core.curve_arc_length
         apmesh_core.curve_cumulative_arc_length
