@@ -324,8 +324,20 @@ The existing `BoundedParametricCurve2/3` contract is unchanged. No other
 curve family, generic differential/length refactor, surface, discretization or
 meshing implementation is authorized.
 
-The implementation remains **ACTIVE / VALIDATION PENDING / NOT QUALIFIED**
-until PR FAST/INTEGRATION pass and integration/post-merge closure completes.
+Corrected candidate validation:
+
+- head `482ea0acd00b51a7bc772935d344008d2797474c`;
+- FAST `35720421004`: PASS, 19/19 tests;
+- INTEGRATION `35720420984`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 19/19 tests per cell;
+- focused `apmesh_core.line_segment`: PASS in all three jobs.
+
+The initial failed head remains documented in WORKLOG/decision as a mechanical
+focused-test compile failure.
+
+The implementation remains **ACTIVE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED** until the final PR
+head passes and integration/post-merge closure completes.
 
 ## Current active stage
 
