@@ -1911,9 +1911,22 @@ Authorized scope:
 - affine/extreme-finite/deterministic evidence;
 - target ordinary inventory: 27 tests.
 
-Candidate implementation is mapped to the authorized files, with
-`parametric_surface.hpp` and the polynomial `surface.cpp` frozen, and is
-awaiting FAST/INTEGRATION validation.
+Candidate validation history:
+
+- initial head `83d1aedd68cbd4457e36021c704604b3a616fd8a` failed FAST
+  `35782696019` and INTEGRATION `35782696016` only because the focused
+  test attempted to default-construct non-default-constructible `Point3`
+  values;
+- production compiled; the correction was test-only and did not change
+  scientific/API semantics;
+- corrected head `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
+- corrected FAST `35782907623`: PASS, 27/27;
+- corrected INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 27/27 per cell.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. `parametric_surface.hpp` and the
+polynomial `surface.cpp` remain frozen.
 
 No U/V knots/multiplicities, NURBS surface, Coons/transfinite, analytic
 surface, swept/trimmed surface, surface differential geometry or meshing work
