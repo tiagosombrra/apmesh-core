@@ -18,3 +18,4 @@ Decision records do not replace the authoritative roadmap. They provide the evid
 
 - `CURVE_ARC_LENGTH_PARAMETER_MAPPING_DECISION.md` — bounds certified cubic total arc length first and defers cumulative/inverse parameter mapping to a separate work unit.
 - `CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md` — pre-registers the CGR0–CGR7 Curve Representation stage-exit regression, evidence matrix, deterministic repetitions, certificates and independent audit rules.
+- `CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md` — admits only 2D pointwise signed curvature at regular parameters and explicitly defers certified inflection isolation and global feature classification.
