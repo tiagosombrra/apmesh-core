@@ -1875,27 +1875,49 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Positive-Weight
-NURBS — DECISION INTEGRATED / CLOSURE PENDING / NO PRODUCTION IMPLEMENTATION**
+NURBS — DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
+TERMINAL DOCUMENTATION SYNC ACTIVE**
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Decision validation:
+Terminal decision validation:
 
-- PR #121:
+- decision PR #121:
   `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-- PR FAST `35740954735`: PASS;
-- PR INTEGRATION `35740954945`: PASS;
-- post-merge FAST `35741064912`: PASS;
-- post-merge INTEGRATION `35741064906`: PASS.
+- decision PR FAST `35740954735`: PASS;
+- decision PR INTEGRATION `35740954945`: PASS;
+- decision post-merge FAST `35741064912`: PASS;
+- decision post-merge INTEGRATION `35741064906`: PASS;
+- closure PR #122:
+  `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
+- closure PR FAST `35741308649`: PASS;
+- closure PR INTEGRATION `35741308596`: PASS;
+- closure post-merge FAST `35741432913`: PASS;
+- closure post-merge INTEGRATION `35741432864`: PASS.
 
-Closure branch:
-`docs/two-span-cubic-nurbs-decision-closure`.
+After this terminal sync is integrated and post-merge validated, the sole next
+production work item is:
 
-After closure integration and post-merge validation, the sole next production
-work item is the fixed five-control/two-span cubic positive-weight NURBS family.
+**Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D.**
 
-General/multi-span B-spline/NURBS, variable degree/count, repeated knots,
+Authorized scope remains:
+
+- degree 3;
+- five controls / five finite positive weights;
+- knots `[a,a,a,a,k,b,b,b,b]`;
+- strict finite `a<k<b`;
+- exactly two spans;
+- non-periodic;
+- value/D1/D2;
+- homogeneous rational spline evaluation;
+- all-one B-spline parity;
+- rational-quadratic cross-family parity;
+- independent rational-basis reference;
+- local support, weight-scale, reversal, embedding, determinism and
+  extreme-finite evidence.
+
+General/multi-span B-spline/NURBS, arbitrary degree/count, repeated knots,
 periodicity, arbitrary-degree Bézier, analytic conic and heterogeneous
 composition remain later decisions.
 
