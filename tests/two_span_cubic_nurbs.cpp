@@ -436,6 +436,29 @@ int main() {
                  passed;
     }
 
+    const auto equal_nurbs3 =
+        TwoSpanCubicNURBS3::make(
+            controls3, equal_weights, -2.0, 0.5, 4.0);
+    const auto polynomial3 =
+        TwoSpanCubicBSpline3::make(controls3, -2.0, 0.5, 4.0);
+    if (!equal_nurbs3 || !polynomial3) {
+        return 1;
+    }
+    for (const double parameter : parity_parameters) {
+        const auto nv = equal_nurbs3->evaluate(parameter);
+        const auto bv = polynomial3->evaluate(parameter);
+        const auto nd1 = equal_nurbs3->first_derivative(parameter);
+        const auto bd1 = polynomial3->first_derivative(parameter);
+        const auto nd2 = equal_nurbs3->second_derivative(parameter);
+        const auto bd2 = polynomial3->second_derivative(parameter);
+        passed = require(
+                     nv && bv && close_point(*nv, *bv, 32.0) &&
+                         nd1 && bd1 && close_vector(*nd1, *bd1, 128.0) &&
+                         nd2 && bd2 && close_vector(*nd2, *bd2, 512.0),
+                     "3D equal-weight polynomial B-spline parity differs") &&
+                 passed;
+    }
+
     const std::array<double, 5> scaled_weights{
         8.0, 16.0, 6.0, 32.0, 12.0};
     const auto scaled =
@@ -738,6 +761,43 @@ int main() {
                  "NURBS translation covariance differs") &&
              passed;
 
+    const auto scaled0 = Point2::make(2.0 * p0->x(), 2.0 * p0->y());
+    const auto scaled1 = Point2::make(2.0 * p1->x(), 2.0 * p1->y());
+    const auto scaled2 = Point2::make(2.0 * p2->x(), 2.0 * p2->y());
+    const auto scaled3 = Point2::make(2.0 * p3->x(), 2.0 * p3->y());
+    const auto scaled4 = Point2::make(2.0 * p4->x(), 2.0 * p4->y());
+    if (!scaled0 || !scaled1 || !scaled2 || !scaled3 || !scaled4) {
+        return 1;
+    }
+    const std::array<Point2, 5> scaled_controls{
+        *scaled0, *scaled1, *scaled2, *scaled3, *scaled4};
+    const auto coordinate_scaled = TwoSpanCubicNURBS2::make(
+        scaled_controls, weights, -2.0, 0.5, 4.0);
+    if (!coordinate_scaled) {
+        return 1;
+    }
+    const auto scaled_value = coordinate_scaled->evaluate(1.25);
+    const auto scaled_d1 = coordinate_scaled->first_derivative(1.25);
+    const auto scaled_d2 = coordinate_scaled->second_derivative(1.25);
+    passed = require(
+                 base_value && scaled_value &&
+                     close_scalar(
+                         scaled_value->x(), 2.0 * base_value->x(), 64.0) &&
+                     close_scalar(
+                         scaled_value->y(), 2.0 * base_value->y(), 64.0) &&
+                     base_d1 && scaled_d1 &&
+                     close_scalar(
+                         scaled_d1->x(), 2.0 * base_d1->x(), 256.0) &&
+                     close_scalar(
+                         scaled_d1->y(), 2.0 * base_d1->y(), 256.0) &&
+                     base_d2 && scaled_d2 &&
+                     close_scalar(
+                         scaled_d2->x(), 2.0 * base_d2->x(), 1024.0) &&
+                     close_scalar(
+                         scaled_d2->y(), 2.0 * base_d2->y(), 1024.0),
+                 "NURBS exact power-of-two coordinate scale covariance differs") &&
+             passed;
+
     const double maximum = std::numeric_limits<double>::max();
     const double minimum = std::numeric_limits<double>::denorm_min();
     const auto extreme = TwoSpanCubicNURBS2::make(
@@ -750,10 +810,41 @@ int main() {
         return 1;
     }
     const auto extreme_value = extreme->evaluate(maximum / 2.0);
+    const auto extreme_d1 = extreme->first_derivative(maximum / 2.0);
+    const auto extreme_d2 = extreme->second_derivative(maximum / 2.0);
     passed = require(
                  extreme_value && std::isfinite(extreme_value->x()) &&
-                     std::isfinite(extreme_value->y()),
-                 "NURBS extreme finite evaluation introduced avoidable overflow") &&
+                     std::isfinite(extreme_value->y()) &&
+                     extreme_d1 && std::isfinite(extreme_d1->x()) &&
+                     std::isfinite(extreme_d1->y()) &&
+                     extreme_d2 && std::isfinite(extreme_d2->x()) &&
+                     std::isfinite(extreme_d2->y()),
+                 "NURBS extreme finite jet introduced avoidable overflow") &&
+             passed;
+
+    const auto huge0 = Point2::make(-maximum, 0.0);
+    const auto huge1 = Point2::make(maximum, 0.0);
+    if (!huge0 || !huge1) {
+        return 1;
+    }
+    const std::array<Point2, 5> unrepresentable_controls{
+        *huge0, *huge1, controls2[2], controls2[3], controls2[4]};
+    const auto unrepresentable = TwoSpanCubicNURBS2::make(
+        unrepresentable_controls,
+        {1.0, 1.0, 1.0, 1.0, 1.0},
+        0.0,
+        minimum,
+        1.0);
+    if (!unrepresentable) {
+        return 1;
+    }
+    const auto unrepresentable_d1 =
+        unrepresentable->first_derivative(0.0);
+    passed = require(
+                 !unrepresentable_d1 &&
+                     unrepresentable_d1.error() ==
+                         CurveError::non_finite_result,
+                 "unrepresentable NURBS derivative did not fail explicitly") &&
              passed;
 
     const auto repeat_value_a = curve2->evaluate(0.5);
