@@ -872,3 +872,55 @@ Current status:
 REVALIDATION PENDING / NOT QUALIFIED.**
 
 No broader NURBS/B-spline or downstream capability is implied.
+
+
+## 36. Implementation integration checkpoint
+
+Implementation PR #124 merged as
+`9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`.
+
+Validation lineage:
+
+- first complete candidate head:
+  `a096b00438f8acf08adce58327439e888037818f`;
+- candidate FAST `35745044617`: PASS, 23/23 tests;
+- candidate INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 23/23 tests per cell;
+- final documentation-synchronized head:
+  `bf077d30041b0897d5e5e9bf825a762b6a0b6d6f`;
+- final PR FAST `35745222050`: PASS;
+- final PR INTEGRATION `35745221931`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- post-merge FAST `35746004007`: PASS;
+- post-merge INTEGRATION `35746003953`: PASS.
+
+Integrated production scope:
+
+- `TwoSpanCubicNURBS2`;
+- `TwoSpanCubicNURBS3`;
+- five finite controls / five finite strictly positive weights;
+- fixed degree-three, two-span, one-simple-interior-knot topology;
+- internally common-scaled homogeneous controls;
+- homogeneous de Boor value evaluation;
+- analytic rational D1/D2 dehomogenization;
+- exact endpoint and constant-curve semantics;
+- reflected-knot reversal;
+- independent rational-basis validation;
+- equal-weight polynomial B-spline parity in 2D/3D;
+- rational-quadratic degree-elevation/knot-insertion conic parity;
+- local support, weight-scale, coordinate-scale, translation, embedding,
+  extreme-finite, unrepresentable-result and determinism evidence.
+
+The common bounded-parametric concepts were not changed.
+
+Work-unit result:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+This result does not qualify general/multi-span NURBS, arbitrary degree/count,
+repeated knots, periodicity, spline surfaces or the representation-breadth
+stage.
+
+After implementation closure integration/post-merge validation, a fresh
+literature-backed breadth decision is mandatory before another representation
+implementation.
