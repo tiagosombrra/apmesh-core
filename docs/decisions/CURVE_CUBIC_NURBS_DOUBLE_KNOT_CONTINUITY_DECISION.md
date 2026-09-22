@@ -840,3 +840,44 @@ positive-weight multi-span NURBS extension bounded by Sections 5–32.
 
 No multiplicity-three, arbitrary-degree, periodic, conic, composite, surface
 or downstream capability is authorized.
+
+
+## 37. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`curve/cubic-nurbs-double-knot-continuity`.
+
+Candidate mapping:
+
+- common error vocabulary:
+  `include/apmesh/geometry/parametric_curve.hpp`;
+- public multiplicity API/storage:
+  `include/apmesh/geometry/nurbs.hpp`;
+- production:
+  `src/geometry/multi_span_nurbs.cpp`;
+- focused contract:
+  `tests/cubic_nurbs_double_knot_continuity.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate implementation preserves the existing simple-knot factory and adds:
+
+- explicit multiplicities restricted to one/two;
+- construction-time flat-knot cache;
+- exact right-span selection on the cached flat sequence;
+- parameter-local `CurveError::insufficient_continuity` for ordinary D2 at
+  multiplicity-two knots;
+- unchanged value/D1 at those knots;
+- no one-sided derivative API.
+
+The focused contract includes an independent flat-knot Cox-de Boor rational
+oracle, a generic C1 fixture with materially distinct one-sided D2, test-only
+homogeneous insertion of an already-simple knot, reversal/multiplicity
+reflection, 2D/3D embedding and accidental-smoothness protection.
+
+Expected ordinary semantic inventory: **25 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
