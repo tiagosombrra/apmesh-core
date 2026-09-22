@@ -289,10 +289,11 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this implementation closure is integrated and post-merge validated,
-open one fresh literature-backed Curve Representation Breadth decision.**
+**After this terminal implementation-closure synchronization is integrated and
+post-merge validated, open one fresh literature-backed Curve Representation
+Breadth decision.**
 
-Integrated fixed NURBS evidence:
+Terminal fixed NURBS evidence:
 
 - implementation PR #124:
   `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
@@ -300,16 +301,19 @@ Integrated fixed NURBS evidence:
 - candidate INTEGRATION `35745044483`: PASS, 23/23 in GCC and Clang;
 - final PR FAST `35745222050`: PASS;
 - final PR INTEGRATION `35745221931`: PASS;
-- post-merge FAST `35746004007`: PASS;
-- post-merge INTEGRATION `35746003953`: PASS.
+- implementation post-merge FAST `35746004007`: PASS;
+- implementation post-merge INTEGRATION `35746003953`: PASS;
+- closure PR #125:
+  `465dc5b5f1948d4d27ca67d777aa2493f9c8968e`;
+- closure PR FAST `35746421742`: PASS;
+- closure PR INTEGRATION `35746421809`: PASS;
+- closure post-merge FAST `35746603445`: PASS;
+- closure post-merge INTEGRATION `35746603448`: PASS.
 
-Closure branch:
-`docs/two-span-cubic-nurbs-implementation-closure`.
+Terminal sync branch:
+`docs/two-span-cubic-nurbs-implementation-closure-sync`.
 
-Decision authority:
-`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
-
-Production representation breadth now includes:
+Production representation breadth contains:
 
 - `CubicBezier2/3`;
 - `LineSegment2/3`;
@@ -318,18 +322,19 @@ Production representation breadth now includes:
 - `TwoSpanCubicBSpline2/3`;
 - `TwoSpanCubicNURBS2/3`.
 
-The original CGR0–CGR7 qualification remains restricted to polynomial cubic
-Bézier. Later breadth additions are integrated focused extensions and do not
-widen that formal qualification claim.
+The fixed NURBS work unit is closed but not formally qualified as a broadened
+representation stage. The original CGR0–CGR7 qualification remains restricted
+to polynomial cubic Bézier.
 
-No additional family or downstream stage is authorized until a new decision
-is integrated and closed.
+No additional family or downstream stage is authorized until a new decision is
+integrated and closed.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Two-Span Cubic Positive-Weight NURBS —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
-NOT QUALIFIED / B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS PRESERVED /
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / TERMINAL SYNC ACTIVE /
+B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
