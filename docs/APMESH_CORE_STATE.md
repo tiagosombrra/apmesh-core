@@ -284,39 +284,33 @@ Topological Model qualification decision is recorded below.
 
 Exact current bounded scientific action:
 
-**Validate and integrate Bounded Parametric Curve Contract and Cubic Bézier
-Conformance.**
+**Close Bounded Parametric Curve Contract and Cubic Bézier Conformance, then
+open one literature-backed decision for the first concrete curve family.**
 
-Active branch:
-`curve/bounded-parametric-curve-contract`.
+Implementation evidence:
 
-Decision authority:
-`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
+- PR #101 merged as
+  `0674cd8531c3033a30282ba6bf95078b54d8c331`;
+- final PR FAST `35713249842`: PASS, 18/18 tests;
+- final PR INTEGRATION `35713249775`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 18/18 tests per cell;
+- post-merge FAST `35713409188`: PASS;
+- post-merge INTEGRATION `35713409166`: PASS.
 
-Implemented bounded mapping:
+The bounded seam is **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED**.
 
-- `include/apmesh/geometry/parametric_curve.hpp`: typed finite closed
-  parameter-domain vocabulary, `CurveError` common query vocabulary, robust
-  bounded reversal mapping, and static 2D/3D concepts;
-- `include/apmesh/geometry/curve.hpp`: Cubic Bézier conformance surface only;
-- `src/geometry/curve.cpp`: exact `[0,1]` domain exposure only;
-- `tests/parametric_curve_contract.cpp`: focused semantic contract;
-- `tests/curve_header_isolation.cpp`: public compile-time conformance;
-- `CMakeLists.txt`: focused test registration.
+The qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved. No second
+concrete family or surface capability is present.
 
-No existing Cubic-Bézier evaluator, derivative, regularity, arc-length,
-curvature or inflection algorithm is replaced by this work unit.
-
-No second concrete curve family or surface capability is implemented.
-
-The work unit remains **ACTIVE / NOT QUALIFIED** until FAST/INTEGRATION,
-integration and post-merge validation pass.
+After this closure checkpoint is integrated and validated, the sole next work
+is a literature-backed comparison of candidate concrete curve families.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Bounded Parametric Curve Contract —
-IMPLEMENTATION ACTIVE / NO NEW FAMILY IMPLEMENTED /
-CUBIC BASELINE QUALIFICATION PRESERVED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
+NO NEW FAMILY IMPLEMENTED / CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
