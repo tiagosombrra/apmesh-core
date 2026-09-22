@@ -329,9 +329,18 @@ No general NURBS/B-spline, variable degree/count, repeated knots, periodicity,
 arbitrary-degree Bézier, analytic conic, heterogeneous composition, surface,
 discretization or meshing work is authorized.
 
+Candidate validation:
+
+- head `a096b00438f8acf08adce58327439e888037818f`;
+- FAST `35745044617`: PASS, 23/23 tests;
+- INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 23/23 tests per cell;
+- focused `apmesh_core.two_span_cubic_nurbs`: PASS in all three jobs.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
