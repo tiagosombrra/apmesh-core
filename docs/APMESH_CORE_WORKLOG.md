@@ -212,42 +212,46 @@ writing.
   production curvature implementation.
 - `docs/curve-differential-entry-closure`: **CLOSURE-ONLY**; records PR #86
   integration and post-merge validation.
+- `curve/pointwise-curvature-magnitude`: **ACTIVE**; bounded first Curve
+  Differential Geometry production work unit only.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Curve Differential Geometry entry decision is closed.**
+**Implement Pointwise Curvature Magnitude on Regular Cubic Bézier Curves —
+ACTIVE.**
 
-Closure evidence:
+Active branch: `curve/pointwise-curvature-magnitude`.
 
-1. entry decision PR #86 merged as
-   `e728e89f08b23cd0720e502e3efe0c565198d376`;
-2. PR #86 FAST `35671674354`: PASS;
-3. PR #86 INTEGRATION `35671674360`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35671824327`: PASS;
-5. post-merge INTEGRATION `35671824323`: PASS in both cells;
-6. decision authority:
-   `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-7. research mapping is retained in
-   `docs/research/REFERENCE_REGISTER.md`;
-8. no curvature production implementation has begun.
+Authority:
+`docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-No work item is active.
+Authorized implementation scope:
+
+1. add pointwise nonnegative curvature-magnitude queries for
+   `CubicBezier2` and `CubicBezier3`;
+2. reuse the qualified first- and second-derivative implementations;
+3. accept only finite `t∈[0,1]`;
+4. reject an exact zero first derivative as `singular_parameter`;
+5. return zero successfully for regular zero-curvature/inflection data;
+6. avoid hidden epsilon thresholds;
+7. evaluate curvature with scale-aware arithmetic so avoidable intermediate
+   overflow/underflow does not reject a representable result;
+8. expose explicit failure when the final result is non-finite or underflows a
+   positive mathematical result to zero;
+9. add one focused 2D/3D curvature contract and register it in FAST/INTEGRATION;
+10. preserve qualified Curve Representation and all prior prerequisite tests;
+11. keep signed curvature, Frenet frames, torsion, global extrema/bounds,
+    feature classification, discretization, sizing, surfaces, meshing,
+    Quad-Dominant and parallel execution excluded.
+
+No later Curve Differential Geometry work unit is active.
 
 ## Next admissible work item after closure
 
-Implement exactly one bounded work unit:
-
-**Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
-
-Implementation must obey the integrated entry decision:
-
-- reuse qualified first/second derivatives;
-- exact singularity semantics, no epsilon;
-- scale-aware finite curvature evaluation;
-- required reversal/frame/scale/embedding evidence;
-- no global feature classification, discretization, sizing, surfaces, meshing
-  or parallel execution.
+After this work unit is integrated, post-merge FAST/INTEGRATION pass, and its
+checkpoint is closed, open one separate scientific decision for the next Curve
+Differential Geometry investigation. No global feature work is authorized
+automatically.
 
