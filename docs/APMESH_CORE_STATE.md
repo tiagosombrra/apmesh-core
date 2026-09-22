@@ -322,6 +322,31 @@ No multiplicity-three, arbitrary-degree, periodic, one-sided derivative,
 analytic-conic, polycurve, surface, discretization or meshing work is
 authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/parametric_curve.hpp`;
+- `include/apmesh/geometry/nurbs.hpp`;
+- `src/geometry/multi_span_nurbs.cpp`;
+- `tests/cubic_nurbs_double_knot_continuity.cpp`;
+- `CMakeLists.txt`.
+
+Candidate semantics:
+
+- the legacy simple-knot factory synthesizes multiplicity one and remains
+  source-compatible;
+- explicit multiplicities are unique-knot metadata restricted to 1/2;
+- a private flat-knot cache is built once at construction and never allocated
+  per query;
+- exact interior-knot queries still select the right span;
+- value/D1 remain available at a double knot;
+- ordinary D2 returns `CurveError::insufficient_continuity` exactly there,
+  before any accidental-smoothness shortcut;
+- 25 ordinary tests are expected after registration.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ## Current active stage
 
 **Curve Representation Breadth Gate — CUBIC NURBS DOUBLE-KNOT C1
