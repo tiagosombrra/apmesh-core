@@ -6,6 +6,7 @@
 
 #include <array>
 #include <cmath>
+#include <cstddef>
 #include <cstdio>
 #include <limits>
 #include <string_view>
@@ -478,12 +479,28 @@ int main() {
 
     const auto left_base = curve2->evaluate(-1.0);
     const auto left_other = left_changed->evaluate(-1.0);
+    const auto left_d1 = curve2->first_derivative(-1.0);
+    const auto left_other_d1 = left_changed->first_derivative(-1.0);
+    const auto left_d2 = curve2->second_derivative(-1.0);
+    const auto left_other_d2 = left_changed->second_derivative(-1.0);
     const auto right_base = curve2->evaluate(2.0);
     const auto right_other = right_changed->evaluate(2.0);
+    const auto right_d1 = curve2->first_derivative(2.0);
+    const auto right_other_d1 = right_changed->first_derivative(2.0);
+    const auto right_d2 = curve2->second_derivative(2.0);
+    const auto right_other_d2 = right_changed->second_derivative(2.0);
     passed = require(
                  left_base && left_other && *left_base == *left_other &&
-                     right_base && right_other && *right_base == *right_other,
-                 "NURBS local-support value isolation differs") &&
+                     left_d1 && left_other_d1 &&
+                     *left_d1 == *left_other_d1 &&
+                     left_d2 && left_other_d2 &&
+                     *left_d2 == *left_other_d2 &&
+                     right_base && right_other && *right_base == *right_other &&
+                     right_d1 && right_other_d1 &&
+                     *right_d1 == *right_other_d1 &&
+                     right_d2 && right_other_d2 &&
+                     *right_d2 == *right_other_d2,
+                 "NURBS local-support value/D1/D2 isolation differs") &&
              passed;
 
     const auto reversed = curve2->reversed();
@@ -588,7 +605,7 @@ int main() {
         const auto nd2 = conic_nurbs->second_derivative(parameter);
 
         passed = require(
-                     rv && nv && close_point(*rv, *nv, 4.0, ) &&
+                     rv && nv && close_point(*rv, *nv, 4.0) &&
                          rd1 && nd1 && close_vector(*rd1, *nd1, 16.0) &&
                          rd2 && nd2 && close_vector(*rd2, *nd2, 64.0),
                      "rational-quadratic degree-elevation/knot parity differs") &&
