@@ -291,39 +291,38 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this implementation closure is integrated and post-merge validated,
-open one fresh literature-backed Surface Representation breadth decision.**
+**Open one fresh literature-backed Surface Representation breadth decision.**
 
-Integrated bicubic patch evidence:
+Terminal bicubic patch evidence:
 
-- candidate head:
-  `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
-- candidate FAST `35765755483`: PASS, 26/26;
-- candidate INTEGRATION `35765755475`: PASS, 26/26;
-- final head:
-  `453ff3b7e3a33ab0410db8c86fd8ac5a2531b226`;
-- final INTEGRATION `35765951784`: PASS, 26/26;
-- final FAST `35765951781` attempt 1: CANCELLED mechanically;
-- final FAST `35765951781` attempt 2: PASS, 26/26;
 - implementation PR #140:
   `2d6d01e4202367d62db6017939cde0f2b8e83c65`;
-- post-merge FAST `35766651557`: PASS, 26/26;
-- post-merge INTEGRATION `35766651497`: PASS, 26/26.
-
-Closure branch:
-`docs/surface-bicubic-bezier-implementation-closure`.
+- implementation post-merge FAST `35766651557`: PASS, 26/26;
+- implementation post-merge INTEGRATION `35766651497`: PASS, 26/26;
+- closure PR #141 head:
+  `25e2a3cb286a967a14c048944d6a45c0fec3bb30`;
+- closure PR FAST `35767109267`: PASS;
+- closure PR INTEGRATION `35767109201`: PASS;
+- closure merge:
+  `e964465fd7f7ffcf9d2403752cf9f791b8666433`;
+- closure post-merge FAST `35767269783`: PASS;
+- closure post-merge INTEGRATION `35767269772`: PASS.
 
 The integrated first surface representation is a bounded tensor-product
 bicubic polynomial Bézier patch with analytic first/second partials, U/V
-reversal and curve-boundary parity.
+reversal, exact corner identity and curve-boundary parity.
 
-No broader surface family is authorized by this closure.
+No production work item is active.
+
+The next breadth decision must compare rational Bézier, B-spline/NURBS,
+Coons/transfinite, analytic elementary, swept and trimmed surface families.
+No winner is pre-authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC BÉZIER PATCH
 IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED /
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
 CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
