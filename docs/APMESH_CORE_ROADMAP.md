@@ -1507,11 +1507,10 @@ candidates before authorizing any production implementation.
 
 ### Curve Representation Breadth Gate — Analytic, Rational, and Spline Families
 
-Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
-BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
-BOUNDED LINE SEGMENT IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-RATIONAL QUADRATIC BÉZIER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
+Status: `IN INVESTIGATION / PARAMETRIC CONTRACT INTEGRATED /
+LINE SEGMENT INTEGRATED / RATIONAL QUADRATIC BÉZIER INTEGRATED /
+ORIENTED TRIM INTEGRATED / TWO-SPAN CUBIC B-SPLINE DECISION ACTIVE /
+NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
 frozen polynomial cubic Bézier scope implemented by `CubicBezier2` and
@@ -1672,6 +1671,28 @@ Parametric Subcurve Semantics in 2D/3D** before another mathematical family.
 
 The decision does not authorize polycurve/type-erasure storage, periodic
 trimming or any new concrete curve family.
+
+Decision closure PR #113 merged as
+`74cafc0f7e64abe159303fe7116dcbaac4d8fad7`; closure post-merge FAST
+`35729923695` and INTEGRATION `35729923468` passed.
+
+Trim implementation PR #114 merged as
+`133a98ea056b12d86049e36abc0370208776106b`; candidate/final/post-merge
+FAST and INTEGRATION all passed with 21/21 ordinary tests.
+
+Trim implementation closure PR #115 merged as
+`e29a08b07c175a91410123f99867eef4190b983b`; closure post-merge FAST
+`35731529518` and INTEGRATION `35731529546` passed.
+
+Production therefore includes oriented static trimming semantics over admitted
+bounded curve bases, without heterogeneous runtime composition.
+
+The active next breadth decision is
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
+
+It selects a fixed non-rational, non-periodic, clamped cubic B-spline with
+exactly two spans and one simple interior knot, isolating knot/local-support
+semantics before general B-spline/NURBS breadth.
 
 Repository-specific sequencing matters: the qualified Cartesian-frame claim
 does not include arbitrary-angle rotations, so a general analytic 3D circle
@@ -1852,34 +1873,45 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
-IMPLEMENTATION CLOSURE PENDING**
+**Curve Representation Breadth Gate — Two-Span Clamped Cubic Polynomial
+B-Spline — DECISION ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION
+IMPLEMENTATION**
 
-Implementation authority:
-`docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
+Closed prerequisite evidence:
 
-Integrated evidence:
-
-- PR #114:
+- trim implementation PR #114:
   `133a98ea056b12d86049e36abc0370208776106b`;
-- candidate FAST `35730750101`: PASS, 21/21;
-- candidate INTEGRATION `35730749747`: PASS, 21/21 per GCC/Clang cell;
-- final PR-head FAST `35730921629`: PASS;
-- final PR-head INTEGRATION `35730921744`: PASS;
-- post-merge FAST `35731127728`: PASS;
-- post-merge INTEGRATION `35731127685`: PASS.
+- trim implementation closure PR #115:
+  `e29a08b07c175a91410123f99867eef4190b983b`;
+- closure post-merge FAST `35731529518`: PASS;
+- closure post-merge INTEGRATION `35731529546`: PASS.
 
-After this closure is integrated and its own post-merge validation passes, the
-next work item is one literature-backed breadth comparison decision among:
+Active decision:
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-- bounded non-periodic B-spline;
-- NURBS after B-spline semantics;
-- arbitrary-degree polynomial/rational Bézier;
-- analytic conic plus arbitrary 3D supporting-plane/orientation;
-- heterogeneous composition/polycurve.
+The decision selects exactly one bounded first spline representation:
 
-No option is preselected by this closure.
+- polynomial degree 3;
+- five controls;
+- knots `[a,a,a,a,k,b,b,b,b]`;
+- finite `a<k<b`;
+- exactly two nonzero spans;
+- one simple interior knot, therefore C2 representation continuity;
+- non-rational;
+- non-periodic;
+- value, D1 and D2;
+- de Boor production evaluation;
+- independent Cox–de Boor/basis reference;
+- parity with a qualified cubic Bézier after one knot insertion;
+- local-support and reversal evidence.
+
+General B-spline containers, arbitrary degree/count, repeated interior knots,
+periodicity, NURBS, arbitrary-degree Bézier, analytic conic and heterogeneous
+composition remain later decisions.
+
+No implementation is authorized until this decision is integrated,
+post-merge FAST/INTEGRATION pass, and the decision checkpoint is separately
+closed.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
