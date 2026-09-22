@@ -924,3 +924,35 @@ stage.
 After implementation closure integration/post-merge validation, a fresh
 literature-backed breadth decision is mandatory before another representation
 implementation.
+
+
+## 37. Implementation closure checkpoint
+
+Implementation closure PR #125 merged as
+`465dc5b5f1948d4d27ca67d777aa2493f9c8968e`.
+
+Closure PR validation:
+
+- FAST `35746421742`: PASS;
+- INTEGRATION `35746421809`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Closure post-merge validation:
+
+- FAST `35746603445`: PASS;
+- INTEGRATION `35746603448`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Final work-unit result:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
+
+The closure preserves the original Cubic-Bézier CGR qualification unchanged.
+
+It does not authorize general/multi-span NURBS/B-spline, arbitrary degree/count,
+repeated knots, periodicity, arbitrary-degree Bézier, analytic conics,
+heterogeneous composition, surfaces or downstream meshing.
+
+After terminal documentation synchronization, a fresh literature-backed breadth
+decision is mandatory before any next representation implementation.
