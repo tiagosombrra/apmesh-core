@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-20
+Last updated: 2026-09-22
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Operational continuity ledger: `docs/APMESH_CORE_WORKLOG.md`
 Repository state: verify `main`, open PRs, relevant branches, ruleset, recent
@@ -81,7 +81,34 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 ## Current repository checkpoint
 
-Current repository continuation checkpoint:
+Authoritative continuation snapshot after fresh remote reconciliation on
+2026-09-22:
+
+- repository: `tiagosombrra/apmesh-core`;
+- canonical integration branch: `main`;
+- latest closed functional anchor: Certified Simple Planar Inflection Isolation,
+  integrated by PR #96 as
+  `c4905589c2ee8700c58560ef1a99a49a3821af4e`;
+- final PR FAST `35678624215`: PASS;
+- final PR INTEGRATION `35678624192`: PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug;
+- post-merge FAST `35678808956`: PASS;
+- post-merge INTEGRATION `35678808941`: PASS;
+- current scientific stage: **Curve Differential Geometry — Curvature,
+  Regularity, and Features — IN INVESTIGATION / NOT QUALIFIED**;
+- most recently qualified stage: **Curve Representation — Continuous Geometry
+  Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
+  GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
+- current operational authority: `docs/APMESH_CORE_WORKLOG.md`;
+- live `main` SHA and open-PR state are always re-audited remotely and are not
+  self-recorded here as mutable authority.
+
+### Retained historical Topological Model / cloud-infrastructure checkpoint
+
+The material below is retained for provenance of the earlier Topological Model
+and cloud-infrastructure lifecycle. It is **historical evidence, not current
+stage/work-item authority**. Current authority is the snapshot above together
+with WORKLOG and ROADMAP.
 
 - repository: `tiagosombrra/apmesh-core`;
 - visibility: `PUBLIC`;
@@ -129,7 +156,7 @@ TMR0–TMR7 PASS**;
   package remains unconsumed, with `execution_requested=false` and TMR0--TMR7
   all `NOT_EXECUTED`.
 
-Current Topological Model completion lanes:
+Historical first-attempt Topological Model completion lanes:
 
 | Lane | Completion | Current basis |
 | --- | ---: | --- |
@@ -141,7 +168,7 @@ Current Topological Model completion lanes:
 | Terminal scientific audit | 100% | TMR0–TMR5 PASS; TMR6–TMR7 BLOCKED; overall BLOCKED. |
 | Stage qualification | 0% closed | Topological Model remains NOT QUALIFIED until a future newly prepared campaign satisfies TMR0–TMR7. |
 
-Current cloud-execution infrastructure:
+Historical cloud-execution infrastructure checkpoint:
 
 | Capability | Completion | Status |
 | --- | ---: | --- |
@@ -150,7 +177,7 @@ Current cloud-execution infrastructure:
 | INTEGRATION | 100% | GCC 13 Debug and Clang 18/libc++ Debug required checks PASS; closure audit recorded in `docs/audits/2026-09-20-cloud-integration-closure.md`. |
 | QUALIFICATION environment | 100% | CQE0-CQE7 PASS; final candidate revalidation PASS in run `35513250315`, then squash-merged with identical tree. |
 
-Current TMR preparation and audit work-class allocation:
+Historical TMR preparation and audit work-class allocation:
 
 - Implementation: **25%**;
 - Tests/validation: **45%**;
@@ -226,11 +253,15 @@ This repository is sufficient to resume the project without prior chat history.
 Read in this order:
 
 1. `docs/APMESH_CORE_STATE.md`;
-2. `docs/APMESH_CORE_ROADMAP.md`;
-3. `docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`;
-4. `docs/decisions/CLOUD_QUALIFICATION_ENVIRONMENT_DECISION.md`;
-5. the latest relevant audit under `docs/audits/`;
-6. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+2. `docs/APMESH_CORE_WORKLOG.md`;
+3. `docs/APMESH_CORE_ROADMAP.md`;
+4. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+5. `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+6. the latest relevant audit under `docs/audits/`;
+7. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+
+Historical Topological Model qualification documents remain authoritative for
+their frozen claims but are no longer the active continuation documents.
 
 Accepted functional cloud-infrastructure baseline:
 
@@ -250,28 +281,27 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action after implementation integration:
+Exact next bounded scientific action:
 
-**Close the Certified Simple Planar Inflection Isolation implementation
-checkpoint, then open one new literature-backed Curve Differential Geometry
-decision.**
+**Open one new literature-backed bounded decision for the next Curve
+Differential Geometry investigation.**
 
-The bounded implementation is complete on
-`curve/certified-simple-inflection-isolation` and conforms to
-`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
+Certified Simple Planar Inflection Isolation was integrated by PR #96 as
+`c4905589c2ee8700c58560ef1a99a49a3821af4e`.
 
-Final focused validation:
+Validation:
 
-- FAST `35678475990`: PASS;
-- INTEGRATION `35678475955`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug.
+- final PR FAST `35678624215`: PASS;
+- final PR INTEGRATION `35678624192`: PASS;
+- post-merge FAST `35678808956`: PASS;
+- post-merge INTEGRATION `35678808941`: PASS.
 
-The implementation adds only the admitted 2D certified simple-inflection
-isolator, private quadratic Bernstein interval machinery, focused tests, header
-isolation and CMake registration.
+The work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED**.
 
-It does not add later Curve Differential Geometry or downstream mesh
-capability.
+No next Curve Differential Geometry capability is pre-authorized. A separate
+literature-backed decision must compare the remaining candidates and freeze a
+new bounded contract before production code is written.
 
 Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
 
@@ -281,9 +311,38 @@ Curve Differential Geometry remains `IN INVESTIGATION / NOT QUALIFIED`.
 **Curve Differential Geometry — Curvature, Regularity, and Features —
 IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
-VALIDATED_UNMERGED /
+SIMPLE-INFLECTION INTEGRATED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED**
+
+## Representation breadth retained limitation
+
+The qualified Curve Representation claim is intentionally narrow. Production
+currently exposes only polynomial cubic Bézier curves through
+`CubicBezier2` and `CubicBezier3`.
+
+The following are **not implemented and not covered by CGR qualification**:
+
+- dedicated line/segment or analytic conic/arc curve types;
+- rational Bézier curves and exact conic-segment representation;
+- arbitrary-degree Bézier curves;
+- B-spline curves;
+- NURBS curves;
+- composite/trimmed curve semantics;
+- any production surface representation.
+
+This limitation does not invalidate the existing cubic-Bézier qualification.
+It prevents that qualification from being generalized to those families.
+
+Before Boundary Curve Discretization can claim its already-declared
+`line/arc/Bezier` regression envelope, a separate literature-backed curve
+family scope-extension decision must admit the required analytic/rational/spline
+families and define how common differential/discretization algorithms reuse
+their semantics.
+
+Before Surface Representation begins, its entry decision must explicitly map
+the required surface families, including polynomial/rational free-form patches,
+analytic reference surfaces and trimming/boundary semantics. No surface family
+is implicitly qualified by the current curve work.
 
 
 ## Most recently qualified stage

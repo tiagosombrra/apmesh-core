@@ -1,7 +1,7 @@
 # AP Mesh Core — Operational Work Ledger
 
 Status: AUTHORITATIVE FOR OPERATIONAL CONTINUITY  
-Last updated: 2026-09-21  
+Last updated: 2026-09-22  
 Canonical integration branch: `main`  
 Scientific continuation authority: `docs/APMESH_CORE_STATE.md`  
 Roadmap authority: `docs/APMESH_CORE_ROADMAP.md`
@@ -41,23 +41,32 @@ writing.
    `main` revision is always obtained from the remote audit. Persist only stable
    anchors such as closed work-item merge revisions, PRs, and completed runs.
 
-## Last closed work-item anchor
+## Last closed functional work-item anchor
 
-- Curve Representation formal CGR terminal audit: **CGR0–CGR7 PASS /
-  OVERALL PASS**;
-- qualification PR #84 merged as
-  `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
-- qualification post-merge FAST `35634295936`: PASS;
-- qualification post-merge INTEGRATION `35634295812`: PASS;
-- qualification-closure PR #85 merged as
-  `e5c068512dbf8281fefbe4281b2e28333ab37758`;
-- closure post-merge FAST `35671327376`: PASS;
-- closure post-merge INTEGRATION `35671327409`: PASS;
-- Curve Representation status:
-  **QUALIFIED in the exact admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud
-  envelope**;
-- next scientific stage:
-  **Curve Differential Geometry — Curvature, Regularity, and Features**.
+- Certified Simple Planar Inflection Isolation implementation: **IMPLEMENTED /
+  FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED**;
+- decision authority:
+  `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+- implementation PR #96 merged as
+  `c4905589c2ee8700c58560ef1a99a49a3821af4e`;
+- final PR FAST `35678624215`: PASS;
+- final PR INTEGRATION `35678624192`: PASS;
+- post-merge FAST `35678808956`: PASS;
+- post-merge INTEGRATION `35678808941`: PASS;
+- current stage: **Curve Differential Geometry — IN INVESTIGATION /
+  NOT QUALIFIED**;
+- most recently qualified prerequisite stage: **Curve Representation —
+  QUALIFIED / CGR0–CGR7 PASS** in the admitted cloud envelope.
+
+The current documentation-only closure lineage is
+`docs/certified-simple-inflection-implementation-closure` / PR #97.
+It does not authorize production code or a later curve capability.
+
+The fresh repository coverage audit also retains one architectural blocker:
+the qualified Curve Representation scope contains only polynomial cubic Bézier
+curves. Analytic arc/conic, rational Bézier, B-spline, NURBS and production
+surface families remain unimplemented/unqualified and require explicit future
+scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 
 
 ## Work-item ledger
@@ -225,68 +234,65 @@ writing.
   only; no production root-isolation implementation.
 - `docs/certified-simple-inflection-decision-closure`: **CLOSURE-ONLY**;
   records PR #94 integration and post-merge validation.
+- `curve/certified-simple-inflection-isolation`: **MERGED / HISTORICAL**
+  via PR #96; bounded 2D certified simple-inflection implementation.
+- `docs/certified-simple-inflection-implementation-closure`:
+  **CLOSURE-ONLY**; records PR #96 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Certified Simple Planar Inflection Isolation implementation —
-VALIDATED_UNMERGED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
+**None. Certified Simple Planar Inflection Isolation implementation is
+integrated and closed.**
 
-Active branch: `curve/certified-simple-inflection-isolation`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
+1. decision authority:
+   `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+2. implementation PR #96 merged as
+   `c4905589c2ee8700c58560ef1a99a49a3821af4e`;
+3. final PR FAST `35678624215`: PASS;
+4. final PR INTEGRATION `35678624192`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. post-merge FAST `35678808956`: PASS;
+6. post-merge INTEGRATION `35678808941`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. public API remains 2D-only and fixed-capacity;
+8. global regularity remains a mandatory prerequisite;
+9. simple roots are certified through quadratic Bernstein interval evidence;
+10. internal subdivision-boundary roots cannot be silently dropped;
+11. multiple/tangential/ill-conditioned unresolved cases remain explicit
+    `indeterminate`;
+12. qualified prerequisites and all integrated curve contracts remain passing;
+13. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Implemented repository mapping:
-
-1. public 2D-only API:
-   `include/apmesh/geometry/curve.hpp`;
-2. production orchestration:
-   `src/geometry/curve.cpp`;
-3. private quadratic Bernstein/enclosure machinery:
-   `src/geometry/detail/curve_inflection_interval.hpp`;
-4. dedicated focused evidence:
-   `tests/curve_inflection_isolation.cpp`;
-5. public-header isolation:
-   `tests/curve_header_isolation.cpp`;
-6. test registration/labels:
-   `CMakeLists.txt`.
-
-Validated semantics:
-
-- global regularity is mandatory;
-- `N(t)=det(B'(t),B''(t))` is handled in exact quadratic Bernstein structure;
-- no sampled signed-curvature proof exists in production;
-- zero/one/two simple-root cases are covered analytically;
-- physical endpoint zeros are not reported;
-- an internal subdivision-boundary zero cannot disappear and currently forces
-  `indeterminate` unless independently discharged;
-- double/multiple and ill-conditioned fixtures are never guessed;
-- reversal, reflection, rotation, translation and power-of-two scaling preserve
-  the admitted root parameters/count;
-- 3D, public interval/polynomial solvers, discretization and downstream mesh
-  capabilities remain absent.
-
-Validation history:
-
-- initial code head: FAST `35678235163`, INTEGRATION `35678235124` PASS;
-- strengthened test head exposed one test-expectation mismatch in
-  `35678348013/35678348005`, not a production-semantic defect;
-- corrected head: FAST `35678430176`, INTEGRATION `35678430258` PASS;
-- final strengthened head: FAST `35678475990`, INTEGRATION
-  `35678475955` PASS in GCC 13 Debug and Clang 18/libc++ Debug.
-
-The work unit remains `VALIDATED_UNMERGED` until PR integration and
-post-merge validation.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this implementation PR is merged, post-merge FAST/INTEGRATION pass, and
-the implementation checkpoint is closed, open one new literature-backed
-scientific decision for the next Curve Differential Geometry investigation.
+After PR #97 is integrated and post-merge FAST/INTEGRATION pass, open exactly
+one new **literature-backed bounded scientific decision**.
 
-No global curvature bound, curvature extrema, feature classification,
-Boundary Curve Discretization, sizing, surfaces, meshing, Quad-Dominant or
-parallel work is pre-authorized.
+The fresh coverage regression requires that this decision first evaluate
+whether continuing Cubic-Bézier-specific differential work would create
+avoidable duplication before the mandatory Curve Representation breadth gate.
+It may retain Curve Differential Geometry as the immediate stage only if the
+decision demonstrates that the chosen capability remains representation-neutral
+or that deferring the curve-family abstraction is scientifically safe.
+
+No production implementation is authorized by this closure.
+
+The decision must:
+
+1. compare the remaining admitted candidates rather than assume a continuation;
+2. define one exact capability only;
+3. state analytic/reference evidence requirements;
+4. retain explicit finite/error/indeterminate semantics;
+5. preserve all qualified prerequisites and integrated curve contracts;
+6. map the exact repository files that may be reused or changed;
+7. keep Boundary Curve Discretization and all downstream meshing work blocked.
+
+No production implementation is authorized until that new decision is
+separately integrated and closed.
 
