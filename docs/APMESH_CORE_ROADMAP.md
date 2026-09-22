@@ -1510,7 +1510,8 @@ candidates before authorizing any production implementation.
 Status: `IN INVESTIGATION / PARAMETRIC CONTRACT INTEGRATED /
 LINE SEGMENT INTEGRATED / RATIONAL QUADRATIC BÉZIER INTEGRATED /
 ORIENTED TRIM INTEGRATED / TWO-SPAN CUBIC B-SPLINE INTEGRATED /
-TWO-SPAN CUBIC NURBS DECISION INTEGRATED / CLOSURE PENDING /
+TWO-SPAN CUBIC NURBS IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING /
 NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
@@ -1875,64 +1876,41 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Positive-Weight
-NURBS — IMPLEMENTATION ACTIVE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED**
+NURBS — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
+IMPLEMENTATION CLOSURE PENDING**
 
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Closed prerequisite lineage:
+Validation lineage:
 
-- decision PR #121:
-  `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-- closure PR #122:
-  `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
-- closure post-merge FAST `35741432913`: PASS;
-- closure post-merge INTEGRATION `35741432864`: PASS;
-- terminal sync PR #123:
-  `01a4f7f9e88b7df0ebddbec7e3c745893b86512b`;
-- sync post-merge FAST `35744071581`: PASS;
-- sync post-merge INTEGRATION `35744071575`: PASS.
+- implementation PR #124:
+  `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
+- candidate head:
+  `a096b00438f8acf08adce58327439e888037818f`;
+- candidate FAST `35745044617`: PASS, 23/23;
+- candidate INTEGRATION `35745044483`: PASS, 23/23 in GCC and Clang;
+- final documentation-synchronized head:
+  `bf077d30041b0897d5e5e9bf825a762b6a0b6d6f`;
+- final PR FAST `35745222050`: PASS;
+- final PR INTEGRATION `35745221931`: PASS;
+- post-merge FAST `35746004007`: PASS;
+- post-merge INTEGRATION `35746003953`: PASS.
 
-Active implementation branch:
-`curve/two-span-cubic-nurbs`.
+Production now includes fixed two-span cubic positive-weight NURBS in 2D/3D.
+The common bounded-parametric contract remains unchanged, and the original
+Cubic-Bézier CGR qualification is not widened.
 
-Candidate implementation scope:
+After this closure is integrated and its own post-merge validation passes, open
+exactly one fresh literature-backed comparison decision among:
 
-- `TwoSpanCubicNURBS2` and `TwoSpanCubicNURBS3`;
-- degree exactly 3;
-- five controls and five finite positive weights;
-- knots `[a,a,a,a,k,b,b,b,b]`, strict finite `a<k<b`;
-- exactly two spans, one simple interior knot, non-periodic;
-- internally weight-normalized homogeneous de Boor value evaluation;
-- analytic homogeneous D1/D2 followed by rational dehomogenization;
-- exact endpoint and constant-curve shortcuts;
-- all-one/equal-weight B-spline parity;
-- rational-quadratic homogeneous degree-elevation/knot-insertion parity;
-- independent rational-basis value/D1/D2 reference;
-- local-support control+weight isolation;
-- common-weight scale invariance;
-- reversal/involution and derivative covariance;
-- translation, 2D/3D embedding, extreme-finite and determinism evidence;
-- one new ordinary semantic contract, targeting 23 tests.
+- general bounded clamped cubic B-spline/NURBS span-count expansion;
+- arbitrary-degree polynomial/rational Bézier;
+- repeated-knot/continuity breadth;
+- analytic conic after arbitrary 3D orientation prerequisites;
+- heterogeneous composition/polycurve.
 
-The common `BoundedParametricCurve2/3` contract is unchanged.
-
-Candidate validation on head
-`a096b00438f8acf08adce58327439e888037818f`:
-
-- FAST `35745044617`: PASS, 23/23 tests;
-- INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 23/23 tests per cell;
-- the new NURBS contract and every prerequisite ordinary semantic contract
-  passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. A passing work unit remains only
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED**.
-
-General/multi-span B-spline/NURBS, arbitrary degree/count, repeated knots,
-periodicity, arbitrary-degree Bézier, analytic conic and heterogeneous
-composition remain later decisions.
+No option is preselected.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.

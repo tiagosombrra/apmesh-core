@@ -287,66 +287,49 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Complete the fixed Two-Span Clamped Cubic Positive-Weight NURBS
-implementation on the single active production branch.**
+**After this implementation closure is integrated and post-merge validated,
+open one fresh literature-backed Curve Representation Breadth decision.**
 
-Terminal decision-closure/sync evidence:
+Integrated fixed NURBS evidence:
 
-- decision PR #121:
-  `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-- decision closure PR #122:
-  `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
-- closure post-merge FAST `35741432913`: PASS;
-- closure post-merge INTEGRATION `35741432864`: PASS;
-- terminal sync PR #123:
-  `01a4f7f9e88b7df0ebddbec7e3c745893b86512b`;
-- sync PR FAST `35743947099`: PASS;
-- sync PR INTEGRATION `35743946835`: PASS;
-- sync post-merge FAST `35744071581`: PASS;
-- sync post-merge INTEGRATION `35744071575`: PASS.
+- implementation PR #124:
+  `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
+- candidate FAST `35745044617`: PASS, 23/23;
+- candidate INTEGRATION `35745044483`: PASS, 23/23 in GCC and Clang;
+- final PR FAST `35745222050`: PASS;
+- final PR INTEGRATION `35745221931`: PASS;
+- post-merge FAST `35746004007`: PASS;
+- post-merge INTEGRATION `35746003953`: PASS.
 
-Active branch:
-`curve/two-span-cubic-nurbs`.
+Closure branch:
+`docs/two-span-cubic-nurbs-implementation-closure`.
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Candidate production mapping:
+Production representation breadth now includes:
 
-- `include/apmesh/geometry/nurbs.hpp`;
-- `src/geometry/nurbs.cpp`;
-- `tests/two_span_cubic_nurbs.cpp`;
-- `CMakeLists.txt`.
+- `CubicBezier2/3`;
+- `LineSegment2/3`;
+- `RationalQuadraticBezier2/3`;
+- static `TrimmedCurve2/3`;
+- `TwoSpanCubicBSpline2/3`;
+- `TwoSpanCubicNURBS2/3`.
 
-The implementation is fixed to degree 3, five controls, five finite positive
-weights and one simple interior knot over exactly two spans. It uses
-homogeneous de Boor evaluation and analytic rational D1/D2 dehomogenization.
-The common bounded-parametric concepts are unchanged.
+The original CGR0–CGR7 qualification remains restricted to polynomial cubic
+Bézier. Later breadth additions are integrated focused extensions and do not
+widen that formal qualification claim.
 
-No general NURBS/B-spline, variable degree/count, repeated knots, periodicity,
-arbitrary-degree Bézier, analytic conic, heterogeneous composition, surface,
-discretization or meshing work is authorized.
-
-Candidate validation:
-
-- head `a096b00438f8acf08adce58327439e888037818f`;
-- FAST `35745044617`: PASS, 23/23 tests;
-- INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 23/23 tests per cell;
-- focused `apmesh_core.two_span_cubic_nurbs`: PASS in all three jobs.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+No additional family or downstream stage is authorized until a new decision
+is integrated and closed.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Two-Span Cubic Positive-Weight NURBS —
-IMPLEMENTATION ACTIVE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED /
-B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS PRESERVED /
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED / B-SPLINE, RATIONAL, TRIM AND LINE INTEGRATIONS PRESERVED /
 CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
@@ -372,7 +355,8 @@ The following are **not implemented and not covered by CGR qualification**:
 - arbitrary-degree polynomial/rational Bézier curves;
 - general/multi-span/arbitrary-degree/repeated-knot/periodic B-spline
   semantics beyond the integrated fixed two-span cubic family;
-- NURBS curves;
+- general/multi-span/arbitrary-degree/repeated-knot/periodic NURBS semantics
+  beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
 - any production surface representation.
 
