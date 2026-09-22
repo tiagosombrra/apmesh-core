@@ -35,6 +35,7 @@ add_library(apmesh_core STATIC
     src/geometry/rational_bezier.cpp
     src/geometry/bspline.cpp
     src/geometry/nurbs.cpp
+    src/geometry/multi_span_nurbs.cpp
     src/math/linear_algebra.cpp
     src/topology/topology.cpp
 )
@@ -235,6 +236,20 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.two_span_cubic_nurbs
     )
 
+    add_executable(apmesh_core.multi_span_cubic_nurbs
+        tests/multi_span_cubic_nurbs.cpp
+    )
+    target_link_libraries(
+        apmesh_core.multi_span_cubic_nurbs
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.multi_span_cubic_nurbs)
+
+    add_test(
+        NAME apmesh_core.multi_span_cubic_nurbs
+        COMMAND apmesh_core.multi_span_cubic_nurbs
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -405,6 +420,7 @@ if(BUILD_TESTING)
         apmesh_core.trimmed_curve
         apmesh_core.two_span_cubic_bspline
         apmesh_core.two_span_cubic_nurbs
+        apmesh_core.multi_span_cubic_nurbs
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
         apmesh_core.curve_signed_curvature
