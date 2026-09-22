@@ -288,52 +288,56 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this implementation closure is integrated and post-merge validated,
-open one fresh literature-backed Curve Representation Breadth decision.**
+**After this terminal documentation synchronization is integrated and
+post-merge validated, open one fresh literature-backed Curve Representation
+Breadth decision.**
 
-Integrated two-span B-spline evidence:
+Terminal two-span B-spline closure evidence:
 
-- implementation PR #118 merged as
+- implementation PR #118:
   `c336460b751fa600c893aa6a96f9d594cdcd9a9e`;
-- initial mechanical test failure:
+- retained initial mechanical focused-test failure:
   FAST `35736203787`, INTEGRATION `35736203805`;
 - correction commit
   `e42484c6c81163b13bd01761603421dcfff34ff1`;
-- corrected candidate FAST `35736410584`: PASS, 22/22;
-- corrected candidate INTEGRATION `35736410585`: PASS, 22/22 in GCC
-  and Clang;
-- final PR-head FAST `35736642982`: PASS;
-- final PR-head INTEGRATION `35736642765`: PASS;
-- post-merge FAST `35736839516`: PASS;
-- post-merge INTEGRATION `35736839526`: PASS.
+- corrected FAST `35736410584`: PASS, 22/22;
+- corrected INTEGRATION `35736410585`: PASS, 22/22 in GCC and Clang;
+- final PR FAST `35736642982`: PASS;
+- final PR INTEGRATION `35736642765`: PASS;
+- implementation post-merge FAST `35736839516`: PASS;
+- implementation post-merge INTEGRATION `35736839526`: PASS;
+- closure PR #119 merged as
+  `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
+- closure PR FAST `35737384883`: PASS;
+- closure PR INTEGRATION `35737384888`: PASS;
+- closure post-merge FAST `35737514686`: PASS;
+- closure post-merge INTEGRATION `35737514493`: PASS.
 
-Closure branch:
-`docs/two-span-cubic-bspline-implementation-closure`.
+Terminal sync branch:
+`docs/two-span-cubic-bspline-closure-sync`.
 
-Decision authority:
-`docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
-
-Production representation breadth now includes:
+Production representation breadth contains:
 
 - `CubicBezier2/3`;
 - `LineSegment2/3`;
 - `RationalQuadraticBezier2/3`;
-- static `TrimmedCurve2/3` semantics over admitted bounded bases;
+- static `TrimmedCurve2/3`;
 - `TwoSpanCubicBSpline2/3`.
 
 The original CGR0–CGR7 qualification remains restricted to polynomial cubic
-Bézier. Later line, rational, trim and fixed two-span B-spline work units are
-integrated focused extensions, not a broadened formal qualification claim.
+Bézier. All later breadth additions remain integrated focused extensions,
+not a broadened formal qualification claim.
 
-No additional family or downstream stage is authorized until a new decision is
-integrated and closed.
+No additional family or downstream stage is authorized until a new decision
+is integrated and closed.
 
 ## Current active stage
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic B-Spline —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
-NOT QUALIFIED / TRIM, RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS
-PRESERVED / CUBIC BASELINE QUALIFICATION PRESERVED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / TERMINAL SYNC ACTIVE /
+TRIM, RATIONAL-QUADRATIC AND LINE-SEGMENT INTEGRATIONS PRESERVED /
+CUBIC BASELINE QUALIFICATION PRESERVED**
 
 Paused prerequisite investigation:
 
