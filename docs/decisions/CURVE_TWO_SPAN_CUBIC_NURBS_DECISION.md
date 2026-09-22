@@ -809,30 +809,66 @@ periodicity, arbitrary-degree Bézier, analytic conics, heterogeneous
 composition, surfaces and downstream meshing remain unauthorized.
 
 
-## 34. Decision closure checkpoint
+## 35. Active implementation mapping
 
-Decision closure PR #122 merged as
-`85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`.
+Terminal decision closure synchronization PR #123 merged as
+`01a4f7f9e88b7df0ebddbec7e3c745893b86512b`.
 
-Closure PR validation:
+Sync validation:
 
-- FAST `35741308649`: PASS;
-- INTEGRATION `35741308596`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug.
+- PR FAST `35743947099`: PASS;
+- PR INTEGRATION `35743946835`: PASS;
+- post-merge FAST `35744071581`: PASS;
+- post-merge INTEGRATION `35744071575`: PASS.
 
-Closure post-merge validation:
+The sole authorized implementation is active on:
 
-- FAST `35741432913`: PASS;
-- INTEGRATION `35741432864`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug.
+`curve/two-span-cubic-nurbs`.
 
-Decision checkpoint result:
+Candidate repository mapping:
 
-**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+- public value family:
+  `include/apmesh/geometry/nurbs.hpp`;
+- production implementation:
+  `src/geometry/nurbs.cpp`;
+- focused semantic/reference contract:
+  `tests/two_span_cubic_nurbs.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
 
-After terminal documentation synchronization, the sole next production work
-item is the fixed family defined by Sections 5–30.
+Candidate production semantics:
 
-The closure does not authorize broader NURBS/B-spline containers, variable
-degree/count, repeated knots, periodicity, arbitrary-degree Bézier, analytic
-conics, heterogeneous composition, surfaces or downstream meshing.
+- validated five-control/five-positive-weight storage;
+- exact fixed knot topology and parameter domain;
+- common positive internal weight scaling before homogeneous control creation;
+- fixed cubic homogeneous de Boor value evaluation;
+- first/second homogeneous derivative control polygons;
+- analytic rational D1/D2 dehomogenization;
+- exact endpoint values;
+- exact constant-curve value and zero derivatives;
+- reflected interior-knot reversal through the common reversal primitive;
+- unchanged bounded-parametric concepts.
+
+The focused contract includes every Section 22 evidence category, including
+the independent rational-basis oracle and the rational-quadratic
+degree-elevation/knot-insertion conic parity fixture.
+
+Expected ordinary FAST/INTEGRATION inventory after registration: **23 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `a096b00438f8acf08adce58327439e888037818f`;
+- FAST `35745044617`: PASS, 23/23 tests;
+- INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 23/23 tests in each cell;
+- `apmesh_core.two_span_cubic_nurbs`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
+
+No broader NURBS/B-spline or downstream capability is implied.

@@ -297,64 +297,118 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `curve/two-span-cubic-nurbs-decision`: **MERGED / HISTORICAL** via
   PR #121; bounded fixed NURBS decision.
 - `docs/two-span-cubic-nurbs-decision-closure`: **MERGED / HISTORICAL**
-  via PR #122; closes the fixed two-span cubic NURBS decision checkpoint.
-- `docs/two-span-cubic-nurbs-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles PR #122 integration and
-  post-merge validation before production implementation.
+  via PR #122; closes the fixed NURBS decision checkpoint.
+- `docs/two-span-cubic-nurbs-closure-sync`: **MERGED / HISTORICAL**
+  via PR #123; terminally reconciles the decision closure before production.
+- `curve/two-span-cubic-nurbs`: **ACTIVE**; fixed five-control/two-span
+  cubic positive-weight NURBS implementation under the closed decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Two-Span Clamped Cubic Positive-Weight NURBS decision is closed;
-terminal documentation synchronization is active.**
+**Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D —
+ACTIVE / IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
 
-Terminal decision-closure evidence:
+Active branch:
+`curve/two-span-cubic-nurbs`.
 
-1. decision PR #121 merged as
-   `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-2. decision PR FAST `35740954735`: PASS;
-3. decision PR INTEGRATION `35740954945`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. decision post-merge FAST `35741064912`: PASS;
-5. decision post-merge INTEGRATION `35741064906`: PASS;
-6. decision closure PR #122 merged as
-   `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
-7. closure PR FAST `35741308649`: PASS;
-8. closure PR INTEGRATION `35741308596`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-9. closure post-merge FAST `35741432913`: PASS;
-10. closure post-merge INTEGRATION `35741432864`: PASS;
-11. no NURBS production family has yet been implemented;
-12. the common bounded-parametric concepts remain unchanged;
-13. all prior integrated curve families remain frozen prerequisites.
+Decision authority:
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-No production work item is active during this documentation-only sync.
+Closed decision checkpoint:
 
-## Next admissible work item after terminal sync
+- decision PR #121 merged as
+  `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
+- decision post-merge FAST `35741064912`: PASS;
+- decision post-merge INTEGRATION `35741064906`: PASS;
+- decision closure PR #122 merged as
+  `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
+- closure post-merge FAST `35741432913`: PASS;
+- closure post-merge INTEGRATION `35741432864`: PASS.
+- terminal sync PR #123 merged as
+  `01a4f7f9e88b7df0ebddbec7e3c745893b86512b`;
+- sync PR FAST `35743947099`: PASS;
+- sync PR INTEGRATION `35743946835`: PASS;
+- sync post-merge FAST `35744071581`: PASS;
+- sync post-merge INTEGRATION `35744071575`: PASS.
 
-After this sync is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
+Authorized repository mapping:
 
-**Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D.**
+1. public family:
+   `include/apmesh/geometry/nurbs.hpp`;
+2. production implementation:
+   `src/geometry/nurbs.cpp`;
+3. focused semantic/header contract:
+   `tests/two_span_cubic_nurbs.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized authorities:
+   STATE, ROADMAP, this WORKLOG and the decision.
 
-Implementation is bounded by
-`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md` and may add only:
+Required scope:
 
-- degree 3;
-- five controls and five finite strictly positive weights;
-- knots `[a,a,a,a,k,b,b,b,b]` with strict finite `a<k<b`;
-- exactly two spans / one simple interior knot;
-- non-periodic value/D1/D2 semantics;
+- degree exactly 3;
+- exactly five finite controls;
+- exactly five finite strictly positive weights;
+- knots `[a,a,a,a,k,b,b,b,b]`, strict finite `a<k<b`;
+- exactly two spans, one simple interior knot, non-periodic;
+- point/D1/D2;
 - homogeneous de Boor or algebraically equivalent rational evaluation;
-- all-one/equal-weight B-spline parity;
-- rational-quadratic homogeneous degree-elevation + knot-insertion parity;
-- independent rational-basis reference;
-- local support, weight-scale, reversal, embedding, determinism and
-  extreme-finite evidence;
-- one focused ordinary semantic contract, targeting 23 tests.
+- equal-weight parity with `TwoSpanCubicBSpline2/3`;
+- rational-quadratic homogeneous degree-elevation/knot-insertion parity;
+- independent rational-basis oracle;
+- local support, common weight-scale, reversal, constant/extreme-finite,
+  affine/embedding and determinism evidence;
+- expected ordinary inventory: 23 tests.
 
-No broader NURBS/B-spline, variable degree/count, repeated knots, periodicity,
-arbitrary-degree Bézier, analytic conic, heterogeneous composition, surface,
-boundary-discretization, sizing, meshing, Quad-Dominant or parallel work is
-authorized.
+Candidate implementation currently mapped on this active branch:
+
+- public declarations:
+  `include/apmesh/geometry/nurbs.hpp`;
+- production implementation:
+  `src/geometry/nurbs.cpp`;
+- focused semantic/reference contract:
+  `tests/two_span_cubic_nurbs.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- current candidate retains original input weights, uses internally normalized
+  homogeneous controls, evaluates value/D1/D2 analytically, and preserves exact
+  endpoint and constant-curve semantics;
+- focused contract includes independent rational-basis evidence, equal-weight
+  B-spline parity, rational-quadratic degree-elevation/knot-insertion parity,
+  local support, weight-scale invariance, reversal, embedding, affine,
+  extreme-finite and determinism evidence.
+
+Candidate validation:
+
+- candidate head:
+  `a096b00438f8acf08adce58327439e888037818f`;
+- FAST `35745044617`: PASS, 23/23 tests;
+- INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 23/23 tests in each cell;
+- `apmesh_core.two_span_cubic_nurbs`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- no production or acceptance semantics changed during this validation.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
+
+Explicit non-actions:
+
+- no general/multi-span NURBS or B-spline;
+- no variable degree/count/container;
+- no repeated knots or periodicity;
+- no arbitrary-degree Bézier;
+- no analytic conic class;
+- no heterogeneous composition;
+- no surface/discretization/sizing/meshing;
+- no Quad-Dominant or parallel work.
+
+## Next admissible transition
+
+Complete only this implementation, pass FAST/INTEGRATION in GCC and Clang,
+integrate through one PR, pass post-merge validation, close the implementation
+checkpoint, and only then open a new literature-backed breadth decision.

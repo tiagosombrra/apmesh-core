@@ -1875,47 +1875,60 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Positive-Weight
-NURBS — DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
-TERMINAL DOCUMENTATION SYNC ACTIVE**
+NURBS — IMPLEMENTATION ACTIVE / PRE-PR AUDIT IN PROGRESS / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Terminal decision validation:
+Closed prerequisite lineage:
 
 - decision PR #121:
   `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
-- decision PR FAST `35740954735`: PASS;
-- decision PR INTEGRATION `35740954945`: PASS;
-- decision post-merge FAST `35741064912`: PASS;
-- decision post-merge INTEGRATION `35741064906`: PASS;
 - closure PR #122:
   `85c2cb4eedf6d02f20f464ae2549db9ac4bc405a`;
-- closure PR FAST `35741308649`: PASS;
-- closure PR INTEGRATION `35741308596`: PASS;
 - closure post-merge FAST `35741432913`: PASS;
-- closure post-merge INTEGRATION `35741432864`: PASS.
+- closure post-merge INTEGRATION `35741432864`: PASS;
+- terminal sync PR #123:
+  `01a4f7f9e88b7df0ebddbec7e3c745893b86512b`;
+- sync post-merge FAST `35744071581`: PASS;
+- sync post-merge INTEGRATION `35744071575`: PASS.
 
-After this terminal sync is integrated and post-merge validated, the sole next
-production work item is:
+Active implementation branch:
+`curve/two-span-cubic-nurbs`.
 
-**Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D.**
+Candidate implementation scope:
 
-Authorized scope remains:
+- `TwoSpanCubicNURBS2` and `TwoSpanCubicNURBS3`;
+- degree exactly 3;
+- five controls and five finite positive weights;
+- knots `[a,a,a,a,k,b,b,b,b]`, strict finite `a<k<b`;
+- exactly two spans, one simple interior knot, non-periodic;
+- internally weight-normalized homogeneous de Boor value evaluation;
+- analytic homogeneous D1/D2 followed by rational dehomogenization;
+- exact endpoint and constant-curve shortcuts;
+- all-one/equal-weight B-spline parity;
+- rational-quadratic homogeneous degree-elevation/knot-insertion parity;
+- independent rational-basis value/D1/D2 reference;
+- local-support control+weight isolation;
+- common-weight scale invariance;
+- reversal/involution and derivative covariance;
+- translation, 2D/3D embedding, extreme-finite and determinism evidence;
+- one new ordinary semantic contract, targeting 23 tests.
 
-- degree 3;
-- five controls / five finite positive weights;
-- knots `[a,a,a,a,k,b,b,b,b]`;
-- strict finite `a<k<b`;
-- exactly two spans;
-- non-periodic;
-- value/D1/D2;
-- homogeneous rational spline evaluation;
-- all-one B-spline parity;
-- rational-quadratic cross-family parity;
-- independent rational-basis reference;
-- local support, weight-scale, reversal, embedding, determinism and
-  extreme-finite evidence.
+The common `BoundedParametricCurve2/3` contract is unchanged.
+
+Candidate validation on head
+`a096b00438f8acf08adce58327439e888037818f`:
+
+- FAST `35745044617`: PASS, 23/23 tests;
+- INTEGRATION `35745044483`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 23/23 tests per cell;
+- the new NURBS contract and every prerequisite ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. A passing work unit remains only
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED**.
 
 General/multi-span B-spline/NURBS, arbitrary degree/count, repeated knots,
 periodicity, arbitrary-degree Bézier, analytic conic and heterogeneous
