@@ -808,3 +808,36 @@ Remaining curve breadth remains retained, not cancelled.
 
 No surface family beyond the bicubic polynomial Bézier patch is authorized by
 this decision.
+
+
+## 35. Decision integration checkpoint
+
+PR #138 integrated this bounded Surface Representation entry decision.
+
+Final decision head:
+
+`0593131d7380147ef87e9fcba5122ffbcbedd546`.
+
+Final decision-head validation:
+
+- FAST `35762844157`: PASS;
+- INTEGRATION `35762844171`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #138 merged as:
+
+`50403e5780b30c69ecea5bc8ae2857bad31b18ea`.
+
+Post-merge validation:
+
+- FAST `35762956742`: PASS;
+- INTEGRATION `35762956709`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the bicubic polynomial Bézier patch implementation bounded by
+Sections 6–32.
+
+No other surface family or downstream capability is authorized.

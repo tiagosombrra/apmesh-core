@@ -289,43 +289,39 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed Surface Representation entry decision; no
-production surface implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the Tensor-Product Bicubic Polynomial Bézier Patch in 3D work unit.**
 
-Entry authority:
+Decision evidence:
 
-- terminal sync PR #137:
-  `c40175174a9487acb7dca09eeb2fa9b3615766ee`;
-- sync PR FAST `35761691320`: PASS;
-- sync PR INTEGRATION `35761691184`: PASS;
-- sync post-merge FAST `35761803424`: PASS;
-- sync post-merge INTEGRATION `35761803482`: PASS.
+- PR #138 head:
+  `0593131d7380147ef87e9fcba5122ffbcbedd546`;
+- PR FAST `35762844157`: PASS;
+- PR INTEGRATION `35762844171`: PASS;
+- merge:
+  `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
+- post-merge FAST `35762956742`: PASS;
+- post-merge INTEGRATION `35762956709`: PASS.
 
-Active branch:
-`surface/representation-entry-decision`.
+Closure branch:
+`docs/surface-representation-entry-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
 
-The decision selects Surface Representation now and freezes the first future
-work unit to a tensor-product bicubic polynomial Bézier patch in 3D.
+The sole authorized next implementation is the bounded bicubic polynomial
+Bézier patch plus the minimal static bounded-surface contract.
 
-The full retained surface envelope explicitly includes rational Bézier,
-B-spline/NURBS, Coons/transfinite, analytic elementary, swept and trimmed
-surfaces; none is implicitly covered by the first patch.
+The complete later surface-family envelope remains explicit but unauthorized.
 
-Remaining curve breadth — C0 knots, arbitrary degree, analytic conics and
-polycurve — remains retained but is not a prerequisite for the first patch.
-
-No production surface, differential-geometry, trimming, topology, boundary
-discretization or meshing code is authorized.
+Remaining curve breadth remains retained and paused.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — ENTRY DECISION
-ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED / CURVE REPRESENTATION PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:

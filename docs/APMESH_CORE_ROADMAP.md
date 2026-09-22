@@ -1714,7 +1714,7 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `ENTRY DECISION ACTIVE / NOT QUALIFIED`
+Status: `ENTRY DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1876,51 +1876,48 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — ENTRY DECISION
-ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED**
 
-Decision-entry authority:
-
-- terminal Curve Representation breadth sync:
-  `c40175174a9487acb7dca09eeb2fa9b3615766ee`;
-- PR #137 FAST `35761691320`: PASS;
-- PR #137 INTEGRATION `35761691184`: PASS;
-- post-merge FAST `35761803424`: PASS;
-- post-merge INTEGRATION `35761803482`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`.
 
-Selected stage transition:
+Decision validation:
 
-**Open Surface Representation now.**
+- PR #138 head:
+  `0593131d7380147ef87e9fcba5122ffbcbedd546`;
+- PR FAST `35762844157`: PASS;
+- PR INTEGRATION `35762844171`: PASS;
+- merge:
+  `50403e5780b30c69ecea5bc8ae2857bad31b18ea`;
+- post-merge FAST `35762956742`: PASS;
+- post-merge INTEGRATION `35762956709`: PASS.
 
-Selected first future implementation:
+Closure branch:
+`docs/surface-representation-entry-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Tensor-Product Bicubic Polynomial Bézier Patch in 3D.**
 
-The entry decision keeps the full surface-family obligation visible:
+Authorized first implementation remains limited to the minimal bounded-surface
+contract, [0,1]² bicubic patch, analytic first/second partials, U/V reversal,
+boundary parity and one independent focused contract targeting 26 ordinary
+tests.
 
-- polynomial tensor-product patches;
-- rational Bézier patches;
-- B-spline/NURBS surfaces;
-- Coons/transfinite patches;
-- analytic plane/cylinder/cone/sphere/torus;
-- ruled/extrusion/revolution surfaces;
-- trimmed surfaces with explicit separation of supporting geometry, trim
-  curves and topology identity.
+The retained future surface envelope remains:
 
-Only the first bicubic polynomial patch is selected for the next work unit.
+- rational Bézier;
+- B-spline/NURBS;
+- Coons/transfinite;
+- analytic elementary surfaces;
+- ruled/extrusion/revolution;
+- trimmed surfaces.
 
-Remaining curve breadth (multiplicity-three/C0, arbitrary degree, analytic
-conics and heterogeneous polycurve) remains retained and may be reopened when
-required by trimming, CAD breadth or Boundary Curve Discretization.
+Remaining curve breadth remains retained, not cancelled.
 
-No implementation may start until the decision PR is integrated, post-merge
-FAST/INTEGRATION pass and a separate decision checkpoint closes.
-
-Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
-paused.
+Curve Differential Geometry remains paused/unqualified.
 
 Boundary Curve Discretization remains blocked.
 
