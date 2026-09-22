@@ -250,6 +250,22 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.multi_span_cubic_nurbs
     )
 
+    add_executable(apmesh_core.cubic_nurbs_double_knot_continuity
+        tests/cubic_nurbs_double_knot_continuity.cpp
+    )
+    target_link_libraries(
+        apmesh_core.cubic_nurbs_double_knot_continuity
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(
+        apmesh_core.cubic_nurbs_double_knot_continuity
+    )
+
+    add_test(
+        NAME apmesh_core.cubic_nurbs_double_knot_continuity
+        COMMAND apmesh_core.cubic_nurbs_double_knot_continuity
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -421,6 +437,7 @@ if(BUILD_TESTING)
         apmesh_core.two_span_cubic_bspline
         apmesh_core.two_span_cubic_nurbs
         apmesh_core.multi_span_cubic_nurbs
+        apmesh_core.cubic_nurbs_double_knot_continuity
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
         apmesh_core.curve_signed_curvature
