@@ -1344,8 +1344,8 @@ work is the separate Curve Differential Geometry entry decision only.
 
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
-Status: `IN INVESTIGATION / POINTWISE CURVATURE IMPLEMENTED /
-FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED`
+Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
+FOCUSED CONTRACTS PASS / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
 discretization without conflating local differential evaluation with global
@@ -1396,9 +1396,15 @@ That first work unit is now implemented on
 semantics and scale-aware evaluation. Focused FAST `35672497018` and
 INTEGRATION `35672497040` pass in the declared GCC/Clang cells.
 
-The work unit is **not yet integrated or stage-qualified**. After merge and
-checkpoint closure, the next Curve Differential Geometry investigation requires
-a separate decision.
+PR #88 integrated the first work unit as
+`b1a279fbe2592cd4fe7f5a688318ac50f0e60d35`. PR FAST
+`35672497018`, PR INTEGRATION `35672497040`, post-merge FAST
+`35673041777`, and post-merge INTEGRATION `35673041859` passed.
+
+Pointwise Curvature Magnitude is therefore **IMPLEMENTED / FOCUSED CONTRACTS
+PASS / INTEGRATED / NOT QUALIFIED**. The next Curve Differential Geometry
+investigation requires a separate literature-backed decision; no later work
+unit is implied by this closure.
 
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
