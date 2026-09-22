@@ -596,9 +596,22 @@ Correction commit
 aliases. No production code, mathematical semantics, expected results,
 decision criteria or acceptance boundary changed.
 
+Corrected candidate validation:
+
+- candidate head:
+  `482ea0acd00b51a7bc772935d344008d2797474c`;
+- FAST `35720421004`: PASS, 19/19 tests;
+- INTEGRATION `35720420984`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 19/19 tests in each cell;
+- `apmesh_core.line_segment`: PASS in all three jobs;
+- every previously selected ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / CORRECTED FOCUSED VALIDATION PENDING /
-NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
+
+The initial failed validation remains retained above as part of the work-unit
+evidence and was not overwritten or reinterpreted.
 
 No other curve family or downstream capability is implied.
