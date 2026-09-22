@@ -1345,7 +1345,8 @@ work is the separate Curve Differential Geometry entry decision only.
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
 Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
-SIGNED PLANAR CURVATURE DECISION VALIDATED_UNMERGED / NOT QUALIFIED`
+SIGNED PLANAR CURVATURE DECISION INTEGRATED /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
 discretization without conflating local differential evaluation with global
@@ -1415,6 +1416,13 @@ laws, exact singularity semantics, scale-aware evaluation and explicit
 magnitude parity. Certified inflection isolation, global curvature bounds,
 extrema/monotonicity and feature classification remain separate later
 investigations.
+
+PR #90 integrated the signed-curvature decision as
+`8da6ad656871c23f26f74f148298283970338583`. PR FAST
+`35674524237`, PR INTEGRATION `35674524211`, post-merge FAST
+`35674581493`, and post-merge INTEGRATION `35674581550` passed. The
+decision checkpoint is closed. The sole next bounded work item is the 2D
+pointwise signed-curvature implementation.
 
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
