@@ -1913,6 +1913,11 @@ Authorized scope:
 - simple-knot regression preservation;
 - target ordinary inventory: 25 tests.
 
+Candidate implementation is mapped to the authorized files and is awaiting
+FAST/INTEGRATION validation. The common bounded-parametric concept signatures
+remain unchanged; only the explicitly authorized common error enumerator is
+added.
+
 Multiplicity three/C0, arbitrary degree, periodicity, one-sided derivatives,
 analytic conics and heterogeneous composition remain later decisions.
 
