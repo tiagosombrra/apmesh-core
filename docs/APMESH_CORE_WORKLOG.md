@@ -346,6 +346,24 @@ Required semantics:
 - extreme-finite numeric evidence;
 - prerequisite preservation.
 
+Validation history:
+
+- initial PR head `25ca05e122ab3961d70702fd6322b68b39f108e9`:
+  FAST `35736203787` and INTEGRATION `35736203805` failed during
+  compilation of `tests/two_span_cubic_bspline.cpp`;
+- GCC 13 and Clang 18 reported the same mechanical test-fixture error:
+  `std::array<Point2,5>{}` attempted to default-construct `Point2`, whose
+  validated value type intentionally has no default constructor;
+- `src/geometry/bspline.cpp` compiled before the focused test failed in the
+  observed jobs;
+- correction commit `e42484c6c81163b13bd01761603421dcfff34ff1`
+  initializes the scaled fixture by copying the existing valid control array
+  before replacing each element;
+- no production code, mathematical semantics, oracle, expected result,
+  decision criterion or acceptance boundary changed.
+
+Corrected validation is pending.
+
 Explicit non-actions:
 
 - no dynamic degree/control/knot containers;
