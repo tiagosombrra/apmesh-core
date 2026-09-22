@@ -294,57 +294,58 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   implementation checkpoint.
 - `docs/two-span-cubic-bspline-closure-sync`: **MERGED / HISTORICAL**
   via PR #120; terminally reconciles the fixed B-spline closure.
-- `curve/two-span-cubic-nurbs-decision`: **ACTIVE**; literature-backed
-  fixed NURBS decision only; no production implementation.
+- `curve/two-span-cubic-nurbs-decision`: **MERGED / HISTORICAL** via
+  PR #121; bounded fixed NURBS decision.
+- `docs/two-span-cubic-nurbs-decision-closure`: **CLOSURE-ONLY**;
+  records PR #121 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Two-Span Clamped Cubic Positive-Weight NURBS — DECISION ACTIVE /
-DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
+**None. Two-Span Clamped Cubic Positive-Weight NURBS decision is integrated
+and ready for closure.**
 
-Active branch:
-`curve/two-span-cubic-nurbs-decision`.
+Decision closure evidence:
 
-Entry evidence:
+1. decision authority:
+   `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
+2. decision PR #121 merged as
+   `bd7a50144535ee0a9b9774b1c4e7d7490aca5a85`;
+3. final PR FAST `35740954735`: PASS;
+4. final PR INTEGRATION `35740954945`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. post-merge FAST `35741064912`: PASS;
+6. post-merge INTEGRATION `35741064906`: PASS;
+7. no NURBS production family has yet been implemented;
+8. the common bounded-parametric concepts remain unchanged;
+9. all prior integrated curve families remain frozen prerequisites.
 
-1. fixed two-span cubic B-spline implementation PR #118:
-   `c336460b751fa600c893aa6a96f9d594cdcd9a9e`;
-2. implementation closure PR #119:
-   `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
-3. closure post-merge FAST `35737514686`: PASS;
-4. closure post-merge INTEGRATION `35737514493`: PASS;
-5. terminal sync PR #120:
-   `6e549d4f4b989108f8faacad326a207ee88238e7`;
-6. terminal sync FAST `35740316433`: PASS;
-7. terminal sync INTEGRATION `35740316620`: PASS;
-8. positive-weight rational quadratic Bézier semantics are integrated;
-9. fixed two-span cubic B-spline knot/local-support semantics are integrated;
-10. no NURBS production family exists.
+No production work item is active in this closure change.
 
-Decision question:
+## Next admissible work item
 
-**Should the next bounded breadth step generalize B-spline span/container
-semantics, add NURBS by composing the two already isolated foundations, or
-prioritize another remaining family?**
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
-The decision compares general B-spline expansion, fixed NURBS,
-arbitrary-degree Bézier, analytic conic/orientation and heterogeneous
-composition.
+**Two-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D.**
 
-It selects only **Two-Span Clamped Cubic Positive-Weight NURBS in 2D/3D**.
+Implementation must remain within
+`docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`:
 
-This branch may change only documentation/research/decision authorities.
-No production NURBS, general B-spline, surface, boundary-discretization,
-sizing, meshing, Quad-Dominant or parallel implementation is authorized.
+- degree 3;
+- exactly five controls and five finite strictly positive weights;
+- knots `[a,a,a,a,k,b,b,b,b]` with strict finite `a<k<b`;
+- exactly two spans and one simple interior knot;
+- non-periodic;
+- point, D1 and D2;
+- homogeneous de Boor or algebraically equivalent rational evaluation;
+- all-one-weight B-spline parity;
+- rational-quadratic homogeneous degree-elevation/knot-insertion parity;
+- independent rational-basis reference;
+- local-support, weight-scale, reversal and extreme-finite evidence;
+- expected ordinary inventory: 23 tests.
 
-## Next admissible transition after this decision
-
-Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
-and its checkpoint is separately closed may one implementation branch be
-opened for the fixed five-control/two-span cubic positive-weight NURBS work
-unit.
-
-General/multi-span NURBS, variable degree/count, repeated knots, periodicity,
-surface NURBS and all other curve families remain separate later decisions.
+No broader NURBS/B-spline, arbitrary-degree Bézier, conic, composition,
+surface, boundary-discretization, sizing, meshing, Quad-Dominant or parallel
+work is authorized.
