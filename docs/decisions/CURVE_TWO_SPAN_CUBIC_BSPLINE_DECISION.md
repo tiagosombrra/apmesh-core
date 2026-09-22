@@ -837,11 +837,22 @@ initialization by copying an already valid control array before replacement.
 No production code, mathematical semantics, reference oracle, expected result
 or acceptance criterion changed.
 
+Corrected candidate validation:
+
+- candidate head:
+  `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`;
+- FAST `35736410584`: PASS, 22/22 tests;
+- INTEGRATION `35736410585`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 22/22 tests in each cell;
+- `apmesh_core.two_span_cubic_bspline`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / CORRECTED FOCUSED VALIDATION PENDING /
-NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
 
-The initial failed evidence is retained and not overwritten.
+The initial failed validation remains retained above as part of the work-unit
+evidence and was not overwritten or reinterpreted.
 
 No general B-spline, NURBS or downstream capability is implied.
