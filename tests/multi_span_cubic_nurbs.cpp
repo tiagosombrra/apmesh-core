@@ -6,11 +6,13 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <concepts>
 #include <cstddef>
 #include <cstdio>
 #include <limits>
 #include <span>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace {
@@ -745,8 +747,9 @@ int main() {
                  "right-span interior-knot policy differs") &&
              passed;
 
+    const std::array<double, 1> fixed_interior{0.5};
     const auto inserted = insert_simple_knot(
-        fixed_points, fixed_weights, std::array<double, 1>{0.5},
+        fixed_points, fixed_weights, fixed_interior,
         -2.0, 4.0, -0.25);
     if (!inserted) {
         return 1;
