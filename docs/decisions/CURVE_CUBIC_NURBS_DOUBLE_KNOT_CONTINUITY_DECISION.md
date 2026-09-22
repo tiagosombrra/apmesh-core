@@ -792,3 +792,29 @@ Boundary Curve Discretization remains blocked.
 
 Surface Representation remains blocked until this continuity work unit closes
 and a separate surface-readiness/entry decision explicitly opens it.
+
+
+## 35. Decision integration checkpoint
+
+PR #133 integrated this bounded decision as
+`ea65372bb6a9ed9a6bde94a3e3eed551e96fd3b9`.
+
+Final decision-head validation:
+
+- FAST `35754225028`: PASS;
+- INTEGRATION `35754225224`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35754389148`: PASS;
+- INTEGRATION `35754389151`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and post-merge validation, the sole next work item is
+the implementation bounded by Sections 5–32.
+
+No multiplicity-three, arbitrary-degree, periodic, conic, composite, surface
+or downstream capability is authorized.
