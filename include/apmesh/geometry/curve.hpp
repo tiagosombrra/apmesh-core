@@ -1,19 +1,12 @@
 #pragma once
 
-#include "apmesh/core/geometry.hpp"
+#include "apmesh/geometry/parametric_curve.hpp"
 
 #include <array>
 #include <cstddef>
 #include <expected>
 
 namespace apmesh::core {
-
-enum class CurveError {
-    non_finite_parameter,
-    parameter_out_of_domain,
-    non_finite_result,
-    singular_parameter,
-};
 
 enum class CurveRegularityError {
     invalid_policy,
@@ -157,6 +150,7 @@ public:
         : control_points_{p0, p1, p2, p3} {}
 
     [[nodiscard]] const std::array<Point2, 4>& control_points() const noexcept;
+    [[nodiscard]] CurveParameterDomain parameter_domain() const noexcept;
     [[nodiscard]] std::expected<Point2, CurveError> evaluate(double parameter) const noexcept;
     [[nodiscard]] std::expected<Vector2, CurveError> first_derivative(double parameter) const noexcept;
     [[nodiscard]] std::expected<Vector2, CurveError> second_derivative(double parameter) const noexcept;
@@ -202,6 +196,7 @@ public:
         : control_points_{p0, p1, p2, p3} {}
 
     [[nodiscard]] const std::array<Point3, 4>& control_points() const noexcept;
+    [[nodiscard]] CurveParameterDomain parameter_domain() const noexcept;
     [[nodiscard]] std::expected<Point3, CurveError> evaluate(double parameter) const noexcept;
     [[nodiscard]] std::expected<Vector3, CurveError> first_derivative(double parameter) const noexcept;
     [[nodiscard]] std::expected<Vector3, CurveError> second_derivative(double parameter) const noexcept;
