@@ -377,6 +377,30 @@ Required scope:
   evidence;
 - expected ordinary inventory: 24 tests.
 
+Candidate implementation mapping:
+
+- public extension:
+  `include/apmesh/geometry/nurbs.hpp`;
+- production:
+  `src/geometry/multi_span_nurbs.cpp`;
+- focused contract:
+  `tests/multi_span_cubic_nurbs.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- fixed `src/geometry/nurbs.cpp` remains byte-untouched by this branch;
+- `parametric_curve.hpp` remains unchanged;
+- production uses exact `upper_bound`-equivalent right-span location,
+  four-control local homogeneous de Boor evaluation, local common weight
+  scaling and analytic local D1/D2;
+- focused evidence covers the complete decision matrix, including 2/3D fixed
+  parity, independent multi-span rational basis, test-only knot insertion,
+  two-sided local support, right-span knot policy, weight scale, reversal,
+  affine/embedding, extreme-finite and deterministic behavior.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no arbitrary degree;
