@@ -1509,8 +1509,8 @@ candidates before authorizing any production implementation.
 
 Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
 BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
-BOUNDED LINE SEGMENT DECISION CLOSED / IMPLEMENTATION ACTIVE /
-FOCUSED VALIDATION PENDING / CUBIC BASELINE QUALIFICATION PRESERVED`
+BOUNDED LINE SEGMENT IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
 frozen polynomial cubic Bézier scope implemented by `CubicBezier2` and
@@ -1595,11 +1595,24 @@ Closure PR #104 merged as
 `326ffdf724912e8841a74c3c0b69756ca23e14c2`. Closure post-merge FAST
 `35719744251` and INTEGRATION `35719744291` passed.
 
-The bounded line-segment implementation is now active on
-`curve/bounded-line-segment`. Its repository mapping is limited to the
-declared public segment header, production source, one focused semantic test,
-CMake registration, and synchronized documentation. No common parametric
-contract change or other family is included.
+The bounded line-segment implementation was integrated by PR #105 as
+`87ced22d033e5478c134aa66c2eef4b6017a4596`.
+
+Validation history is retained:
+
+- initial candidate FAST `35720284585` and INTEGRATION `35720284182`
+  failed mechanically in the focused test because `Vector2`/`Vector3`
+  aliases were missing;
+- corrected candidate FAST `35720421004` and INTEGRATION `35720420984`
+  passed 19/19 in every required cell;
+- final documentation-synchronized PR-head FAST `35721616589` and
+  INTEGRATION `35721616596` passed 19/19;
+- post-merge FAST `35721779942` and INTEGRATION `35721779739` passed
+  19/19 in every required cell.
+
+Production now contains `LineSegment2` and `LineSegment3`. The common
+parametric contract was not changed. The family work unit is integrated but
+not scientifically qualified as a broadened representation stage.
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
 
@@ -1775,64 +1788,44 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Bounded Directed Line Segment
-Representation in 2D and 3D — IMPLEMENTATION ACTIVE / FOCUSED VALIDATION
-PENDING / NOT QUALIFIED**
+Representation in 2D and 3D — IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / NOT QUALIFIED**
 
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_BOUNDED_LINE_SEGMENT_DECISION.md`.
 
-Closed prerequisite evidence:
+Integrated evidence:
 
-- decision PR #103:
-  `2b42c78a2dbf0ede225144339dbf100900bef672`;
-- decision post-merge FAST `35719435059`: PASS;
-- decision post-merge INTEGRATION `35719434961`: PASS;
-- closure PR #104:
-  `326ffdf724912e8841a74c3c0b69756ca23e14c2`;
-- closure post-merge FAST `35719744251`: PASS;
-- closure post-merge INTEGRATION `35719744291`: PASS.
+- PR #105:
+  `87ced22d033e5478c134aa66c2eef4b6017a4596`;
+- retained initial mechanical FAST/INTEGRATION failure:
+  `35720284585` / `35720284182`;
+- corrected candidate:
+  FAST `35720421004`, INTEGRATION `35720420984`, 19/19;
+- final PR head:
+  FAST `35721616589`, INTEGRATION `35721616596`, 19/19;
+- post-merge:
+  FAST `35721779942`, INTEGRATION `35721779739`, 19/19.
 
-Active implementation branch:
-`curve/bounded-line-segment`.
+Production breadth now includes:
 
-Implemented candidate scope:
+- polynomial cubic Bézier (`CubicBezier2/3`), with its original CGR0–CGR7
+  qualification retained exactly;
+- bounded directed line segments (`LineSegment2/3`), integrated under focused
+  contracts but not covered by CGR qualification.
 
-- `LineSegment2` and `LineSegment3` directed value types;
-- exact `[0,1]` bounded parameter domain;
-- `BoundedParametricCurve2/3` concept satisfaction without changing the
-  common concept;
-- component-wise `std::lerp` evaluation with explicit finite-result failure;
-- constant first derivative;
-- exact zero second derivative after parameter validation;
-- endpoint-swap reversal, involution and covariance;
-- representable degenerate segments;
-- extreme finite-coordinate and unrepresentable-derivative evidence;
-- translation, 2D/3D embedding and deterministic evidence;
-- one additional focused semantic test, targeting a 19-test ordinary
-  FAST/INTEGRATION inventory.
-
-No circle/conic, arbitrary-degree/rational Bézier, B-spline, NURBS,
-composite/trimmed curve, generic regularity/length/curvature refactor, surface,
-boundary discretization, sizing or meshing work is included.
-
-Corrected candidate validation on head
-`482ea0acd00b51a7bc772935d344008d2797474c`:
-
-- FAST `35720421004`: PASS, 19/19 tests;
-- INTEGRATION `35720420984`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 19/19 tests per cell;
-- the new `apmesh_core.line_segment` contract and every prerequisite ordinary
-  semantic contract passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before review/integration. Passing the full work unit
-still yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-NOT QUALIFIED** for this family.
+The next bounded action after this closure is one new literature-backed
+decision for the next concrete family. Bounded circular/conic arc,
+rational/arbitrary-degree Bézier, B-spline, NURBS and composite/trimmed curves
+remain candidates rather than authorization.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during the representation-breadth sequence.
 
-Boundary Curve Discretization and Surface Representation remain blocked.
+Boundary Curve Discretization remains blocked because the declared
+`line/arc/Bezier` regression still lacks an admitted exact arc/conic family.
+Surface Representation remains blocked pending its own entry decision and the
+necessary boundary/trimming prerequisites.
 
 The long-term ordering remains:
 
