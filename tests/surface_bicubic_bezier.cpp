@@ -2,6 +2,7 @@
 
 #include "apmesh/geometry/curve.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <concepts>
@@ -185,9 +186,20 @@ ReferenceJet reference_jet(
     return result;
 }
 
+apmesh::core::BicubicBezierPatch3::ControlNet filled_net(
+    const apmesh::core::Point3& point) {
+    return {{
+        {{point, point, point, point}},
+        {{point, point, point, point}},
+        {{point, point, point, point}},
+        {{point, point, point, point}},
+    }};
+}
+
 apmesh::core::BicubicBezierPatch3::ControlNet make_generic_net() {
     using apmesh::core::Point3;
-    apmesh::core::BicubicBezierPatch3::ControlNet controls{};
+    const auto seed = *Point3::make(0.0, 0.0, 0.0);
+    auto controls = filled_net(seed);
 
     constexpr std::array<std::array<std::array<double, 3>, 4>, 4> data{{
         {{{-3.0, 0.0, 1.0}, {-2.0, 2.0, -1.0}, {-1.0, 4.0, 2.0}, {0.0, 6.0, 0.5}}},
@@ -210,7 +222,8 @@ apmesh::core::BicubicBezierPatch3::ControlNet make_generic_net() {
 
 apmesh::core::BicubicBezierPatch3::ControlNet make_saddle_net() {
     using apmesh::core::Point3;
-    apmesh::core::BicubicBezierPatch3::ControlNet controls{};
+    const auto seed = *Point3::make(0.0, 0.0, 0.0);
+    auto controls = filled_net(seed);
     for (std::size_t i = 0; i < 4U; ++i) {
         const double u = static_cast<double>(i) / 3.0;
         for (std::size_t j = 0; j < 4U; ++j) {
@@ -588,10 +601,7 @@ int main() {
              passed;
 
     const auto constant_point = *Point3::make(2.0, -3.0, 5.0);
-    BicubicBezierPatch3::ControlNet constant_controls{};
-    for (auto& row : constant_controls) {
-        row.fill(constant_point);
-    }
+    auto constant_controls = filled_net(constant_point);
     const BicubicBezierPatch3 constant_patch{constant_controls};
     const auto constant_value = constant_patch.evaluate(0.37, 0.61);
     const auto constant_first =
@@ -611,7 +621,7 @@ int main() {
                  "constant surface semantics differ") &&
              passed;
 
-    BicubicBezierPatch3::ControlNet degenerate_controls{};
+    auto degenerate_controls = filled_net(*Point3::make(0.0, 0.0, 0.0));
     for (std::size_t i = 0; i < 4U; ++i) {
         for (std::size_t j = 0; j < 4U; ++j) {
             degenerate_controls[i][j] = *Point3::make(
@@ -667,7 +677,7 @@ int main() {
              passed;
 
     const double magnitude = std::numeric_limits<double>::max() / 64.0;
-    BicubicBezierPatch3::ControlNet extreme_controls{};
+    auto extreme_controls = filled_net(*Point3::make(0.0, 0.0, 0.0));
     for (std::size_t i = 0; i < 4U; ++i) {
         for (std::size_t j = 0; j < 4U; ++j) {
             extreme_controls[i][j] = *Point3::make(
