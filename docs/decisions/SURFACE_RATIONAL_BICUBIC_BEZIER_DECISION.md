@@ -673,3 +673,37 @@ Sections 5–31.
 
 No NURBS, Coons, analytic, swept, trimmed or downstream surface capability is
 authorized by this checkpoint.
+
+
+## 35. Decision closure checkpoint
+
+Decision closure PR #144 used head:
+
+`423bf857661dc94e17f46a73a25369e08ec92811`.
+
+Closure PR validation:
+
+- FAST `35781257218`: PASS;
+- INTEGRATION `35781257255`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #144 merged as:
+
+`0e2e9620052f2bee3237eb8428065b68facff0fd`.
+
+Closure post-merge validation:
+
+- FAST `35781441396`: PASS;
+- INTEGRATION `35781441405`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / RATIONAL BICUBIC BÉZIER IMPLEMENTATION AUTHORIZED /
+NOT QUALIFIED.**
+
+The sole active production work item is the rational bicubic patch bounded by
+Sections 5–31.
+
+No NURBS, Coons, analytic, swept, trimmed or downstream surface capability is
+authorized.
