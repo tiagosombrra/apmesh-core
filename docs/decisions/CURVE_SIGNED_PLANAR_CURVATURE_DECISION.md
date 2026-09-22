@@ -439,3 +439,25 @@ Scientific status:
 No certified inflection isolation, interval/global curvature bound, extrema,
 feature classification or downstream discretization capability is authorized
 by this result.
+
+## 17. Work-unit closure
+
+PR #92 integrated the bounded implementation as
+`170c8c8a8db8676933e8107a1eb8abb2dedd6204`.
+
+Validation:
+
+- final PR FAST `35675261376`: PASS;
+- final PR INTEGRATION `35675261409`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- post-merge FAST `35675349460`: PASS;
+- post-merge INTEGRATION `35675349468`: PASS.
+
+Final work-unit status:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+This decision now serves as historical authority for the local 2D signed
+curvature contract. The next Curve Differential Geometry investigation requires
+a separate literature-backed decision and must not reinterpret pointwise signed
+curvature as certified global inflection evidence.

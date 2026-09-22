@@ -225,66 +225,36 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Implement Pointwise Signed Curvature on Regular Planar Cubic Bézier Curves —
-VALIDATED_UNMERGED.**
+**None. Pointwise Signed Curvature is integrated and closed.**
 
-Active branch: `curve/signed-planar-curvature`.
+Closure evidence:
 
-Authority:
-`docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`.
+1. decision authority:
+   `docs/decisions/CURVE_SIGNED_PLANAR_CURVATURE_DECISION.md`;
+2. implementation PR #92 merged as
+   `170c8c8a8db8676933e8107a1eb8abb2dedd6204`;
+3. final PR FAST `35675261376`: PASS;
+4. final PR INTEGRATION `35675261409`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. post-merge FAST `35675349460`: PASS;
+6. post-merge INTEGRATION `35675349468`: PASS;
+7. production exposes 2D-only signed pointwise curvature with the accepted
+   orientation, singularity, zero, scale and magnitude-parity semantics;
+8. focused analytic/metamorphic/adversarial evidence is integrated;
+9. all qualified prerequisites remain passing;
+10. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Implemented scope:
-
-1. `CubicBezier2::signed_curvature(t)` only;
-2. `CubicBezier3` remains without a signed-curvature scalar API;
-3. planar magnitude and signed curvature share one normalized, scale-aware
-   internal curvature core;
-4. exact zero determinant returns canonical successful `+0.0`;
-5. exact zero first derivative remains `CurveError::singular_parameter`;
-6. unrepresentable nonzero curvature remains
-   `CurveError::non_finite_result`;
-7. reversal flips sign;
-8. orientation-preserving frame transforms preserve sign;
-9. orientation-reversing frame transforms flip sign while preserving magnitude;
-10. power-of-two uniform scaling preserves sign and applies reciprocal length
-    scaling;
-11. `abs(signed_curvature)==curvature_magnitude` is enforced by the shared
-    production core and focused evidence;
-12. no global sign certification, inflection isolation, extrema or feature
-    classification is introduced.
-
-Focused evidence:
-
-- new `apmesh_core.curve_signed_curvature` contract;
-- analytic signed parabola reference;
-- reflection and reversal;
-- translation and frame orientation;
-- scale covariance;
-- straight-line and regular-inflection canonical positive zero;
-- singular endpoint and constant-curve rejection;
-- tiny nonzero derivative;
-- extreme representable and unrepresentable curvature;
-- invalid/signed-zero parameters;
-- repeatability;
-- 2D-only public API isolation.
-
-Validation:
-
-- PR FAST `35675167119`: PASS;
-- PR INTEGRATION `35675167196`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug.
-
-Scientific status:
-
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this implementation is merged, post-merge FAST/INTEGRATION pass, and the
-work-unit checkpoint is closed, open one separate literature-backed decision
-for the next Curve Differential Geometry investigation.
+Open one separate literature-backed scientific decision for the next
+**Curve Differential Geometry** investigation.
+
+The decision must choose exactly one bounded problem and define its global/local
+claim, failure semantics, evidence and exclusions before implementation.
 
 No certified inflection isolation, global curvature bound, extrema,
-classification, discretization, sizing, surface, meshing, Quad-Dominant or
-parallel capability is authorized automatically.
+classification, discretization, sizing, surfaces, meshing, Quad-Dominant or
+parallel implementation is authorized by this closure alone.
 
