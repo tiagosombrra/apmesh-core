@@ -289,71 +289,64 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #117; closes the bounded first B-spline decision checkpoint.
 - `curve/two-span-cubic-bspline`: **MERGED / HISTORICAL** via PR #118;
   fixed two-span cubic polynomial B-spline implementation.
-- `docs/two-span-cubic-bspline-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #118 integration, retained initial mechanical validation failure,
-  corrected validation and post-merge closure evidence.
+- `docs/two-span-cubic-bspline-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #119; closes the fixed two-span cubic B-spline
+  implementation checkpoint.
+- `docs/two-span-cubic-bspline-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles PR #119 integration and its
+  post-merge validation before the next scientific decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Two-Span Clamped Cubic Polynomial B-Spline implementation is
-integrated and ready for closure.**
+**None. Two-Span Clamped Cubic Polynomial B-Spline implementation is closed;
+terminal documentation synchronization is active.**
 
-Implementation closure evidence:
+Terminal closure evidence:
 
-1. decision authority:
-   `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
-2. implementation PR #118 merged as
+1. implementation PR #118 merged as
    `c336460b751fa600c893aa6a96f9d594cdcd9a9e`;
-3. initial PR head
-   `25ca05e122ab3961d70702fd6322b68b39f108e9`:
-   FAST `35736203787` and INTEGRATION `35736203805` failed mechanically
-   during focused-test compilation;
-4. correction commit
-   `e42484c6c81163b13bd01761603421dcfff34ff1` changed only the focused
-   fixture initialization;
-5. corrected candidate
-   `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`:
-   FAST `35736410584` PASS, 22/22 tests;
-6. corrected candidate INTEGRATION `35736410585`: PASS in GCC 13 Debug
-   and Clang 18/libc++ Debug, 22/22 tests per cell;
-7. final documentation-synchronized PR head
-   `01556ff836ea9f49e907c45c40f5a824bba3622e`;
-8. final PR FAST `35736642982`: PASS;
-9. final PR INTEGRATION `35736642765`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-10. post-merge FAST `35736839516`: PASS;
-11. post-merge INTEGRATION `35736839526`: PASS in GCC 13 Debug and Clang
-    18/libc++ Debug;
-12. `apmesh_core.two_span_cubic_bspline` and every prior ordinary semantic
-    contract remain passing;
-13. `BoundedParametricCurve2/3` semantics remain unchanged;
-14. the original cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+2. retained initial mechanical focused-test compile failure:
+   FAST `35736203787`, INTEGRATION `35736203805`;
+3. correction commit
+   `e42484c6c81163b13bd01761603421dcfff34ff1`;
+4. corrected candidate FAST `35736410584`: PASS, 22/22;
+5. corrected candidate INTEGRATION `35736410585`: PASS in GCC 13 Debug
+   and Clang 18/libc++ Debug, 22/22 per cell;
+6. final PR-head FAST `35736642982`: PASS;
+7. final PR-head INTEGRATION `35736642765`: PASS;
+8. implementation post-merge FAST `35736839516`: PASS;
+9. implementation post-merge INTEGRATION `35736839526`: PASS;
+10. implementation closure PR #119 merged as
+    `5f9c6b2c324d5c2519114784dd3705277dd9b06e`;
+11. closure PR FAST `35737384883`: PASS;
+12. closure PR INTEGRATION `35737384888`: PASS;
+13. closure post-merge FAST `35737514686`: PASS;
+14. closure post-merge INTEGRATION `35737514493`: PASS;
+15. `BoundedParametricCurve2/3` semantics remain unchanged;
+16. the original cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-The initial failed validation remains retained as evidence and was not
-reinterpreted as a production or mathematical defect.
+No production work item is active.
 
-No production work item is active in this closure change.
+## Next admissible work item after terminal sync
 
-## Next admissible work item after closure
+After this documentation sync is integrated and its own post-merge
+FAST/INTEGRATION pass, open exactly one new **literature-backed Curve
+Representation Breadth decision**.
 
-Open exactly one new **literature-backed Curve Representation Breadth
-decision**.
-
-The fresh comparison must include at minimum:
+The decision must freshly compare at minimum:
 
 - general bounded clamped B-spline expansion beyond the fixed two-span family;
-- NURBS, now that polynomial B-spline and rational-weight semantics exist as
-  separate integrated foundations;
+- NURBS, now that polynomial B-spline and rational-weight semantics exist
+  independently;
 - arbitrary-degree polynomial/rational Bézier;
 - analytic conic after the unresolved arbitrary 3D supporting-plane/orientation
   prerequisite;
 - heterogeneous composition/polycurve.
 
-The decision must account for production now containing the fixed two-span
-cubic B-spline and must not assume a winner.
+No winner is pre-authorized by this closure or sync.
 
 No general B-spline, NURBS, arbitrary-degree Bézier, analytic conic,
 heterogeneous composition, surface, downstream meshing, Quad-Dominant or
-parallel implementation is authorized by this closure.
+parallel implementation is authorized.
