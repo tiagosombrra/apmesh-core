@@ -1346,6 +1346,7 @@ work is the separate Curve Differential Geometry entry decision only.
 
 Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
+SIMPLE-INFLECTION DECISION VALIDATED_UNMERGED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
@@ -1439,6 +1440,26 @@ Pointwise Signed Curvature is therefore **IMPLEMENTED / FOCUSED CONTRACTS
 PASS / INTEGRATED / NOT QUALIFIED**. The next Curve Differential Geometry
 investigation again requires a separate literature-backed decision; no later
 work unit is implied by this closure.
+
+The next bounded decision is now
+`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
+
+It selects **Certified Simple Planar Inflection Isolation on Globally Regular
+Cubic Bézier Curves** as the next investigation. The decision reduces
+`det(B',B'')` for a planar cubic to its exact quadratic Bernstein form,
+requires global regularity certification first, and uses certified Bernstein
+sign variation/subdivision to isolate only simple interior roots. Multiple,
+tangential or unresolved roots remain `indeterminate`; sampled pointwise
+signed curvature is not a proof mechanism.
+
+Repository mapping is explicit in the decision: existing public curve API,
+production source, private interval enclosure machinery, prerequisite contracts,
+future focused test path and documentation authorities are all identified.
+
+No implementation, global curvature bound, extrema, feature classification,
+Boundary Curve Discretization, sizing, surfaces, meshing, Quad-Dominant or
+parallel execution is authorized until this decision is separately integrated
+and closed.
 
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
