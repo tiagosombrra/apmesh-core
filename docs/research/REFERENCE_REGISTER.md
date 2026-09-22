@@ -1185,6 +1185,43 @@ Project relevance:
 - Open CASCADE is design evidence only, not a runtime dependency or numerical
   oracle.
 
+### Open CASCADE Geom_BSplineSurface 8.0.1 — independent U/V spline structure
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bicubic NURBS surface
+breadth decision, reviewed 2026-09-22.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___b_spline_surface.html
+
+Project relevance:
+
+- represents B-spline/NURBS surfaces through a rectangular pole/control net
+  with independent U/V degree, knot, multiplicity and periodicity state;
+- confirms that rational surface weighting and U/V spline structure are
+  separable concerns;
+- supports selecting runtime-variable U/V span counts with degree three,
+  positive weights, simple interior knots and non-periodicity while deferring
+  repeated-knot surface continuity;
+- Open CASCADE remains design/reference evidence only, not a runtime
+  dependency or numerical oracle.
+
+### MIT Hyperbook — tensor-product B-spline surface locality
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bicubic NURBS surface
+decision, reviewed 2026-09-22.
+
+Reference:
+https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node19.html
+
+Project relevance:
+
+- defines a B-spline surface as a tensor product over a rectangular control
+  net with independent U/V knot vectors;
+- identifies isoparametric curves as B-spline curves in the corresponding
+  direction;
+- supports four-boundary parity with integrated cubic NURBS curves and
+  independent tensor-product Cox-de Boor validation.
+
 ### Open CASCADE BSplSLib / STEP — why NURBS follows rational Bézier
 
 Status: `FOUNDATIONAL / SEQUENCING` for the surface breadth decision,

@@ -90,21 +90,19 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   Tensor-Product Bicubic Bézier Patch in 3D, implementation PR #145
   `8ac1abd913bf15ff1dc4d60595f809491902c055`, closure PR #146
   `c7f7b32b180082421cadc74c39d2919f713ec775`, terminal reconciliation
-  PR #147 `6577683e65a35d802a05f812e2763b738094c87f`;
-- implementation post-merge FAST `35783312495` and INTEGRATION
-  `35783312402`: PASS, 27/27;
-- closure post-merge FAST `35783715705` and INTEGRATION
-  `35783715671`: PASS;
-- terminal reconciliation PR FAST `35796641879` and INTEGRATION
-  `35796641967`: PASS;
-- terminal reconciliation post-merge FAST `35796719734` and INTEGRATION
-  `35796719674`: PASS;
+  PR #147 `6577683e65a35d802a05f812e2763b738094c87f`, checkpoint-normalization
+  PR #148 `b1537c0697604ee5bc37ac46f25bb271b9be52a1`;
+- checkpoint-normalization FAST `35797027086` and INTEGRATION
+  `35797027093`: PASS;
+- checkpoint-normalization post-merge FAST `35797161908` and INTEGRATION
+  `35797161957`: PASS;
 - current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — RATIONAL BICUBIC BÉZIER IMPLEMENTED / INTEGRATED / CLOSED /
-  NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**;
-- next admissible action: one fresh literature-backed Surface Representation
-  breadth decision comparing cubic B-spline/NURBS, Coons/transfinite,
-  analytic elementary, swept and trimmed families;
+  Geometry — BICUBIC NURBS BREADTH DECISION ACTIVE / NOT QUALIFIED**;
+- active branch: `surface/bicubic-nurbs-decision`;
+- active decision:
+  `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
+- selected future work unit: clamped bicubic positive-weight NURBS surface with
+  runtime-variable U/V span counts and simple interior knots;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -296,42 +294,39 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Open one fresh literature-backed Surface Representation breadth decision.**
+**Integrate the literature-backed bicubic NURBS surface breadth decision; no
+production NURBS surface implementation is authorized on this branch.**
 
-Terminal rational-bicubic evidence:
+Entry authority:
 
-- implementation PR #145:
-  `8ac1abd913bf15ff1dc4d60595f809491902c055`;
-- implementation post-merge FAST `35783312495`: PASS, 27/27;
-- implementation post-merge INTEGRATION `35783312402`: PASS, 27/27;
-- closure PR #146 head:
-  `2e1e514216db89d5a1ef5507a2f0f8a2473fa76c`;
-- closure PR FAST `35783557983`: PASS;
-- closure PR INTEGRATION `35783557757`: PASS;
-- closure merge:
-  `c7f7b32b180082421cadc74c39d2919f713ec775`;
-- closure post-merge FAST `35783715705`: PASS;
-- closure post-merge INTEGRATION `35783715671`: PASS.
+- normalized terminal surface checkpoint:
+  `b1537c0697604ee5bc37ac46f25bb271b9be52a1`;
+- PR #148 FAST `35797027086`: PASS;
+- PR #148 INTEGRATION `35797027093`: PASS;
+- post-merge FAST `35797161908`: PASS;
+- post-merge INTEGRATION `35797161957`: PASS.
 
-The integrated Surface Representation production set now includes:
+Active branch:
+`surface/bicubic-nurbs-decision`.
 
-- `BicubicBezierPatch3`;
-- `RationalBicubicBezierPatch3`.
+Decision authority:
+`docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
 
-No production work item is active.
+The decision selects a bicubic positive-weight NURBS surface with independent
+runtime U/V span counts and simple interior knots only.
 
-The next breadth decision must recompare cubic B-spline/NURBS,
-Coons/transfinite, analytic elementary, swept and trimmed surface families.
-No winner is pre-authorized.
+The existing bounded-surface contract must remain unchanged. Repeated surface
+knots, arbitrary degree, periodicity, Coons/transfinite, analytic elementary,
+swept, trimmed, differential-geometry and meshing capabilities remain
+unauthorized.
 
 ## Current active stage
 
-**Surface Representation — Continuous Patch Geometry — RATIONAL BICUBIC
-BÉZIER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
-POLYNOMIAL BICUBIC PATCH AND CURVE REPRESENTATION PREREQUISITES PRESERVED**
+**Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
+BREADTH DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED / POLYNOMIAL AND RATIONAL BICUBIC PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 

@@ -358,61 +358,38 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-rational-bicubic-bezier-closure-sync`: **MERGED /
   HISTORICAL** via PR #147; terminally reconciles the closed rational bicubic
   checkpoint.
-- `docs/surface-rational-terminal-checkpoint`: **TERMINAL /
-  DOCUMENTATION-ONLY / NO SCIENTIFIC WORK ITEM**; normalizes the compact
-  continuation checkpoint and branch classification before the next breadth
-  decision.
+- `docs/surface-rational-terminal-checkpoint`: **MERGED / HISTORICAL**
+  via PR #148; normalizes the terminal rational-bicubic checkpoint.
+- `surface/bicubic-nurbs-decision`: **ACTIVE / DOCUMENTATION-ONLY**;
+  literature-backed Surface Representation breadth decision; no production
+  NURBS surface code.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D is
-terminally closed.**
+**Bicubic Positive-Weight NURBS Surface Breadth Decision —
+ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Terminal rational-bicubic evidence:
+Active branch:
+`surface/bicubic-nurbs-decision`.
 
-1. initial PR head:
-   `83d1aedd68cbd4457e36021c704604b3a616fd8a`;
-2. initial FAST `35782696019`: FAIL during focused-test compilation;
-3. initial INTEGRATION `35782696016`: FAIL during the same focused-test
-   compilation in GCC and Clang;
-4. diagnosis: mechanical focused-test construction defect only; production
-   rational surface source compiled successfully;
-5. corrected candidate head:
-   `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
-6. corrected FAST `35782907623`: PASS, 27/27;
-7. corrected INTEGRATION `35782907574`: PASS, 27/27 in GCC and Clang;
-8. final PR head:
-   `9677c98882ce32569e537a9b5d91f23cffabec69`;
-9. final PR FAST `35783120161`: PASS, 27/27;
-10. final PR INTEGRATION `35783120208`: PASS, 27/27 in GCC and Clang;
-11. implementation PR #145:
-    `8ac1abd913bf15ff1dc4d60595f809491902c055`;
-12. implementation post-merge FAST `35783312495`: PASS, 27/27;
-13. implementation post-merge INTEGRATION `35783312402`: PASS, 27/27;
-14. closure PR #146 head:
-    `2e1e514216db89d5a1ef5507a2f0f8a2473fa76c`;
-15. closure PR FAST `35783557983`: PASS;
-16. closure PR INTEGRATION `35783557757`: PASS;
-17. closure PR #146 merged as:
-    `c7f7b32b180082421cadc74c39d2919f713ec775`;
-18. closure post-merge FAST `35783715705`: PASS;
-19. closure post-merge INTEGRATION `35783715671`: PASS;
-20. `apmesh_core.surface_rational_bicubic_bezier` remained PASS;
-21. every prior ordinary semantic contract remained PASS;
-22. no production work item is active.
+Decision-entry authority:
 
-Terminal component result:
+- terminal rational-bicubic checkpoint:
+  `b1537c0697604ee5bc37ac46f25bb271b9be52a1`;
+- checkpoint-normalization PR #148 FAST `35797027086`: PASS;
+- checkpoint-normalization PR #148 INTEGRATION `35797027093`: PASS;
+- checkpoint-normalization post-merge FAST `35797161908`: PASS;
+- checkpoint-normalization post-merge INTEGRATION `35797161957`: PASS;
+- ordinary semantic baseline: 27 tests;
+- no open PR and no production work item at decision entry.
 
-**SURFACE REPRESENTATION STAGE OPEN /
-RATIONAL BICUBIC BÉZIER PATCH IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
 
-## Next admissible work item
-
-Open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
+Candidates compared:
 
 1. cubic B-spline/NURBS surface;
 2. Coons/transfinite patch;
@@ -420,7 +397,40 @@ decision comparing:
 4. ruled/extrusion/revolution surfaces;
 5. rectangular/general trimmed-surface semantics.
 
-No candidate is pre-authorized.
+Selected future work unit:
 
-Surface Differential Geometry, Boundary Curve Discretization and every meshing
-stage remain blocked.
+**Clamped Bicubic Positive-Weight NURBS Surface in 3D with Runtime-Variable
+U/V Span Counts and Simple Interior Knots.**
+
+Frozen future scope:
+
+- degree 3 in U and V;
+- one or more spans independently in U/V;
+- runtime rectangular U-major control/weight net;
+- finite strictly positive weights;
+- finite arbitrary clamped U/V domains;
+- simple strictly increasing interior knots only;
+- non-periodic;
+- local 4x4 homogeneous V-then-U de Boor evaluation;
+- analytic Su/Sv/Suu/Suv/Svv;
+- existing common surface contract unchanged;
+- rational bicubic subset parity;
+- four boundary curves matching `MultiSpanCubicNURBS3`;
+- independent rational Cox-de Boor tensor oracle;
+- test-only U/V knot-insertion parity;
+- local-support, reversal, affine, extreme-finite and deterministic evidence;
+- target ordinary inventory: 28 tests.
+
+No repeated surface knots, arbitrary degree, periodicity, Coons, analytic,
+swept, trimmed, differential-geometry or meshing implementation is authorized
+on this decision branch.
+
+## Next admissible transition after this decision
+
+Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision checkpoint closes may one production branch open for the
+selected bicubic NURBS surface.
+
+If implementation requires a new `SurfaceError`, repeated U/V knot
+multiplicity, arbitrary degree, periodicity, trimming/topology or a second
+surface family, stop and require a new decision.

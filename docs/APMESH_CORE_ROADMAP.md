@@ -1875,41 +1875,53 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Continuous Patch Geometry — Positive-Weight
-Rational Tensor-Product Bicubic Bézier Patch in 3D —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Representation — Continuous Patch Geometry — Bicubic
+Positive-Weight NURBS Surface — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Terminal closure evidence:
+Decision-entry authority:
 
-- implementation PR #145:
-  `8ac1abd913bf15ff1dc4d60595f809491902c055`;
-- implementation post-merge FAST `35783312495`: PASS, 27/27;
-- implementation post-merge INTEGRATION `35783312402`: PASS, 27/27;
-- closure PR #146 head:
-  `2e1e514216db89d5a1ef5507a2f0f8a2473fa76c`;
-- closure PR FAST `35783557983`: PASS;
-- closure PR INTEGRATION `35783557757`: PASS;
-- closure merge:
-  `c7f7b32b180082421cadc74c39d2919f713ec775`;
-- closure post-merge FAST `35783715705`: PASS;
-- closure post-merge INTEGRATION `35783715671`: PASS.
+- normalized terminal rational-bicubic checkpoint:
+  `b1537c0697604ee5bc37ac46f25bb271b9be52a1`;
+- PR #148 FAST `35797027086`: PASS;
+- PR #148 INTEGRATION `35797027093`: PASS;
+- post-merge FAST `35797161908`: PASS;
+- post-merge INTEGRATION `35797161957`: PASS.
 
-Integrated Surface Representation families:
+Active decision:
+`docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
 
-- `BicubicBezierPatch3`;
-- `RationalBicubicBezierPatch3`.
+Selected future work unit:
 
-The next action is one fresh literature-backed Surface Representation breadth
-decision comparing:
+**Clamped Bicubic Positive-Weight NURBS Surface in 3D with Runtime-Variable
+U/V Span Counts and Simple Interior Knots.**
 
-- cubic B-spline/NURBS surface;
-- Coons/transfinite patch;
+The bounded decision freezes:
+
+- degree 3 in both directions;
+- arbitrary finite clamped U/V domains;
+- dynamic rectangular U-major control/weight storage;
+- zero or more simple interior knots independently in U/V;
+- finite strictly positive weights;
+- non-periodic semantics;
+- exact deterministic right-span selection;
+- local 4x4 homogeneous V-then-U de Boor evaluation;
+- analytic first/second rational partials;
+- rational-bicubic and polynomial-bicubic subset parity;
+- four edge curves matching integrated `MultiSpanCubicNURBS3`;
+- one focused contract targeting 28 ordinary tests.
+
+Deferred surface breadth remains explicit:
+
+- repeated U/V knot multiplicity and C1/C0 lines;
+- arbitrary degree / periodicity;
+- Coons/transfinite;
 - analytic elementary surfaces;
-- ruled/extrusion/revolution surfaces;
+- ruled/extrusion/revolution;
 - rectangular/general trimming.
 
-No option is preselected.
+No production implementation may start until this decision is integrated,
+post-merge validated and separately closed.
 
 Remaining curve breadth remains retained and paused.
 
