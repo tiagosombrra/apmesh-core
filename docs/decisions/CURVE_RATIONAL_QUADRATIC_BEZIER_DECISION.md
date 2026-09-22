@@ -649,3 +649,10 @@ production work item.
 No analytic circle/conic class, arbitrary-degree Bézier, B-spline, NURBS,
 composition/trimming, surface, discretization, sizing, meshing, Quad-Dominant
 or parallel implementation is authorized by this checkpoint.
+
+
+Decision closure authority: PR #108.
+
+No production implementation is present in this closure change. After PR #108
+is integrated and its post-merge FAST/INTEGRATION pass, the implementation
+scope in Sections 6–23 becomes the sole authorized work item.
