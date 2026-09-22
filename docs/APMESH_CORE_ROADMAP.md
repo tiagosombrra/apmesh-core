@@ -1876,68 +1876,48 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Cubic NURBS Double-Knot C1
-Continuity — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+Continuity — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-Closed decision lineage:
+Integrated validation:
 
-- decision PR #133:
-  `ea65372bb6a9ed9a6bde94a3e3eed551e96fd3b9`;
-- decision post-merge FAST `35754389148`: PASS;
-- decision post-merge INTEGRATION `35754389151`: PASS;
-- closure PR #134:
-  `8e47a35922f5f0dd246b238294e58980baf91277`;
-- closure post-merge FAST `35754917335`: PASS;
-- closure post-merge INTEGRATION `35754917556`: PASS.
+- candidate head
+  `e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`;
+- candidate FAST `35756479210`: PASS, 25/25;
+- candidate INTEGRATION `35756479108`: PASS, 25/25;
+- final PR head
+  `ba0f5ec0ee038f176cc9abc405e2aa879a2e9b95`;
+- final PR FAST `35756643568`: PASS, 25/25;
+- final PR INTEGRATION `35756643616`: PASS, 25/25;
+- implementation PR #135:
+  `eb62de8b4c7b09c671801e4b54c04e5d62dde0a9`;
+- post-merge FAST `35756910304`: PASS, 25/25;
+- post-merge INTEGRATION `35756910340`: PASS, 25/25.
 
-Active implementation branch:
-`curve/cubic-nurbs-double-knot-continuity`.
+Closure branch:
+`docs/cubic-nurbs-double-knot-implementation-closure`.
 
-Authorized scope:
+After closure integration and post-merge validation, the sole next action is a
+fresh literature-backed comparison among:
 
-- extend `MultiSpanCubicNURBS2/3`;
-- degree 3 remains fixed;
-- explicit unique interior multiplicity 1/2;
-- simple-knot factory remains backward-compatible;
-- positive finite weights;
-- non-periodic;
-- exact `CurveError::insufficient_continuity`;
-- value/D1 at double knots;
-- ordinary D2 failure exactly at a double knot;
-- ordinary D2 preserved elsewhere;
-- focused independent repeated-knot reference;
-- geometry-preserving repeated-knot insertion evidence;
-- reversal/multiplicity reflection;
-- simple-knot regression preservation;
-- target ordinary inventory: 25 tests.
+- Surface Representation entry readiness;
+- multiplicity-three / C0 curve semantics;
+- arbitrary-degree spline/Bézier breadth;
+- analytic conics after arbitrary-placement prerequisites;
+- heterogeneous composition/polycurve.
 
-Candidate validation on head
-`e13a06feb01a11a18f17495f6b9a0f8cd4c6f038`:
-
-- FAST `35756479210`: PASS, 25/25 tests;
-- INTEGRATION `35756479108`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 25/25 tests per cell;
-- the new double-knot C1 contract and every prior ordinary semantic contract
-  passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. The common bounded-parametric concept
-signatures remain unchanged; only the explicitly authorized common error
-enumerator is added.
-
-Multiplicity three/C0, arbitrary degree, periodicity, one-sided derivatives,
-analytic conics and heterogeneous composition remain later decisions.
-
-Surface Representation remains blocked until this implementation is integrated,
-post-merge validated and closed, followed by a separate surface-readiness/entry
-decision.
+No candidate is preselected.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
 
 Boundary Curve Discretization remains blocked.
+
+Surface Representation remains blocked until the fresh decision explicitly
+opens it.
 
 The long-term ordering remains:
 
