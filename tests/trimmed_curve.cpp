@@ -8,6 +8,7 @@
 #include <array>
 #include <cmath>
 #include <cstdio>
+#include <expected>
 #include <limits>
 #include <string_view>
 
