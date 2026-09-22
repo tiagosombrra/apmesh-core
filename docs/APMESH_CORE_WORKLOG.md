@@ -246,52 +246,53 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/parametric-curve-family-abstraction-closure-sync`: **MERGED /
   HISTORICAL** via PR #100; reconciles the terminal post-PR #99 authority
   without changing scientific or production scope.
-- `curve/bounded-parametric-curve-contract`: **ACTIVE**; bounded
-  parameter-domain/static-concept/Cubic-Bézier conformance implementation only.
+- `curve/bounded-parametric-curve-contract`: **MERGED / HISTORICAL** via
+  PR #101; bounded parameter-domain/static-concept/Cubic-Bézier conformance
+  implementation only.
+- `docs/bounded-parametric-curve-contract-closure`: **CLOSURE-ONLY**;
+  records PR #101 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bounded Parametric Curve Contract and Cubic Bézier Conformance —
-ACTIVE / IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
+**None. Bounded Parametric Curve Contract and Cubic Bézier Conformance is
+integrated and closed.**
 
-Active branch:
-`curve/bounded-parametric-curve-contract`.
+Closure evidence:
 
-Entry authority:
-`docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`.
+1. authority:
+   `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+2. implementation PR #101 merged as
+   `0674cd8531c3033a30282ba6bf95078b54d8c331`;
+3. final PR FAST `35713249842`: PASS, 18/18 tests;
+4. final PR INTEGRATION `35713249775`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug, 18/18 tests per cell;
+5. post-merge FAST `35713409188`: PASS;
+6. post-merge INTEGRATION `35713409166`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. the qualified Cubic-Bézier CGR0–CGR7 baseline remains preserved;
+8. no second concrete curve family or surface capability was introduced.
 
-Pre-implementation checkpoint:
-
-- synchronization PR #100 merged as
-  `da18cb619bb853ddf921f36b67f290014eccb1fe`;
-- PR #100 FAST `35712465709`: PASS;
-- PR #100 INTEGRATION `35712465775`: PASS;
-- post-merge FAST `35712548652`: PASS;
-- post-merge INTEGRATION `35712548564`: PASS;
-- no open PR existed when this branch was opened.
-
-Authorized implementation mapping:
-
-1. `include/apmesh/geometry/parametric_curve.hpp`;
-2. `include/apmesh/geometry/curve.hpp`;
-3. `src/geometry/curve.cpp`;
-4. `tests/parametric_curve_contract.cpp`;
-5. `tests/curve_header_isolation.cpp`;
-6. `CMakeLists.txt`;
-7. synchronized STATE/ROADMAP/WORKLOG/decision mapping.
-
-No second concrete curve family, surface, discretization, sizing, meshing,
-Quad-Dominant or parallel implementation is authorized.
+No production work item is active on this closure branch.
 
 ## Next admissible transition
 
-Only after this implementation passes focused FAST/INTEGRATION, is merged, and
-its post-merge validation plus checkpoint synchronization are complete may a
-new scientific decision/work item be opened.
+After this closure is integrated and post-merge FAST/INTEGRATION pass, open
+exactly one new literature-backed decision for the next concrete curve
+representation family.
 
-The next concrete family is not pre-authorized by this implementation. A later
-literature-backed decision must choose among bounded line/segment, bounded
-circle/conic arc, rational/arbitrary-degree Bézier, B-spline, NURBS, or another
-admitted breadth need.
+The decision must compare at minimum:
+
+- bounded line/segment;
+- bounded circle/conic arc;
+- rational/arbitrary-degree Bézier;
+- B-spline;
+- NURBS;
+
+against the immediate needs of Boundary Curve Discretization, exact CAD
+geometry, later trimming/surface boundaries, implementation risk and
+scientific verification cost.
+
+No concrete family is pre-authorized until that decision is integrated and
+closed.
