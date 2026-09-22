@@ -287,107 +287,73 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   PR #116; literature-backed bounded first B-spline decision.
 - `docs/two-span-cubic-bspline-decision-closure`: **MERGED / HISTORICAL**
   via PR #117; closes the bounded first B-spline decision checkpoint.
-- `curve/two-span-cubic-bspline`: **ACTIVE**; fixed two-span cubic
-  polynomial B-spline implementation under the closed decision.
+- `curve/two-span-cubic-bspline`: **MERGED / HISTORICAL** via PR #118;
+  fixed two-span cubic polynomial B-spline implementation.
+- `docs/two-span-cubic-bspline-implementation-closure`: **CLOSURE-ONLY**;
+  records PR #118 integration, retained initial mechanical validation failure,
+  corrected validation and post-merge closure evidence.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D —
-ACTIVE / IMPLEMENTATION IN PROGRESS / NOT QUALIFIED.**
+**None. Two-Span Clamped Cubic Polynomial B-Spline implementation is
+integrated and ready for closure.**
 
-Active branch:
-`curve/two-span-cubic-bspline`.
+Implementation closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
+1. decision authority:
+   `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
+2. implementation PR #118 merged as
+   `c336460b751fa600c893aa6a96f9d594cdcd9a9e`;
+3. initial PR head
+   `25ca05e122ab3961d70702fd6322b68b39f108e9`:
+   FAST `35736203787` and INTEGRATION `35736203805` failed mechanically
+   during focused-test compilation;
+4. correction commit
+   `e42484c6c81163b13bd01761603421dcfff34ff1` changed only the focused
+   fixture initialization;
+5. corrected candidate
+   `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`:
+   FAST `35736410584` PASS, 22/22 tests;
+6. corrected candidate INTEGRATION `35736410585`: PASS in GCC 13 Debug
+   and Clang 18/libc++ Debug, 22/22 tests per cell;
+7. final documentation-synchronized PR head
+   `01556ff836ea9f49e907c45c40f5a824bba3622e`;
+8. final PR FAST `35736642982`: PASS;
+9. final PR INTEGRATION `35736642765`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+10. post-merge FAST `35736839516`: PASS;
+11. post-merge INTEGRATION `35736839526`: PASS in GCC 13 Debug and Clang
+    18/libc++ Debug;
+12. `apmesh_core.two_span_cubic_bspline` and every prior ordinary semantic
+    contract remain passing;
+13. `BoundedParametricCurve2/3` semantics remain unchanged;
+14. the original cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-Closed decision checkpoint:
+The initial failed validation remains retained as evidence and was not
+reinterpreted as a production or mathematical defect.
 
-- decision PR #116 merged as
-  `0978256b53d8eba7f974229da06cd74b21d3ee53`;
-- decision post-merge FAST `35734755167`: PASS;
-- decision post-merge INTEGRATION `35734755301`: PASS;
-- closure PR #117 merged as
-  `5abcc8bd512097e1ae5881e1643f67b89420e1dc`;
-- closure post-merge FAST `35735198199`: PASS;
-- closure post-merge INTEGRATION `35735198173`: PASS.
+No production work item is active in this closure change.
 
-Authorized repository mapping:
+## Next admissible work item after closure
 
-1. public family:
-   `include/apmesh/geometry/bspline.hpp`;
-2. production implementation:
-   `src/geometry/bspline.cpp`;
-3. focused semantic/header contract:
-   `tests/two_span_cubic_bspline.cpp`;
-4. build/test registration:
-   `CMakeLists.txt`;
-5. synchronized STATE / ROADMAP / WORKLOG / decision mapping.
+Open exactly one new **literature-backed Curve Representation Breadth
+decision**.
 
-Required semantics:
+The fresh comparison must include at minimum:
 
-- degree exactly three;
-- exactly five finite control points;
-- knot vector `[a,a,a,a,k,b,b,b,b]`;
-- finite strict `a<k<b`;
-- exactly two nonzero spans;
-- one simple interior knot / C2 representation continuity;
-- non-rational and non-periodic;
-- exact parameter domain `[a,b]`;
-- de Boor production value evaluation;
-- D1/D2 from fixed derivative B-spline relations;
-- exact endpoint values and independent endpoint tangent evidence;
-- local support;
-- reversal with reflected interior knot;
-- Bézier parity through one-knot insertion;
-- independent basis-summation oracle;
-- extreme-finite numeric evidence;
-- prerequisite preservation.
+- general bounded clamped B-spline expansion beyond the fixed two-span family;
+- NURBS, now that polynomial B-spline and rational-weight semantics exist as
+  separate integrated foundations;
+- arbitrary-degree polynomial/rational Bézier;
+- analytic conic after the unresolved arbitrary 3D supporting-plane/orientation
+  prerequisite;
+- heterogeneous composition/polycurve.
 
-Validation history:
+The decision must account for production now containing the fixed two-span
+cubic B-spline and must not assume a winner.
 
-- initial PR head `25ca05e122ab3961d70702fd6322b68b39f108e9`:
-  FAST `35736203787` and INTEGRATION `35736203805` failed during
-  compilation of `tests/two_span_cubic_bspline.cpp`;
-- GCC 13 and Clang 18 reported the same mechanical test-fixture error:
-  `std::array<Point2,5>{}` attempted to default-construct `Point2`, whose
-  validated value type intentionally has no default constructor;
-- `src/geometry/bspline.cpp` compiled before the focused test failed in the
-  observed jobs;
-- correction commit `e42484c6c81163b13bd01761603421dcfff34ff1`
-  initializes the scaled fixture by copying the existing valid control array
-  before replacing each element;
-- no production code, mathematical semantics, oracle, expected result,
-  decision criterion or acceptance boundary changed;
-- corrected candidate head
-  `ee733a1fbd779cfb4256a19d9e39d1adbf5e9cc0`:
-  FAST `35736410584` PASS, 22/22 tests;
-- corrected candidate INTEGRATION `35736410585` PASS in GCC 13 Debug and
-  Clang 18/libc++ Debug, 22/22 tests in each cell;
-- `apmesh_core.two_span_cubic_bspline`: PASS in all three corrected jobs;
-- all prerequisite ordinary semantic contracts remained PASS.
-
-The implementation candidate is therefore **FOCUSED CONTRACTS PASS / READY FOR
-FINAL PR-HEAD REVALIDATION AFTER THIS DOCUMENTATION SYNC / NOT QUALIFIED**.
-
-Explicit non-actions:
-
-- no dynamic degree/control/knot containers;
-- no repeated interior knots;
-- no periodicity;
-- no rational B-spline/NURBS;
-- no arbitrary-degree Bézier;
-- no analytic conic;
-- no heterogeneous composition;
-- no generic regularity/length/curvature expansion;
-- no surface/discretization/sizing/meshing;
-- no Quad-Dominant or parallel work.
-
-## Next admissible transition
-
-Complete only this implementation, pass focused FAST/INTEGRATION in GCC and
-Clang with the expected 22-test ordinary inventory, integrate through one PR,
-pass post-merge validation, synchronize the implementation closure checkpoint,
-and only then open a fresh literature-backed breadth decision.
+No general B-spline, NURBS, arbitrary-degree Bézier, analytic conic,
+heterogeneous composition, surface, downstream meshing, Quad-Dominant or
+parallel implementation is authorized by this closure.
