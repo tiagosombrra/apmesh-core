@@ -77,6 +77,8 @@ int main() {
     using apmesh::core::LineSegment3;
     using apmesh::core::Point2;
     using apmesh::core::Point3;
+    using apmesh::core::Vector2;
+    using apmesh::core::Vector3;
     using apmesh::core::reversed_parameter;
 
     static_assert(BoundedParametricCurve2<LineSegment2>);
