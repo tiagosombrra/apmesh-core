@@ -220,38 +220,63 @@ The presence of historical branches on the remote does not make them active.
 ## Current active work item
 
 **Implement Pointwise Curvature Magnitude on Regular Cubic Bézier Curves —
-ACTIVE.**
+VALIDATED_UNMERGED.**
 
 Active branch: `curve/pointwise-curvature-magnitude`.
 
 Authority:
 `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-Authorized implementation scope:
+Implemented scope:
 
-1. add pointwise nonnegative curvature-magnitude queries for
-   `CubicBezier2` and `CubicBezier3`;
-2. reuse the qualified first- and second-derivative implementations;
-3. accept only finite `t∈[0,1]`;
-4. reject an exact zero first derivative as `singular_parameter`;
-5. return zero successfully for regular zero-curvature/inflection data;
-6. avoid hidden epsilon thresholds;
-7. evaluate curvature with scale-aware arithmetic so avoidable intermediate
-   overflow/underflow does not reject a representable result;
-8. expose explicit failure when the final result is non-finite or underflows a
-   positive mathematical result to zero;
-9. add one focused 2D/3D curvature contract and register it in FAST/INTEGRATION;
-10. preserve qualified Curve Representation and all prior prerequisite tests;
-11. keep signed curvature, Frenet frames, torsion, global extrema/bounds,
-    feature classification, discretization, sizing, surfaces, meshing,
-    Quad-Dominant and parallel execution excluded.
+1. `CubicBezier2::curvature_magnitude(t)`;
+2. `CubicBezier3::curvature_magnitude(t)`;
+3. `CurveError::singular_parameter` for exact zero first derivative;
+4. reuse of qualified first/second derivatives and vector geometry;
+5. scale-aware evaluation using normalized derivatives plus
+   `frexp`/`scalbn` reconstruction of the physical scale factor;
+6. explicit failure when a positive final curvature cannot be represented;
+7. successful exact zero for regular line/inflection cases;
+8. no hidden epsilon or fallback;
+9. focused contract `apmesh_core.curve_curvature` registered in
+   FAST/INTEGRATION.
 
-No later Curve Differential Geometry work unit is active.
+Focused evidence covers:
+
+- 2D and 3D regular lines;
+- degree-elevated parabola;
+- spatial polynomial `(t,t²,t³)`;
+- regular zero-curvature inflection;
+- singular endpoint and constant curve;
+- reversal;
+- translation;
+- orthogonal signed-permutation frames;
+- reciprocal power-of-two scale covariance;
+- 2D/3D planar embedding parity;
+- tiny but nonzero derivative without false singularity;
+- large-scale fixture whose naïve raw intermediates would overflow;
+- explicitly unrepresentable curvature;
+- invalid parameters, signed zero and repeatability.
+
+Validation:
+
+- PR FAST run `35672497018`: PASS;
+- PR INTEGRATION run `35672497040`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+Scientific status is exactly:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+No global feature classification, discretization, sizing, surfaces, meshing,
+Quad-Dominant or parallel execution is introduced.
 
 ## Next admissible work item after closure
 
-After this work unit is integrated, post-merge FAST/INTEGRATION pass, and its
-checkpoint is closed, open one separate scientific decision for the next Curve
-Differential Geometry investigation. No global feature work is authorized
-automatically.
+After this PR is merged, post-merge FAST/INTEGRATION pass, and the work-unit
+checkpoint is closed, open one separate literature-backed scientific decision
+for the next Curve Differential Geometry investigation.
+
+The next decision must not be inferred automatically from this pointwise
+capability.
 
