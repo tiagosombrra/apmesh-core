@@ -1714,7 +1714,7 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `RATIONAL BICUBIC BÉZIER DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED`
+Status: `RATIONAL BICUBIC BÉZIER IMPLEMENTATION ACTIVE / NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1875,49 +1875,48 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Continuous Patch Geometry — Rational Bicubic
-Bézier Surface — DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+**Surface Representation — Continuous Patch Geometry — Positive-Weight
+Rational Tensor-Product Bicubic Bézier Patch in 3D —
+IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
 
-Decision validation:
+Closed decision lineage:
 
-- PR #143 head:
-  `af09c54f6c3f6c963fac140d02ae56d0bf40a886`;
-- PR FAST `35780844901`: PASS;
-- PR INTEGRATION `35780844932`: PASS;
-- merge:
+- decision PR #143:
   `281626d6ec02763be57b15fff15a82b0daa9129d`;
-- post-merge FAST `35780994515`: PASS;
-- post-merge INTEGRATION `35780994410`: PASS.
+- decision post-merge FAST `35780994515`: PASS;
+- decision post-merge INTEGRATION `35780994410`: PASS;
+- closure PR #144:
+  `0e2e9620052f2bee3237eb8428065b68facff0fd`;
+- closure post-merge FAST `35781441396`: PASS;
+- closure post-merge INTEGRATION `35781441405`: PASS.
 
-Closure branch:
-`docs/surface-rational-bicubic-bezier-decision-closure`.
+Active implementation branch:
+`surface/rational-bicubic-bezier`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized scope:
 
-**Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D.**
-
-Authorized future scope remains:
-
-- 4x4 finite Point3 controls;
-- 4x4 finite strictly positive weights;
+- `RationalBicubicBezierPatch3`;
+- exact 4x4 Point3 controls and 4x4 positive weights;
 - exact [0,1]^2 domain;
-- non-periodic;
-- scale-aware homogeneous V-then-U evaluation;
+- deterministic scale-aware homogeneous V-then-U evaluation;
 - analytic Su/Sv/Suu/Suv/Svv;
-- equal-weight parity with `BicubicBezierPatch3`;
-- independent rational Bernstein and rational-edge references;
-- U/V reversal, common-weight scale, affine, extreme-finite and deterministic
-  evidence;
-- one focused semantic contract, targeting 27 tests.
+- exact corners;
+- equal-weight polynomial parity;
+- independent rational Bernstein and edge references;
+- U/V reversal and exact stored-data involution;
+- common weight-scale invariance;
+- affine/extreme-finite/deterministic evidence;
+- target ordinary inventory: 27 tests.
 
-NURBS surface remains the immediate high-priority candidate after this work
-unit. Coons/transfinite, analytic elementary, swept and trimmed surfaces remain
-later decisions.
+No U/V knots/multiplicities, NURBS surface, Coons/transfinite, analytic
+surface, swept/trimmed surface, surface differential geometry or meshing work
+is authorized.
+
+After this implementation closes, the next Surface Representation decision
+must recompare NURBS, Coons/transfinite, analytic, swept and trimmed families.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
