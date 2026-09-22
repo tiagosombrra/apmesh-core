@@ -290,7 +290,8 @@ int main() {
     passed = require(
                  (double_root_result &&
                       double_root_result->result ==
-                          CurveInflectionIsolationResult::indeterminate) ||
+                          CurveInflectionIsolationResult::indeterminate &&
+                      double_root_result->inflection_count == 0) ||
                      (!double_root_result &&
                       double_root_result.error() ==
                           CurveInflectionError::curve_not_regular),
