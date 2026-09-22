@@ -1875,41 +1875,52 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Curve Representation Breadth Gate — NO ACTIVE REPRESENTATION WORK ITEM /
-FIXED TWO-SPAN CUBIC POSITIVE-WEIGHT NURBS TERMINALLY CLOSED /
-NOT QUALIFIED / FRESH BREADTH DECISION REQUIRED**
+**Curve Representation Breadth Gate — Multi-Span Clamped Cubic
+Positive-Weight NURBS — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Terminal fixed-NURBS lineage:
+Decision-entry authority:
 
-- implementation PR #124:
-  `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
-- implementation post-merge FAST `35746004007`: PASS;
-- implementation post-merge INTEGRATION `35746003953`: PASS;
-- closure PR #125:
-  `465dc5b5f1948d4d27ca67d777aa2493f9c8968e`;
-- closure post-merge FAST `35746603445`: PASS;
-- closure post-merge INTEGRATION `35746603448`: PASS;
-- terminal sync PR #126:
-  `eaba130eaa5da79fc827b8f770df4123524fc455`;
-- sync PR FAST `35747044794`: PASS;
-- sync PR INTEGRATION `35747044719`: PASS;
-- sync post-merge FAST `35747249752`: PASS;
-- sync post-merge INTEGRATION `35747249889`: PASS.
+- terminal fixed-NURBS state:
+  `eb48bd648c75efe044dd4bc34c3aa34b4b72cda2`;
+- terminal-state PR #127 FAST `35748224182`: PASS;
+- terminal-state PR #127 INTEGRATION `35748224260`: PASS;
+- terminal-state post-merge FAST `35748370784`: PASS;
+- terminal-state post-merge INTEGRATION `35748370519`: PASS.
 
-The fixed NURBS work unit is:
+Active decision:
+`docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED.**
+Selected future work unit:
 
-The sole next scientific work item is one literature-backed comparison among:
+**Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
+with Simple Interior Knots.**
 
-- general bounded clamped cubic B-spline/NURBS span-count expansion;
-- arbitrary-degree polynomial/rational Bézier;
-- repeated-knot/continuity breadth;
-- analytic conic after arbitrary 3D orientation prerequisites;
-- heterogeneous composition/polycurve.
+The decision deliberately generalizes only runtime span count:
 
-No option is preselected.
+- degree 3 remains fixed;
+- endpoint multiplicity remains 4;
+- every interior knot remains simple;
+- weights remain finite and strictly positive;
+- non-periodicity remains fixed;
+- runtime controls/weights/interior knots use standard owning vectors;
+- public inspection is read-only;
+- exact right-span location is deterministic;
+- local homogeneous value/D1/D2 follows `O(log S)` span location;
+- fixed two-span parity and independent multi-span rational basis evidence are
+  mandatory.
+
+Deferred:
+
+- arbitrary degree;
+- repeated knots / C1-C0 continuity semantics;
+- periodic splines;
+- dedicated analytic conics;
+- heterogeneous composition/polycurve;
+- all surfaces and downstream meshing.
+
+No implementation may start until the decision PR is integrated, post-merge
+FAST/INTEGRATION pass, and the decision checkpoint is separately closed.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
