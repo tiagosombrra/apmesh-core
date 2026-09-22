@@ -1876,51 +1876,45 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Multi-Span Clamped Cubic
-Positive-Weight NURBS — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Positive-Weight NURBS — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
-
-- terminal fixed-NURBS state:
-  `eb48bd648c75efe044dd4bc34c3aa34b4b72cda2`;
-- terminal-state PR #127 FAST `35748224182`: PASS;
-- terminal-state PR #127 INTEGRATION `35748224260`: PASS;
-- terminal-state post-merge FAST `35748370784`: PASS;
-- terminal-state post-merge INTEGRATION `35748370519`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #128:
+  `77a7773cdb431469402f773b52c70d171d805201`;
+- PR FAST `35749650284`: PASS;
+- PR INTEGRATION `35749650175`: PASS;
+- post-merge FAST `35749735576`: PASS;
+- post-merge INTEGRATION `35749735502`: PASS.
+
+Closure branch:
+`docs/multi-span-cubic-nurbs-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Multi-Span Clamped Cubic Positive-Weight NURBS Representation in 2D and 3D
 with Simple Interior Knots.**
 
-The decision deliberately generalizes only runtime span count:
+Authorized future scope remains:
 
-- degree 3 remains fixed;
-- endpoint multiplicity remains 4;
-- every interior knot remains simple;
-- weights remain finite and strictly positive;
-- non-periodicity remains fixed;
-- runtime controls/weights/interior knots use standard owning vectors;
-- public inspection is read-only;
-- exact right-span location is deterministic;
-- local homogeneous value/D1/D2 follows `O(log S)` span location;
-- fixed two-span parity and independent multi-span rational basis evidence are
-  mandatory.
+- degree 3;
+- runtime-variable span/control/weight/simple-knot count;
+- positive finite weights;
+- clamped endpoint multiplicity 4;
+- simple interior knots only;
+- non-periodic bounded domain;
+- standard owning vectors and read-only spans;
+- deterministic right-span selection;
+- local homogeneous value/D1/D2 after span location;
+- one new focused semantic contract, targeting 24 ordinary tests.
 
-Deferred:
-
-- arbitrary degree;
-- repeated knots / C1-C0 continuity semantics;
-- periodic splines;
-- dedicated analytic conics;
-- heterogeneous composition/polycurve;
-- all surfaces and downstream meshing.
-
-No implementation may start until the decision PR is integrated, post-merge
-FAST/INTEGRATION pass, and the decision checkpoint is separately closed.
+Arbitrary degree, repeated knots, periodicity, dedicated analytic conics and
+heterogeneous composition remain later decisions.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
