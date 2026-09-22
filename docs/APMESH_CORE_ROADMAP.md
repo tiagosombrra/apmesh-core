@@ -1876,33 +1876,35 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Positive-Weight
-NURBS — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
-IMPLEMENTATION CLOSURE PENDING**
+NURBS — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / TERMINAL DOCUMENTATION SYNC ACTIVE**
 
 Implementation authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`.
 
-Validation lineage:
+Terminal validation lineage:
 
 - implementation PR #124:
   `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
-- candidate head:
-  `a096b00438f8acf08adce58327439e888037818f`;
 - candidate FAST `35745044617`: PASS, 23/23;
 - candidate INTEGRATION `35745044483`: PASS, 23/23 in GCC and Clang;
-- final documentation-synchronized head:
-  `bf077d30041b0897d5e5e9bf825a762b6a0b6d6f`;
 - final PR FAST `35745222050`: PASS;
 - final PR INTEGRATION `35745221931`: PASS;
-- post-merge FAST `35746004007`: PASS;
-- post-merge INTEGRATION `35746003953`: PASS.
+- implementation post-merge FAST `35746004007`: PASS;
+- implementation post-merge INTEGRATION `35746003953`: PASS;
+- closure PR #125:
+  `465dc5b5f1948d4d27ca67d777aa2493f9c8968e`;
+- closure PR FAST `35746421742`: PASS;
+- closure PR INTEGRATION `35746421809`: PASS;
+- closure post-merge FAST `35746603445`: PASS;
+- closure post-merge INTEGRATION `35746603448`: PASS.
 
-Production now includes fixed two-span cubic positive-weight NURBS in 2D/3D.
-The common bounded-parametric contract remains unchanged, and the original
-Cubic-Bézier CGR qualification is not widened.
+Production includes the fixed two-span cubic positive-weight NURBS family.
+This closes that focused work unit without widening the original Cubic-Bézier
+CGR qualification.
 
-After this closure is integrated and its own post-merge validation passes, open
-exactly one fresh literature-backed comparison decision among:
+After this terminal sync is integrated and post-merge validated, open exactly
+one fresh literature-backed comparison decision among:
 
 - general bounded clamped cubic B-spline/NURBS span-count expansion;
 - arbitrary-degree polynomial/rational Bézier;
