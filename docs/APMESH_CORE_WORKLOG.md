@@ -340,17 +340,21 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   HISTORICAL** via PR #139; closes the Surface Representation entry decision.
 - `surface/bicubic-bezier-patch`: **MERGED / HISTORICAL** via PR #140;
   first bounded production work item in Surface Representation.
-- `docs/surface-bicubic-bezier-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #140 integration and post-merge validation.
+- `docs/surface-bicubic-bezier-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #141; closes the first Surface Representation
+  implementation checkpoint.
+- `docs/surface-bicubic-bezier-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed bicubic patch
+  checkpoint before the next breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Tensor-Product Bicubic Polynomial Bézier Patch in 3D is integrated and
-ready for closure.**
+**None. Tensor-Product Bicubic Polynomial Bézier Patch in 3D is terminally
+closed.**
 
-Implementation closure evidence:
+Terminal implementation evidence:
 
 1. candidate head:
    `f9c94d95540d93eace7bbf1401c35f17a27d145b`;
@@ -360,29 +364,32 @@ Implementation closure evidence:
    `453ff3b7e3a33ab0410db8c86fd8ac5a2531b226`;
 5. final PR INTEGRATION `35765951784`: PASS, 26/26 in GCC and Clang;
 6. final PR FAST `35765951781` attempt 1: CANCELLED mechanically by workflow
-   concurrency after documentation commits; no test failure;
-7. final PR FAST `35765951781` attempt 2: PASS, 26/26 on the same immutable
-   head;
-8. implementation PR #140 merged as
+   concurrency; no test failure;
+7. final PR FAST `35765951781` attempt 2: PASS, 26/26 on the same head;
+8. implementation PR #140:
    `2d6d01e4202367d62db6017939cde0f2b8e83c65`;
-9. post-merge FAST `35766651557`: PASS, 26/26;
-10. post-merge INTEGRATION `35766651497`: PASS, 26/26 in GCC and Clang;
-11. focused `apmesh_core.surface_bicubic_bezier`: PASS in every successful
-    candidate/final/post-merge gate;
-12. all prior ordinary semantic contracts remained PASS;
-13. no rational, spline/NURBS, Coons, analytic, swept, trimmed or meshing
-    surface capability was added.
+9. implementation post-merge FAST `35766651557`: PASS, 26/26;
+10. implementation post-merge INTEGRATION `35766651497`: PASS, 26/26;
+11. implementation closure PR #141 head:
+    `25e2a3cb286a967a14c048944d6a45c0fec3bb30`;
+12. closure PR FAST `35767109267`: PASS;
+13. closure PR INTEGRATION `35767109201`: PASS;
+14. closure PR #141 merged as:
+    `e964465fd7f7ffcf9d2403752cf9f791b8666433`;
+15. closure post-merge FAST `35767269783`: PASS;
+16. closure post-merge INTEGRATION `35767269772`: PASS;
+17. no production work item is active.
 
-Integrated work-unit result before this closure merges:
+Terminal work-unit result:
 
 **SURFACE REPRESENTATION STAGE OPEN /
 BICUBIC BÉZIER PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-## Next admissible work item after closure
+## Next admissible work item
 
-After this closure is integrated and post-merge validated, open exactly one
-fresh literature-backed Surface Representation breadth decision comparing:
+Open exactly one fresh literature-backed Surface Representation breadth
+decision comparing:
 
 1. rational Bézier patch;
 2. B-spline/NURBS surface;
@@ -391,8 +398,8 @@ fresh literature-backed Surface Representation breadth decision comparing:
 5. ruled/extrusion/revolution surfaces;
 6. rectangular/general trimmed-surface semantics.
 
-No candidate is pre-authorized.
+No candidate is pre-authorized. No production surface code may begin before
+that decision is integrated, post-merge validated and closed.
 
-Remaining curve breadth stays retained. Surface Differential Geometry,
-Boundary Curve Discretization and all meshing stages remain blocked until their
-own explicit prerequisites/decisions.
+Remaining curve breadth remains retained. Surface Differential Geometry,
+Boundary Curve Discretization and all meshing stages remain blocked.
