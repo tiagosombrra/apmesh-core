@@ -178,6 +178,17 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.curve_curvature
     )
 
+    add_executable(apmesh_core.curve_signed_curvature
+        tests/curve_signed_curvature.cpp
+    )
+    target_link_libraries(apmesh_core.curve_signed_curvature PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.curve_signed_curvature)
+
+    add_test(
+        NAME apmesh_core.curve_signed_curvature
+        COMMAND apmesh_core.curve_signed_curvature
+    )
+
     add_executable(apmesh_core.curve_arc_length
         tests/curve_arc_length.cpp
     )
@@ -293,6 +304,7 @@ if(BUILD_TESTING)
         apmesh_core.curve_representation
         apmesh_core.curve_differential
         apmesh_core.curve_curvature
+        apmesh_core.curve_signed_curvature
         apmesh_core.curve_regularity
         apmesh_core.curve_arc_length
         apmesh_core.curve_cumulative_arc_length
