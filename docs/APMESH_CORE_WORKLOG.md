@@ -243,56 +243,47 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Certified Simple Planar Inflection Isolation implementation is
-integrated and closed.**
+**Parametric Curve Family Abstraction and Representation Breadth — DECISION
+ACTIVE / DOCUMENTATION ONLY / NO PRODUCTION IMPLEMENTATION.**
 
-Closure evidence:
+Active branch:
+`curve/parametric-curve-family-abstraction-decision`.
 
-1. decision authority:
-   `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
-2. implementation PR #96 merged as
-   `c4905589c2ee8700c58560ef1a99a49a3821af4e`;
-3. final PR FAST `35678624215`: PASS;
-4. final PR INTEGRATION `35678624192`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. post-merge FAST `35678808956`: PASS;
-6. post-merge INTEGRATION `35678808941`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. public API remains 2D-only and fixed-capacity;
-8. global regularity remains a mandatory prerequisite;
-9. simple roots are certified through quadratic Bernstein interval evidence;
-10. internal subdivision-boundary roots cannot be silently dropped;
-11. multiple/tangential/ill-conditioned unresolved cases remain explicit
-    `indeterminate`;
-12. qualified prerequisites and all integrated curve contracts remain passing;
-13. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
+Entry evidence for this work item:
 
-No work item is active.
+1. PR #97 merged as
+   `13ec3ac80a88434d73c09ae25c9d542182109c51`;
+2. post-merge FAST `35707518191`: PASS;
+3. post-merge INTEGRATION `35707518122`: PASS;
+4. the qualified Curve Representation baseline remains polynomial cubic Bézier
+   only;
+5. the live public API exposes only `CubicBezier2` and `CubicBezier3`;
+6. the current `curve.cpp` concentrates family-specific value,
+   differential, regularity, length and curvature entry points on those
+   concrete types;
+7. Boundary Curve Discretization already requires future
+   `line/arc/Bezier` regression, so representation breadth must be made
+   explicit before that stage can qualify.
 
-## Next admissible work item after closure
+Decision question:
 
-After PR #97 is integrated and post-merge FAST/INTEGRATION pass, open exactly
-one new **literature-backed bounded scientific decision**.
+**Should the next work unit continue adding Cubic-Bézier-specific differential
+capabilities, introduce a new concrete curve family directly, or first define a
+minimal bounded parametric-curve semantic contract that the qualified cubic
+Bézier types satisfy unchanged and later families can reuse?**
 
-The fresh coverage regression requires that this decision first evaluate
-whether continuing Cubic-Bézier-specific differential work would create
-avoidable duplication before the mandatory Curve Representation breadth gate.
-It may retain Curve Differential Geometry as the immediate stage only if the
-decision demonstrates that the chosen capability remains representation-neutral
-or that deferring the curve-family abstraction is scientifically safe.
+This branch may change only documentation/research/decision authorities.
+No production C++, new curve type, surface type, discretization, sizing,
+meshing, Quad-Dominant or parallel implementation is authorized.
 
-No production implementation is authorized by this closure.
+## Next admissible work item after this decision
 
-The decision must:
+Only after this decision PR is integrated, post-merge FAST/INTEGRATION pass,
+and its checkpoint is separately closed may one implementation work item be
+opened.
 
-1. compare the remaining admitted candidates rather than assume a continuation;
-2. define one exact capability only;
-3. state analytic/reference evidence requirements;
-4. retain explicit finite/error/indeterminate semantics;
-5. preserve all qualified prerequisites and integrated curve contracts;
-6. map the exact repository files that may be reused or changed;
-7. keep Boundary Curve Discretization and all downstream meshing work blocked.
-
-No production implementation is authorized until that new decision is
-separately integrated and closed.
+If the decision selects the parametric-curve abstraction, that implementation
+must remain bounded to the exact contract admitted by the decision and preserve
+the existing Cubic-Bézier scientific outputs. Concrete line/arc/rational/
+B-spline/NURBS implementations remain separate later decisions/work units.
 
