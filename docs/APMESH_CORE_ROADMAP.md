@@ -1346,7 +1346,8 @@ work is the separate Curve Differential Geometry entry decision only.
 
 Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION DECISION INTEGRATED / IMPLEMENTATION NOT STARTED /
+SIMPLE-INFLECTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
+VALIDATED_UNMERGED /
 FOCUSED CONTRACTS PASS / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
@@ -1472,6 +1473,28 @@ The decision checkpoint is closed. The sole next bounded work item is the
 mapped **Certified Simple Planar Inflection Isolation on Globally Regular Cubic
 Bézier Curves** implementation. No later Curve Differential Geometry or
 downstream capability is implied.
+
+The mapped implementation is now complete on
+`curve/certified-simple-inflection-isolation`:
+
+- public 2D-only isolation policy/result/evidence and
+  `CubicBezier2::isolate_simple_inflections`;
+- private conservative quadratic Bernstein root evidence;
+- explicit internal subdivision-boundary zero protection;
+- analytic zero/one/two-root fixtures;
+- multiple/near-multiple adversarial evidence;
+- reversal/frame/translation/scale covariance;
+- deterministic and extreme-coordinate contracts;
+- header and dependency isolation through the existing curve regression
+  boundary.
+
+Final focused validation passes in FAST `35678475990` and INTEGRATION
+`35678475955` for GCC 13 Debug and Clang 18/libc++ Debug.
+
+The work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+VALIDATED_UNMERGED / NOT QUALIFIED**. After integration and checkpoint
+closure, a separate literature-backed decision is required before any next
+Curve Differential Geometry work.
 
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
