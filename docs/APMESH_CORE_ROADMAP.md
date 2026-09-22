@@ -1853,57 +1853,33 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Oriented Trimmed Parametric Subcurve —
-IMPLEMENTATION ACTIVE / FOCUSED VALIDATION PENDING / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED /
+IMPLEMENTATION CLOSURE PENDING**
 
-Decision authority:
+Implementation authority:
 `docs/decisions/CURVE_TRIMMED_PARAMETRIC_SUBCURVE_DECISION.md`.
 
-Closed prerequisite evidence:
+Integrated evidence:
 
-- decision PR #112:
-  `13b5b0c77c5ff96ecc30326ff10970b3976d6e84`;
-- decision post-merge FAST `35729581995`: PASS;
-- decision post-merge INTEGRATION `35729581937`: PASS;
-- closure PR #113:
-  `74cafc0f7e64abe159303fe7116dcbaac4d8fad7`;
-- closure post-merge FAST `35729923695`: PASS;
-- closure post-merge INTEGRATION `35729923468`: PASS.
+- PR #114:
+  `133a98ea056b12d86049e36abc0370208776106b`;
+- candidate FAST `35730750101`: PASS, 21/21;
+- candidate INTEGRATION `35730749747`: PASS, 21/21 per GCC/Clang cell;
+- final PR-head FAST `35730921629`: PASS;
+- final PR-head INTEGRATION `35730921744`: PASS;
+- post-merge FAST `35731127728`: PASS;
+- post-merge INTEGRATION `35731127685`: PASS.
 
-Active implementation branch:
-`curve/trimmed-parametric-subcurve`.
+After this closure is integrated and its own post-merge validation passes, the
+next work item is one literature-backed breadth comparison decision among:
 
-Implemented candidate scope:
+- bounded non-periodic B-spline;
+- NURBS after B-spline semantics;
+- arbitrary-degree polynomial/rational Bézier;
+- analytic conic plus arbitrary 3D supporting-plane/orientation;
+- heterogeneous composition/polycurve.
 
-- header-only `TrimmedCurve2<Curve>` and `TrimmedCurve3<Curve>`;
-- validated finite distinct source/target basis parameters;
-- basis stored by value;
-- exposed domain `[min(u_s,u_e),max(u_s,u_e)]`;
-- forward parameter identity;
-- reverse parameter mapping through existing `reversed_parameter`;
-- reverse D1 sign and D2 preservation;
-- reversal by trim-endpoint swap only;
-- typed query failure propagation;
-- focused semantic evidence over line segment, cubic Bézier and rational
-  quadratic Bézier in 2D/3D;
-- local extreme-domain probe for overflow-safe reversal mapping;
-- one additional ordinary semantic test, targeting **21 tests**.
-
-No heterogeneous composition/type erasure, periodic trim, analytic conic,
-arbitrary-degree Bézier, B-spline/NURBS, surface, boundary discretization,
-sizing or meshing work is included.
-
-Candidate validation on head
-`fdb44db2478f50724242d9f83260bbca5d68ce0e`:
-
-- FAST `35730750101`: PASS, 21/21 tests;
-- INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 21/21 tests per cell;
-- the new trim contract and every prerequisite ordinary semantic contract
-  passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. Passing still yields only
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED**.
+No option is preselected by this closure.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
