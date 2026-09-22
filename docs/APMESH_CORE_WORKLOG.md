@@ -353,16 +353,20 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `surface/rational-bicubic-bezier`: **MERGED / HISTORICAL** via PR #145;
   bounded positive-weight rational bicubic surface implementation.
 - `docs/surface-rational-bicubic-bezier-implementation-closure`:
-  **CLOSURE-ONLY**; records PR #145 integration and post-merge validation.
+  **MERGED / HISTORICAL** via PR #146; closes the rational bicubic surface
+  implementation checkpoint.
+- `docs/surface-rational-bicubic-bezier-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed rational bicubic
+  checkpoint before the next Surface Representation breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
 **None. Positive-Weight Rational Tensor-Product Bicubic Bézier Patch in 3D is
-integrated and ready for closure.**
+terminally closed.**
 
-Implementation closure evidence:
+Terminal rational-bicubic evidence:
 
 1. initial PR head:
    `83d1aedd68cbd4457e36021c704604b3a616fd8a`;
@@ -379,28 +383,31 @@ Implementation closure evidence:
    `9677c98882ce32569e537a9b5d91f23cffabec69`;
 9. final PR FAST `35783120161`: PASS, 27/27;
 10. final PR INTEGRATION `35783120208`: PASS, 27/27 in GCC and Clang;
-11. PR #145 merged as
+11. implementation PR #145:
     `8ac1abd913bf15ff1dc4d60595f809491902c055`;
-12. post-merge FAST `35783312495`: PASS, 27/27;
-13. post-merge INTEGRATION `35783312402`: PASS, 27/27 in GCC and Clang;
-14. focused `apmesh_core.surface_rational_bicubic_bezier`: PASS throughout
-    corrected/final/post-merge validation;
-15. every prior ordinary semantic contract remained PASS;
-16. `parametric_surface.hpp`, polynomial `surface.cpp` and
-    `BicubicBezierPatch3` remained frozen prerequisites.
+12. implementation post-merge FAST `35783312495`: PASS, 27/27;
+13. implementation post-merge INTEGRATION `35783312402`: PASS, 27/27;
+14. closure PR #146 head:
+    `2e1e514216db89d5a1ef5507a2f0f8a2473fa76c`;
+15. closure PR FAST `35783557983`: PASS;
+16. closure PR INTEGRATION `35783557757`: PASS;
+17. closure PR #146 merged as:
+    `c7f7b32b180082421cadc74c39d2919f713ec775`;
+18. closure post-merge FAST `35783715705`: PASS;
+19. closure post-merge INTEGRATION `35783715671`: PASS;
+20. `apmesh_core.surface_rational_bicubic_bezier` remained PASS;
+21. every prior ordinary semantic contract remained PASS;
+22. no production work item is active.
 
-No production work item is active in this closure change.
+Terminal component result:
 
-Final component result after this closure:
+**SURFACE REPRESENTATION STAGE OPEN /
+RATIONAL BICUBIC BÉZIER PATCH IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-**SURFACE REPRESENTATION STAGE OPEN / RATIONAL BICUBIC BÉZIER PATCH
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED.**
+## Next admissible work item
 
-## Next admissible work item after closure
-
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one fresh literature-backed Surface Representation breadth
+Open exactly one fresh literature-backed Surface Representation breadth
 decision comparing:
 
 1. cubic B-spline/NURBS surface;
@@ -409,7 +416,7 @@ decision comparing:
 4. ruled/extrusion/revolution surfaces;
 5. rectangular/general trimmed-surface semantics.
 
-NURBS surface remains a high-priority candidate but is not pre-authorized.
+No candidate is pre-authorized.
 
-Surface Differential Geometry, Boundary Curve Discretization and all meshing
-stages remain blocked.
+Surface Differential Geometry, Boundary Curve Discretization and every meshing
+stage remain blocked.
