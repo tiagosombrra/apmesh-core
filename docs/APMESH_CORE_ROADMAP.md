@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-21
+Last updated: 2026-09-22
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -1346,8 +1346,7 @@ work is the separate Curve Differential Geometry entry decision only.
 
 Status: `IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
 SIGNED PLANAR CURVATURE INTEGRATED /
-SIMPLE-INFLECTION INTEGRATED / FOCUSED CONTRACTS PASS /
-FOCUSED CONTRACTS PASS / NOT QUALIFIED`
+SIMPLE-INFLECTION INTEGRATED / FOCUSED CONTRACTS PASS / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
 discretization without conflating local differential evaluation with global
@@ -1505,6 +1504,40 @@ work is one new literature-backed decision that compares the remaining
 candidates before authorizing any production implementation.
 
 
+### Curve Representation Breadth Gate — Analytic, Rational, and Spline Families
+
+Status: `NOT STARTED / REQUIRED BEFORE BOUNDARY-DISCRETIZATION QUALIFICATION`
+
+The existing Curve Representation qualification remains valid only for the
+frozen polynomial cubic Bézier scope implemented by `CubicBezier2` and
+`CubicBezier3`. It does not imply support or qualification for other curve
+families.
+
+A separate literature-backed scope-extension decision is mandatory before the
+project claims a general boundary-curve representation envelope. That decision
+must explicitly evaluate, admit or defer each of the following:
+
+- dedicated line/segment semantics;
+- circular and general conic arcs, with exact rather than polynomial
+  approximation semantics where admitted;
+- arbitrary-degree polynomial Bézier curves;
+- rational Bézier curves;
+- B-spline curves;
+- NURBS curves;
+- composite/piecewise and trimmed parameter-interval semantics;
+- a reusable C++23 curve abstraction/concept that prevents differential,
+  length and later discretization algorithms from being duplicated per concrete
+  curve family.
+
+At minimum, every curve family required by the declared doctoral admissible
+input class and by the later `line/arc/Bezier` boundary-discretization
+regression must be implemented and scientifically admitted before that later
+stage can be qualified.
+
+This gate is a scope extension, not a reinterpretation of CGR0–CGR7. The
+qualified cubic-Bézier baseline remains frozen and must be preserved by every
+extension regression.
+
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace
 
 Status: `NOT STARTED`
@@ -1519,11 +1552,37 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 Status: `NOT STARTED`
 
-Goal: certify continuous patch/surface evaluation before differential geometry or meshing.
+Goal: certify continuous patch/surface evaluation before differential geometry
+or meshing.
 
-Investigation problems will cover Bezier/Coons representation, boundary consistency, derivatives, mapping, admissibility, and parameterization behavior.
+The surface-entry decision must not assume that Bézier/Coons alone constitutes
+the final admissible geometry envelope. It must explicitly define production
+coverage and qualification boundaries for:
 
-Mandatory stage regression: rerun analytic surface fixtures, boundary consistency cases, parameterization cases, and every prerequisite regression; regenerate surface/boundary figures before qualification.
+- tensor-product polynomial Bézier patches;
+- Coons/transfinite patches where used by the AP Mesh construction;
+- rational Bézier patches;
+- B-spline and NURBS surfaces;
+- analytic surfaces required by the admissible model class and independent
+  validation set, including at least plane, cylinder, cone, sphere and torus
+  when those entities are admitted;
+- ruled, extrusion and revolution surfaces when required by the chosen input
+  class;
+- trimmed-surface semantics and the separation between continuous supporting
+  surface geometry, trimming curves and explicit topology identity;
+- deterministic parameter-domain/orientation semantics and boundary
+  consistency.
+
+An entry decision may justify deferring a family that is outside the doctoral
+admissible input class, but no family is implicitly covered. In particular,
+the future plane/cylinder/sphere/paraboloid/saddle differential-geometry
+regression must state whether each fixture is a production representation or
+an independent analytic oracle.
+
+Mandatory stage regression: rerun analytic surface fixtures, boundary
+consistency cases, parameterization cases, every admitted concrete surface
+family, and every prerequisite regression; regenerate surface/boundary figures
+before qualification.
 
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
@@ -1653,19 +1712,28 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific stage:
 
 **Curve Differential Geometry — Curvature, Regularity, and Features —
-IN INVESTIGATION / ENTRY DECISION APPROVED**
+IN INVESTIGATION / POINTWISE CURVATURE INTEGRATED /
+SIGNED PLANAR CURVATURE INTEGRATED /
+SIMPLE-INFLECTION INTEGRATED / FOCUSED CONTRACTS PASS / NOT QUALIFIED**
 
-The entry checkpoint is closed by PR #86 and its post-merge validation.
+Certified Simple Planar Inflection Isolation was integrated by PR #96 as
+`c4905589c2ee8700c58560ef1a99a49a3821af4e`; its final PR and post-merge
+FAST/INTEGRATION checks passed.
 
-The sole current bounded work item is:
+No production work item is currently authorized. The next executable action is
+one new literature-backed bounded scientific decision after the implementation
+closure checkpoint is integrated.
 
-**Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
+The fresh repository coverage audit also records a mandatory future
+Curve Representation breadth gate. The current qualified curve scope is
+polynomial cubic Bézier only; exact arc/conic, rational, B-spline, NURBS and
+surface families are not yet implemented or qualified and must not be inferred
+from the existing CGR result.
 
-Implementation must remain serial/deterministic, reuse qualified curve
-derivatives, preserve exact singularity semantics, and satisfy the focused
-analytic/metamorphic evidence defined by the entry decision.
+Boundary Curve Discretization and Surface Representation therefore remain
+blocked until their prerequisite representation decisions are explicit.
 
-Boundary Curve Discretization remains blocked. The long-term ordering remains:
+The long-term ordering remains:
 
 **Global Certification → Quad-Dominant Extension → Parallel Equivalence →
 Tensor/Anisotropic Extension.**
