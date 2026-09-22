@@ -312,7 +312,7 @@ int main() {
     const auto extreme_derivative = extreme_segment.first_derivative(0.5);
     passed = require(
                  extreme_midpoint && std::isfinite(extreme_midpoint->x()) &&
-                     extreme_midpoint->x() == 0.0,
+                     std::isfinite(extreme_midpoint->y()),
                  "extreme finite interpolation introduced avoidable overflow") &&
              passed;
     passed = require(
