@@ -725,8 +725,19 @@ scientifically admitted basis set.
 
 Expected ordinary FAST/INTEGRATION inventory after registration: **21 tests**.
 
-Status before CI:
+Candidate validation:
 
-**IMPLEMENTED CANDIDATE / FOCUSED VALIDATION PENDING / NOT QUALIFIED.**
+- candidate head:
+  `fdb44db2478f50724242d9f83260bbca5d68ce0e`;
+- FAST `35730750101`: PASS, 21/21 tests;
+- INTEGRATION `35730749747`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 21/21 tests per cell;
+- `apmesh_core.trimmed_curve`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC
+REVALIDATION PENDING / NOT QUALIFIED.**
 
 No heterogeneous composition or new mathematical curve family is implied.
