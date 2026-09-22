@@ -1874,43 +1874,53 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Two-Span Clamped Cubic Polynomial
-B-Spline — DECISION INTEGRATED / CHECKPOINT CLOSURE PENDING /
-NO PRODUCTION IMPLEMENTATION**
+B-Spline Representation in 2D and 3D — IMPLEMENTATION ACTIVE /
+FOCUSED VALIDATION PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`.
 
-Decision evidence:
+Closed prerequisite evidence:
 
-- PR #116:
+- decision PR #116:
   `0978256b53d8eba7f974229da06cd74b21d3ee53`;
-- PR FAST `35732529892`: PASS;
-- PR INTEGRATION `35732529957`: PASS;
-- post-merge FAST `35734755167`: PASS;
-- post-merge INTEGRATION `35734755301`: PASS.
+- decision post-merge FAST `35734755167`: PASS;
+- decision post-merge INTEGRATION `35734755301`: PASS;
+- decision closure PR #117:
+  `5abcc8bd512097e1ae5881e1643f67b89420e1dc`;
+- closure post-merge FAST `35735198199`: PASS;
+- closure post-merge INTEGRATION `35735198173`: PASS.
 
-After this closure is integrated and its own post-merge validation passes, the
-sole next implementation work item is:
+Active implementation branch:
+`curve/two-span-cubic-bspline`.
 
-**Two-Span Clamped Cubic Polynomial B-Spline Representation in 2D and 3D.**
+Implemented candidate scope:
 
-The authorized implementation remains fixed to:
+- `TwoSpanCubicBSpline2` and `TwoSpanCubicBSpline3`;
+- degree exactly 3;
+- exactly five controls;
+- knots `[a,a,a,a,k,b,b,b,b]` with strict finite `a<k<b`;
+- exact non-normalized domain `[a,b]`;
+- de Boor point evaluation with deterministic span choice;
+- D1/D2 through fixed derived B-spline control polygons;
+- exact endpoint values and endpoint tangent relations;
+- one simple interior knot / C2 representation invariant;
+- local-support evidence;
+- independent Cox–de Boor basis/derivative oracle;
+- cubic Bézier knot-insertion parity;
+- reversal with reflected interior knot;
+- translation, exact power-of-two scale, 2D/3D embedding and determinism;
+- extreme finite-knot success and explicit unrepresentable-derivative failure;
+- one additional focused semantic test, targeting a 22-test ordinary
+  FAST/INTEGRATION inventory.
 
-- degree 3;
-- five control points;
-- full knot vector `[a,a,a,a,k,b,b,b,b]`;
-- strict finite `a<k<b`;
-- exactly two nonzero spans;
-- one simple interior knot / C2 representation continuity;
-- non-rational and non-periodic semantics;
-- value, D1 and D2;
-- de Boor production evaluation;
-- independent basis/derivative evidence;
-- local support, reversal and Bézier knot-insertion parity.
+No general B-spline container, NURBS, arbitrary degree/count, repeated knots,
+periodicity, analytic conic, heterogeneous composition, generic differential
+expansion, surface or downstream meshing work is included.
 
-No general B-spline container, NURBS, arbitrary degree/count, repeated interior
-knots, periodicity, analytic conic, heterogeneous composition or downstream
-stage is authorized.
+The branch must pass FAST and both INTEGRATION compiler cells before
+integration. Passing yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / NOT QUALIFIED** for this work unit.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
