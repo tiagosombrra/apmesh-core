@@ -816,8 +816,32 @@ parity.
 
 Expected ordinary FAST/INTEGRATION inventory after registration: **22 tests**.
 
-Status before CI:
+Initial PR validation on head
+`25ca05e122ab3961d70702fd6322b68b39f108e9` did not reach semantic test
+execution:
 
-**IMPLEMENTED CANDIDATE / FOCUSED VALIDATION PENDING / NOT QUALIFIED.**
+- FAST `35736203787`: FAIL during focused-test compilation;
+- INTEGRATION `35736203805`: FAIL in both GCC 13 Debug and Clang 18/libc++
+  Debug during the same focused-test compilation.
+
+The failure is mechanical and isolated to
+`tests/two_span_cubic_bspline.cpp`: a temporary
+`std::array<Point2,5>{}` required default construction of `Point2`, which
+the validated geometry value type intentionally does not provide.
+
+The production B-spline source compiled before the focused test failed.
+
+Correction commit
+`e42484c6c81163b13bd01761603421dcfff34ff1` changes only fixture
+initialization by copying an already valid control array before replacement.
+No production code, mathematical semantics, reference oracle, expected result
+or acceptance criterion changed.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / CORRECTED FOCUSED VALIDATION PENDING /
+NOT QUALIFIED.**
+
+The initial failed evidence is retained and not overwritten.
 
 No general B-spline, NURBS or downstream capability is implied.
