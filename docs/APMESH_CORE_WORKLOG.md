@@ -225,68 +225,56 @@ writing.
   only; no production root-isolation implementation.
 - `docs/certified-simple-inflection-decision-closure`: **CLOSURE-ONLY**;
   records PR #94 integration and post-merge validation.
+- `curve/certified-simple-inflection-isolation`: **MERGED / HISTORICAL**
+  via PR #96; bounded 2D certified simple-inflection implementation.
+- `docs/certified-simple-inflection-implementation-closure`:
+  **CLOSURE-ONLY**; records PR #96 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Certified Simple Planar Inflection Isolation implementation —
-VALIDATED_UNMERGED / FOCUSED CONTRACTS PASS / NOT QUALIFIED.**
+**None. Certified Simple Planar Inflection Isolation implementation is
+integrated and closed.**
 
-Active branch: `curve/certified-simple-inflection-isolation`.
+Closure evidence:
 
-Decision authority:
-`docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`.
+1. decision authority:
+   `docs/decisions/CURVE_CERTIFIED_SIMPLE_INFLECTION_ISOLATION_DECISION.md`;
+2. implementation PR #96 merged as
+   `c4905589c2ee8700c58560ef1a99a49a3821af4e`;
+3. final PR FAST `35678624215`: PASS;
+4. final PR INTEGRATION `35678624192`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. post-merge FAST `35678808956`: PASS;
+6. post-merge INTEGRATION `35678808941`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. public API remains 2D-only and fixed-capacity;
+8. global regularity remains a mandatory prerequisite;
+9. simple roots are certified through quadratic Bernstein interval evidence;
+10. internal subdivision-boundary roots cannot be silently dropped;
+11. multiple/tangential/ill-conditioned unresolved cases remain explicit
+    `indeterminate`;
+12. qualified prerequisites and all integrated curve contracts remain passing;
+13. Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Implemented repository mapping:
-
-1. public 2D-only API:
-   `include/apmesh/geometry/curve.hpp`;
-2. production orchestration:
-   `src/geometry/curve.cpp`;
-3. private quadratic Bernstein/enclosure machinery:
-   `src/geometry/detail/curve_inflection_interval.hpp`;
-4. dedicated focused evidence:
-   `tests/curve_inflection_isolation.cpp`;
-5. public-header isolation:
-   `tests/curve_header_isolation.cpp`;
-6. test registration/labels:
-   `CMakeLists.txt`.
-
-Validated semantics:
-
-- global regularity is mandatory;
-- `N(t)=det(B'(t),B''(t))` is handled in exact quadratic Bernstein structure;
-- no sampled signed-curvature proof exists in production;
-- zero/one/two simple-root cases are covered analytically;
-- physical endpoint zeros are not reported;
-- an internal subdivision-boundary zero cannot disappear and currently forces
-  `indeterminate` unless independently discharged;
-- double/multiple and ill-conditioned fixtures are never guessed;
-- reversal, reflection, rotation, translation and power-of-two scaling preserve
-  the admitted root parameters/count;
-- 3D, public interval/polynomial solvers, discretization and downstream mesh
-  capabilities remain absent.
-
-Validation history:
-
-- initial code head: FAST `35678235163`, INTEGRATION `35678235124` PASS;
-- strengthened test head exposed one test-expectation mismatch in
-  `35678348013/35678348005`, not a production-semantic defect;
-- corrected head: FAST `35678430176`, INTEGRATION `35678430258` PASS;
-- final strengthened head: FAST `35678475990`, INTEGRATION
-  `35678475955` PASS in GCC 13 Debug and Clang 18/libc++ Debug.
-
-The work unit remains `VALIDATED_UNMERGED` until PR integration and
-post-merge validation.
+No work item is active.
 
 ## Next admissible work item after closure
 
-After this implementation PR is merged, post-merge FAST/INTEGRATION pass, and
-the implementation checkpoint is closed, open one new literature-backed
-scientific decision for the next Curve Differential Geometry investigation.
+Open one new **literature-backed bounded scientific decision** for the next
+Curve Differential Geometry investigation.
 
-No global curvature bound, curvature extrema, feature classification,
-Boundary Curve Discretization, sizing, surfaces, meshing, Quad-Dominant or
-parallel work is pre-authorized.
+The decision must:
+
+1. compare the remaining admitted candidates rather than assume a continuation;
+2. define one exact capability only;
+3. state analytic/reference evidence requirements;
+4. retain explicit finite/error/indeterminate semantics;
+5. preserve all qualified prerequisites and integrated curve contracts;
+6. map the exact repository files that may be reused or changed;
+7. keep Boundary Curve Discretization and all downstream meshing work blocked.
+
+No production implementation is authorized until that new decision is
+separately integrated and closed.
 
