@@ -1510,8 +1510,9 @@ candidates before authorizing any production implementation.
 Status: `IN INVESTIGATION / PARAMETRIC FAMILY ABSTRACTION DECISION CLOSED /
 BOUNDED PARAMETRIC CONTRACT INTEGRATED / FOCUSED CONTRACTS PASS /
 BOUNDED LINE SEGMENT IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-RATIONAL QUADRATIC BÉZIER DECISION CLOSED / IMPLEMENTATION AUTHORIZED /
-NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
+RATIONAL QUADRATIC BÉZIER DECISION CLOSED / IMPLEMENTATION ACTIVE /
+FOCUSED VALIDATION PENDING / NOT QUALIFIED /
+CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
 frozen polynomial cubic Bézier scope implemented by `CubicBezier2` and
@@ -1631,8 +1632,14 @@ PR #107 integrated that decision as
 `35722805362`, INTEGRATION `35722805446`, post-merge FAST
 `35722894744` and post-merge INTEGRATION `35722894725` all passed.
 
-Closure authority is PR #108. After closure merge and post-merge validation,
-the rational-quadratic implementation is the sole next production work item.
+Closure PR #108 merged as
+`30f32997dec0aa7937c9730eb5ce24e2f80bb964`. Closure post-merge FAST
+`35723209087` and INTEGRATION `35723209143` passed.
+
+The rational-quadratic implementation is active on
+`curve/rational-quadratic-bezier`. The common bounded-parametric concept is
+unchanged and the branch is restricted to the declared rational header/source,
+one focused semantic test, CMake registration and synchronized documentation.
 
 Repository-specific sequencing matters: the qualified Cartesian-frame claim
 does not include arbitrary-angle rotations, so a general analytic 3D circle
@@ -1814,39 +1821,52 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Curve Representation Breadth Gate — Positive-Weight Rational Quadratic
-Bézier Representation in 2D and 3D — DECISION CLOSED / IMPLEMENTATION
-AUTHORIZED / NOT STARTED**
+Bézier Representation in 2D and 3D — IMPLEMENTATION ACTIVE /
+FOCUSED VALIDATION PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/CURVE_RATIONAL_QUADRATIC_BEZIER_DECISION.md`.
 
-Decision evidence:
+Closed prerequisite evidence:
 
-- PR #107:
+- decision PR #107:
   `4ae5a81cec0c3f6512f81a47b7a4d1a6f97fd6ad`;
-- PR FAST `35722805362`: PASS;
-- PR INTEGRATION `35722805446`: PASS;
-- post-merge FAST `35722894744`: PASS;
-- post-merge INTEGRATION `35722894725`: PASS;
-- decision closure authority: PR #108.
+- decision post-merge FAST `35722894744`: PASS;
+- decision post-merge INTEGRATION `35722894725`: PASS;
+- closure PR #108:
+  `30f32997dec0aa7937c9730eb5ce24e2f80bb964`;
+- closure post-merge FAST `35723209087`: PASS;
+- closure post-merge INTEGRATION `35723209143`: PASS.
 
-The next implementation is limited to:
+Active implementation branch:
+`curve/rational-quadratic-bezier`.
 
-- fixed degree two;
-- three finite control points;
-- three finite strictly positive weights;
-- validated construction;
-- exact `[0,1]` parameter domain;
-- rational value/D1/D2;
-- existing bounded-parametric concept conformance;
-- reversal by reversed controls/weights;
-- common positive weight-scale invariance;
-- equal-weight polynomial parity against degree-elevated existing cubic Bézier;
-- conic/quarter-circle evidence;
-- focused regression preserving every existing ordinary contract.
+Implemented candidate scope:
 
-No dedicated analytic conic, arbitrary-degree Bézier, B-spline, NURBS,
-composition/trimming or downstream geometry/meshing capability is authorized.
+- fixed-degree `RationalQuadraticBezier2` and
+  `RationalQuadraticBezier3`;
+- validated finite strictly positive weights;
+- exact `[0,1]` domain;
+- unchanged `BoundedParametricCurve2/3` conformance;
+- scaled rational value evaluation with exact endpoint return;
+- analytic rational D1/D2 and typed non-finite-result failure;
+- reversal by exact control/weight order reversal;
+- common power-of-two weight-scale invariance;
+- equal-weight parity with degree-elevated qualified cubic Bézier;
+- non-circular conic and stored-double quarter-circle residual evidence;
+- constant/degenerate value semantics;
+- extreme finite-control/weight evidence;
+- translation, 2D/3D embedding and deterministic evidence;
+- one additional focused semantic test, targeting a 20-test ordinary
+  FAST/INTEGRATION inventory.
+
+No analytic circle/conic class, arbitrary-degree Bézier, B-spline, NURBS,
+composition/trimming, generic regularity/length/curvature expansion, surface,
+boundary discretization, sizing or meshing work is included.
+
+The branch must pass FAST and both INTEGRATION compiler cells before
+integration. Passing yields only **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / NOT QUALIFIED** for this work unit.
 
 Curve Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED** and
 paused during representation breadth.
