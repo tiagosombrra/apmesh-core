@@ -1877,63 +1877,43 @@ Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Positive-Weight
 Rational Tensor-Product Bicubic Bézier Patch in 3D —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`.
 
-Closed decision lineage:
+Implementation validation:
 
-- decision PR #143:
-  `281626d6ec02763be57b15fff15a82b0daa9129d`;
-- decision post-merge FAST `35780994515`: PASS;
-- decision post-merge INTEGRATION `35780994410`: PASS;
-- closure PR #144:
-  `0e2e9620052f2bee3237eb8428065b68facff0fd`;
-- closure post-merge FAST `35781441396`: PASS;
-- closure post-merge INTEGRATION `35781441405`: PASS.
-
-Active implementation branch:
-`surface/rational-bicubic-bezier`.
-
-Authorized scope:
-
-- `RationalBicubicBezierPatch3`;
-- exact 4x4 Point3 controls and 4x4 positive weights;
-- exact [0,1]^2 domain;
-- deterministic scale-aware homogeneous V-then-U evaluation;
-- analytic Su/Sv/Suu/Suv/Svv;
-- exact corners;
-- equal-weight polynomial parity;
-- independent rational Bernstein and edge references;
-- U/V reversal and exact stored-data involution;
-- common weight-scale invariance;
-- affine/extreme-finite/deterministic evidence;
-- target ordinary inventory: 27 tests.
-
-Candidate validation history:
-
-- initial head `83d1aedd68cbd4457e36021c704604b3a616fd8a` failed FAST
-  `35782696019` and INTEGRATION `35782696016` only because the focused
-  test attempted to default-construct non-default-constructible `Point3`
-  values;
-- production compiled; the correction was test-only and did not change
-  scientific/API semantics;
-- corrected head `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
+- corrected candidate head:
+  `3ac7b36db5a2a94f77a81fd441d9d871233653a3`;
 - corrected FAST `35782907623`: PASS, 27/27;
-- corrected INTEGRATION `35782907574`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 27/27 per cell.
+- corrected INTEGRATION `35782907574`: PASS, 27/27;
+- final PR head:
+  `9677c98882ce32569e537a9b5d91f23cffabec69`;
+- final PR FAST `35783120161`: PASS, 27/27;
+- final PR INTEGRATION `35783120208`: PASS, 27/27;
+- merge:
+  `8ac1abd913bf15ff1dc4d60595f809491902c055`;
+- post-merge FAST `35783312495`: PASS, 27/27;
+- post-merge INTEGRATION `35783312402`: PASS, 27/27.
 
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. `parametric_surface.hpp` and the
-polynomial `surface.cpp` remain frozen.
+Closure branch:
+`docs/surface-rational-bicubic-bezier-implementation-closure`.
 
-No U/V knots/multiplicities, NURBS surface, Coons/transfinite, analytic
-surface, swept/trimmed surface, surface differential geometry or meshing work
-is authorized.
+The integrated family preserves the polynomial bicubic patch and common
+bounded-surface contract unchanged.
 
-After this implementation closes, the next Surface Representation decision
-must recompare NURBS, Coons/transfinite, analytic, swept and trimmed families.
+After closure integration and post-merge validation, the next action is one
+fresh Surface Representation breadth decision comparing:
+
+- cubic B-spline/NURBS surface;
+- Coons/transfinite;
+- analytic elementary surfaces;
+- ruled/extrusion/revolution;
+- rectangular/general trimming.
+
+No option is preselected.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
