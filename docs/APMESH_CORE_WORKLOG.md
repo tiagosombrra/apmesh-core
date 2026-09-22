@@ -302,51 +302,50 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #123; terminally reconciles the decision closure before production.
 - `curve/two-span-cubic-nurbs`: **MERGED / HISTORICAL** via PR #124;
   fixed five-control/two-span cubic positive-weight NURBS implementation.
-- `docs/two-span-cubic-nurbs-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #124 candidate/final validation and post-merge evidence.
+- `docs/two-span-cubic-nurbs-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #125; closes the fixed NURBS implementation checkpoint.
+- `docs/two-span-cubic-nurbs-implementation-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles PR #125 and its post-merge
+  validation before the next scientific decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Two-Span Clamped Cubic Positive-Weight NURBS implementation is
-integrated and ready for closure.**
+**None. Two-Span Clamped Cubic Positive-Weight NURBS implementation is closed;
+terminal documentation synchronization is active.**
 
-Implementation closure evidence:
+Terminal closure evidence:
 
-1. decision authority:
-   `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
-2. implementation PR #124 merged as
+1. implementation PR #124:
    `9bb810f473977cbadf2e1e2a9a6df111f2ce67f1`;
-3. first complete candidate head
-   `a096b00438f8acf08adce58327439e888037818f`;
-4. candidate FAST `35745044617`: PASS, 23/23 tests;
-5. candidate INTEGRATION `35745044483`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug, 23/23 tests per cell;
-6. final documentation-synchronized PR head
-   `bf077d30041b0897d5e5e9bf825a762b6a0b6d6f`;
-7. final PR FAST `35745222050`: PASS;
-8. final PR INTEGRATION `35745221931`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-9. post-merge FAST `35746004007`: PASS;
-10. post-merge INTEGRATION `35746003953`: PASS in GCC 13 Debug and
+2. candidate FAST `35745044617`: PASS, 23/23;
+3. candidate INTEGRATION `35745044483`: PASS, 23/23 in GCC and Clang;
+4. final PR FAST `35745222050`: PASS;
+5. final PR INTEGRATION `35745221931`: PASS;
+6. implementation post-merge FAST `35746004007`: PASS;
+7. implementation post-merge INTEGRATION `35746003953`: PASS;
+8. implementation closure PR #125:
+   `465dc5b5f1948d4d27ca67d777aa2493f9c8968e`;
+9. closure PR FAST `35746421742`: PASS;
+10. closure PR INTEGRATION `35746421809`: PASS in GCC 13 Debug and
     Clang 18/libc++ Debug;
-11. `apmesh_core.two_span_cubic_nurbs` and every prior ordinary semantic
-    contract remain passing;
-12. `BoundedParametricCurve2/3` semantics remain unchanged;
-13. the original cubic-Bézier CGR0–CGR7 qualification remains unchanged.
+11. closure post-merge FAST `35746603445`: PASS;
+12. closure post-merge INTEGRATION `35746603448`: PASS;
+13. the common bounded-parametric concepts remain unchanged;
+14. every prior ordinary semantic contract remains passing;
+15. the original Cubic-Bézier CGR0–CGR7 qualification remains unchanged.
 
-No mechanical or scientific CI failure occurred in this NURBS implementation
-campaign. The focused evidence was strengthened before PR opening to include
-3D equal-weight B-spline parity, exact coordinate-scale covariance, extreme
-finite D1/D2 and explicit unrepresentable-derivative failure.
+The fixed NURBS work unit is **IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSED / NOT QUALIFIED**.
 
-No production work item is active in this closure change.
+No production work item is active.
 
-## Next admissible work item after closure
+## Next admissible work item after terminal sync
 
-Open exactly one new **literature-backed Curve Representation Breadth
-decision**.
+After this documentation sync is integrated and its own post-merge
+FAST/INTEGRATION pass, open exactly one new **literature-backed Curve
+Representation Breadth decision**.
 
 The fresh comparison must include at minimum:
 
@@ -357,9 +356,7 @@ The fresh comparison must include at minimum:
   prerequisite;
 - heterogeneous composition/polycurve.
 
-The decision must account for production now containing the fixed two-span
-cubic NURBS and must not assume a winner.
+No winner is pre-authorized.
 
-No general NURBS/B-spline, arbitrary-degree Bézier, repeated-knot family,
-analytic conic, heterogeneous composition, surface, downstream meshing,
-Quad-Dominant or parallel implementation is authorized by this closure.
+No new curve family, surface, boundary-discretization, sizing, meshing,
+Quad-Dominant or parallel implementation is authorized.
