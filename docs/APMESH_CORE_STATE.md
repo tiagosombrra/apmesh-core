@@ -250,33 +250,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after entry-decision integration:
 
-**Open one separate literature-backed scientific entry decision for Curve
-Differential Geometry — Curvature, Regularity, and Features.**
+**Implement Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
 
-Curve Representation qualification is closed on `main`.
+Entry authority:
+`docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-Integration evidence:
+The new stage is:
 
-- CGR terminal-audit PR #84 merged as
-  `d0045767d5a4c7fb910fd3e8aaccea73673fb558`;
-- PR FAST `35634165038`: PASS;
-- PR INTEGRATION `35634165026`: PASS;
-- post-merge FAST `35634295936`: PASS;
-- post-merge INTEGRATION `35634295812`: PASS.
+**Curve Differential Geometry — Curvature, Regularity, and Features —
+IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED.**
 
-Scientific status:
+The first work unit is intentionally local and scalar:
 
-- CGR0–CGR7: PASS;
-- overall: PASS;
-- Curve Representation: QUALIFIED in the exact admitted GitHub-hosted Ubuntu
-  24.04 x86_64 cloud envelope;
-- WSL/cloud equivalence: not claimed.
+- reuse qualified first/second derivatives and speed;
+- 2D magnitude `|det(B',B'')| / ||B'||^3`;
+- 3D magnitude `||B'×B''|| / ||B'||^3`;
+- success only at parameters with nonzero first derivative;
+- exact singularity failure, no hidden epsilon;
+- regular zero-curvature inflections remain successful zero results;
+- reversal, frame, scale and planar-embedding relations are mandatory;
+- finite/unrepresentable results fail explicitly.
 
-The next stage entry must be decided before any curvature/feature production
-code is written. Boundary Curve Discretization remains blocked.
+No signed curvature, Frenet frame, torsion, global extrema, inflection
+isolation, feature classification, boundary discretization, sizing, meshing or
+parallel execution is authorized.
 
+Curve Representation remains qualified and frozen as the prerequisite. Stage
+qualification remains deferred to a later cumulative Curve Differential
+Geometry regression campaign.
+
+## Current active stage
+
+**Curve Differential Geometry — Curvature, Regularity, and Features —
+IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED**
 
 
 ## Most recently qualified stage

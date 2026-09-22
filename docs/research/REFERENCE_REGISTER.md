@@ -603,3 +603,96 @@ Project relevance:
 The bounded AP Mesh decision uses these references only to justify mathematical
 structure. No external solver, arbitrary-degree polynomial subsystem, or
 third-party runtime dependency is admitted.
+
+## Curve Differential Geometry
+
+### do Carmo — Differential Geometry of Curves and Surfaces
+
+Status: `FOUNDATIONAL` for Curve Differential Geometry entry, reviewed
+2026-09-21.
+
+Manfredo P. do Carmo. *Differential Geometry of Curves and Surfaces*.
+
+MIT OpenCourseWare syllabus reference:
+https://ocw.mit.edu/courses/18-994-seminar-in-geometry-fall-2004/pages/syllabus/
+
+Project relevance:
+
+- supports the classical regular-curve requirement and local curvature/Frenet
+  framework;
+- supports treating curvature as differential geometry of a regular curve,
+  distinct from representation and discretization;
+- does not specify floating-point robustness, Bézier-specific algorithms or an
+  AP Mesh API.
+
+### MIT OpenCourseWare 18.950 — Local and global geometry of plane curves
+
+Status: `FOUNDATIONAL` mathematical reference for pointwise curvature,
+reviewed 2026-09-21.
+
+Course:
+https://ocw.mit.edu/courses/18-950-differential-geometry-fall-2008/
+
+Lecture notes:
+https://ocw.mit.edu/courses/18-950-differential-geometry-fall-2008/pages/lecture-notes/
+
+Project relevance:
+
+- presents regular curves, Frenet frames and curvature;
+- supports curvature invariance under admissible reparameterization;
+- supports separating local curvature from stronger global feature claims;
+- does not establish certified floating arithmetic or global feature
+  classification for cubic Bézier curves.
+
+### Wolfram MathWorld — Curvature
+
+Status: `REFERENCE` for independent analytic fixture formulas, reviewed
+2026-09-21.
+
+Reference:
+https://mathworld.wolfram.com/Curvature.html
+
+Project relevance:
+
+- records standard parametric curvature formulas for plane curves;
+- provides an independent formula source for selected test expectations;
+- is not a numerical oracle or implementation dependency.
+
+### Miura and Salvi 2021 — Curvature extrema of special cubic Bézier curves
+
+Status: `SCOPING` evidence for deferring global curvature features, reviewed
+2026-09-21.
+
+Kenjiro T. Miura and Péter Salvi.
+*On the curvature extrema of special cubic Bézier curves*.
+arXiv:2101.08138, 2021.
+
+Reference:
+https://arxiv.org/abs/2101.08138
+
+Project relevance:
+
+- demonstrates that curvature-extremum structure is a separate analytical
+  problem even for restricted cubic Bézier families;
+- supports keeping the first Curve Differential Geometry work unit pointwise
+  only;
+- does not establish a general extrema/monotonicity classifier for arbitrary
+  cubic Bézier curves.
+
+### Existing qualified AP Mesh curve evidence
+
+Status: `FOUNDATIONAL / INTERNAL` prerequisite authority.
+
+Relevant integrated authorities:
+
+- `docs/decisions/CURVE_DERIVATIVES_REGULARITY_DECISION.md`;
+- `docs/decisions/CURVE_GLOBAL_REGULARITY_CERTIFICATION_DECISION.md`;
+- `docs/decisions/CURVE_CONTINUOUS_GEOMETRY_REGRESSION_PROTOCOL.md`;
+- `docs/audits/2026-09-21-continuous-curve-geometry-regression-terminal-audit.md`.
+
+Project relevance:
+
+- first/second derivatives, speed, global regularity, reversal, frame/scale
+  relations and explicit error semantics are already qualified prerequisites;
+- Curve Differential Geometry must reuse those semantics rather than fork them;
+- prerequisite qualification does not itself establish curvature semantics.
