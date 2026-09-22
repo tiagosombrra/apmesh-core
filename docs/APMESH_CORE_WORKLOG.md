@@ -212,42 +212,71 @@ writing.
   production curvature implementation.
 - `docs/curve-differential-entry-closure`: **CLOSURE-ONLY**; records PR #86
   integration and post-merge validation.
+- `curve/pointwise-curvature-magnitude`: **ACTIVE**; bounded first Curve
+  Differential Geometry production work unit only.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Curve Differential Geometry entry decision is closed.**
+**Implement Pointwise Curvature Magnitude on Regular Cubic Bézier Curves —
+VALIDATED_UNMERGED.**
 
-Closure evidence:
+Active branch: `curve/pointwise-curvature-magnitude`.
 
-1. entry decision PR #86 merged as
-   `e728e89f08b23cd0720e502e3efe0c565198d376`;
-2. PR #86 FAST `35671674354`: PASS;
-3. PR #86 INTEGRATION `35671674360`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-4. post-merge FAST `35671824327`: PASS;
-5. post-merge INTEGRATION `35671824323`: PASS in both cells;
-6. decision authority:
-   `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-7. research mapping is retained in
-   `docs/research/REFERENCE_REGISTER.md`;
-8. no curvature production implementation has begun.
+Authority:
+`docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-No work item is active.
+Implemented scope:
+
+1. `CubicBezier2::curvature_magnitude(t)`;
+2. `CubicBezier3::curvature_magnitude(t)`;
+3. `CurveError::singular_parameter` for exact zero first derivative;
+4. reuse of qualified first/second derivatives and vector geometry;
+5. scale-aware evaluation using normalized derivatives plus
+   `frexp`/`scalbn` reconstruction of the physical scale factor;
+6. explicit failure when a positive final curvature cannot be represented;
+7. successful exact zero for regular line/inflection cases;
+8. no hidden epsilon or fallback;
+9. focused contract `apmesh_core.curve_curvature` registered in
+   FAST/INTEGRATION.
+
+Focused evidence covers:
+
+- 2D and 3D regular lines;
+- degree-elevated parabola;
+- spatial polynomial `(t,t²,t³)`;
+- regular zero-curvature inflection;
+- singular endpoint and constant curve;
+- reversal;
+- translation;
+- orthogonal signed-permutation frames;
+- reciprocal power-of-two scale covariance;
+- 2D/3D planar embedding parity;
+- tiny but nonzero derivative without false singularity;
+- large-scale fixture whose naïve raw intermediates would overflow;
+- explicitly unrepresentable curvature;
+- invalid parameters, signed zero and repeatability.
+
+Validation:
+
+- PR FAST run `35672497018`: PASS;
+- PR INTEGRATION run `35672497040`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+Scientific status is exactly:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+No global feature classification, discretization, sizing, surfaces, meshing,
+Quad-Dominant or parallel execution is introduced.
 
 ## Next admissible work item after closure
 
-Implement exactly one bounded work unit:
+After this PR is merged, post-merge FAST/INTEGRATION pass, and the work-unit
+checkpoint is closed, open one separate literature-backed scientific decision
+for the next Curve Differential Geometry investigation.
 
-**Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
-
-Implementation must obey the integrated entry decision:
-
-- reuse qualified first/second derivatives;
-- exact singularity semantics, no epsilon;
-- scale-aware finite curvature evaluation;
-- required reversal/frame/scale/embedding evidence;
-- no global feature classification, discretization, sizing, surfaces, meshing
-  or parallel execution.
+The next decision must not be inferred automatically from this pointwise
+capability.
 

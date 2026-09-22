@@ -1344,7 +1344,8 @@ work is the separate Curve Differential Geometry entry decision only.
 
 ### Curve Differential Geometry — Curvature, Regularity, and Features
 
-Status: `IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED`
+Status: `IN INVESTIGATION / POINTWISE CURVATURE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED`
 
 Goal: certify intrinsic curve differential quantities used by later boundary
 discretization without conflating local differential evaluation with global
@@ -1388,6 +1389,16 @@ PR #86 integrated the entry decision as
 `35671824327`, and post-merge INTEGRATION `35671824323` passed. The entry
 checkpoint is closed. The sole next bounded work item is implementation of
 **Pointwise Curvature Magnitude on Regular Cubic Bézier Curves**.
+
+That first work unit is now implemented on
+`curve/pointwise-curvature-magnitude`. The public curve API exposes
+2D/3D nonnegative pointwise curvature magnitude with exact singularity
+semantics and scale-aware evaluation. Focused FAST `35672497018` and
+INTEGRATION `35672497040` pass in the declared GCC/Clang cells.
+
+The work unit is **not yet integrated or stage-qualified**. After merge and
+checkpoint closure, the next Curve Differential Geometry investigation requires
+a separate decision.
 
 
 ### Boundary Curve Discretization — Physical and Parameterization-Invariant Trace

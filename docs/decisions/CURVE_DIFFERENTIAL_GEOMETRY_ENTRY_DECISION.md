@@ -391,3 +391,39 @@ Validation:
 The entry-decision checkpoint is closed. The sole next bounded work item is
 implementation of **Pointwise Curvature Magnitude on Regular Cubic Bézier
 Curves** within the scope fixed above.
+
+## First work-unit implementation result
+
+Branch `curve/pointwise-curvature-magnitude` implements only the authorized
+**Pointwise Curvature Magnitude on Regular Cubic Bézier Curves** work unit.
+
+Production result:
+
+- `CubicBezier2::curvature_magnitude(t)`;
+- `CubicBezier3::curvature_magnitude(t)`;
+- exact `CurveError::singular_parameter` for zero first derivative;
+- existing parameter errors preserved;
+- explicit `non_finite_result` when a positive curvature cannot be represented;
+- normalized derivative evaluation plus binary exponent reconstruction using
+  `frexp`/`scalbn`;
+- no hidden tolerance and no global-regularity precondition.
+
+Focused evidence:
+`apmesh_core.curve_curvature`.
+
+PR validation:
+
+- FAST `35672497018`: PASS;
+- INTEGRATION `35672497040`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The focused fixtures cover all required analytic/metamorphic/adversarial
+classes, including tiny nonzero derivative, large-scale intermediate-overflow
+avoidance and explicit unrepresentable-result failure.
+
+Scientific status:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
+
+No later Curve Differential Geometry work unit or stage qualification is
+authorized by this result.

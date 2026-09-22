@@ -250,33 +250,40 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact next bounded scientific action after pointwise-curvature integration:
 
-**Implement Pointwise Curvature Magnitude on Regular Cubic Bézier Curves.**
+**Close the Pointwise Curvature Magnitude work-unit checkpoint, then open one
+separate decision for the next Curve Differential Geometry investigation.**
 
-The Curve Differential Geometry entry decision was integrated by PR #86 as
-`e728e89f08b23cd0720e502e3efe0c565198d376`.
+The bounded first work unit is implemented on
+`curve/pointwise-curvature-magnitude`.
+
+Implemented semantics:
+
+- nonnegative 2D/3D curvature magnitude;
+- exact singular-parameter failure for zero first derivative;
+- regular zero-curvature success;
+- scale-aware finite arithmetic without a hidden epsilon;
+- explicit non-finite/unrepresentable-result failure;
+- reversal, translation, orthogonal-frame, scale and embedding relations.
 
 Validation:
 
-- PR FAST `35671674354`: PASS;
-- PR INTEGRATION `35671674360`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug;
-- post-merge FAST `35671824327`: PASS;
-- post-merge INTEGRATION `35671824323`: PASS.
+- FAST `35672497018`: PASS;
+- INTEGRATION `35672497040`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
 
-The first work unit remains exactly the pointwise curvature-magnitude contract
-defined in
-`docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
+Current work-unit status:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED.**
 
-No global feature classification, boundary discretization, sizing, surfaces,
-meshing, Quad-Dominant or parallel execution is authorized.
+Stage qualification remains deferred. No global curvature/feature or downstream
+discretization capability is implied.
 
 
 ## Current active stage
 
 **Curve Differential Geometry — Curvature, Regularity, and Features —
-IN INVESTIGATION / ENTRY DECISION APPROVED / IMPLEMENTATION NOT STARTED**
+IN INVESTIGATION / POINTWISE CURVATURE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / VALIDATED_UNMERGED / NOT QUALIFIED**
 
 
 ## Most recently qualified stage
