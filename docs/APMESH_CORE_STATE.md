@@ -88,27 +88,25 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - latest closed Surface Representation work unit:
   **Bounded Cubic Bézier Linear Extrusion Surface in 3D**;
-- implementation PR #170:
-  `63b4d963fbed25e6482d37ae1944a08799043b2c`;
-- implementation post-merge FAST `35892078309` and INTEGRATION
-  `35892078255`: PASS, 32/32;
-- implementation closure PR #171:
-  `fccb7330e9fb0e5a45b53d9e72efee689f30ea2f`;
-- closure PR FAST `35892445808` and INTEGRATION
-  `35892445798`: PASS;
-- closure post-merge FAST `35892574623` and INTEGRATION
-  `35892574146`: PASS;
+- terminal sync PR #172:
+  `cbc29da630e6eba3f757bfedc06419431907d6d7`;
+- sync PR FAST `35892883045` and INTEGRATION
+  `35892882815`: PASS;
+- sync post-merge FAST `35893168075` and INTEGRATION
+  `35893168175`: PASS;
 - ordinary semantic inventory: **32 tests**;
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
 - active branch:
-  `docs/surface-linear-extrusion-closure-sync`;
-- no production work item is active;
-- sole next scientific action after terminal sync:
-  **one fresh literature-backed Surface Representation breadth decision**;
+  `surface/arbitrary-axis-placement-decision`;
+- active work item:
+  **Arbitrary Right-Handed 3D Axis Placement — decision only**;
+- no production implementation is active;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
+- the already qualified exact `CartesianFrame3` signed-permutation/power-of-two
+  claim remains frozen and is not widened by this decision;
 - live `main`, open PRs and Actions must always be re-audited remotely before
   writing.
 
@@ -297,40 +295,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this terminal documentation synchronization is integrated and
-post-merge validated, open one fresh literature-backed Surface Representation
-breadth decision.**
+**Integrate the literature-backed arbitrary 3D axis-placement prerequisite
+decision; no production implementation is authorized on this branch.**
 
-Terminal linear-extrusion evidence:
+Decision-entry authority:
 
-- implementation PR #170:
-  `63b4d963fbed25e6482d37ae1944a08799043b2c`;
-- implementation post-merge FAST `35892078309`: PASS, 32/32;
-- implementation post-merge INTEGRATION `35892078255`: PASS, 32/32;
-- closure PR #171 head:
-  `6bd10e79ddc80fc7c1330ecb7d570148b1a0e841`;
-- closure PR FAST `35892445808`: PASS;
-- closure PR INTEGRATION `35892445798`: PASS;
-- closure merge:
-  `fccb7330e9fb0e5a45b53d9e72efee689f30ea2f`;
-- closure post-merge FAST `35892574623`: PASS;
-- closure post-merge INTEGRATION `35892574146`: PASS.
+- terminal sync PR #172:
+  `cbc29da630e6eba3f757bfedc06419431907d6d7`;
+- sync PR FAST `35892883045`: PASS;
+- sync PR INTEGRATION `35892882815`: PASS;
+- sync post-merge FAST `35893168075`: PASS;
+- sync post-merge INTEGRATION `35893168175`: PASS.
 
-No production work item is active.
+Active branch:
+`surface/arbitrary-axis-placement-decision`.
 
-The next decision must compare analytic-placement prerequisites, bounded
-revolution, general trim/p-curve/face seams, broader Coons/transfinite
-boundaries and remaining NURBS breadth. No winner is pre-authorized.
+Decision authority:
+`docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
+
+The decision selects a new right-handed `AxisPlacement3` built from origin,
+main direction and X reference.
+
+`CartesianFrame3` remains unchanged and retains its qualified exact
+signed-permutation/power-of-two contract.
+
+No analytic elementary, revolution, trimming, Coons, NURBS,
+surface-differential-geometry or meshing production is authorized.
 
 ## Current active stage
 
-**Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER LINEAR
-EXTRUSION IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
-POLYNOMIAL, RATIONAL, NURBS, COONS AND RECTANGULAR-TRIM PREREQUISITES
-PRESERVED**
+**Surface Representation — Continuous Patch Geometry — ARBITRARY 3D
+PLACEMENT PREREQUISITE DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+ALL CLOSED SURFACE REPRESENTATION WORK UNITS PRESERVED**
 
 Paused prerequisite investigation:
 

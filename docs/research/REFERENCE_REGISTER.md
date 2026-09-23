@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-22
+Last updated: 2026-09-23
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -1458,6 +1458,62 @@ Project relevance:
 - trimmed surfaces retain a supporting surface plus outer/inner boundary data;
 - supports deferring curve-on-surface, loop orientation and topology identity
   to a separate trimming decision.
+
+## Surface Representation — Arbitrary 3D Placement Prerequisite
+
+### Open CASCADE gp_Ax3 — local 3D coordinate placement
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for arbitrary-axis placement,
+reviewed 2026-09-23.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/gp___ax3_8hxx.html
+- https://dev.opencascade.org/doc/occt-7.7.0/refman/html/classgp___ax3.html
+
+Project relevance:
+
+- represents a 3D local coordinate system from location and direction data;
+- construction from location, main direction and X direction is a mature CAD
+  placement pattern;
+- supports introducing a separate right-handed arbitrary placement value
+  without weakening the qualified signed-permutation `CartesianFrame3`;
+- Open CASCADE remains design/reference evidence only.
+
+### Open CASCADE elementary surfaces — shared placement prerequisite
+
+Status: `FOUNDATIONAL / SEQUENCING` for analytic surface breadth,
+reviewed 2026-09-23.
+
+Official references:
+
+- https://dev.opencascade.org/doc/occt-7.0.0/refman/html/class_geom___elementary_surface.html
+- https://dev.opencascade.org/doc/refman/html/class_geom___spherical_surface.html
+
+Project relevance:
+
+- elementary surfaces expose an explicit local 3D position;
+- sphere/cylinder/cone/torus parameter orientation depends on that placement;
+- supports resolving placement once before selecting individual analytic
+  surface production types.
+
+### Open CASCADE surface of revolution — axis and angular semantics
+
+Status: `FOUNDATIONAL / SEQUENCING` for revolution deferral, reviewed
+2026-09-23.
+
+Official references:
+
+- https://dev.opencascade.org/doc/occt-7.8.0/refman/html/Geom__SurfaceOfRevolution_8hxx.html
+- https://dev.opencascade.org/doc/refman/html/class_i_g_e_s_geom___surface_of_revolution.html
+
+Project relevance:
+
+- a revolution surface uses an explicit axis, generatrix and angular
+  parameterization;
+- supports placing arbitrary-axis semantics before a general bounded revolution
+  surface;
+- does not authorize periodic/revolution production in the placement work unit.
 
 ## Curve Differential Geometry
 
