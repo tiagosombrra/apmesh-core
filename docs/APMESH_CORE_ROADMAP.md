@@ -1906,9 +1906,18 @@ Authorized implementation:
 - boundary, degenerate, affine, extreme-finite and deterministic evidence;
 - one new focused contract, targeting 32 ordinary tests.
 
-Candidate implementation is now mapped to the authorized files only and is
-awaiting FAST/INTEGRATION validation. Existing curve/surface contracts remain
-unchanged.
+Candidate validation on head
+`c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`:
+
+- FAST `35887599787`: PASS, 32/32 tests;
+- INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 32/32 tests per cell;
+- the new linear-extrusion contract and every prior ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. Existing curve/surface contracts
+remain unchanged.
 
 All analytic elementary, revolution, generic extrusion, general trim/p-curve,
 broader Coons and remaining NURBS breadth remain deferred.
