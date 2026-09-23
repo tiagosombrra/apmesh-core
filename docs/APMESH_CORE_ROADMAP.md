@@ -1875,35 +1875,49 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Right-Handed Arbitrary 3D Axis Placement —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Representation — Bounded Cubic Bézier Surface of Revolution —
+DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED**
 
-Terminal implementation evidence:
+Entry authority:
 
-- implementation PR #176:
-  `6d90036300671656c3bbde459dd2a783f8457cc1`;
-- implementation post-merge FAST `35902586443`: PASS, 33/33;
-- implementation post-merge INTEGRATION `35902586537`: PASS, 33/33;
-- closure PR #177:
-  `fda3d1284ed500cdd97a7b6b153791f9d0884818`;
-- closure PR FAST `35903080976`: PASS;
-- closure PR INTEGRATION `35903080966`: PASS;
-- closure post-merge FAST `35903368279`: PASS;
-- closure post-merge INTEGRATION `35903368467`: PASS.
+- terminal AxisPlacement3 synchronization:
+  `2f6b4bc269146bc9d27bd7351622f5d37093754c`;
+- post-merge FAST `35904119775`: PASS;
+- post-merge INTEGRATION `35904119725`: PASS;
+- ordinary semantic inventory: 33 tests.
 
-The qualified `CartesianFrame3` contract remains frozen.
+Active decision:
+`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-After this terminal documentation sync is integrated and post-merge validated,
-the next admissible work is one fresh literature-backed Surface Representation
-breadth decision comparing:
+Selected future work unit:
 
-- bounded revolution surface;
-- analytic elementary surfaces using `AxisPlacement3`;
-- general trimming/p-curves/topological faces;
-- broader Coons/transfinite boundaries;
-- remaining NURBS breadth.
+**Bounded Cubic Bézier Surface of Revolution in 3D.**
 
-No option is preselected.
+Bounded scope:
+
+- existing `CubicBezier3` generatrix;
+- existing `AxisPlacement3` axis;
+- finite signed sweep with exact `0 < abs(sweep) < 2*pi`;
+- normalized `[0,1]^2` domain;
+- Rodrigues-style arbitrary-axis rotation;
+- analytic Su/Sv/Suu/Suv/Svv;
+- U/V reversal;
+- independent cylinder and annular-sector fixtures;
+- expected ordinary inventory after implementation: 34 tests.
+
+Complete/periodic revolution, analytic elementary surfaces, general trimming,
+broader Coons/transfinite boundaries and remaining NURBS breadth remain later
+decisions.
+
+No production implementation may start until this decision is integrated,
+post-merge validated and separately closed.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
+
+The long-term ordering remains:
+
+**Global Certification → Quad-Dominant Extension → Parallel Equivalence →
+Tensor/Anisotropic Extension.**
+
+Parallel execution must not precede serial Quad-Dominant qualification.
