@@ -328,6 +328,17 @@ No change to `BoundedParametricSurface3`, topology, general trimming,
 analytic/swept surfaces, differential geometry, discretization or meshing is
 authorized.
 
+Candidate mapping:
+
+- `include/apmesh/geometry/trimmed_surface.hpp`;
+- `tests/surface_rectangular_trim.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / WORKLOG / ROADMAP / decision.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — STATIC RECTANGULAR
