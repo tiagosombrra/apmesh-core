@@ -1876,57 +1876,42 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Bicubic
-Positive-Weight NURBS Surface — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+Positive-Weight NURBS Surface — IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
+Implementation evidence:
 
-Closed decision lineage:
+- candidate head:
+  `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
+- candidate FAST `35802648932`: PASS, 28/28;
+- candidate INTEGRATION `35802648875`: PASS, 28/28;
+- final PR head:
+  `7fc82143e8fae6a2ee164b5ebae7a57bdd9b55a2`;
+- final PR FAST `35802788385`: PASS, 28/28;
+- final PR INTEGRATION `35802788429`: PASS, 28/28;
+- implementation PR #151:
+  `3042f0a2eb1c4df20207248c1b16c7b023e5c525`;
+- post-merge FAST `35802888299`: PASS, 28/28;
+- post-merge INTEGRATION `35802888266`: PASS, 28/28.
 
-- decision PR #149:
-  `d6d9c8c30c716540c95fe449dee53227e6722c22`;
-- decision post-merge FAST `35797779574`: PASS;
-- decision post-merge INTEGRATION `35797779547`: PASS;
-- closure PR #150:
-  `cd48a635165c80f4ac1248a9fb164d824ebf9ed0`;
-- closure post-merge FAST `35798149208`: PASS;
-- closure post-merge INTEGRATION `35798149304`: PASS.
+After this closure is integrated and post-merge validated, open one fresh
+Surface Representation breadth decision comparing:
 
-Active implementation branch:
-`surface/bicubic-nurbs`.
+- surface knot multiplicity-two / C1 continuity;
+- Coons/transfinite patches;
+- analytic elementary surfaces;
+- ruled/extrusion/revolution surfaces;
+- rectangular/general trimming;
+- arbitrary degree/periodicity only when justified by the admitted input class.
 
-Authorized implementation scope:
+No candidate is preselected.
 
-- `BicubicNURBSSurface3`;
-- degree 3 in U/V;
-- arbitrary finite clamped domains;
-- dynamic rectangular U-major control/weight storage;
-- simple interior knots only;
-- positive finite weights;
-- non-periodic;
-- local 4x4 homogeneous V-then-U de Boor;
-- analytic first/second partials;
-- rational/polynomial bicubic subset parity;
-- NURBS boundary-curve parity;
-- independent rational tensor oracle;
-- target ordinary inventory: 28 tests.
+Integrated surface representation breadth currently includes:
 
-Candidate validation on head
-`86d794c58dc2eae3323f47de276ff637e2e2c3ec`:
-
-- FAST `35802648932`: PASS, 28/28 tests;
-- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 28/28 tests per cell;
-- the new bicubic NURBS surface contract and every prior ordinary semantic
-  contract passed;
-- frozen common surface, polynomial bicubic and rational bicubic
-  prerequisites remain unchanged.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration.
-
-Repeated knots, arbitrary degree, periodicity, Coons/transfinite, analytic,
-swept and trimmed families remain later decisions.
+- tensor-product bicubic polynomial Bézier;
+- positive-weight rational bicubic Bézier;
+- clamped positive-weight bicubic NURBS with runtime-variable U/V spans and
+  simple interior knots.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
