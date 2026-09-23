@@ -86,26 +86,26 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest integrated Surface Representation work unit:
+- latest closed Surface Representation work unit:
   **Bounded Cubic Bézier Linear Extrusion Surface in 3D**;
 - implementation PR #170:
   `63b4d963fbed25e6482d37ae1944a08799043b2c`;
-- final PR head:
-  `87d0ecc0dbb7a5dda34164834d8c30c473779102`;
-- final PR FAST `35891866350` and INTEGRATION
-  `35891867091`: PASS, 32/32;
-- post-merge FAST `35892078309` and INTEGRATION
+- implementation post-merge FAST `35892078309` and INTEGRATION
   `35892078255`: PASS, 32/32;
+- implementation closure PR #171:
+  `fccb7330e9fb0e5a45b53d9e72efee689f30ea2f`;
+- closure PR FAST `35892445808` and INTEGRATION
+  `35892445798`: PASS;
+- closure post-merge FAST `35892574623` and INTEGRATION
+  `35892574146`: PASS;
 - ordinary semantic inventory: **32 tests**;
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
 - active branch:
-  `docs/surface-linear-extrusion-implementation-closure`;
+  `docs/surface-linear-extrusion-closure-sync`;
 - no production work item is active;
-- exact current action:
-  close the integrated linear-extrusion implementation checkpoint;
-- after closure and post-merge validation, the sole next action is one fresh
-  Surface Representation breadth decision;
+- sole next scientific action after terminal sync:
+  **one fresh literature-backed Surface Representation breadth decision**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -299,38 +299,38 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Integrate the implementation closure for the bounded Cubic Bézier Linear
-Extrusion Surface in 3D.**
+**After this terminal documentation synchronization is integrated and
+post-merge validated, open one fresh literature-backed Surface Representation
+breadth decision.**
 
-Implementation evidence:
+Terminal linear-extrusion evidence:
 
-- candidate head:
-  `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
-- candidate FAST `35887599787`: PASS, 32/32;
-- candidate INTEGRATION `35887599839`: PASS, 32/32;
-- final PR head:
-  `87d0ecc0dbb7a5dda34164834d8c30c473779102`;
-- final PR FAST `35891866350`: PASS, 32/32;
-- final PR INTEGRATION `35891867091`: PASS, 32/32;
-- PR #170 merge:
+- implementation PR #170:
   `63b4d963fbed25e6482d37ae1944a08799043b2c`;
-- post-merge FAST `35892078309`: PASS, 32/32;
-- post-merge INTEGRATION `35892078255`: PASS, 32/32.
+- implementation post-merge FAST `35892078309`: PASS, 32/32;
+- implementation post-merge INTEGRATION `35892078255`: PASS, 32/32;
+- closure PR #171 head:
+  `6bd10e79ddc80fc7c1330ecb7d570148b1a0e841`;
+- closure PR FAST `35892445808`: PASS;
+- closure PR INTEGRATION `35892445798`: PASS;
+- closure merge:
+  `fccb7330e9fb0e5a45b53d9e72efee689f30ea2f`;
+- closure post-merge FAST `35892574623`: PASS;
+- closure post-merge INTEGRATION `35892574146`: PASS.
 
-Closure branch:
-`docs/surface-linear-extrusion-implementation-closure`.
+No production work item is active.
 
-No production work is active during closure.
-
-After closure integration and post-merge validation, the next admissible work
-is one fresh literature-backed Surface Representation breadth decision.
+The next decision must compare analytic-placement prerequisites, bounded
+revolution, general trim/p-curve/face seams, broader Coons/transfinite
+boundaries and remaining NURBS breadth. No winner is pre-authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER LINEAR
 EXTRUSION IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS, COONS AND
-RECTANGULAR-TRIM PREREQUISITES PRESERVED**
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
+POLYNOMIAL, RATIONAL, NURBS, COONS AND RECTANGULAR-TRIM PREREQUISITES
+PRESERVED**
 
 Paused prerequisite investigation:
 
@@ -359,8 +359,8 @@ The following are **not implemented and not covered by CGR qualification**:
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
 - analytic elementary surface representations remain unimplemented;
-- the bounded cubic-Bézier linear-extrusion surface is integrated with 32/32
-  focused ordinary validation PASS and is awaiting implementation closure;
+- the bounded cubic-Bézier linear-extrusion surface is integrated and closed
+  with 32/32 focused ordinary validation PASS;
 - general arbitrary-loop trimmed-surface / p-curve / topological-face
   semantics remain unimplemented, while static oriented rectangular trimming
   is integrated;

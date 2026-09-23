@@ -1877,36 +1877,32 @@ Current scientific work focus:
 
 **Surface Representation — Cubic Bézier Linear Extrusion —
 IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED**
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Decision authority:
-`docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
+Terminal implementation lineage:
 
-Implementation validation:
-
-- candidate head:
-  `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
-- candidate FAST `35887599787`: PASS, 32/32;
-- candidate INTEGRATION `35887599839`: PASS, 32/32 in GCC and Clang;
-- final PR head:
-  `87d0ecc0dbb7a5dda34164834d8c30c473779102`;
-- final PR FAST `35891866350`: PASS, 32/32;
-- final PR INTEGRATION `35891867091`: PASS, 32/32 in GCC and Clang;
-- PR #170 merged as
+- implementation PR #170:
   `63b4d963fbed25e6482d37ae1944a08799043b2c`;
-- post-merge FAST `35892078309`: PASS, 32/32;
-- post-merge INTEGRATION `35892078255`: PASS, 32/32.
+- implementation post-merge FAST `35892078309`: PASS, 32/32;
+- implementation post-merge INTEGRATION `35892078255`: PASS, 32/32;
+- closure PR #171 head:
+  `6bd10e79ddc80fc7c1330ecb7d570148b1a0e841`;
+- closure PR FAST `35892445808`: PASS;
+- closure PR INTEGRATION `35892445798`: PASS;
+- closure merge:
+  `fccb7330e9fb0e5a45b53d9e72efee689f30ea2f`;
+- closure post-merge FAST `35892574623`: PASS;
+- closure post-merge INTEGRATION `35892574146`: PASS.
 
-Closure branch:
-`docs/surface-linear-extrusion-implementation-closure`.
+After this terminal sync is integrated and post-merge validated, open one fresh
+Surface Representation breadth decision comparing:
 
-No production work item is active during closure.
+- arbitrary-placement prerequisite for analytic elementary surfaces;
+- bounded revolution surface;
+- general trimming/p-curves/topological-face seams;
+- broader Coons/transfinite boundaries;
+- remaining NURBS degree/multiplicity/periodic breadth.
 
-After closure integration and post-merge validation, open one fresh Surface
-Representation breadth decision comparing analytic-placement prerequisites,
-bounded revolution, general trimming/p-curves/topological-face seams, broader
-Coons/transfinite boundaries and remaining NURBS breadth.
-
-No option is preselected.
+No candidate is preselected.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
