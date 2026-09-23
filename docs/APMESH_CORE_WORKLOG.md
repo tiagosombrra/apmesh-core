@@ -468,6 +468,25 @@ Required scope:
 - independent analytic oracle;
 - 32 ordinary tests expected.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/extrusion_surface.hpp`:
+  concrete `CubicBezierLinearExtrusionSurface3` API and typed construction
+  failure for non-representable translated end controls;
+- `src/geometry/extrusion_surface.cpp`:
+  exact unit-square domain, deterministic validation, value/analytic partials,
+  exact U/V reversal storage semantics;
+- `tests/surface_linear_extrusion.cpp`:
+  independent Bernstein+extrusion oracle, four-boundary parity, reversal,
+  orientation, zero/constant degenerates, translation/scale, admitted
+  Cartesian-frame covariance, extreme finite and deterministic evidence;
+- `CMakeLists.txt`:
+  production source and the 32nd ordinary semantic contract registered.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no generic basis-curve extrusion;
