@@ -1876,64 +1876,36 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Oriented Four-Boundary
-Cubic Bézier Coons Patch — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+Cubic Bézier Coons Patch — IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
+Implementation evidence:
 
-Closed decision lineage:
+- initial candidate head:
+  `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
+- initial FAST `35842812822`: PASS, 30/30;
+- initial INTEGRATION `35842812792`: PASS, 30/30 in GCC and Clang;
+- final PR head:
+  `ec5a1b56dd30445c5745dc2522680653f4f0af3f`;
+- final FAST `35843033876`: PASS, 30/30;
+- final INTEGRATION `35843034029`: PASS, 30/30 in GCC and Clang;
+- implementation PR #159:
+  `3528612fdb875d8298d785a2c32f0fb4e1f8eea4`;
+- post-merge FAST `35843296073`: PASS, 30/30;
+- post-merge INTEGRATION `35843296147`: PASS, 30/30 in GCC and Clang.
 
-- decision PR #157:
-  `639565e047a15a5b947f73fcadce10e51dde6bb0`;
-- decision post-merge FAST `35841180741`: PASS;
-- decision post-merge INTEGRATION `35841180924`: PASS;
-- closure PR #158:
-  `765ee737a1a8ef192ccff113dbb731b7ba68294f`;
-- closure post-merge FAST `35841573108`: PASS;
-- closure post-merge INTEGRATION `35841573116`: PASS.
+Closure branch:
+`docs/surface-coons-patch-implementation-closure`.
 
-Active implementation branch:
-`surface/coons-patch`.
+After closure integration and protected-main validation, the sole next action
+is one fresh Surface Representation breadth decision comparing analytic
+elementary, swept, trimmed, broader Coons/transfinite and demonstrably required
+remaining NURBS breadth.
 
-Authorized scope:
+No option is preselected.
 
-- `CubicBezierCoonsPatch3`;
-- four oriented `CubicBezier3` boundaries;
-- exact orientation-specific corner compatibility;
-- exact `[0,1]^2` parameter domain;
-- deterministic classical Coons value blend;
-- analytic `Su/Sv/Suu/Suv/Svv`;
-- exact boundary value and tangential derivative parity;
-- U/V reversal;
-- independent direct Coons reference;
-- analytic bilinear/plane fixtures;
-- asymmetric nonplanar, constant/degenerate, affine, extreme-finite and
-  deterministic evidence;
-- one new ordinary semantic test, targeting **30 tests**.
-
-Candidate implementation mapping:
-
-- `include/apmesh/geometry/coons_surface.hpp`;
-- `src/geometry/coons_surface.cpp`;
-- `tests/surface_coons_patch.cpp`;
-- `CMakeLists.txt`.
-
-Candidate validation on head
-`d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`:
-
-- FAST `35842812822`: PASS, 30/30;
-- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 30/30 per cell;
-- the new Coons contract and every prior ordinary semantic contract passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration.
-
-The common `BoundedParametricSurface3` contract remains unchanged.
-
-Rational/NURBS boundary dispatch, heterogeneous boundary composition,
-analytic/swept surfaces, trimming/topology, Surface Differential Geometry,
-Boundary Curve Discretization and meshing remain blocked.
+Surface Differential Geometry and Boundary Curve Discretization remain
+blocked.
 
 The longer ordering remains:
 

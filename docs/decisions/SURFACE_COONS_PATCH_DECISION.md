@@ -857,3 +857,50 @@ Current status:
 
 **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
 FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 36. Implementation integration checkpoint
+
+The bounded implementation used two complete validated revisions.
+
+Initial candidate:
+
+`d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`.
+
+Validation:
+
+- FAST `35842812822`: PASS, 30/30 ordinary semantic tests;
+- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 per cell.
+
+Final documentation-synchronized PR head:
+
+`ec5a1b56dd30445c5745dc2522680653f4f0af3f`.
+
+Final validation:
+
+- FAST `35843033876`: PASS, 30/30;
+- INTEGRATION `35843034029`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 per cell.
+
+PR #159 merged as:
+
+`3528612fdb875d8298d785a2c32f0fb4e1f8eea4`.
+
+Post-merge validation:
+
+- FAST `35843296073`: PASS, 30/30;
+- INTEGRATION `35843296147`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 per cell.
+
+Focused `apmesh_core.surface_coons_patch` passed in every complete validation.
+
+Integrated work-unit result:
+
+**CUBIC BÉZIER COONS PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / NOT QUALIFIED.**
+
+The implementation checkpoint is ready for documentation closure.
+
+No broader Coons, analytic, swept, trimmed or downstream capability is
+implied.
