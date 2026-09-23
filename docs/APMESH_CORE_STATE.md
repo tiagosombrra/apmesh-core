@@ -103,7 +103,7 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - sync post-merge FAST `35904119775` and INTEGRATION
   `35904119725`: PASS;
 - active work item:
-  **Bounded Cubic Bézier Surface of Revolution Decision**;
+  **None; bounded revolution decision integrated, closure pending**;
 - component status:
   **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
   NOT QUALIFIED**;
@@ -122,22 +122,26 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-Integrate the literature-backed bounded revolution decision on
-`surface/cubic-bezier-revolution-decision`.
+Close the integrated bounded revolution decision checkpoint.
 
 Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-The selected future implementation is restricted to one
-`CubicBezier3` generatrix, existing `AxisPlacement3`, signed non-zero
-sub-2*pi sweep, normalized `[0,1]^2` domain and analytic first/second
-partials.
+Decision integration evidence:
 
-No production code is authorized on the decision branch.
+- PR #179 final head:
+  `92db678f92fbf869e00540536156de25a1647113`;
+- PR FAST `35909899142`: PASS;
+- PR INTEGRATION `35909899200`: PASS;
+- merge:
+  `112f3b7ae3c439d729380fec07d065997bf11e56`;
+- post-merge FAST `35910017412`: PASS;
+- post-merge INTEGRATION `35910017524`: PASS.
 
-Analytic elementary surfaces, general trimming/p-curves/topological faces,
-broader Coons/transfinite boundaries, remaining NURBS breadth, Surface
-Differential Geometry and meshing remain unauthorized.
+After closure validation, the sole next production work item is the bounded
+cubic Bézier revolution surface defined by the decision.
+
+No production code is authorized in this closure branch.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
