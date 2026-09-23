@@ -711,3 +711,56 @@ Sections 5–31.
 
 No periodic revolution, analytic elementary surface, general trimming,
 broader Coons/NURBS or downstream capability is authorized.
+
+
+## 35. Decision closure checkpoint
+
+Decision closure PR #180 used final head:
+
+`2f9f832febe91ab6bcd2d95550e944bd66c48f6f`.
+
+Closure PR validation:
+
+- FAST `35910276757`: PASS;
+- INTEGRATION `35910276791`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #180 merged as:
+
+`715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`.
+
+Closure post-merge validation:
+
+- FAST `35910422052`: PASS;
+- INTEGRATION `35910422072`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the bounded cubic Bézier revolution
+surface defined by Sections 5–31.
+
+No complete periodic revolution, analytic elementary surface, general
+trimming, broader Coons/NURBS or downstream capability is authorized.
+
+## 36. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/cubic-bezier-revolution`.
+
+Candidate mapping is restricted to:
+
+- `include/apmesh/geometry/revolution_surface.hpp`;
+- `src/geometry/revolution_surface.cpp`;
+- `tests/surface_revolution.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Expected ordinary semantic inventory after registration: **34 tests**.
+
+Current status:
+
+**IMPLEMENTATION ACTIVE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
