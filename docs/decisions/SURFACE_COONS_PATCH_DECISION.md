@@ -767,3 +767,35 @@ item is the oriented four-boundary cubic Bézier Coons patch implementation
 bounded by Sections 5–30.
 
 No other surface family or downstream capability is authorized.
+
+
+## 34. Decision closure checkpoint
+
+Decision closure PR #158 used head
+`c6b5d6b3ab41ffb9b034eb5aee4f9e13adb56d19`.
+
+Closure PR validation:
+
+- FAST `35841435784`: PASS;
+- INTEGRATION `35841435869`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #158 merged as:
+
+`765ee737a1a8ef192ccff113dbb731b7ba68294f`.
+
+Closure post-merge validation:
+
+- FAST `35841573108`: PASS;
+- INTEGRATION `35841573116`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the oriented four-boundary cubic
+Bézier Coons patch bounded by Sections 5–30.
+
+No broader Coons, analytic, swept, trimmed or downstream capability is
+authorized.
