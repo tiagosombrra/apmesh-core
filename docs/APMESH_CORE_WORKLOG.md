@@ -396,63 +396,69 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-rectangular-trim-decision-closure`: **MERGED /
   HISTORICAL** via PR #163; closes the static rectangular trimmed-surface
   decision checkpoint.
-- `docs/surface-rectangular-trim-terminal-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles the closed decision before
-  production implementation.
+- `docs/surface-rectangular-trim-terminal-sync`: **MERGED / HISTORICAL**
+  via PR #164; terminally reconciles the closed decision before production.
+- `surface/rectangular-trimmed-surface`: **ACTIVE**; bounded static
+  rectangular trimmed-surface implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Static Rectangular Trimmed Surface decision is closed; terminal
-documentation synchronization is active.**
+**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D —
+ACTIVE / IMPLEMENTATION OPEN / NOT QUALIFIED.**
 
-Terminal decision evidence:
+Active branch:
+`surface/rectangular-trimmed-surface`.
 
-1. decision PR #162 head:
-   `0ee2a2b47592eee055dcc58ccba04c0364353fe5`;
-2. decision PR FAST `35846509153`: PASS;
-3. decision PR INTEGRATION `35846509081`: PASS in GCC and Clang;
-4. decision merge:
+Decision authority:
+`docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
+
+Closed decision/synchronization evidence:
+
+1. decision PR #162:
    `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-5. decision post-merge FAST `35846672914`: PASS;
-6. decision post-merge INTEGRATION `35846673106`: PASS;
-7. decision closure PR #163 head:
-   `012703f1f8cd5cdf2ed8922269c2d17e8b3cb236`;
-8. closure PR FAST `35847140517`: PASS;
-9. closure PR INTEGRATION `35847140605`: PASS in GCC and Clang;
-10. closure PR #163 merged as
-    `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
-11. closure post-merge FAST `35847281819`: PASS;
-12. closure post-merge INTEGRATION `35847281719`: PASS;
-13. no rectangular-trim production wrapper exists yet;
-14. the common `BoundedParametricSurface3` contract remains unchanged;
-15. all integrated surface families remain frozen prerequisites.
+2. decision closure PR #163:
+   `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
+3. terminal sync PR #164 head:
+   `8c3b4c623bb3bd5812edce8723bb74eca7f9c667`;
+4. sync PR FAST `35847597802`: PASS;
+5. sync PR INTEGRATION `35847597868`: PASS in GCC and Clang;
+6. sync PR #164 merged as
+   `83a56ee4f1b6a4703956c3e81c1786540bfecb14`;
+7. sync post-merge FAST `35847689693`: PASS;
+8. sync post-merge INTEGRATION `35847690044`: PASS;
+9. no competing production PR/work item existed at implementation entry;
+10. the common `BoundedParametricSurface3` contract remains unchanged.
 
-Decision checkpoint result:
+Authorized implementation:
 
-**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
-NOT QUALIFIED.**
+- new header-only
+  `RectangularTrimmedSurface3<Surface>`;
+- basis surface owned by value;
+- exact oriented U/V source/target trim parameters;
+- sorted public U/V parameter domains without normalization;
+- exact mapped value forwarding;
+- first derivative orientation signs;
+- pure second derivatives preserved and mixed derivative sign covariance;
+- `u_reversed()`, `v_reversed()`, commuting/involution semantics;
+- nested trim support through the existing static surface concept;
+- focused instantiation over Bézier, rational Bézier, NURBS and Coons;
+- one focused contract targeting **31 ordinary tests**.
 
-## Next admissible work item after terminal sync
+Explicit non-actions:
 
-After this synchronization is integrated and its own post-merge
-FAST/INTEGRATION pass, open exactly one implementation branch for:
+- no common surface-contract change;
+- no arbitrary trim loops or p-curves;
+- no topology IDs / face loops / inside-outside classification;
+- no periodic-wrap semantics;
+- no analytic or swept surfaces;
+- no Surface Differential Geometry;
+- no discretization, meshing, Quad-Dominant or parallel work.
 
-**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
+## Next admissible transition
 
-Authorized implementation remains limited to:
-
-- header-only `RectangularTrimmedSurface3<Surface>`;
-- compile-time generic bounded surface basis owned by value;
-- exact oriented U/V trim subdomains;
-- no normalization to `[0,1]^2`;
-- mapped value forwarding;
-- first/second derivative orientation covariance;
-- U/V reversal;
-- nested trim behavior;
-- one focused test, targeting 31 ordinary semantic tests.
-
-General trim loops, p-curves, topology, analytic/swept surfaces, broader
-Coons/transfinite dispatch, remaining NURBS breadth, Surface Differential
-Geometry, discretization and meshing remain unauthorized.
+Complete only this implementation, validate 31/31 in FAST and both
+INTEGRATION compiler cells, integrate through one PR, validate protected
+`main`, close the implementation checkpoint, and only then open one fresh
+Surface Representation breadth decision.
