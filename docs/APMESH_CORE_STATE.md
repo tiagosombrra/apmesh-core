@@ -103,6 +103,15 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   signed-permutation/power-of-two contract;
 - ordinary semantic inventory at implementation entry: **32 tests**;
 - target inventory after one focused contract: **33 tests**;
+- candidate implementation head:
+  `bb19471c2307aec70427719baf3f8d9500605c42`;
+- candidate FAST `35901914044`: PASS, 33/33;
+- candidate INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 33/33 per cell;
+- focused `apmesh_core.arbitrary_axis_placement`: PASS;
+- current component status:
+  **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+  DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
