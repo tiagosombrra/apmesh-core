@@ -1392,6 +1392,43 @@ Project relevance:
 - supports treating Coons/transfinite construction as a separate boundary
   compatibility/blending seam rather than part of knot continuity.
 
+### Open CASCADE — linear extrusion swept surface
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded cubic Bézier linear
+extrusion decision, reviewed 2026-09-23.
+
+References:
+
+- https://dev.opencascade.org/sites/default/files/pdf/Geometry.pdf
+- https://dev.opencascade.org/doc/refman/html/class_geom_bnd_lib___surface_of_extrusion.html
+
+Project relevance:
+
+- distinguishes swept surfaces from free-form, elementary and trimmed surface
+  families;
+- records the direct linear-extrusion form
+  `P(u,v)=BasisCurve(u)+v*Direction`;
+- supports isolating one bounded swept-surface work unit without adding
+  rotation, periodicity, p-curves or topology;
+- Open CASCADE is design/reference evidence only, not a runtime dependency.
+
+### Open CASCADE — revolution surface deferral evidence
+
+Status: `FOUNDATIONAL / SCOPING` for separating linear extrusion from
+revolution, reviewed 2026-09-23.
+
+Reference:
+https://dev.opencascade.org/doc/refman/html/_geom__surface_of_revolution_8hxx.html
+
+Project relevance:
+
+- revolution uses an axis and angular parameterization;
+- complete revolution introduces periodic angular semantics;
+- derivative continuity in the meridian direction inherits the basis-curve
+  continuity;
+- supports deferring revolution until axis/orientation and periodic semantics
+  receive a dedicated decision.
+
 ### Open CASCADE elementary surfaces — analytic-surface deferral evidence
 
 Status: `FOUNDATIONAL / SCOPING` for later analytic Surface Representation,

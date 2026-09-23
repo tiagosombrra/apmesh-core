@@ -1875,42 +1875,50 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Continuous Patch Geometry — Static Rectangular
-Trimmed Surface — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / TERMINAL SYNC ACTIVE**
+**Surface Representation — Continuous Patch Geometry — Cubic Bézier Linear
+Extrusion — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Terminal closure evidence:
+Decision-entry authority:
 
-- implementation PR #165:
-  `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
-- implementation post-merge FAST `35874273067`: PASS, 31/31;
-- implementation post-merge INTEGRATION `35874273154`: PASS, 31/31;
-- implementation closure PR #166 head:
-  `7ce52b5e880f4d7bd454c630aad00e89678eaf1e`;
-- closure PR FAST `35874987379`: PASS;
-- closure PR INTEGRATION `35874987450`: PASS;
-- closure merge:
-  `ad95dc048be988ad6f3fd9b29203f6e9d6d92b10`;
-- closure post-merge FAST `35875154581`: PASS;
-- closure post-merge INTEGRATION `35875154595`: PASS.
+- rectangular-trim terminal sync:
+  `47b1a2b17d9cecd972430bb33e84161eb74cfec1`;
+- PR #167 FAST `35875571648`: PASS;
+- PR #167 INTEGRATION `35875571740`: PASS;
+- post-merge FAST `35875814460`: PASS;
+- post-merge INTEGRATION `35875814543`: PASS;
+- current ordinary inventory: 31 tests.
 
-Terminal work-unit result:
+Active decision:
+`docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
 
-**STATIC RECTANGULAR TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+Selected future work unit:
 
-No production work item is active.
+**Bounded Cubic Bézier Linear Extrusion Surface in 3D.**
 
-After this terminal sync is integrated and post-merge validated, open exactly
-one fresh Surface Representation breadth decision comparing:
+The decision freezes:
 
-- analytic elementary surfaces;
-- ruled/extrusion/revolution surfaces;
-- general trimming / curve-on-surface / face-boundary semantics;
-- broader Coons/transfinite boundaries;
-- remaining NURBS breadth required by the admitted CAD input class.
+- basis family: `CubicBezier3`;
+- normalized domain `[0,1]^2`;
+- one finite extrusion displacement vector;
+- exact analytic partials
+  `Su=C'(u)`, `Sv=E`, `Suu=C''(u)`, `Suv=Svv=0`;
+- U/V reversal and boundary parity;
+- zero extrusion and degenerate basis as valid representation cases;
+- one new focused ordinary contract, targeting 32 tests.
 
-No candidate is preselected.
+Deferred:
+
+- analytic elementary plane/cylinder/cone/sphere/torus, pending explicit
+  arbitrary-placement/orientation semantics;
+- revolution and angular periodicity;
+- generic basis-curve extrusion/error translation;
+- general trimming, p-curves and topological face boundaries;
+- broader Coons/transfinite boundary families;
+- arbitrary-degree/multiplicity-three/periodic NURBS breadth.
+
+No production implementation may start until the decision is integrated,
+post-merge validated and separately closed.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
 
