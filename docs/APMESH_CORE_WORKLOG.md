@@ -427,52 +427,67 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/arbitrary-axis-placement-implementation-closure`: **MERGED /
   HISTORICAL** via PR #177; closes the `AxisPlacement3` implementation
   checkpoint.
-- `docs/arbitrary-axis-placement-implementation-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles the closed implementation
-  checkpoint before the next Surface Representation breadth decision.
+- `docs/arbitrary-axis-placement-implementation-closure-sync`: **MERGED /
+  HISTORICAL** via PR #178; terminally reconciles the closed implementation
+  checkpoint.
+- `surface/cubic-bezier-revolution-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; bounded revolution breadth decision; no production
+  implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Right-Handed Arbitrary 3D Axis Placement is terminally closed;
-documentation synchronization is active.**
+**Bounded Cubic Bézier Surface of Revolution Decision — ACTIVE /
+DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal implementation evidence:
+Active branch:
+`surface/cubic-bezier-revolution-decision`.
 
-1. implementation PR #176:
-   `6d90036300671656c3bbde459dd2a783f8457cc1`;
-2. implementation post-merge FAST `35902586443`: PASS, 33/33;
-3. implementation post-merge INTEGRATION `35902586537`: PASS, 33/33;
-4. implementation closure PR #177 head:
-   `cd1d5dea1da2146a581d309d0e90f0cc3e7d43b0`;
-5. closure PR FAST `35903080976`: PASS;
-6. closure PR INTEGRATION `35903080966`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. closure PR #177 merged as:
-   `fda3d1284ed500cdd97a7b6b153791f9d0884818`;
-8. closure post-merge FAST `35903368279`: PASS;
-9. closure post-merge INTEGRATION `35903368467`: PASS;
-10. ordinary semantic inventory remains 33 tests;
-11. focused `apmesh_core.arbitrary_axis_placement`: retained PASS;
-12. `CartesianFrame3` qualified semantics remain unchanged.
+Entry authority:
 
-Terminal work-unit result:
+- terminal AxisPlacement3 sync PR #178 merged as
+  `2f6b4bc269146bc9d27bd7351622f5d37093754c`;
+- post-merge FAST `35904119775`: PASS;
+- post-merge INTEGRATION `35904119725`: PASS;
+- ordinary semantic inventory: 33 tests;
+- no open PR or active production work item at decision entry.
 
-**ARBITRARY AXIS PLACEMENT IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-No production work item is active during this documentation-only sync.
-
-## Next admissible work item
-
-After this terminal sync is integrated and post-merge validated, open exactly
-one fresh literature-backed Surface Representation breadth decision comparing:
+Fresh comparison:
 
 1. bounded revolution surface;
 2. analytic elementary surfaces enabled by `AxisPlacement3`;
-3. general trimming/p-curve/topological-face semantics;
+3. general trimming / p-curves / topological faces;
 4. broader Coons/transfinite boundaries;
-5. remaining NURBS breadth.
+5. remaining NURBS degree/C0/periodic breadth.
 
-No candidate is pre-authorized.
+Selected future work unit:
+
+**Bounded Cubic Bézier Surface of Revolution in 3D.**
+
+The decision freezes:
+
+- one `CubicBezier3` generatrix;
+- one existing `AxisPlacement3`;
+- one finite non-zero signed sweep with exact `abs(sweep) < 2*pi`;
+- exact normalized `[0,1]^2` parameter domain;
+- analytic value/Su/Sv/Suu/Suv/Svv;
+- U/V reversal;
+- no complete periodic revolution;
+- no analytic elementary surface;
+- no topology/trim/p-curve work.
+
+This branch is documentation/research/decision only.
+
+## Next admissible transition after this decision
+
+Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision checkpoint closes may one implementation branch open for the
+bounded cubic Bézier revolution work unit.
+
+If implementation needs a full 2*pi seam, common surface-contract changes,
+new placement semantics, analytic elementary production types, general trimming
+or a generic runtime generatrix hierarchy, stop and require a new decision.
