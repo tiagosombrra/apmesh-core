@@ -144,6 +144,27 @@ No common `SurfaceError`, `AxisPlacement3`, `CubicBezier3`, periodic,
 analytic elementary, trimming/topology, differential-geometry or meshing
 semantic change is authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/revolution_surface.hpp`;
+- `src/geometry/revolution_surface.cpp`;
+- `tests/surface_revolution.cpp`;
+- `CMakeLists.txt`.
+
+Candidate implementation uses the existing `AxisPlacement3` local/world
+mapping to evaluate a fixed Rodrigues rotation, stores a precomputed end
+generatrix, exposes analytic Su/Sv/Suu/Suv/Svv, and preserves exact U/V
+reversal representation.
+
+The focused contract includes an independent world-space long-double
+Bernstein/Rodrigues oracle and analytic cylinder/annular-sector fixtures.
+
+Expected ordinary inventory: **34 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
 The material below is retained for provenance of the earlier Topological Model
