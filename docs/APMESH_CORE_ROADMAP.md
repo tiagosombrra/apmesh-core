@@ -1876,42 +1876,34 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Cubic Bézier Surface of Revolution —
-DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED**
 
-Entry authority:
-
-- terminal AxisPlacement3 synchronization:
-  `2f6b4bc269146bc9d27bd7351622f5d37093754c`;
-- post-merge FAST `35904119775`: PASS;
-- post-merge INTEGRATION `35904119725`: PASS;
-- ordinary semantic inventory: 33 tests.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-Selected future work unit:
+Decision integration evidence:
+
+- PR #179 final head:
+  `92db678f92fbf869e00540536156de25a1647113`;
+- PR FAST `35909899142`: PASS;
+- PR INTEGRATION `35909899200`: PASS;
+- merge `112f3b7ae3c439d729380fec07d065997bf11e56`;
+- post-merge FAST `35910017412`: PASS;
+- post-merge INTEGRATION `35910017524`: PASS.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Bounded Cubic Bézier Surface of Revolution in 3D.**
 
-Bounded scope:
+The authorized scope remains exactly one `CubicBezier3`, existing
+`AxisPlacement3`, signed sub-2*pi sweep, normalized `[0,1]^2` domain and
+analytic first/second partials.
 
-- existing `CubicBezier3` generatrix;
-- existing `AxisPlacement3` axis;
-- finite signed sweep with exact `0 < abs(sweep) < 2*pi`;
-- normalized `[0,1]^2` domain;
-- Rodrigues-style arbitrary-axis rotation;
-- analytic Su/Sv/Suu/Suv/Svv;
-- U/V reversal;
-- independent cylinder and annular-sector fixtures;
-- expected ordinary inventory after implementation: 34 tests.
-
-Complete/periodic revolution, analytic elementary surfaces, general trimming,
+Complete periodic revolution, analytic elementary surfaces, general trimming,
 broader Coons/transfinite boundaries and remaining NURBS breadth remain later
 decisions.
-
-No production implementation may start until this decision is integrated,
-post-merge validated and separately closed.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
 
