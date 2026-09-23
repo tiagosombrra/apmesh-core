@@ -946,3 +946,50 @@ FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No repeated-knot, arbitrary-degree, periodic, Coons, analytic, swept, trimmed,
 differential-geometry or downstream meshing capability is implied.
+
+
+## 42. Implementation integration checkpoint
+
+Candidate head:
+
+`86d794c58dc2eae3323f47de276ff637e2e2c3ec`.
+
+Candidate validation:
+
+- FAST `35802648932`: PASS, 28/28 ordinary semantic tests;
+- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests per cell.
+
+Final PR head:
+
+`7fc82143e8fae6a2ee164b5ebae7a57bdd9b55a2`.
+
+Final PR validation:
+
+- FAST `35802788385`: PASS, 28/28 tests;
+- INTEGRATION `35802788429`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests per cell.
+
+PR #151 merged as:
+
+`3042f0a2eb1c4df20207248c1b16c7b023e5c525`.
+
+Post-merge validation:
+
+- FAST `35802888299`: PASS, 28/28 tests;
+- INTEGRATION `35802888266`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests per cell.
+
+Integrated work-unit result:
+
+**BICUBIC NURBS SURFACE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+This closure change does not authorize any next surface family.
+
+After closure integration and post-merge validation, the sole admissible next
+action is one fresh literature-backed Surface Representation breadth decision
+recomparing Section 37 candidates.
+
+No repeated-knot, Coons, analytic, swept, trimmed, arbitrary-degree,
+periodic, differential-geometry or downstream meshing capability is implied.
