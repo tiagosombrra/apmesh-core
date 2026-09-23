@@ -2,6 +2,7 @@
 
 #include "apmesh/core/numeric.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <expected>
 #include <limits>
@@ -646,21 +647,23 @@ std::expected<Vector3, GeometryError> AxisPlacement3::vector_to_local(
 
 std::expected<Point3, GeometryError> AxisPlacement3::point_to_world(
     const Point3& point) const noexcept {
-    const auto local = Vector3::make(point.x(), point.y(), point.z());
-    if (!local) {
-        return std::unexpected{GeometryError::non_finite_result};
-    }
-    const auto mapped = vector_to_world(*local);
-    if (!mapped) {
-        return std::unexpected{mapped.error()};
-    }
+    const long double local_x = static_cast<long double>(point.x());
+    const long double local_y = static_cast<long double>(point.y());
+    const long double local_z = static_cast<long double>(point.z());
+
     return point_from_long_double(
         static_cast<long double>(origin_.x()) +
-            static_cast<long double>(mapped->x()),
+            local_x * static_cast<long double>(x_direction_.x()) +
+            local_y * static_cast<long double>(y_direction_.x()) +
+            local_z * static_cast<long double>(z_direction_.x()),
         static_cast<long double>(origin_.y()) +
-            static_cast<long double>(mapped->y()),
+            local_x * static_cast<long double>(x_direction_.y()) +
+            local_y * static_cast<long double>(y_direction_.y()) +
+            local_z * static_cast<long double>(z_direction_.y()),
         static_cast<long double>(origin_.z()) +
-            static_cast<long double>(mapped->z()));
+            local_x * static_cast<long double>(x_direction_.z()) +
+            local_y * static_cast<long double>(y_direction_.z()) +
+            local_z * static_cast<long double>(z_direction_.z()));
 }
 
 std::expected<Point3, GeometryError> AxisPlacement3::point_to_local(
