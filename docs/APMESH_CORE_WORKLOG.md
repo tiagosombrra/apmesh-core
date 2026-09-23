@@ -526,10 +526,21 @@ Initial PR validation retained:
   generatrix control array before element replacement;
 - no production or scientific contract change was made.
 
+Corrected candidate validation:
+
+- corrected head:
+  `8761b3c46bb0a486c5a8dda8349247876fd12334`;
+- FAST `35912060803`: PASS, 34/34 ordinary tests;
+- INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 34/34 tests in each cell;
+- `apmesh_core.surface_revolution`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- no production change was required after the initial mechanical test failure.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / MECHANICAL TEST FIX APPLIED /
-REVALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
