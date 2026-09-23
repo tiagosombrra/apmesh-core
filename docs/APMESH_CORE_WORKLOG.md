@@ -424,49 +424,50 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #175; terminally reconciles the closed decision before production.
 - `surface/arbitrary-axis-placement`: **MERGED / HISTORICAL** via PR #176;
   bounded `AxisPlacement3` implementation work item.
-- `docs/arbitrary-axis-placement-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #176 integration and post-merge validation.
+- `docs/arbitrary-axis-placement-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #177; closes the `AxisPlacement3` implementation
+  checkpoint.
+- `docs/arbitrary-axis-placement-implementation-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed implementation
+  checkpoint before the next Surface Representation breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Right-Handed Arbitrary 3D Axis Placement is integrated and ready for
-implementation closure.**
+**None. Right-Handed Arbitrary 3D Axis Placement is terminally closed;
+documentation synchronization is active.**
 
-Implementation evidence:
+Terminal implementation evidence:
 
-1. decision authority:
-   `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`;
-2. initial candidate head:
-   `bb19471c2307aec70427719baf3f8d9500605c42`;
-3. candidate FAST `35901914044`: PASS, 33/33;
-4. candidate INTEGRATION `35901914002`: PASS, 33/33 in GCC and Clang;
-5. final PR head:
-   `484b1b353f09e5e8e4b6b768ec0a5b9403960d72`;
-6. final-head FAST `35902281707`: PASS, 33/33;
-7. final-head INTEGRATION `35902281599`: PASS, 33/33 in GCC and Clang;
-8. implementation PR #176 merged as:
+1. implementation PR #176:
    `6d90036300671656c3bbde459dd2a783f8457cc1`;
-9. post-merge FAST `35902586443`: PASS, 33/33;
-10. post-merge INTEGRATION `35902586537`: PASS, 33/33 in GCC and Clang;
-11. `apmesh_core.arbitrary_axis_placement`: PASS throughout;
-12. all prior 32 ordinary semantic contracts remained PASS;
-13. `CartesianFrame3` remained unchanged;
-14. the new focused test remains outside the `qualification` label.
+2. implementation post-merge FAST `35902586443`: PASS, 33/33;
+3. implementation post-merge INTEGRATION `35902586537`: PASS, 33/33;
+4. implementation closure PR #177 head:
+   `cd1d5dea1da2146a581d309d0e90f0cc3e7d43b0`;
+5. closure PR FAST `35903080976`: PASS;
+6. closure PR INTEGRATION `35903080966`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. closure PR #177 merged as:
+   `fda3d1284ed500cdd97a7b6b153791f9d0884818`;
+8. closure post-merge FAST `35903368279`: PASS;
+9. closure post-merge INTEGRATION `35903368467`: PASS;
+10. ordinary semantic inventory remains 33 tests;
+11. focused `apmesh_core.arbitrary_axis_placement`: retained PASS;
+12. `CartesianFrame3` qualified semantics remain unchanged.
 
-Integrated component result:
+Terminal work-unit result:
 
 **ARBITRARY AXIS PLACEMENT IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-No production work item is active in this closure change.
+No production work item is active during this documentation-only sync.
 
-## Next admissible work after closure
+## Next admissible work item
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
+After this terminal sync is integrated and post-merge validated, open exactly
+one fresh literature-backed Surface Representation breadth decision comparing:
 
 1. bounded revolution surface;
 2. analytic elementary surfaces enabled by `AxisPlacement3`;
