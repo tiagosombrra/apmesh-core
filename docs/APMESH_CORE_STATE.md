@@ -300,40 +300,44 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated,
+**After this terminal synchronization is integrated and post-merge validated,
 implement the Static Oriented Rectangular Trim of a Bounded Parametric Surface
 in 3D.**
 
-Decision evidence:
+Terminal decision evidence:
 
-- PR #162 head:
-  `0ee2a2b47592eee055dcc58ccba04c0364353fe5`;
-- PR FAST `35846509153`: PASS;
-- PR INTEGRATION `35846509081`: PASS;
-- merge:
+- decision merge:
   `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-- post-merge FAST `35846672914`: PASS;
-- post-merge INTEGRATION `35846673106`: PASS.
+- decision post-merge FAST `35846672914`: PASS;
+- decision post-merge INTEGRATION `35846673106`: PASS;
+- closure PR #163 head:
+  `012703f1f8cd5cdf2ed8922269c2d17e8b3cb236`;
+- closure PR FAST `35847140517`: PASS;
+- closure PR INTEGRATION `35847140605`: PASS;
+- closure merge:
+  `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
+- closure post-merge FAST `35847281819`: PASS;
+- closure post-merge INTEGRATION `35847281719`: PASS.
 
-Closure branch:
-`docs/surface-rectangular-trim-decision-closure`.
+Terminal sync branch:
+`docs/surface-rectangular-trim-terminal-sync`.
 
 Decision authority:
 `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-The sole authorized next implementation is the compile-time generic
-`RectangularTrimmedSurface3<Surface>` bounded by the integrated decision.
+The sole next production work item is the static compile-time generic
+rectangular trimmed-surface wrapper bounded by the integrated decision.
 
 No common surface-contract change, arbitrary trim curves, p-curves, topology,
 periodic wrapping, analytic/swept surfaces, broader Coons/NURBS breadth,
-Surface Differential Geometry, discretization or meshing work is authorized.
+Surface Differential Geometry or meshing work is authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — STATIC RECTANGULAR
-TRIM DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS AND COONS PREREQUISITES
-PRESERVED**
+TRIM DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
+TERMINAL SYNC ACTIVE / NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS AND
+COONS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
