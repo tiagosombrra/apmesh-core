@@ -400,54 +400,49 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #164; terminally reconciles the closed decision before production.
 - `surface/rectangular-trimmed-surface`: **MERGED / HISTORICAL** via
   PR #165; bounded static rectangular trimmed-surface implementation.
-- `docs/surface-rectangular-trim-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #165 integration and post-merge validation.
+- `docs/surface-rectangular-trim-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #166; closes the static rectangular trim
+  implementation checkpoint.
+- `docs/surface-rectangular-trim-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed implementation
+  checkpoint before the next Surface Representation breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Static Oriented Rectangular Trim implementation is integrated and
-ready for documentation/continuity closure.**
+**None. Static Oriented Rectangular Trim implementation is terminally closed;
+terminal documentation synchronization is active.**
 
-Implementation evidence:
+Terminal closure evidence:
 
-1. initial PR #165 head:
-   `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`;
-2. initial FAST `35873420030`: FAIL, 30/31;
-3. initial INTEGRATION `35873419776`: FAIL in GCC and Clang, 30/31;
-4. diagnosis: nested/direct bitwise-equality **test-oracle mismatch**; production
-   wrapper unchanged;
-5. corrected candidate head:
-   `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`;
-6. corrected FAST `35873716331`: PASS, 31/31;
-7. corrected INTEGRATION `35873716367`: PASS, 31/31 in GCC and Clang;
-8. final PR head:
-   `b672572fc4495b3ff1e369a3bc346673978dba3b`;
-9. final PR FAST `35874000945`: PASS, 31/31;
-10. final PR INTEGRATION `35874000992`: PASS, 31/31 in GCC and Clang;
-11. implementation PR #165 merged as
-    `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
-12. implementation post-merge FAST `35874273067`: PASS, 31/31;
-13. implementation post-merge INTEGRATION `35874273154`: PASS, 31/31 in
-    GCC and Clang;
-14. `apmesh_core.surface_rectangular_trim`: PASS in final PR and post-merge
-    jobs;
-15. common `BoundedParametricSurface3` remained unchanged;
-16. existing surface production sources remained unchanged.
+1. implementation PR #165 merged as
+   `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
+2. implementation post-merge FAST `35874273067`: PASS, 31/31;
+3. implementation post-merge INTEGRATION `35874273154`: PASS, 31/31 in
+   GCC and Clang;
+4. implementation closure PR #166 head:
+   `7ce52b5e880f4d7bd454c630aad00e89678eaf1e`;
+5. closure PR FAST `35874987379`: PASS;
+6. closure PR INTEGRATION `35874987450`: PASS in GCC and Clang;
+7. closure PR #166 merged as
+   `ad95dc048be988ad6f3fd9b29203f6e9d6d92b10`;
+8. closure post-merge FAST `35875154581`: PASS;
+9. closure post-merge INTEGRATION `35875154595`: PASS in GCC and Clang;
+10. the initial 30/31 test-oracle failure remains preserved in the decision
+    and worklog history;
+11. ordinary semantic inventory remains **31 tests**;
+12. no production work item is active.
 
-Integrated work-unit result:
+Terminal work-unit result:
 
 **STATIC RECTANGULAR TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-No production work item is active in this closure branch.
+## Next admissible work item after terminal sync
 
-## Next admissible work item after closure
-
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
+After this synchronization is integrated and post-merge validated, open exactly
+one fresh literature-backed Surface Representation breadth decision comparing:
 
 1. analytic elementary surfaces;
 2. ruled/extrusion/revolution surfaces;
@@ -455,4 +450,5 @@ decision comparing:
 4. broader Coons/transfinite boundary families;
 5. remaining NURBS breadth required by the admitted CAD input class.
 
-No candidate is pre-authorized.
+No candidate is pre-authorized and no production implementation may begin
+until the next decision is integrated, post-merge validated and closed.

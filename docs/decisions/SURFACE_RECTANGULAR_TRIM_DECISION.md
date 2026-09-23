@@ -893,3 +893,41 @@ No common surface-contract or existing production-surface source changed.
 The implementation checkpoint is ready for documentation/continuity closure.
 No next Surface Representation production work is authorized until that
 closure is integrated and post-merge validated.
+
+
+## 38. Implementation closure checkpoint
+
+Implementation closure PR #166 used head:
+
+`7ce52b5e880f4d7bd454c630aad00e89678eaf1e`.
+
+Closure PR validation:
+
+- FAST `35874987379`: PASS;
+- INTEGRATION `35874987450`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #166 merged as:
+
+`ad95dc048be988ad6f3fd9b29203f6e9d6d92b10`.
+
+Closure post-merge validation:
+
+- FAST `35875154581`: PASS;
+- INTEGRATION `35875154595`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Terminal result:
+
+**STATIC RECTANGULAR TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSED / NOT QUALIFIED.**
+
+The initial failed validation and corrected acceptance lineage remain preserved
+in Sections 36–37.
+
+No rectangular-trim implementation work remains active.
+
+After terminal documentation synchronization, the sole next admissible action
+is one fresh literature-backed Surface Representation breadth decision
+comparing the remaining candidates listed in Section 30. No candidate is
+pre-authorized.
