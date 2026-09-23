@@ -742,3 +742,46 @@ surface multiplicity-one/two extension bounded by Sections 5–33.
 No multiplicity-three, component-specific/one-sided derivative, Coons,
 analytic, swept, trimmed, Surface Differential Geometry or downstream
 capability is authorized.
+
+
+## 38. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/bicubic-nurbs-double-knot-continuity`.
+
+Candidate mapping:
+
+- common surface error vocabulary:
+  `include/apmesh/geometry/parametric_surface.hpp`;
+- public U/V multiplicity API/storage:
+  `include/apmesh/geometry/nurbs_surface.hpp`;
+- production:
+  `src/geometry/nurbs_surface.cpp`;
+- focused contract:
+  `tests/surface_bicubic_nurbs_double_knot_continuity.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate implementation preserves the existing simple-knot factory and adds:
+
+- explicit unique U/V multiplicities restricted to one/two;
+- construction-time flat-knot expansion/cache;
+- exact right-span selection on repeated flat knot sequences;
+- parameter-local `SurfaceError::insufficient_continuity` for aggregate
+  second derivatives at U/V multiplicity-two lines;
+- unchanged value/first-derivative queries at those lines;
+- no one-sided or component-specific derivative API.
+
+The focused contract includes an independent repeated-knot rational tensor
+oracle, generic U/V true-C1 fixtures with materially different one-sided
+second derivatives, test-only repeated insertion of an already-simple U/V
+knot, boundary parity with the integrated curve C1 semantics,
+reversal/multiplicity reflection, accidental-smoothness protection and
+deterministic failure evidence.
+
+Expected ordinary semantic inventory: **29 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
