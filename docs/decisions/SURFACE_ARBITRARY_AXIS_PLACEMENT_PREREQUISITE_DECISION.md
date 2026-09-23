@@ -515,3 +515,39 @@ item is the bounded `AxisPlacement3` implementation defined by Sections
 
 No analytic surface, revolution, trimming, broader Coons/NURBS or downstream
 capability is authorized.
+
+
+## 32. Decision closure checkpoint
+
+Decision closure PR #174 used head:
+
+`56f9b85e95f5074b3f3b692b512472964735135e`.
+
+Closure PR validation:
+
+- FAST `35894725433`: PASS;
+- INTEGRATION `35894725365`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #174 merged as:
+
+`fbdfb98cfc5574c053f32298cab75d714ff31772`.
+
+Closure post-merge validation:
+
+- FAST `35900347873`: PASS;
+- INTEGRATION `35900347965`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+After terminal documentation synchronization, the sole next production work
+item is the bounded `AxisPlacement3` implementation defined by Sections
+6–28.
+
+The qualified `CartesianFrame3` claim remains unchanged.
+
+No analytic elementary surface, revolution, trimming, broader Coons/NURBS or
+downstream capability is authorized.

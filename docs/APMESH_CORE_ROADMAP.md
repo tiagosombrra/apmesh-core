@@ -1876,30 +1876,31 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Arbitrary Right-Handed 3D Axis Placement
-Prerequisite — DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+Prerequisite — DECISION CLOSED / IMPLEMENTATION AUTHORIZED /
+NOT STARTED / NOT QUALIFIED / TERMINAL DOCUMENTATION SYNC ACTIVE**
 
 Decision authority:
 `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-Decision validation:
+Terminal decision evidence:
 
-- PR #173:
+- decision PR #173:
   `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
-- FAST `35894230229`: PASS;
-- INTEGRATION `35894230134`: PASS;
-- post-merge FAST `35894377748`: PASS;
-- post-merge INTEGRATION `35894377875`: PASS.
+- decision post-merge FAST `35894377748`: PASS;
+- decision post-merge INTEGRATION `35894377875`: PASS;
+- closure PR #174:
+  `fbdfb98cfc5574c053f32298cab75d714ff31772`;
+- closure PR FAST `35894725433`: PASS;
+- closure PR INTEGRATION `35894725365`: PASS;
+- closure post-merge FAST `35900347873`: PASS;
+- closure post-merge INTEGRATION `35900347965`: PASS.
 
-Closure branch:
-`docs/arbitrary-axis-placement-decision-closure`.
-
-After closure integration and post-merge validation, the sole next production
-work item is:
+After this terminal documentation sync is integrated and post-merge validated,
+the sole next production work item is:
 
 **Right-Handed Arbitrary 3D Axis Placement.**
 
-Authorized future implementation remains limited to:
+Authorized implementation remains limited to:
 
 - a separate `AxisPlacement3`;
 - finite origin;
@@ -1908,7 +1909,7 @@ Authorized future implementation remains limited to:
 - local/world point and vector transforms;
 - no stored scale;
 - signed-permutation parity with `CartesianFrame3` at scale exponent zero;
-- 33 ordinary tests expected.
+- one focused contract, targeting 33 ordinary tests.
 
 `CartesianFrame3` remains frozen.
 
