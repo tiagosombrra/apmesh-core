@@ -1877,52 +1877,42 @@ Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Static Rectangular
 Trimmed Surface — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED**
+CLOSED / NOT QUALIFIED / TERMINAL SYNC ACTIVE**
 
-Decision authority:
-`docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
+Terminal closure evidence:
 
-Implementation evidence:
-
-- initial head
-  `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`:
-  30/31 due to retained nested/direct exact-equality test-oracle mismatch;
-- corrected head
-  `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`:
-  FAST `35873716331` and INTEGRATION `35873716367`: PASS, 31/31;
-- final PR head
-  `b672572fc4495b3ff1e369a3bc346673978dba3b`:
-  FAST `35874000945` and INTEGRATION `35874000992`: PASS, 31/31;
-- PR #165 merged as
+- implementation PR #165:
   `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
-- post-merge FAST `35874273067`: PASS, 31/31;
-- post-merge INTEGRATION `35874273154`: PASS, 31/31 in GCC and Clang.
+- implementation post-merge FAST `35874273067`: PASS, 31/31;
+- implementation post-merge INTEGRATION `35874273154`: PASS, 31/31;
+- implementation closure PR #166 head:
+  `7ce52b5e880f4d7bd454c630aad00e89678eaf1e`;
+- closure PR FAST `35874987379`: PASS;
+- closure PR INTEGRATION `35874987450`: PASS;
+- closure merge:
+  `ad95dc048be988ad6f3fd9b29203f6e9d6d92b10`;
+- closure post-merge FAST `35875154581`: PASS;
+- closure post-merge INTEGRATION `35875154595`: PASS.
 
-Implemented bounded capability:
+Terminal work-unit result:
 
-- header-only static `RectangularTrimmedSurface3<Surface>`;
-- exact oriented rectangular subdomains without normalization;
-- value/first/second derivative covariance;
-- U/V reversal;
-- nested trim semantics;
-- basis-generic evidence across polynomial Bézier, rational Bézier, NURBS and
-  Coons;
-- explicit NURBS continuity-failure propagation.
+**STATIC RECTANGULAR TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-No next production work item is active.
+No production work item is active.
 
-After closure integration and post-merge validation, one fresh Surface
-Representation breadth decision must recompare:
+After this terminal sync is integrated and post-merge validated, open exactly
+one fresh Surface Representation breadth decision comparing:
 
 - analytic elementary surfaces;
 - ruled/extrusion/revolution surfaces;
 - general trimming / curve-on-surface / face-boundary semantics;
 - broader Coons/transfinite boundaries;
-- remaining NURBS breadth.
+- remaining NURBS breadth required by the admitted CAD input class.
 
-All general trimming/topology, p-curves, analytic/swept surfaces, broader
-Coons/NURBS, Surface Differential Geometry, discretization and meshing remain
-blocked until separately authorized.
+No candidate is preselected.
+
+Surface Differential Geometry and Boundary Curve Discretization remain blocked.
 
 The longer ordering remains:
 
