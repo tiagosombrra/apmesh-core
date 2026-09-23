@@ -446,6 +446,33 @@ Authorized implementation:
 - focused instantiation over Bézier, rational Bézier, NURBS and Coons;
 - one focused contract targeting **31 ordinary tests**.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/trimmed_surface.hpp`:
+  new header-only static wrapper and construction-error vocabulary;
+- `tests/surface_rectangular_trim.cpp`:
+  focused semantic/reference contract across polynomial Bézier, rational
+  Bézier, NURBS and Coons bases;
+- `CMakeLists.txt`:
+  registers `apmesh_core.surface_rectangular_trim` as the 31st ordinary
+  semantic contract.
+
+Candidate semantics include:
+
+- exact sorted public trim domains without normalization;
+- overflow-aware U/V reversal mapping through `reversed_parameter`;
+- independent first-derivative sign covariance;
+- pure second partial preservation and mixed-partial product sign;
+- U/V reversal commutation and involution;
+- nested trim/direct final-subdomain parity;
+- propagation of NURBS `SurfaceError::insufficient_continuity`;
+- deterministic extreme-finite non-normalized NURBS-domain evidence;
+- no changes to `BoundedParametricSurface3` or existing surface production.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no common surface-contract change;
