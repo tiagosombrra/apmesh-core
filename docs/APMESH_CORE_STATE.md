@@ -335,9 +335,23 @@ Candidate mapping:
 - `CMakeLists.txt`;
 - synchronized STATE / WORKLOG / ROADMAP / decision.
 
+Validation history:
+
+- initial head `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`:
+  FAST `35873420030` FAIL and INTEGRATION `35873419776` FAIL at
+  30/31 because of the retained nested/direct exact-equality test-oracle
+  mismatch;
+- corrected head `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`:
+  FAST `35873716331` PASS, 31/31;
+- corrected INTEGRATION `35873716367`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 31/31 per cell;
+- focused `apmesh_core.surface_rectangular_trim`: PASS in all corrected
+  jobs.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
