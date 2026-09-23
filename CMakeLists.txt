@@ -520,6 +520,7 @@ if(BUILD_TESTING)
         apmesh_core.surface_bicubic_bezier
         apmesh_core.surface_rational_bicubic_bezier
         apmesh_core.surface_bicubic_nurbs
+        apmesh_core.surface_bicubic_nurbs_double_knot_continuity
         PROPERTIES LABELS "surface;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
 
