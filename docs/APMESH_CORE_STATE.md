@@ -86,30 +86,34 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed Surface Representation decision:
-  **Static Rectangular Trimmed Surface**;
-- decision PR #162:
-  `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-- decision closure PR #163:
-  `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
-- terminal sync PR #164:
-  `83a56ee4f1b6a4703956c3e81c1786540bfecb14`;
-- sync PR FAST `35847597802` and INTEGRATION `35847597868`: PASS;
-- sync post-merge FAST `35847689693` and INTEGRATION
-  `35847690044`: PASS;
-- ordinary semantic inventory before the active implementation: **30 tests**;
+- latest integrated Surface Representation work unit:
+  **Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D**;
+- implementation PR #165:
+  `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
+- initial candidate:
+  `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`,
+  with retained 30/31 test-oracle failure in FAST `35873420030` and
+  INTEGRATION `35873419776`;
+- corrected candidate:
+  `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`,
+  FAST `35873716331` and INTEGRATION `35873716367`: PASS, 31/31;
+- final PR head:
+  `b672572fc4495b3ff1e369a3bc346673978dba3b`;
+- final PR FAST `35874000945` and INTEGRATION `35874000992`: PASS,
+  31/31;
+- implementation post-merge FAST `35874273067` and INTEGRATION
+  `35874273154`: PASS, 31/31;
 - current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — STATIC RECTANGULAR TRIM IMPLEMENTATION ACTIVE /
+  Geometry — STATIC RECTANGULAR TRIM INTEGRATED / CLOSURE PENDING /
   NOT QUALIFIED**;
-- active branch: `surface/rectangular-trimmed-surface`;
+- active branch:
+  `docs/surface-rectangular-trim-implementation-closure`;
 - active decision:
   `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`;
-- selected work unit:
-  **Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D**;
+- ordinary semantic inventory: **31 tests**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
-- current operational authority: `docs/APMESH_CORE_WORKLOG.md`;
 - live `main`, PR and Actions state must always be re-audited remotely before
   writing.
 
@@ -300,64 +304,34 @@ Topological Model qualification decision is recorded below.
 
 Exact current bounded scientific action:
 
-**Implement the Static Oriented Rectangular Trim of a Bounded Parametric
-Surface in 3D on the single active production branch.**
+**Integrate the documentation/continuity closure for the Static Oriented
+Rectangular Trim work unit; no production implementation is active.**
 
-Terminal decision/sync evidence:
+Implementation authority:
 
-- decision merge:
-  `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-- decision closure merge:
-  `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
-- terminal sync head:
-  `8c3b4c623bb3bd5812edce8723bb74eca7f9c667`;
-- sync PR FAST `35847597802`: PASS;
-- sync PR INTEGRATION `35847597868`: PASS;
-- terminal sync merge:
-  `83a56ee4f1b6a4703956c3e81c1786540bfecb14`;
-- sync post-merge FAST `35847689693`: PASS;
-- sync post-merge INTEGRATION `35847690044`: PASS.
+- PR #165 final head:
+  `b672572fc4495b3ff1e369a3bc346673978dba3b`;
+- final FAST `35874000945`: PASS, 31/31;
+- final INTEGRATION `35874000992`: PASS, 31/31 in GCC and Clang;
+- merge:
+  `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
+- post-merge FAST `35874273067`: PASS, 31/31;
+- post-merge INTEGRATION `35874273154`: PASS, 31/31.
 
-Active branch:
-`surface/rectangular-trimmed-surface`.
+Closure branch:
+`docs/surface-rectangular-trim-implementation-closure`.
 
-Decision authority:
-`docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
+The initial failed validation remains preserved as a test-oracle mismatch, not
+rewritten as a production defect.
 
-No change to `BoundedParametricSurface3`, topology, general trimming,
-analytic/swept surfaces, differential geometry, discretization or meshing is
-authorized.
-
-Candidate mapping:
-
-- `include/apmesh/geometry/trimmed_surface.hpp`;
-- `tests/surface_rectangular_trim.cpp`;
-- `CMakeLists.txt`;
-- synchronized STATE / WORKLOG / ROADMAP / decision.
-
-Validation history:
-
-- initial head `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`:
-  FAST `35873420030` FAIL and INTEGRATION `35873419776` FAIL at
-  30/31 because of the retained nested/direct exact-equality test-oracle
-  mismatch;
-- corrected head `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`:
-  FAST `35873716331` PASS, 31/31;
-- corrected INTEGRATION `35873716367`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 31/31 per cell;
-- focused `apmesh_core.surface_rectangular_trim`: PASS in all corrected
-  jobs.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+General trimming/topology, analytic/swept surfaces, broader Coons/NURBS,
+Surface Differential Geometry, discretization and meshing remain unauthorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — STATIC RECTANGULAR
-TRIM DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
-TERMINAL SYNC ACTIVE / NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS AND
+TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS AND
 COONS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
