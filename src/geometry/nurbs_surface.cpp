@@ -838,9 +838,43 @@ BicubicNURBSSurface3::make(
     const double u_upper_knot,
     const double v_lower_knot,
     const double v_upper_knot) {
+    std::vector<std::uint8_t> u_multiplicities(
+        u_interior_knots.size(), 1U);
+    std::vector<std::uint8_t> v_multiplicities(
+        v_interior_knots.size(), 1U);
+    return make(
+        std::move(control_points),
+        std::move(weights),
+        u_control_count,
+        v_control_count,
+        std::move(u_interior_knots),
+        std::move(v_interior_knots),
+        std::move(u_multiplicities),
+        std::move(v_multiplicities),
+        u_lower_knot,
+        u_upper_knot,
+        v_lower_knot,
+        v_upper_knot);
+}
+
+std::expected<BicubicNURBSSurface3, BicubicNURBSSurfaceConstructionError>
+BicubicNURBSSurface3::make(
+    std::vector<Point3> control_points,
+    std::vector<double> weights,
+    const std::size_t u_control_count,
+    const std::size_t v_control_count,
+    std::vector<double> u_interior_knots,
+    std::vector<double> v_interior_knots,
+    std::vector<std::uint8_t> u_interior_multiplicities,
+    std::vector<std::uint8_t> v_interior_multiplicities,
+    const double u_lower_knot,
+    const double u_upper_knot,
+    const double v_lower_knot,
+    const double v_upper_knot) {
     const auto valid_u = validate_direction(
         u_control_count,
         u_interior_knots,
+        u_interior_multiplicities,
         u_lower_knot,
         u_upper_knot,
         true);
@@ -850,6 +884,7 @@ BicubicNURBSSurface3::make(
     const auto valid_v = validate_direction(
         v_control_count,
         v_interior_knots,
+        v_interior_multiplicities,
         v_lower_knot,
         v_upper_knot,
         false);
@@ -885,9 +920,15 @@ BicubicNURBSSurface3::make(
     }
 
     auto u_flat_knots = build_flat_knots(
-        u_interior_knots, u_lower_knot, u_upper_knot);
+        u_interior_knots,
+        u_interior_multiplicities,
+        u_lower_knot,
+        u_upper_knot);
     auto v_flat_knots = build_flat_knots(
-        v_interior_knots, v_lower_knot, v_upper_knot);
+        v_interior_knots,
+        v_interior_multiplicities,
+        v_lower_knot,
+        v_upper_knot);
     const bool constant = constant_points(control_points);
 
     return BicubicNURBSSurface3{
@@ -897,6 +938,8 @@ BicubicNURBSSurface3::make(
         v_control_count,
         std::move(u_interior_knots),
         std::move(v_interior_knots),
+        std::move(u_interior_multiplicities),
+        std::move(v_interior_multiplicities),
         std::move(u_flat_knots),
         std::move(v_flat_knots),
         u_lower_knot,
@@ -932,6 +975,16 @@ BicubicNURBSSurface3::u_interior_knots() const noexcept {
 std::span<const double>
 BicubicNURBSSurface3::v_interior_knots() const noexcept {
     return std::span<const double>{v_interior_knots_};
+}
+
+std::span<const std::uint8_t>
+BicubicNURBSSurface3::u_interior_multiplicities() const noexcept {
+    return std::span<const std::uint8_t>{u_interior_multiplicities_};
+}
+
+std::span<const std::uint8_t>
+BicubicNURBSSurface3::v_interior_multiplicities() const noexcept {
+    return std::span<const std::uint8_t>{v_interior_multiplicities_};
 }
 
 std::size_t BicubicNURBSSurface3::u_span_count() const noexcept {
@@ -1038,6 +1091,12 @@ BicubicNURBSSurface3::second_derivatives(
     if (!valid.has_value()) {
         return std::unexpected{valid.error()};
     }
+    if (is_double_knot(
+            u_interior_knots_, u_interior_multiplicities_, u) ||
+        is_double_knot(
+            v_interior_knots_, v_interior_multiplicities_, v)) {
+        return std::unexpected{SurfaceError::insufficient_continuity};
+    }
     if (constant_) {
         const auto zero = Vector3::make(0.0, 0.0, 0.0);
         return SurfaceSecondDerivatives3{
@@ -1098,8 +1157,11 @@ BicubicNURBSSurface3 BicubicNURBSSurface3::u_reversed() const {
 
     const auto domain = parameter_domain();
     auto u_knots = reflected_knots(u_interior_knots_, domain.u);
+    std::vector<std::uint8_t> u_multiplicities(
+        u_interior_multiplicities_.rbegin(),
+        u_interior_multiplicities_.rend());
     auto u_flat = build_flat_knots(
-        u_knots, u_lower_knot_, u_upper_knot_);
+        u_knots, u_multiplicities, u_lower_knot_, u_upper_knot_);
 
     return BicubicNURBSSurface3{
         std::move(points),
@@ -1108,6 +1170,8 @@ BicubicNURBSSurface3 BicubicNURBSSurface3::u_reversed() const {
         v_control_count_,
         std::move(u_knots),
         v_interior_knots_,
+        std::move(u_multiplicities),
+        v_interior_multiplicities_,
         std::move(u_flat),
         v_flat_knots_,
         u_lower_knot_,
@@ -1135,8 +1199,11 @@ BicubicNURBSSurface3 BicubicNURBSSurface3::v_reversed() const {
 
     const auto domain = parameter_domain();
     auto v_knots = reflected_knots(v_interior_knots_, domain.v);
+    std::vector<std::uint8_t> v_multiplicities(
+        v_interior_multiplicities_.rbegin(),
+        v_interior_multiplicities_.rend());
     auto v_flat = build_flat_knots(
-        v_knots, v_lower_knot_, v_upper_knot_);
+        v_knots, v_multiplicities, v_lower_knot_, v_upper_knot_);
 
     return BicubicNURBSSurface3{
         std::move(points),
@@ -1145,6 +1212,8 @@ BicubicNURBSSurface3 BicubicNURBSSurface3::v_reversed() const {
         v_control_count_,
         u_interior_knots_,
         std::move(v_knots),
+        u_interior_multiplicities_,
+        std::move(v_multiplicities),
         u_flat_knots_,
         std::move(v_flat),
         u_lower_knot_,
