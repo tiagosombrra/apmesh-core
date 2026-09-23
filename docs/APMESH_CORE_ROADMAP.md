@@ -1911,6 +1911,20 @@ Authorized implementation scope:
 - independent rational tensor oracle;
 - target ordinary inventory: 28 tests.
 
+Candidate validation on head
+`86d794c58dc2eae3323f47de276ff637e2e2c3ec`:
+
+- FAST `35802648932`: PASS, 28/28 tests;
+- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests per cell;
+- the new bicubic NURBS surface contract and every prior ordinary semantic
+  contract passed;
+- frozen common surface, polynomial bicubic and rational bicubic
+  prerequisites remain unchanged.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration.
+
 Repeated knots, arbitrary degree, periodicity, Coons/transfinite, analytic,
 swept and trimmed families remain later decisions.
 
