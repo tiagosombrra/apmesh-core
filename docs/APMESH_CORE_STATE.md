@@ -86,27 +86,27 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed Surface Representation work unit:
-  **Bounded Cubic Bézier Linear Extrusion Surface in 3D**;
-- terminal sync PR #172:
-  `cbc29da630e6eba3f757bfedc06419431907d6d7`;
-- sync PR FAST `35892883045` and INTEGRATION
-  `35892882815`: PASS;
-- sync post-merge FAST `35893168075` and INTEGRATION
-  `35893168175`: PASS;
-- ordinary semantic inventory: **32 tests**;
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
+- latest integrated scientific decision:
+  **Arbitrary Right-Handed 3D Axis Placement prerequisite**;
+- decision PR #173:
+  `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
+- decision PR FAST `35894230229` and INTEGRATION
+  `35894230134`: PASS;
+- decision post-merge FAST `35894377748` and INTEGRATION
+  `35894377875`: PASS;
 - active branch:
-  `surface/arbitrary-axis-placement-decision`;
-- active work item:
-  **Arbitrary Right-Handed 3D Axis Placement — decision only**;
-- no production implementation is active;
+  `docs/arbitrary-axis-placement-decision-closure`;
+- no production work item is active;
+- `CartesianFrame3` remains frozen at its qualified exact
+  signed-permutation/power-of-two contract;
+- ordinary semantic inventory: **32 tests**;
+- after decision closure and post-merge validation, the sole next work item is
+  the bounded `AxisPlacement3` implementation;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
-- the already qualified exact `CartesianFrame3` signed-permutation/power-of-two
-  claim remains frozen and is not widened by this decision;
 - live `main`, open PRs and Actions must always be re-audited remotely before
   writing.
 
@@ -295,31 +295,30 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed arbitrary 3D axis-placement prerequisite
-decision; no production implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the bounded Right-Handed Arbitrary 3D Axis Placement work unit.**
 
-Decision-entry authority:
+Decision evidence:
 
-- terminal sync PR #172:
-  `cbc29da630e6eba3f757bfedc06419431907d6d7`;
-- sync PR FAST `35892883045`: PASS;
-- sync PR INTEGRATION `35892882815`: PASS;
-- sync post-merge FAST `35893168075`: PASS;
-- sync post-merge INTEGRATION `35893168175`: PASS.
+- PR #173:
+  `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
+- PR FAST `35894230229`: PASS;
+- PR INTEGRATION `35894230134`: PASS;
+- post-merge FAST `35894377748`: PASS;
+- post-merge INTEGRATION `35894377875`: PASS.
 
-Active branch:
-`surface/arbitrary-axis-placement-decision`.
+Closure branch:
+`docs/arbitrary-axis-placement-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-The decision selects a new right-handed `AxisPlacement3` built from origin,
-main direction and X reference.
+The sole future implementation is a separate right-handed `AxisPlacement3`.
 
-`CartesianFrame3` remains unchanged and retains its qualified exact
-signed-permutation/power-of-two contract.
+`CartesianFrame3` remains unchanged and keeps its qualified exact
+signed-permutation/power-of-two semantics.
 
 No analytic elementary, revolution, trimming, Coons, NURBS,
 surface-differential-geometry or meshing production is authorized.
@@ -327,8 +326,8 @@ surface-differential-geometry or meshing production is authorized.
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — ARBITRARY 3D
-PLACEMENT PREREQUISITE DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+PLACEMENT PREREQUISITE DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
 ALL CLOSED SURFACE REPRESENTATION WORK UNITS PRESERVED**
 
 Paused prerequisite investigation:
