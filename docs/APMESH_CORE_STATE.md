@@ -330,6 +330,28 @@ No generic extrusion, revolution, analytic elementary surface, arbitrary-angle
 frame, general trimming/topology, differential geometry or meshing work is
 authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/extrusion_surface.hpp`;
+- `src/geometry/extrusion_surface.cpp`;
+- `tests/surface_linear_extrusion.cpp`;
+- `CMakeLists.txt`.
+
+Candidate semantics:
+
+- start `CubicBezier3`, prevalidated translated end `CubicBezier3`, and
+  exact extrusion displacement are stored;
+- `S(u,v)=C(u)+vE`;
+- `Su=C'(u)`, `Sv=E`, `Suu=C''(u)`, `Suv=Svv=0`;
+- U reversal reverses both stored curves;
+- V reversal swaps stored curves and negates the displacement;
+- no common surface/curve contract changed;
+- ordinary inventory target is 32 tests.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 
 ## Current active stage
 
@@ -365,8 +387,8 @@ The following are **not implemented and not covered by CGR qualification**:
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
 - analytic elementary surface representations remain unimplemented;
-- swept surface representations remain unimplemented; the active decision
-  selects only a future bounded cubic-Bézier linear-extrusion work unit;
+- no swept surface is integrated yet; the active branch contains the bounded
+  cubic-Bézier linear-extrusion implementation candidate awaiting validation;
 - general arbitrary-loop trimmed-surface / p-curve / topological-face
   semantics remain unimplemented, while static oriented rectangular trimming
   is integrated;
