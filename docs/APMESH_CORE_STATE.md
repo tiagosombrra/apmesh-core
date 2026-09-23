@@ -326,6 +326,25 @@ No common bounded-surface contract change, rational/NURBS boundary dispatch,
 trimming/topology, analytic/swept surface, differential geometry,
 discretization or meshing work is authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/coons_surface.hpp`;
+- `src/geometry/coons_surface.cpp`;
+- `tests/surface_coons_patch.cpp`;
+- `CMakeLists.txt`.
+
+The common surface contract and all existing curve/surface implementations are
+unchanged.
+
+Candidate status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
+Expected ordinary semantic inventory after CMake registration: **30 tests**.
+The Coons contract is explicitly included in the surface FAST/INTEGRATION label
+group; this prevents recurrence of the earlier C1-surface label-selection
+mechanical failure.
+
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER COONS
