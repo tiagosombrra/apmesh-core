@@ -1325,6 +1325,81 @@ Project relevance:
 - supports retaining Coons/transfinite work as an explicit later surface
   family rather than folding it into the first bicubic patch.
 
+### Open CASCADE — B-spline surface knot splitting / continuity
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for bicubic NURBS surface C1
+continuity, reviewed 2026-09-22.
+
+Reference:
+https://dev.opencascade.org/doc/occt-7.2.0/refman/html/class_geom_convert___b_spline_surface_knot_splitting.html
+
+Project relevance:
+
+- surface discontinuities are localized at knot values;
+- continuity in one parametric direction is degree minus knot multiplicity;
+- for degree three, multiplicity one is C2 and multiplicity two is C1;
+- supports a bounded surface-specific continuity decision without changing
+  degree or periodicity.
+
+### STEP/Open CASCADE — independent U/V surface multiplicities
+
+Status: `FOUNDATIONAL / DATA-MODEL` for repeated-knot NURBS surfaces,
+reviewed 2026-09-22.
+
+Reference:
+https://dev.opencascade.org/doc/refman/html/class_step_geom___b_spline_surface_with_knots.html
+
+Project relevance:
+
+- U and V knots/multiplicities are separate surface data;
+- supports explicit directional multiplicity storage and validation;
+- no STEP runtime dependency is admitted.
+
+### Open CASCADE GeomFill_BezierCurves — Coons/filling deferral evidence
+
+Status: `FOUNDATIONAL / SCOPING` for the breadth comparison, reviewed
+2026-09-22.
+
+Reference:
+https://dev.opencascade.org/doc/occt-7.9.0/refman/html/class_geom_fill___bezier_curves.html
+
+Project relevance:
+
+- boundary-driven filling requires contiguous boundary curves and a filling
+  style;
+- supports treating Coons/transfinite construction as a separate boundary
+  compatibility/blending seam rather than part of knot continuity.
+
+### Open CASCADE elementary surfaces — analytic-surface deferral evidence
+
+Status: `FOUNDATIONAL / SCOPING` for later analytic Surface Representation,
+reviewed 2026-09-22.
+
+References:
+
+- https://dev.opencascade.org/doc/occt-7.0.0/refman/html/class_geom___elementary_surface.html
+- https://dev.opencascade.org/doc/refman/html/class_el_s_lib.html
+
+Project relevance:
+
+- plane/cylinder/cone/sphere/torus use family-specific analytic
+  parameterizations and 3D placement;
+- supports a separate decision for placement, periodic directions and
+  singular parameter behavior.
+
+### Open CASCADE / IGES trimmed surfaces — trimming deferral evidence
+
+Status: `FOUNDATIONAL / SCOPING` for later trimming, reviewed 2026-09-22.
+
+Reference:
+https://dev.opencascade.org/doc/refman/html/class_i_g_e_s_geom___trimmed_surface.html
+
+Project relevance:
+
+- trimmed surfaces retain a supporting surface plus outer/inner boundary data;
+- supports deferring curve-on-surface, loop orientation and topology identity
+  to a separate trimming decision.
+
 ## Curve Differential Geometry
 
 ### do Carmo — Differential Geometry of Curves and Surfaces
