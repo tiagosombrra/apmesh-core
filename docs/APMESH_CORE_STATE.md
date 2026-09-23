@@ -86,35 +86,34 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest integrated Surface Representation work unit:
+- latest closed Surface Representation work unit:
   **Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D**;
 - implementation PR #165:
   `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
-- initial candidate:
-  `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`,
-  with retained 30/31 test-oracle failure in FAST `35873420030` and
-  INTEGRATION `35873419776`;
-- corrected candidate:
-  `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`,
-  FAST `35873716331` and INTEGRATION `35873716367`: PASS, 31/31;
-- final PR head:
-  `b672572fc4495b3ff1e369a3bc346673978dba3b`;
-- final PR FAST `35874000945` and INTEGRATION `35874000992`: PASS,
-  31/31;
 - implementation post-merge FAST `35874273067` and INTEGRATION
   `35874273154`: PASS, 31/31;
-- current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — STATIC RECTANGULAR TRIM INTEGRATED / CLOSURE PENDING /
-  NOT QUALIFIED**;
-- active branch:
-  `docs/surface-rectangular-trim-implementation-closure`;
-- active decision:
-  `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`;
+- implementation closure PR #166 head:
+  `7ce52b5e880f4d7bd454c630aad00e89678eaf1e`;
+- closure PR FAST `35874987379` and INTEGRATION `35874987450`: PASS;
+- closure merge:
+  `ad95dc048be988ad6f3fd9b29203f6e9d6d92b10`;
+- closure post-merge FAST `35875154581` and INTEGRATION
+  `35875154595`: PASS;
+- retained initial implementation attempt:
+  `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`, 30/31 due solely to the
+  documented nested/direct test-oracle expectation mismatch;
 - ordinary semantic inventory: **31 tests**;
+- current scientific stage: **Surface Representation — Continuous Patch
+  Geometry — IN INVESTIGATION / NOT QUALIFIED**;
+- active branch:
+  `docs/surface-rectangular-trim-closure-sync`;
+- no production work item is active;
+- sole next scientific action after terminal sync:
+  **one fresh literature-backed Surface Representation breadth decision**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
-- live `main`, PR and Actions state must always be re-audited remotely before
+- live `main`, open PRs and Actions must always be re-audited remotely before
   writing.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
@@ -302,37 +301,38 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the documentation/continuity closure for the Static Oriented
-Rectangular Trim work unit; no production implementation is active.**
+**After this terminal synchronization is integrated and post-merge validated,
+open one fresh literature-backed Surface Representation breadth decision.**
 
-Implementation authority:
+Terminal rectangular-trim closure evidence:
 
-- PR #165 final head:
-  `b672572fc4495b3ff1e369a3bc346673978dba3b`;
-- final FAST `35874000945`: PASS, 31/31;
-- final INTEGRATION `35874000992`: PASS, 31/31 in GCC and Clang;
-- merge:
+- implementation merge:
   `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
-- post-merge FAST `35874273067`: PASS, 31/31;
-- post-merge INTEGRATION `35874273154`: PASS, 31/31.
+- implementation post-merge FAST `35874273067`: PASS, 31/31;
+- implementation post-merge INTEGRATION `35874273154`: PASS, 31/31;
+- closure PR #166 head:
+  `7ce52b5e880f4d7bd454c630aad00e89678eaf1e`;
+- closure PR FAST `35874987379`: PASS;
+- closure PR INTEGRATION `35874987450`: PASS;
+- closure merge:
+  `ad95dc048be988ad6f3fd9b29203f6e9d6d92b10`;
+- closure post-merge FAST `35875154581`: PASS;
+- closure post-merge INTEGRATION `35875154595`: PASS.
 
-Closure branch:
-`docs/surface-rectangular-trim-implementation-closure`.
+No production work item is active.
 
-The initial failed validation remains preserved as a test-oracle mismatch, not
-rewritten as a production defect.
-
-General trimming/topology, analytic/swept surfaces, broader Coons/NURBS,
-Surface Differential Geometry, discretization and meshing remain unauthorized.
+The next decision must compare analytic elementary, swept/ruled,
+general-trim/curve-on-surface, broader Coons/transfinite and remaining NURBS
+breadth. No candidate is pre-authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — STATIC RECTANGULAR
-TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS AND
-COONS PREREQUISITES PRESERVED**
+TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
+POLYNOMIAL, RATIONAL, NURBS AND COONS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
@@ -360,9 +360,12 @@ The following are **not implemented and not covered by CGR qualification**:
 - general/multi-span/arbitrary-degree/repeated-knot/periodic NURBS semantics
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
-- Coons/transfinite, analytic elementary, swept and trimmed surface
-  representations beyond the integrated polynomial, positive-weight rational
-  bicubic Bézier and bicubic NURBS surface work units;
+- analytic elementary and swept surface representations remain unimplemented;
+- general arbitrary-loop trimmed-surface / p-curve / topological-face
+  semantics remain unimplemented, while static oriented rectangular trimming
+  is integrated;
+- broader Coons/transfinite representations beyond the integrated oriented
+  cubic Bézier Coons patch remain unimplemented;
 - multiplicity-three/arbitrary-degree/periodic NURBS surface semantics beyond
   the integrated multiplicity-one/two bicubic NURBS surface.
 
@@ -377,12 +380,12 @@ their semantics.
 
 Surface Representation is open and its entry decision explicitly maps
 polynomial/rational free-form, spline/NURBS, Coons/transfinite, analytic,
-swept and trimmed families. Polynomial bicubic Bézier, positive-weight rational bicubic Bézier and
-bicubic NURBS surfaces with unique interior multiplicities one/two are
-integrated focused work units. one oriented cubic Bézier Coons patch is also integrated and closed;
-multiplicity-three/arbitrary-degree/periodic NURBS, broader Coons/transfinite,
-analytic, swept and trimmed surface families are not implicitly implemented or
-qualified.
+swept and trimmed families. Polynomial bicubic Bézier, positive-weight
+rational bicubic Bézier, bicubic NURBS with unique interior multiplicities
+one/two, one oriented cubic Bézier Coons patch, and static oriented rectangular
+trimming are integrated focused work units. Multiplicity-three/arbitrary-degree/
+periodic NURBS, broader Coons/transfinite, analytic, swept and general arbitrary-
+loop trimmed-surface semantics are not implicitly implemented or qualified.
 
 
 ## Most recently qualified stage
