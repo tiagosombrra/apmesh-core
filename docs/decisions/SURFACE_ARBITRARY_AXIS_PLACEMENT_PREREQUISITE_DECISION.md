@@ -551,3 +551,37 @@ The qualified `CartesianFrame3` claim remains unchanged.
 
 No analytic elementary surface, revolution, trimming, broader Coons/NURBS or
 downstream capability is authorized.
+
+
+## 33. Active implementation mapping
+
+Terminal decision synchronization PR #175 merged as:
+
+`281c935578fc3fa9fb625178ce4473d54c684591`.
+
+Sync validation:
+
+- PR FAST `35900708572`: PASS;
+- PR INTEGRATION `35900708552`: PASS;
+- post-merge FAST `35900859164`: PASS;
+- post-merge INTEGRATION `35900859257`: PASS.
+
+The sole authorized implementation is active on:
+
+`surface/arbitrary-axis-placement`.
+
+Candidate repository mapping is restricted to:
+
+- `include/apmesh/core/geometry.hpp`;
+- `src/core/geometry.cpp`;
+- `tests/arbitrary_axis_placement.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+The qualified exact `CartesianFrame3` implementation remains frozen.
+
+Expected ordinary semantic inventory: **33 tests**.
+
+Current status:
+
+**IMPLEMENTATION ACTIVE / VALIDATION PENDING / NOT QUALIFIED.**
