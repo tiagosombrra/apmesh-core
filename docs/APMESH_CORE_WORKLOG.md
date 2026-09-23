@@ -386,56 +386,64 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #158; closes the bounded Coons surface decision checkpoint.
 - `surface/coons-patch`: **MERGED / HISTORICAL** via PR #159; bounded
   oriented four-boundary cubic Bézier Coons patch implementation.
-- `docs/surface-coons-patch-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #159 integration and protected-main validation.
+- `docs/surface-coons-patch-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #160; closes the oriented cubic Bézier Coons
+  implementation checkpoint.
+- `docs/surface-coons-terminal-sync`: **ACTIVE / DOCUMENTATION-ONLY**;
+  terminally reconciles the closed Coons work unit before the next surface
+  breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
 **None. Oriented Four-Boundary Cubic Bézier Coons Patch implementation is
-integrated and ready for documentation closure.**
+terminally closed.**
 
-Implementation evidence:
+Terminal Coons evidence:
 
-1. initial validated candidate head:
+1. initial validated head:
    `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
 2. initial FAST `35842812822`: PASS, 30/30;
 3. initial INTEGRATION `35842812792`: PASS, 30/30 in GCC and Clang;
-4. final documentation-synchronized head:
+4. final PR head:
    `ec5a1b56dd30445c5745dc2522680653f4f0af3f`;
 5. final FAST `35843033876`: PASS, 30/30;
 6. final INTEGRATION `35843034029`: PASS, 30/30 in GCC and Clang;
-7. implementation PR #159 merged as
+7. implementation PR #159:
    `3528612fdb875d8298d785a2c32f0fb4e1f8eea4`;
 8. implementation post-merge FAST `35843296073`: PASS, 30/30;
-9. implementation post-merge INTEGRATION `35843296147`: PASS, 30/30 in
-   GCC and Clang;
-10. focused `apmesh_core.surface_coons_patch`: PASS throughout every complete
-    validation;
-11. every prior ordinary semantic contract remained PASS;
-12. no common surface contract or previously integrated surface family changed.
+9. implementation post-merge INTEGRATION `35843296147`: PASS, 30/30;
+10. implementation closure PR #160 head:
+    `02e56a11c1fbe4f764e63c0db745f203442172a9`;
+11. closure PR FAST `35843661949`: PASS;
+12. closure PR INTEGRATION `35843661956`: PASS;
+13. closure PR #160 merged as:
+    `3a0edbbed28b43171cf27171525b13e9fb54ad3e`;
+14. closure post-merge FAST `35845572575`: PASS;
+15. closure post-merge INTEGRATION `35845572455`: PASS;
+16. focused `apmesh_core.surface_coons_patch`: PASS throughout every
+    complete semantic validation;
+17. no production work item is active.
 
-Integrated work-unit result before this documentation closure:
+Terminal work-unit result:
 
 **CUBIC BÉZIER COONS PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / NOT QUALIFIED.**
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-No production work item is active in this closure change.
+## Next admissible work item
 
-## Next admissible work item after closure
-
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one fresh literature-backed Surface Representation breadth
+Open exactly one fresh literature-backed Surface Representation breadth
 decision comparing at minimum:
 
 1. analytic elementary surfaces;
 2. ruled/extrusion/revolution surfaces;
 3. rectangular/general trimmed-surface semantics;
 4. broader Coons/transfinite boundary families, including rational/NURBS
-   boundaries if required;
-5. multiplicity-three/C0, arbitrary-degree and periodic NURBS breadth only if
-   required by the admitted model class.
+   boundaries when justified;
+5. remaining NURBS breadth, including multiplicity-three/C0,
+   arbitrary-degree and periodic semantics, only when required by the admitted
+   model class.
 
 No candidate is pre-authorized.
 

@@ -299,41 +299,41 @@ Topological Model qualification decision is recorded below.
 
 Exact next bounded scientific action:
 
-**Close the integrated oriented four-boundary cubic Bézier Coons patch work
-unit; after closure, open one fresh Surface Representation breadth decision.**
+**Open one fresh literature-backed Surface Representation breadth decision.**
 
-Implementation evidence:
+Terminal Coons evidence:
 
-- initial validated head:
-  `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
-- initial FAST `35842812822`: PASS, 30/30;
-- initial INTEGRATION `35842812792`: PASS, 30/30;
-- final head:
-  `ec5a1b56dd30445c5745dc2522680653f4f0af3f`;
-- final FAST `35843033876`: PASS, 30/30;
-- final INTEGRATION `35843034029`: PASS, 30/30;
 - implementation PR #159:
   `3528612fdb875d8298d785a2c32f0fb4e1f8eea4`;
 - implementation post-merge FAST `35843296073`: PASS, 30/30;
-- implementation post-merge INTEGRATION `35843296147`: PASS, 30/30.
+- implementation post-merge INTEGRATION `35843296147`: PASS, 30/30;
+- closure PR #160 head:
+  `02e56a11c1fbe4f764e63c0db745f203442172a9`;
+- closure PR FAST `35843661949`: PASS;
+- closure PR INTEGRATION `35843661956`: PASS;
+- closure merge:
+  `3a0edbbed28b43171cf27171525b13e9fb54ad3e`;
+- closure post-merge FAST `35845572575`: PASS;
+- closure post-merge INTEGRATION `35845572455`: PASS.
 
-Closure branch:
-`docs/surface-coons-patch-implementation-closure`.
+The integrated surface representation breadth now includes:
 
-The integrated production surface now supports one deterministic
-four-`CubicBezier3` Coons patch with exact corner compatibility,
-boundary/tangent interpolation, analytic first/second partials and U/V
-reversal.
+- bicubic polynomial Bézier patch;
+- positive-weight rational bicubic Bézier patch;
+- bicubic positive-weight NURBS patch with multiplicity-one/two C1 semantics;
+- oriented four-boundary cubic Bézier Coons patch.
 
-No broader Coons boundary family, analytic/swept surface, trimming/topology,
-surface differential geometry, boundary discretization or meshing capability
-is authorized by this closure.
+No production work item is active.
+
+The next decision must compare analytic elementary, swept, trimmed, broader
+Coons/transfinite and demonstrably required remaining NURBS breadth. No winner
+is pre-authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER COONS
 PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED /
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
 POLYNOMIAL, RATIONAL AND NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
@@ -381,9 +381,10 @@ Surface Representation is open and its entry decision explicitly maps
 polynomial/rational free-form, spline/NURBS, Coons/transfinite, analytic,
 swept and trimmed families. Polynomial bicubic Bézier, positive-weight rational bicubic Bézier and
 bicubic NURBS surfaces with unique interior multiplicities one/two are
-integrated focused work units. Coons/transfinite is the active decision only;
-multiplicity-three/arbitrary-degree/periodic NURBS, analytic, swept and trimmed
-surface families are not implicitly implemented or qualified.
+integrated focused work units. one oriented cubic Bézier Coons patch is also integrated and closed;
+multiplicity-three/arbitrary-degree/periodic NURBS, broader Coons/transfinite,
+analytic, swept and trimmed surface families are not implicitly implemented or
+qualified.
 
 
 ## Most recently qualified stage
