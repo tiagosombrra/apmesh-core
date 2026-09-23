@@ -297,40 +297,40 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the oriented four-boundary cubic Bézier Coons patch in 3D.**
+**Implement the bounded oriented four-boundary cubic Bézier Coons patch in 3D.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #157 head:
-  `dbdee00c53595dd203c9d44a7e18138b8b85afce`;
-- PR FAST `35841081221`: PASS;
-- PR INTEGRATION `35841081217`: PASS;
-- merge:
+- decision PR #157:
   `639565e047a15a5b947f73fcadce10e51dde6bb0`;
-- post-merge FAST `35841180741`: PASS;
-- post-merge INTEGRATION `35841180924`: PASS.
+- decision post-merge FAST `35841180741`: PASS;
+- decision post-merge INTEGRATION `35841180924`: PASS;
+- closure PR #158:
+  `765ee737a1a8ef192ccff113dbb731b7ba68294f`;
+- closure post-merge FAST `35841573108`: PASS;
+- closure post-merge INTEGRATION `35841573116`: PASS.
 
-Closure branch:
-`docs/surface-coons-patch-decision-closure`.
+Active branch:
+`surface/coons-patch`.
 
 Decision authority:
 `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
 
-The sole future production work item is the fixed cubic Bézier four-boundary
-Coons patch selected by that decision.
+The implementation is limited to four owned `CubicBezier3` boundaries,
+exact corner compatibility, the deterministic classical Coons blend, analytic
+first/second partials, U/V reversal and one focused 30th ordinary contract.
 
-No rational/NURBS-boundary Coons, heterogeneous curve dispatch, analytic or
-swept surface, trimming/topology, surface differential geometry, boundary
+No common bounded-surface contract change, rational/NURBS boundary dispatch,
+trimming/topology, analytic/swept surface, differential geometry,
 discretization or meshing work is authorized.
 
 ## Current active stage
 
-**Surface Representation — Continuous Patch Geometry — COONS PATCH DECISION
-INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED / POLYNOMIAL, RATIONAL AND NURBS PREREQUISITES PRESERVED**
+**Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER COONS
+PATCH IMPLEMENTATION ACTIVE / NOT QUALIFIED /
+POLYNOMIAL, RATIONAL AND NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
