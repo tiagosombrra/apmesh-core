@@ -760,3 +760,51 @@ active on:
 
 No broader trim/topology, analytic/swept surface, differential-geometry or
 meshing capability is authorized.
+
+
+## 35. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/rectangular-trimmed-surface`.
+
+Candidate mapping:
+
+- public/static wrapper:
+  `include/apmesh/geometry/trimmed_surface.hpp`;
+- focused contract:
+  `tests/surface_rectangular_trim.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Candidate production semantics:
+
+- basis surface owned by value;
+- deterministic construction validation in the order frozen by Section 7;
+- exact sorted U/V trim domains;
+- independent U/V orientation encoded by source/target order;
+- no normalization/rescaling;
+- overflow-aware reflection using the existing `reversed_parameter`;
+- exact basis value forwarding;
+- first derivative orientation covariance;
+- pure second partial preservation;
+- mixed-partial product sign;
+- U/V reversal, commutation and involution;
+- nested wrapper compatibility through `BoundedParametricSurface3`.
+
+The focused contract instantiates the wrapper over:
+
+- `BicubicBezierPatch3`;
+- `RationalBicubicBezierPatch3`;
+- `BicubicNURBSSurface3`;
+- `CubicBezierCoonsPatch3`.
+
+It also covers nested trimming, NURBS C1 continuity failure propagation,
+extreme finite non-normalized NURBS domains and deterministic failures.
+
+Expected ordinary semantic inventory: **31 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
