@@ -432,51 +432,78 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   checkpoint.
 - `surface/cubic-bezier-revolution-decision`: **MERGED / HISTORICAL** via
   PR #179; bounded revolution breadth decision.
-- `docs/surface-cubic-bezier-revolution-decision-closure`: **CLOSURE-ONLY**;
-  records PR #179 integration and post-merge validation.
+- `docs/surface-cubic-bezier-revolution-decision-closure`: **MERGED /
+  HISTORICAL** via PR #180; closes the bounded revolution decision checkpoint.
+- `surface/cubic-bezier-revolution`: **ACTIVE**; bounded revolution
+  implementation work item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Cubic Bézier Surface of Revolution decision is integrated and
-ready for closure.**
+**Bounded Cubic Bézier Surface of Revolution in 3D — ACTIVE /
+IMPLEMENTATION OPEN / NOT QUALIFIED.**
 
-Decision evidence:
+Active branch:
+`surface/cubic-bezier-revolution`.
 
-1. decision authority:
-   `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`;
-2. decision PR #179 final head:
-   `92db678f92fbf869e00540536156de25a1647113`;
-3. PR FAST `35909899142`: PASS;
-4. PR INTEGRATION `35909899200`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-5. PR #179 merged as
-   `112f3b7ae3c439d729380fec07d065997bf11e56`;
-6. post-merge FAST `35910017412`: PASS;
-7. post-merge INTEGRATION `35910017524`: PASS;
-8. ordinary semantic inventory remains 33 tests;
-9. no revolution production code exists yet;
-10. no production work item is active in this closure change.
+Decision authority:
+`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-## Next admissible work item after closure
+Closed decision checkpoint:
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
+- decision PR #179 merged as
+  `112f3b7ae3c439d729380fec07d065997bf11e56`;
+- decision post-merge FAST `35910017412`: PASS;
+- decision post-merge INTEGRATION `35910017524`: PASS;
+- decision closure PR #180 final head:
+  `2f9f832febe91ab6bcd2d95550e944bd66c48f6f`;
+- closure PR FAST `35910276757`: PASS;
+- closure PR INTEGRATION `35910276791`: PASS;
+- closure PR #180 merged as
+  `715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`;
+- closure post-merge FAST `35910422052`: PASS;
+- closure post-merge INTEGRATION `35910422072`: PASS.
 
-**Bounded Cubic Bézier Surface of Revolution in 3D.**
+Authorized repository mapping:
 
-Implementation remains bounded by
-`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`:
+1. public family:
+   `include/apmesh/geometry/revolution_surface.hpp`;
+2. production:
+   `src/geometry/revolution_surface.cpp`;
+3. focused contract:
+   `tests/surface_revolution.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized STATE / ROADMAP / WORKLOG / decision.
 
-- one `CubicBezier3`;
+Required scope:
+
+- one existing `CubicBezier3` generatrix;
 - one existing `AxisPlacement3`;
-- finite signed non-zero sweep with exact `abs(sweep) < 2*pi`;
-- exact `[0,1]^2` domain;
-- analytic value and first/second partials;
+- one finite non-zero signed sweep with exact `abs(sweep) < 2*pi`;
+- exact normalized `[0,1]^2` parameter domain;
+- Rodrigues-style rotation about the stored axis;
+- analytic value/Su/Sv/Suu/Suv/Svv;
+- exact stored U-boundary curves;
 - U/V reversal;
-- no full periodic revolution;
-- expected ordinary inventory: 34 tests.
+- independent cylinder and annular-sector fixtures;
+- ordinary semantic inventory target: 34 tests.
 
-No analytic elementary surface, general trimming/p-curves/topological faces,
-broader Coons/NURBS, differential geometry or meshing work is authorized.
+Explicit non-actions:
+
+- no complete or multi-turn periodic revolution;
+- no analytic elementary production types;
+- no generic runtime generatrix family;
+- no general trimming/p-curves/topological faces;
+- no broader Coons/NURBS;
+- no Surface Differential Geometry;
+- no discretization/meshing;
+- no common surface/axis contract changes.
+
+## Next admissible transition
+
+Complete only this implementation, validate 34/34 in FAST and both INTEGRATION
+compiler cells, integrate through one PR, validate protected `main`, close
+the implementation checkpoint, and only then open a fresh Surface
+Representation breadth decision.
