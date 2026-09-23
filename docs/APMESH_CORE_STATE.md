@@ -347,9 +347,23 @@ Candidate semantics:
   line before accidental-smoothness shortcuts;
 - 29 ordinary tests are expected after registration.
 
+Validation history:
+
+- initial head `3e169a6c9db545d227eeba07f04ecec7d256f577`;
+- initial FAST `35837423080` and INTEGRATION `35837423118`: workflows
+  PASS but selected only the prior 28-test surface profile;
+- diagnosis: missing `fast;integration` labels on the newly registered
+  contract; production and test executable compiled successfully;
+- corrected head `b913895065f1d1184ecebf2565667fdd7fcaca2b`;
+- FAST `35837638861`: PASS, 29/29;
+- INTEGRATION `35837638899`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 29/29 per cell;
+- focused `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ## Current active stage
 
