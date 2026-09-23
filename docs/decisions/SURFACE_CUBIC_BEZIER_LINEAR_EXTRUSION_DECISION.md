@@ -561,3 +561,20 @@ the sole next production work item is:
 Surface Representation remains IN INVESTIGATION / NOT QUALIFIED.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
+
+
+## 28. Decision integration checkpoint
+
+PR #168 merged as `b8fe106080513a9736172a2380d5d8c0f162276a`.
+
+Validation:
+
+- PR FAST `35885189655`: PASS;
+- PR INTEGRATION `35885189624`: PASS in GCC and Clang;
+- post-merge FAST `35885367665`: PASS;
+- post-merge INTEGRATION `35885367613`: PASS.
+
+The decision is integrated and ready for documentation closure.
+
+After closure integration and post-merge validation, the sole next work item is
+the bounded `CubicBezierLinearExtrusionSurface3` implementation.
