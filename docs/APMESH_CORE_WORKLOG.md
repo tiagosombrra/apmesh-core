@@ -411,46 +411,52 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   PR #169; closes the bounded linear-extrusion decision checkpoint.
 - `surface/cubic-bezier-linear-extrusion`: **MERGED / HISTORICAL** via
   PR #170; bounded cubic Bézier linear-extrusion implementation.
-- `docs/surface-linear-extrusion-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #170 integration and post-merge validation.
+- `docs/surface-linear-extrusion-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #171; closes the bounded linear-extrusion implementation
+  checkpoint.
+- `docs/surface-linear-extrusion-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed linear-extrusion work
+  unit before the next breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Cubic Bézier Linear Extrusion Surface implementation is
-integrated and ready for closure.**
+**None. Bounded Cubic Bézier Linear Extrusion Surface in 3D is terminally
+closed.**
 
-Implementation evidence:
+Terminal evidence:
 
-1. decision authority:
-   `docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`;
-2. candidate head:
+1. candidate head:
    `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
-3. candidate FAST `35887599787`: PASS, 32/32;
-4. candidate INTEGRATION `35887599839`: PASS, 32/32 in GCC and Clang;
-5. final PR head:
+2. candidate FAST `35887599787`: PASS, 32/32;
+3. candidate INTEGRATION `35887599839`: PASS, 32/32 in GCC and Clang;
+4. final PR head:
    `87d0ecc0dbb7a5dda34164834d8c30c473779102`;
-6. final PR FAST `35891866350`: PASS, 32/32;
-7. final PR INTEGRATION `35891867091`: PASS, 32/32 in GCC and Clang;
-8. implementation PR #170 merged as:
+5. final PR FAST `35891866350`: PASS, 32/32;
+6. final PR INTEGRATION `35891867091`: PASS, 32/32 in GCC and Clang;
+7. implementation PR #170:
    `63b4d963fbed25e6482d37ae1944a08799043b2c`;
-9. implementation post-merge FAST `35892078309`: PASS, 32/32;
-10. implementation post-merge INTEGRATION `35892078255`: PASS, 32/32 in
-    GCC and Clang;
-11. focused `apmesh_core.surface_linear_extrusion`: PASS throughout;
-12. every prior ordinary semantic contract remained PASS;
-13. no next production work item is active.
+8. implementation post-merge FAST `35892078309`: PASS, 32/32;
+9. implementation post-merge INTEGRATION `35892078255`: PASS, 32/32;
+10. implementation closure PR #171 head:
+    `6bd10e79ddc80fc7c1330ecb7d570148b1a0e841`;
+11. closure PR FAST `35892445808`: PASS;
+12. closure PR INTEGRATION `35892445798`: PASS;
+13. closure PR #171 merged as:
+    `fccb7330e9fb0e5a45b53d9e72efee689f30ea2f`;
+14. closure post-merge FAST `35892574623`: PASS;
+15. closure post-merge INTEGRATION `35892574146`: PASS;
+16. no production work item is active.
 
-Integrated work-unit result pending closure:
+Terminal result:
 
 **LINEAR EXTRUSION SURFACE IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-## Next admissible work item after closure
+## Next admissible work item
 
-Only after this closure is integrated and its own post-merge FAST/INTEGRATION
-pass, open exactly one fresh literature-backed Surface Representation breadth
+Open exactly one fresh literature-backed Surface Representation breadth
 decision comparing:
 
 1. explicit arbitrary-placement prerequisite for analytic elementary surfaces;
