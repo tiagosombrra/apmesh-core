@@ -799,3 +799,50 @@ Bézier Coons patch bounded by Sections 5–30.
 
 No broader Coons, analytic, swept, trimmed or downstream capability is
 authorized.
+
+
+## 35. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/coons-patch`.
+
+Candidate mapping:
+
+- public representation:
+  `include/apmesh/geometry/coons_surface.hpp`;
+- production:
+  `src/geometry/coons_surface.cpp`;
+- focused contract:
+  `tests/surface_coons_patch.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+The common `BoundedParametricSurface3` contract and all pre-existing curve and
+surface production sources remain unchanged.
+
+Candidate implementation provides:
+
+- four owned oriented `CubicBezier3` boundaries;
+- four deterministic exact corner mismatch errors;
+- exact `[0,1]^2` domain;
+- direct boundary identity shortcuts;
+- deterministic classical Coons value accumulation;
+- analytic `Su/Sv/Suu/Suv/Svv`;
+- exact boundary tangential derivative preservation;
+- U/V reversal and involution;
+- checked finite materialization after long-double accumulation.
+
+The focused contract includes the independent direct Coons oracle, exact
+boundary/tangent parity, analytic bilinear and planar fixtures, asymmetric
+nonplanar evidence, reversal covariance, constant/degenerate representation,
+affine covariance, extreme finite behavior, explicit unrepresentable-result
+failure and deterministic typed failures.
+
+The new test is explicitly labeled for both FAST and INTEGRATION. Expected
+ordinary semantic inventory: **30 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
