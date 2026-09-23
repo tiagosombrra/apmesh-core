@@ -86,30 +86,30 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed Surface Representation work unit:
-  **Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D**;
-- implementation PR #165:
-  `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
-- implementation post-merge FAST `35874273067` and INTEGRATION
-  `35874273154`: PASS, 31/31;
-- implementation closure PR #166 head:
-  `7ce52b5e880f4d7bd454c630aad00e89678eaf1e`;
-- closure PR FAST `35874987379` and INTEGRATION `35874987450`: PASS;
-- closure merge:
-  `ad95dc048be988ad6f3fd9b29203f6e9d6d92b10`;
-- closure post-merge FAST `35875154581` and INTEGRATION
-  `35875154595`: PASS;
-- retained initial implementation attempt:
-  `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`, 30/31 due solely to the
-  documented nested/direct test-oracle expectation mismatch;
-- ordinary semantic inventory: **31 tests**;
+- latest closed decision checkpoint:
+  **Bounded Cubic Bézier Linear Extrusion Surface in 3D**;
+- decision PR #168:
+  `b8fe106080513a9736172a2380d5d8c0f162276a`;
+- decision post-merge FAST `35885367665` and INTEGRATION
+  `35885367613`: PASS;
+- decision closure PR #169:
+  `f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`;
+- closure post-merge FAST `35886133289` and INTEGRATION
+  `35886133213`: PASS;
+- ordinary semantic inventory at implementation entry: **31 tests**;
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
-- active branch:
-  `docs/surface-rectangular-trim-closure-sync`;
-- no production work item is active;
-- sole next scientific action after terminal sync:
-  **one fresh literature-backed Surface Representation breadth decision**;
+- sole active production branch:
+  `surface/cubic-bezier-linear-extrusion`;
+- implementation PR #170 candidate head:
+  `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
+- candidate FAST `35887599787`: PASS, 32/32;
+- candidate INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 32/32 per cell;
+- focused `apmesh_core.surface_linear_extrusion`: PASS in all three jobs;
+- current implementation status:
+  **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+  FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -348,9 +348,18 @@ Candidate semantics:
 - no common surface/curve contract changed;
 - ordinary inventory target is 32 tests.
 
+Candidate validation:
+
+- head `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
+- FAST `35887599787`: PASS, 32/32 tests;
+- INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 32/32 tests per cell;
+- focused `apmesh_core.surface_linear_extrusion`: PASS in all three jobs.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 
 ## Current active stage
@@ -388,7 +397,8 @@ The following are **not implemented and not covered by CGR qualification**:
 - heterogeneous composite/polycurve semantics;
 - analytic elementary surface representations remain unimplemented;
 - no swept surface is integrated yet; the active branch contains the bounded
-  cubic-Bézier linear-extrusion implementation candidate awaiting validation;
+  cubic-Bézier linear-extrusion implementation candidate with 32/32 focused
+  ordinary validation PASS, pending final documentation-head revalidation;
 - general arbitrary-loop trimmed-surface / p-curve / topological-face
   semantics remain unimplemented, while static oriented rectangular trimming
   is integrated;
