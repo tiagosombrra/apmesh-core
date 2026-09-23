@@ -293,38 +293,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed bicubic NURBS surface C1 continuity decision;
-no production implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the bounded bicubic NURBS surface multiplicity-one/two C1 work unit.**
 
-Entry authority:
+Decision evidence:
 
-- implementation closure PR #152:
-  `0d43b54aaec971c6887e481c9282b9fc4bff0049`;
-- closure PR FAST `35803111019`: PASS;
-- closure PR INTEGRATION `35803111107`: PASS;
-- closure post-merge FAST `35803190543`: PASS;
-- closure post-merge INTEGRATION `35803190533`: PASS.
+- PR #153 head:
+  `84c3d108a7b6333af42a4dd1e91f83973e34ec9a`;
+- PR FAST `35803735477`: PASS;
+- PR INTEGRATION `35803735461`: PASS;
+- merge:
+  `736e6a4d05f65862c4de5cb852ceb2af07f33e9b`;
+- post-merge FAST `35803798870`: PASS;
+- post-merge INTEGRATION `35803798780`: PASS.
 
-Active branch:
-`surface/bicubic-nurbs-double-knot-decision`.
+Closure branch:
+`docs/surface-bicubic-nurbs-double-knot-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-The decision selects directional multiplicity-two/C1 semantics while keeping
-degree 3, positive weights and non-periodicity fixed.
+The sole next implementation may add explicit U/V multiplicities 1/2 and
+`SurfaceError::insufficient_continuity` while preserving the common surface
+concept signatures.
 
-No production change, multiplicity-three/C0, one-sided/component-specific
-derivative API, Coons, analytic, swept, trimmed, arbitrary-degree, periodic,
-differential-geometry or meshing work is authorized.
+No multiplicity-three/C0, one-sided/component-specific derivative API, Coons,
+analytic, swept, trimmed, arbitrary-degree, periodic, differential-geometry or
+meshing work is authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
-DOUBLE-KNOT C1 DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+DOUBLE-KNOT C1 DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
 POLYNOMIAL, RATIONAL AND SIMPLE-KNOT NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:

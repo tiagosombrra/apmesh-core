@@ -369,73 +369,61 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-bicubic-nurbs-implementation-closure`: **MERGED /
   HISTORICAL** via PR #152; closes the simple-knot bicubic NURBS surface
   implementation checkpoint.
-- `surface/bicubic-nurbs-double-knot-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; bounded surface C1 continuity decision; no production
-  implementation.
+- `surface/bicubic-nurbs-double-knot-decision`: **MERGED / HISTORICAL**
+  via PR #153; bounded surface C1 continuity decision.
+- `docs/surface-bicubic-nurbs-double-knot-decision-closure`:
+  **CLOSURE-ONLY**; records PR #153 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bicubic Positive-Weight NURBS Surface Double-Knot C1 Continuity Decision —
-ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
-NOT QUALIFIED.**
+**None. Bicubic Positive-Weight NURBS Surface Double-Knot C1 Continuity
+decision is integrated and ready for closure.**
 
-Active branch:
-`surface/bicubic-nurbs-double-knot-decision`.
+Decision closure evidence:
 
-Decision-entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+2. decision PR #153 head:
+   `84c3d108a7b6333af42a4dd1e91f83973e34ec9a`;
+3. decision PR FAST `35803735477`: PASS;
+4. decision PR INTEGRATION `35803735461`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. decision PR #153 merged as:
+   `736e6a4d05f65862c4de5cb852ceb2af07f33e9b`;
+6. decision post-merge FAST `35803798870`: PASS;
+7. decision post-merge INTEGRATION `35803798780`: PASS;
+8. no repeated-knot surface production code exists yet;
+9. the common bounded-surface concept signatures remain unchanged;
+10. the existing 28 ordinary semantic tests remain the production baseline.
 
-- simple-knot bicubic NURBS implementation PR #151:
-  `3042f0a2eb1c4df20207248c1b16c7b023e5c525`;
-- implementation post-merge FAST `35802888299`: PASS, 28/28;
-- implementation post-merge INTEGRATION `35802888266`: PASS, 28/28;
-- implementation closure PR #152:
-  `0d43b54aaec971c6887e481c9282b9fc4bff0049`;
-- closure PR FAST `35803111019`: PASS;
-- closure PR INTEGRATION `35803111107`: PASS;
-- closure post-merge FAST `35803190543`: PASS;
-- closure post-merge INTEGRATION `35803190533`: PASS;
-- no open PR or production work item at decision entry.
+No production work item is active in this closure change.
 
-Decision authority:
-`docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
+## Next admissible work item after closure
 
-Required comparison:
-
-1. surface knot multiplicity-two / C1 continuity;
-2. Coons/transfinite patch;
-3. analytic elementary surfaces;
-4. ruled/extrusion/revolution surfaces;
-5. rectangular/general trimming;
-6. arbitrary degree/periodicity only if justified.
-
-Selected bounded future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Bicubic Positive-Weight NURBS Surface with Interior U/V Knot Multiplicity
 One or Two and Explicit C1/Second-Jet Failure Semantics.**
 
-The decision freezes:
+Implementation must remain within
+`docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`:
 
 - degree 3 in U/V;
-- endpoint multiplicity 4;
-- interior multiplicities exactly 1/2;
-- positive finite weights;
-- non-periodicity;
+- multiplicities exactly 1/2;
 - legacy simple-knot factory compatibility;
-- exact `SurfaceError::insufficient_continuity`;
-- value/first partial success at C1 knot lines;
-- aggregate second-jet failure exactly on U or V double knot lines;
-- no one-sided/component-specific derivative API;
-- one focused contract targeting 29 ordinary tests.
-
-This branch is documentation/research only.
-
-## Next admissible transition
-
-Only after this decision is integrated, post-merge validated and separately
-closed may one implementation branch open for the selected surface C1 work
-unit.
+- only common error extension:
+  `SurfaceError::insufficient_continuity`;
+- value/first partials available on double knot lines;
+- aggregate second derivatives fail exactly on a U or V double knot line;
+- no one-sided/component-specific public derivative API;
+- repeated-knot rational tensor oracle;
+- test-only U/V repeated-knot insertion;
+- boundary-curve C1 parity;
+- reversal/multiplicity reflection;
+- target ordinary inventory: 29 tests.
 
 No multiplicity-three/C0, Coons, analytic, swept, trimmed, arbitrary-degree,
-periodic, differential-geometry or meshing work is authorized.
+periodic, Surface Differential Geometry or meshing work is authorized.

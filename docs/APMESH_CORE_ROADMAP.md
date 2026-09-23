@@ -1876,53 +1876,49 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Bicubic NURBS
-Double-Knot C1 Continuity — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Double-Knot C1 Continuity — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
-
-- simple-knot bicubic NURBS implementation:
-  `3042f0a2eb1c4df20207248c1b16c7b023e5c525`;
-- implementation closure PR #152:
-  `0d43b54aaec971c6887e481c9282b9fc4bff0049`;
-- closure PR FAST `35803111019`: PASS;
-- closure PR INTEGRATION `35803111107`: PASS;
-- closure post-merge FAST `35803190543`: PASS;
-- closure post-merge INTEGRATION `35803190533`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #153 head:
+  `84c3d108a7b6333af42a4dd1e91f83973e34ec9a`;
+- PR FAST `35803735477`: PASS;
+- PR INTEGRATION `35803735461`: PASS;
+- merge:
+  `736e6a4d05f65862c4de5cb852ceb2af07f33e9b`;
+- post-merge FAST `35803798870`: PASS;
+- post-merge INTEGRATION `35803798780`: PASS.
+
+Closure branch:
+`docs/surface-bicubic-nurbs-double-knot-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Bicubic Positive-Weight NURBS Surface with Interior U/V Knot Multiplicity
 One or Two and Explicit C1/Second-Jet Failure Semantics.**
 
-The decision deliberately introduces only:
+Authorized future scope remains:
 
-- explicit U/V multiplicities 1/2;
+- degree 3 in U/V;
+- endpoint multiplicity 4;
+- explicit unique U/V interior multiplicities 1/2;
+- positive finite weights;
+- non-periodic;
 - legacy simple-knot factory compatibility;
-- one new common error:
+- one common error extension:
   `SurfaceError::insufficient_continuity`;
-- value/first partial success on C1 knot lines;
-- aggregate second-jet failure exactly on U or V double knot lines;
-- independent repeated-knot rational tensor evidence;
-- test-only repeated-knot insertion;
-- reversal/multiplicity reflection;
-- target ordinary inventory: 29 tests.
+- value and first partials on C1 knot lines;
+- aggregate second-jet failure exactly on U/V double knot lines;
+- repeated-knot rational tensor and knot-insertion evidence;
+- one focused contract targeting 29 ordinary tests.
 
-Deferred:
-
-- multiplicity three/C0;
-- one-sided/component-specific derivative APIs;
-- Coons/transfinite;
-- analytic elementary surfaces;
-- ruled/extrusion/revolution;
-- trimming;
-- arbitrary degree/periodicity unless justified.
-
-No implementation may begin until the decision PR is integrated, post-merge
-FAST/INTEGRATION pass and a separate decision checkpoint closes.
+Coons/transfinite, analytic elementary, swept, trimmed, multiplicity-three/C0,
+arbitrary-degree and periodic families remain later decisions.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
