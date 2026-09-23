@@ -782,6 +782,40 @@ deterministic failure evidence.
 
 Expected ordinary semantic inventory: **29 tests**.
 
+Validation history:
+
+Initial PR head:
+
+`3e169a6c9db545d227eeba07f04ecec7d256f577`.
+
+Initial runs:
+
+- FAST `35837423080`: workflow PASS, but 28/28 selected tests;
+- INTEGRATION `35837423118`: workflow PASS in GCC/Clang, but 28/28 selected
+  tests.
+
+Diagnosis:
+
+- the new contract executable compiled and linked;
+- the test was registered but omitted from the surface
+  `fast;integration` label group;
+- the runs are retained as mechanically incomplete acceptance evidence and do
+  not satisfy the 29-test decision boundary.
+
+Corrected head:
+
+`b913895065f1d1184ecebf2565667fdd7fcaca2b`.
+
+Corrected validation:
+
+- FAST `35837638861`: PASS, 29/29 ordinary semantic tests;
+- INTEGRATION `35837638899`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 29/29 tests per cell;
+- `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS in all
+  three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
