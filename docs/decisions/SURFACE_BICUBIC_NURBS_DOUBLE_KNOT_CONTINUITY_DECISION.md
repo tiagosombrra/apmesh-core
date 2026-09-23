@@ -710,3 +710,35 @@ by Sections 5–33.
 
 No multiplicity-three, one-sided derivative, Coons, analytic, swept, trimmed
 or downstream capability is authorized.
+
+
+## 37. Decision closure checkpoint
+
+Decision closure PR #154 used head
+`c392ddebbe47ad12a9cad3ac1320ec673d66d26b`.
+
+Closure PR validation:
+
+- FAST `35803973213`: PASS;
+- INTEGRATION `35803973206`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #154 merged as
+`1447d6bf10f8435f66ba108229940a014b152876`.
+
+Closure post-merge validation:
+
+- FAST `35804055281`: PASS;
+- INTEGRATION `35804055381`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the bicubic positive-weight NURBS
+surface multiplicity-one/two extension bounded by Sections 5–33.
+
+No multiplicity-three, component-specific/one-sided derivative, Coons,
+analytic, swept, trimmed, Surface Differential Geometry or downstream
+capability is authorized.
