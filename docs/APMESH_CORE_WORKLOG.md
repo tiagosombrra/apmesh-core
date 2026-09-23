@@ -362,48 +362,104 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #148; normalizes the terminal rational-bicubic checkpoint.
 - `surface/bicubic-nurbs-decision`: **MERGED / HISTORICAL** via PR #149;
   bounded bicubic NURBS surface breadth decision.
-- `docs/surface-bicubic-nurbs-decision-closure`: **CLOSURE-ONLY**;
-  records PR #149 integration and post-merge validation.
+- `docs/surface-bicubic-nurbs-decision-closure`: **MERGED / HISTORICAL**
+  via PR #150; closes the bicubic NURBS surface decision checkpoint.
+- `surface/bicubic-nurbs`: **ACTIVE**; bounded simple-knot bicubic
+  positive-weight NURBS surface implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bicubic Positive-Weight NURBS Surface breadth decision is integrated
-and ready for closure.**
-
-Decision closure evidence:
-
-1. decision authority:
-   `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
-2. decision PR #149 head:
-   `e44a53ae0cb9ce0329dc5036ce13c52feeea9b86`;
-3. decision PR FAST `35797633074`: PASS;
-4. decision PR INTEGRATION `35797633084`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. decision PR #149 merged as:
-   `d6d9c8c30c716540c95fe449dee53227e6722c22`;
-6. decision post-merge FAST `35797779574`: PASS;
-7. decision post-merge INTEGRATION `35797779547`: PASS;
-8. no production NURBS surface exists yet;
-9. the common bounded-surface contract remains unchanged;
-10. polynomial/rational bicubic surfaces and all curve prerequisites remain
-    frozen.
-
-No production work item is active in this closure change.
-
-## Next admissible work item after closure
-
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
-
 **Clamped Bicubic Positive-Weight NURBS Surface in 3D with Runtime-Variable
-U/V Span Counts and Simple Interior Knots.**
+U/V Span Counts and Simple Interior Knots — ACTIVE / IMPLEMENTATION OPEN /
+NOT QUALIFIED.**
 
-Implementation must remain within
-`docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md` and target 28 ordinary
-semantic tests.
+Active branch:
+`surface/bicubic-nurbs`.
 
-No repeated surface knots, arbitrary degree, periodicity, Coons/transfinite,
-analytic elementary, swept, trimmed, differential-geometry or meshing work is
-authorized.
+Decision authority:
+`docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
+
+Closed decision checkpoint:
+
+- decision PR #149:
+  `d6d9c8c30c716540c95fe449dee53227e6722c22`;
+- decision post-merge FAST `35797779574`: PASS;
+- decision post-merge INTEGRATION `35797779547`: PASS;
+- decision closure PR #150 head:
+  `f5ea389433c01591aaf1d025ff3b9cd81221d05e`;
+- closure PR FAST `35798034499`: PASS;
+- closure PR INTEGRATION `35798034492`: PASS;
+- closure PR #150 merged as:
+  `cd48a635165c80f4ac1248a9fb164d824ebf9ed0`;
+- closure post-merge FAST `35798149208`: PASS;
+- closure post-merge INTEGRATION `35798149304`: PASS.
+
+Authorized repository mapping:
+
+1. public NURBS surface value/API:
+   `include/apmesh/geometry/nurbs_surface.hpp`;
+2. production:
+   `src/geometry/nurbs_surface.cpp`;
+3. focused contract:
+   `tests/surface_bicubic_nurbs.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized STATE / ROADMAP / WORKLOG / decision.
+
+Required implementation scope:
+
+- degree exactly 3 in U/V;
+- arbitrary finite clamped U/V domains;
+- one or more spans independently in each direction;
+- U-major flattened dynamic control/weight net;
+- finite strictly positive weights;
+- simple interior knots only;
+- non-periodic;
+- deterministic right-span selection;
+- local active 4x4 homogeneous V-then-U de Boor;
+- analytic Su/Sv/Suu/Suv/Svv;
+- common `BoundedParametricSurface3` and `SurfaceError` unchanged;
+- rational and polynomial bicubic subset parity;
+- four NURBS boundary-curve parity contracts;
+- independent rational tensor Cox-de Boor oracle;
+- test-only U/V knot insertion;
+- local-support, reversal, affine, extreme-finite and deterministic evidence;
+- target ordinary inventory: 28 tests.
+
+Candidate validation:
+
+- candidate head:
+  `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
+- FAST `35802648932`: PASS, 28/28 tests;
+- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests in each cell;
+- `apmesh_core.surface_bicubic_nurbs`: PASS in all three jobs;
+- exhaustive construction-error evidence now covers U/V count, domain/knot
+  and weight failure vocabulary;
+- every prior ordinary semantic contract remained PASS.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+Explicit non-actions:
+
+- no repeated surface knots or C1/C0 surface knot lines;
+- no arbitrary degree;
+- no periodicity;
+- no Coons/transfinite;
+- no analytic elementary surfaces;
+- no ruled/extrusion/revolution;
+- no trimming/topology;
+- no Surface Differential Geometry;
+- no discretization/meshing.
+
+## Next admissible transition
+
+Complete only this implementation, validate 28/28 in FAST and both
+INTEGRATION compiler cells, integrate through one PR, validate protected
+`main`, close the implementation checkpoint, and only then open a fresh
+Surface Representation breadth decision.

@@ -1876,44 +1876,54 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Bicubic
-Positive-Weight NURBS Surface — DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+Positive-Weight NURBS Surface — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
 
-Decision validation:
+Closed decision lineage:
 
-- PR #149 head:
-  `e44a53ae0cb9ce0329dc5036ce13c52feeea9b86`;
-- PR FAST `35797633074`: PASS;
-- PR INTEGRATION `35797633084`: PASS;
-- merge:
+- decision PR #149:
   `d6d9c8c30c716540c95fe449dee53227e6722c22`;
-- post-merge FAST `35797779574`: PASS;
-- post-merge INTEGRATION `35797779547`: PASS.
+- decision post-merge FAST `35797779574`: PASS;
+- decision post-merge INTEGRATION `35797779547`: PASS;
+- closure PR #150:
+  `cd48a635165c80f4ac1248a9fb164d824ebf9ed0`;
+- closure post-merge FAST `35798149208`: PASS;
+- closure post-merge INTEGRATION `35798149304`: PASS.
 
-Closure branch:
-`docs/surface-bicubic-nurbs-decision-closure`.
+Active implementation branch:
+`surface/bicubic-nurbs`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized implementation scope:
 
-**Clamped Bicubic Positive-Weight NURBS Surface in 3D with Runtime-Variable
-U/V Span Counts and Simple Interior Knots.**
-
-Authorized future scope remains:
-
+- `BicubicNURBSSurface3`;
 - degree 3 in U/V;
 - arbitrary finite clamped domains;
-- dynamic U-major control/weight net;
+- dynamic rectangular U-major control/weight storage;
 - simple interior knots only;
-- positive weights;
+- positive finite weights;
 - non-periodic;
 - local 4x4 homogeneous V-then-U de Boor;
 - analytic first/second partials;
-- frozen common surface contract;
-- one focused contract targeting 28 tests.
+- rational/polynomial bicubic subset parity;
+- NURBS boundary-curve parity;
+- independent rational tensor oracle;
+- target ordinary inventory: 28 tests.
+
+Candidate validation on head
+`86d794c58dc2eae3323f47de276ff637e2e2c3ec`:
+
+- FAST `35802648932`: PASS, 28/28 tests;
+- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests per cell;
+- the new bicubic NURBS surface contract and every prior ordinary semantic
+  contract passed;
+- frozen common surface, polynomial bicubic and rational bicubic
+  prerequisites remain unchanged.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration.
 
 Repeated knots, arbitrary degree, periodicity, Coons/transfinite, analytic,
 swept and trimmed families remain later decisions.
