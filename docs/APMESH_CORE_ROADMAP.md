@@ -1918,9 +1918,16 @@ Candidate implementation mapping:
 - `tests/surface_coons_patch.cpp`;
 - `CMakeLists.txt`.
 
-The candidate is implemented and awaiting FAST/INTEGRATION validation. The new
-contract is explicitly part of the surface FAST/INTEGRATION label group and
-should raise the ordinary semantic inventory from 29 to **30 tests**.
+Candidate validation on head
+`d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`:
+
+- FAST `35842812822`: PASS, 30/30;
+- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 per cell;
+- the new Coons contract and every prior ordinary semantic contract passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration.
 
 The common `BoundedParametricSurface3` contract remains unchanged.
 
