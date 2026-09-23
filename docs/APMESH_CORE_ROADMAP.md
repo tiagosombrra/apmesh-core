@@ -1876,62 +1876,33 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Bicubic NURBS
-Double-Knot C1 Continuity — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+Double-Knot C1 Continuity — IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
+Implementation evidence:
 
-Closed decision lineage:
+- final PR head:
+  `6453279c77883440b5cd86e7ab08052b318ecf22`;
+- final PR FAST `35837794984`: PASS, 29/29;
+- final PR INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
+- implementation PR #155:
+  `fea1cf536336dc5bef19217a879338bac495555f`;
+- post-merge FAST `35837956530`: PASS, 29/29;
+- post-merge INTEGRATION `35837956529`: PASS, 29/29 in GCC and Clang.
 
-- decision PR #153:
-  `736e6a4d05f65862c4de5cb852ceb2af07f33e9b`;
-- decision post-merge FAST `35803798870`: PASS;
-- decision post-merge INTEGRATION `35803798780`: PASS;
-- closure PR #154:
-  `1447d6bf10f8435f66ba108229940a014b152876`;
-- closure post-merge FAST `35804055281`: PASS;
-- closure post-merge INTEGRATION `35804055381`: PASS.
+The earlier 28/28 runs `35837423080` / `35837423118` are retained as a
+mechanical label-selection gap; corrected and final 29/29 evidence supersedes
+them for acceptance without erasing history.
 
-Active implementation branch:
-`surface/bicubic-nurbs-double-knot-continuity`.
+Closure branch:
+`docs/surface-bicubic-nurbs-double-knot-implementation-closure`.
 
-Authorized scope:
+After closure integration and protected-main validation, the sole next action
+is one fresh Surface Representation breadth decision comparing Coons,
+analytic elementary, swept, trimmed and any demonstrably required remaining
+NURBS breadth.
 
-- extend `BicubicNURBSSurface3`;
-- degree 3 remains fixed in U/V;
-- explicit unique U/V interior multiplicities 1/2;
-- simple-knot factory remains backward-compatible;
-- positive finite weights;
-- non-periodic;
-- exact `SurfaceError::insufficient_continuity`;
-- value/first derivatives on C1 knot lines;
-- aggregate second-derivative failure exactly on U/V double knot lines;
-- repeated-knot rational tensor reference;
-- test-only U/V repeated-knot insertion;
-- boundary-curve C1 parity;
-- reversal/multiplicity reflection;
-- target ordinary inventory: 29 tests.
-
-Validation history:
-
-- initial head `3e169a6c9db545d227eeba07f04ecec7d256f577` compiled the new contract
-  but FAST `35837423080` and INTEGRATION `35837423118` selected only
-  28 tests because its surface labels were missing;
-- corrected head `b913895065f1d1184ecebf2565667fdd7fcaca2b`;
-- FAST `35837638861`: PASS, 29/29;
-- INTEGRATION `35837638899`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 29/29 per cell;
-- the new C1 surface contract and every prerequisite ordinary semantic
-  contract passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. The common bounded-surface concept
-signatures remain unchanged; only the explicitly authorized common error
-enumerator is added.
-
-Multiplicity three/C0, arbitrary degree, periodicity, component-specific or
-one-sided derivatives, Coons, analytic elementary, swept and trimmed surfaces
-remain later decisions.
+No option is preselected.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
