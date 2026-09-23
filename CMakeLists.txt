@@ -313,6 +313,22 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.surface_bicubic_nurbs
     )
 
+    add_executable(apmesh_core.surface_bicubic_nurbs_double_knot_continuity
+        tests/surface_bicubic_nurbs_double_knot_continuity.cpp
+    )
+    target_link_libraries(
+        apmesh_core.surface_bicubic_nurbs_double_knot_continuity
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(
+        apmesh_core.surface_bicubic_nurbs_double_knot_continuity
+    )
+
+    add_test(
+        NAME apmesh_core.surface_bicubic_nurbs_double_knot_continuity
+        COMMAND apmesh_core.surface_bicubic_nurbs_double_knot_continuity
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
