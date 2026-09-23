@@ -301,47 +301,30 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed Cubic Bézier Linear Extrusion Surface
-decision; no production implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the bounded Cubic Bézier Linear Extrusion Surface in 3D.**
 
-Decision-entry authority:
+Decision evidence:
 
-- terminal rectangular-trim sync PR #167 head:
-  `083a9a3263bd24be4f848c3a31ead5a2d13773b3`;
-- sync PR FAST `35875571648`: PASS;
-- sync PR INTEGRATION `35875571740`: PASS;
-- sync merge:
-  `47b1a2b17d9cecd972430bb33e84161eb74cfec1`;
-- sync post-merge FAST `35875814460`: PASS;
-- sync post-merge INTEGRATION `35875814543`: PASS.
+- PR #168 merge: `b8fe106080513a9736172a2380d5d8c0f162276a`;
+- PR FAST `35885189655`: PASS;
+- PR INTEGRATION `35885189624`: PASS;
+- post-merge FAST `35885367665`: PASS;
+- post-merge INTEGRATION `35885367613`: PASS.
 
-Active branch:
-`surface/linear-extrusion-decision`.
+Closure branch:
+`docs/surface-linear-extrusion-decision-closure`.
 
-Decision authority:
-`docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
+No production implementation is active until closure completes.
 
-The decision selects a bounded `CubicBezier3` linear-extrusion surface as the
-next Surface Representation work unit.
-
-Analytic elementary surfaces remain explicitly retained but are not authorized:
-their mature-kernel model requires arbitrary local 3D placement while the
-qualified `CartesianFrame3` claim remains restricted to exact
-signed-permutation bases and positive power-of-two scale.
-
-General trimming/p-curves/topological faces, revolution/periodicity, broader
-Coons and remaining NURBS breadth also remain separate decisions.
-
-No production surface, Surface Differential Geometry, boundary discretization
-or meshing code is authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER LINEAR
-EXTRUSION DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+EXTRUSION DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
 POLYNOMIAL, RATIONAL, NURBS, COONS AND RECTANGULAR-TRIM
 PREREQUISITES PRESERVED**
 
