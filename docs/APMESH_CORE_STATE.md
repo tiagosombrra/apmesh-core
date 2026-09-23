@@ -88,30 +88,24 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
-- latest closed scientific decision:
-  **Arbitrary Right-Handed 3D Axis Placement prerequisite**;
-- terminal decision-sync PR #175:
-  `281c935578fc3fa9fb625178ce4473d54c684591`;
-- sync PR FAST `35900708572` and INTEGRATION `35900708552`: PASS;
-- sync post-merge FAST `35900859164` and INTEGRATION
-  `35900859257`: PASS;
-- active branch:
-  `surface/arbitrary-axis-placement`;
-- active work item:
+- latest integrated focused prerequisite:
   **Right-Handed Arbitrary 3D Axis Placement**;
+- implementation PR #176:
+  `6d90036300671656c3bbde459dd2a783f8457cc1`;
+- final-head FAST `35902281707`: PASS, 33/33;
+- final-head INTEGRATION `35902281599`: PASS, 33/33;
+- post-merge FAST `35902586443`: PASS, 33/33;
+- post-merge INTEGRATION `35902586537`: PASS, 33/33;
+- implementation closure branch:
+  `docs/arbitrary-axis-placement-implementation-closure`;
+- no production work item is active;
+- component status:
+  **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+  CLOSURE PENDING / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
-- ordinary semantic inventory at implementation entry: **32 tests**;
-- target inventory after one focused contract: **33 tests**;
-- candidate implementation head:
-  `bb19471c2307aec70427719baf3f8d9500605c42`;
-- candidate FAST `35901914044`: PASS, 33/33;
-- candidate INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 33/33 per cell;
-- focused `apmesh_core.arbitrary_axis_placement`: PASS;
-- current component status:
-  **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-  DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED**;
+- ordinary semantic inventory: **33 tests**;
+- next production family is not pre-authorized;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;

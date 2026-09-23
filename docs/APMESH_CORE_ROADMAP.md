@@ -1876,54 +1876,38 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Right-Handed Arbitrary 3D Axis Placement —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-Closed decision/sync lineage:
+Implementation validation:
 
-- decision PR #173:
-  `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
-- closure PR #174:
-  `fbdfb98cfc5574c053f32298cab75d714ff31772`;
-- terminal sync PR #175:
-  `281c935578fc3fa9fb625178ce4473d54c684591`;
-- sync PR FAST `35900708572`: PASS;
-- sync PR INTEGRATION `35900708552`: PASS;
-- sync post-merge FAST `35900859164`: PASS;
-- sync post-merge INTEGRATION `35900859257`: PASS.
+- initial candidate:
+  `bb19471c2307aec70427719baf3f8d9500605c42`;
+- candidate FAST `35901914044`: PASS, 33/33;
+- candidate INTEGRATION `35901914002`: PASS, 33/33;
+- final PR head:
+  `484b1b353f09e5e8e4b6b768ec0a5b9403960d72`;
+- final-head FAST `35902281707`: PASS, 33/33;
+- final-head INTEGRATION `35902281599`: PASS, 33/33;
+- implementation PR #176:
+  `6d90036300671656c3bbde459dd2a783f8457cc1`;
+- post-merge FAST `35902586443`: PASS, 33/33;
+- post-merge INTEGRATION `35902586537`: PASS, 33/33.
 
-Active implementation branch:
-`surface/arbitrary-axis-placement`.
+The qualified `CartesianFrame3` contract remains frozen.
 
-Authorized scope:
+After closure integration and post-merge validation, the next admissible work is
+one fresh Surface Representation breadth decision comparing:
 
-- separate `AxisPlacement3`;
-- finite origin;
-- non-zero finite main direction and X reference;
-- deterministic right-handed orthonormal triad;
-- exact parallel/antiparallel rejection without a universal epsilon;
-- local/world point/vector transforms;
-- no stored scale;
-- signed-permutation parity with `CartesianFrame3` at scale exponent zero;
-- input-scale invariance and extreme finite evidence;
-- one focused contract, targeting 33 ordinary tests.
+- revolution;
+- analytic elementary surfaces using `AxisPlacement3`;
+- general trimming/p-curves/topological faces;
+- broader Coons/transfinite boundaries;
+- remaining NURBS breadth.
 
-Candidate validation on
-`bb19471c2307aec70427719baf3f8d9500605c42`:
-
-- FAST `35901914044`: PASS, 33/33;
-- INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 33/33 per cell;
-- the new placement contract and all prior ordinary contracts passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration.
-
-`CartesianFrame3` remains frozen.
-
-Analytic elementary surfaces, revolution, general trimming/p-curves,
-broader Coons/transfinite and remaining NURBS breadth remain later decisions.
+No option is preselected.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
