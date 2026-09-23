@@ -366,57 +366,76 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #150; closes the bicubic NURBS surface decision checkpoint.
 - `surface/bicubic-nurbs`: **MERGED / HISTORICAL** via PR #151;
   bounded simple-knot bicubic positive-weight NURBS surface implementation.
-- `docs/surface-bicubic-nurbs-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #151 integration and post-merge validation.
+- `docs/surface-bicubic-nurbs-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #152; closes the simple-knot bicubic NURBS surface
+  implementation checkpoint.
+- `surface/bicubic-nurbs-double-knot-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; bounded surface C1 continuity decision; no production
+  implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bicubic Positive-Weight NURBS Surface implementation is integrated and
-ready for terminal closure.**
+**Bicubic Positive-Weight NURBS Surface Double-Knot C1 Continuity Decision —
+ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Implementation closure evidence:
+Active branch:
+`surface/bicubic-nurbs-double-knot-decision`.
 
-1. decision authority:
-   `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
-2. candidate head:
-   `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
-3. candidate FAST `35802648932`: PASS, 28/28;
-4. candidate INTEGRATION `35802648875`: PASS, 28/28 in GCC and Clang;
-5. final PR head:
-   `7fc82143e8fae6a2ee164b5ebae7a57bdd9b55a2`;
-6. final PR FAST `35802788385`: PASS, 28/28;
-7. final PR INTEGRATION `35802788429`: PASS, 28/28 in GCC and Clang;
-8. implementation PR #151 merged as:
-   `3042f0a2eb1c4df20207248c1b16c7b023e5c525`;
-9. implementation post-merge FAST `35802888299`: PASS, 28/28;
-10. implementation post-merge INTEGRATION `35802888266`: PASS, 28/28 in
-    GCC and Clang;
-11. `apmesh_core.surface_bicubic_nurbs`: PASS throughout;
-12. common bounded-surface contract and polynomial/rational bicubic
-    prerequisites remained unchanged;
-13. no next production work item is active.
+Decision-entry authority:
 
-Terminal work-unit result after this closure:
+- simple-knot bicubic NURBS implementation PR #151:
+  `3042f0a2eb1c4df20207248c1b16c7b023e5c525`;
+- implementation post-merge FAST `35802888299`: PASS, 28/28;
+- implementation post-merge INTEGRATION `35802888266`: PASS, 28/28;
+- implementation closure PR #152:
+  `0d43b54aaec971c6887e481c9282b9fc4bff0049`;
+- closure PR FAST `35803111019`: PASS;
+- closure PR INTEGRATION `35803111107`: PASS;
+- closure post-merge FAST `35803190543`: PASS;
+- closure post-merge INTEGRATION `35803190533`: PASS;
+- no open PR or production work item at decision entry.
 
-**SURFACE REPRESENTATION STAGE OPEN /
-BICUBIC NURBS SURFACE IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-## Next admissible work item after closure
+Required comparison:
 
-Open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
-
-1. surface knot multiplicity-two / C1 continuity semantics;
+1. surface knot multiplicity-two / C1 continuity;
 2. Coons/transfinite patch;
 3. analytic elementary surfaces;
 4. ruled/extrusion/revolution surfaces;
-5. rectangular/general trimmed-surface semantics;
-6. arbitrary degree/periodicity only if the admissible input class requires it.
+5. rectangular/general trimming;
+6. arbitrary degree/periodicity only if justified.
 
-No candidate is pre-authorized.
+Selected bounded future work unit:
 
-Surface Differential Geometry, Boundary Curve Discretization and meshing remain
-blocked until their prerequisite representation decisions explicitly open them.
+**Bicubic Positive-Weight NURBS Surface with Interior U/V Knot Multiplicity
+One or Two and Explicit C1/Second-Jet Failure Semantics.**
+
+The decision freezes:
+
+- degree 3 in U/V;
+- endpoint multiplicity 4;
+- interior multiplicities exactly 1/2;
+- positive finite weights;
+- non-periodicity;
+- legacy simple-knot factory compatibility;
+- exact `SurfaceError::insufficient_continuity`;
+- value/first partial success at C1 knot lines;
+- aggregate second-jet failure exactly on U or V double knot lines;
+- no one-sided/component-specific derivative API;
+- one focused contract targeting 29 ordinary tests.
+
+This branch is documentation/research only.
+
+## Next admissible transition
+
+Only after this decision is integrated, post-merge validated and separately
+closed may one implementation branch open for the selected surface C1 work
+unit.
+
+No multiplicity-three/C0, Coons, analytic, swept, trimmed, arbitrary-degree,
+periodic, differential-geometry or meshing work is authorized.
