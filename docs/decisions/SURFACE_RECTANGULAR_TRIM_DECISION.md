@@ -855,3 +855,41 @@ Corrective action:
 - revalidate the new immutable PR head in FAST and both INTEGRATION cells.
 
 This failed attempt remains part of the permanent validation history.
+
+
+## 37. Implementation integration checkpoint
+
+PR #165 final implementation head:
+
+`b672572fc4495b3ff1e369a3bc346673978dba3b`.
+
+Final PR validation:
+
+- FAST `35874000945`: PASS, 31/31 ordinary semantic tests;
+- INTEGRATION `35874000992`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 31/31 tests per cell;
+- `apmesh_core.surface_rectangular_trim`: PASS in all three jobs.
+
+PR #165 merged as:
+
+`07a5836ceabace389c4a6bfc2d1f60d644a7a939`.
+
+Post-merge validation:
+
+- FAST `35874273067`: PASS, 31/31;
+- INTEGRATION `35874273154`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 31/31.
+
+Integrated result:
+
+**STATIC RECTANGULAR TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+
+The initial failed head and its test-oracle diagnosis remain preserved in
+Section 36.
+
+No common surface-contract or existing production-surface source changed.
+
+The implementation checkpoint is ready for documentation/continuity closure.
+No next Surface Representation production work is authorized until that
+closure is integrated and post-merge validated.
