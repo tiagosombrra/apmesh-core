@@ -628,7 +628,7 @@ Before implementation integration:
 
 Passing yields only:
 
-**BOUNDed REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
+**BOUNDED REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
 INTEGRATED / NOT QUALIFIED.**
 
 It does not qualify Surface Representation, periodic surfaces, analytic
