@@ -604,3 +604,55 @@ Decision checkpoint result:
 
 The sole active production work item is
 `CubicBezierLinearExtrusionSurface3`, bounded by Sections 5–25.
+
+
+## 30. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/cubic-bezier-linear-extrusion`.
+
+Candidate mapping:
+
+- public API:
+  `include/apmesh/geometry/extrusion_surface.hpp`;
+- production:
+  `src/geometry/extrusion_surface.cpp`;
+- focused semantic/reference contract:
+  `tests/surface_linear_extrusion.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate implementation stores:
+
+- exact basis `CubicBezier3`;
+- prevalidated translated end `CubicBezier3`;
+- exact extrusion displacement.
+
+Candidate production semantics:
+
+- exact `[0,1]^2` parameter domain;
+- deterministic U/V validation order;
+- `S=C(u)+vE`;
+- analytic `Su=C'(u)`, `Sv=E`, `Suu=C''(u)`;
+- exact zero `Suv` and `Svv`;
+- exact storage-based U/V reversal;
+- no generic curve-family error translation contract.
+
+The focused contract includes:
+
+- independent direct Bernstein + extrusion reference;
+- all four boundaries;
+- U/V reversal and orientation relation;
+- zero extrusion and constant-basis degenerates;
+- translation and exact power-of-two scale;
+- admitted signed-permutation/power-of-two Cartesian-frame covariance;
+- extreme finite success;
+- construction-time non-representable translated-control rejection;
+- deterministic success/failure evidence.
+
+Expected ordinary semantic inventory: **32 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
