@@ -1876,28 +1876,29 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Static Rectangular
-Trimmed Surface — DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+Trimmed Surface — DECISION CLOSED / IMPLEMENTATION AUTHORIZED /
+NOT STARTED / TERMINAL DOCUMENTATION SYNC ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-Decision validation:
+Terminal decision lineage:
 
-- PR #162 head:
-  `0ee2a2b47592eee055dcc58ccba04c0364353fe5`;
-- PR FAST `35846509153`: PASS;
-- PR INTEGRATION `35846509081`: PASS;
-- merge:
+- decision merge:
   `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-- post-merge FAST `35846672914`: PASS;
-- post-merge INTEGRATION `35846673106`: PASS.
+- decision post-merge FAST `35846672914`: PASS;
+- decision post-merge INTEGRATION `35846673106`: PASS;
+- closure PR #163 head:
+  `012703f1f8cd5cdf2ed8922269c2d17e8b3cb236`;
+- closure PR FAST `35847140517`: PASS;
+- closure PR INTEGRATION `35847140605`: PASS;
+- closure merge:
+  `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
+- closure post-merge FAST `35847281819`: PASS;
+- closure post-merge INTEGRATION `35847281719`: PASS.
 
-Closure branch:
-`docs/surface-rectangular-trim-decision-closure`.
-
-After closure integration and post-merge validation, the sole next production
-work item is:
+After terminal synchronization and protected-main validation, the sole next
+production work item is:
 
 **Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
 
@@ -1905,26 +1906,13 @@ Authorized implementation remains limited to:
 
 - header-only compile-time generic wrapper;
 - basis owned by value;
-- exact U/V oriented subdomain restriction;
-- no parameter normalization;
-- value/first/second derivative covariance;
-- U/V reversal;
-- nested trim semantics;
+- exact oriented U/V subdomains;
+- value/first/second derivative forwarding with orientation covariance;
+- U/V reversal and nested trim semantics;
 - one focused contract targeting **31 tests**.
 
-Deferred:
-
-- arbitrary/general trim loops;
-- p-curves and face topology;
-- analytic elementary surfaces;
-- ruled/extrusion/revolution;
-- broader Coons/transfinite boundary dispatch;
-- multiplicity-three/C0, arbitrary-degree and periodic NURBS breadth.
-
-Surface Differential Geometry remains **NOT STARTED / BLOCKED BY
-REPRESENTATION BREADTH**.
-
-Boundary Curve Discretization remains blocked.
+All general trimming/topology, analytic/swept, broader Coons/NURBS,
+differential-geometry and meshing capabilities remain blocked.
 
 The longer ordering remains:
 
