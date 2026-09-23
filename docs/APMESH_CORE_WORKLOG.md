@@ -374,128 +374,67 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-bicubic-nurbs-double-knot-decision-closure`:
   **MERGED / HISTORICAL** via PR #154; closes the bicubic NURBS surface C1
   decision checkpoint.
-- `surface/bicubic-nurbs-double-knot-continuity`: **ACTIVE**; bounded
-  multiplicity-one/two bicubic NURBS surface implementation work item.
+- `surface/bicubic-nurbs-double-knot-continuity`: **MERGED / HISTORICAL**
+  via PR #155; bounded multiplicity-one/two bicubic NURBS surface
+  implementation.
+- `docs/surface-bicubic-nurbs-double-knot-implementation-closure`:
+  **CLOSURE-ONLY**; closes PR #155 after protected-main validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bicubic Positive-Weight NURBS Surface with Interior U/V Knot Multiplicity
-One or Two and Explicit C1/Second-Jet Failure Semantics — ACTIVE /
-IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None. Bicubic NURBS Double-Knot C1 Continuity implementation is integrated
+and ready for documentation closure.**
 
-Active branch:
-`surface/bicubic-nurbs-double-knot-continuity`.
+Implementation evidence:
 
-Decision authority:
-`docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
+1. initial PR head:
+   `3e169a6c9db545d227eeba07f04ecec7d256f577`;
+2. initial FAST `35837423080` and INTEGRATION `35837423118`:
+   workflows PASS but only 28/28 selected tests;
+3. diagnosis:
+   the new executable compiled/linked but lacked the
+   `fast;integration` surface labels; these runs are mechanically incomplete
+   acceptance evidence, not scientific validation;
+4. corrected candidate head:
+   `b913895065f1d1184ecebf2565667fdd7fcaca2b`;
+5. corrected FAST `35837638861`: PASS, 29/29;
+6. corrected INTEGRATION `35837638899`: PASS, 29/29 in GCC and Clang;
+7. final PR head:
+   `6453279c77883440b5cd86e7ab08052b318ecf22`;
+8. final PR FAST `35837794984`: PASS, 29/29;
+9. final PR INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
+10. implementation PR #155 merged as
+    `fea1cf536336dc5bef19217a879338bac495555f`;
+11. post-merge FAST `35837956530`: PASS, 29/29;
+12. post-merge INTEGRATION `35837956529`: PASS, 29/29 in GCC and Clang;
+13. focused
+    `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS
+    throughout every complete 29-test validation;
+14. every prior ordinary semantic contract remained PASS.
 
-Closed decision checkpoint:
+Integrated work-unit result before this documentation closure:
 
-- decision PR #153:
-  `736e6a4d05f65862c4de5cb852ceb2af07f33e9b`;
-- decision PR FAST `35803735477`: PASS;
-- decision PR INTEGRATION `35803735461`: PASS;
-- decision post-merge FAST `35803798870`: PASS;
-- decision post-merge INTEGRATION `35803798780`: PASS;
-- decision closure PR #154 head:
-  `c392ddebbe47ad12a9cad3ac1320ec673d66d26b`;
-- closure PR FAST `35803973213`: PASS;
-- closure PR INTEGRATION `35803973206`: PASS;
-- closure merge:
-  `1447d6bf10f8435f66ba108229940a014b152876`;
-- closure post-merge FAST `35804055281`: PASS;
-- closure post-merge INTEGRATION `35804055381`: PASS.
+**BICUBIC NURBS C1 CONTINUITY IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / NOT QUALIFIED.**
 
-Authorized repository mapping:
+No production work item is active in this closure change.
 
-1. common surface error vocabulary:
-   `include/apmesh/geometry/parametric_surface.hpp`;
-2. existing NURBS surface API/storage:
-   `include/apmesh/geometry/nurbs_surface.hpp`;
-3. existing production:
-   `src/geometry/nurbs_surface.cpp`;
-4. focused contract:
-   `tests/surface_bicubic_nurbs_double_knot_continuity.cpp`;
-5. build/test registration:
-   `CMakeLists.txt`;
-6. synchronized STATE / ROADMAP / WORKLOG / decision.
+## Next admissible work item after closure
 
-Required scope:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one fresh literature-backed Surface Representation breadth
+decision comparing:
 
-- degree exactly 3 in U/V;
-- endpoint multiplicity 4;
-- unique interior U/V multiplicities exactly 1/2;
-- positive finite weights;
-- non-periodic;
-- simple-knot factory remains source-compatible;
-- `SurfaceError::insufficient_continuity` as the sole common error extension;
-- value and first derivatives succeed at U/V double knot lines;
-- aggregate second derivatives fail exactly on a U or V double knot line;
-- no one-sided/component-specific derivative API;
-- current 28-test baseline preserved;
-- one new focused contract, targeting 29 ordinary tests.
+1. Coons/transfinite patch construction;
+2. analytic elementary surfaces;
+3. ruled/extrusion/revolution surfaces;
+4. rectangular/general trimmed-surface semantics;
+5. multiplicity-three/C0 only if the admitted model requires it;
+6. arbitrary degree/periodicity only if the admitted model requires it.
 
-Candidate implementation mapping:
+No candidate is pre-authorized.
 
-- `include/apmesh/geometry/parametric_surface.hpp`:
-  adds only `SurfaceError::insufficient_continuity`;
-- `include/apmesh/geometry/nurbs_surface.hpp`:
-  adds explicit U/V multiplicity factory/accessors/storage while preserving
-  the legacy simple-knot factory;
-- `src/geometry/nurbs_surface.cpp`:
-  validates U/V multiplicities 1/2, expands them into construction-time flat
-  knot caches, preserves local homogeneous tensor evaluation, reflects
-  multiplicities under reversal, and rejects aggregate second derivatives
-  exactly on a U/V double knot line;
-- `tests/surface_bicubic_nurbs_double_knot_continuity.cpp`:
-  independent repeated-knot rational tensor oracle, true-C1 one-sided
-  reference evidence, test-only repeated-knot insertion, boundary-curve C1
-  parity, reversal, accidental-smoothness and deterministic failure evidence;
-- `CMakeLists.txt`:
-  registers the 29th ordinary semantic contract.
-
-Validation history:
-
-- initial PR head:
-  `3e169a6c9db545d227eeba07f04ecec7d256f577`;
-- initial FAST `35837423080`: workflow PASS, but only 28/28 selected tests;
-- initial INTEGRATION `35837423118`: workflow PASS in GCC/Clang, but only
-  28/28 selected tests;
-- diagnosis: the new executable compiled/linked but was omitted from the
-  `fast;integration` surface label group, so these runs are retained as
-  **mechanically incomplete acceptance evidence**, not scientific validation;
-- corrective head:
-  `b913895065f1d1184ecebf2565667fdd7fcaca2b`;
-- corrective FAST `35837638861`: PASS, 29/29 tests;
-- corrective INTEGRATION `35837638899`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 29/29 tests per cell;
-- `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS in all
-  three corrected jobs;
-- every prior ordinary semantic contract remained PASS.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no multiplicity-three/C0;
-- no arbitrary degree;
-- no periodicity;
-- no component-specific/one-sided public derivative API;
-- no Coons/transfinite;
-- no analytic elementary surfaces;
-- no ruled/extrusion/revolution;
-- no trimming/curve-on-surface/topology;
-- no Surface Differential Geometry;
-- no discretization or meshing.
-
-## Next admissible transition
-
-Complete only this implementation, validate 29/29 in FAST and both INTEGRATION
-compiler cells, integrate through one PR, validate protected `main`, close
-the implementation checkpoint, and only then open a fresh Surface
-Representation breadth decision.
+Surface Differential Geometry, Boundary Curve Discretization, meshing,
+Quad-Dominant and parallel work remain blocked.
