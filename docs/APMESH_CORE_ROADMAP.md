@@ -1877,35 +1877,40 @@ Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Oriented Four-Boundary
 Cubic Bézier Coons Patch — IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**
+INTEGRATED / CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Implementation evidence:
+Terminal closure evidence:
 
-- initial candidate head:
-  `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
-- initial FAST `35842812822`: PASS, 30/30;
-- initial INTEGRATION `35842812792`: PASS, 30/30 in GCC and Clang;
-- final PR head:
-  `ec5a1b56dd30445c5745dc2522680653f4f0af3f`;
-- final FAST `35843033876`: PASS, 30/30;
-- final INTEGRATION `35843034029`: PASS, 30/30 in GCC and Clang;
 - implementation PR #159:
   `3528612fdb875d8298d785a2c32f0fb4e1f8eea4`;
-- post-merge FAST `35843296073`: PASS, 30/30;
-- post-merge INTEGRATION `35843296147`: PASS, 30/30 in GCC and Clang.
+- implementation post-merge FAST `35843296073`: PASS, 30/30;
+- implementation post-merge INTEGRATION `35843296147`: PASS, 30/30;
+- closure PR #160 head:
+  `02e56a11c1fbe4f764e63c0db745f203442172a9`;
+- closure PR FAST `35843661949`: PASS;
+- closure PR INTEGRATION `35843661956`: PASS;
+- closure merge:
+  `3a0edbbed28b43171cf27171525b13e9fb54ad3e`;
+- closure post-merge FAST `35845572575`: PASS;
+- closure post-merge INTEGRATION `35845572455`: PASS.
 
-Closure branch:
-`docs/surface-coons-patch-implementation-closure`.
+Next admissible action:
 
-After closure integration and protected-main validation, the sole next action
-is one fresh Surface Representation breadth decision comparing analytic
-elementary, swept, trimmed, broader Coons/transfinite and demonstrably required
-remaining NURBS breadth.
+Open one fresh literature-backed Surface Representation breadth decision
+comparing:
 
-No option is preselected.
+- analytic elementary surfaces;
+- ruled/extrusion/revolution surfaces;
+- rectangular/general trimmed-surface semantics;
+- broader Coons/transfinite boundary families;
+- demonstrably required remaining NURBS breadth.
 
-Surface Differential Geometry and Boundary Curve Discretization remain
-blocked.
+No candidate is preselected.
+
+Surface Differential Geometry remains **NOT STARTED / BLOCKED BY
+REPRESENTATION BREADTH**.
+
+Boundary Curve Discretization remains blocked.
 
 The longer ordering remains:
 
