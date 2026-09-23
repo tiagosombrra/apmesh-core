@@ -103,7 +103,7 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - sync post-merge FAST `35904119775` and INTEGRATION
   `35904119725`: PASS;
 - active work item:
-  **None; bounded revolution decision integrated, closure pending**;
+  **Bounded Cubic Bézier Surface of Revolution implementation**;
 - component status:
   **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
   NOT QUALIFIED**;
@@ -122,26 +122,27 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-Close the integrated bounded revolution decision checkpoint.
+Implement the bounded cubic Bézier revolution surface on the single active
+production branch `surface/cubic-bezier-revolution`.
 
 Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-Decision integration evidence:
+Closed decision evidence:
 
-- PR #179 final head:
-  `92db678f92fbf869e00540536156de25a1647113`;
-- PR FAST `35909899142`: PASS;
-- PR INTEGRATION `35909899200`: PASS;
-- merge:
-  `112f3b7ae3c439d729380fec07d065997bf11e56`;
-- post-merge FAST `35910017412`: PASS;
-- post-merge INTEGRATION `35910017524`: PASS.
+- decision merge `112f3b7ae3c439d729380fec07d065997bf11e56`;
+- decision post-merge FAST `35910017412`: PASS;
+- decision post-merge INTEGRATION `35910017524`: PASS;
+- closure merge `715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`;
+- closure post-merge FAST `35910422052`: PASS;
+- closure post-merge INTEGRATION `35910422072`: PASS.
 
-After closure validation, the sole next production work item is the bounded
-cubic Bézier revolution surface defined by the decision.
+Implementation is limited to the decision-mapped new revolution header/source,
+one focused test, CMake registration and synchronized documentation.
 
-No production code is authorized in this closure branch.
+No common `SurfaceError`, `AxisPlacement3`, `CubicBezier3`, periodic,
+analytic elementary, trimming/topology, differential-geometry or meshing
+semantic change is authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
