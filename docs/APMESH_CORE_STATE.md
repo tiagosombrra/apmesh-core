@@ -297,66 +297,43 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Implement the bounded oriented four-boundary cubic Bézier Coons patch in 3D.**
+**Close the integrated oriented four-boundary cubic Bézier Coons patch work
+unit; after closure, open one fresh Surface Representation breadth decision.**
 
-Closed decision evidence:
+Implementation evidence:
 
-- decision PR #157:
-  `639565e047a15a5b947f73fcadce10e51dde6bb0`;
-- decision post-merge FAST `35841180741`: PASS;
-- decision post-merge INTEGRATION `35841180924`: PASS;
-- closure PR #158:
-  `765ee737a1a8ef192ccff113dbb731b7ba68294f`;
-- closure post-merge FAST `35841573108`: PASS;
-- closure post-merge INTEGRATION `35841573116`: PASS.
+- initial validated head:
+  `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
+- initial FAST `35842812822`: PASS, 30/30;
+- initial INTEGRATION `35842812792`: PASS, 30/30;
+- final head:
+  `ec5a1b56dd30445c5745dc2522680653f4f0af3f`;
+- final FAST `35843033876`: PASS, 30/30;
+- final INTEGRATION `35843034029`: PASS, 30/30;
+- implementation PR #159:
+  `3528612fdb875d8298d785a2c32f0fb4e1f8eea4`;
+- implementation post-merge FAST `35843296073`: PASS, 30/30;
+- implementation post-merge INTEGRATION `35843296147`: PASS, 30/30.
 
-Active branch:
-`surface/coons-patch`.
+Closure branch:
+`docs/surface-coons-patch-implementation-closure`.
 
-Decision authority:
-`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
+The integrated production surface now supports one deterministic
+four-`CubicBezier3` Coons patch with exact corner compatibility,
+boundary/tangent interpolation, analytic first/second partials and U/V
+reversal.
 
-The implementation is limited to four owned `CubicBezier3` boundaries,
-exact corner compatibility, the deterministic classical Coons blend, analytic
-first/second partials, U/V reversal and one focused 30th ordinary contract.
-
-No common bounded-surface contract change, rational/NURBS boundary dispatch,
-trimming/topology, analytic/swept surface, differential geometry,
-discretization or meshing work is authorized.
-
-Candidate repository mapping:
-
-- `include/apmesh/geometry/coons_surface.hpp`;
-- `src/geometry/coons_surface.cpp`;
-- `tests/surface_coons_patch.cpp`;
-- `CMakeLists.txt`.
-
-The common surface contract and all existing curve/surface implementations are
-unchanged.
-
-Candidate validation:
-
-- head `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
-- FAST `35842812822`: PASS, 30/30;
-- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 30/30 per cell;
-- focused `apmesh_core.surface_coons_patch`: PASS in all three jobs.
-
-Candidate status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-The complete 30-test inventory confirms that the Coons test is correctly
-included in both FAST and INTEGRATION, with no recurrence of the earlier
-surface-label selection gap.
+No broader Coons boundary family, analytic/swept surface, trimming/topology,
+surface differential geometry, boundary discretization or meshing capability
+is authorized by this closure.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER COONS
-PATCH IMPLEMENTATION ACTIVE / NOT QUALIFIED /
+PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED /
 POLYNOMIAL, RATIONAL AND NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
