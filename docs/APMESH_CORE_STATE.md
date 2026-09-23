@@ -265,16 +265,17 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
-5. `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
-6. `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
-7. `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`;
-8. `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`;
-9. `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
-10. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
-11. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-12. the latest relevant audit under `docs/audits/`;
-13. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`;
+5. `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
+6. `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+7. `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
+8. `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`;
+9. `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`;
+10. `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+11. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
+12. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+13. the latest relevant audit under `docs/audits/`;
+14. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.
@@ -297,44 +298,44 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Open one fresh literature-backed Surface Representation breadth decision.**
+**Integrate the literature-backed static rectangular trimmed surface decision;
+no production implementation is authorized on this branch.**
 
-Terminal Coons evidence:
+Decision-entry authority:
 
-- implementation PR #159:
-  `3528612fdb875d8298d785a2c32f0fb4e1f8eea4`;
-- implementation post-merge FAST `35843296073`: PASS, 30/30;
-- implementation post-merge INTEGRATION `35843296147`: PASS, 30/30;
-- closure PR #160 head:
-  `02e56a11c1fbe4f764e63c0db745f203442172a9`;
-- closure PR FAST `35843661949`: PASS;
-- closure PR INTEGRATION `35843661956`: PASS;
-- closure merge:
-  `3a0edbbed28b43171cf27171525b13e9fb54ad3e`;
-- closure post-merge FAST `35845572575`: PASS;
-- closure post-merge INTEGRATION `35845572455`: PASS.
+- terminal Coons sync:
+  `efd084e8b247cde48e89bb67cd0b0097d005feab`;
+- sync PR FAST `35845757475`: PASS;
+- sync PR INTEGRATION `35845757479`: PASS;
+- sync post-merge FAST `35845911399`: PASS;
+- sync post-merge INTEGRATION `35845911492`: PASS.
 
-The integrated surface representation breadth now includes:
+Active branch:
+`surface/rectangular-trimmed-surface-decision`.
 
-- bicubic polynomial Bézier patch;
-- positive-weight rational bicubic Bézier patch;
-- bicubic positive-weight NURBS patch with multiplicity-one/two C1 semantics;
-- oriented four-boundary cubic Bézier Coons patch.
+Decision authority:
+`docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-No production work item is active.
+The decision compares analytic, swept, trimmed, broader Coons and remaining
+NURBS breadth and selects only:
 
-The next decision must compare analytic elementary, swept, trimmed, broader
-Coons/transfinite and demonstrably required remaining NURBS breadth. No winner
-is pre-authorized.
+**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
+
+The future wrapper is compile-time generic over `BoundedParametricSurface3`,
+owns its basis by value, restricts U/V to exact oriented subintervals and
+forwards value/partial semantics with deterministic orientation-sign rules.
+
+General trim loops/p-curves/topological faces, analytic/swept surfaces,
+broader Coons and remaining NURBS breadth remain unauthorized.
 
 ## Current active stage
 
-**Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER COONS
-PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
-POLYNOMIAL, RATIONAL AND NURBS PREREQUISITES PRESERVED**
+**Surface Representation — Continuous Patch Geometry — STATIC RECTANGULAR
+TRIM DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS AND COONS PREREQUISITES
+PRESERVED**
 
 Paused prerequisite investigation:
 
