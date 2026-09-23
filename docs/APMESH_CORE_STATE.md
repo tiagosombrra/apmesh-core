@@ -301,30 +301,40 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the bounded Cubic Bézier Linear Extrusion Surface in 3D.**
+**Implement the bounded Cubic Bézier Linear Extrusion Surface in 3D.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #168 merge: `b8fe106080513a9736172a2380d5d8c0f162276a`;
-- PR FAST `35885189655`: PASS;
-- PR INTEGRATION `35885189624`: PASS;
-- post-merge FAST `35885367665`: PASS;
-- post-merge INTEGRATION `35885367613`: PASS.
+- decision PR #168:
+  `b8fe106080513a9736172a2380d5d8c0f162276a`;
+- decision post-merge FAST `35885367665`: PASS;
+- decision post-merge INTEGRATION `35885367613`: PASS;
+- closure PR #169:
+  `f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`;
+- closure post-merge FAST `35886133289`: PASS;
+- closure post-merge INTEGRATION `35886133213`: PASS.
 
-Closure branch:
-`docs/surface-linear-extrusion-decision-closure`.
+Active branch:
+`surface/cubic-bezier-linear-extrusion`.
 
-No production implementation is active until closure completes.
+Decision authority:
+`docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
+
+The implementation is restricted to one `CubicBezier3` basis, one finite
+extrusion displacement, normalized `[0,1]^2` domain and analytic first/second
+partials.
+
+No generic extrusion, revolution, analytic elementary surface, arbitrary-angle
+frame, general trimming/topology, differential geometry or meshing work is
+authorized.
 
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER LINEAR
-EXTRUSION DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
+EXTRUSION IMPLEMENTATION ACTIVE / NOT QUALIFIED /
 POLYNOMIAL, RATIONAL, NURBS, COONS AND RECTANGULAR-TRIM
 PREREQUISITES PRESERVED**
 
