@@ -734,3 +734,36 @@ Boundary Curve Discretization remains blocked.
 
 The remaining surface and curve breadth obligations remain retained, not
 cancelled.
+
+
+## 33. Decision integration checkpoint
+
+PR #157 integrated this bounded Coons surface decision.
+
+Final decision head:
+
+`dbdee00c53595dd203c9d44a7e18138b8b85afce`.
+
+Final decision-head validation:
+
+- FAST `35841081221`: PASS;
+- INTEGRATION `35841081217`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #157 merged as:
+
+`639565e047a15a5b947f73fcadce10e51dde6bb0`.
+
+Post-merge validation:
+
+- FAST `35841180741`: PASS;
+- INTEGRATION `35841180924`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the oriented four-boundary cubic Bézier Coons patch implementation
+bounded by Sections 5–30.
+
+No other surface family or downstream capability is authorized.
