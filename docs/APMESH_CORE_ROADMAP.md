@@ -1915,9 +1915,18 @@ Authorized scope:
   Coons;
 - target ordinary inventory: **31 tests**.
 
-Candidate implementation is now mapped exclusively to the authorized
-header/test/build files and awaits FAST/INTEGRATION validation. The common
-surface contract and all existing surface production sources remain unchanged.
+Validation history:
+
+- initial head `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`:
+  30/31 with the retained nested/direct exact-equality test-oracle mismatch;
+- corrected head `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`:
+  FAST `35873716331` PASS, 31/31;
+- corrected INTEGRATION `35873716367`: PASS in GCC and Clang, 31/31 in
+  each cell.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. The common surface contract and all
+existing surface production sources remain unchanged.
 
 All general trimming/topology, p-curves, analytic/swept surfaces, broader
 Coons/NURBS, Surface Differential Geometry, discretization and meshing remain
