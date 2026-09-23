@@ -761,6 +761,33 @@ Candidate mapping is restricted to:
 
 Expected ordinary semantic inventory after registration: **34 tests**.
 
+Candidate implementation:
+
+- public API:
+  `include/apmesh/geometry/revolution_surface.hpp`;
+- production:
+  `src/geometry/revolution_surface.cpp`;
+- focused contract:
+  `tests/surface_revolution.cpp`;
+- build registration:
+  `CMakeLists.txt`.
+
+Candidate semantics:
+
+- finite signed strict sub-2*pi sweep;
+- exact normalized unit-square domain;
+- precomputed finite rotated end generatrix;
+- existing `AxisPlacement3` used without semantic modification;
+- deterministic Rodrigues-style rotation through local axis coordinates;
+- analytic Su/Sv/Suu/Suv/Svv;
+- exact stored U reversal and generatrix V reversal;
+- independent long-double Bernstein/Rodrigues reference;
+- cylinder and annular-sector analytic fixtures;
+- axis-reference invariance;
+- degenerate, affine, scale, extreme-finite and deterministic evidence.
+
+Expected ordinary inventory: **34 tests**.
+
 Current status:
 
-**IMPLEMENTATION ACTIVE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
