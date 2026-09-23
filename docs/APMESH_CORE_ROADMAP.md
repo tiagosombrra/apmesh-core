@@ -1907,6 +1907,10 @@ Authorized scope:
 - cylinder and annular-sector references;
 - expected inventory: 34 ordinary tests.
 
+Candidate implementation is now mapped to the authorized new header/source,
+one focused test and CMake registration, with no common contract changes.
+FAST/INTEGRATION validation is pending.
+
 Complete periodic revolution, analytic elementary surfaces, general trimming,
 broader Coons/transfinite boundaries and remaining NURBS breadth remain later
 decisions.
