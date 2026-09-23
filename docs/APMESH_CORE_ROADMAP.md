@@ -1876,33 +1876,29 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Right-Handed Arbitrary 3D Axis Placement —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Decision authority:
-`docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
+Terminal implementation evidence:
 
-Implementation validation:
-
-- initial candidate:
-  `bb19471c2307aec70427719baf3f8d9500605c42`;
-- candidate FAST `35901914044`: PASS, 33/33;
-- candidate INTEGRATION `35901914002`: PASS, 33/33;
-- final PR head:
-  `484b1b353f09e5e8e4b6b768ec0a5b9403960d72`;
-- final-head FAST `35902281707`: PASS, 33/33;
-- final-head INTEGRATION `35902281599`: PASS, 33/33;
 - implementation PR #176:
   `6d90036300671656c3bbde459dd2a783f8457cc1`;
-- post-merge FAST `35902586443`: PASS, 33/33;
-- post-merge INTEGRATION `35902586537`: PASS, 33/33.
+- implementation post-merge FAST `35902586443`: PASS, 33/33;
+- implementation post-merge INTEGRATION `35902586537`: PASS, 33/33;
+- closure PR #177:
+  `fda3d1284ed500cdd97a7b6b153791f9d0884818`;
+- closure PR FAST `35903080976`: PASS;
+- closure PR INTEGRATION `35903080966`: PASS;
+- closure post-merge FAST `35903368279`: PASS;
+- closure post-merge INTEGRATION `35903368467`: PASS.
 
 The qualified `CartesianFrame3` contract remains frozen.
 
-After closure integration and post-merge validation, the next admissible work is
-one fresh Surface Representation breadth decision comparing:
+After this terminal documentation sync is integrated and post-merge validated,
+the next admissible work is one fresh literature-backed Surface Representation
+breadth decision comparing:
 
-- revolution;
+- bounded revolution surface;
 - analytic elementary surfaces using `AxisPlacement3`;
 - general trimming/p-curves/topological faces;
 - broader Coons/transfinite boundaries;
