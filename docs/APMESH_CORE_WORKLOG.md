@@ -380,80 +380,61 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-bicubic-nurbs-double-knot-implementation-closure`:
   **MERGED / HISTORICAL** via PR #156; closes the multiplicity-one/two
   bicubic NURBS surface implementation checkpoint.
-- `surface/coons-patch-decision`: **ACTIVE / DOCUMENTATION-ONLY**;
-  literature-backed Surface Representation breadth decision; no production
-  Coons code.
+- `surface/coons-patch-decision`: **MERGED / HISTORICAL** via PR #157;
+  bounded Coons/transfinite Surface Representation decision.
+- `docs/surface-coons-patch-decision-closure`: **CLOSURE-ONLY**;
+  records PR #157 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Oriented Four-Boundary Cubic Bézier Coons Patch Decision —
-ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
-NOT QUALIFIED.**
+**None. Oriented Four-Boundary Cubic Bézier Coons Patch decision is integrated
+and ready for closure.**
 
-Active branch:
-`surface/coons-patch-decision`.
+Decision closure evidence:
 
-Entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
+2. decision PR #157 head:
+   `dbdee00c53595dd203c9d44a7e18138b8b85afce`;
+3. decision PR FAST `35841081221`: PASS;
+4. decision PR INTEGRATION `35841081217`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. decision PR #157 merged as
+   `639565e047a15a5b947f73fcadce10e51dde6bb0`;
+6. post-merge FAST `35841180741`: PASS;
+7. post-merge INTEGRATION `35841180924`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+8. no Coons production type exists yet;
+9. all existing 29 ordinary semantic tests remain the production baseline.
 
-- bicubic NURBS C1 implementation PR #155:
-  `fea1cf536336dc5bef19217a879338bac495555f`;
-- final complete 29-test PR head:
-  `6453279c77883440b5cd86e7ab08052b318ecf22`;
-- final PR FAST `35837794984`: PASS, 29/29;
-- final PR INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
-- implementation post-merge FAST `35837956530`: PASS, 29/29;
-- implementation post-merge INTEGRATION `35837956529`: PASS, 29/29;
-- closure PR #156 head:
-  `def351bde58b9afdc71571effbcad73d0ae53ed5`;
-- closure PR FAST `35838274382`: PASS;
-- closure PR INTEGRATION `35838274390`: PASS;
-- closure PR #156 merged as
-  `925cf43f3a0cc6239ac6fb2f9f7e913e79141d86`;
-- closure post-merge FAST `35838387139`: PASS;
-- closure post-merge INTEGRATION `35838387121`: PASS;
-- no open PR and no production work item existed at decision entry.
+No production work item is active in this closure change.
 
-Retained mechanical history:
+## Next admissible work item after closure
 
-- initial implementation runs `35837423080` / `35837423118` passed only
-  the prior 28-test labeled set because the new C1 contract lacked
-  FAST/INTEGRATION labels;
-- corrected and final 29-test runs are the acceptance evidence; the mechanical
-  gap remains recorded and is not erased.
-
-Decision authority:
-`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
-
-Required breadth comparison:
-
-1. Coons/transfinite patch construction;
-2. analytic elementary surfaces;
-3. ruled/extrusion/revolution surfaces;
-4. rectangular/general trimmed-surface semantics;
-5. multiplicity-three/C0 only if the admitted model requires it;
-6. arbitrary degree/periodicity only if the admitted model requires it.
-
-Selected future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Oriented Four-Boundary Cubic Bézier Coons Patch in 3D.**
 
-The decision freezes four explicitly oriented `CubicBezier3` boundaries,
-exact corner compatibility, a deterministic classical Coons blend, analytic
-first/second partials, U/V reversal and one focused 30th ordinary contract.
+Implementation must remain within
+`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`:
 
-This branch is decision/research/documentation only. No Coons production,
-trimming, topology, analytic/swept surface, differential-geometry or meshing
-code is authorized.
+- four oriented `CubicBezier3` boundaries owned by value;
+- exact orientation-specific corner compatibility;
+- no automatic reversal or proximity matching;
+- exact `[0,1]^2` domain;
+- deterministic classical Coons blend;
+- analytic `Su/Sv/Suu/Suv/Svv`;
+- exact boundary value/tangent parity;
+- U/V reversal and involution;
+- independent direct Coons oracle;
+- bilinear/planar/nonplanar/constant/degenerate/affine/extreme/deterministic
+  evidence;
+- unchanged common bounded-surface contract;
+- one new focused test, targeting **30 ordinary tests**.
 
-## Next admissible transition after this decision
-
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision closure may one production branch open for the selected
-cubic Bézier Coons patch.
-
-If implementation needs rational/NURBS boundary dispatch, approximate corner
-matching, automatic boundary reversal, trimming/topology, common surface
-contract changes, normals/metric/curvature or meshing, stop and require a new
-decision.
+No rational/NURBS-boundary Coons, heterogeneous boundary dispatch, analytic
+surface, sweep/revolution, trimming/topology, differential geometry,
+discretization or meshing is authorized.
