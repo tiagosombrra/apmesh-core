@@ -336,14 +336,22 @@ Candidate repository mapping:
 The common surface contract and all existing curve/surface implementations are
 unchanged.
 
+Candidate validation:
+
+- head `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
+- FAST `35842812822`: PASS, 30/30;
+- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 per cell;
+- focused `apmesh_core.surface_coons_patch`: PASS in all three jobs.
+
 Candidate status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
-Expected ordinary semantic inventory after CMake registration: **30 tests**.
-The Coons contract is explicitly included in the surface FAST/INTEGRATION label
-group; this prevents recurrence of the earlier C1-surface label-selection
-mechanical failure.
+The complete 30-test inventory confirms that the Coons test is correctly
+included in both FAST and INTEGRATION, with no recurrence of the earlier
+surface-label selection gap.
 
 ## Current active stage
 
