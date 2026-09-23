@@ -767,3 +767,93 @@ item is the oriented four-boundary cubic Bézier Coons patch implementation
 bounded by Sections 5–30.
 
 No other surface family or downstream capability is authorized.
+
+
+## 34. Decision closure checkpoint
+
+Decision closure PR #158 used head
+`c6b5d6b3ab41ffb9b034eb5aee4f9e13adb56d19`.
+
+Closure PR validation:
+
+- FAST `35841435784`: PASS;
+- INTEGRATION `35841435869`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #158 merged as:
+
+`765ee737a1a8ef192ccff113dbb731b7ba68294f`.
+
+Closure post-merge validation:
+
+- FAST `35841573108`: PASS;
+- INTEGRATION `35841573116`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the oriented four-boundary cubic
+Bézier Coons patch bounded by Sections 5–30.
+
+No broader Coons, analytic, swept, trimmed or downstream capability is
+authorized.
+
+
+## 35. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/coons-patch`.
+
+Candidate mapping:
+
+- public representation:
+  `include/apmesh/geometry/coons_surface.hpp`;
+- production:
+  `src/geometry/coons_surface.cpp`;
+- focused contract:
+  `tests/surface_coons_patch.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+The common `BoundedParametricSurface3` contract and all pre-existing curve and
+surface production sources remain unchanged.
+
+Candidate implementation provides:
+
+- four owned oriented `CubicBezier3` boundaries;
+- four deterministic exact corner mismatch errors;
+- exact `[0,1]^2` domain;
+- direct boundary identity shortcuts;
+- deterministic classical Coons value accumulation;
+- analytic `Su/Sv/Suu/Suv/Svv`;
+- exact boundary tangential derivative preservation;
+- U/V reversal and involution;
+- checked finite materialization after long-double accumulation.
+
+The focused contract includes the independent direct Coons oracle, exact
+boundary/tangent parity, analytic bilinear and planar fixtures, asymmetric
+nonplanar evidence, reversal covariance, constant/degenerate representation,
+affine covariance, extreme finite behavior, explicit unrepresentable-result
+failure and deterministic typed failures.
+
+The new test is explicitly labeled for both FAST and INTEGRATION. Expected
+ordinary semantic inventory: **30 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
+- FAST `35842812822`: PASS, 30/30 ordinary semantic tests;
+- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 tests per cell;
+- `apmesh_core.surface_coons_patch`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**

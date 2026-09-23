@@ -382,59 +382,123 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   bicubic NURBS surface implementation checkpoint.
 - `surface/coons-patch-decision`: **MERGED / HISTORICAL** via PR #157;
   bounded Coons/transfinite Surface Representation decision.
-- `docs/surface-coons-patch-decision-closure`: **CLOSURE-ONLY**;
-  records PR #157 integration and post-merge validation.
+- `docs/surface-coons-patch-decision-closure`: **MERGED / HISTORICAL**
+  via PR #158; closes the bounded Coons surface decision checkpoint.
+- `surface/coons-patch`: **ACTIVE**; bounded oriented four-boundary cubic
+  Bézier Coons patch implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Oriented Four-Boundary Cubic Bézier Coons Patch decision is integrated
-and ready for closure.**
+**Oriented Four-Boundary Cubic Bézier Coons Patch in 3D —
+ACTIVE / IMPLEMENTATION OPEN / NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`surface/coons-patch`.
 
-1. decision authority:
-   `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
-2. decision PR #157 head:
-   `dbdee00c53595dd203c9d44a7e18138b8b85afce`;
-3. decision PR FAST `35841081221`: PASS;
-4. decision PR INTEGRATION `35841081217`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. decision PR #157 merged as
-   `639565e047a15a5b947f73fcadce10e51dde6bb0`;
-6. post-merge FAST `35841180741`: PASS;
-7. post-merge INTEGRATION `35841180924`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-8. no Coons production type exists yet;
-9. all existing 29 ordinary semantic tests remain the production baseline.
+Decision authority:
+`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
 
-No production work item is active in this closure change.
+Closed decision checkpoint:
 
-## Next admissible work item after closure
+- decision PR #157:
+  `639565e047a15a5b947f73fcadce10e51dde6bb0`;
+- decision PR FAST `35841081221`: PASS;
+- decision PR INTEGRATION `35841081217`: PASS;
+- decision post-merge FAST `35841180741`: PASS;
+- decision post-merge INTEGRATION `35841180924`: PASS;
+- closure PR #158 head:
+  `c6b5d6b3ab41ffb9b034eb5aee4f9e13adb56d19`;
+- closure PR FAST `35841435784`: PASS;
+- closure PR INTEGRATION `35841435869`: PASS;
+- closure PR #158 merged as
+  `765ee737a1a8ef192ccff113dbb731b7ba68294f`;
+- closure post-merge FAST `35841573108`: PASS;
+- closure post-merge INTEGRATION `35841573116`: PASS.
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
+Authorized repository mapping:
 
-**Oriented Four-Boundary Cubic Bézier Coons Patch in 3D.**
+1. public representation:
+   `include/apmesh/geometry/coons_surface.hpp`;
+2. production:
+   `src/geometry/coons_surface.cpp`;
+3. focused contract:
+   `tests/surface_coons_patch.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized STATE / ROADMAP / WORKLOG / decision.
 
-Implementation must remain within
-`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`:
+Required implementation scope:
 
 - four oriented `CubicBezier3` boundaries owned by value;
-- exact orientation-specific corner compatibility;
-- no automatic reversal or proximity matching;
+- exact lower-left/lower-right/upper-left/upper-right corner validation;
+- no approximate compatibility and no automatic boundary reversal;
 - exact `[0,1]^2` domain;
-- deterministic classical Coons blend;
+- deterministic classical Coons value blend;
 - analytic `Su/Sv/Suu/Suv/Svv`;
-- exact boundary value/tangent parity;
+- exact boundary value identity and tangential derivative parity;
 - U/V reversal and involution;
-- independent direct Coons oracle;
-- bilinear/planar/nonplanar/constant/degenerate/affine/extreme/deterministic
-  evidence;
-- unchanged common bounded-surface contract;
-- one new focused test, targeting **30 ordinary tests**.
+- independent Coons oracle;
+- bilinear, planar, asymmetric nonplanar, constant/degenerate, affine,
+  extreme-finite and deterministic evidence;
+- current 29-test baseline preserved plus one focused contract, targeting 30.
 
-No rational/NURBS-boundary Coons, heterogeneous boundary dispatch, analytic
-surface, sweep/revolution, trimming/topology, differential geometry,
-discretization or meshing is authorized.
+Candidate implementation mapping:
+
+- public representation:
+  `include/apmesh/geometry/coons_surface.hpp`;
+- production:
+  `src/geometry/coons_surface.cpp`;
+- focused contract:
+  `tests/surface_coons_patch.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- common `BoundedParametricSurface3`, existing curve APIs and all integrated
+  surface sources remain unchanged.
+
+Candidate semantics:
+
+- four `CubicBezier3` boundaries owned by value;
+- deterministic orientation-specific construction failures;
+- exact boundary value shortcuts and tangential derivative parity;
+- long-double Coons accumulation before checked `Point3/Vector3`
+  materialization;
+- analytic first/second partials;
+- U/V reversal;
+- independent reference and analytic fixtures;
+- the new test is explicitly labeled
+  `surface;geometry;contract;focused-contract;direct-semantic;fast;integration`
+  so it participates in the full 30-test acceptance set.
+
+Candidate validation:
+
+- candidate head:
+  `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
+- FAST `35842812822`: PASS, 30/30;
+- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 in each cell;
+- `apmesh_core.surface_coons_patch`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+Explicit non-actions:
+
+- no rational/NURBS boundary dispatch;
+- no runtime heterogeneous curve polymorphism;
+- no trimming or topology;
+- no analytic elementary or swept surfaces;
+- no Surface Differential Geometry;
+- no Boundary Curve Discretization or meshing;
+- no common bounded-surface contract change.
+
+## Next admissible transition
+
+Complete only this implementation, validate 30/30 in FAST and both
+INTEGRATION compiler cells, integrate through one PR, validate protected
+`main`, close the implementation checkpoint, and only then open a fresh
+Surface Representation breadth decision.
