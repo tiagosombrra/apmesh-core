@@ -1875,37 +1875,50 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Continuous Patch Geometry — Oriented Four-Boundary
-Cubic Bézier Coons Patch — IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Representation — Continuous Patch Geometry — Static Rectangular
+Trimmed Surface — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Terminal closure evidence:
+Decision-entry authority:
 
-- implementation PR #159:
-  `3528612fdb875d8298d785a2c32f0fb4e1f8eea4`;
-- implementation post-merge FAST `35843296073`: PASS, 30/30;
-- implementation post-merge INTEGRATION `35843296147`: PASS, 30/30;
-- closure PR #160 head:
-  `02e56a11c1fbe4f764e63c0db745f203442172a9`;
-- closure PR FAST `35843661949`: PASS;
-- closure PR INTEGRATION `35843661956`: PASS;
-- closure merge:
-  `3a0edbbed28b43171cf27171525b13e9fb54ad3e`;
-- closure post-merge FAST `35845572575`: PASS;
-- closure post-merge INTEGRATION `35845572455`: PASS.
+- terminal Coons checkpoint:
+  `efd084e8b247cde48e89bb67cd0b0097d005feab`;
+- sync PR FAST `35845757475`: PASS;
+- sync PR INTEGRATION `35845757479`: PASS;
+- sync post-merge FAST `35845911399`: PASS;
+- sync post-merge INTEGRATION `35845911492`: PASS.
 
-Next admissible action:
+Active decision:
+`docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-Open one fresh literature-backed Surface Representation breadth decision
-comparing:
+Selected future work unit:
 
+**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
+
+The decision generalizes only the surface subdomain/orientation seam:
+
+- compile-time generic basis satisfying `BoundedParametricSurface3`;
+- basis owned by value;
+- finite U/V source/target trims contained in the basis domain;
+- independent U/V orientation;
+- sorted exposed U/V domain without parameter normalization;
+- value forwarding;
+- first-partial sign covariance;
+- pure-second-partial preservation and mixed-partial sign product;
+- U/V reversal and nested-trim evidence;
+- one new focused contract, targeting **31 tests**.
+
+Deferred:
+
+- arbitrary/general trim loops;
+- p-curves and face topology;
 - analytic elementary surfaces;
-- ruled/extrusion/revolution surfaces;
-- rectangular/general trimmed-surface semantics;
-- broader Coons/transfinite boundary families;
-- demonstrably required remaining NURBS breadth.
+- ruled/extrusion/revolution;
+- broader Coons/transfinite boundary dispatch;
+- multiplicity-three/C0, arbitrary-degree and periodic NURBS breadth.
 
-No candidate is preselected.
+No implementation may start until the decision PR is integrated, post-merge
+FAST/INTEGRATION pass and a separate decision checkpoint closes.
 
 Surface Differential Geometry remains **NOT STARTED / BLOCKED BY
 REPRESENTATION BREADTH**.
