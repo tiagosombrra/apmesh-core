@@ -1876,30 +1876,36 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Cubic Bézier Surface of Revolution —
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED**
+IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-Decision integration evidence:
+Closed decision checkpoint:
 
-- PR #179 final head:
-  `92db678f92fbf869e00540536156de25a1647113`;
-- PR FAST `35909899142`: PASS;
-- PR INTEGRATION `35909899200`: PASS;
-- merge `112f3b7ae3c439d729380fec07d065997bf11e56`;
-- post-merge FAST `35910017412`: PASS;
-- post-merge INTEGRATION `35910017524`: PASS.
+- decision PR #179 merge:
+  `112f3b7ae3c439d729380fec07d065997bf11e56`;
+- decision post-merge FAST `35910017412`: PASS;
+- decision post-merge INTEGRATION `35910017524`: PASS;
+- decision closure PR #180 merge:
+  `715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`;
+- closure post-merge FAST `35910422052`: PASS;
+- closure post-merge INTEGRATION `35910422072`: PASS.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Active implementation branch:
+`surface/cubic-bezier-revolution`.
 
-**Bounded Cubic Bézier Surface of Revolution in 3D.**
+Authorized scope:
 
-The authorized scope remains exactly one `CubicBezier3`, existing
-`AxisPlacement3`, signed sub-2*pi sweep, normalized `[0,1]^2` domain and
-analytic first/second partials.
+- one `CubicBezier3` generatrix;
+- one `AxisPlacement3`;
+- signed finite `0 < abs(sweep) < 2*pi`;
+- normalized `[0,1]^2` domain;
+- Rodrigues-style arbitrary-axis rotation;
+- analytic Su/Sv/Suu/Suv/Svv;
+- U/V reversal;
+- cylinder and annular-sector references;
+- expected inventory: 34 ordinary tests.
 
 Complete periodic revolution, analytic elementary surfaces, general trimming,
 broader Coons/transfinite boundaries and remaining NURBS breadth remain later
