@@ -88,22 +88,24 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
-- latest integrated scientific decision:
+- latest closed scientific decision:
   **Arbitrary Right-Handed 3D Axis Placement prerequisite**;
 - decision PR #173:
   `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
-- decision PR FAST `35894230229` and INTEGRATION
-  `35894230134`: PASS;
-- decision post-merge FAST `35894377748` and INTEGRATION
-  `35894377875`: PASS;
-- active branch:
-  `docs/arbitrary-axis-placement-decision-closure`;
-- no production work item is active;
+- decision closure PR #174:
+  `fbdfb98cfc5574c053f32298cab75d714ff31772`;
+- closure PR FAST `35894725433` and INTEGRATION
+  `35894725365`: PASS;
+- closure post-merge FAST `35900347873` and INTEGRATION
+  `35900347965`: PASS;
+- terminal sync branch:
+  `docs/arbitrary-axis-placement-closure-sync`;
+- no production work item is active during the sync;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
 - ordinary semantic inventory: **32 tests**;
-- after decision closure and post-merge validation, the sole next work item is
-  the bounded `AxisPlacement3` implementation;
+- after terminal sync integration/post-merge validation, the sole next work
+  item is the bounded `AxisPlacement3` implementation;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
