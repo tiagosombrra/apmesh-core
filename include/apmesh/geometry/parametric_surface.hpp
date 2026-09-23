@@ -13,6 +13,7 @@ enum class SurfaceError {
     u_parameter_out_of_domain,
     v_parameter_out_of_domain,
     non_finite_result,
+    insufficient_continuity,
 };
 
 struct SurfaceParameterDomain {

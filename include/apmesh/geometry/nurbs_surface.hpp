@@ -3,6 +3,7 @@
 #include "apmesh/geometry/parametric_surface.hpp"
 
 #include <cstddef>
+#include <cstdint>
 #include <expected>
 #include <span>
 #include <vector>
@@ -16,6 +17,10 @@ enum class BicubicNURBSSurfaceConstructionError {
     control_weight_count_mismatch,
     u_interior_knot_count_mismatch,
     v_interior_knot_count_mismatch,
+    u_interior_multiplicity_count_mismatch,
+    v_interior_multiplicity_count_mismatch,
+    unsupported_u_interior_multiplicity,
+    unsupported_v_interior_multiplicity,
     non_finite_u_lower_knot,
     non_finite_u_interior_knot,
     non_finite_u_upper_knot,
@@ -45,12 +50,33 @@ public:
         double v_lower_knot,
         double v_upper_knot);
 
+    [[nodiscard]] static std::expected<
+        BicubicNURBSSurface3,
+        BicubicNURBSSurfaceConstructionError>
+    make(
+        std::vector<Point3> control_points,
+        std::vector<double> weights,
+        std::size_t u_control_count,
+        std::size_t v_control_count,
+        std::vector<double> u_interior_knots,
+        std::vector<double> v_interior_knots,
+        std::vector<std::uint8_t> u_interior_multiplicities,
+        std::vector<std::uint8_t> v_interior_multiplicities,
+        double u_lower_knot,
+        double u_upper_knot,
+        double v_lower_knot,
+        double v_upper_knot);
+
     [[nodiscard]] std::span<const Point3> control_points() const noexcept;
     [[nodiscard]] std::span<const double> weights() const noexcept;
     [[nodiscard]] std::size_t u_control_count() const noexcept;
     [[nodiscard]] std::size_t v_control_count() const noexcept;
     [[nodiscard]] std::span<const double> u_interior_knots() const noexcept;
     [[nodiscard]] std::span<const double> v_interior_knots() const noexcept;
+    [[nodiscard]] std::span<const std::uint8_t>
+    u_interior_multiplicities() const noexcept;
+    [[nodiscard]] std::span<const std::uint8_t>
+    v_interior_multiplicities() const noexcept;
     [[nodiscard]] std::size_t u_span_count() const noexcept;
     [[nodiscard]] std::size_t v_span_count() const noexcept;
 
@@ -76,6 +102,8 @@ private:
         std::size_t v_control_count,
         std::vector<double> u_interior_knots,
         std::vector<double> v_interior_knots,
+        std::vector<std::uint8_t> u_interior_multiplicities,
+        std::vector<std::uint8_t> v_interior_multiplicities,
         std::vector<double> u_flat_knots,
         std::vector<double> v_flat_knots,
         double u_lower_knot,
@@ -90,6 +118,8 @@ private:
     std::size_t v_control_count_{};
     std::vector<double> u_interior_knots_;
     std::vector<double> v_interior_knots_;
+    std::vector<std::uint8_t> u_interior_multiplicities_;
+    std::vector<std::uint8_t> v_interior_multiplicities_;
     std::vector<double> u_flat_knots_;
     std::vector<double> v_flat_knots_;
     double u_lower_knot_{};

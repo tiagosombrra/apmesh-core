@@ -710,3 +710,112 @@ by Sections 5–33.
 
 No multiplicity-three, one-sided derivative, Coons, analytic, swept, trimmed
 or downstream capability is authorized.
+
+
+## 37. Decision closure checkpoint
+
+Decision closure PR #154 used head
+`c392ddebbe47ad12a9cad3ac1320ec673d66d26b`.
+
+Closure PR validation:
+
+- FAST `35803973213`: PASS;
+- INTEGRATION `35803973206`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #154 merged as
+`1447d6bf10f8435f66ba108229940a014b152876`.
+
+Closure post-merge validation:
+
+- FAST `35804055281`: PASS;
+- INTEGRATION `35804055381`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the bicubic positive-weight NURBS
+surface multiplicity-one/two extension bounded by Sections 5–33.
+
+No multiplicity-three, component-specific/one-sided derivative, Coons,
+analytic, swept, trimmed, Surface Differential Geometry or downstream
+capability is authorized.
+
+
+## 38. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/bicubic-nurbs-double-knot-continuity`.
+
+Candidate mapping:
+
+- common surface error vocabulary:
+  `include/apmesh/geometry/parametric_surface.hpp`;
+- public U/V multiplicity API/storage:
+  `include/apmesh/geometry/nurbs_surface.hpp`;
+- production:
+  `src/geometry/nurbs_surface.cpp`;
+- focused contract:
+  `tests/surface_bicubic_nurbs_double_knot_continuity.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate implementation preserves the existing simple-knot factory and adds:
+
+- explicit unique U/V multiplicities restricted to one/two;
+- construction-time flat-knot expansion/cache;
+- exact right-span selection on repeated flat knot sequences;
+- parameter-local `SurfaceError::insufficient_continuity` for aggregate
+  second derivatives at U/V multiplicity-two lines;
+- unchanged value/first-derivative queries at those lines;
+- no one-sided or component-specific derivative API.
+
+The focused contract includes an independent repeated-knot rational tensor
+oracle, generic U/V true-C1 fixtures with materially different one-sided
+second derivatives, test-only repeated insertion of an already-simple U/V
+knot, boundary parity with the integrated curve C1 semantics,
+reversal/multiplicity reflection, accidental-smoothness protection and
+deterministic failure evidence.
+
+Expected ordinary semantic inventory: **29 tests**.
+
+Validation history:
+
+Initial PR head:
+
+`3e169a6c9db545d227eeba07f04ecec7d256f577`.
+
+Initial runs:
+
+- FAST `35837423080`: workflow PASS, but 28/28 selected tests;
+- INTEGRATION `35837423118`: workflow PASS in GCC/Clang, but 28/28 selected
+  tests.
+
+Diagnosis:
+
+- the new contract executable compiled and linked;
+- the test was registered but omitted from the surface
+  `fast;integration` label group;
+- the runs are retained as mechanically incomplete acceptance evidence and do
+  not satisfy the 29-test decision boundary.
+
+Corrected head:
+
+`b913895065f1d1184ecebf2565667fdd7fcaca2b`.
+
+Corrected validation:
+
+- FAST `35837638861`: PASS, 29/29 ordinary semantic tests;
+- INTEGRATION `35837638899`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 29/29 tests per cell;
+- `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS in all
+  three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
