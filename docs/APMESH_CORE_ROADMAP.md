@@ -1876,50 +1876,37 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Cubic Bézier Linear Extrusion —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
 
-Closed decision lineage:
+Implementation validation:
 
-- decision PR #168:
-  `b8fe106080513a9736172a2380d5d8c0f162276a`;
-- decision post-merge FAST `35885367665`: PASS;
-- decision post-merge INTEGRATION `35885367613`: PASS;
-- closure PR #169:
-  `f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`;
-- closure post-merge FAST `35886133289`: PASS;
-- closure post-merge INTEGRATION `35886133213`: PASS.
+- candidate head:
+  `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
+- candidate FAST `35887599787`: PASS, 32/32;
+- candidate INTEGRATION `35887599839`: PASS, 32/32 in GCC and Clang;
+- final PR head:
+  `87d0ecc0dbb7a5dda34164834d8c30c473779102`;
+- final PR FAST `35891866350`: PASS, 32/32;
+- final PR INTEGRATION `35891867091`: PASS, 32/32 in GCC and Clang;
+- PR #170 merged as
+  `63b4d963fbed25e6482d37ae1944a08799043b2c`;
+- post-merge FAST `35892078309`: PASS, 32/32;
+- post-merge INTEGRATION `35892078255`: PASS, 32/32.
 
-Active implementation branch:
-`surface/cubic-bezier-linear-extrusion`.
+Closure branch:
+`docs/surface-linear-extrusion-implementation-closure`.
 
-Authorized implementation:
+No production work item is active during closure.
 
-- `CubicBezierLinearExtrusionSurface3`;
-- exact `[0,1]^2` domain;
-- stored start/end cubic Bézier curves plus extrusion displacement;
-- deterministic value evaluation;
-- exact analytic Su/Sv/Suu/Suv/Svv;
-- U/V reversal;
-- boundary, degenerate, affine, extreme-finite and deterministic evidence;
-- one new focused contract, targeting 32 ordinary tests.
+After closure integration and post-merge validation, open one fresh Surface
+Representation breadth decision comparing analytic-placement prerequisites,
+bounded revolution, general trimming/p-curves/topological-face seams, broader
+Coons/transfinite boundaries and remaining NURBS breadth.
 
-Candidate validation on head
-`c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`:
-
-- FAST `35887599787`: PASS, 32/32 tests;
-- INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 32/32 tests per cell;
-- the new linear-extrusion contract and every prior ordinary semantic contract
-  passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. Existing curve/surface contracts
-remain unchanged.
-
-All analytic elementary, revolution, generic extrusion, general trim/p-curve,
-broader Coons and remaining NURBS breadth remain deferred.
+No option is preselected.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.

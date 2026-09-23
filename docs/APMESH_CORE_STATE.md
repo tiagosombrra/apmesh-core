@@ -86,30 +86,26 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed decision checkpoint:
+- latest integrated Surface Representation work unit:
   **Bounded Cubic Bézier Linear Extrusion Surface in 3D**;
-- decision PR #168:
-  `b8fe106080513a9736172a2380d5d8c0f162276a`;
-- decision post-merge FAST `35885367665` and INTEGRATION
-  `35885367613`: PASS;
-- decision closure PR #169:
-  `f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`;
-- closure post-merge FAST `35886133289` and INTEGRATION
-  `35886133213`: PASS;
-- ordinary semantic inventory at implementation entry: **31 tests**;
+- implementation PR #170:
+  `63b4d963fbed25e6482d37ae1944a08799043b2c`;
+- final PR head:
+  `87d0ecc0dbb7a5dda34164834d8c30c473779102`;
+- final PR FAST `35891866350` and INTEGRATION
+  `35891867091`: PASS, 32/32;
+- post-merge FAST `35892078309` and INTEGRATION
+  `35892078255`: PASS, 32/32;
+- ordinary semantic inventory: **32 tests**;
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
-- sole active production branch:
-  `surface/cubic-bezier-linear-extrusion`;
-- implementation PR #170 candidate head:
-  `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
-- candidate FAST `35887599787`: PASS, 32/32;
-- candidate INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 32/32 per cell;
-- focused `apmesh_core.surface_linear_extrusion`: PASS in all three jobs;
-- current implementation status:
-  **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-  FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED**;
+- active branch:
+  `docs/surface-linear-extrusion-implementation-closure`;
+- no production work item is active;
+- exact current action:
+  close the integrated linear-extrusion implementation checkpoint;
+- after closure and post-merge validation, the sole next action is one fresh
+  Surface Representation breadth decision;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -301,73 +297,40 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Implement the bounded Cubic Bézier Linear Extrusion Surface in 3D.**
+**Integrate the implementation closure for the bounded Cubic Bézier Linear
+Extrusion Surface in 3D.**
 
-Closed decision evidence:
+Implementation evidence:
 
-- decision PR #168:
-  `b8fe106080513a9736172a2380d5d8c0f162276a`;
-- decision post-merge FAST `35885367665`: PASS;
-- decision post-merge INTEGRATION `35885367613`: PASS;
-- closure PR #169:
-  `f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`;
-- closure post-merge FAST `35886133289`: PASS;
-- closure post-merge INTEGRATION `35886133213`: PASS.
+- candidate head:
+  `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
+- candidate FAST `35887599787`: PASS, 32/32;
+- candidate INTEGRATION `35887599839`: PASS, 32/32;
+- final PR head:
+  `87d0ecc0dbb7a5dda34164834d8c30c473779102`;
+- final PR FAST `35891866350`: PASS, 32/32;
+- final PR INTEGRATION `35891867091`: PASS, 32/32;
+- PR #170 merge:
+  `63b4d963fbed25e6482d37ae1944a08799043b2c`;
+- post-merge FAST `35892078309`: PASS, 32/32;
+- post-merge INTEGRATION `35892078255`: PASS, 32/32.
 
-Active branch:
-`surface/cubic-bezier-linear-extrusion`.
+Closure branch:
+`docs/surface-linear-extrusion-implementation-closure`.
 
-Decision authority:
-`docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
+No production work is active during closure.
 
-The implementation is restricted to one `CubicBezier3` basis, one finite
-extrusion displacement, normalized `[0,1]^2` domain and analytic first/second
-partials.
-
-No generic extrusion, revolution, analytic elementary surface, arbitrary-angle
-frame, general trimming/topology, differential geometry or meshing work is
-authorized.
-
-Candidate repository mapping:
-
-- `include/apmesh/geometry/extrusion_surface.hpp`;
-- `src/geometry/extrusion_surface.cpp`;
-- `tests/surface_linear_extrusion.cpp`;
-- `CMakeLists.txt`.
-
-Candidate semantics:
-
-- start `CubicBezier3`, prevalidated translated end `CubicBezier3`, and
-  exact extrusion displacement are stored;
-- `S(u,v)=C(u)+vE`;
-- `Su=C'(u)`, `Sv=E`, `Suu=C''(u)`, `Suv=Svv=0`;
-- U reversal reverses both stored curves;
-- V reversal swaps stored curves and negates the displacement;
-- no common surface/curve contract changed;
-- ordinary inventory target is 32 tests.
-
-Candidate validation:
-
-- head `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
-- FAST `35887599787`: PASS, 32/32 tests;
-- INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 32/32 tests per cell;
-- focused `apmesh_core.surface_linear_extrusion`: PASS in all three jobs.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
+After closure integration and post-merge validation, the next admissible work
+is one fresh literature-backed Surface Representation breadth decision.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER LINEAR
-EXTRUSION IMPLEMENTATION ACTIVE / NOT QUALIFIED /
-POLYNOMIAL, RATIONAL, NURBS, COONS AND RECTANGULAR-TRIM
-PREREQUISITES PRESERVED**
+EXTRUSION IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS, COONS AND
+RECTANGULAR-TRIM PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
@@ -396,9 +359,8 @@ The following are **not implemented and not covered by CGR qualification**:
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
 - analytic elementary surface representations remain unimplemented;
-- no swept surface is integrated yet; the active branch contains the bounded
-  cubic-Bézier linear-extrusion implementation candidate with 32/32 focused
-  ordinary validation PASS, pending final documentation-head revalidation;
+- the bounded cubic-Bézier linear-extrusion surface is integrated with 32/32
+  focused ordinary validation PASS and is awaiting implementation closure;
 - general arbitrary-loop trimmed-surface / p-curve / topological-face
   semantics remain unimplemented, while static oriented rectangular trimming
   is integrated;
