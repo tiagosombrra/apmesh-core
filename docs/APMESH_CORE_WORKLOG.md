@@ -437,6 +437,29 @@ Required scope:
 - current 28-test baseline preserved;
 - one new focused contract, targeting 29 ordinary tests.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/parametric_surface.hpp`:
+  adds only `SurfaceError::insufficient_continuity`;
+- `include/apmesh/geometry/nurbs_surface.hpp`:
+  adds explicit U/V multiplicity factory/accessors/storage while preserving
+  the legacy simple-knot factory;
+- `src/geometry/nurbs_surface.cpp`:
+  validates U/V multiplicities 1/2, expands them into construction-time flat
+  knot caches, preserves local homogeneous tensor evaluation, reflects
+  multiplicities under reversal, and rejects aggregate second derivatives
+  exactly on a U/V double knot line;
+- `tests/surface_bicubic_nurbs_double_knot_continuity.cpp`:
+  independent repeated-knot rational tensor oracle, true-C1 one-sided
+  reference evidence, test-only repeated-knot insertion, boundary-curve C1
+  parity, reversal, accidental-smoothness and deterministic failure evidence;
+- `CMakeLists.txt`:
+  registers the 29th ordinary semantic contract.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no multiplicity-three/C0;
