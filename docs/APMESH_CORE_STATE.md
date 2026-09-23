@@ -86,29 +86,28 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed surface-representation anchor: Positive-Weight Rational
-  Tensor-Product Bicubic Bézier Patch in 3D, implementation PR #145
-  `8ac1abd913bf15ff1dc4d60595f809491902c055`, closure PR #146
-  `c7f7b32b180082421cadc74c39d2919f713ec775`, terminal reconciliation
-  PR #147 `6577683e65a35d802a05f812e2763b738094c87f`, checkpoint-normalization
-  PR #148 `b1537c0697604ee5bc37ac46f25bb271b9be52a1`;
-- checkpoint-normalization FAST `35797027086` and INTEGRATION
-  `35797027093`: PASS;
-- checkpoint-normalization post-merge FAST `35797161908` and INTEGRATION
-  `35797161957`: PASS;
+- latest closed surface-representation anchor: clamped positive-weight
+  bicubic NURBS surface with runtime-variable simple-knot U/V spans,
+  implementation PR #151
+  `3042f0a2eb1c4df20207248c1b16c7b023e5c525`, implementation closure
+  PR #152 `0d43b54aaec971c6887e481c9282b9fc4bff0049`;
+- closure PR FAST `35803111019` and INTEGRATION `35803111107`: PASS;
+- closure post-merge FAST `35803190543` and INTEGRATION
+  `35803190533`: PASS;
 - current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — BICUBIC NURBS BREADTH DECISION ACTIVE / NOT QUALIFIED**;
-- active branch: `surface/bicubic-nurbs-decision`;
+  Geometry — BICUBIC NURBS DOUBLE-KNOT C1 DECISION ACTIVE /
+  NOT QUALIFIED**;
+- active branch: `surface/bicubic-nurbs-double-knot-decision`;
 - active decision:
-  `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
-- selected future work unit: clamped bicubic positive-weight NURBS surface with
-  runtime-variable U/V span counts and simple interior knots;
+  `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+- selected future work unit: bicubic positive-weight NURBS surface with
+  interior U/V multiplicity one/two and explicit C1 second-jet failure;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
 - current operational authority: `docs/APMESH_CORE_WORKLOG.md`;
-- live `main` SHA and open-PR state are always re-audited remotely and are not
-  self-recorded here as mutable authority.
+- live `main` SHA and open-PR state are always re-audited remotely and are
+  not self-recorded here as mutable authority.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
@@ -294,41 +293,39 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this implementation closure is integrated and post-merge validated,
-open one fresh literature-backed Surface Representation breadth decision.**
+**Integrate the literature-backed bicubic NURBS surface C1 continuity decision;
+no production implementation is authorized on this branch.**
 
-Terminal bicubic NURBS implementation evidence:
+Entry authority:
 
-- candidate head:
-  `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
-- candidate FAST `35802648932`: PASS, 28/28;
-- candidate INTEGRATION `35802648875`: PASS, 28/28;
-- final PR head:
-  `7fc82143e8fae6a2ee164b5ebae7a57bdd9b55a2`;
-- final PR FAST `35802788385`: PASS, 28/28;
-- final PR INTEGRATION `35802788429`: PASS, 28/28;
-- implementation PR #151:
-  `3042f0a2eb1c4df20207248c1b16c7b023e5c525`;
-- post-merge FAST `35802888299`: PASS, 28/28;
-- post-merge INTEGRATION `35802888266`: PASS, 28/28.
+- implementation closure PR #152:
+  `0d43b54aaec971c6887e481c9282b9fc4bff0049`;
+- closure PR FAST `35803111019`: PASS;
+- closure PR INTEGRATION `35803111107`: PASS;
+- closure post-merge FAST `35803190543`: PASS;
+- closure post-merge INTEGRATION `35803190533`: PASS.
 
-The integrated surface breadth now includes polynomial bicubic Bézier,
-positive-weight rational bicubic Bézier and clamped positive-weight bicubic
-NURBS with runtime-variable simple-knot U/V span counts.
+Active branch:
+`surface/bicubic-nurbs-double-knot-decision`.
 
-No production work item is active.
+Decision authority:
+`docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-The next decision must compare surface C1 knot-line semantics, Coons,
-analytic elementary, swept and trimmed surfaces, plus arbitrary
-degree/periodicity only if justified.
+The decision selects directional multiplicity-two/C1 semantics while keeping
+degree 3, positive weights and non-periodicity fixed.
+
+No production change, multiplicity-three/C0, one-sided/component-specific
+derivative API, Coons, analytic, swept, trimmed, arbitrary-degree, periodic,
+differential-geometry or meshing work is authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
-NOT QUALIFIED / POLYNOMIAL AND RATIONAL BICUBIC PREREQUISITES PRESERVED**
+DOUBLE-KNOT C1 DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+POLYNOMIAL, RATIONAL AND SIMPLE-KNOT NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 

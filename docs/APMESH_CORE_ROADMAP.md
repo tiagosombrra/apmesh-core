@@ -1714,7 +1714,7 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `RATIONAL BICUBIC BÉZIER IMPLEMENTATION ACTIVE / NOT QUALIFIED`
+Status: `BICUBIC NURBS DOUBLE-KNOT C1 DECISION ACTIVE / NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1875,43 +1875,54 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Continuous Patch Geometry — Bicubic
-Positive-Weight NURBS Surface — IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**
+**Surface Representation — Continuous Patch Geometry — Bicubic NURBS
+Double-Knot C1 Continuity — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Implementation evidence:
+Decision-entry authority:
 
-- candidate head:
-  `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
-- candidate FAST `35802648932`: PASS, 28/28;
-- candidate INTEGRATION `35802648875`: PASS, 28/28;
-- final PR head:
-  `7fc82143e8fae6a2ee164b5ebae7a57bdd9b55a2`;
-- final PR FAST `35802788385`: PASS, 28/28;
-- final PR INTEGRATION `35802788429`: PASS, 28/28;
-- implementation PR #151:
+- simple-knot bicubic NURBS implementation:
   `3042f0a2eb1c4df20207248c1b16c7b023e5c525`;
-- post-merge FAST `35802888299`: PASS, 28/28;
-- post-merge INTEGRATION `35802888266`: PASS, 28/28.
+- implementation closure PR #152:
+  `0d43b54aaec971c6887e481c9282b9fc4bff0049`;
+- closure PR FAST `35803111019`: PASS;
+- closure PR INTEGRATION `35803111107`: PASS;
+- closure post-merge FAST `35803190543`: PASS;
+- closure post-merge INTEGRATION `35803190533`: PASS.
 
-After this closure is integrated and post-merge validated, open one fresh
-Surface Representation breadth decision comparing:
+Active decision:
+`docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-- surface knot multiplicity-two / C1 continuity;
-- Coons/transfinite patches;
+Selected future work unit:
+
+**Bicubic Positive-Weight NURBS Surface with Interior U/V Knot Multiplicity
+One or Two and Explicit C1/Second-Jet Failure Semantics.**
+
+The decision deliberately introduces only:
+
+- explicit U/V multiplicities 1/2;
+- legacy simple-knot factory compatibility;
+- one new common error:
+  `SurfaceError::insufficient_continuity`;
+- value/first partial success on C1 knot lines;
+- aggregate second-jet failure exactly on U or V double knot lines;
+- independent repeated-knot rational tensor evidence;
+- test-only repeated-knot insertion;
+- reversal/multiplicity reflection;
+- target ordinary inventory: 29 tests.
+
+Deferred:
+
+- multiplicity three/C0;
+- one-sided/component-specific derivative APIs;
+- Coons/transfinite;
 - analytic elementary surfaces;
-- ruled/extrusion/revolution surfaces;
-- rectangular/general trimming;
-- arbitrary degree/periodicity only when justified by the admitted input class.
+- ruled/extrusion/revolution;
+- trimming;
+- arbitrary degree/periodicity unless justified.
 
-No candidate is preselected.
-
-Integrated surface representation breadth currently includes:
-
-- tensor-product bicubic polynomial Bézier;
-- positive-weight rational bicubic Bézier;
-- clamped positive-weight bicubic NURBS with runtime-variable U/V spans and
-  simple interior knots.
+No implementation may begin until the decision PR is integrated, post-merge
+FAST/INTEGRATION pass and a separate decision checkpoint closes.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
