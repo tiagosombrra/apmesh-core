@@ -843,6 +843,17 @@ failure and deterministic typed failures.
 The new test is explicitly labeled for both FAST and INTEGRATION. Expected
 ordinary semantic inventory: **30 tests**.
 
+Candidate validation:
+
+- candidate head:
+  `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
+- FAST `35842812822`: PASS, 30/30 ordinary semantic tests;
+- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 tests per cell;
+- `apmesh_core.surface_coons_patch`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
