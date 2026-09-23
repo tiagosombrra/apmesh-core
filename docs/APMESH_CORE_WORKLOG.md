@@ -430,64 +430,53 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/arbitrary-axis-placement-implementation-closure-sync`: **MERGED /
   HISTORICAL** via PR #178; terminally reconciles the closed implementation
   checkpoint.
-- `surface/cubic-bezier-revolution-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; bounded revolution breadth decision; no production
-  implementation.
+- `surface/cubic-bezier-revolution-decision`: **MERGED / HISTORICAL** via
+  PR #179; bounded revolution breadth decision.
+- `docs/surface-cubic-bezier-revolution-decision-closure`: **CLOSURE-ONLY**;
+  records PR #179 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bounded Cubic Bézier Surface of Revolution Decision — ACTIVE /
-DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Bounded Cubic Bézier Surface of Revolution decision is integrated and
+ready for closure.**
 
-Active branch:
-`surface/cubic-bezier-revolution-decision`.
+Decision evidence:
 
-Entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`;
+2. decision PR #179 final head:
+   `92db678f92fbf869e00540536156de25a1647113`;
+3. PR FAST `35909899142`: PASS;
+4. PR INTEGRATION `35909899200`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+5. PR #179 merged as
+   `112f3b7ae3c439d729380fec07d065997bf11e56`;
+6. post-merge FAST `35910017412`: PASS;
+7. post-merge INTEGRATION `35910017524`: PASS;
+8. ordinary semantic inventory remains 33 tests;
+9. no revolution production code exists yet;
+10. no production work item is active in this closure change.
 
-- terminal AxisPlacement3 sync PR #178 merged as
-  `2f6b4bc269146bc9d27bd7351622f5d37093754c`;
-- post-merge FAST `35904119775`: PASS;
-- post-merge INTEGRATION `35904119725`: PASS;
-- ordinary semantic inventory: 33 tests;
-- no open PR or active production work item at decision entry.
+## Next admissible work item after closure
 
-Decision authority:
-`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
-
-Fresh comparison:
-
-1. bounded revolution surface;
-2. analytic elementary surfaces enabled by `AxisPlacement3`;
-3. general trimming / p-curves / topological faces;
-4. broader Coons/transfinite boundaries;
-5. remaining NURBS degree/C0/periodic breadth.
-
-Selected future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Bounded Cubic Bézier Surface of Revolution in 3D.**
 
-The decision freezes:
+Implementation remains bounded by
+`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`:
 
-- one `CubicBezier3` generatrix;
+- one `CubicBezier3`;
 - one existing `AxisPlacement3`;
-- one finite non-zero signed sweep with exact `abs(sweep) < 2*pi`;
-- exact normalized `[0,1]^2` parameter domain;
-- analytic value/Su/Sv/Suu/Suv/Svv;
+- finite signed non-zero sweep with exact `abs(sweep) < 2*pi`;
+- exact `[0,1]^2` domain;
+- analytic value and first/second partials;
 - U/V reversal;
-- no complete periodic revolution;
-- no analytic elementary surface;
-- no topology/trim/p-curve work.
+- no full periodic revolution;
+- expected ordinary inventory: 34 tests.
 
-This branch is documentation/research/decision only.
-
-## Next admissible transition after this decision
-
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision checkpoint closes may one implementation branch open for the
-bounded cubic Bézier revolution work unit.
-
-If implementation needs a full 2*pi seam, common surface-contract changes,
-new placement semantics, analytic elementary production types, general trimming
-or a generic runtime generatrix hierarchy, stop and require a new decision.
+No analytic elementary surface, general trimming/p-curves/topological faces,
+broader Coons/NURBS, differential geometry or meshing work is authorized.
