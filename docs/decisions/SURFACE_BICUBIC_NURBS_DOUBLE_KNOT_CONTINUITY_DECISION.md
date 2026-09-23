@@ -819,3 +819,49 @@ Current status:
 
 **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
 FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 39. Implementation integration checkpoint
+
+The bounded implementation PR #155 used final head:
+
+`6453279c77883440b5cd86e7ab08052b318ecf22`.
+
+Final PR validation:
+
+- FAST `35837794984`: PASS, 29/29 ordinary semantic tests;
+- INTEGRATION `35837794969`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 29/29 tests per cell;
+- focused
+  `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS.
+
+PR #155 merged as:
+
+`fea1cf536336dc5bef19217a879338bac495555f`.
+
+Protected-main validation:
+
+- FAST `35837956530`: PASS, 29/29;
+- INTEGRATION `35837956529`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 29/29 per cell.
+
+Retained mechanical history:
+
+- initial head
+  `3e169a6c9db545d227eeba07f04ecec7d256f577`;
+- initial FAST `35837423080` and INTEGRATION `35837423118` passed the
+  prior 28-test labeled set only;
+- diagnosis: the new contract lacked surface FAST/INTEGRATION labels;
+- corrected head
+  `b913895065f1d1184ecebf2565667fdd7fcaca2b` then passed 29/29.
+
+Integrated result:
+
+**SURFACE REPRESENTATION STAGE OPEN /
+BICUBIC NURBS C1 CONTINUITY IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
+
+The implementation checkpoint is ready for documentation closure.
+
+After closure, no next surface family is pre-authorized. A fresh
+literature-backed Surface Representation breadth decision is required.
