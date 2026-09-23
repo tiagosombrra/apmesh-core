@@ -444,6 +444,37 @@ Required implementation scope:
   extreme-finite and deterministic evidence;
 - current 29-test baseline preserved plus one focused contract, targeting 30.
 
+Candidate implementation mapping:
+
+- public representation:
+  `include/apmesh/geometry/coons_surface.hpp`;
+- production:
+  `src/geometry/coons_surface.cpp`;
+- focused contract:
+  `tests/surface_coons_patch.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- common `BoundedParametricSurface3`, existing curve APIs and all integrated
+  surface sources remain unchanged.
+
+Candidate semantics:
+
+- four `CubicBezier3` boundaries owned by value;
+- deterministic orientation-specific construction failures;
+- exact boundary value shortcuts and tangential derivative parity;
+- long-double Coons accumulation before checked `Point3/Vector3`
+  materialization;
+- analytic first/second partials;
+- U/V reversal;
+- independent reference and analytic fixtures;
+- the new test is explicitly labeled
+  `surface;geometry;contract;focused-contract;direct-semantic;fast;integration`
+  so it participates in the full 30-test acceptance set.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no rational/NURBS boundary dispatch;
