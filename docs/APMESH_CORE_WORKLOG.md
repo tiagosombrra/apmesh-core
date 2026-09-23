@@ -378,54 +378,55 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #155; bounded multiplicity-one/two bicubic NURBS surface
   implementation.
 - `docs/surface-bicubic-nurbs-double-knot-implementation-closure`:
-  **CLOSURE-ONLY**; closes PR #155 after protected-main validation.
+  **MERGED / HISTORICAL** via PR #156; closes the multiplicity-one/two
+  bicubic NURBS surface implementation checkpoint.
+- `surface/coons-patch-decision`: **ACTIVE / DOCUMENTATION-ONLY**;
+  literature-backed Surface Representation breadth decision; no production
+  Coons code.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bicubic NURBS Double-Knot C1 Continuity implementation is integrated
-and ready for documentation closure.**
+**Oriented Four-Boundary Cubic Bézier Coons Patch Decision —
+ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Implementation evidence:
+Active branch:
+`surface/coons-patch-decision`.
 
-1. initial PR head:
-   `3e169a6c9db545d227eeba07f04ecec7d256f577`;
-2. initial FAST `35837423080` and INTEGRATION `35837423118`:
-   workflows PASS but only 28/28 selected tests;
-3. diagnosis:
-   the new executable compiled/linked but lacked the
-   `fast;integration` surface labels; these runs are mechanically incomplete
-   acceptance evidence, not scientific validation;
-4. corrected candidate head:
-   `b913895065f1d1184ecebf2565667fdd7fcaca2b`;
-5. corrected FAST `35837638861`: PASS, 29/29;
-6. corrected INTEGRATION `35837638899`: PASS, 29/29 in GCC and Clang;
-7. final PR head:
-   `6453279c77883440b5cd86e7ab08052b318ecf22`;
-8. final PR FAST `35837794984`: PASS, 29/29;
-9. final PR INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
-10. implementation PR #155 merged as
-    `fea1cf536336dc5bef19217a879338bac495555f`;
-11. post-merge FAST `35837956530`: PASS, 29/29;
-12. post-merge INTEGRATION `35837956529`: PASS, 29/29 in GCC and Clang;
-13. focused
-    `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS
-    throughout every complete 29-test validation;
-14. every prior ordinary semantic contract remained PASS.
+Entry authority:
 
-Integrated work-unit result before this documentation closure:
+- bicubic NURBS C1 implementation PR #155:
+  `fea1cf536336dc5bef19217a879338bac495555f`;
+- final complete 29-test PR head:
+  `6453279c77883440b5cd86e7ab08052b318ecf22`;
+- final PR FAST `35837794984`: PASS, 29/29;
+- final PR INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
+- implementation post-merge FAST `35837956530`: PASS, 29/29;
+- implementation post-merge INTEGRATION `35837956529`: PASS, 29/29;
+- closure PR #156 head:
+  `def351bde58b9afdc71571effbcad73d0ae53ed5`;
+- closure PR FAST `35838274382`: PASS;
+- closure PR INTEGRATION `35838274390`: PASS;
+- closure PR #156 merged as
+  `925cf43f3a0cc6239ac6fb2f9f7e913e79141d86`;
+- closure post-merge FAST `35838387139`: PASS;
+- closure post-merge INTEGRATION `35838387121`: PASS;
+- no open PR and no production work item existed at decision entry.
 
-**BICUBIC NURBS C1 CONTINUITY IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / NOT QUALIFIED.**
+Retained mechanical history:
 
-No production work item is active in this closure change.
+- initial implementation runs `35837423080` / `35837423118` passed only
+  the prior 28-test labeled set because the new C1 contract lacked
+  FAST/INTEGRATION labels;
+- corrected and final 29-test runs are the acceptance evidence; the mechanical
+  gap remains recorded and is not erased.
 
-## Next admissible work item after closure
+Decision authority:
+`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
+Required breadth comparison:
 
 1. Coons/transfinite patch construction;
 2. analytic elementary surfaces;
@@ -434,7 +435,25 @@ decision comparing:
 5. multiplicity-three/C0 only if the admitted model requires it;
 6. arbitrary degree/periodicity only if the admitted model requires it.
 
-No candidate is pre-authorized.
+Selected future work unit:
 
-Surface Differential Geometry, Boundary Curve Discretization, meshing,
-Quad-Dominant and parallel work remain blocked.
+**Oriented Four-Boundary Cubic Bézier Coons Patch in 3D.**
+
+The decision freezes four explicitly oriented `CubicBezier3` boundaries,
+exact corner compatibility, a deterministic classical Coons blend, analytic
+first/second partials, U/V reversal and one focused 30th ordinary contract.
+
+This branch is decision/research/documentation only. No Coons production,
+trimming, topology, analytic/swept surface, differential-geometry or meshing
+code is authorized.
+
+## Next admissible transition after this decision
+
+Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision closure may one production branch open for the selected
+cubic Bézier Coons patch.
+
+If implementation needs rational/NURBS boundary dispatch, approximate corner
+matching, automatic boundary reversal, trimming/topology, common surface
+contract changes, normals/metric/curvature or meshing, stop and require a new
+decision.

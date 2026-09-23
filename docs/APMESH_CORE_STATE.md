@@ -82,26 +82,30 @@ The greenfield implementation must eventually be usable as a library inside a la
 ## Current repository checkpoint
 
 Authoritative continuation snapshot after fresh remote reconciliation on
-2026-09-22:
+2026-09-23:
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed surface-representation anchor: clamped positive-weight
-  bicubic NURBS surface with runtime-variable simple-knot U/V spans,
-  implementation PR #151
-  `3042f0a2eb1c4df20207248c1b16c7b023e5c525`, implementation closure
-  PR #152 `0d43b54aaec971c6887e481c9282b9fc4bff0049`;
-- closure PR FAST `35803111019` and INTEGRATION `35803111107`: PASS;
-- closure post-merge FAST `35803190543` and INTEGRATION
-  `35803190533`: PASS;
+- latest closed Surface Representation anchor:
+  **Bicubic NURBS Double-Knot C1 Continuity**;
+- implementation PR #155:
+  `fea1cf536336dc5bef19217a879338bac495555f`;
+- final complete head:
+  `6453279c77883440b5cd86e7ab08052b318ecf22`;
+- final FAST `35837794984` and INTEGRATION `35837794969`: PASS, 29/29;
+- implementation post-merge FAST `35837956530` and INTEGRATION
+  `35837956529`: PASS, 29/29;
+- closure PR #156:
+  `925cf43f3a0cc6239ac6fb2f9f7e913e79141d86`;
+- closure PR FAST `35838274382` and INTEGRATION `35838274390`: PASS;
+- closure post-merge FAST `35838387139` and INTEGRATION
+  `35838387121`: PASS;
 - current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — BICUBIC NURBS DOUBLE-KNOT C1 DECISION ACTIVE /
-  NOT QUALIFIED**;
-- active branch: `surface/bicubic-nurbs-double-knot-decision`;
-- active decision:
-  `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
-- selected future work unit: bicubic positive-weight NURBS surface with
-  interior U/V multiplicity one/two and explicit C1 second-jet failure;
+  Geometry — COONS PATCH DECISION ACTIVE / NOT QUALIFIED**;
+- active branch: `surface/coons-patch-decision`;
+- active decision: `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
+- selected future work unit:
+  **Oriented Four-Boundary Cubic Bézier Coons Patch in 3D**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -261,13 +265,13 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`;
-5. `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`;
-6. `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
-7. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
-8. `docs/decisions/CURVE_TWO_SPAN_CUBIC_NURBS_DECISION.md`;
-9. `docs/decisions/CURVE_TWO_SPAN_CUBIC_BSPLINE_DECISION.md`;
-10. `docs/decisions/CURVE_PARAMETRIC_FAMILY_ABSTRACTION_DECISION.md`;
+4. `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
+5. `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+6. `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
+7. `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`;
+8. `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`;
+9. `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+10. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
 11. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
 12. the latest relevant audit under `docs/audits/`;
 13. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
@@ -293,47 +297,40 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**Close the integrated bicubic NURBS surface multiplicity-one/two C1 work
-unit; after closure, open one fresh Surface Representation breadth decision.**
+**Integrate the bounded literature-backed Coons surface decision; no production
+implementation is authorized on this branch.**
 
-Implementation evidence:
+Entry evidence:
 
-- final PR head:
-  `6453279c77883440b5cd86e7ab08052b318ecf22`;
-- final PR FAST `35837794984`: PASS, 29/29;
-- final PR INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
-- implementation PR #155:
-  `fea1cf536336dc5bef19217a879338bac495555f`;
-- implementation post-merge FAST `35837956530`: PASS, 29/29;
-- implementation post-merge INTEGRATION `35837956529`: PASS, 29/29.
+- closure PR #156:
+  `925cf43f3a0cc6239ac6fb2f9f7e913e79141d86`;
+- closure PR FAST `35838274382`: PASS;
+- closure PR INTEGRATION `35838274390`: PASS;
+- closure post-merge FAST `35838387139`: PASS;
+- closure post-merge INTEGRATION `35838387121`: PASS.
 
-Historical mechanical note:
+Active branch:
+`surface/coons-patch-decision`.
 
-- initial runs `35837423080` / `35837423118` passed only the prior
-  28-test labeled set because the new contract was not yet included in the
-  surface FAST/INTEGRATION label group;
-- corrected head `b913895065f1d1184ecebf2565667fdd7fcaca2b`
-  restored the required 29-test acceptance set.
+Decision authority:
+`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
 
-Closure branch:
-`docs/surface-bicubic-nurbs-double-knot-implementation-closure`.
+The decision compares the remaining bounded surface breadth and selects only:
 
-The integrated production surface now supports unique U/V interior
-multiplicities 1/2, with value/first-partial availability on C1 knot lines and
-explicit aggregate second-jet failure there.
+**Oriented Four-Boundary Cubic Bézier Coons Patch in 3D.**
 
-No multiplicity-three, component-specific/one-sided derivative, Coons,
-analytic, swept, trimmed, differential-geometry or meshing capability is
-authorized by this closure.
+No production implementation, trimming, topology, analytic/swept surface,
+surface differential geometry, boundary discretization or meshing work is
+authorized.
+
 
 ## Current active stage
 
-**Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
-DOUBLE-KNOT C1 IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED /
-POLYNOMIAL, RATIONAL AND SIMPLE-KNOT NURBS PREREQUISITES PRESERVED**
+**Surface Representation — Continuous Patch Geometry — COONS PATCH DECISION
+ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED / POLYNOMIAL, RATIONAL AND NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
@@ -363,9 +360,9 @@ The following are **not implemented and not covered by CGR qualification**:
 - heterogeneous composite/polycurve semantics;
 - Coons/transfinite, analytic elementary, swept and trimmed surface
   representations beyond the integrated polynomial, positive-weight rational
-  bicubic Bézier and simple-knot bicubic NURBS surface work units;
-- repeated-knot/arbitrary-degree/periodic NURBS surface semantics beyond the
-  integrated simple-knot bicubic NURBS surface.
+  bicubic Bézier and bicubic NURBS surface work units;
+- multiplicity-three/arbitrary-degree/periodic NURBS surface semantics beyond
+  the integrated multiplicity-one/two bicubic NURBS surface.
 
 This limitation does not invalidate the existing cubic-Bézier qualification.
 It prevents that qualification from being generalized to those families.
@@ -378,11 +375,11 @@ their semantics.
 
 Surface Representation is open and its entry decision explicitly maps
 polynomial/rational free-form, spline/NURBS, Coons/transfinite, analytic,
-swept and trimmed families. Polynomial bicubic Bézier, positive-weight
-rational bicubic Bézier and simple-knot bicubic NURBS surfaces are integrated
-focused work units. No repeated-knot/arbitrary-degree/periodic NURBS,
-Coons/transfinite, analytic, swept or trimmed surface family is implicitly
-implemented or qualified.
+swept and trimmed families. Polynomial bicubic Bézier, positive-weight rational bicubic Bézier and
+bicubic NURBS surfaces with unique interior multiplicities one/two are
+integrated focused work units. Coons/transfinite is the active decision only;
+multiplicity-three/arbitrary-degree/periodic NURBS, analytic, swept and trimmed
+surface families are not implicitly implemented or qualified.
 
 
 ## Most recently qualified stage
