@@ -293,82 +293,46 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Implement the bounded bicubic positive-weight NURBS surface
-multiplicity-one/two work unit with explicit C1/second-jet failure semantics.**
+**Close the integrated bicubic NURBS surface multiplicity-one/two C1 work
+unit; after closure, open one fresh Surface Representation breadth decision.**
 
-Closed decision evidence:
+Implementation evidence:
 
-- decision PR #153:
-  `736e6a4d05f65862c4de5cb852ceb2af07f33e9b`;
-- decision post-merge FAST `35803798870`: PASS;
-- decision post-merge INTEGRATION `35803798780`: PASS;
-- closure PR #154:
-  `1447d6bf10f8435f66ba108229940a014b152876`;
-- closure post-merge FAST `35804055281`: PASS;
-- closure post-merge INTEGRATION `35804055381`: PASS.
+- final PR head:
+  `6453279c77883440b5cd86e7ab08052b318ecf22`;
+- final PR FAST `35837794984`: PASS, 29/29;
+- final PR INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
+- implementation PR #155:
+  `fea1cf536336dc5bef19217a879338bac495555f`;
+- implementation post-merge FAST `35837956530`: PASS, 29/29;
+- implementation post-merge INTEGRATION `35837956529`: PASS, 29/29.
 
-Active branch:
-`surface/bicubic-nurbs-double-knot-continuity`.
+Historical mechanical note:
 
-Decision authority:
-`docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
+- initial runs `35837423080` / `35837423118` passed only the prior
+  28-test labeled set because the new contract was not yet included in the
+  surface FAST/INTEGRATION label group;
+- corrected head `b913895065f1d1184ecebf2565667fdd7fcaca2b`
+  restored the required 29-test acceptance set.
 
-The implementation may add exactly one common surface query error,
-`SurfaceError::insufficient_continuity`, explicit U/V multiplicities 1/2,
-and parameter-local aggregate second-jet failure at exact double knot lines.
+Closure branch:
+`docs/surface-bicubic-nurbs-double-knot-implementation-closure`.
 
-The existing simple-knot surface path, degree 3 in U/V, positive weights,
-non-periodicity and all prior curve/surface families remain frozen
-prerequisites.
+The integrated production surface now supports unique U/V interior
+multiplicities 1/2, with value/first-partial availability on C1 knot lines and
+explicit aggregate second-jet failure there.
 
-No multiplicity-three, arbitrary-degree, periodic, one-sided/component-specific
-derivative, Coons, analytic, swept, trimmed, differential-geometry or meshing
-work is authorized.
-
-Candidate repository mapping:
-
-- `include/apmesh/geometry/parametric_surface.hpp`;
-- `include/apmesh/geometry/nurbs_surface.hpp`;
-- `src/geometry/nurbs_surface.cpp`;
-- `tests/surface_bicubic_nurbs_double_knot_continuity.cpp`;
-- `CMakeLists.txt`.
-
-Candidate semantics:
-
-- legacy simple-knot construction synthesizes multiplicity one and remains
-  source-compatible;
-- explicit U/V multiplicities are unique-knot metadata restricted to 1/2;
-- U/V flat knot caches are built once and reused without per-query allocation;
-- value and first partials remain available at C1 knot lines;
-- aggregate `second_derivatives()` returns
-  `SurfaceError::insufficient_continuity` exactly on a U or V double knot
-  line before accidental-smoothness shortcuts;
-- 29 ordinary tests are expected after registration.
-
-Validation history:
-
-- initial head `3e169a6c9db545d227eeba07f04ecec7d256f577`;
-- initial FAST `35837423080` and INTEGRATION `35837423118`: workflows
-  PASS but selected only the prior 28-test surface profile;
-- diagnosis: missing `fast;integration` labels on the newly registered
-  contract; production and test executable compiled successfully;
-- corrected head `b913895065f1d1184ecebf2565667fdd7fcaca2b`;
-- FAST `35837638861`: PASS, 29/29;
-- INTEGRATION `35837638899`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 29/29 per cell;
-- focused `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+No multiplicity-three, component-specific/one-sided derivative, Coons,
+analytic, swept, trimmed, differential-geometry or meshing capability is
+authorized by this closure.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
-DOUBLE-KNOT C1 IMPLEMENTATION ACTIVE / NOT QUALIFIED /
+DOUBLE-KNOT C1 IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED /
 POLYNOMIAL, RATIONAL AND SIMPLE-KNOT NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
