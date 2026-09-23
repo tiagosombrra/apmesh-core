@@ -1876,37 +1876,41 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Static Rectangular
-Trimmed Surface — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Trimmed Surface — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
-
-- terminal Coons checkpoint:
-  `efd084e8b247cde48e89bb67cd0b0097d005feab`;
-- sync PR FAST `35845757475`: PASS;
-- sync PR INTEGRATION `35845757479`: PASS;
-- sync post-merge FAST `35845911399`: PASS;
-- sync post-merge INTEGRATION `35845911492`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #162 head:
+  `0ee2a2b47592eee055dcc58ccba04c0364353fe5`;
+- PR FAST `35846509153`: PASS;
+- PR INTEGRATION `35846509081`: PASS;
+- merge:
+  `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
+- post-merge FAST `35846672914`: PASS;
+- post-merge INTEGRATION `35846673106`: PASS.
+
+Closure branch:
+`docs/surface-rectangular-trim-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
 
-The decision generalizes only the surface subdomain/orientation seam:
+Authorized implementation remains limited to:
 
-- compile-time generic basis satisfying `BoundedParametricSurface3`;
+- header-only compile-time generic wrapper;
 - basis owned by value;
-- finite U/V source/target trims contained in the basis domain;
-- independent U/V orientation;
-- sorted exposed U/V domain without parameter normalization;
-- value forwarding;
-- first-partial sign covariance;
-- pure-second-partial preservation and mixed-partial sign product;
-- U/V reversal and nested-trim evidence;
-- one new focused contract, targeting **31 tests**.
+- exact U/V oriented subdomain restriction;
+- no parameter normalization;
+- value/first/second derivative covariance;
+- U/V reversal;
+- nested trim semantics;
+- one focused contract targeting **31 tests**.
 
 Deferred:
 
@@ -1916,9 +1920,6 @@ Deferred:
 - ruled/extrusion/revolution;
 - broader Coons/transfinite boundary dispatch;
 - multiplicity-three/C0, arbitrary-degree and periodic NURBS breadth.
-
-No implementation may start until the decision PR is integrated, post-merge
-FAST/INTEGRATION pass and a separate decision checkpoint closes.
 
 Surface Differential Geometry remains **NOT STARTED / BLOCKED BY
 REPRESENTATION BREADTH**.

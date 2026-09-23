@@ -298,42 +298,40 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the literature-backed static rectangular trimmed surface decision;
-no production implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated,
+implement the Static Oriented Rectangular Trim of a Bounded Parametric Surface
+in 3D.**
 
-Decision-entry authority:
+Decision evidence:
 
-- terminal Coons sync:
-  `efd084e8b247cde48e89bb67cd0b0097d005feab`;
-- sync PR FAST `35845757475`: PASS;
-- sync PR INTEGRATION `35845757479`: PASS;
-- sync post-merge FAST `35845911399`: PASS;
-- sync post-merge INTEGRATION `35845911492`: PASS.
+- PR #162 head:
+  `0ee2a2b47592eee055dcc58ccba04c0364353fe5`;
+- PR FAST `35846509153`: PASS;
+- PR INTEGRATION `35846509081`: PASS;
+- merge:
+  `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
+- post-merge FAST `35846672914`: PASS;
+- post-merge INTEGRATION `35846673106`: PASS.
 
-Active branch:
-`surface/rectangular-trimmed-surface-decision`.
+Closure branch:
+`docs/surface-rectangular-trim-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-The decision compares analytic, swept, trimmed, broader Coons and remaining
-NURBS breadth and selects only:
+The sole authorized next implementation is the compile-time generic
+`RectangularTrimmedSurface3<Surface>` bounded by the integrated decision.
 
-**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
-
-The future wrapper is compile-time generic over `BoundedParametricSurface3`,
-owns its basis by value, restricts U/V to exact oriented subintervals and
-forwards value/partial semantics with deterministic orientation-sign rules.
-
-General trim loops/p-curves/topological faces, analytic/swept surfaces,
-broader Coons and remaining NURBS breadth remain unauthorized.
+No common surface-contract change, arbitrary trim curves, p-curves, topology,
+periodic wrapping, analytic/swept surfaces, broader Coons/NURBS breadth,
+Surface Differential Geometry, discretization or meshing work is authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — STATIC RECTANGULAR
-TRIM DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+TRIM DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED / POLYNOMIAL, RATIONAL, NURBS AND COONS PREREQUISITES
 PRESERVED**
 
