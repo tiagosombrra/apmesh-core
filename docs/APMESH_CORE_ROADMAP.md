@@ -1915,6 +1915,10 @@ Authorized scope:
   Coons;
 - target ordinary inventory: **31 tests**.
 
+Candidate implementation is now mapped exclusively to the authorized
+header/test/build files and awaits FAST/INTEGRATION validation. The common
+surface contract and all existing surface production sources remain unchanged.
+
 All general trimming/topology, p-curves, analytic/swept surfaces, broader
 Coons/NURBS, Surface Differential Geometry, discretization and meshing remain
 blocked.
