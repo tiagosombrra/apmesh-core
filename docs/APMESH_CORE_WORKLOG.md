@@ -428,6 +428,23 @@ Required implementation scope:
 - local-support, reversal, affine, extreme-finite and deterministic evidence;
 - target ordinary inventory: 28 tests.
 
+Candidate validation:
+
+- candidate head:
+  `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
+- FAST `35802648932`: PASS, 28/28 tests;
+- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests in each cell;
+- `apmesh_core.surface_bicubic_nurbs`: PASS in all three jobs;
+- exhaustive construction-error evidence now covers U/V count, domain/knot
+  and weight failure vocabulary;
+- every prior ordinary semantic contract remained PASS.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no repeated surface knots or C1/C0 surface knot lines;
