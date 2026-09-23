@@ -487,3 +487,31 @@ the sole next production work item becomes:
 Surface Representation remains IN INVESTIGATION / NOT QUALIFIED.
 
 No analytic or revolution surface is implemented by this decision.
+
+
+## 31. Decision integration checkpoint
+
+PR #173 integrated this bounded prerequisite decision as:
+
+`36381dec1f7af3a723fd386a3f55e0f109d804b1`.
+
+Final decision-head validation:
+
+- FAST `35894230229`: PASS;
+- INTEGRATION `35894230134`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Post-merge validation:
+
+- FAST `35894377748`: PASS;
+- INTEGRATION `35894377875`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint is ready for documentation closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the bounded `AxisPlacement3` implementation defined by Sections
+6–28.
+
+No analytic surface, revolution, trimming, broader Coons/NURBS or downstream
+capability is authorized.
