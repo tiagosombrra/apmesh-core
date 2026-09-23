@@ -729,3 +729,34 @@ Sections 5–29.
 General trimming/topology, analytic/swept surfaces, broader Coons/transfinite,
 remaining NURBS breadth and downstream differential/meshing capabilities remain
 unauthorized.
+
+
+## 34. Terminal decision synchronization
+
+Terminal synchronization PR #164 used head:
+
+`8c3b4c623bb3bd5812edce8723bb74eca7f9c667`.
+
+Synchronization validation:
+
+- FAST `35847597802`: PASS;
+- INTEGRATION `35847597868`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #164 merged as:
+
+`83a56ee4f1b6a4703956c3e81c1786540bfecb14`.
+
+Synchronization post-merge validation:
+
+- FAST `35847689693`: PASS;
+- INTEGRATION `35847690044`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision is terminally closed and the sole authorized implementation is
+active on:
+
+`surface/rectangular-trimmed-surface`.
+
+No broader trim/topology, analytic/swept surface, differential-geometry or
+meshing capability is authorized.
