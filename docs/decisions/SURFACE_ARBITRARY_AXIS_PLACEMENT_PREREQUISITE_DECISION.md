@@ -582,6 +582,28 @@ The qualified exact `CartesianFrame3` implementation remains frozen.
 
 Expected ordinary semantic inventory: **33 tests**.
 
+Candidate implementation details:
+
+- separate immutable `AxisPlacement3`;
+- scale-aware maximum-component normalization;
+- no universal tolerance for collinearity;
+- long-double transform intermediates with explicit final representability
+  checks;
+- exhaustive parity across all 24 compatible right-handed signed-permutation
+  bases;
+- focused test excluded from qualification labels.
+
+Candidate validation:
+
+- candidate head:
+  `bb19471c2307aec70427719baf3f8d9500605c42`;
+- FAST `35901914044`: PASS, 33/33 ordinary tests;
+- INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 33/33 tests per cell;
+- `apmesh_core.arbitrary_axis_placement`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTATION ACTIVE / VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
