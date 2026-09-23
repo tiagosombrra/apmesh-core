@@ -483,9 +483,20 @@ Candidate implementation mapping:
 - `CMakeLists.txt`:
   production source and the 32nd ordinary semantic contract registered.
 
+Candidate validation:
+
+- candidate head:
+  `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
+- FAST `35887599787`: PASS, 32/32 tests;
+- INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 32/32 tests in each cell;
+- `apmesh_core.surface_linear_extrusion`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
