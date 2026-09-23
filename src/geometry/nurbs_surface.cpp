@@ -4,6 +4,7 @@
 #include <array>
 #include <cmath>
 #include <cstddef>
+#include <cstdint>
 #include <expected>
 #include <limits>
 #include <span>
@@ -647,6 +648,7 @@ dehomogenize_mixed_second(
 validate_direction(
     const std::size_t control_count,
     const std::span<const double> interior_knots,
+    const std::span<const std::uint8_t> interior_multiplicities,
     const double lower,
     const double upper,
     const bool u_direction) noexcept {
@@ -658,7 +660,28 @@ validate_direction(
                 : BicubicNURBSSurfaceConstructionError::
                       insufficient_v_control_points};
     }
-    if (interior_knots.size() != control_count - 4U) {
+    if (interior_multiplicities.size() != interior_knots.size()) {
+        return std::unexpected{
+            u_direction
+                ? BicubicNURBSSurfaceConstructionError::
+                      u_interior_multiplicity_count_mismatch
+                : BicubicNURBSSurfaceConstructionError::
+                      v_interior_multiplicity_count_mismatch};
+    }
+
+    std::size_t flat_interior_count = 0U;
+    for (const std::uint8_t multiplicity : interior_multiplicities) {
+        if (multiplicity != 1U && multiplicity != 2U) {
+            return std::unexpected{
+                u_direction
+                    ? BicubicNURBSSurfaceConstructionError::
+                          unsupported_u_interior_multiplicity
+                    : BicubicNURBSSurfaceConstructionError::
+                          unsupported_v_interior_multiplicity};
+        }
+        flat_interior_count += static_cast<std::size_t>(multiplicity);
+    }
+    if (control_count != flat_interior_count + 4U) {
         return std::unexpected{
             u_direction
                 ? BicubicNURBSSurfaceConstructionError::
@@ -666,6 +689,7 @@ validate_direction(
                 : BicubicNURBSSurfaceConstructionError::
                       v_interior_knot_count_mismatch};
     }
+
     if (!std::isfinite(lower)) {
         return std::unexpected{
             u_direction
@@ -716,18 +740,44 @@ validate_direction(
 
 [[nodiscard]] std::vector<double> build_flat_knots(
     const std::span<const double> interior_knots,
+    const std::span<const std::uint8_t> interior_multiplicities,
     const double lower,
     const double upper) {
+    std::size_t flat_interior_count = 0U;
+    for (const std::uint8_t multiplicity : interior_multiplicities) {
+        flat_interior_count += static_cast<std::size_t>(multiplicity);
+    }
+
     std::vector<double> result;
-    result.reserve(interior_knots.size() + 8U);
+    result.reserve(flat_interior_count + 8U);
     for (int index = 0; index < 4; ++index) {
         result.push_back(lower);
     }
-    result.insert(result.end(), interior_knots.begin(), interior_knots.end());
+    for (std::size_t index = 0; index < interior_knots.size(); ++index) {
+        for (std::uint8_t repeat = 0U;
+             repeat < interior_multiplicities[index];
+             ++repeat) {
+            result.push_back(interior_knots[index]);
+        }
+    }
     for (int index = 0; index < 4; ++index) {
         result.push_back(upper);
     }
     return result;
+}
+
+[[nodiscard]] bool is_double_knot(
+    const std::span<const double> interior_knots,
+    const std::span<const std::uint8_t> interior_multiplicities,
+    const double parameter) noexcept {
+    const auto iterator =
+        std::lower_bound(interior_knots.begin(), interior_knots.end(), parameter);
+    if (iterator == interior_knots.end() || *iterator != parameter) {
+        return false;
+    }
+    const std::size_t index =
+        static_cast<std::size_t>(iterator - interior_knots.begin());
+    return interior_multiplicities[index] == 2U;
 }
 
 [[nodiscard]] std::vector<double> reflected_knots(
@@ -751,6 +801,8 @@ BicubicNURBSSurface3::BicubicNURBSSurface3(
     const std::size_t v_control_count,
     std::vector<double> u_interior_knots,
     std::vector<double> v_interior_knots,
+    std::vector<std::uint8_t> u_interior_multiplicities,
+    std::vector<std::uint8_t> v_interior_multiplicities,
     std::vector<double> u_flat_knots,
     std::vector<double> v_flat_knots,
     const double u_lower_knot,
@@ -764,6 +816,8 @@ BicubicNURBSSurface3::BicubicNURBSSurface3(
       v_control_count_(v_control_count),
       u_interior_knots_(std::move(u_interior_knots)),
       v_interior_knots_(std::move(v_interior_knots)),
+      u_interior_multiplicities_(std::move(u_interior_multiplicities)),
+      v_interior_multiplicities_(std::move(v_interior_multiplicities)),
       u_flat_knots_(std::move(u_flat_knots)),
       v_flat_knots_(std::move(v_flat_knots)),
       u_lower_knot_(u_lower_knot),
