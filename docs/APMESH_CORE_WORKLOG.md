@@ -471,9 +471,20 @@ Candidate semantics:
   `surface;geometry;contract;focused-contract;direct-semantic;fast;integration`
   so it participates in the full 30-test acceptance set.
 
+Candidate validation:
+
+- candidate head:
+  `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
+- FAST `35842812822`: PASS, 30/30;
+- INTEGRATION `35842812792`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/30 in each cell;
+- `apmesh_core.surface_coons_patch`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
