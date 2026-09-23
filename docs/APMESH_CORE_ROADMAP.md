@@ -1906,6 +1906,10 @@ Authorized implementation:
 - boundary, degenerate, affine, extreme-finite and deterministic evidence;
 - one new focused contract, targeting 32 ordinary tests.
 
+Candidate implementation is now mapped to the authorized files only and is
+awaiting FAST/INTEGRATION validation. Existing curve/surface contracts remain
+unchanged.
+
 All analytic elementary, revolution, generic extrusion, general trim/p-curve,
 broader Coons and remaining NURBS breadth remain deferred.
 
