@@ -1876,43 +1876,51 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Static Rectangular
-Trimmed Surface — DECISION CLOSED / IMPLEMENTATION AUTHORIZED /
-NOT STARTED / TERMINAL DOCUMENTATION SYNC ACTIVE / NOT QUALIFIED**
+Trimmed Surface — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-Terminal decision lineage:
+Closed decision/sync lineage:
 
 - decision merge:
   `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-- decision post-merge FAST `35846672914`: PASS;
-- decision post-merge INTEGRATION `35846673106`: PASS;
-- closure PR #163 head:
-  `012703f1f8cd5cdf2ed8922269c2d17e8b3cb236`;
-- closure PR FAST `35847140517`: PASS;
-- closure PR INTEGRATION `35847140605`: PASS;
-- closure merge:
+- decision closure merge:
   `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
-- closure post-merge FAST `35847281819`: PASS;
-- closure post-merge INTEGRATION `35847281719`: PASS.
+- terminal sync PR #164 head:
+  `8c3b4c623bb3bd5812edce8723bb74eca7f9c667`;
+- sync PR FAST `35847597802`: PASS;
+- sync PR INTEGRATION `35847597868`: PASS;
+- terminal sync merge:
+  `83a56ee4f1b6a4703956c3e81c1786540bfecb14`;
+- sync post-merge FAST `35847689693`: PASS;
+- sync post-merge INTEGRATION `35847690044`: PASS.
 
-After terminal synchronization and protected-main validation, the sole next
-production work item is:
+Active implementation branch:
+`surface/rectangular-trimmed-surface`.
 
-**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
+Authorized scope:
 
-Authorized implementation remains limited to:
-
-- header-only compile-time generic wrapper;
+- header-only compile-time generic
+  `RectangularTrimmedSurface3<Surface>`;
 - basis owned by value;
 - exact oriented U/V subdomains;
-- value/first/second derivative forwarding with orientation covariance;
-- U/V reversal and nested trim semantics;
-- one focused contract targeting **31 tests**.
+- sorted exposed domains, no normalization;
+- mapped value forwarding;
+- independent first-derivative orientation signs;
+- pure second derivatives preserved and mixed derivative product sign;
+- U/V reversal, commutation and involution;
+- nested trim behavior;
+- focused basis coverage over polynomial Bézier, rational Bézier, NURBS and
+  Coons;
+- target ordinary inventory: **31 tests**.
 
-All general trimming/topology, analytic/swept, broader Coons/NURBS,
-differential-geometry and meshing capabilities remain blocked.
+All general trimming/topology, p-curves, analytic/swept surfaces, broader
+Coons/NURBS, Surface Differential Geometry, discretization and meshing remain
+blocked.
+
+After integration/closure, one fresh Surface Representation breadth decision
+must recompare the remaining families before any next implementation.
 
 The longer ordering remains:
 
