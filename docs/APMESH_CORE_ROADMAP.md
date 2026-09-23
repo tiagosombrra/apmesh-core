@@ -1875,58 +1875,22 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Continuous Patch Geometry — Cubic Bézier Linear
-Extrusion — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+**Surface Representation — Cubic Bézier Linear Extrusion — DECISION
+INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
+Decision validation:
 
-- rectangular-trim terminal sync:
-  `47b1a2b17d9cecd972430bb33e84161eb74cfec1`;
-- PR #167 FAST `35875571648`: PASS;
-- PR #167 INTEGRATION `35875571740`: PASS;
-- post-merge FAST `35875814460`: PASS;
-- post-merge INTEGRATION `35875814543`: PASS;
-- current ordinary inventory: 31 tests.
+- PR #168: `b8fe106080513a9736172a2380d5d8c0f162276a`;
+- FAST `35885189655`: PASS;
+- INTEGRATION `35885189624`: PASS;
+- post-merge FAST `35885367665`: PASS;
+- post-merge INTEGRATION `35885367613`: PASS.
 
-Active decision:
-`docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
+After closure integration and post-merge validation, the sole next production
+work item is `CubicBezierLinearExtrusionSurface3`, targeting 32 ordinary
+tests.
 
-Selected future work unit:
-
-**Bounded Cubic Bézier Linear Extrusion Surface in 3D.**
-
-The decision freezes:
-
-- basis family: `CubicBezier3`;
-- normalized domain `[0,1]^2`;
-- one finite extrusion displacement vector;
-- exact analytic partials
-  `Su=C'(u)`, `Sv=E`, `Suu=C''(u)`, `Suv=Svv=0`;
-- U/V reversal and boundary parity;
-- zero extrusion and degenerate basis as valid representation cases;
-- one new focused ordinary contract, targeting 32 tests.
-
-Deferred:
-
-- analytic elementary plane/cylinder/cone/sphere/torus, pending explicit
-  arbitrary-placement/orientation semantics;
-- revolution and angular periodicity;
-- generic basis-curve extrusion/error translation;
-- general trimming, p-curves and topological face boundaries;
-- broader Coons/transfinite boundary families;
-- arbitrary-degree/multiplicity-three/periodic NURBS breadth.
-
-No production implementation may start until the decision is integrated,
-post-merge validated and separately closed.
+All analytic elementary, revolution, generic extrusion, general trim/p-curve,
+broader Coons and remaining NURBS breadth remain deferred.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
-
-The longer ordering remains:
-
-**Surface Representation breadth → Surface Differential Geometry →
-Boundary Curve Discretization / Meshing pipeline → Global Certification →
-Quad-Dominant Extension → Parallel Equivalence → Tensor/Anisotropic
-Extension.**
-
-Parallel execution must not precede serial Quad-Dominant qualification.
