@@ -1876,64 +1876,53 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Static Rectangular
-Trimmed Surface — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+Trimmed Surface — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-Closed decision/sync lineage:
+Implementation evidence:
 
-- decision merge:
-  `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-- decision closure merge:
-  `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
-- terminal sync PR #164 head:
-  `8c3b4c623bb3bd5812edce8723bb74eca7f9c667`;
-- sync PR FAST `35847597802`: PASS;
-- sync PR INTEGRATION `35847597868`: PASS;
-- terminal sync merge:
-  `83a56ee4f1b6a4703956c3e81c1786540bfecb14`;
-- sync post-merge FAST `35847689693`: PASS;
-- sync post-merge INTEGRATION `35847690044`: PASS.
+- initial head
+  `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`:
+  30/31 due to retained nested/direct exact-equality test-oracle mismatch;
+- corrected head
+  `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`:
+  FAST `35873716331` and INTEGRATION `35873716367`: PASS, 31/31;
+- final PR head
+  `b672572fc4495b3ff1e369a3bc346673978dba3b`:
+  FAST `35874000945` and INTEGRATION `35874000992`: PASS, 31/31;
+- PR #165 merged as
+  `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
+- post-merge FAST `35874273067`: PASS, 31/31;
+- post-merge INTEGRATION `35874273154`: PASS, 31/31 in GCC and Clang.
 
-Active implementation branch:
-`surface/rectangular-trimmed-surface`.
+Implemented bounded capability:
 
-Authorized scope:
-
-- header-only compile-time generic
-  `RectangularTrimmedSurface3<Surface>`;
-- basis owned by value;
-- exact oriented U/V subdomains;
-- sorted exposed domains, no normalization;
-- mapped value forwarding;
-- independent first-derivative orientation signs;
-- pure second derivatives preserved and mixed derivative product sign;
-- U/V reversal, commutation and involution;
-- nested trim behavior;
-- focused basis coverage over polynomial Bézier, rational Bézier, NURBS and
+- header-only static `RectangularTrimmedSurface3<Surface>`;
+- exact oriented rectangular subdomains without normalization;
+- value/first/second derivative covariance;
+- U/V reversal;
+- nested trim semantics;
+- basis-generic evidence across polynomial Bézier, rational Bézier, NURBS and
   Coons;
-- target ordinary inventory: **31 tests**.
+- explicit NURBS continuity-failure propagation.
 
-Validation history:
+No next production work item is active.
 
-- initial head `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`:
-  30/31 with the retained nested/direct exact-equality test-oracle mismatch;
-- corrected head `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`:
-  FAST `35873716331` PASS, 31/31;
-- corrected INTEGRATION `35873716367`: PASS in GCC and Clang, 31/31 in
-  each cell.
+After closure integration and post-merge validation, one fresh Surface
+Representation breadth decision must recompare:
 
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. The common surface contract and all
-existing surface production sources remain unchanged.
+- analytic elementary surfaces;
+- ruled/extrusion/revolution surfaces;
+- general trimming / curve-on-surface / face-boundary semantics;
+- broader Coons/transfinite boundaries;
+- remaining NURBS breadth.
 
 All general trimming/topology, p-curves, analytic/swept surfaces, broader
 Coons/NURBS, Surface Differential Geometry, discretization and meshing remain
-blocked.
-
-After integration/closure, one fresh Surface Representation breadth decision
-must recompare the remaining families before any next implementation.
+blocked until separately authorized.
 
 The longer ordering remains:
 
