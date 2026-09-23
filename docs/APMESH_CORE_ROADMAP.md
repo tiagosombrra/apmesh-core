@@ -1912,6 +1912,11 @@ Authorized scope:
 - reversal/multiplicity reflection;
 - target ordinary inventory: 29 tests.
 
+Candidate implementation is mapped to the authorized files and is awaiting
+FAST/INTEGRATION validation. The common bounded-surface concept signatures
+remain unchanged; only the explicitly authorized common error enumerator is
+added.
+
 Multiplicity three/C0, arbitrary degree, periodicity, component-specific or
 one-sided derivatives, Coons, analytic elementary, swept and trimmed surfaces
 remain later decisions.
