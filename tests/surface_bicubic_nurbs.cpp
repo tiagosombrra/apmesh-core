@@ -1191,6 +1191,17 @@ int main() {
         1.0,
         0.0,
         1.0);
+    const auto insufficient_v = BicubicNURBSSurface3::make(
+        std::vector<Point3>(12U, constant_point),
+        std::vector<double>(12U, 1.0),
+        4U,
+        3U,
+        {},
+        {},
+        0.0,
+        1.0,
+        0.0,
+        1.0);
     const auto bad_size = BicubicNURBSSurface3::make(
         std::vector<Point3>(15U, constant_point),
         std::vector<double>(15U, 1.0),
@@ -1202,12 +1213,109 @@ int main() {
         1.0,
         0.0,
         1.0);
-    const auto bad_knot_count = BicubicNURBSSurface3::make(
+    const auto weight_count_mismatch = BicubicNURBSSurface3::make(
+        points,
+        std::vector<double>(weights.begin(), weights.end() - 1),
+        u_count,
+        v_count,
+        u_knots,
+        v_knots,
+        -2.0,
+        3.0,
+        -3.0,
+        4.0);
+    const auto bad_u_knot_count = BicubicNURBSSurface3::make(
         points,
         weights,
         u_count,
         v_count,
         std::vector<double>{-0.5},
+        v_knots,
+        -2.0,
+        3.0,
+        -3.0,
+        4.0);
+    const auto bad_v_knot_count = BicubicNURBSSurface3::make(
+        points,
+        weights,
+        u_count,
+        v_count,
+        u_knots,
+        std::vector<double>{-1.0, 0.5},
+        -2.0,
+        3.0,
+        -3.0,
+        4.0);
+
+    const double quiet_nan = std::numeric_limits<double>::quiet_NaN();
+    const double infinity = std::numeric_limits<double>::infinity();
+
+    const auto non_finite_u_lower = BicubicNURBSSurface3::make(
+        points, weights, u_count, v_count, u_knots, v_knots,
+        quiet_nan, 3.0, -3.0, 4.0);
+    const auto non_finite_u_upper = BicubicNURBSSurface3::make(
+        points, weights, u_count, v_count, u_knots, v_knots,
+        -2.0, infinity, -3.0, 4.0);
+    const auto non_finite_u_interior = BicubicNURBSSurface3::make(
+        points,
+        weights,
+        u_count,
+        v_count,
+        std::vector<double>{-0.5, infinity},
+        v_knots,
+        -2.0,
+        3.0,
+        -3.0,
+        4.0);
+    const auto non_strict_u = BicubicNURBSSurface3::make(
+        points,
+        weights,
+        u_count,
+        v_count,
+        std::vector<double>{-0.5, -0.5},
+        v_knots,
+        -2.0,
+        3.0,
+        -3.0,
+        4.0);
+
+    const auto non_finite_v_lower = BicubicNURBSSurface3::make(
+        points, weights, u_count, v_count, u_knots, v_knots,
+        -2.0, 3.0, quiet_nan, 4.0);
+    const auto non_finite_v_upper = BicubicNURBSSurface3::make(
+        points, weights, u_count, v_count, u_knots, v_knots,
+        -2.0, 3.0, -3.0, infinity);
+    const auto non_finite_v_interior = BicubicNURBSSurface3::make(
+        points,
+        weights,
+        u_count,
+        v_count,
+        u_knots,
+        std::vector<double>{-1.0, 0.5, infinity},
+        -2.0,
+        3.0,
+        -3.0,
+        4.0);
+    const auto non_strict_v = BicubicNURBSSurface3::make(
+        points,
+        weights,
+        u_count,
+        v_count,
+        u_knots,
+        std::vector<double>{-1.0, 0.5, 0.5},
+        -2.0,
+        3.0,
+        -3.0,
+        4.0);
+
+    auto non_finite_weights = weights;
+    non_finite_weights[0] = infinity;
+    const auto non_finite_weight = BicubicNURBSSurface3::make(
+        points,
+        non_finite_weights,
+        u_count,
+        v_count,
+        u_knots,
         v_knots,
         -2.0,
         3.0,
@@ -1226,19 +1334,68 @@ int main() {
         3.0,
         -3.0,
         4.0);
+
     passed = require(
                  !insufficient_u &&
                      insufficient_u.error() ==
                          BicubicNURBSSurfaceConstructionError::
                              insufficient_u_control_points &&
+                     !insufficient_v &&
+                     insufficient_v.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             insufficient_v_control_points &&
                      !bad_size &&
                      bad_size.error() ==
                          BicubicNURBSSurfaceConstructionError::
                              control_net_size_mismatch &&
-                     !bad_knot_count &&
-                     bad_knot_count.error() ==
+                     !weight_count_mismatch &&
+                     weight_count_mismatch.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             control_weight_count_mismatch &&
+                     !bad_u_knot_count &&
+                     bad_u_knot_count.error() ==
                          BicubicNURBSSurfaceConstructionError::
                              u_interior_knot_count_mismatch &&
+                     !bad_v_knot_count &&
+                     bad_v_knot_count.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             v_interior_knot_count_mismatch &&
+                     !non_finite_u_lower &&
+                     non_finite_u_lower.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_finite_u_lower_knot &&
+                     !non_finite_u_upper &&
+                     non_finite_u_upper.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_finite_u_upper_knot &&
+                     !non_finite_u_interior &&
+                     non_finite_u_interior.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_finite_u_interior_knot &&
+                     !non_strict_u &&
+                     non_strict_u.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_strict_u_knot_order &&
+                     !non_finite_v_lower &&
+                     non_finite_v_lower.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_finite_v_lower_knot &&
+                     !non_finite_v_upper &&
+                     non_finite_v_upper.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_finite_v_upper_knot &&
+                     !non_finite_v_interior &&
+                     non_finite_v_interior.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_finite_v_interior_knot &&
+                     !non_strict_v &&
+                     non_strict_v.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_strict_v_knot_order &&
+                     !non_finite_weight &&
+                     non_finite_weight.error() ==
+                         BicubicNURBSSurfaceConstructionError::
+                             non_finite_weight &&
                      !bad_weight &&
                      bad_weight.error() ==
                          BicubicNURBSSurfaceConstructionError::
