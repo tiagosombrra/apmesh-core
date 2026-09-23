@@ -880,3 +880,69 @@ bounded by Sections 5–36.
 
 No repeated-knot, Coons, analytic, swept, trimmed or downstream surface
 capability is authorized.
+
+
+## 41. Active implementation validation
+
+The sole authorized implementation is active on:
+
+`surface/bicubic-nurbs`.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/nurbs_surface.hpp`;
+- `src/geometry/nurbs_surface.cpp`;
+- `tests/surface_bicubic_nurbs.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Frozen prerequisites remain unchanged:
+
+- `include/apmesh/geometry/parametric_surface.hpp`;
+- `include/apmesh/geometry/surface.hpp`;
+- `src/geometry/surface.cpp`;
+- `src/geometry/rational_surface.cpp`;
+- all curve production semantics.
+
+Candidate head:
+
+`86d794c58dc2eae3323f47de276ff637e2e2c3ec`.
+
+Candidate validation:
+
+- FAST `35802648932`: PASS, 28/28 ordinary semantic tests;
+- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests per cell;
+- `apmesh_core.surface_bicubic_nurbs`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Validated candidate scope includes:
+
+- dynamic rectangular U-major control/weight storage;
+- arbitrary finite clamped U/V domains;
+- independent simple-knot U/V span counts;
+- deterministic right-span selection;
+- local active 4x4 homogeneous V-then-U de Boor;
+- analytic Su/Sv/Suu/Suv/Svv;
+- rational and polynomial bicubic subset parity;
+- all four boundary-curve parity contracts;
+- independent rational tensor basis oracle;
+- test-only homogeneous U/V knot insertion;
+- two-direction local support;
+- common positive weight-scale invariance;
+- U/V reversal and derivative covariance;
+- constant-patch semantics;
+- affine/coordinate-scale covariance;
+- extreme-finite success;
+- explicit unrepresentable-result failure;
+- deterministic repeated successes/failures;
+- exhaustive construction error coverage for U/V control counts, net/weight
+  counts, knot counts, finite/order/domain failures and weight failures.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No repeated-knot, arbitrary-degree, periodic, Coons, analytic, swept, trimmed,
+differential-geometry or downstream meshing capability is implied.
