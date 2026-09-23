@@ -1907,9 +1907,19 @@ Authorized scope:
 - cylinder and annular-sector references;
 - expected inventory: 34 ordinary tests.
 
-Candidate implementation is now mapped to the authorized new header/source,
-one focused test and CMake registration, with no common contract changes.
-FAST/INTEGRATION validation is pending.
+Candidate validation history:
+
+- initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8` failed only while
+  compiling the focused test because `Point3` has no default constructor;
+  production compiled in GCC and Clang;
+- corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`;
+- FAST `35912060803`: PASS, 34/34;
+- INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 34/34 per cell;
+- the new revolution contract and all prior ordinary semantic tests passed.
+
+The documentation synchronization itself must receive one final green
+FAST/INTEGRATION head before integration.
 
 Complete periodic revolution, analytic elementary surfaces, general trimming,
 broader Coons/transfinite boundaries and remaining NURBS breadth remain later
