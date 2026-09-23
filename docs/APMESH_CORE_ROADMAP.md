@@ -1910,6 +1910,17 @@ Authorized scope:
 - input-scale invariance and extreme finite evidence;
 - one focused contract, targeting 33 ordinary tests.
 
+Candidate validation on
+`bb19471c2307aec70427719baf3f8d9500605c42`:
+
+- FAST `35901914044`: PASS, 33/33;
+- INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 33/33 per cell;
+- the new placement contract and all prior ordinary contracts passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration.
+
 `CartesianFrame3` remains frozen.
 
 Analytic elementary surfaces, revolution, general trimming/p-curves,
