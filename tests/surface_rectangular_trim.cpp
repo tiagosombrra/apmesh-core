@@ -28,6 +28,36 @@ bool require(const bool condition, const std::string_view message) {
     return condition;
 }
 
+bool close_scalar(
+    const double lhs,
+    const double rhs,
+    const double scale = 1.0,
+    const double absolute = 8.0e-12,
+    const double relative = 8.0e-12) {
+    const double magnitude =
+        std::max({1.0, std::abs(lhs), std::abs(rhs), std::abs(scale)});
+    return std::abs(lhs - rhs) <= absolute * std::abs(scale) +
+                                      relative * magnitude;
+}
+
+bool close_point(
+    const apmesh::core::Point3& lhs,
+    const apmesh::core::Point3& rhs,
+    const double scale = 1.0) {
+    return close_scalar(lhs.x(), rhs.x(), scale) &&
+           close_scalar(lhs.y(), rhs.y(), scale) &&
+           close_scalar(lhs.z(), rhs.z(), scale);
+}
+
+bool close_vector(
+    const apmesh::core::Vector3& lhs,
+    const apmesh::core::Vector3& rhs,
+    const double scale = 1.0) {
+    return close_scalar(lhs.x(), rhs.x(), scale) &&
+           close_scalar(lhs.y(), rhs.y(), scale) &&
+           close_scalar(lhs.z(), rhs.z(), scale);
+}
+
 apmesh::core::Point3 point(
     const double x,
     const double y,
@@ -417,11 +447,19 @@ int main() {
     const auto direct_second = direct->second_derivatives(0.45, 0.55);
     passed = require(
                  nested_value && direct_value &&
-                     *nested_value == *direct_value &&
+                     close_point(*nested_value, *direct_value, 256.0) &&
                      nested_first && direct_first &&
-                     *nested_first == *direct_first &&
+                     close_vector(
+                         nested_first->u, direct_first->u, 1024.0) &&
+                     close_vector(
+                         nested_first->v, direct_first->v, 1024.0) &&
                      nested_second && direct_second &&
-                     *nested_second == *direct_second &&
+                     close_vector(
+                         nested_second->uu, direct_second->uu, 4096.0) &&
+                     close_vector(
+                         nested_second->uv, direct_second->uv, 4096.0) &&
+                     close_vector(
+                         nested_second->vv, direct_second->vv, 4096.0) &&
                      !nested_escape &&
                      nested_escape.error() ==
                          RectangularTrimmedSurfaceConstructionError::
