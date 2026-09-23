@@ -1295,20 +1295,42 @@ Project relevance:
 - prevents one polynomial patch from being documented as full CAD surface
   coverage.
 
-### Open CASCADE Geom_RectangularTrimmedSurface — trimming is separate from
-supporting geometry
+### Open CASCADE Geom_RectangularTrimmedSurface — bounded subdomain and
+orientation seam
 
-Status: `FOUNDATIONAL / SCOPING` for later trimmed-surface work, reviewed
-2026-09-22.
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the static rectangular trimmed
+surface decision, reviewed 2026-09-23.
 
 Official reference:
 https://dev.opencascade.org/doc/refman/html/class_geom___rectangular_trimmed_surface.html
 
 Project relevance:
 
-- separates a supporting surface from parameter-domain trimming;
-- exposes independent U/V reversal/orientation semantics;
-- supports keeping first surface representation untrimmed and value-oriented.
+- models a trimmed patch as a basis surface plus finite U/V trim bounds;
+- requires the trim domain to lie inside the supporting surface domain for the
+  non-periodic case;
+- exposes U/V orientation and reversal independently;
+- retains basis-surface point/derivative semantics inside the trim;
+- supports AP Mesh introducing a static rectangular subdomain wrapper without
+  opening arbitrary trim loops, runtime polymorphism or topological faces;
+- AP Mesh does not adopt Open CASCADE mutation, exception, periodic-adjustment
+  or inheritance semantics.
+
+### Open CASCADE BRep_Tool — why general trimming remains a later topology seam
+
+Status: `FOUNDATIONAL / SCOPING` for separating rectangular trimming from
+general trimmed-face semantics, reviewed 2026-09-23.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_b_rep___tool.html
+
+Project relevance:
+
+- exposes curves-on-surface in the 2D parametric space of a supporting surface;
+- distinguishes 3D edge curves, p-curves, surfaces and topological faces;
+- supports deferring arbitrary trim loops, p-curves, seam edges and face
+  identity until a dedicated representation/topology decision;
+- does not imply AP Mesh should adopt Open CASCADE B-rep storage.
 
 ### Open CASCADE GeomFill_BSplineCurves — Coons/boundary filling
 
