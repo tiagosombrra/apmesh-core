@@ -1535,3 +1535,84 @@ Project relevance:
   relations and explicit error semantics are already qualified prerequisites;
 - Curve Differential Geometry must reuse those semantics rather than fork them;
 - prerequisite qualification does not itself establish curvature semantics.
+
+
+## Surface Representation — Boundary-Defined / Transfinite Patches
+
+### Coons 1967 — boundary-defined surface patches
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded Coons decision,
+reviewed 2026-09-23.
+
+Steven A. Coons. *Surfaces for Computer-Aided Design of Space Forms*.
+MIT Project MAC Technical Report MAC-TR-41, 1967.
+
+Bibliographic evidence:
+https://mitp-arch.mitpress.mit.edu/pub/e6pj7ysj/release/1
+
+Project relevance:
+
+- establishes boundary-defined free-form surface construction as a distinct
+  geometric mechanism;
+- supports a four-boundary transfinite patch as a separate continuous
+  representation/construction seam;
+- does not itself justify trimming, topology or a mesh-generation algorithm.
+
+### Open CASCADE GeomFill — filling from contiguous boundary curves
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for Coons/filling semantics,
+reviewed 2026-09-23.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom_fill___bezier_curves.html
+- https://dev.opencascade.org/doc/refman/html/_geom_fill___b_spline_curves_8hxx.html
+- https://dev.opencascade.org/doc/refman/html/class_geom_fill___boundary.html
+
+Project relevance:
+
+- mature CAD kernels model curve-boundary filling as a construction layer
+  separate from the resulting supporting surface;
+- supports explicit orientation/corner compatibility instead of implicit
+  proximity-based boundary repair;
+- Open CASCADE remains design/reference evidence only, with no runtime
+  dependency admitted.
+
+### Gmsh transfinite surface — downstream sequencing evidence
+
+Status: `FOUNDATIONAL / SEQUENCING` for later structured/transfinite meshing,
+reviewed 2026-09-23.
+
+Official reference:
+https://gmsh.info/doc/texinfo/gmsh.html
+
+Project relevance:
+
+- the transfinite surface meshing constraint uses boundary structure and three
+  or four surface corners to connect boundary nodes through a structured
+  interpolation;
+- supports the downstream value of an explicit boundary-defined continuous
+  patch before a later mesh algorithm;
+- does not authorize adoption of the Gmsh meshing algorithm or create a
+  dependency.
+
+### Open CASCADE trimming and analytic/swept surfaces — deferral evidence
+
+Status: `FOUNDATIONAL / SCOPING` for the Coons breadth comparison,
+reviewed 2026-09-23.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom___rectangular_trimmed_surface.html
+- https://dev.opencascade.org/doc/refman/html/class_geom___spherical_surface.html
+- https://dev.opencascade.org/doc/refman/html/class_i_g_e_s_geom___surface_of_revolution.html
+
+Project relevance:
+
+- trimming constrains/orients an existing supporting surface and is not the
+  same semantic operation as constructing a boundary-interpolating patch;
+- analytic/swept families introduce placement, axis and angular/periodic
+  semantics that are independent from a four-boundary polynomial Coons patch;
+- supports selecting Coons as the smallest currently unblocked surface seam
+  while retaining analytic, swept and trimmed families as explicit later
+  decisions.
