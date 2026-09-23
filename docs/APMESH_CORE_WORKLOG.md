@@ -490,6 +490,26 @@ Required scope:
 - independent cylinder and annular-sector fixtures;
 - ordinary semantic inventory target: 34 tests.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/revolution_surface.hpp`:
+  bounded value-oriented public representation and construction errors;
+- `src/geometry/revolution_surface.cpp`:
+  deterministic arbitrary-axis rotation, stored end generatrix and analytic
+  first/second partials;
+- `tests/surface_revolution.cpp`:
+  independent long-double Bernstein/Rodrigues oracle, cylinder and
+  annular-sector fixtures, axis-reference invariance, signed sweep,
+  reversals, degenerate cases, affine/scale/extreme and determinism evidence;
+- `CMakeLists.txt`:
+  production source plus the 34th ordinary focused semantic contract.
+
+No existing curve, axis-placement or common surface contract was modified.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no complete or multi-turn periodic revolution;
