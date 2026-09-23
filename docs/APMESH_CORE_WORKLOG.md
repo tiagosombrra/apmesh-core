@@ -398,126 +398,61 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   decision checkpoint.
 - `docs/surface-rectangular-trim-terminal-sync`: **MERGED / HISTORICAL**
   via PR #164; terminally reconciles the closed decision before production.
-- `surface/rectangular-trimmed-surface`: **ACTIVE**; bounded static
-  rectangular trimmed-surface implementation.
+- `surface/rectangular-trimmed-surface`: **MERGED / HISTORICAL** via
+  PR #165; bounded static rectangular trimmed-surface implementation.
+- `docs/surface-rectangular-trim-implementation-closure`: **CLOSURE-ONLY**;
+  records PR #165 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D —
-ACTIVE / IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None. Static Oriented Rectangular Trim implementation is integrated and
+ready for documentation/continuity closure.**
 
-Active branch:
-`surface/rectangular-trimmed-surface`.
+Implementation evidence:
 
-Decision authority:
-`docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
+1. initial PR #165 head:
+   `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`;
+2. initial FAST `35873420030`: FAIL, 30/31;
+3. initial INTEGRATION `35873419776`: FAIL in GCC and Clang, 30/31;
+4. diagnosis: nested/direct bitwise-equality **test-oracle mismatch**; production
+   wrapper unchanged;
+5. corrected candidate head:
+   `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`;
+6. corrected FAST `35873716331`: PASS, 31/31;
+7. corrected INTEGRATION `35873716367`: PASS, 31/31 in GCC and Clang;
+8. final PR head:
+   `b672572fc4495b3ff1e369a3bc346673978dba3b`;
+9. final PR FAST `35874000945`: PASS, 31/31;
+10. final PR INTEGRATION `35874000992`: PASS, 31/31 in GCC and Clang;
+11. implementation PR #165 merged as
+    `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
+12. implementation post-merge FAST `35874273067`: PASS, 31/31;
+13. implementation post-merge INTEGRATION `35874273154`: PASS, 31/31 in
+    GCC and Clang;
+14. `apmesh_core.surface_rectangular_trim`: PASS in final PR and post-merge
+    jobs;
+15. common `BoundedParametricSurface3` remained unchanged;
+16. existing surface production sources remained unchanged.
 
-Closed decision/synchronization evidence:
+Integrated work-unit result:
 
-1. decision PR #162:
-   `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-2. decision closure PR #163:
-   `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
-3. terminal sync PR #164 head:
-   `8c3b4c623bb3bd5812edce8723bb74eca7f9c667`;
-4. sync PR FAST `35847597802`: PASS;
-5. sync PR INTEGRATION `35847597868`: PASS in GCC and Clang;
-6. sync PR #164 merged as
-   `83a56ee4f1b6a4703956c3e81c1786540bfecb14`;
-7. sync post-merge FAST `35847689693`: PASS;
-8. sync post-merge INTEGRATION `35847690044`: PASS;
-9. no competing production PR/work item existed at implementation entry;
-10. the common `BoundedParametricSurface3` contract remains unchanged.
+**STATIC RECTANGULAR TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
 
-Authorized implementation:
+No production work item is active in this closure branch.
 
-- new header-only
-  `RectangularTrimmedSurface3<Surface>`;
-- basis surface owned by value;
-- exact oriented U/V source/target trim parameters;
-- sorted public U/V parameter domains without normalization;
-- exact mapped value forwarding;
-- first derivative orientation signs;
-- pure second derivatives preserved and mixed derivative sign covariance;
-- `u_reversed()`, `v_reversed()`, commuting/involution semantics;
-- nested trim support through the existing static surface concept;
-- focused instantiation over Bézier, rational Bézier, NURBS and Coons;
-- one focused contract targeting **31 ordinary tests**.
+## Next admissible work item after closure
 
-Candidate implementation mapping:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one fresh literature-backed Surface Representation breadth
+decision comparing:
 
-- `include/apmesh/geometry/trimmed_surface.hpp`:
-  new header-only static wrapper and construction-error vocabulary;
-- `tests/surface_rectangular_trim.cpp`:
-  focused semantic/reference contract across polynomial Bézier, rational
-  Bézier, NURBS and Coons bases;
-- `CMakeLists.txt`:
-  registers `apmesh_core.surface_rectangular_trim` as the 31st ordinary
-  semantic contract.
+1. analytic elementary surfaces;
+2. ruled/extrusion/revolution surfaces;
+3. general trimmed-surface / curve-on-surface / face-boundary semantics;
+4. broader Coons/transfinite boundary families;
+5. remaining NURBS breadth required by the admitted CAD input class.
 
-Candidate semantics include:
-
-- exact sorted public trim domains without normalization;
-- overflow-aware U/V reversal mapping through `reversed_parameter`;
-- independent first-derivative sign covariance;
-- pure second partial preservation and mixed-partial product sign;
-- U/V reversal commutation and involution;
-- nested trim/direct final-subdomain parity;
-- propagation of NURBS `SurfaceError::insufficient_continuity`;
-- deterministic extreme-finite non-normalized NURBS-domain evidence;
-- no changes to `BoundedParametricSurface3` or existing surface production.
-
-Initial PR validation attempt:
-
-- PR #165 initial head:
-  `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`;
-- FAST `35873420030`: FAIL, 30/31 tests;
-- INTEGRATION `35873419776`: FAIL in both GCC 13 Debug and Clang
-  18/libc++ Debug, 30/31 tests in each cell;
-- sole failing contract:
-  `apmesh_core.surface_rectangular_trim`;
-- failure text:
-  `nested rectangular trim semantics differ`;
-- diagnosis: test-oracle expectation mismatch, not a production semantic
-  failure. Nested and direct trims are mathematically equivalent, but exact
-  bitwise comparison is not a valid oracle after equivalent reversal
-  compositions through different intermediate parameter intervals;
-- correction: use the repository's established explicit scale-aware numerical
-  comparison style for nested/direct value and derivative parity;
-- production `trimmed_surface.hpp` is unchanged by the correction.
-
-Corrected candidate validation:
-
-- corrected head:
-  `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`;
-- FAST `35873716331`: PASS, 31/31 tests;
-- INTEGRATION `35873716367`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 31/31 tests in each cell;
-- `apmesh_core.surface_rectangular_trim`: PASS in all three jobs;
-- every prior ordinary semantic contract remained PASS;
-- production header remained unchanged between the failed initial attempt and
-  this corrected validation.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no common surface-contract change;
-- no arbitrary trim loops or p-curves;
-- no topology IDs / face loops / inside-outside classification;
-- no periodic-wrap semantics;
-- no analytic or swept surfaces;
-- no Surface Differential Geometry;
-- no discretization, meshing, Quad-Dominant or parallel work.
-
-## Next admissible transition
-
-Complete only this implementation, validate 31/31 in FAST and both
-INTEGRATION compiler cells, integrate through one PR, validate protected
-`main`, close the implementation checkpoint, and only then open one fresh
-Surface Representation breadth decision.
+No candidate is pre-authorized.
