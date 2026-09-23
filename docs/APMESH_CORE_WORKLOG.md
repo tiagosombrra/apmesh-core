@@ -456,9 +456,29 @@ Candidate implementation mapping:
 - `CMakeLists.txt`:
   registers the 29th ordinary semantic contract.
 
+Validation history:
+
+- initial PR head:
+  `3e169a6c9db545d227eeba07f04ecec7d256f577`;
+- initial FAST `35837423080`: workflow PASS, but only 28/28 selected tests;
+- initial INTEGRATION `35837423118`: workflow PASS in GCC/Clang, but only
+  28/28 selected tests;
+- diagnosis: the new executable compiled/linked but was omitted from the
+  `fast;integration` surface label group, so these runs are retained as
+  **mechanically incomplete acceptance evidence**, not scientific validation;
+- corrective head:
+  `b913895065f1d1184ecebf2565667fdd7fcaca2b`;
+- corrective FAST `35837638861`: PASS, 29/29 tests;
+- corrective INTEGRATION `35837638899`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 29/29 tests per cell;
+- `apmesh_core.surface_bicubic_nurbs_double_knot_continuity`: PASS in all
+  three corrected jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
