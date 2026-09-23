@@ -293,41 +293,44 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this decision closure is integrated and post-merge validated, implement
-the bounded bicubic NURBS surface multiplicity-one/two C1 work unit.**
+**Implement the bounded bicubic positive-weight NURBS surface
+multiplicity-one/two work unit with explicit C1/second-jet failure semantics.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #153 head:
-  `84c3d108a7b6333af42a4dd1e91f83973e34ec9a`;
-- PR FAST `35803735477`: PASS;
-- PR INTEGRATION `35803735461`: PASS;
-- merge:
+- decision PR #153:
   `736e6a4d05f65862c4de5cb852ceb2af07f33e9b`;
-- post-merge FAST `35803798870`: PASS;
-- post-merge INTEGRATION `35803798780`: PASS.
+- decision post-merge FAST `35803798870`: PASS;
+- decision post-merge INTEGRATION `35803798780`: PASS;
+- closure PR #154:
+  `1447d6bf10f8435f66ba108229940a014b152876`;
+- closure post-merge FAST `35804055281`: PASS;
+- closure post-merge INTEGRATION `35804055381`: PASS.
 
-Closure branch:
-`docs/surface-bicubic-nurbs-double-knot-decision-closure`.
+Active branch:
+`surface/bicubic-nurbs-double-knot-continuity`.
 
 Decision authority:
 `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`.
 
-The sole next implementation may add explicit U/V multiplicities 1/2 and
-`SurfaceError::insufficient_continuity` while preserving the common surface
-concept signatures.
+The implementation may add exactly one common surface query error,
+`SurfaceError::insufficient_continuity`, explicit U/V multiplicities 1/2,
+and parameter-local aggregate second-jet failure at exact double knot lines.
 
-No multiplicity-three/C0, one-sided/component-specific derivative API, Coons,
-analytic, swept, trimmed, arbitrary-degree, periodic, differential-geometry or
-meshing work is authorized.
+The existing simple-knot surface path, degree 3 in U/V, positive weights,
+non-periodicity and all prior curve/surface families remain frozen
+prerequisites.
+
+No multiplicity-three, arbitrary-degree, periodic, one-sided/component-specific
+derivative, Coons, analytic, swept, trimmed, differential-geometry or meshing
+work is authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
-DOUBLE-KNOT C1 DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
+DOUBLE-KNOT C1 IMPLEMENTATION ACTIVE / NOT QUALIFIED /
 POLYNOMIAL, RATIONAL AND SIMPLE-KNOT NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
