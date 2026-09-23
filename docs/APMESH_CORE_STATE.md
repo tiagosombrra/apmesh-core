@@ -301,38 +301,49 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this terminal synchronization is integrated and post-merge validated,
-open one fresh literature-backed Surface Representation breadth decision.**
+**Integrate the literature-backed Cubic Bézier Linear Extrusion Surface
+decision; no production implementation is authorized on this branch.**
 
-Terminal rectangular-trim closure evidence:
+Decision-entry authority:
 
-- implementation merge:
-  `07a5836ceabace389c4a6bfc2d1f60d644a7a939`;
-- implementation post-merge FAST `35874273067`: PASS, 31/31;
-- implementation post-merge INTEGRATION `35874273154`: PASS, 31/31;
-- closure PR #166 head:
-  `7ce52b5e880f4d7bd454c630aad00e89678eaf1e`;
-- closure PR FAST `35874987379`: PASS;
-- closure PR INTEGRATION `35874987450`: PASS;
-- closure merge:
-  `ad95dc048be988ad6f3fd9b29203f6e9d6d92b10`;
-- closure post-merge FAST `35875154581`: PASS;
-- closure post-merge INTEGRATION `35875154595`: PASS.
+- terminal rectangular-trim sync PR #167 head:
+  `083a9a3263bd24be4f848c3a31ead5a2d13773b3`;
+- sync PR FAST `35875571648`: PASS;
+- sync PR INTEGRATION `35875571740`: PASS;
+- sync merge:
+  `47b1a2b17d9cecd972430bb33e84161eb74cfec1`;
+- sync post-merge FAST `35875814460`: PASS;
+- sync post-merge INTEGRATION `35875814543`: PASS.
 
-No production work item is active.
+Active branch:
+`surface/linear-extrusion-decision`.
 
-The next decision must compare analytic elementary, swept/ruled,
-general-trim/curve-on-surface, broader Coons/transfinite and remaining NURBS
-breadth. No candidate is pre-authorized.
+Decision authority:
+`docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
+
+The decision selects a bounded `CubicBezier3` linear-extrusion surface as the
+next Surface Representation work unit.
+
+Analytic elementary surfaces remain explicitly retained but are not authorized:
+their mature-kernel model requires arbitrary local 3D placement while the
+qualified `CartesianFrame3` claim remains restricted to exact
+signed-permutation bases and positive power-of-two scale.
+
+General trimming/p-curves/topological faces, revolution/periodicity, broader
+Coons and remaining NURBS breadth also remain separate decisions.
+
+No production surface, Surface Differential Geometry, boundary discretization
+or meshing code is authorized.
 
 ## Current active stage
 
-**Surface Representation — Continuous Patch Geometry — STATIC RECTANGULAR
-TRIM IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM /
-POLYNOMIAL, RATIONAL, NURBS AND COONS PREREQUISITES PRESERVED**
+**Surface Representation — Continuous Patch Geometry — CUBIC BÉZIER LINEAR
+EXTRUSION DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED /
+POLYNOMIAL, RATIONAL, NURBS, COONS AND RECTANGULAR-TRIM
+PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
@@ -360,7 +371,9 @@ The following are **not implemented and not covered by CGR qualification**:
 - general/multi-span/arbitrary-degree/repeated-knot/periodic NURBS semantics
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
-- analytic elementary and swept surface representations remain unimplemented;
+- analytic elementary surface representations remain unimplemented;
+- swept surface representations remain unimplemented; the active decision
+  selects only a future bounded cubic-Bézier linear-extrusion work unit;
 - general arbitrary-loop trimmed-surface / p-curve / topological-face
   semantics remain unimplemented, while static oriented rectangular trimming
   is integrated;
