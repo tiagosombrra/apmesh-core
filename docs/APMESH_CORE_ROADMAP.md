@@ -1875,41 +1875,68 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Continuous Patch Geometry — Bicubic NURBS
-Double-Knot C1 Continuity — IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**
+**Surface Representation — Continuous Patch Geometry — Oriented Four-Boundary
+Cubic Bézier Coons Patch — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Implementation evidence:
+Entry authority:
 
-- final PR head:
-  `6453279c77883440b5cd86e7ab08052b318ecf22`;
-- final PR FAST `35837794984`: PASS, 29/29;
-- final PR INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
-- implementation PR #155:
+- bicubic NURBS C1 implementation PR #155:
   `fea1cf536336dc5bef19217a879338bac495555f`;
-- post-merge FAST `35837956530`: PASS, 29/29;
-- post-merge INTEGRATION `35837956529`: PASS, 29/29 in GCC and Clang.
+- final complete 29-test head:
+  `6453279c77883440b5cd86e7ab08052b318ecf22`;
+- final FAST `35837794984`: PASS, 29/29;
+- final INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
+- implementation post-merge FAST `35837956530`: PASS, 29/29;
+- implementation post-merge INTEGRATION `35837956529`: PASS, 29/29;
+- closure PR #156:
+  `925cf43f3a0cc6239ac6fb2f9f7e913e79141d86`;
+- closure PR FAST `35838274382`: PASS;
+- closure PR INTEGRATION `35838274390`: PASS;
+- closure post-merge FAST `35838387139`: PASS;
+- closure post-merge INTEGRATION `35838387121`: PASS.
 
-The earlier 28/28 runs `35837423080` / `35837423118` are retained as a
-mechanical label-selection gap; corrected and final 29/29 evidence supersedes
-them for acceptance without erasing history.
+Active decision:
+`docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
 
-Closure branch:
-`docs/surface-bicubic-nurbs-double-knot-implementation-closure`.
+Required comparison:
 
-After closure integration and protected-main validation, the sole next action
-is one fresh Surface Representation breadth decision comparing Coons,
-analytic elementary, swept, trimmed and any demonstrably required remaining
-NURBS breadth.
+- Coons/transfinite patch construction;
+- analytic elementary surfaces;
+- ruled/extrusion/revolution surfaces;
+- rectangular/general trimmed-surface semantics;
+- multiplicity-three/C0 if required;
+- arbitrary degree/periodicity if required.
 
-No option is preselected.
+Selected future work unit:
 
-Surface Differential Geometry and Boundary Curve Discretization remain
-blocked.
+**Oriented Four-Boundary Cubic Bézier Coons Patch in 3D.**
 
-The long-term ordering remains:
+The future patch owns four oriented `CubicBezier3` boundaries, requires exact
+corner compatibility, uses the deterministic classical Coons blend, provides
+analytic `Su/Sv/Suu/Suv/Svv`, supports U/V reversal and targets one new
+ordinary semantic contract, bringing the inventory from 29 to 30 tests.
 
-**Global Certification → Quad-Dominant Extension → Parallel Equivalence →
-Tensor/Anisotropic Extension.**
+The decision deliberately does not open:
+
+- rational/NURBS-boundary Coons;
+- runtime heterogeneous curve dispatch;
+- approximate corner matching or automatic reversal;
+- analytic elementary surfaces;
+- ruled/extrusion/revolution;
+- trimming/curve-on-surface/topology;
+- Surface Differential Geometry;
+- Boundary Curve Discretization;
+- meshing.
+
+No production implementation may begin until this decision PR is integrated,
+post-merge FAST/INTEGRATION pass and a separate decision checkpoint closes.
+
+The retained longer ordering remains:
+
+**Surface Representation breadth → Surface Differential Geometry →
+Boundary Curve Discretization / Meshing pipeline → Global Certification →
+Quad-Dominant Extension → Parallel Equivalence → Tensor/Anisotropic
+Extension.**
 
 Parallel execution must not precede serial Quad-Dominant qualification.
