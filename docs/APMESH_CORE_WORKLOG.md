@@ -488,10 +488,22 @@ Initial PR validation attempt:
   comparison style for nested/direct value and derivative parity;
 - production `trimmed_surface.hpp` is unchanged by the correction.
 
+Corrected candidate validation:
+
+- corrected head:
+  `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`;
+- FAST `35873716331`: PASS, 31/31 tests;
+- INTEGRATION `35873716367`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 31/31 tests in each cell;
+- `apmesh_core.surface_rectangular_trim`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- production header remained unchanged between the failed initial attempt and
+  this corrected validation.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / CORRECTED TEST ORACLE /
-REVALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
