@@ -677,3 +677,37 @@ Surface Representation remains IN INVESTIGATION / NOT QUALIFIED.
 
 No analytic elementary surface, general trimming, broader Coons/NURBS,
 differential geometry or meshing capability is authorized.
+
+
+## 34. Decision integration checkpoint
+
+PR #179 integrated this bounded decision.
+
+Final decision head:
+
+`92db678f92fbf869e00540536156de25a1647113`.
+
+Final decision-head validation:
+
+- FAST `35909899142`: PASS;
+- INTEGRATION `35909899200`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #179 merged as:
+
+`112f3b7ae3c439d729380fec07d065997bf11e56`.
+
+Post-merge validation:
+
+- FAST `35910017412`: PASS;
+- INTEGRATION `35910017524`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint is ready for documentation closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the bounded cubic Bézier revolution implementation defined by
+Sections 5–31.
+
+No periodic revolution, analytic elementary surface, general trimming,
+broader Coons/NURBS or downstream capability is authorized.
