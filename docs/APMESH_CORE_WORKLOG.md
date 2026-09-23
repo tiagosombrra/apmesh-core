@@ -405,68 +405,31 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   implementation checkpoint.
 - `docs/surface-rectangular-trim-closure-sync`: **MERGED / HISTORICAL**
   via PR #167; terminally reconciles the closed rectangular-trim work unit.
-- `surface/linear-extrusion-decision`: **ACTIVE / DOCUMENTATION-ONLY**;
-  literature-backed bounded swept-surface decision; no production code.
+- `surface/linear-extrusion-decision`: **MERGED / HISTORICAL** via PR #168;
+  bounded swept-surface decision.
+- `docs/surface-linear-extrusion-decision-closure`: **CLOSURE-ONLY**;
+  records PR #168 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Cubic Bézier Linear Extrusion Surface Decision — ACTIVE /
-DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Cubic Bézier Linear Extrusion Surface decision is integrated and ready
+for closure.**
 
-Active branch:
-`surface/linear-extrusion-decision`.
+Decision evidence:
 
-Decision-entry authority:
+1. PR #168 merged as `b8fe106080513a9736172a2380d5d8c0f162276a`;
+2. PR FAST `35885189655`: PASS;
+3. PR INTEGRATION `35885189624`: PASS in GCC and Clang;
+4. post-merge FAST `35885367665`: PASS;
+5. post-merge INTEGRATION `35885367613`: PASS;
+6. no production extrusion code exists yet;
+7. ordinary semantic inventory remains 31 tests.
 
-- terminal rectangular-trim sync PR #167 head:
-  `083a9a3263bd24be4f848c3a31ead5a2d13773b3`;
-- sync PR FAST `35875571648`: PASS;
-- sync PR INTEGRATION `35875571740`: PASS;
-- sync merge:
-  `47b1a2b17d9cecd972430bb33e84161eb74cfec1`;
-- sync post-merge FAST `35875814460`: PASS;
-- sync post-merge INTEGRATION `35875814543`: PASS;
-- ordinary semantic inventory: 31 tests;
-- no open PR or active production work item at decision entry.
-
-Decision authority:
+After this closure is integrated and post-merge validated, the sole next work
+item is `CubicBezierLinearExtrusionSurface3`, bounded exactly by
 `docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
 
-Required comparison:
-
-1. analytic elementary surfaces;
-2. ruled/extrusion/revolution surfaces;
-3. general trim / curve-on-surface / face-boundary semantics;
-4. broader Coons/transfinite boundaries;
-5. remaining NURBS breadth.
-
-Selected future work unit:
-
-**Bounded Cubic Bézier Linear Extrusion Surface in 3D.**
-
-Selection basis:
-
-- opens the swept-surface family using already integrated `CubicBezier3`;
-- requires no arbitrary-angle frame admission;
-- requires no periodic angular parameter;
-- requires no general trim-loop/p-curve/topology seam;
-- requires no additional spline/rational semantics.
-
-Analytic elementary surfaces remain retained but blocked on an explicit
-arbitrary-placement/orientation prerequisite. Revolution remains deferred for
-axis/periodic semantics. General trimming and broader Coons remain separate
-architecture decisions.
-
-This branch is documentation/research only.
-
-## Next admissible transition
-
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision closure may one production branch open for
-`CubicBezierLinearExtrusionSurface3`.
-
-No analytic elementary, revolution, generic basis-curve extrusion, trim-loop,
-p-curve, topology, differential-geometry or meshing implementation is
-authorized.
+No analytic elementary, revolution, generic extrusion, general trimming,
+p-curve/topology, differential-geometry or meshing work is authorized.
