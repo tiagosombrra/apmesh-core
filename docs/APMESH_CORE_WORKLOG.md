@@ -418,36 +418,50 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #172; terminally reconciles the closed linear-extrusion work unit.
 - `surface/arbitrary-axis-placement-decision`: **MERGED / HISTORICAL** via
   PR #173; bounded arbitrary-axis placement prerequisite decision.
-- `docs/arbitrary-axis-placement-decision-closure`: **CLOSURE-ONLY**;
-  records PR #173 integration and post-merge validation.
+- `docs/arbitrary-axis-placement-decision-closure`: **MERGED / HISTORICAL**
+  via PR #174; closes the arbitrary-axis placement decision checkpoint.
+- `docs/arbitrary-axis-placement-closure-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed decision before
+  production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Arbitrary Right-Handed 3D Axis Placement decision is integrated and
-ready for closure.**
+**None. Arbitrary Right-Handed 3D Axis Placement decision is closed;
+terminal documentation synchronization is active.**
 
-Decision evidence:
+Terminal decision evidence:
 
 1. decision authority:
    `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`;
-2. decision PR #173 merged as
+2. decision PR #173:
    `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
 3. decision PR FAST `35894230229`: PASS;
-4. decision PR INTEGRATION `35894230134`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
+4. decision PR INTEGRATION `35894230134`: PASS;
 5. decision post-merge FAST `35894377748`: PASS;
 6. decision post-merge INTEGRATION `35894377875`: PASS;
-7. no `AxisPlacement3` production code exists yet;
-8. `CartesianFrame3` remains unchanged;
-9. ordinary semantic inventory remains 32 tests.
+7. decision closure PR #174 head:
+   `56f9b85e95f5074b3f3b692b512472964735135e`;
+8. closure PR FAST `35894725433`: PASS;
+9. closure PR INTEGRATION `35894725365`: PASS;
+10. closure PR #174 merged as:
+    `fbdfb98cfc5574c053f32298cab75d714ff31772`;
+11. closure post-merge FAST `35900347873`: PASS;
+12. closure post-merge INTEGRATION `35900347965`: PASS;
+13. no `AxisPlacement3` production code exists yet;
+14. `CartesianFrame3` remains unchanged;
+15. ordinary semantic inventory remains 32 tests.
 
-No production work item is active in this closure change.
+Decision result:
 
-## Next admissible work item after closure
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+No production work item is active during this documentation-only sync.
+
+## Next admissible work item after terminal sync
+
+After this sync is integrated and its own post-merge FAST/INTEGRATION pass,
 open exactly one implementation branch for:
 
 **Right-Handed Arbitrary 3D Axis Placement.**
