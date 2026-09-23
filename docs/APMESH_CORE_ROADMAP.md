@@ -1876,63 +1876,41 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Continuous Patch Geometry — Oriented Four-Boundary
-Cubic Bézier Coons Patch — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Cubic Bézier Coons Patch — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Entry authority:
-
-- bicubic NURBS C1 implementation PR #155:
-  `fea1cf536336dc5bef19217a879338bac495555f`;
-- final complete 29-test head:
-  `6453279c77883440b5cd86e7ab08052b318ecf22`;
-- final FAST `35837794984`: PASS, 29/29;
-- final INTEGRATION `35837794969`: PASS, 29/29 in GCC and Clang;
-- implementation post-merge FAST `35837956530`: PASS, 29/29;
-- implementation post-merge INTEGRATION `35837956529`: PASS, 29/29;
-- closure PR #156:
-  `925cf43f3a0cc6239ac6fb2f9f7e913e79141d86`;
-- closure PR FAST `35838274382`: PASS;
-- closure PR INTEGRATION `35838274390`: PASS;
-- closure post-merge FAST `35838387139`: PASS;
-- closure post-merge INTEGRATION `35838387121`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
 
-Required comparison:
+Decision validation:
 
-- Coons/transfinite patch construction;
-- analytic elementary surfaces;
-- ruled/extrusion/revolution surfaces;
-- rectangular/general trimmed-surface semantics;
-- multiplicity-three/C0 if required;
-- arbitrary degree/periodicity if required.
+- PR #157 head:
+  `dbdee00c53595dd203c9d44a7e18138b8b85afce`;
+- PR FAST `35841081221`: PASS;
+- PR INTEGRATION `35841081217`: PASS;
+- merge:
+  `639565e047a15a5b947f73fcadce10e51dde6bb0`;
+- post-merge FAST `35841180741`: PASS;
+- post-merge INTEGRATION `35841180924`: PASS.
 
-Selected future work unit:
+Closure branch:
+`docs/surface-coons-patch-decision-closure`.
+
+After closure integration and protected-main validation, the sole next
+production work item is:
 
 **Oriented Four-Boundary Cubic Bézier Coons Patch in 3D.**
 
-The future patch owns four oriented `CubicBezier3` boundaries, requires exact
-corner compatibility, uses the deterministic classical Coons blend, provides
-analytic `Su/Sv/Suu/Suv/Svv`, supports U/V reversal and targets one new
-ordinary semantic contract, bringing the inventory from 29 to 30 tests.
+Authorized first implementation remains limited to exact oriented
+`CubicBezier3` corner compatibility, the deterministic classical Coons blend,
+analytic first/second partials, U/V reversal and one focused contract targeting
+30 ordinary tests.
 
-The decision deliberately does not open:
+No rational/NURBS-boundary Coons, runtime heterogeneous boundary dispatch,
+analytic/swept surfaces, trimming/topology, Surface Differential Geometry,
+Boundary Curve Discretization or meshing is authorized.
 
-- rational/NURBS-boundary Coons;
-- runtime heterogeneous curve dispatch;
-- approximate corner matching or automatic reversal;
-- analytic elementary surfaces;
-- ruled/extrusion/revolution;
-- trimming/curve-on-surface/topology;
-- Surface Differential Geometry;
-- Boundary Curve Discretization;
-- meshing.
-
-No production implementation may begin until this decision PR is integrated,
-post-merge FAST/INTEGRATION pass and a separate decision checkpoint closes.
-
-The retained longer ordering remains:
+The longer ordering remains:
 
 **Surface Representation breadth → Surface Differential Geometry →
 Boundary Curve Discretization / Meshing pipeline → Global Certification →

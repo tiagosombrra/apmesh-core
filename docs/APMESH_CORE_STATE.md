@@ -297,39 +297,39 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Integrate the bounded literature-backed Coons surface decision; no production
-implementation is authorized on this branch.**
+**After this decision closure is integrated and post-merge validated, implement
+the oriented four-boundary cubic Bézier Coons patch in 3D.**
 
-Entry evidence:
+Decision evidence:
 
-- closure PR #156:
-  `925cf43f3a0cc6239ac6fb2f9f7e913e79141d86`;
-- closure PR FAST `35838274382`: PASS;
-- closure PR INTEGRATION `35838274390`: PASS;
-- closure post-merge FAST `35838387139`: PASS;
-- closure post-merge INTEGRATION `35838387121`: PASS.
+- PR #157 head:
+  `dbdee00c53595dd203c9d44a7e18138b8b85afce`;
+- PR FAST `35841081221`: PASS;
+- PR INTEGRATION `35841081217`: PASS;
+- merge:
+  `639565e047a15a5b947f73fcadce10e51dde6bb0`;
+- post-merge FAST `35841180741`: PASS;
+- post-merge INTEGRATION `35841180924`: PASS.
 
-Active branch:
-`surface/coons-patch-decision`.
+Closure branch:
+`docs/surface-coons-patch-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`.
 
-The decision compares the remaining bounded surface breadth and selects only:
+The sole future production work item is the fixed cubic Bézier four-boundary
+Coons patch selected by that decision.
 
-**Oriented Four-Boundary Cubic Bézier Coons Patch in 3D.**
-
-No production implementation, trimming, topology, analytic/swept surface,
-surface differential geometry, boundary discretization or meshing work is
-authorized.
-
+No rational/NURBS-boundary Coons, heterogeneous curve dispatch, analytic or
+swept surface, trimming/topology, surface differential geometry, boundary
+discretization or meshing work is authorized.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — COONS PATCH DECISION
-ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED / POLYNOMIAL, RATIONAL AND NURBS PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
