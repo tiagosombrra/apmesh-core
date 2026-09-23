@@ -5,6 +5,7 @@
 #include "apmesh/geometry/nurbs_surface.hpp"
 #include "apmesh/geometry/surface.hpp"
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <concepts>
@@ -35,7 +36,13 @@ apmesh::core::Point3 point(
 }
 
 apmesh::core::BicubicBezierPatch3::ControlNet make_controls() {
-    apmesh::core::BicubicBezierPatch3::ControlNet controls{};
+    const auto seed = point(0.0, 0.0, 0.0);
+    apmesh::core::BicubicBezierPatch3::ControlNet controls{{
+        {{seed, seed, seed, seed}},
+        {{seed, seed, seed, seed}},
+        {{seed, seed, seed, seed}},
+        {{seed, seed, seed, seed}},
+    }};
     for (std::size_t i = 0; i < 4U; ++i) {
         for (std::size_t j = 0; j < 4U; ++j) {
             const double u = static_cast<double>(i) / 3.0;
