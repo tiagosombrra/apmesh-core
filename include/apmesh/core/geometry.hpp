@@ -166,6 +166,47 @@ private:
     double inverse_scale_;
 };
 
+class AxisPlacement3 {
+public:
+    [[nodiscard]] static std::expected<AxisPlacement3, GeometryError> make(
+        const Point3& origin,
+        const Vector3& main_direction,
+        const Vector3& x_reference) noexcept;
+    [[nodiscard]] static AxisPlacement3 identity() noexcept;
+
+    [[nodiscard]] const Point3& origin() const noexcept;
+    [[nodiscard]] const Vector3& x_direction() const noexcept;
+    [[nodiscard]] const Vector3& y_direction() const noexcept;
+    [[nodiscard]] const Vector3& z_direction() const noexcept;
+
+    [[nodiscard]] std::expected<Point3, GeometryError> point_to_world(
+        const Point3& point) const noexcept;
+    [[nodiscard]] std::expected<Vector3, GeometryError> vector_to_world(
+        const Vector3& vector) const noexcept;
+    [[nodiscard]] std::expected<Point3, GeometryError> point_to_local(
+        const Point3& point) const noexcept;
+    [[nodiscard]] std::expected<Vector3, GeometryError> vector_to_local(
+        const Vector3& vector) const noexcept;
+
+    [[nodiscard]] bool operator==(const AxisPlacement3&) const noexcept = default;
+
+private:
+    constexpr AxisPlacement3(
+        const Point3& origin,
+        const Vector3& x_direction,
+        const Vector3& y_direction,
+        const Vector3& z_direction) noexcept
+        : origin_(origin),
+          x_direction_(x_direction),
+          y_direction_(y_direction),
+          z_direction_(z_direction) {}
+
+    Point3 origin_;
+    Vector3 x_direction_;
+    Vector3 y_direction_;
+    Vector3 z_direction_;
+};
+
 [[nodiscard]] Vector2 operator-(const Vector2& vector) noexcept;
 [[nodiscard]] Vector3 operator-(const Vector3& vector) noexcept;
 
