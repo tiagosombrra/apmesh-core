@@ -86,32 +86,32 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- latest closed Surface Representation anchor:
-  **Bicubic NURBS Double-Knot C1 Continuity**;
-- implementation PR #155:
-  `fea1cf536336dc5bef19217a879338bac495555f`;
-- final complete head:
-  `6453279c77883440b5cd86e7ab08052b318ecf22`;
-- final FAST `35837794984` and INTEGRATION `35837794969`: PASS, 29/29;
-- implementation post-merge FAST `35837956530` and INTEGRATION
-  `35837956529`: PASS, 29/29;
-- closure PR #156:
-  `925cf43f3a0cc6239ac6fb2f9f7e913e79141d86`;
-- closure PR FAST `35838274382` and INTEGRATION `35838274390`: PASS;
-- closure post-merge FAST `35838387139` and INTEGRATION
-  `35838387121`: PASS;
+- latest closed Surface Representation decision:
+  **Static Rectangular Trimmed Surface**;
+- decision PR #162:
+  `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
+- decision closure PR #163:
+  `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
+- terminal sync PR #164:
+  `83a56ee4f1b6a4703956c3e81c1786540bfecb14`;
+- sync PR FAST `35847597802` and INTEGRATION `35847597868`: PASS;
+- sync post-merge FAST `35847689693` and INTEGRATION
+  `35847690044`: PASS;
+- ordinary semantic inventory before the active implementation: **30 tests**;
 - current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — COONS PATCH DECISION ACTIVE / NOT QUALIFIED**;
-- active branch: `surface/coons-patch-decision`;
-- active decision: `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
-- selected future work unit:
-  **Oriented Four-Boundary Cubic Bézier Coons Patch in 3D**;
+  Geometry — STATIC RECTANGULAR TRIM IMPLEMENTATION ACTIVE /
+  NOT QUALIFIED**;
+- active branch: `surface/rectangular-trimmed-surface`;
+- active decision:
+  `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`;
+- selected work unit:
+  **Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
 - current operational authority: `docs/APMESH_CORE_WORKLOG.md`;
-- live `main` SHA and open-PR state are always re-audited remotely and are
-  not self-recorded here as mutable authority.
+- live `main`, PR and Actions state must always be re-audited remotely before
+  writing.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
@@ -298,39 +298,35 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Exact current bounded scientific action:
 
-**After this terminal synchronization is integrated and post-merge validated,
-implement the Static Oriented Rectangular Trim of a Bounded Parametric Surface
-in 3D.**
+**Implement the Static Oriented Rectangular Trim of a Bounded Parametric
+Surface in 3D on the single active production branch.**
 
-Terminal decision evidence:
+Terminal decision/sync evidence:
 
 - decision merge:
   `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-- decision post-merge FAST `35846672914`: PASS;
-- decision post-merge INTEGRATION `35846673106`: PASS;
-- closure PR #163 head:
-  `012703f1f8cd5cdf2ed8922269c2d17e8b3cb236`;
-- closure PR FAST `35847140517`: PASS;
-- closure PR INTEGRATION `35847140605`: PASS;
-- closure merge:
+- decision closure merge:
   `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
-- closure post-merge FAST `35847281819`: PASS;
-- closure post-merge INTEGRATION `35847281719`: PASS.
+- terminal sync head:
+  `8c3b4c623bb3bd5812edce8723bb74eca7f9c667`;
+- sync PR FAST `35847597802`: PASS;
+- sync PR INTEGRATION `35847597868`: PASS;
+- terminal sync merge:
+  `83a56ee4f1b6a4703956c3e81c1786540bfecb14`;
+- sync post-merge FAST `35847689693`: PASS;
+- sync post-merge INTEGRATION `35847690044`: PASS.
 
-Terminal sync branch:
-`docs/surface-rectangular-trim-terminal-sync`.
+Active branch:
+`surface/rectangular-trimmed-surface`.
 
 Decision authority:
 `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-The sole next production work item is the static compile-time generic
-rectangular trimmed-surface wrapper bounded by the integrated decision.
-
-No common surface-contract change, arbitrary trim curves, p-curves, topology,
-periodic wrapping, analytic/swept surfaces, broader Coons/NURBS breadth,
-Surface Differential Geometry or meshing work is authorized.
+No change to `BoundedParametricSurface3`, topology, general trimming,
+analytic/swept surfaces, differential geometry, discretization or meshing is
+authorized.
 
 ## Current active stage
 
