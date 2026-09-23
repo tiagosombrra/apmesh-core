@@ -506,9 +506,30 @@ Candidate implementation mapping:
 
 No existing curve, axis-placement or common surface contract was modified.
 
+Initial PR validation retained:
+
+- initial PR head:
+  `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`;
+- FAST `35911765896`: FAIL during focused test compilation;
+- INTEGRATION `35911765945`: FAIL in both GCC 13 Debug and Clang 18/libc++
+  Debug during the same focused test compilation;
+- production `src/geometry/revolution_surface.cpp` compiled successfully in
+  all three jobs;
+- failure cause:
+  `tests/surface_revolution.cpp` attempted value-initialization of
+  `std::array<Point3,4>`, but `Point3` intentionally has no default
+  constructor;
+- classification:
+  **MECHANICAL TEST-CONSTRUCTION DEFECT / NO PRODUCTION SEMANTIC EVIDENCE**;
+- correction:
+  initialize translated/scaled arrays as copies of the existing valid
+  generatrix control array before element replacement;
+- no production or scientific contract change was made.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / MECHANICAL TEST FIX APPLIED /
+REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
