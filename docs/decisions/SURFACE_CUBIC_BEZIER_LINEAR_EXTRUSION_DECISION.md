@@ -695,3 +695,50 @@ FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 No generic extrusion, revolution, analytic elementary surface, general
 trim/p-curve/topological-face, differential-geometry or meshing capability is
 implied.
+
+
+## 32. Implementation integration checkpoint
+
+The bounded implementation was integrated by PR #170.
+
+Candidate head:
+
+`c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`.
+
+Candidate validation:
+
+- FAST `35887599787`: PASS, 32/32 ordinary semantic tests;
+- INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 32/32 tests per cell.
+
+Final PR head:
+
+`87d0ecc0dbb7a5dda34164834d8c30c473779102`.
+
+Final-head validation:
+
+- FAST `35891866350`: PASS, 32/32;
+- INTEGRATION `35891867091`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 32/32 per cell.
+
+PR #170 merged as:
+
+`63b4d963fbed25e6482d37ae1944a08799043b2c`.
+
+Post-merge validation:
+
+- FAST `35892078309`: PASS, 32/32;
+- INTEGRATION `35892078255`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 32/32 per cell.
+
+Integrated result:
+
+**LINEAR EXTRUSION SURFACE IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+
+No broader swept, analytic, trimming, differential-geometry or meshing
+capability is implied.
+
+After implementation closure, the next admissible work is one fresh
+literature-backed Surface Representation breadth decision. No option is
+pre-authorized.
