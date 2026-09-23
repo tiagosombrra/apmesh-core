@@ -578,3 +578,29 @@ The decision is integrated and ready for documentation closure.
 
 After closure integration and post-merge validation, the sole next work item is
 the bounded `CubicBezierLinearExtrusionSurface3` implementation.
+
+
+## 29. Decision closure checkpoint
+
+Decision closure PR #169 used head
+`eadb04268ed167759e5eaa9d1004922c43bb5404`.
+
+Closure PR validation:
+
+- FAST `35885907493`: PASS;
+- INTEGRATION `35885907499`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+PR #169 merged as
+`f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`.
+
+Closure post-merge validation:
+
+- FAST `35886133289`: PASS;
+- INTEGRATION `35886133213`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is
+`CubicBezierLinearExtrusionSurface3`, bounded by Sections 5–25.
