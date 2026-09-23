@@ -104,14 +104,14 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   `35904119725`: PASS;
 - active work item:
   **Bounded Cubic Bézier Surface of Revolution implementation**;
-- component status:
-  **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-  NOT QUALIFIED**;
+- active component status:
+  **BOUNDED REVOLUTION IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+  FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
-- ordinary semantic inventory: **33 tests**;
-- the current breadth decision selects only a bounded sub-2*pi cubic Bézier
-  revolution surface; production remains unauthorized until decision closure;
+- protected-main ordinary semantic inventory at work-item entry: **33 tests**;
+- candidate ordinary semantic inventory: **34 tests**, all PASS on the
+  corrected candidate head;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -161,9 +161,22 @@ Bernstein/Rodrigues oracle and analytic cylinder/annular-sector fixtures.
 
 Expected ordinary inventory: **34 tests**.
 
+Validation history:
+
+- initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`:
+  FAST `35911765896` FAIL and INTEGRATION `35911765945` FAIL because the
+  new focused test attempted to default-construct `Point3`; production
+  compiled successfully;
+- corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`:
+  FAST `35912060803` PASS, 34/34;
+- corrected INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 34/34 per cell;
+- `apmesh_core.surface_revolution`: PASS in all corrected jobs.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
