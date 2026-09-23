@@ -389,63 +389,77 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-coons-patch-implementation-closure`: **MERGED /
   HISTORICAL** via PR #160; closes the oriented cubic Bézier Coons
   implementation checkpoint.
-- `docs/surface-coons-terminal-sync`: **ACTIVE / DOCUMENTATION-ONLY**;
-  terminally reconciles the closed Coons work unit before the next surface
-  breadth decision.
+- `docs/surface-coons-terminal-sync`: **MERGED / HISTORICAL** via PR #161;
+  terminally reconciles the closed Coons work unit.
+- `surface/rectangular-trimmed-surface-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; literature-backed static rectangular trimming
+  decision; no production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Oriented Four-Boundary Cubic Bézier Coons Patch implementation is
-terminally closed.**
+**Static Rectangular Trimmed Surface Breadth Decision — ACTIVE /
+DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal Coons evidence:
+Active branch:
+`surface/rectangular-trimmed-surface-decision`.
 
-1. initial validated head:
-   `d93f85d1e19d49ec1cf17aa40681fcb13c310d7d`;
-2. initial FAST `35842812822`: PASS, 30/30;
-3. initial INTEGRATION `35842812792`: PASS, 30/30 in GCC and Clang;
-4. final PR head:
-   `ec5a1b56dd30445c5745dc2522680653f4f0af3f`;
-5. final FAST `35843033876`: PASS, 30/30;
-6. final INTEGRATION `35843034029`: PASS, 30/30 in GCC and Clang;
-7. implementation PR #159:
-   `3528612fdb875d8298d785a2c32f0fb4e1f8eea4`;
-8. implementation post-merge FAST `35843296073`: PASS, 30/30;
-9. implementation post-merge INTEGRATION `35843296147`: PASS, 30/30;
-10. implementation closure PR #160 head:
-    `02e56a11c1fbe4f764e63c0db745f203442172a9`;
-11. closure PR FAST `35843661949`: PASS;
-12. closure PR INTEGRATION `35843661956`: PASS;
-13. closure PR #160 merged as:
-    `3a0edbbed28b43171cf27171525b13e9fb54ad3e`;
-14. closure post-merge FAST `35845572575`: PASS;
-15. closure post-merge INTEGRATION `35845572455`: PASS;
-16. focused `apmesh_core.surface_coons_patch`: PASS throughout every
-    complete semantic validation;
-17. no production work item is active.
+Entry authority:
 
-Terminal work-unit result:
+- terminal Coons sync PR #161 head:
+  `3946ee5079490e68ee26add001a3a83828e06459`;
+- PR #161 FAST `35845757475`: PASS;
+- PR #161 INTEGRATION `35845757479`: PASS;
+- PR #161 merged as
+  `efd084e8b247cde48e89bb67cd0b0097d005feab`;
+- post-merge FAST `35845911399`: PASS;
+- post-merge INTEGRATION `35845911492`: PASS;
+- no open PR or active production work item at decision entry.
 
-**CUBIC BÉZIER COONS PATCH IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`.
 
-## Next admissible work item
-
-Open exactly one fresh literature-backed Surface Representation breadth
-decision comparing at minimum:
+Required comparison:
 
 1. analytic elementary surfaces;
 2. ruled/extrusion/revolution surfaces;
 3. rectangular/general trimmed-surface semantics;
-4. broader Coons/transfinite boundary families, including rational/NURBS
-   boundaries when justified;
-5. remaining NURBS breadth, including multiplicity-three/C0,
-   arbitrary-degree and periodic semantics, only when required by the admitted
-   model class.
+4. broader Coons/transfinite boundary families;
+5. remaining NURBS breadth required by the admitted model class.
 
-No candidate is pre-authorized.
+Selected future work unit:
 
-Surface Differential Geometry, Boundary Curve Discretization, meshing,
-Quad-Dominant and parallel work remain blocked.
+**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
+
+The decision freezes:
+
+- compile-time generic `RectangularTrimmedSurface3<Surface>`;
+- basis owned by value;
+- independent finite U/V source/target trim parameters;
+- trim bounds contained exactly inside the basis domain;
+- source/target ordering encodes U/V orientation;
+- sorted exposed subdomain with no reparameterization to `[0,1]^2`;
+- value forwarding to mapped basis parameters;
+- first-derivative sign covariance;
+- pure-second-partial preservation and mixed-partial sign product;
+- U/V reversal and nested trim semantics;
+- focused instantiation over polynomial, rational, NURBS and Coons bases;
+- current 30-test baseline preserved plus one focused contract, targeting 31.
+
+General trim loops/p-curves/topological faces, analytic/swept surfaces,
+broader Coons and remaining NURBS breadth remain explicitly deferred.
+
+This branch may modify only documentation/research/decision authorities.
+No production implementation is authorized until the decision is integrated,
+post-merge validated and separately closed.
+
+## Next admissible transition after this decision
+
+Only after decision integration, post-merge FAST/INTEGRATION and a separate
+decision closure may one implementation branch open for the selected static
+rectangular trim wrapper.
+
+If implementation requires a common surface-contract change, runtime
+polymorphism, p-curves, topology, periodic wrapping, analytic placement or
+meshing, stop and require a new decision.
