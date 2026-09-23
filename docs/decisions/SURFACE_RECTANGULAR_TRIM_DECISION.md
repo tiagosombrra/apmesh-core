@@ -808,3 +808,37 @@ Expected ordinary semantic inventory: **31 tests**.
 Current status:
 
 **IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 36. Initial implementation validation attempt
+
+PR #165 initial implementation head:
+
+`296d8fd7f61b2c3f6681e4a27ef8149dfd990809`.
+
+Initial validation:
+
+- FAST `35873420030`: FAIL, 30/31 ordinary tests;
+- INTEGRATION `35873419776`: FAIL in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/31 tests in each cell;
+- only `apmesh_core.surface_rectangular_trim` failed;
+- emitted assertion:
+  `nested rectangular trim semantics differ`.
+
+Audit diagnosis:
+
+**TEST-ORACLE EXPECTATION MISMATCH / NO PRODUCTION SEMANTIC DEFECT SHOWN.**
+
+The failing assertion compared a nested trim and its mathematically equivalent
+direct trim with bitwise equality. Equivalent reversal compositions can reach
+the same physical parameter through different intermediate interval arithmetic
+and therefore do not guarantee bit-identical floating results.
+
+Corrective action:
+
+- preserve production `trimmed_surface.hpp` unchanged;
+- replace only nested/direct exact equality with explicit scale-aware numerical
+  parity for value, first partials and second partials;
+- revalidate the new immutable PR head in FAST and both INTEGRATION cells.
+
+This failed attempt remains part of the permanent validation history.
