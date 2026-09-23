@@ -788,6 +788,23 @@ Candidate semantics:
 
 Expected ordinary inventory: **34 tests**.
 
+Initial implementation validation:
+
+- initial PR head:
+  `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`;
+- FAST `35911765896`: FAIL during compilation of
+  `tests/surface_revolution.cpp`;
+- INTEGRATION `35911765945`: FAIL in both GCC 13 Debug and Clang 18/libc++
+  Debug for the same test-compilation reason;
+- production revolution source compiled successfully;
+- root cause was test-only default initialization of
+  `std::array<Point3,4>`, while `Point3` has no default constructor;
+- classified as a mechanical focused-test defect;
+- corrected by copying the existing valid control-point array before
+  replacement;
+- production semantics and the decision contract were unchanged.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / MECHANICAL TEST FIX APPLIED /
+REVALIDATION PENDING / NOT QUALIFIED.**
