@@ -344,6 +344,20 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.surface_coons_patch
     )
 
+    add_executable(apmesh_core.surface_rectangular_trim
+        tests/surface_rectangular_trim.cpp
+    )
+    target_link_libraries(
+        apmesh_core.surface_rectangular_trim
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.surface_rectangular_trim)
+
+    add_test(
+        NAME apmesh_core.surface_rectangular_trim
+        COMMAND apmesh_core.surface_rectangular_trim
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -537,6 +551,7 @@ if(BUILD_TESTING)
         apmesh_core.surface_bicubic_nurbs
         apmesh_core.surface_bicubic_nurbs_double_knot_continuity
         apmesh_core.surface_coons_patch
+        apmesh_core.surface_rectangular_trim
         PROPERTIES LABELS "surface;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
 
