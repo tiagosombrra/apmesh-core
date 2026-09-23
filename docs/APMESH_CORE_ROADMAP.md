@@ -1912,10 +1912,22 @@ Authorized scope:
 - reversal/multiplicity reflection;
 - target ordinary inventory: 29 tests.
 
-Candidate implementation is mapped to the authorized files and is awaiting
-FAST/INTEGRATION validation. The common bounded-surface concept signatures
-remain unchanged; only the explicitly authorized common error enumerator is
-added.
+Validation history:
+
+- initial head `3e169a6c9db545d227eeba07f04ecec7d256f577` compiled the new contract
+  but FAST `35837423080` and INTEGRATION `35837423118` selected only
+  28 tests because its surface labels were missing;
+- corrected head `b913895065f1d1184ecebf2565667fdd7fcaca2b`;
+- FAST `35837638861`: PASS, 29/29;
+- INTEGRATION `35837638899`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 29/29 per cell;
+- the new C1 surface contract and every prerequisite ordinary semantic
+  contract passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. The common bounded-surface concept
+signatures remain unchanged; only the explicitly authorized common error
+enumerator is added.
 
 Multiplicity three/C0, arbitrary degree, periodicity, component-specific or
 one-sided derivatives, Coons, analytic elementary, swept and trimmed surfaces
