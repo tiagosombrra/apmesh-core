@@ -805,9 +805,22 @@ extreme finite non-normalized NURBS domains and deterministic failures.
 
 Expected ordinary semantic inventory: **31 tests**.
 
+Corrected candidate validation:
+
+- corrected candidate head:
+  `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`;
+- FAST `35873716331`: PASS, 31/31 ordinary semantic tests;
+- INTEGRATION `35873716367`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 31/31 tests in each cell;
+- `apmesh_core.surface_rectangular_trim`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- production `trimmed_surface.hpp` remained unchanged from the initial
+  failed attempt.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 
 ## 36. Initial implementation validation attempt
