@@ -1875,34 +1875,49 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Cubic Bézier Linear Extrusion —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Representation — Arbitrary Right-Handed 3D Axis Placement
+Prerequisite — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Terminal implementation lineage:
+Decision-entry authority:
 
-- implementation PR #170:
-  `63b4d963fbed25e6482d37ae1944a08799043b2c`;
-- implementation post-merge FAST `35892078309`: PASS, 32/32;
-- implementation post-merge INTEGRATION `35892078255`: PASS, 32/32;
-- closure PR #171 head:
-  `6bd10e79ddc80fc7c1330ecb7d570148b1a0e841`;
-- closure PR FAST `35892445808`: PASS;
-- closure PR INTEGRATION `35892445798`: PASS;
-- closure merge:
-  `fccb7330e9fb0e5a45b53d9e72efee689f30ea2f`;
-- closure post-merge FAST `35892574623`: PASS;
-- closure post-merge INTEGRATION `35892574146`: PASS.
+- terminal linear-extrusion sync:
+  `cbc29da630e6eba3f757bfedc06419431907d6d7`;
+- PR #172 FAST `35892883045`: PASS;
+- PR #172 INTEGRATION `35892882815`: PASS;
+- post-merge FAST `35893168075`: PASS;
+- post-merge INTEGRATION `35893168175`: PASS.
 
-After this terminal sync is integrated and post-merge validated, open one fresh
-Surface Representation breadth decision comparing:
+Active decision:
+`docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-- arbitrary-placement prerequisite for analytic elementary surfaces;
-- bounded revolution surface;
-- general trimming/p-curves/topological-face seams;
+Selected future work unit:
+
+**Right-Handed Arbitrary 3D Axis Placement.**
+
+The decision deliberately creates a separate `AxisPlacement3` rather than
+modifying the qualified `CartesianFrame3` contract.
+
+Future bounded implementation semantics:
+
+- finite origin;
+- finite non-zero main direction and X reference;
+- deterministic right-handed orthonormal triad construction;
+- no universal epsilon for parallel classification;
+- local/world point and vector transforms;
+- signed-permutation parity with `CartesianFrame3` at scale exponent zero;
+- no stored scale;
+- no surface-specific state.
+
+Deferred until later decisions:
+
+- analytic elementary surfaces;
+- bounded revolution/periodicity;
+- general trimming/p-curves/topological faces;
 - broader Coons/transfinite boundaries;
 - remaining NURBS degree/multiplicity/periodic breadth.
 
-No candidate is preselected.
+No implementation starts until decision integration, post-merge validation and
+separate decision closure.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
