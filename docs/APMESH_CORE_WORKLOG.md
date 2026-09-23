@@ -483,6 +483,35 @@ Required semantics:
 - deterministic results;
 - 33 ordinary tests expected.
 
+Candidate implementation:
+
+- `AxisPlacement3` declared in `include/apmesh/core/geometry.hpp`;
+- scale-aware direction normalization in `src/core/geometry.cpp`;
+- long-double intermediate transforms with explicit double representability
+  checks;
+- exact zero/parallel/antiparallel rejection without epsilon;
+- focused contract `tests/arbitrary_axis_placement.cpp`;
+- exhaustive parity over all 24 right-handed signed-permutation bases
+  representable by the qualified scale-zero `CartesianFrame3` subset;
+- near-parallel subnormal and extreme-finite fixtures;
+- test registered without the `qualification` label so the prior qualified
+  Geometry Primitives claim is not widened implicitly.
+
+Candidate validation:
+
+- candidate head:
+  `bb19471c2307aec70427719baf3f8d9500605c42`;
+- FAST `35901914044`: PASS, 33/33;
+- INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 33/33 in each cell;
+- `apmesh_core.arbitrary_axis_placement`: PASS in all three jobs;
+- all prior 32 ordinary contracts remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
 No analytic elementary surface, revolution, general trimming/p-curves,
 broader Coons/NURBS, differential geometry, discretization or meshing work is
 authorized.
