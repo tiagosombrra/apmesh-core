@@ -469,9 +469,29 @@ Candidate semantics include:
 - deterministic extreme-finite non-normalized NURBS-domain evidence;
 - no changes to `BoundedParametricSurface3` or existing surface production.
 
+Initial PR validation attempt:
+
+- PR #165 initial head:
+  `296d8fd7f61b2c3f6681e4a27ef8149dfd990809`;
+- FAST `35873420030`: FAIL, 30/31 tests;
+- INTEGRATION `35873419776`: FAIL in both GCC 13 Debug and Clang
+  18/libc++ Debug, 30/31 tests in each cell;
+- sole failing contract:
+  `apmesh_core.surface_rectangular_trim`;
+- failure text:
+  `nested rectangular trim semantics differ`;
+- diagnosis: test-oracle expectation mismatch, not a production semantic
+  failure. Nested and direct trims are mathematically equivalent, but exact
+  bitwise comparison is not a valid oracle after equivalent reversal
+  compositions through different intermediate parameter intervals;
+- correction: use the repository's established explicit scale-aware numerical
+  comparison style for nested/direct value and derivative parity;
+- production `trimmed_surface.hpp` is unchanged by the correction.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / CORRECTED TEST ORACLE /
+REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
