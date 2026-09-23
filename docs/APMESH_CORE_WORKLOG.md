@@ -407,29 +407,79 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #167; terminally reconciles the closed rectangular-trim work unit.
 - `surface/linear-extrusion-decision`: **MERGED / HISTORICAL** via PR #168;
   bounded swept-surface decision.
-- `docs/surface-linear-extrusion-decision-closure`: **CLOSURE-ONLY**;
-  records PR #168 integration and post-merge validation.
+- `docs/surface-linear-extrusion-decision-closure`: **MERGED / HISTORICAL** via
+  PR #169; closes the bounded linear-extrusion decision checkpoint.
+- `surface/cubic-bezier-linear-extrusion`: **ACTIVE**; bounded swept-surface
+  implementation work item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Cubic Bézier Linear Extrusion Surface decision is integrated and ready
-for closure.**
+**Bounded Cubic Bézier Linear Extrusion Surface in 3D — ACTIVE /
+IMPLEMENTATION OPEN / NOT QUALIFIED.**
 
-Decision evidence:
+Active branch:
+`surface/cubic-bezier-linear-extrusion`.
 
-1. PR #168 merged as `b8fe106080513a9736172a2380d5d8c0f162276a`;
-2. PR FAST `35885189655`: PASS;
-3. PR INTEGRATION `35885189624`: PASS in GCC and Clang;
-4. post-merge FAST `35885367665`: PASS;
-5. post-merge INTEGRATION `35885367613`: PASS;
-6. no production extrusion code exists yet;
-7. ordinary semantic inventory remains 31 tests.
-
-After this closure is integrated and post-merge validated, the sole next work
-item is `CubicBezierLinearExtrusionSurface3`, bounded exactly by
+Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
 
-No analytic elementary, revolution, generic extrusion, general trimming,
-p-curve/topology, differential-geometry or meshing work is authorized.
+Closed decision checkpoint:
+
+- decision PR #168 merged as
+  `b8fe106080513a9736172a2380d5d8c0f162276a`;
+- decision post-merge FAST `35885367665`: PASS;
+- decision post-merge INTEGRATION `35885367613`: PASS;
+- decision closure PR #169 head:
+  `eadb04268ed167759e5eaa9d1004922c43bb5404`;
+- closure PR FAST `35885907493`: PASS;
+- closure PR INTEGRATION `35885907499`: PASS;
+- closure merge:
+  `f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`;
+- closure post-merge FAST `35886133289`: PASS;
+- closure post-merge INTEGRATION `35886133213`: PASS;
+- ordinary semantic inventory at implementation entry: 31 tests.
+
+Authorized mapping:
+
+1. public API:
+   `include/apmesh/geometry/extrusion_surface.hpp`;
+2. production:
+   `src/geometry/extrusion_surface.cpp`;
+3. focused contract:
+   `tests/surface_linear_extrusion.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized STATE / ROADMAP / WORKLOG / decision.
+
+Required scope:
+
+- basis: `CubicBezier3`;
+- exact normalized domain `[0,1]^2`;
+- finite extrusion displacement vector;
+- prevalidated finite translated end curve;
+- value `S=C(u)+vE`;
+- exact `Su=C'(u)`, `Sv=E`, `Suu=C''(u)`,
+  `Suv=Svv=0`;
+- U/V reversal and exact stored-representation involution;
+- boundary parity;
+- zero-extrusion and degenerate-basis admission;
+- independent analytic oracle;
+- 32 ordinary tests expected.
+
+Explicit non-actions:
+
+- no generic basis-curve extrusion;
+- no revolution/periodicity;
+- no analytic elementary surfaces;
+- no arbitrary-angle frame admission;
+- no general trim loops/p-curves/topology;
+- no Surface Differential Geometry;
+- no boundary discretization/meshing.
+
+## Next admissible transition
+
+Complete and validate only this work unit, integrate it through one green PR,
+validate protected `main`, close the implementation checkpoint, and only then
+open the next fresh Surface Representation breadth decision.
