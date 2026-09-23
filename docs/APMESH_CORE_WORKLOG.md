@@ -416,59 +416,47 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   checkpoint.
 - `docs/surface-linear-extrusion-closure-sync`: **MERGED / HISTORICAL**
   via PR #172; terminally reconciles the closed linear-extrusion work unit.
-- `surface/arbitrary-axis-placement-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; literature-backed placement prerequisite decision; no
-  production implementation.
+- `surface/arbitrary-axis-placement-decision`: **MERGED / HISTORICAL** via
+  PR #173; bounded arbitrary-axis placement prerequisite decision.
+- `docs/arbitrary-axis-placement-decision-closure`: **CLOSURE-ONLY**;
+  records PR #173 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Arbitrary Right-Handed 3D Axis Placement — DECISION ACTIVE /
-DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Arbitrary Right-Handed 3D Axis Placement decision is integrated and
+ready for closure.**
 
-Active branch:
-`surface/arbitrary-axis-placement-decision`.
+Decision evidence:
 
-Decision-entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`;
+2. decision PR #173 merged as
+   `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
+3. decision PR FAST `35894230229`: PASS;
+4. decision PR INTEGRATION `35894230134`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. decision post-merge FAST `35894377748`: PASS;
+6. decision post-merge INTEGRATION `35894377875`: PASS;
+7. no `AxisPlacement3` production code exists yet;
+8. `CartesianFrame3` remains unchanged;
+9. ordinary semantic inventory remains 32 tests.
 
-- terminal linear-extrusion sync PR #172:
-  `cbc29da630e6eba3f757bfedc06419431907d6d7`;
-- sync PR FAST `35892883045`: PASS;
-- sync PR INTEGRATION `35892882815`: PASS in GCC and Clang;
-- sync post-merge FAST `35893168075`: PASS;
-- sync post-merge INTEGRATION `35893168175`: PASS;
-- ordinary semantic inventory: 32 tests;
-- no open PR or production work item at decision entry.
+No production work item is active in this closure change.
 
-Decision authority:
-`docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
+## Next admissible work item after closure
 
-Compared candidates:
-
-1. arbitrary-placement prerequisite for analytic elementary surfaces;
-2. bounded revolution surface;
-3. general trimming/p-curves/topological-face seams;
-4. broader Coons/transfinite boundaries;
-5. remaining NURBS breadth.
-
-Selected future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Right-Handed Arbitrary 3D Axis Placement.**
 
-The selected type is separate from and does not weaken
-`CartesianFrame3`. Its future implementation may add only origin + arbitrary
-right-handed orientation construction and local/world transforms.
+Implementation is bounded by
+`docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-No analytic surface, revolution, trimming, NURBS, Coons, differential-geometry
-or meshing production is authorized on this decision branch.
+Expected ordinary inventory: 33 tests.
 
-## Next admissible transition after this decision
-
-Only after decision integration, post-merge FAST/INTEGRATION and separate
-decision closure may one production branch open for the bounded
-`AxisPlacement3` work unit.
-
-The existing qualified Geometry Primitives claim remains unchanged; the new
-placement, if later integrated, remains an unqualified focused extension until
-a future cumulative qualification decision explicitly widens that claim.
+No analytic elementary surface, revolution, trimming/p-curves/topological face,
+broader Coons, broader NURBS, differential-geometry or meshing work is
+authorized.
