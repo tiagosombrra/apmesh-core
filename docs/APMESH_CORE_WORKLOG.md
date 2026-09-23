@@ -393,56 +393,66 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   terminally reconciles the closed Coons work unit.
 - `surface/rectangular-trimmed-surface-decision`: **MERGED / HISTORICAL**
   via PR #162; bounded static rectangular trimmed-surface breadth decision.
-- `docs/surface-rectangular-trim-decision-closure`: **CLOSURE-ONLY**;
-  records PR #162 integration and protected-main validation.
+- `docs/surface-rectangular-trim-decision-closure`: **MERGED /
+  HISTORICAL** via PR #163; closes the static rectangular trimmed-surface
+  decision checkpoint.
+- `docs/surface-rectangular-trim-terminal-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed decision before
+  production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Static Rectangular Trimmed Surface breadth decision is integrated and
-ready for documentation closure.**
+**None. Static Rectangular Trimmed Surface decision is closed; terminal
+documentation synchronization is active.**
 
-Decision closure evidence:
+Terminal decision evidence:
 
-1. decision authority:
-   `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`;
-2. decision PR #162 head:
+1. decision PR #162 head:
    `0ee2a2b47592eee055dcc58ccba04c0364353fe5`;
-3. decision PR FAST `35846509153`: PASS;
-4. decision PR INTEGRATION `35846509081`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. decision PR #162 merged as
+2. decision PR FAST `35846509153`: PASS;
+3. decision PR INTEGRATION `35846509081`: PASS in GCC and Clang;
+4. decision merge:
    `b0ed7acaf88b3267c0e1af1e79db657b9cc70540`;
-6. decision post-merge FAST `35846672914`: PASS;
-7. decision post-merge INTEGRATION `35846673106`: PASS;
-8. no rectangular-trim production wrapper exists yet;
-9. existing 30 ordinary semantic tests remain the production baseline.
+5. decision post-merge FAST `35846672914`: PASS;
+6. decision post-merge INTEGRATION `35846673106`: PASS;
+7. decision closure PR #163 head:
+   `012703f1f8cd5cdf2ed8922269c2d17e8b3cb236`;
+8. closure PR FAST `35847140517`: PASS;
+9. closure PR INTEGRATION `35847140605`: PASS in GCC and Clang;
+10. closure PR #163 merged as
+    `dbaffc020bdd8d7197f94b17f9f85b44367da1f0`;
+11. closure post-merge FAST `35847281819`: PASS;
+12. closure post-merge INTEGRATION `35847281719`: PASS;
+13. no rectangular-trim production wrapper exists yet;
+14. the common `BoundedParametricSurface3` contract remains unchanged;
+15. all integrated surface families remain frozen prerequisites.
 
-No production work item is active in this closure change.
+Decision checkpoint result:
 
-## Next admissible work item after closure
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT STARTED /
+NOT QUALIFIED.**
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
+## Next admissible work item after terminal sync
+
+After this synchronization is integrated and its own post-merge
+FAST/INTEGRATION pass, open exactly one implementation branch for:
 
 **Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
 
-Implementation must remain within
-`docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`:
+Authorized implementation remains limited to:
 
 - header-only `RectangularTrimmedSurface3<Surface>`;
-- compile-time generic `BoundedParametricSurface3` basis owned by value;
-- exact finite U/V source/target subdomain contained in the basis domain;
-- independent U/V orientation encoded by source/target ordering;
+- compile-time generic bounded surface basis owned by value;
+- exact oriented U/V trim subdomains;
 - no normalization to `[0,1]^2`;
-- value forwarding to mapped basis parameters;
-- first-partial sign covariance;
-- pure-second-partial preservation and mixed-partial sign product;
-- U/V reversal and nested trim semantics;
-- focused coverage over polynomial, rational, NURBS and Coons bases;
-- current 30-test baseline preserved plus one focused contract, targeting 31.
+- mapped value forwarding;
+- first/second derivative orientation covariance;
+- U/V reversal;
+- nested trim behavior;
+- one focused test, targeting 31 ordinary semantic tests.
 
-No arbitrary trim loops, p-curves, topology, analytic/swept surfaces,
-broader Coons/transfinite dispatch, remaining NURBS breadth, Surface
-Differential Geometry or meshing work is authorized.
+General trim loops, p-curves, topology, analytic/swept surfaces, broader
+Coons/transfinite dispatch, remaining NURBS breadth, Surface Differential
+Geometry, discretization and meshing remain unauthorized.

@@ -694,3 +694,38 @@ item is the implementation bounded by Sections 5–29.
 General trim loops/p-curves/topology, analytic/swept surfaces, broader
 Coons/transfinite boundaries, remaining NURBS breadth and downstream
 differential/meshing capabilities remain unauthorized.
+
+
+## 33. Decision closure checkpoint
+
+Decision closure PR #163 used head:
+
+`012703f1f8cd5cdf2ed8922269c2d17e8b3cb236`.
+
+Closure PR validation:
+
+- FAST `35847140517`: PASS;
+- INTEGRATION `35847140605`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #163 merged as:
+
+`dbaffc020bdd8d7197f94b17f9f85b44367da1f0`.
+
+Closure post-merge validation:
+
+- FAST `35847281819`: PASS;
+- INTEGRATION `35847281719`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+After terminal documentation synchronization, the sole next production work
+item is the static rectangular trimmed-surface implementation bounded by
+Sections 5–29.
+
+General trimming/topology, analytic/swept surfaces, broader Coons/transfinite,
+remaining NURBS breadth and downstream differential/meshing capabilities remain
+unauthorized.
