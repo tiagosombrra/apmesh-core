@@ -294,56 +294,41 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact current bounded scientific action:
+Exact next bounded scientific action:
 
-**Implement the bounded bicubic positive-weight NURBS surface work unit with
-runtime-variable U/V span counts and simple interior knots.**
+**After this implementation closure is integrated and post-merge validated,
+open one fresh literature-backed Surface Representation breadth decision.**
 
-Closed decision evidence:
+Terminal bicubic NURBS implementation evidence:
 
-- decision PR #149:
-  `d6d9c8c30c716540c95fe449dee53227e6722c22`;
-- decision post-merge FAST `35797779574`: PASS;
-- decision post-merge INTEGRATION `35797779547`: PASS;
-- closure PR #150:
-  `cd48a635165c80f4ac1248a9fb164d824ebf9ed0`;
-- closure post-merge FAST `35798149208`: PASS;
-- closure post-merge INTEGRATION `35798149304`: PASS.
+- candidate head:
+  `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
+- candidate FAST `35802648932`: PASS, 28/28;
+- candidate INTEGRATION `35802648875`: PASS, 28/28;
+- final PR head:
+  `7fc82143e8fae6a2ee164b5ebae7a57bdd9b55a2`;
+- final PR FAST `35802788385`: PASS, 28/28;
+- final PR INTEGRATION `35802788429`: PASS, 28/28;
+- implementation PR #151:
+  `3042f0a2eb1c4df20207248c1b16c7b023e5c525`;
+- post-merge FAST `35802888299`: PASS, 28/28;
+- post-merge INTEGRATION `35802888266`: PASS, 28/28.
 
-Active branch:
-`surface/bicubic-nurbs`.
+The integrated surface breadth now includes polynomial bicubic Bézier,
+positive-weight rational bicubic Bézier and clamped positive-weight bicubic
+NURBS with runtime-variable simple-knot U/V span counts.
 
-Decision authority:
-`docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`.
+No production work item is active.
 
-The implementation may add only `BicubicNURBSSurface3` plus its private
-production machinery and focused contract. The existing common bounded-surface
-contract remains frozen.
-
-No repeated surface knots, arbitrary degree, periodicity, Coons/transfinite,
-analytic elementary, swept, trimmed, differential-geometry or meshing work is
-authorized.
-
-Candidate validation:
-
-- head `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
-- FAST `35802648932`: PASS, 28/28 tests;
-- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 28/28 tests per cell;
-- focused `apmesh_core.surface_bicubic_nurbs`: PASS in all three jobs;
-- all frozen polynomial/rational surface and curve prerequisites remain
-  unchanged.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+The next decision must compare surface C1 knot-line semantics, Coons,
+analytic elementary, swept and trimmed surfaces, plus arbitrary
+degree/periodicity only if justified.
 
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
-IMPLEMENTATION ACTIVE / NOT QUALIFIED /
-POLYNOMIAL AND RATIONAL BICUBIC PREREQUISITES PRESERVED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED / POLYNOMIAL AND RATIONAL BICUBIC PREREQUISITES PRESERVED**
 
 Paused prerequisite investigation:
 
@@ -371,9 +356,11 @@ The following are **not implemented and not covered by CGR qualification**:
 - general/multi-span/arbitrary-degree/repeated-knot/periodic NURBS semantics
   beyond the integrated fixed two-span cubic family;
 - heterogeneous composite/polycurve semantics;
-- B-spline/NURBS, Coons/transfinite, analytic elementary, swept and trimmed
-  surface representations beyond the integrated polynomial and positive-weight
-  rational bicubic Bézier patches.
+- Coons/transfinite, analytic elementary, swept and trimmed surface
+  representations beyond the integrated polynomial, positive-weight rational
+  bicubic Bézier and simple-knot bicubic NURBS surface work units;
+- repeated-knot/arbitrary-degree/periodic NURBS surface semantics beyond the
+  integrated simple-knot bicubic NURBS surface.
 
 This limitation does not invalidate the existing cubic-Bézier qualification.
 It prevents that qualification from being generalized to those families.
@@ -386,8 +373,9 @@ their semantics.
 
 Surface Representation is open and its entry decision explicitly maps
 polynomial/rational free-form, spline/NURBS, Coons/transfinite, analytic,
-swept and trimmed families. Polynomial and positive-weight rational bicubic
-Bézier patches are integrated focused work units. No spline/NURBS,
+swept and trimmed families. Polynomial bicubic Bézier, positive-weight
+rational bicubic Bézier and simple-knot bicubic NURBS surfaces are integrated
+focused work units. No repeated-knot/arbitrary-degree/periodic NURBS,
 Coons/transfinite, analytic, swept or trimmed surface family is implicitly
 implemented or qualified.
 
