@@ -658,3 +658,39 @@ Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
 Surface Differential Geometry and Boundary Curve Discretization remain
 blocked.
+
+
+## 32. Decision integration checkpoint
+
+PR #162 integrated this bounded decision from final head:
+
+`0ee2a2b47592eee055dcc58ccba04c0364353fe5`.
+
+Decision-head validation:
+
+- FAST `35846509153`: PASS;
+- INTEGRATION `35846509081`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #162 merged as:
+
+`b0ed7acaf88b3267c0e1af1e79db657b9cc70540`.
+
+Post-merge validation:
+
+- FAST `35846672914`: PASS;
+- INTEGRATION `35846673106`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The integrated decision selects only:
+
+**Static Oriented Rectangular Trim of a Bounded Parametric Surface in 3D.**
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After closure integration and its post-merge validation, the sole next work
+item is the implementation bounded by Sections 5–29.
+
+General trim loops/p-curves/topology, analytic/swept surfaces, broader
+Coons/transfinite boundaries, remaining NURBS breadth and downstream
+differential/meshing capabilities remain unauthorized.
