@@ -327,6 +327,30 @@ No multiplicity-three, arbitrary-degree, periodic, one-sided/component-specific
 derivative, Coons, analytic, swept, trimmed, differential-geometry or meshing
 work is authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/parametric_surface.hpp`;
+- `include/apmesh/geometry/nurbs_surface.hpp`;
+- `src/geometry/nurbs_surface.cpp`;
+- `tests/surface_bicubic_nurbs_double_knot_continuity.cpp`;
+- `CMakeLists.txt`.
+
+Candidate semantics:
+
+- legacy simple-knot construction synthesizes multiplicity one and remains
+  source-compatible;
+- explicit U/V multiplicities are unique-knot metadata restricted to 1/2;
+- U/V flat knot caches are built once and reused without per-query allocation;
+- value and first partials remain available at C1 knot lines;
+- aggregate `second_derivatives()` returns
+  `SurfaceError::insufficient_continuity` exactly on a U or V double knot
+  line before accidental-smoothness shortcuts;
+- 29 ordinary tests are expected after registration.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
