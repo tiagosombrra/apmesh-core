@@ -578,3 +578,120 @@ The decision is integrated and ready for documentation closure.
 
 After closure integration and post-merge validation, the sole next work item is
 the bounded `CubicBezierLinearExtrusionSurface3` implementation.
+
+
+## 29. Decision closure checkpoint
+
+Decision closure PR #169 used head
+`eadb04268ed167759e5eaa9d1004922c43bb5404`.
+
+Closure PR validation:
+
+- FAST `35885907493`: PASS;
+- INTEGRATION `35885907499`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+PR #169 merged as
+`f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`.
+
+Closure post-merge validation:
+
+- FAST `35886133289`: PASS;
+- INTEGRATION `35886133213`: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is
+`CubicBezierLinearExtrusionSurface3`, bounded by Sections 5–25.
+
+
+## 30. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/cubic-bezier-linear-extrusion`.
+
+Candidate mapping:
+
+- public API:
+  `include/apmesh/geometry/extrusion_surface.hpp`;
+- production:
+  `src/geometry/extrusion_surface.cpp`;
+- focused semantic/reference contract:
+  `tests/surface_linear_extrusion.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate implementation stores:
+
+- exact basis `CubicBezier3`;
+- prevalidated translated end `CubicBezier3`;
+- exact extrusion displacement.
+
+Candidate production semantics:
+
+- exact `[0,1]^2` parameter domain;
+- deterministic U/V validation order;
+- `S=C(u)+vE`;
+- analytic `Su=C'(u)`, `Sv=E`, `Suu=C''(u)`;
+- exact zero `Suv` and `Svv`;
+- exact storage-based U/V reversal;
+- no generic curve-family error translation contract.
+
+The focused contract includes:
+
+- independent direct Bernstein + extrusion reference;
+- all four boundaries;
+- U/V reversal and orientation relation;
+- zero extrusion and constant-basis degenerates;
+- translation and exact power-of-two scale;
+- admitted signed-permutation/power-of-two Cartesian-frame covariance;
+- extreme finite success;
+- construction-time non-representable translated-control rejection;
+- deterministic success/failure evidence.
+
+Expected ordinary semantic inventory: **32 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 31. Active implementation validation
+
+Candidate head:
+
+`c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`.
+
+Candidate validation:
+
+- FAST `35887599787`: PASS, 32/32 ordinary semantic tests;
+- INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 32/32 tests per cell;
+- `apmesh_core.surface_linear_extrusion`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Validated candidate scope includes:
+
+- exact normalized `[0,1]^2` domain;
+- stored cubic Bézier basis, translated end curve and extrusion displacement;
+- independent Bernstein-plus-extrusion value/partial evidence;
+- `Su=C'(u)`, `Sv=E`, `Suu=C''(u)`, exact-zero `Suv/Svv`;
+- four boundary families;
+- U/V reversal and orientation covariance;
+- zero-extrusion and constant-basis degenerates;
+- translation, exact power-of-two scale and admitted Cartesian-frame
+  covariance;
+- extreme finite success;
+- construction-time rejection of non-representable translated end controls;
+- deterministic repeated success/failure evidence.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No generic extrusion, revolution, analytic elementary surface, general
+trim/p-curve/topological-face, differential-geometry or meshing capability is
+implied.

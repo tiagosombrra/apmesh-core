@@ -1875,20 +1875,49 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Cubic Bézier Linear Extrusion — DECISION
-INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+**Surface Representation — Cubic Bézier Linear Extrusion —
+IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
-Decision validation:
+Decision authority:
+`docs/decisions/SURFACE_CUBIC_BEZIER_LINEAR_EXTRUSION_DECISION.md`.
 
-- PR #168: `b8fe106080513a9736172a2380d5d8c0f162276a`;
-- FAST `35885189655`: PASS;
-- INTEGRATION `35885189624`: PASS;
-- post-merge FAST `35885367665`: PASS;
-- post-merge INTEGRATION `35885367613`: PASS.
+Closed decision lineage:
 
-After closure integration and post-merge validation, the sole next production
-work item is `CubicBezierLinearExtrusionSurface3`, targeting 32 ordinary
-tests.
+- decision PR #168:
+  `b8fe106080513a9736172a2380d5d8c0f162276a`;
+- decision post-merge FAST `35885367665`: PASS;
+- decision post-merge INTEGRATION `35885367613`: PASS;
+- closure PR #169:
+  `f2c37429a1d3e0f6700c58a0f20c2f290e8148ee`;
+- closure post-merge FAST `35886133289`: PASS;
+- closure post-merge INTEGRATION `35886133213`: PASS.
+
+Active implementation branch:
+`surface/cubic-bezier-linear-extrusion`.
+
+Authorized implementation:
+
+- `CubicBezierLinearExtrusionSurface3`;
+- exact `[0,1]^2` domain;
+- stored start/end cubic Bézier curves plus extrusion displacement;
+- deterministic value evaluation;
+- exact analytic Su/Sv/Suu/Suv/Svv;
+- U/V reversal;
+- boundary, degenerate, affine, extreme-finite and deterministic evidence;
+- one new focused contract, targeting 32 ordinary tests.
+
+Candidate validation on head
+`c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`:
+
+- FAST `35887599787`: PASS, 32/32 tests;
+- INTEGRATION `35887599839`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 32/32 tests per cell;
+- the new linear-extrusion contract and every prior ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. Existing curve/surface contracts
+remain unchanged.
 
 All analytic elementary, revolution, generic extrusion, general trim/p-curve,
 broader Coons and remaining NURBS breadth remain deferred.

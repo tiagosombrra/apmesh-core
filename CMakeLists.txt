@@ -40,6 +40,7 @@ add_library(apmesh_core STATIC
     src/geometry/rational_surface.cpp
     src/geometry/nurbs_surface.cpp
     src/geometry/coons_surface.cpp
+    src/geometry/extrusion_surface.cpp
     src/math/linear_algebra.cpp
     src/topology/topology.cpp
 )
@@ -358,6 +359,20 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.surface_rectangular_trim
     )
 
+    add_executable(apmesh_core.surface_linear_extrusion
+        tests/surface_linear_extrusion.cpp
+    )
+    target_link_libraries(
+        apmesh_core.surface_linear_extrusion
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.surface_linear_extrusion)
+
+    add_test(
+        NAME apmesh_core.surface_linear_extrusion
+        COMMAND apmesh_core.surface_linear_extrusion
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -552,6 +567,7 @@ if(BUILD_TESTING)
         apmesh_core.surface_bicubic_nurbs_double_knot_continuity
         apmesh_core.surface_coons_patch
         apmesh_core.surface_rectangular_trim
+        apmesh_core.surface_linear_extrusion
         PROPERTIES LABELS "surface;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
 
