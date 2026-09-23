@@ -420,57 +420,98 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   PR #173; bounded arbitrary-axis placement prerequisite decision.
 - `docs/arbitrary-axis-placement-decision-closure`: **MERGED / HISTORICAL**
   via PR #174; closes the arbitrary-axis placement decision checkpoint.
-- `docs/arbitrary-axis-placement-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles the closed decision before
-  production implementation.
+- `docs/arbitrary-axis-placement-closure-sync`: **MERGED / HISTORICAL**
+  via PR #175; terminally reconciles the closed decision before production.
+- `surface/arbitrary-axis-placement`: **ACTIVE**; bounded
+  `AxisPlacement3` implementation work item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Arbitrary Right-Handed 3D Axis Placement decision is closed;
-terminal documentation synchronization is active.**
+**Right-Handed Arbitrary 3D Axis Placement — ACTIVE / IMPLEMENTATION OPEN /
+NOT QUALIFIED.**
 
-Terminal decision evidence:
+Active branch:
+`surface/arbitrary-axis-placement`.
 
-1. decision authority:
-   `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`;
-2. decision PR #173:
-   `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
-3. decision PR FAST `35894230229`: PASS;
-4. decision PR INTEGRATION `35894230134`: PASS;
-5. decision post-merge FAST `35894377748`: PASS;
-6. decision post-merge INTEGRATION `35894377875`: PASS;
-7. decision closure PR #174 head:
-   `56f9b85e95f5074b3f3b692b512472964735135e`;
-8. closure PR FAST `35894725433`: PASS;
-9. closure PR INTEGRATION `35894725365`: PASS;
-10. closure PR #174 merged as:
-    `fbdfb98cfc5574c053f32298cab75d714ff31772`;
-11. closure post-merge FAST `35900347873`: PASS;
-12. closure post-merge INTEGRATION `35900347965`: PASS;
-13. no `AxisPlacement3` production code exists yet;
-14. `CartesianFrame3` remains unchanged;
-15. ordinary semantic inventory remains 32 tests.
-
-Decision result:
-
-**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
-
-No production work item is active during this documentation-only sync.
-
-## Next admissible work item after terminal sync
-
-After this sync is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
-
-**Right-Handed Arbitrary 3D Axis Placement.**
-
-Implementation is bounded by
+Decision authority:
 `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-Expected ordinary inventory: 33 tests.
+Closed decision/sync evidence:
 
-No analytic elementary surface, revolution, trimming/p-curves/topological face,
-broader Coons, broader NURBS, differential-geometry or meshing work is
+1. decision PR #173:
+   `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
+2. decision closure PR #174:
+   `fbdfb98cfc5574c053f32298cab75d714ff31772`;
+3. terminal sync PR #175 head:
+   `167cf36ce0623b73047545a86f79a9c1b89bb675`;
+4. sync PR FAST `35900708572`: PASS;
+5. sync PR INTEGRATION `35900708552`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+6. sync PR #175 merged as:
+   `281c935578fc3fa9fb625178ce4473d54c684591`;
+7. sync post-merge FAST `35900859164`: PASS;
+8. sync post-merge INTEGRATION `35900859257`: PASS;
+9. ordinary semantic inventory remains 32 tests;
+10. `CartesianFrame3` remains frozen and unchanged.
+
+Authorized repository mapping:
+
+- declaration:
+  `include/apmesh/core/geometry.hpp`;
+- production:
+  `src/core/geometry.cpp`;
+- focused contract:
+  `tests/arbitrary_axis_placement.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / decision.
+
+Required semantics:
+
+- finite origin;
+- non-zero finite main direction and X reference;
+- deterministic right-handed orthonormal triad;
+- no universal epsilon for collinearity;
+- exact parallel/antiparallel rejection;
+- local/world point and vector transforms;
+- no stored scale;
+- signed-permutation parity with `CartesianFrame3` at scale exponent zero;
+- power-of-two input-scale invariance;
+- extreme finite evidence;
+- deterministic results;
+- 33 ordinary tests expected.
+
+Candidate implementation:
+
+- `AxisPlacement3` declared in `include/apmesh/core/geometry.hpp`;
+- scale-aware direction normalization in `src/core/geometry.cpp`;
+- long-double intermediate transforms with explicit double representability
+  checks;
+- exact zero/parallel/antiparallel rejection without epsilon;
+- focused contract `tests/arbitrary_axis_placement.cpp`;
+- exhaustive parity over all 24 right-handed signed-permutation bases
+  representable by the qualified scale-zero `CartesianFrame3` subset;
+- near-parallel subnormal and extreme-finite fixtures;
+- test registered without the `qualification` label so the prior qualified
+  Geometry Primitives claim is not widened implicitly.
+
+Candidate validation:
+
+- candidate head:
+  `bb19471c2307aec70427719baf3f8d9500605c42`;
+- FAST `35901914044`: PASS, 33/33;
+- INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 33/33 in each cell;
+- `apmesh_core.arbitrary_axis_placement`: PASS in all three jobs;
+- all prior 32 ordinary contracts remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No analytic elementary surface, revolution, general trimming/p-curves,
+broader Coons/NURBS, differential geometry, discretization or meshing work is
 authorized.

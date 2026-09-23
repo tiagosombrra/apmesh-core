@@ -90,22 +90,28 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
 - latest closed scientific decision:
   **Arbitrary Right-Handed 3D Axis Placement prerequisite**;
-- decision PR #173:
-  `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
-- decision closure PR #174:
-  `fbdfb98cfc5574c053f32298cab75d714ff31772`;
-- closure PR FAST `35894725433` and INTEGRATION
-  `35894725365`: PASS;
-- closure post-merge FAST `35900347873` and INTEGRATION
-  `35900347965`: PASS;
-- terminal sync branch:
-  `docs/arbitrary-axis-placement-closure-sync`;
-- no production work item is active during the sync;
+- terminal decision-sync PR #175:
+  `281c935578fc3fa9fb625178ce4473d54c684591`;
+- sync PR FAST `35900708572` and INTEGRATION `35900708552`: PASS;
+- sync post-merge FAST `35900859164` and INTEGRATION
+  `35900859257`: PASS;
+- active branch:
+  `surface/arbitrary-axis-placement`;
+- active work item:
+  **Right-Handed Arbitrary 3D Axis Placement**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
-- ordinary semantic inventory: **32 tests**;
-- after terminal sync integration/post-merge validation, the sole next work
-  item is the bounded `AxisPlacement3` implementation;
+- ordinary semantic inventory at implementation entry: **32 tests**;
+- target inventory after one focused contract: **33 tests**;
+- candidate implementation head:
+  `bb19471c2307aec70427719baf3f8d9500605c42`;
+- candidate FAST `35901914044`: PASS, 33/33;
+- candidate INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 33/33 per cell;
+- focused `apmesh_core.arbitrary_axis_placement`: PASS;
+- current component status:
+  **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+  DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED**;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;

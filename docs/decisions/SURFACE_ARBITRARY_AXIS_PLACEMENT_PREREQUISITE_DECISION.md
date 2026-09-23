@@ -551,3 +551,59 @@ The qualified `CartesianFrame3` claim remains unchanged.
 
 No analytic elementary surface, revolution, trimming, broader Coons/NURBS or
 downstream capability is authorized.
+
+
+## 33. Active implementation mapping
+
+Terminal decision synchronization PR #175 merged as:
+
+`281c935578fc3fa9fb625178ce4473d54c684591`.
+
+Sync validation:
+
+- PR FAST `35900708572`: PASS;
+- PR INTEGRATION `35900708552`: PASS;
+- post-merge FAST `35900859164`: PASS;
+- post-merge INTEGRATION `35900859257`: PASS.
+
+The sole authorized implementation is active on:
+
+`surface/arbitrary-axis-placement`.
+
+Candidate repository mapping is restricted to:
+
+- `include/apmesh/core/geometry.hpp`;
+- `src/core/geometry.cpp`;
+- `tests/arbitrary_axis_placement.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+The qualified exact `CartesianFrame3` implementation remains frozen.
+
+Expected ordinary semantic inventory: **33 tests**.
+
+Candidate implementation details:
+
+- separate immutable `AxisPlacement3`;
+- scale-aware maximum-component normalization;
+- no universal tolerance for collinearity;
+- long-double transform intermediates with explicit final representability
+  checks;
+- exhaustive parity across all 24 compatible right-handed signed-permutation
+  bases;
+- focused test excluded from qualification labels.
+
+Candidate validation:
+
+- candidate head:
+  `bb19471c2307aec70427719baf3f8d9500605c42`;
+- FAST `35901914044`: PASS, 33/33 ordinary tests;
+- INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 33/33 tests per cell;
+- `apmesh_core.arbitrary_axis_placement`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**

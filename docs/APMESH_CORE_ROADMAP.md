@@ -1875,41 +1875,51 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Arbitrary Right-Handed 3D Axis Placement
-Prerequisite — DECISION CLOSED / IMPLEMENTATION AUTHORIZED /
-NOT STARTED / NOT QUALIFIED / TERMINAL DOCUMENTATION SYNC ACTIVE**
+**Surface Representation — Right-Handed Arbitrary 3D Axis Placement —
+IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-Terminal decision evidence:
+Closed decision/sync lineage:
 
 - decision PR #173:
   `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
-- decision post-merge FAST `35894377748`: PASS;
-- decision post-merge INTEGRATION `35894377875`: PASS;
 - closure PR #174:
   `fbdfb98cfc5574c053f32298cab75d714ff31772`;
-- closure PR FAST `35894725433`: PASS;
-- closure PR INTEGRATION `35894725365`: PASS;
-- closure post-merge FAST `35900347873`: PASS;
-- closure post-merge INTEGRATION `35900347965`: PASS.
+- terminal sync PR #175:
+  `281c935578fc3fa9fb625178ce4473d54c684591`;
+- sync PR FAST `35900708572`: PASS;
+- sync PR INTEGRATION `35900708552`: PASS;
+- sync post-merge FAST `35900859164`: PASS;
+- sync post-merge INTEGRATION `35900859257`: PASS.
 
-After this terminal documentation sync is integrated and post-merge validated,
-the sole next production work item is:
+Active implementation branch:
+`surface/arbitrary-axis-placement`.
 
-**Right-Handed Arbitrary 3D Axis Placement.**
+Authorized scope:
 
-Authorized implementation remains limited to:
-
-- a separate `AxisPlacement3`;
+- separate `AxisPlacement3`;
 - finite origin;
-- non-zero main direction and X reference;
+- non-zero finite main direction and X reference;
 - deterministic right-handed orthonormal triad;
-- local/world point and vector transforms;
+- exact parallel/antiparallel rejection without a universal epsilon;
+- local/world point/vector transforms;
 - no stored scale;
 - signed-permutation parity with `CartesianFrame3` at scale exponent zero;
+- input-scale invariance and extreme finite evidence;
 - one focused contract, targeting 33 ordinary tests.
+
+Candidate validation on
+`bb19471c2307aec70427719baf3f8d9500605c42`:
+
+- FAST `35901914044`: PASS, 33/33;
+- INTEGRATION `35901914002`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 33/33 per cell;
+- the new placement contract and all prior ordinary contracts passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration.
 
 `CartesianFrame3` remains frozen.
 

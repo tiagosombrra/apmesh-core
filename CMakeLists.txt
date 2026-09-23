@@ -147,6 +147,20 @@ if(BUILD_TESTING)
     apmesh_apply_target_defaults(apmesh_core.cartesian_frames)
 
     add_test(NAME apmesh_core.cartesian_frames COMMAND apmesh_core.cartesian_frames)
+
+    add_executable(apmesh_core.arbitrary_axis_placement
+        tests/arbitrary_axis_placement.cpp
+    )
+    target_link_libraries(
+        apmesh_core.arbitrary_axis_placement
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.arbitrary_axis_placement)
+
+    add_test(
+        NAME apmesh_core.arbitrary_axis_placement
+        COMMAND apmesh_core.arbitrary_axis_placement
+    )
     add_executable(apmesh_core.topological_model
         tests/topological_model.cpp
     )
@@ -522,6 +536,10 @@ if(BUILD_TESTING)
         apmesh_core.geometry_primitives
         apmesh_core.cartesian_frames
         PROPERTIES LABELS "geometry;contract;direct-semantic;fast;integration;qualification"
+    )
+    set_tests_properties(
+        apmesh_core.arbitrary_axis_placement
+        PROPERTIES LABELS "geometry;surface-prerequisite;contract;focused-contract;direct-semantic;fast;integration"
     )
     set_tests_properties(
         apmesh_core.minimal_small_linear_algebra
