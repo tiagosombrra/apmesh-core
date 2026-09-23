@@ -1911,6 +1911,17 @@ Authorized scope:
   deterministic evidence;
 - one new ordinary semantic test, targeting **30 tests**.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/coons_surface.hpp`;
+- `src/geometry/coons_surface.cpp`;
+- `tests/surface_coons_patch.cpp`;
+- `CMakeLists.txt`.
+
+The candidate is implemented and awaiting FAST/INTEGRATION validation. The new
+contract is explicitly part of the surface FAST/INTEGRATION label group and
+should raise the ordinary semantic inventory from 29 to **30 tests**.
+
 The common `BoundedParametricSurface3` contract remains unchanged.
 
 Rational/NURBS boundary dispatch, heterogeneous boundary composition,
