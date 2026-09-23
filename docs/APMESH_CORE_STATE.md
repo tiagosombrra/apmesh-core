@@ -324,6 +324,21 @@ No repeated surface knots, arbitrary degree, periodicity, Coons/transfinite,
 analytic elementary, swept, trimmed, differential-geometry or meshing work is
 authorized.
 
+Candidate validation:
+
+- head `86d794c58dc2eae3323f47de276ff637e2e2c3ec`;
+- FAST `35802648932`: PASS, 28/28 tests;
+- INTEGRATION `35802648875`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 28/28 tests per cell;
+- focused `apmesh_core.surface_bicubic_nurbs`: PASS in all three jobs;
+- all frozen polynomial/rational surface and curve prerequisites remain
+  unchanged.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
 ## Current active stage
 
 **Surface Representation — Continuous Patch Geometry — BICUBIC NURBS
