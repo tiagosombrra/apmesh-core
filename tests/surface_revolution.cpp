@@ -798,7 +798,7 @@ int main() {
     if (!translation) {
         return 1;
     }
-    std::array<Point3, 4> translated_controls{};
+    auto translated_controls = generatrix.control_points();
     for (std::size_t index = 0; index < translated_controls.size(); ++index) {
         const auto translated =
             generatrix.control_points()[index] + *translation;
@@ -868,7 +868,7 @@ int main() {
     if (!scaled_origin) {
         return 1;
     }
-    std::array<Point3, 4> scaled_controls{};
+    auto scaled_controls = generatrix.control_points();
     for (std::size_t index = 0; index < scaled_controls.size(); ++index) {
         const auto& point = generatrix.control_points()[index];
         const auto scaled_point = Point3::make(
