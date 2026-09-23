@@ -1876,48 +1876,43 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Arbitrary Right-Handed 3D Axis Placement
-Prerequisite — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Prerequisite — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
-
-- terminal linear-extrusion sync:
-  `cbc29da630e6eba3f757bfedc06419431907d6d7`;
-- PR #172 FAST `35892883045`: PASS;
-- PR #172 INTEGRATION `35892882815`: PASS;
-- post-merge FAST `35893168075`: PASS;
-- post-merge INTEGRATION `35893168175`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #173:
+  `36381dec1f7af3a723fd386a3f55e0f109d804b1`;
+- FAST `35894230229`: PASS;
+- INTEGRATION `35894230134`: PASS;
+- post-merge FAST `35894377748`: PASS;
+- post-merge INTEGRATION `35894377875`: PASS.
+
+Closure branch:
+`docs/arbitrary-axis-placement-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Right-Handed Arbitrary 3D Axis Placement.**
 
-The decision deliberately creates a separate `AxisPlacement3` rather than
-modifying the qualified `CartesianFrame3` contract.
+Authorized future implementation remains limited to:
 
-Future bounded implementation semantics:
-
+- a separate `AxisPlacement3`;
 - finite origin;
-- finite non-zero main direction and X reference;
-- deterministic right-handed orthonormal triad construction;
-- no universal epsilon for parallel classification;
+- non-zero main direction and X reference;
+- deterministic right-handed orthonormal triad;
 - local/world point and vector transforms;
-- signed-permutation parity with `CartesianFrame3` at scale exponent zero;
 - no stored scale;
-- no surface-specific state.
+- signed-permutation parity with `CartesianFrame3` at scale exponent zero;
+- 33 ordinary tests expected.
 
-Deferred until later decisions:
+`CartesianFrame3` remains frozen.
 
-- analytic elementary surfaces;
-- bounded revolution/periodicity;
-- general trimming/p-curves/topological faces;
-- broader Coons/transfinite boundaries;
-- remaining NURBS degree/multiplicity/periodic breadth.
-
-No implementation starts until decision integration, post-merge validation and
-separate decision closure.
+Analytic elementary surfaces, revolution, general trimming/p-curves,
+broader Coons/transfinite and remaining NURBS breadth remain later decisions.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
