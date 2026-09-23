@@ -729,3 +729,129 @@ Sections 5–29.
 General trimming/topology, analytic/swept surfaces, broader Coons/transfinite,
 remaining NURBS breadth and downstream differential/meshing capabilities remain
 unauthorized.
+
+
+## 34. Terminal decision synchronization
+
+Terminal synchronization PR #164 used head:
+
+`8c3b4c623bb3bd5812edce8723bb74eca7f9c667`.
+
+Synchronization validation:
+
+- FAST `35847597802`: PASS;
+- INTEGRATION `35847597868`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #164 merged as:
+
+`83a56ee4f1b6a4703956c3e81c1786540bfecb14`.
+
+Synchronization post-merge validation:
+
+- FAST `35847689693`: PASS;
+- INTEGRATION `35847690044`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision is terminally closed and the sole authorized implementation is
+active on:
+
+`surface/rectangular-trimmed-surface`.
+
+No broader trim/topology, analytic/swept surface, differential-geometry or
+meshing capability is authorized.
+
+
+## 35. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/rectangular-trimmed-surface`.
+
+Candidate mapping:
+
+- public/static wrapper:
+  `include/apmesh/geometry/trimmed_surface.hpp`;
+- focused contract:
+  `tests/surface_rectangular_trim.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Candidate production semantics:
+
+- basis surface owned by value;
+- deterministic construction validation in the order frozen by Section 7;
+- exact sorted U/V trim domains;
+- independent U/V orientation encoded by source/target order;
+- no normalization/rescaling;
+- overflow-aware reflection using the existing `reversed_parameter`;
+- exact basis value forwarding;
+- first derivative orientation covariance;
+- pure second partial preservation;
+- mixed-partial product sign;
+- U/V reversal, commutation and involution;
+- nested wrapper compatibility through `BoundedParametricSurface3`.
+
+The focused contract instantiates the wrapper over:
+
+- `BicubicBezierPatch3`;
+- `RationalBicubicBezierPatch3`;
+- `BicubicNURBSSurface3`;
+- `CubicBezierCoonsPatch3`.
+
+It also covers nested trimming, NURBS C1 continuity failure propagation,
+extreme finite non-normalized NURBS domains and deterministic failures.
+
+Expected ordinary semantic inventory: **31 tests**.
+
+Corrected candidate validation:
+
+- corrected candidate head:
+  `e1a9d4df3d7e8bb8ce441901a9075caa371f0ded`;
+- FAST `35873716331`: PASS, 31/31 ordinary semantic tests;
+- INTEGRATION `35873716367`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 31/31 tests in each cell;
+- `apmesh_core.surface_rectangular_trim`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- production `trimmed_surface.hpp` remained unchanged from the initial
+  failed attempt.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 36. Initial implementation validation attempt
+
+PR #165 initial implementation head:
+
+`296d8fd7f61b2c3f6681e4a27ef8149dfd990809`.
+
+Initial validation:
+
+- FAST `35873420030`: FAIL, 30/31 ordinary tests;
+- INTEGRATION `35873419776`: FAIL in GCC 13 Debug and Clang 18/libc++
+  Debug, 30/31 tests in each cell;
+- only `apmesh_core.surface_rectangular_trim` failed;
+- emitted assertion:
+  `nested rectangular trim semantics differ`.
+
+Audit diagnosis:
+
+**TEST-ORACLE EXPECTATION MISMATCH / NO PRODUCTION SEMANTIC DEFECT SHOWN.**
+
+The failing assertion compared a nested trim and its mathematically equivalent
+direct trim with bitwise equality. Equivalent reversal compositions can reach
+the same physical parameter through different intermediate interval arithmetic
+and therefore do not guarantee bit-identical floating results.
+
+Corrective action:
+
+- preserve production `trimmed_surface.hpp` unchanged;
+- replace only nested/direct exact equality with explicit scale-aware numerical
+  parity for value, first partials and second partials;
+- revalidate the new immutable PR head in FAST and both INTEGRATION cells.
+
+This failed attempt remains part of the permanent validation history.
