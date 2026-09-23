@@ -1731,3 +1731,66 @@ Project relevance:
 - supports selecting Coons as the smallest currently unblocked surface seam
   while retaining analytic, swept and trimmed families as explicit later
   decisions.
+
+
+## Bounded Revolution Surface
+
+### Open CASCADE Geom_SurfaceOfRevolution — angular sweep of a generatrix
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for bounded revolution,
+reviewed 2026-09-23.
+
+Official reference:
+https://dev.opencascade.org/doc/occt-7.8.0/refman/html/Geom__SurfaceOfRevolution_8hxx.html
+
+Project relevance:
+
+- identifies the defining representation as a generating curve plus an axis;
+- uses angular U semantics and the generating-curve parameter in the other
+  direction;
+- complete revolution is periodic, supporting the project decision to isolate a
+  strict sub-2*pi bounded sweep before periodic seam semantics.
+
+### IGES Type 120 — bounded start/end-angle revolution
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for bounded sweep semantics,
+reviewed 2026-09-23.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_i_g_e_s_geom___surface_of_revolution.html
+
+Project relevance:
+
+- represents a revolution surface using axis, generatrix, start angle and end
+  angle;
+- supports treating a bounded angular interval as a mature CAD representation
+  independent of complete periodic revolution.
+
+### Open CASCADE spherical/cylindrical surfaces — analytic-family deferral
+
+Status: `FOUNDATIONAL / SCOPING`, reviewed 2026-09-23.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/class_geom___spherical_surface.html
+- https://dev.opencascade.org/doc/refman/html/class_g_c___make_cylindrical_surface.html
+
+Project relevance:
+
+- elementary surfaces use explicit local placement;
+- their parameter domains and periodic/singular behavior differ materially;
+- supports deferring plane/cylinder/cone/sphere/torus admission to dedicated
+  decisions even though `AxisPlacement3` is now available.
+
+### Open CASCADE BRep_Tool — general trimming remains a p-curve/topology seam
+
+Status: `FOUNDATIONAL / SCOPING`, reviewed 2026-09-23.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_b_rep___tool.html
+
+Project relevance:
+
+- general face boundaries use curves on surfaces and explicit B-rep entities;
+- supports keeping general trimming/topological-face semantics separate from a
+  value-oriented revolution surface.

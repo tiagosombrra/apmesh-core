@@ -98,23 +98,46 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   `35903080966`: PASS;
 - closure post-merge FAST `35903368279` and INTEGRATION
   `35903368467`: PASS;
-- terminal sync branch:
-  `docs/arbitrary-axis-placement-implementation-closure-sync`;
-- no production work item is active;
+- terminal sync PR #178:
+  `2f6b4bc269146bc9d27bd7351622f5d37093754c`;
+- sync post-merge FAST `35904119775` and INTEGRATION
+  `35904119725`: PASS;
+- active work item:
+  **Bounded Cubic Bézier Surface of Revolution Decision**;
 - component status:
   **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
   NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
 - ordinary semantic inventory: **33 tests**;
-- no next surface family is pre-authorized;
-- after terminal sync, the next admissible action is one fresh Surface
-  Representation breadth decision;
+- the current breadth decision selects only a bounded sub-2*pi cubic Bézier
+  revolution surface; production remains unauthorized until decision closure;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
 - live `main`, open PRs and Actions must always be re-audited remotely before
   writing.
+
+
+
+## Current active scientific action
+
+Integrate the literature-backed bounded revolution decision on
+`surface/cubic-bezier-revolution-decision`.
+
+Decision authority:
+`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
+
+The selected future implementation is restricted to one
+`CubicBezier3` generatrix, existing `AxisPlacement3`, signed non-zero
+sub-2*pi sweep, normalized `[0,1]^2` domain and analytic first/second
+partials.
+
+No production code is authorized on the decision branch.
+
+Analytic elementary surfaces, general trimming/p-curves/topological faces,
+broader Coons/transfinite boundaries, remaining NURBS breadth, Surface
+Differential Geometry and meshing remain unauthorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
