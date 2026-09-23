@@ -414,55 +414,61 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-linear-extrusion-implementation-closure`: **MERGED /
   HISTORICAL** via PR #171; closes the bounded linear-extrusion implementation
   checkpoint.
-- `docs/surface-linear-extrusion-closure-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles the closed linear-extrusion work
-  unit before the next breadth decision.
+- `docs/surface-linear-extrusion-closure-sync`: **MERGED / HISTORICAL**
+  via PR #172; terminally reconciles the closed linear-extrusion work unit.
+- `surface/arbitrary-axis-placement-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; literature-backed placement prerequisite decision; no
+  production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Cubic Bézier Linear Extrusion Surface in 3D is terminally
-closed.**
+**Arbitrary Right-Handed 3D Axis Placement — DECISION ACTIVE /
+DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal evidence:
+Active branch:
+`surface/arbitrary-axis-placement-decision`.
 
-1. candidate head:
-   `c45cfa573c686a5c96c8c3c9fc4cb0fa14c472ba`;
-2. candidate FAST `35887599787`: PASS, 32/32;
-3. candidate INTEGRATION `35887599839`: PASS, 32/32 in GCC and Clang;
-4. final PR head:
-   `87d0ecc0dbb7a5dda34164834d8c30c473779102`;
-5. final PR FAST `35891866350`: PASS, 32/32;
-6. final PR INTEGRATION `35891867091`: PASS, 32/32 in GCC and Clang;
-7. implementation PR #170:
-   `63b4d963fbed25e6482d37ae1944a08799043b2c`;
-8. implementation post-merge FAST `35892078309`: PASS, 32/32;
-9. implementation post-merge INTEGRATION `35892078255`: PASS, 32/32;
-10. implementation closure PR #171 head:
-    `6bd10e79ddc80fc7c1330ecb7d570148b1a0e841`;
-11. closure PR FAST `35892445808`: PASS;
-12. closure PR INTEGRATION `35892445798`: PASS;
-13. closure PR #171 merged as:
-    `fccb7330e9fb0e5a45b53d9e72efee689f30ea2f`;
-14. closure post-merge FAST `35892574623`: PASS;
-15. closure post-merge INTEGRATION `35892574146`: PASS;
-16. no production work item is active.
+Decision-entry authority:
 
-Terminal result:
+- terminal linear-extrusion sync PR #172:
+  `cbc29da630e6eba3f757bfedc06419431907d6d7`;
+- sync PR FAST `35892883045`: PASS;
+- sync PR INTEGRATION `35892882815`: PASS in GCC and Clang;
+- sync post-merge FAST `35893168075`: PASS;
+- sync post-merge INTEGRATION `35893168175`: PASS;
+- ordinary semantic inventory: 32 tests;
+- no open PR or production work item at decision entry.
 
-**LINEAR EXTRUSION SURFACE IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_ARBITRARY_AXIS_PLACEMENT_PREREQUISITE_DECISION.md`.
 
-## Next admissible work item
+Compared candidates:
 
-Open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
-
-1. explicit arbitrary-placement prerequisite for analytic elementary surfaces;
+1. arbitrary-placement prerequisite for analytic elementary surfaces;
 2. bounded revolution surface;
-3. general trimmed-surface / p-curve / face-boundary semantics;
+3. general trimming/p-curves/topological-face seams;
 4. broader Coons/transfinite boundaries;
-5. remaining NURBS degree/multiplicity/periodic breadth.
+5. remaining NURBS breadth.
 
-No candidate is pre-authorized.
+Selected future work unit:
+
+**Right-Handed Arbitrary 3D Axis Placement.**
+
+The selected type is separate from and does not weaken
+`CartesianFrame3`. Its future implementation may add only origin + arbitrary
+right-handed orientation construction and local/world transforms.
+
+No analytic surface, revolution, trimming, NURBS, Coons, differential-geometry
+or meshing production is authorized on this decision branch.
+
+## Next admissible transition after this decision
+
+Only after decision integration, post-merge FAST/INTEGRATION and separate
+decision closure may one production branch open for the bounded
+`AxisPlacement3` work unit.
+
+The existing qualified Geometry Primitives claim remains unchanged; the new
+placement, if later integrated, remains an unqualified focused extension until
+a future cumulative qualification decision explicitly widens that claim.
