@@ -440,53 +440,72 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   **MERGED / HISTORICAL** via PR #182; closes the bounded revolution
   implementation checkpoint.
 - `docs/surface-cubic-bezier-revolution-closure-sync`:
-  **ACTIVE / DOCUMENTATION-ONLY**; terminally reconciles the closed work unit
-  before the next breadth decision.
+  **MERGED / HISTORICAL** via PR #183; terminally reconciles the closed
+  revolution work unit.
+- `surface/analytic-plane-decision`: **ACTIVE / DOCUMENTATION-ONLY**;
+  literature-backed bounded analytic plane decision; no production code.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Cubic Bézier Surface of Revolution is terminally closed.**
+**Bounded Analytic Plane Surface — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal closure evidence:
+Active branch:
+`surface/analytic-plane-decision`.
 
-1. implementation PR #181 merged as
-   `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
-2. implementation post-merge FAST `35976875663`: PASS, 34/34;
-3. implementation post-merge INTEGRATION `35976875599`: PASS, 34/34 in
-   GCC 13 Debug and Clang 18/libc++ Debug;
-4. implementation closure PR #182 final head:
-   `13ca33a5cfaf5837a4c61c0ed9b0838686a7b43a`;
-5. closure PR FAST `35977288547`: PASS;
-6. closure PR INTEGRATION `35977288546`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. PR #182 merged as
-   `e3fd83430ed664c9355ab4c7630316003ad6642d`;
-8. closure post-merge FAST `35977390452`: PASS;
-9. closure post-merge INTEGRATION `35977390603`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-10. the initial mechanical test-construction failure and its correction remain
-    preserved in this worklog and the decision record;
-11. ordinary semantic inventory remains 34 tests;
-12. no production work item is active.
+Entry authority:
 
-Terminal work-unit result:
+- terminal revolution sync PR #183:
+  `65ed30fbd4e383a886b78b20ad8480d38557254a`;
+- sync PR FAST `35977741146`: PASS;
+- sync PR INTEGRATION `35977741076`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- sync post-merge FAST `35977907185`: PASS;
+- sync post-merge INTEGRATION `35977907165`: PASS;
+- ordinary semantic inventory: **34 tests**;
+- no open PR or active production work item at decision entry.
 
-**BOUNDED REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
 
-## Next admissible work item
-
-After this terminal documentation sync is integrated and post-merge validated,
-open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
+Fresh breadth comparison:
 
 1. analytic elementary surfaces;
 2. general trimming / p-curves / topological faces;
 3. broader Coons/transfinite boundaries;
 4. remaining NURBS degree/C0/periodic breadth;
-5. whether Surface Representation breadth is sufficient to open Surface
-   Differential Geometry.
+5. Surface Differential Geometry readiness.
 
-No candidate is pre-authorized.
+Selected future work unit:
+
+**Bounded Analytic Plane Surface in 3D.**
+
+The decision isolates only:
+
+- one existing `AxisPlacement3`;
+- arbitrary finite U/V `CurveParameterDomain` intervals;
+- exact affine plane evaluation;
+- constant first partials;
+- exact zero second partials;
+- U/V reversal without rebuilding placement;
+- physical boundary parity with `LineSegment3`;
+- one focused contract, targeting 35 ordinary tests.
+
+Cylinder, cone, sphere and torus remain explicit later analytic-surface
+obligations. General trimming, broader Coons/NURBS and Surface Differential
+Geometry remain separate decisions.
+
+This branch may modify only documentation/research/decision authorities.
+No production code is authorized.
+
+## Next admissible transition after this decision
+
+Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision checkpoint closes may one implementation branch open for
+`BoundedPlaneSurface3`.
+
+If implementation requires periodic/radius/apex/pole semantics, common surface
+contract changes, trimming/topology or differential geometry, stop and require
+a new decision.

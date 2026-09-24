@@ -1714,7 +1714,7 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `BICUBIC NURBS DOUBLE-KNOT C1 DECISION ACTIVE / NOT QUALIFIED`
+Status: `BOUNDED ANALYTIC PLANE DECISION ACTIVE / NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1875,44 +1875,49 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Bounded Cubic Bézier Surface of Revolution —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Representation — Bounded Analytic Plane Surface —
+DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED**
 
-Terminal closure evidence:
+Decision-entry authority:
 
-- implementation merge:
-  `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
-- implementation post-merge FAST `35976875663`: PASS, 34/34;
-- implementation post-merge INTEGRATION `35976875599`: PASS, 34/34 in
-  GCC 13 Debug and Clang 18/libc++ Debug;
-- closure PR #182 final head:
-  `13ca33a5cfaf5837a4c61c0ed9b0838686a7b43a`;
-- closure PR FAST `35977288547`: PASS;
-- closure PR INTEGRATION `35977288546`: PASS;
-- closure merge:
-  `e3fd83430ed664c9355ab4c7630316003ad6642d`;
-- closure post-merge FAST `35977390452`: PASS;
-- closure post-merge INTEGRATION `35977390603`: PASS.
+- terminal bounded-revolution sync:
+  `65ed30fbd4e383a886b78b20ad8480d38557254a`;
+- PR #183 FAST `35977741146`: PASS;
+- PR #183 INTEGRATION `35977741076`: PASS;
+- post-merge FAST `35977907185`: PASS;
+- post-merge INTEGRATION `35977907165`: PASS;
+- ordinary semantic inventory: **34 tests**.
 
-Terminal sync branch:
-`docs/surface-cubic-bezier-revolution-closure-sync`.
+Active decision:
+`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
 
-No production work item is active.
+Selected future work unit:
 
-After this sync is integrated and post-merge validated, open exactly one fresh
-literature-backed Surface Representation breadth decision comparing:
+**Bounded Analytic Plane Surface in 3D.**
 
-- analytic elementary surfaces;
-- general trimming / p-curves / topological faces;
-- broader Coons/transfinite boundaries;
-- remaining NURBS degree/C0/periodic breadth;
-- Surface Differential Geometry readiness.
+The decision introduces the first dedicated elementary analytic surface while
+isolating only:
 
-No candidate is preselected.
+- one existing arbitrary right-handed `AxisPlacement3`;
+- arbitrary finite strict U/V domains;
+- exact affine plane value semantics;
+- constant first partials;
+- exact zero second partials;
+- independent U/V reversal;
+- physical boundary parity with `LineSegment3`.
 
-Surface Differential Geometry and Boundary Curve Discretization remain blocked
-until a fresh decision changes that state.
+The analytic elementary family remains incomplete after this work unit.
+Cylinder, cone, sphere and torus remain explicit later decisions with their
+own radius, periodicity and singularity semantics.
+
+General trimming / p-curves / topological faces, broader Coons/NURBS and
+Surface Differential Geometry remain deferred.
+
+No implementation may start until the decision PR is integrated, post-merge
+validated and separately closed.
+
+Boundary Curve Discretization remains blocked.
 
 The long-term ordering remains:
 

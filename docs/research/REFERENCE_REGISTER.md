@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-23
+Last updated: 2026-09-24
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -1150,6 +1150,50 @@ Project relevance:
 
 
 ## Surface Representation
+
+### Open CASCADE Geom_Plane — analytic plane placement and parameterization
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded analytic plane
+surface decision, reviewed 2026-09-24.
+
+Official reference:
+https://dev.opencascade.org/doc/refman/html/class_geom___plane.html
+
+Project relevance:
+
+- places a plane through a 3D axis placement whose X/Y directions define the
+  U/V isoparametric directions;
+- the natural plane is unbounded, so the AP Mesh bounded-surface contract must
+  supply explicit finite U/V intervals;
+- plane first/second partials are analytic and globally regular;
+- supports selecting plane as the smallest dedicated elementary-surface family
+  after `AxisPlacement3`, before periodic/radius/singularity semantics.
+
+### Open CASCADE elementary-surface family — retained analytic breadth
+
+Status: `FOUNDATIONAL / SCOPING` for the elementary-surface sequence,
+reviewed 2026-09-24.
+
+Official references:
+
+- cylinder:
+  https://dev.opencascade.org/doc/refman/html/class_geom___cylindrical_surface.html
+- cone:
+  https://dev.opencascade.org/doc/refman/html/class_geom___conical_surface.html
+- sphere:
+  https://dev.opencascade.org/doc/refman/html/class_geom___spherical_surface.html
+- torus:
+  https://dev.opencascade.org/doc/refman/html/class_geom___toroidal_surface.html
+
+Project relevance:
+
+- cylinder and cone use angular U semantics and naturally unbounded axial V;
+- cone additionally introduces an apex singularity;
+- sphere uses angular U and latitude V with pole singularities;
+- torus has angular structure in both parameter directions;
+- these materially different seams justify introducing the analytic plane
+  first and retaining cylinder/cone/sphere/torus as explicit later decisions.
+
 
 ### Open CASCADE Geom_BoundedSurface — finite rectangular surface domains
 
