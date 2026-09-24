@@ -1907,6 +1907,10 @@ Authorized scope:
 - four boundary loci checked against `LineSegment3`;
 - one new focused contract, targeting **35 tests**.
 
+Candidate implementation is mapped only to the authorized files and is
+awaiting FAST/INTEGRATION validation. Common surface/error/placement contracts
+remain unchanged.
+
 Cylinder, cone, sphere and torus remain separate later decisions. General
 trimming/p-curves/topological faces, broader Coons/NURBS and Surface
 Differential Geometry remain deferred.
