@@ -99,15 +99,14 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - closure post-merge FAST `35977390452` and INTEGRATION
   `35977390603`: PASS;
 - active work item:
-  **None; bounded revolution work unit terminally closed**;
+  **Bounded Analytic Plane Surface decision**;
 - active component status:
-  **BOUNDED REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
-  INTEGRATED / CLOSED / NOT QUALIFIED**;
+  **ANALYTIC PLANE DECISION ACTIVE / DOCUMENTATION ONLY /
+  IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
-- protected-main ordinary semantic inventory at work-item entry: **33 tests**;
-- candidate ordinary semantic inventory: **34 tests**, all PASS on the
-  corrected candidate head;
+- protected-main ordinary semantic inventory: **34 tests**, all PASS in the
+  terminal revolution checkpoint;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -118,36 +117,41 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-Terminally reconcile the closed bounded Cubic Bézier Surface of Revolution
-work unit.
+Integrate the bounded analytic plane Surface Representation decision; no
+production implementation is authorized on this branch.
 
-Terminal closure evidence:
+Entry authority:
 
-- implementation merge:
-  `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
-- implementation post-merge FAST `35976875663`: PASS, 34/34;
-- implementation post-merge INTEGRATION `35976875599`: PASS, 34/34;
-- closure PR #182 final head:
-  `13ca33a5cfaf5837a4c61c0ed9b0838686a7b43a`;
-- closure PR FAST `35977288547`: PASS;
-- closure PR INTEGRATION `35977288546`: PASS;
-- closure merge:
-  `e3fd83430ed664c9355ab4c7630316003ad6642d`;
-- closure post-merge FAST `35977390452`: PASS;
-- closure post-merge INTEGRATION `35977390603`: PASS.
+- terminal revolution sync PR #183:
+  `65ed30fbd4e383a886b78b20ad8480d38557254a`;
+- sync PR FAST `35977741146`: PASS;
+- sync PR INTEGRATION `35977741076`: PASS;
+- sync post-merge FAST `35977907185`: PASS;
+- sync post-merge INTEGRATION `35977907165`: PASS.
 
-Terminal sync branch:
-`docs/surface-cubic-bezier-revolution-closure-sync`.
+Active branch:
+`surface/analytic-plane-decision`.
 
-No production work item is active.
+Decision authority:
+`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
 
-After this sync is integrated and post-merge validated, open one fresh
-literature-backed Surface Representation breadth decision. No next family is
-pre-authorized.
+The decision compares analytic elementary surfaces, general trimming,
+broader Coons/transfinite boundaries, remaining NURBS breadth and Surface
+Differential Geometry readiness.
 
-The decision must compare analytic elementary surfaces, general trimming /
-p-curves / topological faces, broader Coons/transfinite boundaries, remaining
-NURBS degree/C0/periodic breadth, and Surface Differential Geometry readiness.
+It selects exactly one future work unit:
+
+**Bounded Analytic Plane Surface in 3D.**
+
+The future type reuses `AxisPlacement3`, stores arbitrary finite U/V
+domains, evaluates an exact affine plane, returns constant first partials and
+exact zero second partials, and supports independent U/V reversal.
+
+Cylinder, cone, sphere and torus remain explicit later elementary-surface
+obligations.
+
+No production plane, periodic surface, trimming/topology, differential
+geometry, boundary discretization or meshing work is authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
