@@ -722,6 +722,17 @@ deterministic repeat evidence.
 
 Expected ordinary semantic inventory: **35 tests**.
 
+Candidate validation:
+
+- candidate head:
+  `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
+- FAST `35991297348`: PASS, 35/35 ordinary semantic tests;
+- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests per cell;
+- `apmesh_core.surface_plane`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
