@@ -1876,43 +1876,38 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Plane Surface —
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED**
+IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
 
-Decision validation:
+Closed decision checkpoint:
 
-- PR #184 final head:
-  `5f0bc6f5967e7409024ee0d5ec4b191f5978397a`;
-- PR FAST `35978702792`: PASS;
-- PR INTEGRATION `35978702703`: PASS;
 - decision merge:
   `9bc9a2770a1fdd3b2c5034ec4e2e003cddcd3176`;
-- post-merge FAST `35989404234`: PASS;
-- post-merge INTEGRATION `35989404276`: PASS.
+- decision post-merge FAST `35989404234`: PASS;
+- decision post-merge INTEGRATION `35989404276`: PASS;
+- closure PR #185:
+  `d90bc0c7bac80c38cb02fc2d4e7b72ab8c5aa848`;
+- closure post-merge FAST `35989828872`: PASS;
+- closure post-merge INTEGRATION `35989828884`: PASS.
 
-Closure branch:
-`docs/surface-analytic-plane-decision-closure`.
+Active implementation branch:
+`surface/analytic-plane`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized scope:
 
-**Bounded Analytic Plane Surface in 3D.**
-
-Authorized implementation remains limited to:
-
+- new `BoundedPlaneSurface3` only;
 - existing `AxisPlacement3`;
-- arbitrary finite strict U/V domains;
-- exact affine plane value;
+- arbitrary finite strict U/V parameter domains;
+- exact affine value semantics;
 - constant first partials;
 - exact zero second partials;
 - independent U/V reversal;
-- physical boundary parity with `LineSegment3`;
-- one focused contract, targeting 35 ordinary tests.
+- four boundary loci checked against `LineSegment3`;
+- one new focused contract, targeting **35 tests**.
 
-Cylinder, cone, sphere and torus remain explicit later decisions. General
+Cylinder, cone, sphere and torus remain separate later decisions. General
 trimming/p-curves/topological faces, broader Coons/NURBS and Surface
 Differential Geometry remain deferred.
 
