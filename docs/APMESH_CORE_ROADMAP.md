@@ -1877,31 +1877,30 @@ Current scientific work focus:
 
 **Surface Representation — Bounded Cubic Bézier Surface of Revolution —
 IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED**
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Decision authority:
-`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
+Terminal closure evidence:
 
-Implementation history:
-
-- initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`:
-  mechanical focused-test compilation failure in FAST `35911765896` and
-  INTEGRATION `35911765945`; production compiled;
-- corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`:
-  FAST `35912060803` PASS and INTEGRATION `35912060866` PASS, 34/34;
-- final head `b23f29b243f69582c7aeb5290e1218b342b2e2bc`:
-  FAST `35912441379` PASS and INTEGRATION `35912441362` PASS, 34/34;
-- PR #181 merge:
+- implementation merge:
   `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
-- post-merge FAST `35976875663`: PASS, 34/34;
-- post-merge INTEGRATION `35976875599`: PASS, 34/34 in GCC and Clang.
+- implementation post-merge FAST `35976875663`: PASS, 34/34;
+- implementation post-merge INTEGRATION `35976875599`: PASS, 34/34 in
+  GCC 13 Debug and Clang 18/libc++ Debug;
+- closure PR #182 final head:
+  `13ca33a5cfaf5837a4c61c0ed9b0838686a7b43a`;
+- closure PR FAST `35977288547`: PASS;
+- closure PR INTEGRATION `35977288546`: PASS;
+- closure merge:
+  `e3fd83430ed664c9355ab4c7630316003ad6642d`;
+- closure post-merge FAST `35977390452`: PASS;
+- closure post-merge INTEGRATION `35977390603`: PASS.
 
-Closure branch:
-`docs/surface-cubic-bezier-revolution-implementation-closure`.
+Terminal sync branch:
+`docs/surface-cubic-bezier-revolution-closure-sync`.
 
-No production work item is active during closure.
+No production work item is active.
 
-After closure integration and post-merge validation, open one fresh
+After this sync is integrated and post-merge validated, open exactly one fresh
 literature-backed Surface Representation breadth decision comparing:
 
 - analytic elementary surfaces;
@@ -1912,7 +1911,8 @@ literature-backed Surface Representation breadth decision comparing:
 
 No candidate is preselected.
 
-Surface Differential Geometry and Boundary Curve Discretization remain blocked.
+Surface Differential Geometry and Boundary Curve Discretization remain blocked
+until a fresh decision changes that state.
 
 The long-term ordering remains:
 
