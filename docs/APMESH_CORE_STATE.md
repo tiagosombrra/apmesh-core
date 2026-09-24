@@ -99,13 +99,15 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - closure post-merge FAST `35977390452` and INTEGRATION
   `35977390603`: PASS;
 - active work item:
-  **Bounded Analytic Plane Surface in 3D implementation**;
+  **None; bounded analytic plane implementation integrated and closed by this
+  closure change**;
 - active component status:
-  **ANALYTIC PLANE IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
+  **ANALYTIC PLANE IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+  CLOSED / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
-- protected-main ordinary semantic inventory: **34 tests**, all PASS in the
-  terminal revolution checkpoint;
+- protected-main ordinary semantic inventory: **35 tests**, all PASS after
+  bounded analytic plane integration;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -116,59 +118,37 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-Implement the bounded analytic plane work unit and no other surface family.
+No production work item is active.
 
-Closed decision evidence:
+The bounded analytic plane work unit is terminally integrated by this closure
+change.
 
-- decision merge:
-  `9bc9a2770a1fdd3b2c5034ec4e2e003cddcd3176`;
-- decision post-merge FAST `35989404234`: PASS;
-- decision post-merge INTEGRATION `35989404276`: PASS;
-- closure PR #185 final head:
-  `595b13fa19d7d17548a550633f5f06eb167b81a2`;
-- closure PR FAST `35989671595`: PASS;
-- closure PR INTEGRATION `35989671407`: PASS;
-- closure merge:
-  `d90bc0c7bac80c38cb02fc2d4e7b72ab8c5aa848`;
-- closure post-merge FAST `35989828872`: PASS;
-- closure post-merge INTEGRATION `35989828884`: PASS.
+Implementation evidence:
 
-Active branch:
-`surface/analytic-plane`.
+- candidate head:
+  `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
+- candidate FAST `35991297348`: PASS, 35/35;
+- candidate INTEGRATION `35991297411`: PASS, 35/35;
+- final PR head:
+  `7cb3e38d046144282d183dc7e68d9476b36c484a`;
+- final PR FAST `35991554343`: PASS, 35/35;
+- final PR INTEGRATION `35991554362`: PASS, 35/35;
+- implementation PR #186:
+  `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
+- protected-main FAST `35991745316`: PASS, 35/35;
+- protected-main INTEGRATION `35991745435`: PASS, 35/35.
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
+Exact next bounded scientific action:
 
-The implementation is limited to `BoundedPlaneSurface3`, using existing
-`AxisPlacement3`, arbitrary finite U/V domains, exact affine value,
-constant first partials, exact zero second partials and U/V reversal flags.
+**Open one fresh literature-backed Surface Representation breadth decision.**
 
-No common contract change, periodic/radius/apex/pole semantics, other
-elementary surface, trimming/topology, Surface Differential Geometry,
-boundary discretization or meshing work is authorized.
+The comparison must include bounded analytic cylinder, cone, sphere, torus,
+general trimming/p-curves/topological faces, and whether representation breadth
+is sufficient to open Surface Differential Geometry.
 
-Candidate repository mapping:
+No candidate is pre-authorized.
 
-- `include/apmesh/geometry/elementary_surface.hpp`;
-- `src/geometry/elementary_surface.cpp`;
-- `tests/surface_plane.cpp`;
-- `CMakeLists.txt`.
-
-The candidate reuses the existing common surface contract unchanged and
-registers one new ordinary surface test, targeting **35 tests**.
-
-Candidate validation:
-
-- head `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
-- FAST `35991297348`: PASS, 35/35 tests;
-- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 35/35 tests per cell;
-- focused `apmesh_core.surface_plane`: PASS in all three jobs.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+Boundary Curve Discretization and meshing remain blocked.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
