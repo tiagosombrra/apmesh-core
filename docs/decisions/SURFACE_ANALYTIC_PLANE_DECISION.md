@@ -613,3 +613,38 @@ Surface Representation remains IN INVESTIGATION / NOT QUALIFIED.
 
 No other elementary surface, trimming, differential geometry or meshing
 capability is authorized.
+
+
+## 34. Decision integration checkpoint
+
+Decision PR #184 final head:
+
+`5f0bc6f5967e7409024ee0d5ec4b191f5978397a`.
+
+Final decision-head validation:
+
+- FAST `35978702792`: PASS;
+- INTEGRATION `35978702703`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #184 merged as:
+
+`9bc9a2770a1fdd3b2c5034ec4e2e003cddcd3176`.
+
+Post-merge validation:
+
+- FAST `35989404234`: PASS;
+- INTEGRATION `35989404276`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Integrated decision result:
+
+**DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
+NOT QUALIFIED.**
+
+After this closure is integrated and post-merge validated, the sole next
+production work item is `BoundedPlaneSurface3` under Sections 5–31.
+
+No other elementary surface, periodic seam, trimming/topology, broader
+Coons/NURBS, Surface Differential Geometry or meshing capability is
+authorized.
