@@ -455,9 +455,8 @@ Implementation history retained:
 3. initial INTEGRATION `35911765945`: FAIL in GCC and Clang for the same
    test-construction reason;
 4. production source compiled successfully in those failed runs;
-5. root cause:
-   `tests/surface_revolution.cpp` attempted default construction of
-   `Point3`, which intentionally has no default constructor;
+5. root cause: `tests/surface_revolution.cpp` attempted default construction
+   of `Point3`, which intentionally has no default constructor;
 6. classification:
    **MECHANICAL TEST-CONSTRUCTION DEFECT / NO PRODUCTION SEMANTIC EVIDENCE**;
 7. corrected candidate head:
@@ -498,7 +497,3 @@ decision comparing:
    Differential Geometry.
 
 No candidate is pre-authorized.
-
-No complete periodic revolution, analytic elementary production type, general
-trimming, broader Coons/NURBS, Surface Differential Geometry,
-Boundary Curve Discretization or meshing work is authorized by this closure.
