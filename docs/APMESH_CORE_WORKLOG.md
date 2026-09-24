@@ -434,128 +434,71 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   PR #179; bounded revolution breadth decision.
 - `docs/surface-cubic-bezier-revolution-decision-closure`: **MERGED /
   HISTORICAL** via PR #180; closes the bounded revolution decision checkpoint.
-- `surface/cubic-bezier-revolution`: **ACTIVE**; bounded revolution
-  implementation work item.
+- `surface/cubic-bezier-revolution`: **MERGED / HISTORICAL** via PR #181;
+  bounded revolution implementation work item.
+- `docs/surface-cubic-bezier-revolution-implementation-closure`:
+  **CLOSURE-ONLY / ACTIVE**; records PR #181 integration and post-merge
+  validation before the next breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bounded Cubic Bézier Surface of Revolution in 3D — ACTIVE /
-IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None. Bounded Cubic Bézier Surface of Revolution implementation is
+integrated and ready for closure.**
 
-Active branch:
-`surface/cubic-bezier-revolution`.
+Implementation history retained:
 
-Decision authority:
-`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
+1. initial candidate head:
+   `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`;
+2. initial FAST `35911765896`: FAIL during focused-test compilation;
+3. initial INTEGRATION `35911765945`: FAIL in GCC and Clang for the same
+   test-construction reason;
+4. production source compiled successfully in those failed runs;
+5. root cause:
+   `tests/surface_revolution.cpp` attempted default construction of
+   `Point3`, which intentionally has no default constructor;
+6. classification:
+   **MECHANICAL TEST-CONSTRUCTION DEFECT / NO PRODUCTION SEMANTIC EVIDENCE**;
+7. corrected candidate head:
+   `8761b3c46bb0a486c5a8dda8349247876fd12334`;
+8. corrected FAST `35912060803`: PASS, 34/34;
+9. corrected INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug, 34/34 per cell;
+10. final PR head:
+    `b23f29b243f69582c7aeb5290e1218b342b2e2bc`;
+11. final PR FAST `35912441379`: PASS, 34/34;
+12. final PR INTEGRATION `35912441362`: PASS in GCC 13 Debug and Clang
+    18/libc++ Debug, 34/34 per cell;
+13. PR #181 merged as:
+    `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
+14. post-merge FAST `35976875663`: PASS, 34/34;
+15. post-merge INTEGRATION `35976875599`: PASS in GCC 13 Debug and Clang
+    18/libc++ Debug, 34/34 per cell;
+16. `apmesh_core.surface_revolution`: PASS in all final and post-merge jobs;
+17. every prior ordinary semantic contract remained PASS;
+18. no production work item is active in this closure change.
 
-Closed decision checkpoint:
+Integrated work-unit result:
 
-- decision PR #179 merged as
-  `112f3b7ae3c439d729380fec07d065997bf11e56`;
-- decision post-merge FAST `35910017412`: PASS;
-- decision post-merge INTEGRATION `35910017524`: PASS;
-- decision closure PR #180 final head:
-  `2f9f832febe91ab6bcd2d95550e944bd66c48f6f`;
-- closure PR FAST `35910276757`: PASS;
-- closure PR INTEGRATION `35910276791`: PASS;
-- closure PR #180 merged as
-  `715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`;
-- closure post-merge FAST `35910422052`: PASS;
-- closure post-merge INTEGRATION `35910422072`: PASS.
+**BOUNDED REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
 
-Authorized repository mapping:
+## Next admissible work item after closure
 
-1. public family:
-   `include/apmesh/geometry/revolution_surface.hpp`;
-2. production:
-   `src/geometry/revolution_surface.cpp`;
-3. focused contract:
-   `tests/surface_revolution.cpp`;
-4. build/test registration:
-   `CMakeLists.txt`;
-5. synchronized STATE / ROADMAP / WORKLOG / decision.
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one fresh literature-backed Surface Representation breadth
+decision comparing:
 
-Required scope:
+1. analytic elementary surfaces, now placement-unblocked;
+2. general trimming / p-curves / topological faces;
+3. broader Coons/transfinite boundaries;
+4. remaining NURBS degree/C0/periodic breadth;
+5. whether Surface Representation breadth is sufficient to open Surface
+   Differential Geometry.
 
-- one existing `CubicBezier3` generatrix;
-- one existing `AxisPlacement3`;
-- one finite non-zero signed sweep with exact `abs(sweep) < 2*pi`;
-- exact normalized `[0,1]^2` parameter domain;
-- Rodrigues-style rotation about the stored axis;
-- analytic value/Su/Sv/Suu/Suv/Svv;
-- exact stored U-boundary curves;
-- U/V reversal;
-- independent cylinder and annular-sector fixtures;
-- ordinary semantic inventory target: 34 tests.
+No candidate is pre-authorized.
 
-Candidate implementation mapping:
-
-- `include/apmesh/geometry/revolution_surface.hpp`:
-  bounded value-oriented public representation and construction errors;
-- `src/geometry/revolution_surface.cpp`:
-  deterministic arbitrary-axis rotation, stored end generatrix and analytic
-  first/second partials;
-- `tests/surface_revolution.cpp`:
-  independent long-double Bernstein/Rodrigues oracle, cylinder and
-  annular-sector fixtures, axis-reference invariance, signed sweep,
-  reversals, degenerate cases, affine/scale/extreme and determinism evidence;
-- `CMakeLists.txt`:
-  production source plus the 34th ordinary focused semantic contract.
-
-No existing curve, axis-placement or common surface contract was modified.
-
-Initial PR validation retained:
-
-- initial PR head:
-  `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`;
-- FAST `35911765896`: FAIL during focused test compilation;
-- INTEGRATION `35911765945`: FAIL in both GCC 13 Debug and Clang 18/libc++
-  Debug during the same focused test compilation;
-- production `src/geometry/revolution_surface.cpp` compiled successfully in
-  all three jobs;
-- failure cause:
-  `tests/surface_revolution.cpp` attempted value-initialization of
-  `std::array<Point3,4>`, but `Point3` intentionally has no default
-  constructor;
-- classification:
-  **MECHANICAL TEST-CONSTRUCTION DEFECT / NO PRODUCTION SEMANTIC EVIDENCE**;
-- correction:
-  initialize translated/scaled arrays as copies of the existing valid
-  generatrix control array before element replacement;
-- no production or scientific contract change was made.
-
-Corrected candidate validation:
-
-- corrected head:
-  `8761b3c46bb0a486c5a8dda8349247876fd12334`;
-- FAST `35912060803`: PASS, 34/34 ordinary tests;
-- INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 34/34 tests in each cell;
-- `apmesh_core.surface_revolution`: PASS in all three jobs;
-- every prior ordinary semantic contract remained PASS;
-- no production change was required after the initial mechanical test failure.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no complete or multi-turn periodic revolution;
-- no analytic elementary production types;
-- no generic runtime generatrix family;
-- no general trimming/p-curves/topological faces;
-- no broader Coons/NURBS;
-- no Surface Differential Geometry;
-- no discretization/meshing;
-- no common surface/axis contract changes.
-
-## Next admissible transition
-
-Complete only this implementation, validate 34/34 in FAST and both INTEGRATION
-compiler cells, integrate through one PR, validate protected `main`, close
-the implementation checkpoint, and only then open a fresh Surface
-Representation breadth decision.
+No complete periodic revolution, analytic elementary production type, general
+trimming, broader Coons/NURBS, Surface Differential Geometry,
+Boundary Curve Discretization or meshing work is authorized by this closure.
