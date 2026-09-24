@@ -808,3 +808,64 @@ Current status:
 
 **IMPLEMENTED CANDIDATE / MECHANICAL TEST FIX APPLIED /
 REVALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 37. Implementation integration checkpoint
+
+The bounded revolution implementation was integrated by PR #181.
+
+Initial candidate head:
+
+`924112fe4fb1f96fb3effefe4d4efa8ff84485c8`.
+
+Initial validation:
+
+- FAST `35911765896`: FAIL during compilation of the focused test;
+- INTEGRATION `35911765945`: FAIL in GCC 13 Debug and Clang 18/libc++
+  Debug for the same test-construction reason;
+- production revolution source compiled successfully;
+- root cause: test-only default construction of `Point3`;
+- classification:
+  **MECHANICAL TEST-CONSTRUCTION DEFECT / NO PRODUCTION SEMANTIC EVIDENCE**.
+
+Corrected candidate head:
+
+`8761b3c46bb0a486c5a8dda8349247876fd12334`.
+
+Corrected validation:
+
+- FAST `35912060803`: PASS, 34/34;
+- INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 34/34 per cell.
+
+Final PR head:
+
+`b23f29b243f69582c7aeb5290e1218b342b2e2bc`.
+
+Final-head validation:
+
+- FAST `35912441379`: PASS, 34/34;
+- INTEGRATION `35912441362`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 34/34 per cell.
+
+PR #181 merged as:
+
+`44417fab90973baf9a2be4ec07f6eed8fdcc186e`.
+
+Post-merge validation:
+
+- FAST `35976875663`: PASS, 34/34;
+- INTEGRATION `35976875599`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 34/34 per cell.
+
+Integrated result:
+
+**BOUNDED REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+
+No complete periodic revolution, analytic elementary surface, general
+trimming, broader Coons/NURBS, Surface Differential Geometry or meshing
+capability is implied.
+
+After implementation closure, a fresh Surface Representation breadth decision
+must select the next work item. No option is pre-authorized.

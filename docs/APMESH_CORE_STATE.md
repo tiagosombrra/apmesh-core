@@ -103,10 +103,10 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - sync post-merge FAST `35904119775` and INTEGRATION
   `35904119725`: PASS;
 - active work item:
-  **Bounded Cubic Bézier Surface of Revolution implementation**;
+  **None; bounded revolution implementation integrated, closure active**;
 - active component status:
-  **BOUNDED REVOLUTION IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-  FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED**;
+  **BOUNDED REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
+  INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
 - protected-main ordinary semantic inventory at work-item entry: **33 tests**;
@@ -122,61 +122,38 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-Implement the bounded cubic Bézier revolution surface on the single active
-production branch `surface/cubic-bezier-revolution`.
+Close the integrated bounded Cubic Bézier Surface of Revolution implementation
+checkpoint.
 
 Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-Closed decision evidence:
-
-- decision merge `112f3b7ae3c439d729380fec07d065997bf11e56`;
-- decision post-merge FAST `35910017412`: PASS;
-- decision post-merge INTEGRATION `35910017524`: PASS;
-- closure merge `715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`;
-- closure post-merge FAST `35910422052`: PASS;
-- closure post-merge INTEGRATION `35910422072`: PASS.
-
-Implementation is limited to the decision-mapped new revolution header/source,
-one focused test, CMake registration and synchronized documentation.
-
-No common `SurfaceError`, `AxisPlacement3`, `CubicBezier3`, periodic,
-analytic elementary, trimming/topology, differential-geometry or meshing
-semantic change is authorized.
-
-Candidate repository mapping:
-
-- `include/apmesh/geometry/revolution_surface.hpp`;
-- `src/geometry/revolution_surface.cpp`;
-- `tests/surface_revolution.cpp`;
-- `CMakeLists.txt`.
-
-Candidate implementation uses the existing `AxisPlacement3` local/world
-mapping to evaluate a fixed Rodrigues rotation, stores a precomputed end
-generatrix, exposes analytic Su/Sv/Suu/Suv/Svv, and preserves exact U/V
-reversal representation.
-
-The focused contract includes an independent world-space long-double
-Bernstein/Rodrigues oracle and analytic cylinder/annular-sector fixtures.
-
-Expected ordinary inventory: **34 tests**.
-
-Validation history:
+Implementation evidence:
 
 - initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`:
-  FAST `35911765896` FAIL and INTEGRATION `35911765945` FAIL because the
-  new focused test attempted to default-construct `Point3`; production
-  compiled successfully;
+  FAST `35911765896` FAIL and INTEGRATION `35911765945` FAIL because of
+  a mechanical focused-test construction defect; production compiled;
 - corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`:
-  FAST `35912060803` PASS, 34/34;
-- corrected INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 34/34 per cell;
-- `apmesh_core.surface_revolution`: PASS in all corrected jobs.
+  FAST `35912060803` PASS and INTEGRATION `35912060866` PASS, 34/34;
+- final PR head `b23f29b243f69582c7aeb5290e1218b342b2e2bc`:
+  FAST `35912441379` PASS and INTEGRATION `35912441362` PASS, 34/34;
+- PR #181 merge:
+  `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
+- post-merge FAST `35976875663`: PASS, 34/34;
+- post-merge INTEGRATION `35976875599`: PASS, 34/34 in GCC and Clang.
 
-Current status:
+Closure branch:
+`docs/surface-cubic-bezier-revolution-implementation-closure`.
 
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+No production work item is active during this documentation-only closure.
+
+After closure integration and post-merge validation, the sole next action is
+one fresh literature-backed Surface Representation breadth decision. No next
+surface family is pre-authorized.
+
+Complete periodic revolution, analytic elementary surfaces, general trimming,
+broader Coons/NURBS, Surface Differential Geometry and downstream
+discretization/meshing remain unauthorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
