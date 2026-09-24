@@ -157,9 +157,18 @@ Candidate repository mapping:
 The candidate reuses the existing common surface contract unchanged and
 registers one new ordinary surface test, targeting **35 tests**.
 
+Candidate validation:
+
+- head `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
+- FAST `35991297348`: PASS, 35/35 tests;
+- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests per cell;
+- focused `apmesh_core.surface_plane`: PASS in all three jobs.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
