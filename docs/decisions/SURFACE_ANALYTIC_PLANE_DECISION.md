@@ -648,3 +648,37 @@ production work item is `BoundedPlaneSurface3` under Sections 5–31.
 No other elementary surface, periodic seam, trimming/topology, broader
 Coons/NURBS, Surface Differential Geometry or meshing capability is
 authorized.
+
+
+## 35. Decision closure checkpoint
+
+Decision closure PR #185 final head:
+
+`595b13fa19d7d17548a550633f5f06eb167b81a2`.
+
+Closure PR validation:
+
+- FAST `35989671595`: PASS;
+- INTEGRATION `35989671407`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #185 merged as:
+
+`d90bc0c7bac80c38cb02fc2d4e7b72ab8c5aa848`.
+
+Closure post-merge validation:
+
+- FAST `35989828872`: PASS;
+- INTEGRATION `35989828884`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is `BoundedPlaneSurface3` under
+Sections 5–31.
+
+No cylinder, cone, sphere, torus, periodic seam, trimming/topology, broader
+Coons/NURBS, Surface Differential Geometry or meshing capability is
+authorized.
