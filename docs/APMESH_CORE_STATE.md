@@ -147,6 +147,20 @@ No common contract change, periodic/radius/apex/pole semantics, other
 elementary surface, trimming/topology, Surface Differential Geometry,
 boundary discretization or meshing work is authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/elementary_surface.hpp`;
+- `src/geometry/elementary_surface.cpp`;
+- `tests/surface_plane.cpp`;
+- `CMakeLists.txt`.
+
+The candidate reuses the existing common surface contract unchanged and
+registers one new ordinary surface test, targeting **35 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
 The material below is retained for provenance of the earlier Topological Model
