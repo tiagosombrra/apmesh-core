@@ -1907,9 +1907,18 @@ Authorized scope:
 - four boundary loci checked against `LineSegment3`;
 - one new focused contract, targeting **35 tests**.
 
-Candidate implementation is mapped only to the authorized files and is
-awaiting FAST/INTEGRATION validation. Common surface/error/placement contracts
-remain unchanged.
+Candidate validation on head
+`8945b7ff71e7363ad509116c4659cebf180ad3d3`:
+
+- FAST `35991297348`: PASS, 35/35 tests;
+- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests per cell;
+- the new analytic-plane contract and every prior ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. Common
+surface/error/placement contracts remain unchanged.
 
 Cylinder, cone, sphere and torus remain separate later decisions. General
 trimming/p-curves/topological faces, broader Coons/NURBS and Surface
