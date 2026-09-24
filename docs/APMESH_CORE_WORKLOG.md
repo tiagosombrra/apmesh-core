@@ -504,6 +504,25 @@ Implementation scope:
   evidence;
 - expected ordinary inventory: **35 tests**.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/elementary_surface.hpp`:
+  value type, validated-domain storage, placement identity and reversal flags;
+- `src/geometry/elementary_surface.cpp`:
+  established validation order, overflow-aware parameter reflection,
+  placement-based affine evaluation and analytic derivatives;
+- `tests/surface_plane.cpp`:
+  independent long-double oracle, four LineSegment3 boundary checks,
+  reversal/orientation, arbitrary placement, affine/extreme and determinism
+  evidence;
+- `CMakeLists.txt`:
+  production source plus `apmesh_core.surface_plane` registered in ordinary
+  surface FAST/INTEGRATION labels.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no `SurfaceError` extension;
