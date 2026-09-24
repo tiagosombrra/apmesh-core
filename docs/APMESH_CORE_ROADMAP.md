@@ -1876,54 +1876,41 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Cubic Bézier Surface of Revolution —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-Closed decision checkpoint:
+Implementation history:
 
-- decision PR #179 merge:
-  `112f3b7ae3c439d729380fec07d065997bf11e56`;
-- decision post-merge FAST `35910017412`: PASS;
-- decision post-merge INTEGRATION `35910017524`: PASS;
-- decision closure PR #180 merge:
-  `715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`;
-- closure post-merge FAST `35910422052`: PASS;
-- closure post-merge INTEGRATION `35910422072`: PASS.
+- initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`:
+  mechanical focused-test compilation failure in FAST `35911765896` and
+  INTEGRATION `35911765945`; production compiled;
+- corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`:
+  FAST `35912060803` PASS and INTEGRATION `35912060866` PASS, 34/34;
+- final head `b23f29b243f69582c7aeb5290e1218b342b2e2bc`:
+  FAST `35912441379` PASS and INTEGRATION `35912441362` PASS, 34/34;
+- PR #181 merge:
+  `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
+- post-merge FAST `35976875663`: PASS, 34/34;
+- post-merge INTEGRATION `35976875599`: PASS, 34/34 in GCC and Clang.
 
-Active implementation branch:
-`surface/cubic-bezier-revolution`.
+Closure branch:
+`docs/surface-cubic-bezier-revolution-implementation-closure`.
 
-Authorized scope:
+No production work item is active during closure.
 
-- one `CubicBezier3` generatrix;
-- one `AxisPlacement3`;
-- signed finite `0 < abs(sweep) < 2*pi`;
-- normalized `[0,1]^2` domain;
-- Rodrigues-style arbitrary-axis rotation;
-- analytic Su/Sv/Suu/Suv/Svv;
-- U/V reversal;
-- cylinder and annular-sector references;
-- expected inventory: 34 ordinary tests.
+After closure integration and post-merge validation, open one fresh
+literature-backed Surface Representation breadth decision comparing:
 
-Candidate validation history:
+- analytic elementary surfaces;
+- general trimming / p-curves / topological faces;
+- broader Coons/transfinite boundaries;
+- remaining NURBS degree/C0/periodic breadth;
+- Surface Differential Geometry readiness.
 
-- initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8` failed only while
-  compiling the focused test because `Point3` has no default constructor;
-  production compiled in GCC and Clang;
-- corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`;
-- FAST `35912060803`: PASS, 34/34;
-- INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 34/34 per cell;
-- the new revolution contract and all prior ordinary semantic tests passed.
-
-The documentation synchronization itself must receive one final green
-FAST/INTEGRATION head before integration.
-
-Complete periodic revolution, analytic elementary surfaces, general trimming,
-broader Coons/transfinite boundaries and remaining NURBS breadth remain later
-decisions.
+No candidate is preselected.
 
 Surface Differential Geometry and Boundary Curve Discretization remain blocked.
 
