@@ -442,70 +442,55 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-cubic-bezier-revolution-closure-sync`:
   **MERGED / HISTORICAL** via PR #183; terminally reconciles the closed
   revolution work unit.
-- `surface/analytic-plane-decision`: **ACTIVE / DOCUMENTATION-ONLY**;
-  literature-backed bounded analytic plane decision; no production code.
+- `surface/analytic-plane-decision`: **MERGED / HISTORICAL** via PR #184;
+  bounded analytic plane breadth decision.
+- `docs/surface-analytic-plane-decision-closure`: **CLOSURE-ONLY**;
+  records PR #184 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bounded Analytic Plane Surface — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Bounded Analytic Plane Surface decision is integrated and ready for
+closure.**
 
-Active branch:
-`surface/analytic-plane-decision`.
+Decision closure evidence:
 
-Entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`;
+2. decision PR #184 final head:
+   `5f0bc6f5967e7409024ee0d5ec4b191f5978397a`;
+3. decision PR FAST `35978702792`: PASS;
+4. decision PR INTEGRATION `35978702703`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. PR #184 merged as
+   `9bc9a2770a1fdd3b2c5034ec4e2e003cddcd3176`;
+6. post-merge FAST `35989404234`: PASS;
+7. post-merge INTEGRATION `35989404276`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+8. ordinary semantic inventory remains **34 tests**;
+9. no production plane implementation exists;
+10. no production work item is active on this closure branch.
 
-- terminal revolution sync PR #183:
-  `65ed30fbd4e383a886b78b20ad8480d38557254a`;
-- sync PR FAST `35977741146`: PASS;
-- sync PR INTEGRATION `35977741076`: PASS in GCC 13 Debug and Clang
-  18/libc++ Debug;
-- sync post-merge FAST `35977907185`: PASS;
-- sync post-merge INTEGRATION `35977907165`: PASS;
-- ordinary semantic inventory: **34 tests**;
-- no open PR or active production work item at decision entry.
+## Next admissible work item after closure
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
-
-Fresh breadth comparison:
-
-1. analytic elementary surfaces;
-2. general trimming / p-curves / topological faces;
-3. broader Coons/transfinite boundaries;
-4. remaining NURBS degree/C0/periodic breadth;
-5. Surface Differential Geometry readiness.
-
-Selected future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one production branch for:
 
 **Bounded Analytic Plane Surface in 3D.**
 
-The decision isolates only:
+Implementation remains bounded by
+`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`:
 
-- one existing `AxisPlacement3`;
-- arbitrary finite U/V `CurveParameterDomain` intervals;
-- exact affine plane evaluation;
+- reuse existing `AxisPlacement3`;
+- store arbitrary finite strict U/V `CurveParameterDomain` intervals;
+- exact affine value evaluation;
 - constant first partials;
 - exact zero second partials;
-- U/V reversal without rebuilding placement;
-- physical boundary parity with `LineSegment3`;
-- one focused contract, targeting 35 ordinary tests.
+- independent U/V reversal;
+- boundary parity with `LineSegment3`;
+- one focused contract, targeting **35 ordinary tests**.
 
-Cylinder, cone, sphere and torus remain explicit later analytic-surface
-obligations. General trimming, broader Coons/NURBS and Surface Differential
-Geometry remain separate decisions.
-
-This branch may modify only documentation/research/decision authorities.
-No production code is authorized.
-
-## Next admissible transition after this decision
-
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision checkpoint closes may one implementation branch open for
-`BoundedPlaneSurface3`.
-
-If implementation requires periodic/radius/apex/pole semantics, common surface
-contract changes, trimming/topology or differential geometry, stop and require
-a new decision.
+Cylinder, cone, sphere, torus, periodic semantics, general trimming,
+broader Coons/NURBS, Surface Differential Geometry, boundary discretization
+and meshing remain unauthorized.

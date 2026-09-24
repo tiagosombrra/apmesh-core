@@ -1876,46 +1876,45 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Plane Surface —
-DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED**
 
-Decision-entry authority:
-
-- terminal bounded-revolution sync:
-  `65ed30fbd4e383a886b78b20ad8480d38557254a`;
-- PR #183 FAST `35977741146`: PASS;
-- PR #183 INTEGRATION `35977741076`: PASS;
-- post-merge FAST `35977907185`: PASS;
-- post-merge INTEGRATION `35977907165`: PASS;
-- ordinary semantic inventory: **34 tests**.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #184 final head:
+  `5f0bc6f5967e7409024ee0d5ec4b191f5978397a`;
+- PR FAST `35978702792`: PASS;
+- PR INTEGRATION `35978702703`: PASS;
+- decision merge:
+  `9bc9a2770a1fdd3b2c5034ec4e2e003cddcd3176`;
+- post-merge FAST `35989404234`: PASS;
+- post-merge INTEGRATION `35989404276`: PASS.
+
+Closure branch:
+`docs/surface-analytic-plane-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Bounded Analytic Plane Surface in 3D.**
 
-The decision introduces the first dedicated elementary analytic surface while
-isolating only:
+Authorized implementation remains limited to:
 
-- one existing arbitrary right-handed `AxisPlacement3`;
+- existing `AxisPlacement3`;
 - arbitrary finite strict U/V domains;
-- exact affine plane value semantics;
+- exact affine plane value;
 - constant first partials;
 - exact zero second partials;
 - independent U/V reversal;
-- physical boundary parity with `LineSegment3`.
+- physical boundary parity with `LineSegment3`;
+- one focused contract, targeting 35 ordinary tests.
 
-The analytic elementary family remains incomplete after this work unit.
-Cylinder, cone, sphere and torus remain explicit later decisions with their
-own radius, periodicity and singularity semantics.
-
-General trimming / p-curves / topological faces, broader Coons/NURBS and
-Surface Differential Geometry remain deferred.
-
-No implementation may start until the decision PR is integrated, post-merge
-validated and separately closed.
+Cylinder, cone, sphere and torus remain explicit later decisions. General
+trimming/p-curves/topological faces, broader Coons/NURBS and Surface
+Differential Geometry remain deferred.
 
 Boundary Curve Discretization remains blocked.
 
