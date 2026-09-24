@@ -1876,53 +1876,43 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Plane Surface —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
+Implementation evidence:
 
-Closed decision checkpoint:
+- candidate head:
+  `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
+- candidate FAST `35991297348`: PASS, 35/35;
+- candidate INTEGRATION `35991297411`: PASS, 35/35;
+- final PR head:
+  `7cb3e38d046144282d183dc7e68d9476b36c484a`;
+- final PR FAST `35991554343`: PASS, 35/35;
+- final PR INTEGRATION `35991554362`: PASS, 35/35;
+- implementation PR #186:
+  `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
+- post-merge FAST `35991745316`: PASS, 35/35;
+- post-merge INTEGRATION `35991745435`: PASS, 35/35.
 
-- decision merge:
-  `9bc9a2770a1fdd3b2c5034ec4e2e003cddcd3176`;
-- decision post-merge FAST `35989404234`: PASS;
-- decision post-merge INTEGRATION `35989404276`: PASS;
-- closure PR #185:
-  `d90bc0c7bac80c38cb02fc2d4e7b72ab8c5aa848`;
-- closure post-merge FAST `35989828872`: PASS;
-- closure post-merge INTEGRATION `35989828884`: PASS.
+The plane work unit adds the first dedicated elementary analytic surface while
+preserving existing common surface and placement contracts.
 
-Active implementation branch:
-`surface/analytic-plane`.
+Next admissible action:
 
-Authorized scope:
+Open one fresh literature-backed comparison among:
 
-- new `BoundedPlaneSurface3` only;
-- existing `AxisPlacement3`;
-- arbitrary finite strict U/V parameter domains;
-- exact affine value semantics;
-- constant first partials;
-- exact zero second partials;
-- independent U/V reversal;
-- four boundary loci checked against `LineSegment3`;
-- one new focused contract, targeting **35 tests**.
+- bounded analytic cylinder;
+- bounded analytic cone;
+- bounded analytic sphere;
+- bounded analytic torus;
+- general trimming / p-curves / topological faces;
+- whether Surface Representation breadth is sufficient to open Surface
+  Differential Geometry.
 
-Candidate validation on head
-`8945b7ff71e7363ad509116c4659cebf180ad3d3`:
+No option is preselected.
 
-- FAST `35991297348`: PASS, 35/35 tests;
-- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 35/35 tests per cell;
-- the new analytic-plane contract and every prior ordinary semantic contract
-  passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. Common
-surface/error/placement contracts remain unchanged.
-
-Cylinder, cone, sphere and torus remain separate later decisions. General
-trimming/p-curves/topological faces, broader Coons/NURBS and Surface
-Differential Geometry remain deferred.
+General trimming, broader Coons/NURBS and Surface Differential Geometry remain
+deferred until a new decision explicitly admits them.
 
 Boundary Curve Discretization remains blocked.
 
