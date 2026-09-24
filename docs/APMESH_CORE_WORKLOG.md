@@ -519,9 +519,20 @@ Candidate implementation mapping:
   production source plus `apmesh_core.surface_plane` registered in ordinary
   surface FAST/INTEGRATION labels.
 
+Candidate validation:
+
+- candidate head:
+  `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
+- FAST `35991297348`: PASS, 35/35 tests;
+- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests in each cell;
+- `apmesh_core.surface_plane`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
