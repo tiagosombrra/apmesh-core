@@ -736,3 +736,51 @@ Current status:
 
 **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
 FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 37. Implementation integration and closure
+
+Candidate head:
+
+`8945b7ff71e7363ad509116c4659cebf180ad3d3`.
+
+Candidate validation:
+
+- FAST `35991297348`: PASS, 35/35 ordinary semantic tests;
+- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests per cell.
+
+Final PR head:
+
+`7cb3e38d046144282d183dc7e68d9476b36c484a`.
+
+Final PR validation:
+
+- FAST `35991554343`: PASS, 35/35;
+- INTEGRATION `35991554362`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests per cell.
+
+PR #186 merged as:
+
+`89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`.
+
+Protected-main validation:
+
+- FAST `35991745316`: PASS, 35/35;
+- INTEGRATION `35991745435`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests per cell;
+- `apmesh_core.surface_plane`: PASS;
+- every prior ordinary semantic contract remained PASS.
+
+Terminal work-unit result:
+
+**ANALYTIC PLANE IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSED / NOT QUALIFIED.**
+
+No plane implementation work remains active.
+
+The next admissible action is a fresh literature-backed comparison of bounded
+analytic cylinder, cone, sphere, torus, general trimming/p-curves/topological
+faces, and Surface Differential Geometry entry readiness.
+
+No option is pre-authorized.
