@@ -99,10 +99,9 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - closure post-merge FAST `35977390452` and INTEGRATION
   `35977390603`: PASS;
 - active work item:
-  **None; Bounded Analytic Plane decision integrated, closure pending**;
+  **Bounded Analytic Plane Surface in 3D implementation**;
 - active component status:
-  **ANALYTIC PLANE DECISION INTEGRATED / CLOSURE PENDING /
-  IMPLEMENTATION NOT STARTED / NOT QUALIFIED**;
+  **ANALYTIC PLANE IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
 - protected-main ordinary semantic inventory: **34 tests**, all PASS in the
@@ -117,32 +116,36 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-Close the integrated Bounded Analytic Plane Surface decision; no production
-implementation is active on this branch.
+Implement the bounded analytic plane work unit and no other surface family.
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #184 final head:
-  `5f0bc6f5967e7409024ee0d5ec4b191f5978397a`;
-- PR FAST `35978702792`: PASS;
-- PR INTEGRATION `35978702703`: PASS;
 - decision merge:
   `9bc9a2770a1fdd3b2c5034ec4e2e003cddcd3176`;
-- post-merge FAST `35989404234`: PASS;
-- post-merge INTEGRATION `35989404276`: PASS.
+- decision post-merge FAST `35989404234`: PASS;
+- decision post-merge INTEGRATION `35989404276`: PASS;
+- closure PR #185 final head:
+  `595b13fa19d7d17548a550633f5f06eb167b81a2`;
+- closure PR FAST `35989671595`: PASS;
+- closure PR INTEGRATION `35989671407`: PASS;
+- closure merge:
+  `d90bc0c7bac80c38cb02fc2d4e7b72ab8c5aa848`;
+- closure post-merge FAST `35989828872`: PASS;
+- closure post-merge INTEGRATION `35989828884`: PASS.
 
-Closure branch:
-`docs/surface-analytic-plane-decision-closure`.
+Active branch:
+`surface/analytic-plane`.
 
 Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
 
-After this closure is integrated and post-merge validated, the sole next
-production work item is **Bounded Analytic Plane Surface in 3D**.
+The implementation is limited to `BoundedPlaneSurface3`, using existing
+`AxisPlacement3`, arbitrary finite U/V domains, exact affine value,
+constant first partials, exact zero second partials and U/V reversal flags.
 
-Cylinder, cone, sphere and torus remain separate later elementary-surface
-decisions. General trimming, broader Coons/NURBS, Surface Differential
-Geometry, boundary discretization and meshing remain unauthorized.
+No common contract change, periodic/radius/apex/pole semantics, other
+elementary surface, trimming/topology, Surface Differential Geometry,
+boundary discretization or meshing work is authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
