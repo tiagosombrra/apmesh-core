@@ -89,24 +89,20 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
 - latest closed focused prerequisite:
-  **Right-Handed Arbitrary 3D Axis Placement**;
-- implementation PR #176:
-  `6d90036300671656c3bbde459dd2a783f8457cc1`;
-- implementation closure PR #177:
-  `fda3d1284ed500cdd97a7b6b153791f9d0884818`;
-- closure PR FAST `35903080976` and INTEGRATION
-  `35903080966`: PASS;
-- closure post-merge FAST `35903368279` and INTEGRATION
-  `35903368467`: PASS;
-- terminal sync PR #178:
-  `2f6b4bc269146bc9d27bd7351622f5d37093754c`;
-- sync post-merge FAST `35904119775` and INTEGRATION
-  `35904119725`: PASS;
+  **Bounded Cubic Bézier Surface of Revolution in 3D**;
+- implementation PR #181:
+  `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
+- implementation closure PR #182:
+  `e3fd83430ed664c9355ab4c7630316003ad6642d`;
+- closure PR FAST `35977288547` and INTEGRATION
+  `35977288546`: PASS;
+- closure post-merge FAST `35977390452` and INTEGRATION
+  `35977390603`: PASS;
 - active work item:
-  **None; bounded revolution implementation integrated, closure active**;
+  **None; bounded revolution work unit terminally closed**;
 - active component status:
   **BOUNDED REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
-  INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**;
+  INTEGRATED / CLOSED / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
 - protected-main ordinary semantic inventory at work-item entry: **33 tests**;
@@ -122,38 +118,36 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-Close the integrated bounded Cubic Bézier Surface of Revolution implementation
-checkpoint.
+Terminally reconcile the closed bounded Cubic Bézier Surface of Revolution
+work unit.
 
-Decision authority:
-`docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
+Terminal closure evidence:
 
-Implementation evidence:
-
-- initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`:
-  FAST `35911765896` FAIL and INTEGRATION `35911765945` FAIL because of
-  a mechanical focused-test construction defect; production compiled;
-- corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`:
-  FAST `35912060803` PASS and INTEGRATION `35912060866` PASS, 34/34;
-- final PR head `b23f29b243f69582c7aeb5290e1218b342b2e2bc`:
-  FAST `35912441379` PASS and INTEGRATION `35912441362` PASS, 34/34;
-- PR #181 merge:
+- implementation merge:
   `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
-- post-merge FAST `35976875663`: PASS, 34/34;
-- post-merge INTEGRATION `35976875599`: PASS, 34/34 in GCC and Clang.
+- implementation post-merge FAST `35976875663`: PASS, 34/34;
+- implementation post-merge INTEGRATION `35976875599`: PASS, 34/34;
+- closure PR #182 final head:
+  `13ca33a5cfaf5837a4c61c0ed9b0838686a7b43a`;
+- closure PR FAST `35977288547`: PASS;
+- closure PR INTEGRATION `35977288546`: PASS;
+- closure merge:
+  `e3fd83430ed664c9355ab4c7630316003ad6642d`;
+- closure post-merge FAST `35977390452`: PASS;
+- closure post-merge INTEGRATION `35977390603`: PASS.
 
-Closure branch:
-`docs/surface-cubic-bezier-revolution-implementation-closure`.
+Terminal sync branch:
+`docs/surface-cubic-bezier-revolution-closure-sync`.
 
-No production work item is active during this documentation-only closure.
+No production work item is active.
 
-After closure integration and post-merge validation, the sole next action is
-one fresh literature-backed Surface Representation breadth decision. No next
-surface family is pre-authorized.
+After this sync is integrated and post-merge validated, open one fresh
+literature-backed Surface Representation breadth decision. No next family is
+pre-authorized.
 
-Complete periodic revolution, analytic elementary surfaces, general trimming,
-broader Coons/NURBS, Surface Differential Geometry and downstream
-discretization/meshing remain unauthorized.
+The decision must compare analytic elementary surfaces, general trimming /
+p-curves / topological faces, broader Coons/transfinite boundaries, remaining
+NURBS degree/C0/periodic breadth, and Surface Differential Geometry readiness.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 

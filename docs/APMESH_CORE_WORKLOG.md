@@ -437,59 +437,52 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `surface/cubic-bezier-revolution`: **MERGED / HISTORICAL** via PR #181;
   bounded revolution implementation work item.
 - `docs/surface-cubic-bezier-revolution-implementation-closure`:
-  **CLOSURE-ONLY / ACTIVE**; records PR #181 integration and post-merge
-  validation before the next breadth decision.
+  **MERGED / HISTORICAL** via PR #182; closes the bounded revolution
+  implementation checkpoint.
+- `docs/surface-cubic-bezier-revolution-closure-sync`:
+  **ACTIVE / DOCUMENTATION-ONLY**; terminally reconciles the closed work unit
+  before the next breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Cubic Bézier Surface of Revolution implementation is
-integrated and ready for closure.**
+**None. Bounded Cubic Bézier Surface of Revolution is terminally closed.**
 
-Implementation history retained:
+Terminal closure evidence:
 
-1. initial candidate head:
-   `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`;
-2. initial FAST `35911765896`: FAIL during focused-test compilation;
-3. initial INTEGRATION `35911765945`: FAIL in GCC and Clang for the same
-   test-construction reason;
-4. production source compiled successfully in those failed runs;
-5. root cause: `tests/surface_revolution.cpp` attempted default construction
-   of `Point3`, which intentionally has no default constructor;
-6. classification:
-   **MECHANICAL TEST-CONSTRUCTION DEFECT / NO PRODUCTION SEMANTIC EVIDENCE**;
-7. corrected candidate head:
-   `8761b3c46bb0a486c5a8dda8349247876fd12334`;
-8. corrected FAST `35912060803`: PASS, 34/34;
-9. corrected INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug, 34/34 per cell;
-10. final PR head:
-    `b23f29b243f69582c7aeb5290e1218b342b2e2bc`;
-11. final PR FAST `35912441379`: PASS, 34/34;
-12. final PR INTEGRATION `35912441362`: PASS in GCC 13 Debug and Clang
-    18/libc++ Debug, 34/34 per cell;
-13. PR #181 merged as:
-    `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
-14. post-merge FAST `35976875663`: PASS, 34/34;
-15. post-merge INTEGRATION `35976875599`: PASS in GCC 13 Debug and Clang
-    18/libc++ Debug, 34/34 per cell;
-16. `apmesh_core.surface_revolution`: PASS in all final and post-merge jobs;
-17. every prior ordinary semantic contract remained PASS;
-18. no production work item is active in this closure change.
+1. implementation PR #181 merged as
+   `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
+2. implementation post-merge FAST `35976875663`: PASS, 34/34;
+3. implementation post-merge INTEGRATION `35976875599`: PASS, 34/34 in
+   GCC 13 Debug and Clang 18/libc++ Debug;
+4. implementation closure PR #182 final head:
+   `13ca33a5cfaf5837a4c61c0ed9b0838686a7b43a`;
+5. closure PR FAST `35977288547`: PASS;
+6. closure PR INTEGRATION `35977288546`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. PR #182 merged as
+   `e3fd83430ed664c9355ab4c7630316003ad6642d`;
+8. closure post-merge FAST `35977390452`: PASS;
+9. closure post-merge INTEGRATION `35977390603`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+10. the initial mechanical test-construction failure and its correction remain
+    preserved in this worklog and the decision record;
+11. ordinary semantic inventory remains 34 tests;
+12. no production work item is active.
 
-Integrated work-unit result:
+Terminal work-unit result:
 
 **BOUNDED REVOLUTION IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-## Next admissible work item after closure
+## Next admissible work item
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+After this terminal documentation sync is integrated and post-merge validated,
 open exactly one fresh literature-backed Surface Representation breadth
 decision comparing:
 
-1. analytic elementary surfaces, now placement-unblocked;
+1. analytic elementary surfaces;
 2. general trimming / p-curves / topological faces;
 3. broader Coons/transfinite boundaries;
 4. remaining NURBS degree/C0/periodic breadth;
