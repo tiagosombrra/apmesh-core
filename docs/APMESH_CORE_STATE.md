@@ -128,17 +128,15 @@ checkpoint.
 Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-Implementation integration evidence:
+Implementation evidence:
 
 - initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`:
   FAST `35911765896` FAIL and INTEGRATION `35911765945` FAIL because of
   a mechanical focused-test construction defect; production compiled;
 - corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`:
   FAST `35912060803` PASS and INTEGRATION `35912060866` PASS, 34/34;
-- final PR head:
-  `b23f29b243f69582c7aeb5290e1218b342b2e2bc`;
-- final PR FAST `35912441379`: PASS, 34/34;
-- final PR INTEGRATION `35912441362`: PASS, 34/34 in GCC and Clang;
+- final PR head `b23f29b243f69582c7aeb5290e1218b342b2e2bc`:
+  FAST `35912441379` PASS and INTEGRATION `35912441362` PASS, 34/34;
 - PR #181 merge:
   `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
 - post-merge FAST `35976875663`: PASS, 34/34;
