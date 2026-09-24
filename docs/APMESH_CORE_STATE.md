@@ -103,15 +103,15 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - sync post-merge FAST `35904119775` and INTEGRATION
   `35904119725`: PASS;
 - active work item:
-  **None; bounded revolution decision integrated, closure pending**;
-- component status:
-  **IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-  NOT QUALIFIED**;
+  **Bounded Cubic Bézier Surface of Revolution implementation**;
+- active component status:
+  **BOUNDED REVOLUTION IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+  FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
-- ordinary semantic inventory: **33 tests**;
-- the current breadth decision selects only a bounded sub-2*pi cubic Bézier
-  revolution surface; production remains unauthorized until decision closure;
+- protected-main ordinary semantic inventory at work-item entry: **33 tests**;
+- candidate ordinary semantic inventory: **34 tests**, all PASS on the
+  corrected candidate head;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -122,26 +122,61 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-Close the integrated bounded revolution decision checkpoint.
+Implement the bounded cubic Bézier revolution surface on the single active
+production branch `surface/cubic-bezier-revolution`.
 
 Decision authority:
 `docs/decisions/SURFACE_CUBIC_BEZIER_REVOLUTION_DECISION.md`.
 
-Decision integration evidence:
+Closed decision evidence:
 
-- PR #179 final head:
-  `92db678f92fbf869e00540536156de25a1647113`;
-- PR FAST `35909899142`: PASS;
-- PR INTEGRATION `35909899200`: PASS;
-- merge:
-  `112f3b7ae3c439d729380fec07d065997bf11e56`;
-- post-merge FAST `35910017412`: PASS;
-- post-merge INTEGRATION `35910017524`: PASS.
+- decision merge `112f3b7ae3c439d729380fec07d065997bf11e56`;
+- decision post-merge FAST `35910017412`: PASS;
+- decision post-merge INTEGRATION `35910017524`: PASS;
+- closure merge `715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`;
+- closure post-merge FAST `35910422052`: PASS;
+- closure post-merge INTEGRATION `35910422072`: PASS.
 
-After closure validation, the sole next production work item is the bounded
-cubic Bézier revolution surface defined by the decision.
+Implementation is limited to the decision-mapped new revolution header/source,
+one focused test, CMake registration and synchronized documentation.
 
-No production code is authorized in this closure branch.
+No common `SurfaceError`, `AxisPlacement3`, `CubicBezier3`, periodic,
+analytic elementary, trimming/topology, differential-geometry or meshing
+semantic change is authorized.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/revolution_surface.hpp`;
+- `src/geometry/revolution_surface.cpp`;
+- `tests/surface_revolution.cpp`;
+- `CMakeLists.txt`.
+
+Candidate implementation uses the existing `AxisPlacement3` local/world
+mapping to evaluate a fixed Rodrigues rotation, stores a precomputed end
+generatrix, exposes analytic Su/Sv/Suu/Suv/Svv, and preserves exact U/V
+reversal representation.
+
+The focused contract includes an independent world-space long-double
+Bernstein/Rodrigues oracle and analytic cylinder/annular-sector fixtures.
+
+Expected ordinary inventory: **34 tests**.
+
+Validation history:
+
+- initial head `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`:
+  FAST `35911765896` FAIL and INTEGRATION `35911765945` FAIL because the
+  new focused test attempted to default-construct `Point3`; production
+  compiled successfully;
+- corrected head `8761b3c46bb0a486c5a8dda8349247876fd12334`:
+  FAST `35912060803` PASS, 34/34;
+- corrected INTEGRATION `35912060866`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 34/34 per cell;
+- `apmesh_core.surface_revolution`: PASS in all corrected jobs.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 

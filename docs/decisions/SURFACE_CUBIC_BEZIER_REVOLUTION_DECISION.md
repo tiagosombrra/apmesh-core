@@ -711,3 +711,100 @@ Sections 5–31.
 
 No periodic revolution, analytic elementary surface, general trimming,
 broader Coons/NURBS or downstream capability is authorized.
+
+
+## 35. Decision closure checkpoint
+
+Decision closure PR #180 used final head:
+
+`2f9f832febe91ab6bcd2d95550e944bd66c48f6f`.
+
+Closure PR validation:
+
+- FAST `35910276757`: PASS;
+- INTEGRATION `35910276791`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #180 merged as:
+
+`715ad5dc0ef068bec5f68b260df0dd3abd0fcf52`.
+
+Closure post-merge validation:
+
+- FAST `35910422052`: PASS;
+- INTEGRATION `35910422072`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the bounded cubic Bézier revolution
+surface defined by Sections 5–31.
+
+No complete periodic revolution, analytic elementary surface, general
+trimming, broader Coons/NURBS or downstream capability is authorized.
+
+## 36. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/cubic-bezier-revolution`.
+
+Candidate mapping is restricted to:
+
+- `include/apmesh/geometry/revolution_surface.hpp`;
+- `src/geometry/revolution_surface.cpp`;
+- `tests/surface_revolution.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Expected ordinary semantic inventory after registration: **34 tests**.
+
+Candidate implementation:
+
+- public API:
+  `include/apmesh/geometry/revolution_surface.hpp`;
+- production:
+  `src/geometry/revolution_surface.cpp`;
+- focused contract:
+  `tests/surface_revolution.cpp`;
+- build registration:
+  `CMakeLists.txt`.
+
+Candidate semantics:
+
+- finite signed strict sub-2*pi sweep;
+- exact normalized unit-square domain;
+- precomputed finite rotated end generatrix;
+- existing `AxisPlacement3` used without semantic modification;
+- deterministic Rodrigues-style rotation through local axis coordinates;
+- analytic Su/Sv/Suu/Suv/Svv;
+- exact stored U reversal and generatrix V reversal;
+- independent long-double Bernstein/Rodrigues reference;
+- cylinder and annular-sector analytic fixtures;
+- axis-reference invariance;
+- degenerate, affine, scale, extreme-finite and deterministic evidence.
+
+Expected ordinary inventory: **34 tests**.
+
+Initial implementation validation:
+
+- initial PR head:
+  `924112fe4fb1f96fb3effefe4d4efa8ff84485c8`;
+- FAST `35911765896`: FAIL during compilation of
+  `tests/surface_revolution.cpp`;
+- INTEGRATION `35911765945`: FAIL in both GCC 13 Debug and Clang 18/libc++
+  Debug for the same test-compilation reason;
+- production revolution source compiled successfully;
+- root cause was test-only default initialization of
+  `std::array<Point3,4>`, while `Point3` has no default constructor;
+- classified as a mechanical focused-test defect;
+- corrected by copying the existing valid control-point array before
+  replacement;
+- production semantics and the decision contract were unchanged.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / MECHANICAL TEST FIX APPLIED /
+REVALIDATION PENDING / NOT QUALIFIED.**
