@@ -682,3 +682,46 @@ Sections 5–31.
 No cylinder, cone, sphere, torus, periodic seam, trimming/topology, broader
 Coons/NURBS, Surface Differential Geometry or meshing capability is
 authorized.
+
+
+## 36. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/analytic-plane`.
+
+Candidate mapping:
+
+- public family:
+  `include/apmesh/geometry/elementary_surface.hpp`;
+- production:
+  `src/geometry/elementary_surface.cpp`;
+- focused contract:
+  `tests/surface_plane.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate semantics:
+
+- stores the exact validated `AxisPlacement3` and U/V domains;
+- stores only U/V reversal flags in addition;
+- preserves the common `SurfaceError` and
+  `BoundedParametricSurface3` contracts unchanged;
+- validates U finite, V finite, U domain, V domain in established order;
+- evaluates the affine plane through the existing placement transform;
+- returns exact signed placement X/Y first partials;
+- returns exact zero second partials;
+- reflects parameters only through the existing overflow-aware
+  `reversed_parameter`;
+- introduces no topology or differential-geometry state.
+
+The focused contract includes the complete Section 20 matrix, including four
+`LineSegment3` boundary-locus checks, arbitrary non-axis-aligned placement,
+translation, power-of-two scaling, extreme finite success/failure and
+deterministic repeat evidence.
+
+Expected ordinary semantic inventory: **35 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
