@@ -444,53 +444,103 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   revolution work unit.
 - `surface/analytic-plane-decision`: **MERGED / HISTORICAL** via PR #184;
   bounded analytic plane breadth decision.
-- `docs/surface-analytic-plane-decision-closure`: **CLOSURE-ONLY**;
-  records PR #184 integration and post-merge validation.
+- `docs/surface-analytic-plane-decision-closure`: **MERGED / HISTORICAL**
+  via PR #185; closes the bounded analytic plane decision checkpoint.
+- `surface/analytic-plane`: **ACTIVE**; bounded analytic plane production
+  work item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Analytic Plane Surface decision is integrated and ready for
-closure.**
+**Bounded Analytic Plane Surface in 3D — ACTIVE / IMPLEMENTATION OPEN /
+NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`surface/analytic-plane`.
 
-1. decision authority:
-   `docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`;
-2. decision PR #184 final head:
-   `5f0bc6f5967e7409024ee0d5ec4b191f5978397a`;
-3. decision PR FAST `35978702792`: PASS;
-4. decision PR INTEGRATION `35978702703`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. PR #184 merged as
+Decision authority:
+`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`.
+
+Closed decision evidence:
+
+1. decision PR #184:
    `9bc9a2770a1fdd3b2c5034ec4e2e003cddcd3176`;
-6. post-merge FAST `35989404234`: PASS;
-7. post-merge INTEGRATION `35989404276`: PASS in GCC 13 Debug and Clang
+2. decision post-merge FAST `35989404234`: PASS;
+3. decision post-merge INTEGRATION `35989404276`: PASS;
+4. decision closure PR #185 final head:
+   `595b13fa19d7d17548a550633f5f06eb167b81a2`;
+5. closure PR FAST `35989671595`: PASS;
+6. closure PR INTEGRATION `35989671407`: PASS in GCC 13 Debug and Clang
    18/libc++ Debug;
-8. ordinary semantic inventory remains **34 tests**;
-9. no production plane implementation exists;
-10. no production work item is active on this closure branch.
+7. PR #185 merged as
+   `d90bc0c7bac80c38cb02fc2d4e7b72ab8c5aa848`;
+8. closure post-merge FAST `35989828872`: PASS;
+9. closure post-merge INTEGRATION `35989828884`: PASS;
+10. ordinary semantic inventory at work-item entry: **34 tests**.
 
-## Next admissible work item after closure
+Authorized repository mapping:
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one production branch for:
+- public family:
+  `include/apmesh/geometry/elementary_surface.hpp`;
+- production:
+  `src/geometry/elementary_surface.cpp`;
+- focused contract:
+  `tests/surface_plane.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / decision.
 
-**Bounded Analytic Plane Surface in 3D.**
+Implementation scope:
 
-Implementation remains bounded by
-`docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`:
-
-- reuse existing `AxisPlacement3`;
-- store arbitrary finite strict U/V `CurveParameterDomain` intervals;
-- exact affine value evaluation;
-- constant first partials;
+- existing `AxisPlacement3`;
+- arbitrary finite strict U/V `CurveParameterDomain` intervals;
+- exact affine evaluation in placement coordinates;
+- constant first partials ±X/±Y;
 - exact zero second partials;
-- independent U/V reversal;
-- boundary parity with `LineSegment3`;
-- one focused contract, targeting **35 ordinary tests**.
+- independent U/V reversal flags using `reversed_parameter`;
+- boundary physical-locus parity with `LineSegment3`;
+- arbitrary placement, translation/scale, extreme-finite and deterministic
+  evidence;
+- expected ordinary inventory: **35 tests**.
 
-Cylinder, cone, sphere, torus, periodic semantics, general trimming,
-broader Coons/NURBS, Surface Differential Geometry, boundary discretization
-and meshing remain unauthorized.
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/elementary_surface.hpp`:
+  value type, validated-domain storage, placement identity and reversal flags;
+- `src/geometry/elementary_surface.cpp`:
+  established validation order, overflow-aware parameter reflection,
+  placement-based affine evaluation and analytic derivatives;
+- `tests/surface_plane.cpp`:
+  independent long-double oracle, four LineSegment3 boundary checks,
+  reversal/orientation, arbitrary placement, affine/extreme and determinism
+  evidence;
+- `CMakeLists.txt`:
+  production source plus `apmesh_core.surface_plane` registered in ordinary
+  surface FAST/INTEGRATION labels.
+
+Candidate validation:
+
+- candidate head:
+  `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
+- FAST `35991297348`: PASS, 35/35 tests;
+- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests in each cell;
+- `apmesh_core.surface_plane`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+Explicit non-actions:
+
+- no `SurfaceError` extension;
+- no change to `AxisPlacement3` or `BoundedParametricSurface3`;
+- no cylinder, cone, sphere or torus;
+- no periodic/radius/apex/pole semantics;
+- no general trimming/p-curves/topology;
+- no broader Coons/NURBS;
+- no Surface Differential Geometry;
+- no boundary discretization, meshing, Quad-Dominant or parallel work.

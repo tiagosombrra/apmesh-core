@@ -648,3 +648,91 @@ production work item is `BoundedPlaneSurface3` under Sections 5–31.
 No other elementary surface, periodic seam, trimming/topology, broader
 Coons/NURBS, Surface Differential Geometry or meshing capability is
 authorized.
+
+
+## 35. Decision closure checkpoint
+
+Decision closure PR #185 final head:
+
+`595b13fa19d7d17548a550633f5f06eb167b81a2`.
+
+Closure PR validation:
+
+- FAST `35989671595`: PASS;
+- INTEGRATION `35989671407`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #185 merged as:
+
+`d90bc0c7bac80c38cb02fc2d4e7b72ab8c5aa848`.
+
+Closure post-merge validation:
+
+- FAST `35989828872`: PASS;
+- INTEGRATION `35989828884`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is `BoundedPlaneSurface3` under
+Sections 5–31.
+
+No cylinder, cone, sphere, torus, periodic seam, trimming/topology, broader
+Coons/NURBS, Surface Differential Geometry or meshing capability is
+authorized.
+
+
+## 36. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/analytic-plane`.
+
+Candidate mapping:
+
+- public family:
+  `include/apmesh/geometry/elementary_surface.hpp`;
+- production:
+  `src/geometry/elementary_surface.cpp`;
+- focused contract:
+  `tests/surface_plane.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate semantics:
+
+- stores the exact validated `AxisPlacement3` and U/V domains;
+- stores only U/V reversal flags in addition;
+- preserves the common `SurfaceError` and
+  `BoundedParametricSurface3` contracts unchanged;
+- validates U finite, V finite, U domain, V domain in established order;
+- evaluates the affine plane through the existing placement transform;
+- returns exact signed placement X/Y first partials;
+- returns exact zero second partials;
+- reflects parameters only through the existing overflow-aware
+  `reversed_parameter`;
+- introduces no topology or differential-geometry state.
+
+The focused contract includes the complete Section 20 matrix, including four
+`LineSegment3` boundary-locus checks, arbitrary non-axis-aligned placement,
+translation, power-of-two scaling, extreme finite success/failure and
+deterministic repeat evidence.
+
+Expected ordinary semantic inventory: **35 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
+- FAST `35991297348`: PASS, 35/35 ordinary semantic tests;
+- INTEGRATION `35991297411`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 35/35 tests per cell;
+- `apmesh_core.surface_plane`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
