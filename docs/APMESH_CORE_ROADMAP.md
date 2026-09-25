@@ -1877,47 +1877,47 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Differential Geometry — First-Order Metric and Oriented Normal —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED**
+**Surface Differential Geometry — Second Fundamental Form + Gaussian/Mean
+Curvature — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Terminal evidence:
+Decision-entry authority:
 
-- implementation PR #196:
-  `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
-- implementation post-merge FAST `36118945024`: PASS, 37/37;
-- implementation post-merge INTEGRATION `36118944987`: PASS, 37/37;
-- closure PR #197:
-  `5fc561a2e0e927369c5dc5c4644ef18699602914`;
-- closure PR FAST `36119500567`: PASS, 37/37;
-- closure PR INTEGRATION `36119500599`: PASS, 37/37;
-- closure post-merge FAST `36119643984`: PASS, 37/37;
-- closure post-merge INTEGRATION `36119643997`: PASS, 37/37.
+- terminal first-order state:
+  `793fd46575e0c00d11ad2739b8e9c92227d576a1`;
+- terminal-state FAST `36120283995`: PASS;
+- terminal-state INTEGRATION `36120284007`: PASS;
+- ordinary semantic inventory: 37 tests.
 
-Preserved validation history:
+Active decision:
+`docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
 
-- initial mechanically green PR runs `36116721390` / `36116721741` were
-  incomplete at 36/36 because the new test lacked ordinary-profile labels;
-- corrected runs `36118467156` / `36118467165` and all subsequent gates
-  executed the focused test and passed 37/37;
-- no production-semantic defect was found.
+Selected future work unit:
 
-No work item is active.
+**Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature
+for regular C2 bounded parametric surfaces in 3D.**
 
-Next admissible action:
+The decision freezes:
 
-Open one fresh literature-backed Surface Differential Geometry decision
-comparing:
+- II coefficients `L=S_uu·n`, `M=S_uv·n`, `N=S_vv·n`;
+- `K=(LN-M²)/(EG-F²)`;
+- `H=(EN-2FM+GL)/(2(EG-F²))`;
+- AP Mesh orientation convention through the existing `S_u×S_v` normal;
+- K orientation invariance and H orientation sign;
+- exact singularity and insufficient-continuity failures;
+- no hidden near-singular epsilon;
+- scale-aware arithmetic with explicit non-representable failure;
+- one future focused ordinary contract, targeting 38 tests.
 
-- second fundamental form plus Gaussian/mean curvature;
-- principal curvatures/directions;
-- explicit conditioning / near-singular diagnostics;
-- return to Surface Representation for sphere/cone/torus;
-- return to general trimming/p-curves/topological faces.
+Deferred:
 
-No option is preselected.
+- principal curvatures/directions and umbilic semantics;
+- conditioning/near-singular diagnostic policy;
+- sphere/cone/torus and remaining Surface Representation breadth;
+- general trimming/p-curves/topological faces.
 
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
+No implementation may start until the decision PR is integrated, post-merge
+FAST/INTEGRATION pass and a separate decision checkpoint closes.
 
 Boundary Curve Discretization and downstream meshing remain blocked.
 
