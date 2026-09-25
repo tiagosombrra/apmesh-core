@@ -648,6 +648,7 @@ if(BUILD_TESTING)
         apmesh_core.surface_revolution
         apmesh_core.surface_plane
         apmesh_core.surface_cylinder
+        apmesh_core.surface_metric_normal
         PROPERTIES LABELS "surface;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
 
