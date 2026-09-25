@@ -488,7 +488,7 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   **MERGED / HISTORICAL** via PR #202; closes the integrated II/K/H
   implementation and publishes its implementation audit.
 - `docs/surface-second-order-curvature-terminal-sync`:
-  **ACTIVE / DOCUMENTATION-ONLY**; terminally reconciles the closed II/K/H
+  **MERGED / HISTORICAL** via PR #203; publishes the terminal closed II/K/H
   checkpoint before the next scientific decision.
 
 The presence of historical branches on the remote does not make them active.
@@ -519,6 +519,14 @@ Terminal implementation/closure evidence:
     in the candidate-validation audit;
 11. final implementation audit remains
     `docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
+12. terminal publication PR #203 head:
+    `e949ea5a40319da2b8d1ea21938d59d9e3a404f4`;
+13. terminal publication PR FAST `36128180100`: PASS;
+14. terminal publication PR INTEGRATION `36128180212`: PASS;
+15. terminal publication PR #203 merged as
+    `db382cf6218ad4fbf18cbafb3b246be812f6b3b7`;
+16. terminal publication post-merge FAST `36128406912`: PASS;
+17. terminal publication post-merge INTEGRATION `36128406846`: PASS.
 
 Terminal work-unit result:
 
