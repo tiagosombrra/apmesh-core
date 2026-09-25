@@ -1751,7 +1751,7 @@ before qualification.
 
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
-Status: `FIRST-ORDER METRIC/NORMAL INTEGRATED / CLOSURE PENDING /
+Status: `FIRST-ORDER METRIC/NORMAL IMPLEMENTED / INTEGRATED / CLOSED /
 NOT QUALIFIED`
 
 Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
@@ -1878,33 +1878,36 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — First-Order Metric and Oriented Normal —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
 NOT QUALIFIED**
 
-Implementation evidence:
+Terminal evidence:
 
-- final PR head:
-  `38da1f9eeefdff15173f421057580db72884e64c`;
-- final PR FAST `36118684757`: PASS, 37/37;
-- final PR INTEGRATION `36118684741`: PASS, 37/37 in GCC/Clang;
-- PR #196 merge:
+- implementation PR #196:
   `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
-- post-merge FAST `36118945024`: PASS, 37/37;
-- post-merge INTEGRATION `36118944987`: PASS, 37/37 in GCC/Clang.
+- implementation post-merge FAST `36118945024`: PASS, 37/37;
+- implementation post-merge INTEGRATION `36118944987`: PASS, 37/37;
+- closure PR #197:
+  `5fc561a2e0e927369c5dc5c4644ef18699602914`;
+- closure PR FAST `36119500567`: PASS, 37/37;
+- closure PR INTEGRATION `36119500599`: PASS, 37/37;
+- closure post-merge FAST `36119643984`: PASS, 37/37;
+- closure post-merge INTEGRATION `36119643997`: PASS, 37/37.
 
-Validation-history note:
+Preserved validation history:
 
-- initial PR runs `36116721390` / `36116721741` were mechanically green
-  but incomplete at 36/36 because the new test lacked FAST/INTEGRATION labels;
-- corrected runs `36118467156` / `36118467165` proved 37/37;
-- the defect was in test registration only; production scientific semantics
-  did not change.
+- initial mechanically green PR runs `36116721390` / `36116721741` were
+  incomplete at 36/36 because the new test lacked ordinary-profile labels;
+- corrected runs `36118467156` / `36118467165` and all subsequent gates
+  executed the focused test and passed 37/37;
+- no production-semantic defect was found.
 
-Closure audit:
-`docs/audits/2026-09-25-surface-metric-normal-implementation-audit.md`.
+No work item is active.
 
-After closure integration and post-merge validation, open one fresh
-literature-backed Surface Differential Geometry decision comparing:
+Next admissible action:
+
+Open one fresh literature-backed Surface Differential Geometry decision
+comparing:
 
 - second fundamental form plus Gaussian/mean curvature;
 - principal curvatures/directions;
@@ -1914,9 +1917,7 @@ literature-backed Surface Differential Geometry decision comparing:
 
 No option is preselected.
 
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
-sphere, cone, torus, full-periodic cylinder and general trimming/p-curves/faces
-retained.
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
 Boundary Curve Discretization and downstream meshing remain blocked.
 
