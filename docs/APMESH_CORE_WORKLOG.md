@@ -452,71 +452,48 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   HISTORICAL** via PR #187; closes the bounded analytic plane implementation.
 - `docs/surface-analytic-plane-terminal-sync`: **MERGED / HISTORICAL**
   via PR #188; terminally reconciles the bounded analytic plane work unit.
-- `surface/analytic-cylinder-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; bounded analytic cylinder-sector breadth decision;
-  no production implementation.
+- `surface/analytic-cylinder-decision`: **MERGED / HISTORICAL** via PR #189;
+  bounded analytic cylinder-sector breadth decision.
+- `docs/surface-analytic-cylinder-decision-closure`: **CLOSURE-ONLY**;
+  records PR #189 integration and protected-main validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bounded Analytic Cylinder Sector — DECISION ACTIVE /
-DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Bounded Analytic Cylinder Sector decision is integrated and ready for
+closure.**
 
-Active branch:
-`surface/analytic-cylinder-decision`.
+Decision evidence:
 
-Entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`;
+2. decision final head:
+   `f9a6811cd1ecb1abea7bbfb1cec9f095ff6208e8`;
+3. decision PR #189 FAST `36085045566`: PASS;
+4. decision PR #189 INTEGRATION `36085045563`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+5. PR #189 merged as
+   `9e0b5dcc7061912a2983c7c1b4a93d99839796e8`;
+6. decision post-merge FAST `36085132728`: PASS;
+7. decision post-merge INTEGRATION `36085132887`: PASS;
+8. no cylinder production code has been introduced;
+9. `SurfaceError`, `AxisPlacement3` and
+   `BoundedParametricSurface3` remain unchanged;
+10. ordinary semantic inventory remains 35 tests.
 
-- terminal analytic-plane sync PR #188:
-  `1c9283498ed9563ff8193f432811c3fb2f7ae7e9`;
-- sync PR FAST `36084372900`: PASS;
-- sync PR INTEGRATION `36084372892`: PASS;
-- sync post-merge FAST `36084432186`: PASS;
-- sync post-merge INTEGRATION `36084432183`: PASS;
-- no open PR and no active production work item at decision entry.
+No production work item is active in this closure change.
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
+## Next admissible work item after closure
 
-Required comparison:
-
-1. bounded analytic cylinder;
-2. bounded analytic cone;
-3. bounded analytic sphere;
-4. bounded analytic torus;
-5. general trimming / p-curves / topological faces;
-6. Surface Differential Geometry entry readiness.
-
-Selected future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one production branch for:
 
 **Bounded Analytic Circular Cylinder Sector in 3D.**
 
-Frozen future semantics:
+The implementation remains bounded by
+`docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
 
-- reuse existing `AxisPlacement3`;
-- finite strictly positive radius;
-- finite strict angular U domain with width strictly less than `2*pi`;
-- finite strict axial V domain;
-- no periodic wrap/modulo;
-- analytic value, first and second partials;
-- U/V reversal through the existing parameter-reflection primitive;
-- axial-boundary parity with `LineSegment3`;
-- circular boundaries checked by an independent analytic oracle;
-- one focused contract, targeting 36 ordinary tests.
-
-This decision branch may change only documentation/research authorities.
-
-No cylinder production, full-periodic seam, cone, sphere, torus, p-curve,
-topological-face, Surface Differential Geometry, discretization or meshing work
+No full-periodic cylinder, cone, sphere, torus, p-curve/topological-face,
+Surface Differential Geometry, Boundary Curve Discretization or meshing work
 is authorized.
-
-## Next admissible transition after this decision
-
-Only after the decision PR is integrated, post-merge FAST/INTEGRATION pass and
-a separate decision checkpoint closes may one production branch be opened for
-the bounded analytic cylinder sector.
-
-If implementation requires periodic wrapping, radius zero, a common
-`SurfaceError` change, an `AxisPlacement3` change or any additional surface
-family, stop and require a new decision.

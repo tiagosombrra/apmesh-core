@@ -591,3 +591,37 @@ the sole next production work item becomes:
 No production implementation begins on this decision branch.
 
 Boundary Curve Discretization and meshing remain blocked.
+
+
+## 30. Decision integration checkpoint
+
+Final decision head:
+
+`f9a6811cd1ecb1abea7bbfb1cec9f095ff6208e8`.
+
+Decision validation:
+
+- FAST `36085045566`: PASS;
+- INTEGRATION `36085045563`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #189 merged as:
+
+`9e0b5dcc7061912a2983c7c1b4a93d99839796e8`.
+
+Post-merge validation:
+
+- FAST `36085132728`: PASS;
+- INTEGRATION `36085132887`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Integrated decision result:
+
+**DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
+NOT QUALIFIED.**
+
+After closure integration and post-merge validation, the sole next production
+work item is `BoundedCylinderSurface3` under Sections 5–27.
+
+No full-periodic seam or broader analytic/topological/differential capability
+is authorized.
