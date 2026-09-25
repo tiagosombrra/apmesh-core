@@ -417,6 +417,20 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.surface_plane
     )
 
+    add_executable(apmesh_core.surface_cylinder
+        tests/surface_cylinder.cpp
+    )
+    target_link_libraries(
+        apmesh_core.surface_cylinder
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.surface_cylinder)
+
+    add_test(
+        NAME apmesh_core.surface_cylinder
+        COMMAND apmesh_core.surface_cylinder
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -618,6 +632,7 @@ if(BUILD_TESTING)
         apmesh_core.surface_linear_extrusion
         apmesh_core.surface_revolution
         apmesh_core.surface_plane
+        apmesh_core.surface_cylinder
         PROPERTIES LABELS "surface;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
 
