@@ -1714,8 +1714,8 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `BOUNDED ANALYTIC CYLINDER IMPLEMENTATION ACTIVE /
-NOT QUALIFIED`
+Status: `IN INVESTIGATION / BOUNDED ANALYTIC CYLINDER CLOSED /
+NOT QUALIFIED / PAUSED DURING SURFACE DIFFERENTIAL ENTRY`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1751,7 +1751,7 @@ before qualification.
 
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
-Status: `NOT STARTED`
+Status: `ENTRY DECISION ACTIVE / NOT QUALIFIED`
 
 Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
 
@@ -1876,38 +1876,50 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Bounded Analytic Cylinder Sector —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Differential Geometry — Metric, Normals, and Curvatures —
+ENTRY DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED**
 
-Terminal evidence:
+Entry authority:
 
-- implementation PR #191:
-  `6edc598637ddedd54cf62732e33a62e504cb82c8`;
-- implementation post-merge FAST `36088816019`: PASS, 36/36;
-- implementation post-merge INTEGRATION `36088816031`: PASS, 36/36;
-- closure PR #192 head:
-  `610df134d9f68d705cb9444c2f3192df6da2a057`;
-- closure PR FAST `36089006808`: PASS;
-- closure PR INTEGRATION `36089006822`: PASS;
-- closure merge:
-  `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
-- closure post-merge FAST `36089081707`: PASS;
-- closure post-merge INTEGRATION `36089081776`: PASS.
+- terminal Surface Representation cylinder sync:
+  `93eb53c21766d9584290733ef83f838ad9652c98`;
+- FAST `36089325503`: PASS;
+- INTEGRATION `36089325498`: PASS;
+- ordinary semantic inventory: 36 tests.
 
-Next admissible action:
+Active decision:
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-Open one literature-backed comparison among:
+Selected first future work unit:
 
-- Surface Differential Geometry entry readiness;
-- bounded analytic sphere;
-- bounded analytic cone;
-- bounded analytic torus;
-- general trimming / p-curves / topological faces.
+**Pointwise Surface Regularity, First Fundamental Form, Area Density, and
+Oriented Unit Normal in 3D.**
 
-No option is preselected.
+Authorized future scope is limited to:
 
-Full-periodic cylinder and downstream discretization/meshing remain blocked.
+- generic consumption of existing `S_u,S_v` first derivatives;
+- `E,F,G` first fundamental form;
+- area density `|S_u x S_v|`;
+- oriented unit normal;
+- exact typed singular-parameterization failure;
+- scale-aware numeric behavior;
+- reversal/frame/scale covariance;
+- analytic plane and cylinder oracles;
+- conformance across already integrated surface families;
+- one new focused contract, targeting 37 ordinary tests.
+
+Not authorized:
+
+- second fundamental form;
+- Gaussian/mean/principal curvature;
+- sphere/cone/torus production;
+- full-periodic cylinder;
+- general trimming/p-curves/topological faces;
+- boundary discretization, sizing or meshing.
+
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** and
+retains all deferred family obligations.
 
 The long-term ordering remains:
 
