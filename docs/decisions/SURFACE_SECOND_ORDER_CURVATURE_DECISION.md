@@ -586,3 +586,35 @@ production work item is the II/K/H implementation bounded by Sections 6–28.
 No principal curvature/direction, conditioning diagnostic, new surface
 representation, trimming/topology or downstream meshing capability is
 authorized.
+
+
+## 32. Decision closure checkpoint
+
+Decision closure PR #200 used head
+`a3f15ab622b0e16cafb49e6148961d8d96bc6f36`.
+
+Closure PR validation:
+
+- FAST `36124601027`: PASS;
+- INTEGRATION `36124601120`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #200 merged as
+`204f0456ae12ecfd367f38cdca874fcf83f4a952`.
+
+Closure post-merge validation:
+
+- FAST `36124711127`: PASS;
+- INTEGRATION `36124711118`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / II+K/H IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is
+`surface/second-order-curvature`.
+
+No principal curvature/direction, conditioning diagnostic, new surface
+representation, trimming/topology or downstream meshing capability is
+authorized.
