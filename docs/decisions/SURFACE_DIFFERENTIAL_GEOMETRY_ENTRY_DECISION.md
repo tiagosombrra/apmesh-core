@@ -607,3 +607,42 @@ The sole active production work item is
 `surface/metric-normal`.
 
 No second-order curvature or new surface representation is authorized.
+
+## 28. Active first-order implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/metric-normal`.
+
+Candidate mapping:
+
+- public differential API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_metric_normal.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+The candidate implements:
+
+- exact typed surface-error propagation;
+- exact zero-cross-product singularity semantics;
+- scale-aware E/F/G reconstruction;
+- scale-aware area density;
+- oriented unit normal;
+- no universal regularity epsilon;
+- plane and cylinder analytic oracles;
+- near-degenerate regular acceptance;
+- reversal, frame, translation and power-of-two scale covariance;
+- regular conformance across the integrated surface families.
+
+Expected ordinary semantic inventory: **37 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
+No second fundamental form, curvature or new surface representation is
+implied.
