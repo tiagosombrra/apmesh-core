@@ -88,7 +88,7 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  FIRST-ORDER METRIC/NORMAL INTEGRATED / CLOSURE PENDING /
+  FIRST-ORDER METRIC/NORMAL IMPLEMENTED / INTEGRATED / CLOSED /
   NOT QUALIFIED**;
 - entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
@@ -104,7 +104,11 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
 - implementation post-merge FAST `36118945024` and INTEGRATION
   `36118944987`: PASS, 37/37;
-- no production work item is active; implementation closure is pending;
+- implementation closure PR #197:
+  `5fc561a2e0e927369c5dc5c4644ef18699602914`;
+- closure post-merge FAST `36119643984` and INTEGRATION
+  `36119643997`: PASS, 37/37;
+- no production or documentation work item is active;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
   obligations retained;
@@ -114,36 +118,39 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Close the integrated first-order surface metric/normal work unit.**
+**Open one fresh literature-backed Surface Differential Geometry decision.**
 
-Implementation authority:
+Terminal first-order metric/normal evidence:
 
-- final PR head:
-  `38da1f9eeefdff15173f421057580db72884e64c`;
-- PR FAST `36118684757`: PASS, 37/37;
-- PR INTEGRATION `36118684741`: PASS, 37/37 in GCC 13 Debug and Clang
-  18/libc++ Debug;
-- merge:
+- implementation PR #196:
   `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
-- post-merge FAST `36118945024`: PASS, 37/37;
-- post-merge INTEGRATION `36118944987`: PASS, 37/37 in GCC and Clang.
+- implementation post-merge FAST `36118945024`: PASS, 37/37;
+- implementation post-merge INTEGRATION `36118944987`: PASS, 37/37;
+- implementation closure PR #197 head:
+  `8bdab0d43da87800add044a1ff1a9a3a4cd47e99`;
+- closure PR FAST `36119500567`: PASS, 37/37;
+- closure PR INTEGRATION `36119500599`: PASS, 37/37;
+- closure merge:
+  `5fc561a2e0e927369c5dc5c4644ef18699602914`;
+- closure post-merge FAST `36119643984`: PASS, 37/37;
+- closure post-merge INTEGRATION `36119643997`: PASS, 37/37.
 
-Historical validation correction retained:
+Terminal result:
 
-- initial green runs `36116721390` / `36116721741` executed only 36 tests;
-- root cause was a missing ordinary-profile label on
-  `apmesh_core.surface_metric_normal`;
-- corrected runs `36118467156` / `36118467165` executed 37/37;
-- no production-semantic defect was found.
+**FIRST-ORDER METRIC+NORMAL IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-Current status:
+Protected-main ordinary semantic inventory: **37 tests**.
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
-NOT QUALIFIED.**
+No current work item is active.
 
-After closure integration and post-merge validation, the sole next action is a
-fresh literature-backed Surface Differential Geometry decision. No
-second-order curvature capability is pre-authorized.
+The next decision must compare second-order differential geometry,
+principal-curvature work, conditioning diagnostics, and the retained
+Surface Representation gaps. No candidate is pre-authorized.
+
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
+sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
+obligations retained.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
