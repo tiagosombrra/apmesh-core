@@ -1878,60 +1878,46 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — Second Fundamental Form + Gaussian/Mean
-Curvature — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+Curvature — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED**
 
-Closed decision lineage:
+Implementation evidence:
 
-- decision PR #199:
-  `f5288a3c1388ee1c0255276b770461fb9ee70fae`;
-- decision post-merge FAST `36124361467`: PASS;
-- decision post-merge INTEGRATION `36124361479`: PASS;
-- closure PR #200:
-  `204f0456ae12ecfd367f38cdca874fcf83f4a952`;
-- closure post-merge FAST `36124711127`: PASS;
-- closure post-merge INTEGRATION `36124711118`: PASS.
-
-Active implementation branch:
-`surface/second-order-curvature`.
-
-Authorized scope:
-
-- reuse existing first-order metric/normal and second derivatives;
-- add oriented II coefficients L/M/N;
-- add Gaussian curvature K;
-- add oriented mean curvature H;
-- preserve exact singularity and insufficient-continuity semantics;
-- preserve no-epsilon regularity;
-- one focused semantic contract;
-- target ordinary inventory: 38 tests.
-
-Candidate implementation remains mapped to the authorized files only.
-
-Initial validation history:
-
-- head `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+- initial head
+  `c3cd327ebbd4add551c7d331f0149513d15324c7`;
 - FAST `36125805859`: PASS;
-- INTEGRATION `36125805817`: GCC 38/38 PASS; Clang 37/38 FAIL;
-- failure was isolated to the extreme non-representable-curvature test fixture;
-- production formulas/API were unchanged;
-- corrected fixture commit:
-  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
-- corrected head
-  `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
+- INTEGRATION `36125805817`: GCC 38/38 PASS; Clang 37/38 FAIL on a
+  compiler-sensitive extreme test fixture;
+- correction
+  `89326bb1ad70449f4ed75c7b00d45699e998ce09`: focused test only;
 - corrected FAST `36126869683`: PASS, 38/38;
 - corrected INTEGRATION `36126869675`: PASS, 38/38 in GCC/Clang;
-- final documentation-only head requires one last FAST/INTEGRATION
-  revalidation before integration.
+- final PR head
+  `ffc81253bad6096741352ced28999e7626735bfc`;
+- final PR FAST `36127069279`: PASS, 38/38;
+- final PR INTEGRATION `36127069324`: PASS, 38/38 in GCC/Clang;
+- PR #201 merged as
+  `ed91d70d11446925148cc0ee5f0efab879022270`;
+- protected-main FAST `36127252797`: PASS, 38/38;
+- protected-main INTEGRATION `36127252837`: PASS, 38/38 in GCC/Clang.
 
-No common surface concept or concrete surface-family implementation changed.
+Closure branch:
+`docs/surface-second-order-curvature-implementation-closure`.
 
-Principal curvatures/directions, conditioning diagnostics, sphere/cone/torus,
-general trimming/p-curves/faces and all downstream discretization/meshing
-remain deferred.
+Implementation audit:
+`docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
+
+No production work item is active while closure is pending.
+
+After closure, the next scientific work must be selected by a fresh
+literature-backed comparison among principal curvatures/directions,
+conditioning diagnostics, remaining Surface Representation breadth,
+trimming/topological-face work and Boundary Curve Discretization readiness.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Boundary Curve Discretization remains blocked.
+Boundary Curve Discretization remains blocked until an explicit decision
+changes that status.
 
 The long-term ordering remains:
 
