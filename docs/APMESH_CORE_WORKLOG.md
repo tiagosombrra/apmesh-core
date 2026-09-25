@@ -467,43 +467,68 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `surface/differential-geometry-entry-decision`: **MERGED / HISTORICAL**
   via PR #194; literature-backed Surface Differential Geometry entry decision.
 - `docs/surface-differential-geometry-entry-decision-closure`:
-  **CLOSURE-ONLY**; records PR #194 integration and post-merge validation.
+  **MERGED / HISTORICAL** via PR #195; closes the Surface Differential
+  Geometry entry decision checkpoint.
+- `surface/metric-normal`: **ACTIVE**; first bounded Surface Differential
+  Geometry production work item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Surface Differential Geometry entry decision is integrated and ready
-for documentation closure.**
-
-Decision integration evidence:
-
-1. decision PR #194 head:
-   `e48a6040bb4ff6463b170acce0651324881967b3`;
-2. PR FAST `36114864362`: PASS;
-3. PR INTEGRATION `36114864400`: PASS in GCC 13 Debug and Clang 18/libc++
-   Debug;
-4. PR #194 merged as
-   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
-5. post-merge FAST `36114962084`: PASS;
-6. post-merge INTEGRATION `36114962093`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-7. no production differential implementation exists yet;
-8. protected-main ordinary inventory remains 36 tests.
-
-No production work item is active on this closure branch.
-
-## Next admissible work item after closure
-
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one implementation branch for:
-
 **Pointwise Surface Regularity, First Fundamental Form, Area Density, and
-Oriented Unit Normal in 3D.**
+Oriented Unit Normal in 3D — ACTIVE / IMPLEMENTATION OPEN / NOT QUALIFIED.**
 
-Implementation remains bounded by
+Active branch:
+`surface/metric-normal`.
+
+Decision authority:
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-Second fundamental form, Gaussian/mean/principal curvature, sphere/cone/torus,
-full-periodic cylinder, general trimming/p-curves/topological faces, boundary
-discretization and meshing remain unauthorized.
+Closed decision checkpoint:
+
+- decision PR #194 merged as
+  `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
+- decision post-merge FAST `36114962084`: PASS;
+- decision post-merge INTEGRATION `36114962093`: PASS;
+- closure PR #195 head:
+  `00212906a86df1e019919431ab14460becc4cc82`;
+- closure PR FAST `36115295284`: PASS;
+- closure PR INTEGRATION `36115295327`: PASS;
+- closure merge:
+  `10c2c7ab2231721a28858b9395aa6f0eb9b2d603`;
+- closure post-merge FAST `36115414541`: PASS;
+- closure post-merge INTEGRATION `36115414557`: PASS.
+
+Authorized repository mapping:
+
+1. public API:
+   `include/apmesh/geometry/surface_differential.hpp`;
+2. production:
+   `src/geometry/surface_differential.cpp`;
+3. focused contract:
+   `tests/surface_metric_normal.cpp`;
+4. build/test registration:
+   `CMakeLists.txt`;
+5. synchronized STATE / ROADMAP / WORKLOG / decision.
+
+Required scope:
+
+- generic first-order surface derivative consumption;
+- first fundamental form E/F/G;
+- scale-aware area density;
+- oriented unit normal;
+- exact singular-parameterization failure with no universal epsilon;
+- plane/cylinder analytic oracles;
+- integrated-family conformance;
+- reversal/frame/scale covariance;
+- target ordinary inventory: 37 tests.
+
+Explicit non-actions:
+
+- no second fundamental form;
+- no Gaussian/mean/principal curvature;
+- no sphere/cone/torus representation;
+- no full-periodic cylinder;
+- no general trimming/p-curves/topological faces;
+- no boundary discretization, sizing or meshing.
