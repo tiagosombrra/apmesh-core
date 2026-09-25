@@ -474,52 +474,38 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-metric-normal-implementation-closure`: **MERGED /
   HISTORICAL** via PR #197; closes the first-order metric/normal
   implementation checkpoint.
-- `docs/surface-metric-normal-terminal-sync`: **TERMINAL-STATE
-  RECONCILIATION**; publishes the final closed state after PR #197 and its
-  post-merge validation.
+- `docs/surface-metric-normal-terminal-sync`: **MERGED / HISTORICAL**
+  via terminal-state commit
+  `793fd46575e0c00d11ad2739b8e9c92227d576a1`; publishes the closed
+  first-order metric/normal state.
+- `surface/second-order-curvature-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; literature-backed second-order Surface Differential
+  Geometry decision; no production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. First-order Surface Differential Geometry metric/normal work unit is
-terminally closed.**
-
-Terminal closure evidence:
-
-1. implementation PR #196:
-   `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
-2. implementation post-merge FAST `36118945024`: PASS, 37/37;
-3. implementation post-merge INTEGRATION `36118944987`: PASS, 37/37 in GCC
-   13 Debug and Clang 18/libc++ Debug;
-4. implementation closure PR #197 head:
-   `8bdab0d43da87800add044a1ff1a9a3a4cd47e99`;
-5. closure PR FAST `36119500567`: PASS, 37/37;
-6. closure PR INTEGRATION `36119500599`: PASS, 37/37 in GCC and Clang;
-7. closure PR #197 merged as:
-   `5fc561a2e0e927369c5dc5c4644ef18699602914`;
-8. closure post-merge FAST `36119643984`: PASS, 37/37;
-9. closure post-merge INTEGRATION `36119643997`: PASS, 37/37 in GCC and
-   Clang;
-10. focused `apmesh_core.surface_metric_normal`: PASS throughout all
-    corrected/final/closure validation;
-11. initial 36/36 green-but-incomplete validation remains preserved and
-    explicitly classified as a mechanical test-registration defect;
-12. no production or documentation work item remains active after terminal
-    reconciliation.
-
-Terminal work-unit result:
-
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+**Surface Second Fundamental Form + Gaussian/Mean Curvature Decision —
+ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
 NOT QUALIFIED.**
 
-Audit:
-`docs/audits/2026-09-25-surface-metric-normal-implementation-audit.md`.
+Active branch:
+`surface/second-order-curvature-decision`.
 
-## Next admissible work item
+Decision-entry authority:
 
-Open exactly one fresh literature-backed Surface Differential Geometry
-decision comparing:
+- terminal first-order state:
+  `793fd46575e0c00d11ad2739b8e9c92227d576a1`;
+- terminal-state FAST `36120283995`: PASS;
+- terminal-state INTEGRATION `36120284007`: PASS;
+- no open PR and no active production work item at entry;
+- ordinary semantic inventory: 37 tests.
+
+Decision authority:
+`docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
+
+Required comparison:
 
 1. second fundamental form plus Gaussian/mean curvature;
 2. principal curvatures/directions;
@@ -527,7 +513,29 @@ decision comparing:
 4. return to Surface Representation for sphere/cone/torus;
 5. return to general trimming/p-curves/topological faces.
 
-No candidate is pre-authorized.
+Selected bounded future work unit:
 
-Boundary Curve Discretization, sizing, meshing, Quad-Dominant and parallel
-work remain blocked.
+**Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature
+for regular C2 bounded parametric surfaces in 3D.**
+
+Frozen scope:
+
+- reuse existing first-order metric/normal;
+- add oriented II coefficients L/M/N;
+- add Gaussian curvature K;
+- add oriented mean curvature H;
+- no principal curvatures/directions;
+- no condition-number threshold or universal epsilon;
+- exact singularity and insufficient-continuity semantics preserved;
+- target ordinary inventory after future implementation: 38 tests.
+
+This branch may change only documentation/research/decision authorities.
+
+## Next admissible transition after this decision
+
+Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision checkpoint closes may one implementation branch open for the
+selected II/K/H work unit.
+
+No principal-curvature, conditioning-policy, new surface-family, trimming,
+topology, discretization or meshing capability is pre-authorized.
