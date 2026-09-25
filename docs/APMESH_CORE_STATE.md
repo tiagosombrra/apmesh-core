@@ -123,9 +123,20 @@ Candidate repository mapping:
 - `tests/surface_metric_normal.cpp`;
 - `CMakeLists.txt`.
 
+Initial validation diagnosis:
+
+- head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec`;
+- FAST `36116721390` and INTEGRATION `36116721741` were mechanically green
+  but executed 36 tests rather than the required 37;
+- root cause: the new focused test was registered and compiled but omitted from
+  the ordinary surface label block used by FAST/INTEGRATION presets;
+- production semantics were not changed by the correction;
+- corrected head must demonstrate 37/37 in all three ordinary jobs.
+
 Candidate status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / CORRECTED PR REVALIDATION PENDING /
+NOT QUALIFIED.**
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
