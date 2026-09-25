@@ -1877,28 +1877,27 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Cylinder Sector —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
-NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Implementation evidence:
+Terminal evidence:
 
-- candidate head:
-  `9536a0a9849021d47acdfb03b1179866e5de87a4`;
-- candidate FAST `36088557775`: PASS, 36/36;
-- candidate INTEGRATION `36088557702`: PASS, 36/36;
-- final PR head:
-  `e06c1344570daa7ff76cda61dc8165e2fc0dc8b2`;
-- final PR FAST `36088704029`: PASS, 36/36;
-- final PR INTEGRATION `36088704205`: PASS, 36/36;
-- PR #191 merge:
+- implementation PR #191:
   `6edc598637ddedd54cf62732e33a62e504cb82c8`;
-- post-merge FAST `36088816019`: PASS, 36/36;
-- post-merge INTEGRATION `36088816031`: PASS, 36/36.
+- implementation post-merge FAST `36088816019`: PASS, 36/36;
+- implementation post-merge INTEGRATION `36088816031`: PASS, 36/36;
+- closure PR #192 head:
+  `610df134d9f68d705cb9444c2f3192df6da2a057`;
+- closure PR FAST `36089006808`: PASS;
+- closure PR INTEGRATION `36089006822`: PASS;
+- closure merge:
+  `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
+- closure post-merge FAST `36089081707`: PASS;
+- closure post-merge INTEGRATION `36089081776`: PASS.
 
-Closure branch:
-`docs/surface-analytic-cylinder-implementation-closure`.
+Next admissible action:
 
-After closure integration and protected-main validation, compare:
+Open one literature-backed comparison among:
 
 - Surface Differential Geometry entry readiness;
 - bounded analytic sphere;
@@ -1908,7 +1907,7 @@ After closure integration and protected-main validation, compare:
 
 No option is preselected.
 
-Full periodic cylinder and downstream discretization/meshing remain blocked.
+Full-periodic cylinder and downstream discretization/meshing remain blocked.
 
 The long-term ordering remains:
 
