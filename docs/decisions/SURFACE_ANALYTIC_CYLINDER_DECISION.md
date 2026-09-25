@@ -625,3 +625,36 @@ work item is `BoundedCylinderSurface3` under Sections 5–27.
 
 No full-periodic seam or broader analytic/topological/differential capability
 is authorized.
+
+
+## 31. Decision closure checkpoint
+
+Decision closure PR #190 used head:
+
+`49c4dd82847adfa1944127ae84a7f3373eb4f261`.
+
+Closure PR validation:
+
+- FAST `36085415699`: PASS;
+- INTEGRATION `36085415665`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #190 merged as:
+
+`05b1478ebdf22ca9a9ef0251ff010d9ac058474e`.
+
+Closure post-merge validation:
+
+- FAST `36085529751`: PASS;
+- INTEGRATION `36085529695`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is `BoundedCylinderSurface3` under
+Sections 5–27.
+
+No full-periodic cylinder or broader analytic/topological/differential
+capability is authorized.
