@@ -150,9 +150,24 @@ API/source, one focused test and CMake registration. The common bounded-surface
 concept and every concrete surface-family production implementation remain
 unchanged.
 
+Validation incident:
+
+- initial candidate head
+  `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+- FAST `36125805859`: PASS;
+- GCC 13 INTEGRATION in `36125805817`: PASS 38/38;
+- Clang 18/libc++ INTEGRATION in `36125805817`: FAIL 37/38 on the
+  extreme non-representable-curvature fixture only;
+- production semantics were not implicated;
+- focused fixture correction:
+  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
+- incident audit:
+  `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / CORRECTED FINAL-HEAD VALIDATION PENDING /
+NOT QUALIFIED.**
 
 No principal-curvature, conditioning-policy, new surface-family,
 trimming/topology, discretization, sizing or meshing work is authorized.
