@@ -113,9 +113,19 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 **Implement and validate the bounded first-order surface metric/normal work
 unit.**
 
-The implementation must remain generic over existing bounded surface first
-derivatives and must not introduce any curvature output or a universal
-geometric epsilon.
+The implementation remains generic over existing bounded surface first
+derivatives and introduces no curvature output or universal geometric epsilon.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/surface_differential.hpp`;
+- `src/geometry/surface_differential.cpp`;
+- `tests/surface_metric_normal.cpp`;
+- `CMakeLists.txt`.
+
+Candidate status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
