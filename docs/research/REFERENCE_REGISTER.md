@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-24
+Last updated: 2026-09-25
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -1603,6 +1603,49 @@ Project relevance:
 - supports placing arbitrary-axis semantics before a general bounded revolution
   surface;
 - does not authorize periodic/revolution production in the placement work unit.
+
+## Surface Differential Geometry
+
+### Patrikalakis, Maekawa and Cho — differential geometry of surfaces
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for Surface Differential Geometry
+entry, reviewed 2026-09-25.
+
+References:
+
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node26.html
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node31.html
+
+Project relevance:
+
+- derives tangent plane and oriented unit normal from first surface partials;
+- defines the first fundamental form through `E=S_u·S_u`,
+  `F=S_u·S_v`, `G=S_v·S_v`;
+- places Gaussian/mean/principal curvature after the first- and
+  second-fundamental-form foundations;
+- supports opening the stage with regularity + metric + normal before any
+  curvature work.
+
+### Open CASCADE GeomLProp_SLProps — local surface properties
+
+Status: `FOUNDATIONAL / COMPARATIVE` for the generic differential seam,
+reviewed 2026-09-25.
+
+Official references:
+
+- https://dev.opencascade.org/doc/refman/html/_geom_l_prop___surface_utils_8hxx.html
+- https://dev.opencascade.org/doc/occt-6.9.0/refman/html/class_geom_l_prop___s_l_props.html
+
+Project relevance:
+
+- mature CAD kernels compute tangents, normals and curvatures as local
+  properties over generic surface derivatives rather than duplicating those
+  algorithms inside each representation family;
+- separates normal/curvature definability from concrete surface storage;
+- supports a generic AP Mesh differential layer over
+  `BoundedParametricSurface3`;
+- Open CASCADE is reference evidence only, not a runtime dependency or numeric
+  oracle.
 
 ## Curve Differential Geometry
 
