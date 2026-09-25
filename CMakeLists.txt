@@ -446,6 +446,22 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.surface_metric_normal
     )
 
+    add_executable(apmesh_core.surface_second_order_curvature
+        tests/surface_second_order_curvature.cpp
+    )
+    target_link_libraries(
+        apmesh_core.surface_second_order_curvature
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(
+        apmesh_core.surface_second_order_curvature
+    )
+
+    add_test(
+        NAME apmesh_core.surface_second_order_curvature
+        COMMAND apmesh_core.surface_second_order_curvature
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -649,6 +665,7 @@ if(BUILD_TESTING)
         apmesh_core.surface_plane
         apmesh_core.surface_cylinder
         apmesh_core.surface_metric_normal
+        apmesh_core.surface_second_order_curvature
         PROPERTIES LABELS "surface;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
 
