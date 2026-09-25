@@ -698,3 +698,72 @@ Current status:
 
 **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
 FINAL DOCUMENTATION-HEAD REVALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 34. Implementation integration checkpoint
+
+The bounded II/K/H implementation was integrated by PR #201.
+
+Initial candidate head:
+
+`c3cd327ebbd4add551c7d331f0149513d15324c7`.
+
+Initial validation:
+
+- FAST `36125805859`: PASS;
+- INTEGRATION `36125805817`:
+  GCC 13 Debug PASS 38/38;
+  Clang 18/libc++ Debug FAIL 37/38 on the extreme
+  non-representable-curvature fixture.
+
+The failure was classified as a focused test-fixture portability defect.
+Production/API semantics were unchanged.
+
+Correction commit:
+
+`89326bb1ad70449f4ed75c7b00d45699e998ce09`.
+
+Corrected/documented head:
+
+`32e05ddec7b81f099f0384c95f44f0df27ed24e2`.
+
+Corrected validation:
+
+- FAST `36126869683`: PASS, 38/38;
+- INTEGRATION `36126869675`: PASS, 38/38 in GCC 13 Debug and
+  Clang 18/libc++ Debug.
+
+Final PR head:
+
+`ffc81253bad6096741352ced28999e7626735bfc`.
+
+Final-head validation:
+
+- FAST `36127069279`: PASS, 38/38;
+- INTEGRATION `36127069324`: PASS, 38/38 in GCC 13 Debug and
+  Clang 18/libc++ Debug.
+
+PR #201 merged as:
+
+`ed91d70d11446925148cc0ee5f0efab879022270`.
+
+Protected-main validation:
+
+- FAST `36127252797`: PASS, 38/38;
+- INTEGRATION `36127252837`: PASS, 38/38 in GCC 13 Debug and
+  Clang 18/libc++ Debug.
+
+Integrated result:
+
+**SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+
+Audits:
+
+- `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`;
+- `docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
+
+No principal curvature/direction, conditioning diagnostic, new surface
+representation, trimming/topology or downstream meshing capability is implied.
+
+After closure, a fresh literature-backed decision is mandatory.
