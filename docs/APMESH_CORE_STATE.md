@@ -115,7 +115,12 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   `ed91d70d11446925148cc0ee5f0efab879022270`;
 - implementation post-merge FAST `36127252797` and INTEGRATION
   `36127252837`: PASS, 38/38;
-- implementation closure documentation active;
+- implementation closure PR #202:
+  `2ddd991bb9246bb8e6330f0cdf9a87afde93283f`;
+- closure post-merge FAST `36127811804` and INTEGRATION
+  `36127811852`: PASS, 38/38;
+- second-order II/K/H work unit:
+  **IMPLEMENTED / INTEGRATED / CLOSED / NOT QUALIFIED**;
 - no production work item active;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
@@ -126,39 +131,35 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Close the integrated Surface Second Fundamental Form + Gaussian/Mean
-Curvature implementation; no production implementation is active in this
-branch.**
+**Open one fresh literature-backed Surface Differential Geometry /
+representation-readiness decision.**
 
-Integration evidence:
+Terminal II/K/H evidence:
 
-- final PR head:
-  `ffc81253bad6096741352ced28999e7626735bfc`;
-- final PR FAST `36127069279`: PASS, 38/38;
-- final PR INTEGRATION `36127069324`: PASS, 38/38 in GCC/Clang;
-- PR #201 merge:
+- implementation PR #201:
   `ed91d70d11446925148cc0ee5f0efab879022270`;
-- post-merge FAST `36127252797`: PASS, 38/38;
-- post-merge INTEGRATION `36127252837`: PASS, 38/38 in GCC/Clang;
-- initial Clang fixture failure and correction are preserved in
-  `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`;
-- integrated implementation audit:
-  `docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
+- implementation post-merge FAST `36127252797`: PASS, 38/38;
+- implementation post-merge INTEGRATION `36127252837`: PASS, 38/38;
+- closure PR #202:
+  `2ddd991bb9246bb8e6330f0cdf9a87afde93283f`;
+- closure PR FAST `36127669983`: PASS;
+- closure PR INTEGRATION `36127670012`: PASS;
+- closure post-merge FAST `36127811804`: PASS, 38/38;
+- closure post-merge INTEGRATION `36127811852`: PASS, 38/38 in
+  GCC 13 Debug and Clang 18/libc++ Debug.
 
-Closure branch:
-`docs/surface-second-order-curvature-implementation-closure`.
-
-Current result:
+Terminal result:
 
 **SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-After closure integration and post-merge validation, no next capability is
-pre-authorized. A fresh literature-backed comparison is required.
+No active production work item exists.
 
-Principal curvatures/directions, conditioning diagnostics, representation
-breadth, trimming/topology, Boundary Curve Discretization and downstream
-meshing remain unauthorized.
+The next decision must compare principal curvatures/directions, conditioning
+diagnostics, remaining Surface Representation breadth, general trimming /
+p-curves / topological faces, and Boundary Curve Discretization readiness.
+
+No next capability is pre-authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
