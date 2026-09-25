@@ -448,8 +448,11 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #185; closes the bounded analytic plane decision checkpoint.
 - `surface/analytic-plane`: **MERGED / HISTORICAL** via PR #186;
   bounded analytic plane production work item.
-- `docs/surface-analytic-plane-implementation-closure`: **CLOSURE-ONLY**;
-  records integration and protected-main validation of the plane work unit.
+- `docs/surface-analytic-plane-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #187; closes the bounded analytic plane implementation.
+- `docs/surface-analytic-plane-terminal-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles PR #187 and its protected-main
+  validation before the next Surface Representation breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
@@ -478,17 +481,27 @@ Terminal implementation evidence:
     protected-main validation;
 12. all 34 prior ordinary semantic contracts remained PASS;
 13. common `SurfaceError`, `AxisPlacement3` and
-    `BoundedParametricSurface3` contracts remain unchanged.
+    `BoundedParametricSurface3` contracts remain unchanged;
+14. implementation closure PR #187 head:
+    `79c9028e56913799613292948d452f53e2b3ead1`;
+15. closure PR FAST `35992244200`: PASS;
+16. closure PR INTEGRATION `35992244354`: PASS;
+17. PR #187 merged as
+    `57f647e488bf3498168bc9c3b8c63fc5442d034a`;
+18. closure post-merge FAST `35992410876`: PASS;
+19. closure post-merge INTEGRATION `35992410395`: PASS.
 
 Terminal result:
 
 **ANALYTIC PLANE IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
 CLOSED / NOT QUALIFIED.**
 
-## Next admissible work item
+No production work item is active during this terminal documentation sync.
 
-Open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
+## Next admissible work item after terminal sync
+
+After this sync is integrated and post-merge validated, open exactly one fresh
+literature-backed Surface Representation breadth decision comparing:
 
 1. bounded analytic cylinder;
 2. bounded analytic cone;
