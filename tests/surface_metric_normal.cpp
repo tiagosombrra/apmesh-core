@@ -470,5 +470,111 @@ int main() {
                  "unrepresentable metric did not fail explicitly") &&
              passed;
 
+    const auto net = planar_control_net();
+    const apmesh::core::BicubicBezierPatch3 bezier{net};
+    const auto rational =
+        apmesh::core::RationalBicubicBezierPatch3::make(
+            net, unit_weights());
+    if (!rational) {
+        return 1;
+    }
+
+    std::vector<apmesh::core::Point3> flat_controls;
+    flat_controls.reserve(16U);
+    for (const auto& row : net) {
+        flat_controls.insert(
+            flat_controls.end(), row.begin(), row.end());
+    }
+    const auto nurbs = apmesh::core::BicubicNURBSSurface3::make(
+        flat_controls,
+        std::vector<double>(16U, 1.0),
+        4U,
+        4U,
+        {},
+        {},
+        0.0,
+        1.0,
+        0.0,
+        1.0);
+    if (!nurbs) {
+        return 1;
+    }
+
+    const apmesh::core::CubicBezier3 bottom{
+        net[0][0], net[1][0], net[2][0], net[3][0]};
+    const apmesh::core::CubicBezier3 top{
+        net[0][3], net[1][3], net[2][3], net[3][3]};
+    const apmesh::core::CubicBezier3 left{
+        net[0][0], net[0][1], net[0][2], net[0][3]};
+    const apmesh::core::CubicBezier3 right{
+        net[3][0], net[3][1], net[3][2], net[3][3]};
+    const auto coons = apmesh::core::CubicBezierCoonsPatch3::make(
+        bottom, top, left, right);
+    if (!coons) {
+        return 1;
+    }
+
+    const auto trimmed =
+        apmesh::core::RectangularTrimmedSurface3<
+            apmesh::core::BicubicBezierPatch3>::make(
+                bezier, 0.1, 0.9, 0.2, 0.8);
+    if (!trimmed) {
+        return 1;
+    }
+
+    const auto extrusion_displacement =
+        Vector3::make(0.0, 1.0, 0.0);
+    if (!extrusion_displacement) {
+        return 1;
+    }
+    const auto extrusion =
+        apmesh::core::CubicBezierLinearExtrusionSurface3::make(
+            bottom, *extrusion_displacement);
+    if (!extrusion) {
+        return 1;
+    }
+
+    const apmesh::core::CubicBezier3 generatrix{
+        *apmesh::core::Point3::make(2.0, 0.0, 0.0),
+        *apmesh::core::Point3::make(2.0, 0.0, 1.0 / 3.0),
+        *apmesh::core::Point3::make(2.0, 0.0, 2.0 / 3.0),
+        *apmesh::core::Point3::make(2.0, 0.0, 1.0)};
+    const auto revolution =
+        apmesh::core::CubicBezierRevolutionSurface3::make(
+            generatrix, AxisPlacement3::identity(), 1.0);
+    if (!revolution) {
+        return 1;
+    }
+
+    passed = require(
+                 regular_conformance(bezier, 0.4, 0.6) &&
+                     regular_conformance(*rational, 0.4, 0.6) &&
+                     regular_conformance(*nurbs, 0.4, 0.6) &&
+                     regular_conformance(*coons, 0.4, 0.6) &&
+                     regular_conformance(*trimmed, 0.4, 0.6) &&
+                     regular_conformance(*extrusion, 0.4, 0.6) &&
+                     regular_conformance(*revolution, 0.4, 0.5) &&
+                     regular_conformance(plane, 0.4, 0.6) &&
+                     regular_conformance(*cylinder, 0.4, 0.6),
+                 "integrated surface-family differential conformance differs") &&
+             passed;
+
+    const auto repeat_success_a =
+        surface_metric_normal(oblique, 0.5, 0.5);
+    const auto repeat_success_b =
+        surface_metric_normal(oblique, 0.5, 0.5);
+    const auto repeat_failure_a =
+        surface_metric_normal(singular, 0.5, 0.5);
+    const auto repeat_failure_b =
+        surface_metric_normal(singular, 0.5, 0.5);
+    passed = require(
+                 repeat_success_a && repeat_success_b &&
+                     *repeat_success_a == *repeat_success_b &&
+                     !repeat_failure_a && !repeat_failure_b &&
+                     repeat_failure_a.error() ==
+                         repeat_failure_b.error(),
+                 "surface differential results are not deterministic") &&
+             passed;
+
     return passed ? 0 : 1;
 }
