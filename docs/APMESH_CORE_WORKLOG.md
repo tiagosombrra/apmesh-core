@@ -485,61 +485,51 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `surface/second-order-curvature`: **MERGED / HISTORICAL** via PR #201;
   bounded II/K/H production work item.
 - `docs/surface-second-order-curvature-implementation-closure`:
-  **CLOSURE-ONLY**; closes the integrated II/K/H implementation and publishes
-  its implementation audit.
+  **MERGED / HISTORICAL** via PR #202; closes the integrated II/K/H
+  implementation and publishes its implementation audit.
+- `docs/surface-second-order-curvature-terminal-sync`:
+  **ACTIVE / DOCUMENTATION-ONLY**; terminally reconciles the closed II/K/H
+  checkpoint before the next scientific decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Surface Second Fundamental Form + Gaussian/Mean Curvature is integrated
-and ready for implementation closure.**
+**None. Surface Second Fundamental Form + Gaussian/Mean Curvature is
+terminally closed.**
 
-Integrated implementation evidence:
+Terminal implementation/closure evidence:
 
-1. decision authority:
-   `docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`;
-2. initial candidate head:
-   `c3cd327ebbd4add551c7d331f0149513d15324c7`;
-3. initial FAST `36125805859`: PASS;
-4. initial INTEGRATION `36125805817`:
-   GCC 38/38 PASS; Clang 37/38 FAIL on the extreme
-   non-representable-curvature fixture;
-5. correction commit:
-   `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
-6. corrected head:
-   `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
-7. corrected FAST `36126869683`: PASS, 38/38;
-8. corrected INTEGRATION `36126869675`: PASS, 38/38 in GCC/Clang;
-9. final PR head:
-   `ffc81253bad6096741352ced28999e7626735bfc`;
-10. final PR FAST `36127069279`: PASS, 38/38;
-11. final PR INTEGRATION `36127069324`: PASS, 38/38 in GCC/Clang;
-12. implementation PR #201 merged as
-    `ed91d70d11446925148cc0ee5f0efab879022270`;
-13. implementation post-merge FAST `36127252797`: PASS, 38/38;
-14. implementation post-merge INTEGRATION `36127252837`: PASS, 38/38 in
-    GCC/Clang;
-15. focused `apmesh_core.surface_second_order_curvature`: PASS in all final
-    PR and protected-main cells;
-16. candidate incident audit:
-    `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`;
-17. implementation audit:
+1. implementation PR #201:
+   `ed91d70d11446925148cc0ee5f0efab879022270`;
+2. implementation post-merge FAST `36127252797`: PASS, 38/38;
+3. implementation post-merge INTEGRATION `36127252837`: PASS, 38/38 in
+   GCC 13 Debug and Clang 18/libc++ Debug;
+4. implementation closure PR #202 head:
+   `36d2d3da72e4c0da9175f2f50331df181ccec3eb`;
+5. closure PR FAST `36127669983`: PASS;
+6. closure PR INTEGRATION `36127670012`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+7. closure PR #202 merged as
+   `2ddd991bb9246bb8e6330f0cdf9a87afde93283f`;
+8. closure post-merge FAST `36127811804`: PASS, 38/38;
+9. closure post-merge INTEGRATION `36127811852`: PASS, 38/38 in
+   GCC 13 Debug and Clang 18/libc++ Debug;
+10. initial Clang fixture failure and its test-only correction remain preserved
+    in the candidate-validation audit;
+11. final implementation audit remains
     `docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
 
-No production work item is active in this closure branch.
-
-Current work-unit result:
+Terminal work-unit result:
 
 **SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-## Next admissible work item after closure
+No production work item is active.
 
-Only after this closure is integrated and its own post-merge FAST/INTEGRATION
-passes may one fresh literature-backed decision be opened.
+## Next admissible work item
 
-That decision must compare:
+Open exactly one fresh literature-backed scientific decision comparing:
 
 1. principal curvatures/directions;
 2. explicit conditioning diagnostics;
@@ -548,4 +538,5 @@ That decision must compare:
 5. whether current pointwise differential geometry is sufficient to resume
    Boundary Curve Discretization preparation.
 
-No option is pre-authorized.
+No option is pre-authorized and no production code may begin before that
+decision is integrated, post-merge validated and closed.

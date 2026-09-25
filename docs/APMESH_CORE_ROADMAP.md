@@ -1879,40 +1879,39 @@ Current scientific work focus:
 
 **Surface Differential Geometry — Second Fundamental Form + Gaussian/Mean
 Curvature — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED**
+CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Implementation evidence:
+Terminal evidence:
 
-- initial head
-  `c3cd327ebbd4add551c7d331f0149513d15324c7`;
-- FAST `36125805859`: PASS;
-- INTEGRATION `36125805817`: GCC 38/38 PASS; Clang 37/38 FAIL on a
-  compiler-sensitive extreme test fixture;
-- correction
-  `89326bb1ad70449f4ed75c7b00d45699e998ce09`: focused test only;
-- corrected FAST `36126869683`: PASS, 38/38;
-- corrected INTEGRATION `36126869675`: PASS, 38/38 in GCC/Clang;
-- final PR head
-  `ffc81253bad6096741352ced28999e7626735bfc`;
-- final PR FAST `36127069279`: PASS, 38/38;
-- final PR INTEGRATION `36127069324`: PASS, 38/38 in GCC/Clang;
-- PR #201 merged as
+- implementation PR #201:
   `ed91d70d11446925148cc0ee5f0efab879022270`;
-- protected-main FAST `36127252797`: PASS, 38/38;
-- protected-main INTEGRATION `36127252837`: PASS, 38/38 in GCC/Clang.
+- implementation post-merge FAST `36127252797`: PASS, 38/38;
+- implementation post-merge INTEGRATION `36127252837`: PASS, 38/38;
+- closure PR #202 head:
+  `36d2d3da72e4c0da9175f2f50331df181ccec3eb`;
+- closure PR FAST `36127669983`: PASS;
+- closure PR INTEGRATION `36127670012`: PASS;
+- closure PR #202 merged as
+  `2ddd991bb9246bb8e6330f0cdf9a87afde93283f`;
+- closure post-merge FAST `36127811804`: PASS, 38/38;
+- closure post-merge INTEGRATION `36127811852`: PASS, 38/38 in
+  GCC/Clang.
 
-Closure branch:
-`docs/surface-second-order-curvature-implementation-closure`.
+Audits:
 
-Implementation audit:
-`docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
+- `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`;
+- `docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
 
-No production work item is active while closure is pending.
+No production work item is active.
 
-After closure, the next scientific work must be selected by a fresh
-literature-backed comparison among principal curvatures/directions,
-conditioning diagnostics, remaining Surface Representation breadth,
-trimming/topological-face work and Boundary Curve Discretization readiness.
+Next admissible action:
+
+Open one fresh literature-backed decision comparing principal
+curvatures/directions, conditioning diagnostics, sphere/cone/torus
+representation breadth, general trimming/p-curves/topological faces and
+Boundary Curve Discretization readiness.
+
+No option is preselected.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
