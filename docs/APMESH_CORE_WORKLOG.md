@@ -496,58 +496,52 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/current-stage-status-reconciliation`:
   **MERGED / HISTORICAL** via PR #205; reconciles stale current-stage and
   retained-breadth status markers before the next scientific decision.
-- `surface/principal-curvature-values-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; literature-backed principal-curvature-values decision;
-  no production implementation.
+- `surface/principal-curvature-values-decision`: **MERGED / HISTORICAL**
+  via PR #206; bounded principal-curvature-values decision.
+- `docs/surface-principal-curvature-values-decision-closure`:
+  **CLOSURE-ONLY**; records PR #206 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Principal Curvature Values — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Surface Principal Curvature Values decision is integrated and ready
+for closure.**
 
-Active branch:
-`surface/principal-curvature-values-decision`.
+Decision closure evidence:
 
-Entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`;
+2. decision PR #206 head:
+   `3a5af9d27aaf9b3e563e9fd6f89b868745c7edda`;
+3. decision PR FAST `36148367215`: PASS;
+4. decision PR INTEGRATION `36148367239`: PASS in GCC 13 Debug and
+   Clang 18/libc++ Debug;
+5. decision PR #206 merged as
+   `8d42bf38871d7a79f1c01aacbad77ed5e106505f`;
+6. decision post-merge FAST `36190790100`: PASS;
+7. decision post-merge INTEGRATION `36190790157`: PASS in GCC 13 Debug
+   and Clang 18/libc++ Debug;
+8. ordinary semantic inventory remains **38 tests**;
+9. no production principal-curvature implementation exists yet.
 
-- main at decision entry:
-  `6a3814332ed28d88fb9949684af92a8cb3390d39`;
-- authority-reconciliation PR #205 post-merge FAST `36146747809`: PASS;
-- authority-reconciliation PR #205 post-merge INTEGRATION
-  `36146747762`: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- ordinary semantic inventory: **38 tests**;
-- no open PR and no active production work item at decision entry.
+No production work item is active in this closure change.
 
-Decision authority:
-`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
+## Next admissible work item after closure
 
-Fresh comparison:
-
-1. principal curvatures/directions;
-2. explicit conditioning diagnostics;
-3. sphere/cone/torus Surface Representation breadth;
-4. general trimming/p-curves/topological faces;
-5. Boundary Curve Discretization readiness.
-
-Selected future bounded work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one production branch for:
 
 **Pointwise Ordered Principal Curvature Values plus Exact Represented-Data
 Umbilic State for Regular C2 Bounded Parametric Surfaces in 3D.**
 
-The decision deliberately excludes:
+Implementation remains bounded by
+`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
 
-- principal directions/eigenvectors;
-- near-umbilic thresholds and conditioning classes;
-- new surface representations;
-- general trimming/topology;
-- Boundary Curve Discretization;
-- physical sizing implementation;
-- anisotropic/tensor metrics;
-- meshing.
-
-This branch may change only documentation/research/decision authorities.
+Principal directions, near-umbilic/conditioning thresholds, new surface
+representations, general trimming/p-curves/faces, Boundary Curve
+Discretization, Physical Sizing, anisotropic metrics and meshing remain
+unauthorized.
 
 ## Next admissible transition after this decision
 
