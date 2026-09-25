@@ -138,6 +138,45 @@ bool regular_conformance(
            result->area_density > 0.0;
 }
 
+apmesh::core::BicubicBezierPatch3::ControlNet planar_control_net() {
+    using apmesh::core::Point3;
+    return {{
+        {{
+            *Point3::make(0.0, 0.0, 0.0),
+            *Point3::make(0.0, 1.0 / 3.0, 0.0),
+            *Point3::make(0.0, 2.0 / 3.0, 0.0),
+            *Point3::make(0.0, 1.0, 0.0),
+        }},
+        {{
+            *Point3::make(1.0 / 3.0, 0.0, 0.0),
+            *Point3::make(1.0 / 3.0, 1.0 / 3.0, 0.0),
+            *Point3::make(1.0 / 3.0, 2.0 / 3.0, 0.0),
+            *Point3::make(1.0 / 3.0, 1.0, 0.0),
+        }},
+        {{
+            *Point3::make(2.0 / 3.0, 0.0, 0.0),
+            *Point3::make(2.0 / 3.0, 1.0 / 3.0, 0.0),
+            *Point3::make(2.0 / 3.0, 2.0 / 3.0, 0.0),
+            *Point3::make(2.0 / 3.0, 1.0, 0.0),
+        }},
+        {{
+            *Point3::make(1.0, 0.0, 0.0),
+            *Point3::make(1.0, 1.0 / 3.0, 0.0),
+            *Point3::make(1.0, 2.0 / 3.0, 0.0),
+            *Point3::make(1.0, 1.0, 0.0),
+        }},
+    }};
+}
+
+apmesh::core::RationalBicubicBezierPatch3::WeightNet unit_weights() {
+    return {{
+        {{1.0, 1.0, 1.0, 1.0}},
+        {{1.0, 1.0, 1.0, 1.0}},
+        {{1.0, 1.0, 1.0, 1.0}},
+        {{1.0, 1.0, 1.0, 1.0}},
+    }};
+}
+
 } // namespace
 
 int main() {
