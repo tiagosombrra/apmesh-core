@@ -684,7 +684,17 @@ Initial validation incident:
 - retained audit:
   `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`.
 
+Corrected candidate validation:
+
+- corrected/documented head:
+  `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
+- FAST `36126869683`: PASS, 38/38;
+- INTEGRATION `36126869675`: PASS, 38/38 in GCC 13 Debug and
+  Clang 18/libc++ Debug;
+- focused second-order curvature contract PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / CORRECTED FINAL-HEAD VALIDATION PENDING /
-NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-HEAD REVALIDATION PENDING / NOT QUALIFIED.**
