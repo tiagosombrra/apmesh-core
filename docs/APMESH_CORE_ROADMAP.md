@@ -1714,7 +1714,8 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `BOUNDED ANALYTIC CYLINDER DECISION ACTIVE / NOT QUALIFIED`
+Status: `BOUNDED ANALYTIC CYLINDER DECISION INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1876,59 +1877,43 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Cylinder Sector —
-DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED**
 
-Entry authority:
+Decision evidence:
 
-- terminal analytic-plane sync PR #188:
-  `1c9283498ed9563ff8193f432811c3fb2f7ae7e9`;
-- PR FAST `36084372900`: PASS;
-- PR INTEGRATION `36084372892`: PASS;
-- post-merge FAST `36084432186`: PASS;
-- post-merge INTEGRATION `36084432183`: PASS.
+- final decision head:
+  `f9a6811cd1ecb1abea7bbfb1cec9f095ff6208e8`;
+- PR #189 FAST `36085045566`: PASS;
+- PR #189 INTEGRATION `36085045563`: PASS;
+- merge:
+  `9e0b5dcc7061912a2983c7c1b4a93d99839796e8`;
+- post-merge FAST `36085132728`: PASS;
+- post-merge INTEGRATION `36085132887`: PASS.
 
-Active decision:
-`docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
+Closure branch:
+`docs/surface-analytic-cylinder-decision-closure`.
 
-Selected future implementation:
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Bounded Analytic Circular Cylinder Sector in 3D.**
 
-Bounded scope:
+Authorized future scope remains:
 
 - existing `AxisPlacement3`;
-- radius > 0 and finite;
-- strict finite angular U domain with width < `2*pi`;
-- strict finite axial V domain;
+- finite radius > 0;
+- finite strict angular U interval with width < `2*pi`;
+- finite strict axial V interval;
 - analytic value and first/second partials;
-- exact U/V reversal;
-- no full-periodic seam or modulo behavior;
-- one new focused contract, targeting 36 ordinary tests.
+- U/V reversal;
+- no periodic wrapping or full revolution;
+- one focused contract, targeting 36 ordinary tests.
 
-Why this precedes Surface Differential Geometry:
-
-- Surface Representation remains NOT QUALIFIED;
-- the cylinder adds the first curved elementary analytic surface;
-- it supplies an exact future fixture with principal curvatures 0 and 1/R;
-- cone/sphere/torus introduce larger apex/pole/double-periodic semantics.
-
-Deferred:
-
-- full periodic cylinder;
-- cone;
-- sphere;
-- torus;
-- general trimming / p-curves / topological faces;
-- Surface Differential Geometry;
-- Boundary Curve Discretization and meshing.
-
-No implementation may begin until this decision is integrated, post-merge
-validated and separately closed.
+Cone, sphere, torus, general p-curves/topological faces, Surface Differential
+Geometry, Boundary Curve Discretization and meshing remain blocked.
 
 The long-term ordering remains:
 
 **Global Certification → Quad-Dominant Extension → Parallel Equivalence →
 Tensor/Anisotropic Extension.**
-
-Parallel execution must not precede serial Quad-Dominant qualification.
