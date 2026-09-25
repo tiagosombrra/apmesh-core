@@ -524,6 +524,22 @@ Required scope:
 - reversal/frame/scale covariance;
 - target ordinary inventory: 37 tests.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/surface_differential.hpp`:
+  generic first-order API and typed differential failures;
+- `src/geometry/surface_differential.cpp`:
+  scale-aware E/F/G, area-density and oriented-normal kernel;
+- `tests/surface_metric_normal.cpp`:
+  plane/cylinder analytic oracles, singular and near-singular fixtures,
+  reversal/frame/scale evidence and integrated-family conformance;
+- `CMakeLists.txt`:
+  registers the 37th ordinary semantic contract.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no second fundamental form;
