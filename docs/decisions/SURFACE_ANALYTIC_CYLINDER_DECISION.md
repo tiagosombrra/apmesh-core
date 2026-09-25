@@ -656,5 +656,24 @@ Decision checkpoint result:
 The sole active production work item is `BoundedCylinderSurface3` under
 Sections 5–27.
 
+## 32. Active implementation validation
+
+Candidate head:
+
+`9536a0a9849021d47acdfb03b1179866e5de87a4`.
+
+Candidate validation:
+
+- FAST `36088557775`: PASS, 36/36 ordinary semantic tests;
+- INTEGRATION `36088557702`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 36/36 tests per cell;
+- `apmesh_core.surface_cylinder`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**ANALYTIC CYLINDER IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
 No full-periodic cylinder or broader analytic/topological/differential
 capability is authorized.
