@@ -346,15 +346,16 @@ int main() {
                  "near-singular regular parameterization was rejected") &&
              passed;
 
-    const double overflow_tiny = std::ldexp(1.0, -600);
+    const double overflow_curvature_scale =
+        std::numeric_limits<double>::max() / 4.0;
     const SurfaceFirstDerivatives3 overflow_first{
         .u = vector3(1.0, 0.0, 0.0),
-        .v = vector3(1.0, overflow_tiny, 0.0),
+        .v = vector3(0.0, 1.0, 0.0),
     };
     const SurfaceSecondDerivatives3 overflow_second{
-        .uu = vector3(0.0, 0.0, 1.0),
+        .uu = vector3(0.0, 0.0, overflow_curvature_scale),
         .uv = vector3(0.0, 0.0, 0.0),
-        .vv = vector3(0.0, 0.0, 1.0),
+        .vv = vector3(0.0, 0.0, overflow_curvature_scale),
     };
     const auto unrepresentable =
         surface_second_order_geometry(overflow_first, overflow_second);
