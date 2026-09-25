@@ -1714,7 +1714,7 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `BOUNDED ANALYTIC PLANE DECISION ACTIVE / NOT QUALIFIED`
+Status: `BOUNDED ANALYTIC CYLINDER DECISION ACTIVE / NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1875,57 +1875,56 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Representation — Bounded Analytic Plane Surface —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Representation — Bounded Analytic Cylinder Sector —
+DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED**
 
-Implementation evidence:
+Entry authority:
 
-- candidate head:
-  `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
-- candidate FAST `35991297348`: PASS, 35/35;
-- candidate INTEGRATION `35991297411`: PASS, 35/35;
-- final PR head:
-  `7cb3e38d046144282d183dc7e68d9476b36c484a`;
-- final PR FAST `35991554343`: PASS, 35/35;
-- final PR INTEGRATION `35991554362`: PASS, 35/35;
-- implementation PR #186:
-  `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
-- post-merge FAST `35991745316`: PASS, 35/35;
-- post-merge INTEGRATION `35991745435`: PASS, 35/35;
-- implementation closure PR #187 head:
-  `79c9028e56913799613292948d452f53e2b3ead1`;
-- closure PR FAST `35992244200`: PASS;
-- closure PR INTEGRATION `35992244354`: PASS;
-- closure merge:
-  `57f647e488bf3498168bc9c3b8c63fc5442d034a`;
-- closure post-merge FAST `35992410876`: PASS;
-- closure post-merge INTEGRATION `35992410395`: PASS.
+- terminal analytic-plane sync PR #188:
+  `1c9283498ed9563ff8193f432811c3fb2f7ae7e9`;
+- PR FAST `36084372900`: PASS;
+- PR INTEGRATION `36084372892`: PASS;
+- post-merge FAST `36084432186`: PASS;
+- post-merge INTEGRATION `36084432183`: PASS.
 
-The plane work unit adds the first dedicated elementary analytic surface while
-preserving existing common surface and placement contracts.
+Active decision:
+`docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
 
-Terminal documentation sync:
-`docs/surface-analytic-plane-terminal-sync`.
+Selected future implementation:
 
-Next admissible action after this sync is integrated and post-merge validated:
+**Bounded Analytic Circular Cylinder Sector in 3D.**
 
-Open one fresh literature-backed comparison among:
+Bounded scope:
 
-- bounded analytic cylinder;
-- bounded analytic cone;
-- bounded analytic sphere;
-- bounded analytic torus;
+- existing `AxisPlacement3`;
+- radius > 0 and finite;
+- strict finite angular U domain with width < `2*pi`;
+- strict finite axial V domain;
+- analytic value and first/second partials;
+- exact U/V reversal;
+- no full-periodic seam or modulo behavior;
+- one new focused contract, targeting 36 ordinary tests.
+
+Why this precedes Surface Differential Geometry:
+
+- Surface Representation remains NOT QUALIFIED;
+- the cylinder adds the first curved elementary analytic surface;
+- it supplies an exact future fixture with principal curvatures 0 and 1/R;
+- cone/sphere/torus introduce larger apex/pole/double-periodic semantics.
+
+Deferred:
+
+- full periodic cylinder;
+- cone;
+- sphere;
+- torus;
 - general trimming / p-curves / topological faces;
-- whether Surface Representation breadth is sufficient to open Surface
-  Differential Geometry.
+- Surface Differential Geometry;
+- Boundary Curve Discretization and meshing.
 
-No option is preselected.
-
-General trimming, broader Coons/NURBS and Surface Differential Geometry remain
-deferred until a new decision explicitly admits them.
-
-Boundary Curve Discretization remains blocked.
+No implementation may begin until this decision is integrated, post-merge
+validated and separately closed.
 
 The long-term ordering remains:
 

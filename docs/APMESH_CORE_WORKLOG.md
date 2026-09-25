@@ -450,68 +450,73 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   bounded analytic plane production work item.
 - `docs/surface-analytic-plane-implementation-closure`: **MERGED /
   HISTORICAL** via PR #187; closes the bounded analytic plane implementation.
-- `docs/surface-analytic-plane-terminal-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles PR #187 and its protected-main
-  validation before the next Surface Representation breadth decision.
+- `docs/surface-analytic-plane-terminal-sync`: **MERGED / HISTORICAL**
+  via PR #188; terminally reconciles the bounded analytic plane work unit.
+- `surface/analytic-cylinder-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; bounded analytic cylinder-sector breadth decision;
+  no production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Analytic Plane Surface in 3D is integrated and this closure
-change terminates the work item.**
+**Bounded Analytic Cylinder Sector — DECISION ACTIVE /
+DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal implementation evidence:
+Active branch:
+`surface/analytic-cylinder-decision`.
 
-1. decision authority:
-   `docs/decisions/SURFACE_ANALYTIC_PLANE_DECISION.md`;
-2. candidate head:
-   `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
-3. candidate FAST `35991297348`: PASS, 35/35;
-4. candidate INTEGRATION `35991297411`: PASS, 35/35 in GCC and Clang;
-5. final PR head:
-   `7cb3e38d046144282d183dc7e68d9476b36c484a`;
-6. final PR FAST `35991554343`: PASS, 35/35;
-7. final PR INTEGRATION `35991554362`: PASS, 35/35 in GCC and Clang;
-8. implementation PR #186 merged as
-   `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
-9. post-merge FAST `35991745316`: PASS, 35/35;
-10. post-merge INTEGRATION `35991745435`: PASS, 35/35 in GCC and Clang;
-11. `apmesh_core.surface_plane`: PASS throughout candidate, final PR and
-    protected-main validation;
-12. all 34 prior ordinary semantic contracts remained PASS;
-13. common `SurfaceError`, `AxisPlacement3` and
-    `BoundedParametricSurface3` contracts remain unchanged;
-14. implementation closure PR #187 head:
-    `79c9028e56913799613292948d452f53e2b3ead1`;
-15. closure PR FAST `35992244200`: PASS;
-16. closure PR INTEGRATION `35992244354`: PASS;
-17. PR #187 merged as
-    `57f647e488bf3498168bc9c3b8c63fc5442d034a`;
-18. closure post-merge FAST `35992410876`: PASS;
-19. closure post-merge INTEGRATION `35992410395`: PASS.
+Entry authority:
 
-Terminal result:
+- terminal analytic-plane sync PR #188:
+  `1c9283498ed9563ff8193f432811c3fb2f7ae7e9`;
+- sync PR FAST `36084372900`: PASS;
+- sync PR INTEGRATION `36084372892`: PASS;
+- sync post-merge FAST `36084432186`: PASS;
+- sync post-merge INTEGRATION `36084432183`: PASS;
+- no open PR and no active production work item at decision entry.
 
-**ANALYTIC PLANE IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
 
-No production work item is active during this terminal documentation sync.
-
-## Next admissible work item after terminal sync
-
-After this sync is integrated and post-merge validated, open exactly one fresh
-literature-backed Surface Representation breadth decision comparing:
+Required comparison:
 
 1. bounded analytic cylinder;
 2. bounded analytic cone;
 3. bounded analytic sphere;
 4. bounded analytic torus;
 5. general trimming / p-curves / topological faces;
-6. whether current Surface Representation breadth is sufficient to open
-   Surface Differential Geometry.
+6. Surface Differential Geometry entry readiness.
 
-No candidate is pre-authorized.
+Selected future work unit:
 
-No production work may begin until that decision is integrated, post-merge
-validated and separately closed.
+**Bounded Analytic Circular Cylinder Sector in 3D.**
+
+Frozen future semantics:
+
+- reuse existing `AxisPlacement3`;
+- finite strictly positive radius;
+- finite strict angular U domain with width strictly less than `2*pi`;
+- finite strict axial V domain;
+- no periodic wrap/modulo;
+- analytic value, first and second partials;
+- U/V reversal through the existing parameter-reflection primitive;
+- axial-boundary parity with `LineSegment3`;
+- circular boundaries checked by an independent analytic oracle;
+- one focused contract, targeting 36 ordinary tests.
+
+This decision branch may change only documentation/research authorities.
+
+No cylinder production, full-periodic seam, cone, sphere, torus, p-curve,
+topological-face, Surface Differential Geometry, discretization or meshing work
+is authorized.
+
+## Next admissible transition after this decision
+
+Only after the decision PR is integrated, post-merge FAST/INTEGRATION pass and
+a separate decision checkpoint closes may one production branch be opened for
+the bounded analytic cylinder sector.
+
+If implementation requires periodic wrapping, radius zero, a common
+`SurfaceError` change, an `AxisPlacement3` change or any additional surface
+family, stop and require a new decision.
