@@ -460,47 +460,68 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   bounded analytic cylinder-sector production work item.
 - `docs/surface-analytic-cylinder-implementation-closure`: **MERGED /
   HISTORICAL** via PR #192; closes the bounded analytic cylinder work unit.
-- `docs/surface-analytic-cylinder-terminal-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; terminally reconciles the closed cylinder work unit
-  before the next Surface Representation breadth decision.
+- `docs/surface-analytic-cylinder-terminal-sync`: **MERGED / HISTORICAL**
+  via terminal reconciliation commit
+  `93eb53c21766d9584290733ef83f838ad9652c98`; closes the cylinder
+  continuity checkpoint.
+- `surface/differential-geometry-entry-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; literature-backed Surface Differential Geometry entry
+  decision; no production differential code.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Analytic Circular Cylinder Sector is terminally closed.**
+**Surface Differential Geometry Entry Decision — ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal closure evidence:
+Active branch:
+`surface/differential-geometry-entry-decision`.
 
-1. implementation PR #191:
-   `6edc598637ddedd54cf62732e33a62e504cb82c8`;
-2. implementation post-merge FAST `36088816019`: PASS, 36/36;
-3. implementation post-merge INTEGRATION `36088816031`: PASS, 36/36;
-4. closure PR #192 head:
-   `610df134d9f68d705cb9444c2f3192df6da2a057`;
-5. closure PR FAST `36089006808`: PASS;
-6. closure PR INTEGRATION `36089006822`: PASS;
-7. closure merge:
-   `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
-8. closure post-merge FAST `36089081707`: PASS;
-9. closure post-merge INTEGRATION `36089081776`: PASS;
-10. ordinary semantic inventory: 36 tests;
-11. no production work item is active.
+Decision-entry authority:
 
-Terminal result:
+- terminal cylinder sync:
+  `93eb53c21766d9584290733ef83f838ad9652c98`;
+- terminal-sync FAST `36089325503`: PASS;
+- terminal-sync INTEGRATION `36089325498`: PASS;
+- protected-main inventory: 36 tests;
+- no open PR or production work item at decision entry.
 
-**ANALYTIC CYLINDER SECTOR IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-## Next admissible work item
+Compared candidates:
 
-Open exactly one fresh literature-backed Surface Representation breadth
-decision comparing:
-
-1. opening Surface Differential Geometry;
+1. Surface Differential Geometry entry readiness;
 2. bounded analytic sphere;
 3. bounded analytic cone;
 4. bounded analytic torus;
 5. general trimming / p-curves / topological faces.
 
-No candidate is pre-authorized.
+Selected stage transition:
+
+**Open Surface Differential Geometry — Metric, Normals, and Curvatures.**
+
+Selected first future implementation:
+
+**Pointwise Surface Regularity, First Fundamental Form, Area Density, and
+Oriented Unit Normal in 3D.**
+
+No second fundamental form or curvature is authorized by this decision.
+
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
+sphere, cone, torus, full-periodic cylinder and general-trimming obligations
+retained.
+
+This branch may modify only documentation/research/decision authorities.
+No production differential code may begin before decision integration,
+post-merge validation and separate closure.
+
+## Next admissible transition after this decision
+
+Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision checkpoint closes may one implementation branch open for the
+selected first-order metric/normal work unit.
+
+Any need for Gaussian/mean/principal curvature, topology-face orientation,
+adaptive precision or a new surface family requires a later decision.
