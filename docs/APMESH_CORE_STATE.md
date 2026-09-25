@@ -145,6 +145,15 @@ API/source, one focused test and CMake registration.
 
 Expected ordinary semantic inventory after registration: **38 tests**.
 
+Candidate implementation is now present only in the authorized differential
+API/source, one focused test and CMake registration. The common bounded-surface
+concept and every concrete surface-family production implementation remain
+unchanged.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 No principal-curvature, conditioning-policy, new surface-family,
 trimming/topology, discretization, sizing or meshing work is authorized.
 
