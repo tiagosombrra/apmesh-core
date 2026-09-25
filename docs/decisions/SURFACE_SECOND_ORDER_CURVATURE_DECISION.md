@@ -802,3 +802,35 @@ The next admissible action is one fresh literature-backed decision comparing
 principal curvatures/directions, conditioning diagnostics, remaining surface
 representation breadth, general trimming/topological faces and Boundary Curve
 Discretization readiness. No option is pre-authorized.
+
+
+## 36. Terminal publication checkpoint
+
+Terminal publication PR #203 used head:
+
+`e949ea5a40319da2b8d1ea21938d59d9e3a404f4`.
+
+Publication PR validation:
+
+- FAST `36128180100`: PASS;
+- INTEGRATION `36128180212`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #203 merged as:
+
+`db382cf6218ad4fbf18cbafb3b246be812f6b3b7`.
+
+Publication post-merge validation:
+
+- FAST `36128406912`: PASS;
+- INTEGRATION `36128406846`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Terminal decision/work-unit authority:
+
+**SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED /
+NO ACTIVE PRODUCTION WORK ITEM.**
+
+The next capability remains deliberately unselected. A fresh
+literature-backed comparison is required.
