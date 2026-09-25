@@ -99,11 +99,10 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - closure post-merge FAST `35992410876` and INTEGRATION
   `35992410395`: PASS;
 - active work item:
-  **None; bounded analytic plane implementation integrated and closed by this
-  closure change**;
+  **Bounded Analytic Cylinder Sector decision — documentation only**;
 - active component status:
-  **ANALYTIC PLANE IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-  CLOSED / NOT QUALIFIED**;
+  **ANALYTIC CYLINDER DECISION ACTIVE / IMPLEMENTATION NOT AUTHORIZED /
+  NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
 - protected-main ordinary semantic inventory: **35 tests**, all PASS after
@@ -118,49 +117,38 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-No production work item is active.
+**Integrate the bounded analytic cylinder-sector decision; no production
+implementation is authorized on this branch.**
 
-The bounded analytic plane work unit is terminally integrated by this closure
-change.
+Entry authority:
 
-Implementation evidence:
+- terminal analytic-plane sync:
+  `1c9283498ed9563ff8193f432811c3fb2f7ae7e9`;
+- sync PR FAST `36084372900`: PASS;
+- sync PR INTEGRATION `36084372892`: PASS;
+- sync post-merge FAST `36084432186`: PASS;
+- sync post-merge INTEGRATION `36084432183`: PASS.
 
-- candidate head:
-  `8945b7ff71e7363ad509116c4659cebf180ad3d3`;
-- candidate FAST `35991297348`: PASS, 35/35;
-- candidate INTEGRATION `35991297411`: PASS, 35/35;
-- final PR head:
-  `7cb3e38d046144282d183dc7e68d9476b36c484a`;
-- final PR FAST `35991554343`: PASS, 35/35;
-- final PR INTEGRATION `35991554362`: PASS, 35/35;
-- implementation PR #186:
-  `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
-- protected-main FAST `35991745316`: PASS, 35/35;
-- protected-main INTEGRATION `35991745435`: PASS, 35/35;
-- implementation closure PR #187 head:
-  `79c9028e56913799613292948d452f53e2b3ead1`;
-- closure PR FAST `35992244200`: PASS;
-- closure PR INTEGRATION `35992244354`: PASS;
-- closure merge:
-  `57f647e488bf3498168bc9c3b8c63fc5442d034a`;
-- closure post-merge FAST `35992410876`: PASS;
-- closure post-merge INTEGRATION `35992410395`: PASS.
+Active branch:
+`surface/analytic-cylinder-decision`.
 
-Terminal sync branch:
-`docs/surface-analytic-plane-terminal-sync`.
+Decision authority:
+`docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
 
-Exact next bounded scientific action after this sync is integrated and
-post-merge validated:
+The selected future work unit is a bounded non-periodic circular cylinder
+sector in 3D:
 
-**Open one fresh literature-backed Surface Representation breadth decision.**
+- existing `AxisPlacement3`;
+- radius finite and strictly positive;
+- U is angular and spans strictly less than one full revolution;
+- V is finite axial distance;
+- existing `SurfaceError` and `BoundedParametricSurface3` remain unchanged;
+- analytic value/Su/Sv/Suu/Suv/Svv;
+- no periodic seam or angle wrapping.
 
-The comparison must include bounded analytic cylinder, cone, sphere, torus,
-general trimming/p-curves/topological faces, and whether representation breadth
-is sufficient to open Surface Differential Geometry.
+Cone, sphere, torus, general p-curve/topological-face trimming, Surface
+Differential Geometry and downstream meshing remain unauthorized.
 
-No candidate is pre-authorized.
-
-Boundary Curve Discretization and meshing remain blocked.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
@@ -314,6 +302,7 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
+4. `docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`;
 4. `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`;
 5. `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
 6. `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
