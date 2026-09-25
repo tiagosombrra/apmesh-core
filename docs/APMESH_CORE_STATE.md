@@ -146,6 +146,21 @@ Authorized implementation files:
 No common `SurfaceError`, `AxisPlacement3` or
 `BoundedParametricSurface3` change is authorized.
 
+Candidate validation:
+
+- candidate head:
+  `9536a0a9849021d47acdfb03b1179866e5de87a4`;
+- FAST `36088557775`: PASS, 36/36 tests;
+- INTEGRATION `36088557702`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 36/36 tests per cell;
+- focused `apmesh_core.surface_cylinder`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**ANALYTIC CYLINDER IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
 Full periodic cylinder, cone, sphere, torus, general trimming/topology,
 Surface Differential Geometry and meshing remain blocked.
 
