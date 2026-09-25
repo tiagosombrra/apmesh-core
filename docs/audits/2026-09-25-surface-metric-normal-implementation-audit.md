@@ -201,3 +201,43 @@ Candidates to compare:
 5. return to general trimming/p-curves/topological faces.
 
 No candidate is pre-authorized.
+
+
+## 12. Documentation closure
+
+Closure PR #197 used head:
+
+`8bdab0d43da87800add044a1ff1a9a3a4cd47e99`.
+
+Closure PR validation:
+
+- FAST `36119500567`: PASS, 37/37;
+- INTEGRATION `36119500599`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 37/37 per cell.
+
+PR #197 merged as:
+
+`5fc561a2e0e927369c5dc5c4644ef18699602914`.
+
+Closure post-merge validation:
+
+- FAST `36119643984`: PASS, 37/37;
+- INTEGRATION `36119643997`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 37/37 per cell.
+
+## 13. Terminal audit result
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
+
+No active work item remains.
+
+The ordinary protected-main inventory is **37 tests**.
+
+The initial 36/36 green-but-incomplete runs remain preserved as a diagnosed
+mechanical validation-registration defect and are not reinterpreted as complete
+scientific evidence.
+
+The next admissible action is one fresh literature-backed Surface Differential
+Geometry decision. No second-order or representation candidate is
+pre-authorized.
