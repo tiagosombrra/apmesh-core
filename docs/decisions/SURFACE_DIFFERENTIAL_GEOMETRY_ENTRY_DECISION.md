@@ -574,3 +574,36 @@ work item is the first-order metric/normal capability defined by Sections
 6–23.
 
 No second-order curvature or new surface family is authorized.
+
+
+## 27. Decision closure checkpoint
+
+Decision closure PR #195 used head:
+
+`00212906a86df1e019919431ab14460becc4cc82`.
+
+Closure PR validation:
+
+- FAST `36115295284`: PASS;
+- INTEGRATION `36115295327`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #195 merged as:
+
+`10c2c7ab2231721a28858b9395aa6f0eb9b2d603`.
+
+Closure post-merge validation:
+
+- FAST `36115414541`: PASS;
+- INTEGRATION `36115414557`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / SURFACE DIFFERENTIAL GEOMETRY STAGE OPEN /
+FIRST-ORDER METRIC+NORMAL IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is
+`surface/metric-normal`.
+
+No second-order curvature or new surface representation is authorized.
