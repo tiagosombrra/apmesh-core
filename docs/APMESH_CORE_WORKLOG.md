@@ -469,112 +469,68 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-differential-geometry-entry-decision-closure`:
   **MERGED / HISTORICAL** via PR #195; closes the Surface Differential
   Geometry entry decision checkpoint.
-- `surface/metric-normal`: **ACTIVE**; first bounded Surface Differential
-  Geometry production work item.
+- `surface/metric-normal`: **MERGED / HISTORICAL** via PR #196; first
+  bounded Surface Differential Geometry production work item.
+- `docs/surface-metric-normal-implementation-closure`: **CLOSURE-ONLY**;
+  records implementation integration, post-merge validation, the initial
+  validation-registration defect, and corrected 37/37 evidence.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Pointwise Surface Regularity, First Fundamental Form, Area Density, and
-Oriented Unit Normal in 3D — ACTIVE / IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None in production. First-order Surface Differential Geometry
+metric/normal implementation is integrated; documentation closure is active.**
 
-Active branch:
-`surface/metric-normal`.
+Implementation evidence:
 
-Decision authority:
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
+1. initial candidate head:
+   `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec`;
+2. initial FAST `36116721390`: mechanically PASS, but only 36/36 tests;
+3. initial INTEGRATION `36116721741`: mechanically PASS in GCC/Clang, but
+   only 36/36 tests per cell;
+4. diagnosis: `apmesh_core.surface_metric_normal` was compiled and registered
+   but omitted from the `fast;integration` label block;
+5. classification:
+   **VALIDATION INCOMPLETE / MECHANICAL TEST-REGISTRATION DEFECT /
+   NO PRODUCTION-SEMANTIC FAILURE OBSERVED**;
+6. corrected candidate head:
+   `696fd384907fbe2200d25944385bedc6ecf912da`;
+7. corrected FAST `36118467156`: PASS, 37/37;
+8. corrected INTEGRATION `36118467165`: PASS, 37/37 in GCC and Clang;
+9. final PR head:
+   `38da1f9eeefdff15173f421057580db72884e64c`;
+10. final PR FAST `36118684757`: PASS, 37/37;
+11. final PR INTEGRATION `36118684741`: PASS, 37/37 in GCC and Clang;
+12. PR #196 merged as
+    `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
+13. post-merge FAST `36118945024`: PASS, 37/37;
+14. post-merge INTEGRATION `36118944987`: PASS, 37/37 in GCC and Clang;
+15. focused `apmesh_core.surface_metric_normal`: PASS on corrected candidate,
+    final PR head, and protected `main`;
+16. all prerequisite ordinary semantic contracts remained PASS.
 
-Closed decision checkpoint:
+Integrated work-unit result:
 
-- decision PR #194 merged as
-  `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
-- decision post-merge FAST `36114962084`: PASS;
-- decision post-merge INTEGRATION `36114962093`: PASS;
-- closure PR #195 head:
-  `00212906a86df1e019919431ab14460becc4cc82`;
-- closure PR FAST `36115295284`: PASS;
-- closure PR INTEGRATION `36115295327`: PASS;
-- closure merge:
-  `10c2c7ab2231721a28858b9395aa6f0eb9b2d603`;
-- closure post-merge FAST `36115414541`: PASS;
-- closure post-merge INTEGRATION `36115414557`: PASS.
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED.**
 
-Authorized repository mapping:
+Closure audit:
+`docs/audits/2026-09-25-surface-metric-normal-implementation-audit.md`.
 
-1. public API:
-   `include/apmesh/geometry/surface_differential.hpp`;
-2. production:
-   `src/geometry/surface_differential.cpp`;
-3. focused contract:
-   `tests/surface_metric_normal.cpp`;
-4. build/test registration:
-   `CMakeLists.txt`;
-5. synchronized STATE / ROADMAP / WORKLOG / decision.
+## Next admissible work item after closure
 
-Required scope:
+Only after this documentation closure is integrated and post-merge validated,
+open exactly one fresh literature-backed Surface Differential Geometry
+decision comparing:
 
-- generic first-order surface derivative consumption;
-- first fundamental form E/F/G;
-- scale-aware area density;
-- oriented unit normal;
-- exact singular-parameterization failure with no universal epsilon;
-- plane/cylinder analytic oracles;
-- integrated-family conformance;
-- reversal/frame/scale covariance;
-- target ordinary inventory: 37 tests.
+1. second fundamental form plus Gaussian/mean curvature;
+2. principal curvatures/directions;
+3. explicit conditioning / near-singular diagnostics;
+4. return to Surface Representation for sphere/cone/torus;
+5. return to general trimming/p-curves/topological faces.
 
-Candidate implementation mapping:
+No candidate is pre-authorized.
 
-- `include/apmesh/geometry/surface_differential.hpp`:
-  generic first-order API and typed differential failures;
-- `src/geometry/surface_differential.cpp`:
-  scale-aware E/F/G, area-density and oriented-normal kernel;
-- `tests/surface_metric_normal.cpp`:
-  plane/cylinder analytic oracles, singular and near-singular fixtures,
-  reversal/frame/scale evidence and integrated-family conformance;
-- `CMakeLists.txt`:
-  registers the 37th ordinary semantic contract.
-
-Initial PR validation diagnosis:
-
-- head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec`;
-- FAST `36116721390`: mechanically PASS but only **36/36** tests executed;
-- INTEGRATION `36116721741`: mechanically PASS in GCC 13 Debug and Clang
-  18/libc++ Debug but only **36/36** tests executed per cell;
-- `apmesh_core.surface_metric_normal` was compiled but absent from CTest
-  execution because its `fast;integration` labels were omitted from the
-  surface `set_tests_properties` block;
-- classification: **VALIDATION INCOMPLETE / MECHANICAL TEST-REGISTRATION
-  DEFECT / NO PRODUCTION-SEMANTIC FAILURE OBSERVED**;
-- correction: add only `apmesh_core.surface_metric_normal` to the existing
-  surface ordinary-profile label block;
-- corrected validation must execute **37/37** tests in FAST and both
-  INTEGRATION compiler cells before integration.
-
-Corrected validation:
-
-- corrected head:
-  `696fd384907fbe2200d25944385bedc6ecf912da`;
-- FAST `36118467156`: PASS, **37/37** tests;
-- INTEGRATION `36118467165`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, **37/37** tests in each cell;
-- `apmesh_core.surface_metric_normal`: executed as test 26/37 and PASS in
-  all three jobs;
-- every prior ordinary semantic contract remained PASS;
-- correction changed only CMake test labels and continuity documentation, not
-  production scientific semantics.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no second fundamental form;
-- no Gaussian/mean/principal curvature;
-- no sphere/cone/torus representation;
-- no full-periodic cylinder;
-- no general trimming/p-curves/topological faces;
-- no boundary discretization, sizing or meshing.
+Boundary discretization, sizing, meshing, Quad-Dominant and parallel work
+remain blocked.
