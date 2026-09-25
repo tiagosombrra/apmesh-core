@@ -478,64 +478,56 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via terminal-state commit
   `793fd46575e0c00d11ad2739b8e9c92227d576a1`; publishes the closed
   first-order metric/normal state.
-- `surface/second-order-curvature-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; literature-backed second-order Surface Differential
-  Geometry decision; no production implementation.
+- `surface/second-order-curvature-decision`: **MERGED / HISTORICAL**
+  via PR #199; bounded second-order Surface Differential Geometry decision.
+- `docs/surface-second-order-curvature-decision-closure`: **CLOSURE-ONLY**;
+  records PR #199 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Second Fundamental Form + Gaussian/Mean Curvature Decision —
-ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
-NOT QUALIFIED.**
+**None. Surface Second Fundamental Form + Gaussian/Mean Curvature decision is
+integrated and ready for closure.**
 
-Active branch:
-`surface/second-order-curvature-decision`.
+Decision closure evidence:
 
-Decision-entry authority:
+1. decision authority:
+   `docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`;
+2. decision PR #199 head:
+   `b2608af43c6b41a3faf1332343fdc5a0bab2a593`;
+3. decision PR FAST `36124245751`: PASS;
+4. decision PR INTEGRATION `36124245699`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+5. decision PR #199 merged as
+   `f5288a3c1388ee1c0255276b770461fb9ee70fae`;
+6. decision post-merge FAST `36124361467`: PASS;
+7. decision post-merge INTEGRATION `36124361479`: PASS;
+8. no II/K/H production implementation exists yet;
+9. the ordinary semantic inventory remains 37 tests.
 
-- terminal first-order state:
-  `793fd46575e0c00d11ad2739b8e9c92227d576a1`;
-- terminal-state FAST `36120283995`: PASS;
-- terminal-state INTEGRATION `36120284007`: PASS;
-- no open PR and no active production work item at entry;
-- ordinary semantic inventory: 37 tests.
+No production work item is active in this closure change.
 
-Decision authority:
-`docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
+## Next admissible work item after closure
 
-Required comparison:
-
-1. second fundamental form plus Gaussian/mean curvature;
-2. principal curvatures/directions;
-3. explicit conditioning / near-singular diagnostics;
-4. return to Surface Representation for sphere/cone/torus;
-5. return to general trimming/p-curves/topological faces.
-
-Selected bounded future work unit:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature
 for regular C2 bounded parametric surfaces in 3D.**
 
-Frozen scope:
+Implementation is bounded by
+`docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
 
-- reuse existing first-order metric/normal;
-- add oriented II coefficients L/M/N;
-- add Gaussian curvature K;
-- add oriented mean curvature H;
-- no principal curvatures/directions;
-- no condition-number threshold or universal epsilon;
-- exact singularity and insufficient-continuity semantics preserved;
-- target ordinary inventory after future implementation: 38 tests.
+Expected implementation mapping:
 
-This branch may change only documentation/research/decision authorities.
+- `include/apmesh/geometry/surface_differential.hpp`;
+- `src/geometry/surface_differential.cpp`;
+- `tests/surface_second_order_curvature.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / WORKLOG / ROADMAP / decision / implementation audit.
 
-## Next admissible transition after this decision
+Expected ordinary semantic inventory after focused registration: **38 tests**.
 
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision checkpoint closes may one implementation branch open for the
-selected II/K/H work unit.
-
-No principal-curvature, conditioning-policy, new surface-family, trimming,
-topology, discretization or meshing capability is pre-authorized.
+No principal-curvature/direction, conditioning-policy, new surface-family,
+trimming/topology, discretization, sizing or meshing work is authorized.
