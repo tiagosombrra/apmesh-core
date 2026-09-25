@@ -48,7 +48,7 @@ struct SurfaceSecondFundamentalForm {
 };
 
 struct SurfaceSecondOrderGeometry3 {
-    SurfaceMetricNormal3 metric_normal{};
+    SurfaceMetricNormal3 metric_normal;
     SurfaceSecondFundamentalForm second_fundamental_form{};
     double gaussian_curvature{};
     double mean_curvature{};
