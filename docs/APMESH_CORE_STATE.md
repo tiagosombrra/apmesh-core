@@ -99,10 +99,10 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - closure post-merge FAST `35992410876` and INTEGRATION
   `35992410395`: PASS;
 - active work item:
-  **Bounded Analytic Cylinder Sector decision — documentation only**;
+  **None; analytic cylinder decision integrated and closure pending**;
 - active component status:
-  **ANALYTIC CYLINDER DECISION ACTIVE / IMPLEMENTATION NOT AUTHORIZED /
-  NOT QUALIFIED**;
+  **ANALYTIC CYLINDER DECISION INTEGRATED / CLOSURE PENDING /
+  IMPLEMENTATION NOT STARTED / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
 - protected-main ordinary semantic inventory: **35 tests**, all PASS after
@@ -117,37 +117,31 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Integrate the bounded analytic cylinder-sector decision; no production
-implementation is authorized on this branch.**
+**Close the integrated bounded analytic cylinder-sector decision; no production
+implementation is active.**
 
-Entry authority:
+Decision evidence:
 
-- terminal analytic-plane sync:
-  `1c9283498ed9563ff8193f432811c3fb2f7ae7e9`;
-- sync PR FAST `36084372900`: PASS;
-- sync PR INTEGRATION `36084372892`: PASS;
-- sync post-merge FAST `36084432186`: PASS;
-- sync post-merge INTEGRATION `36084432183`: PASS.
+- final decision head:
+  `f9a6811cd1ecb1abea7bbfb1cec9f095ff6208e8`;
+- PR #189 FAST `36085045566`: PASS;
+- PR #189 INTEGRATION `36085045563`: PASS;
+- decision merge:
+  `9e0b5dcc7061912a2983c7c1b4a93d99839796e8`;
+- post-merge FAST `36085132728`: PASS;
+- post-merge INTEGRATION `36085132887`: PASS.
 
-Active branch:
-`surface/analytic-cylinder-decision`.
+Closure branch:
+`docs/surface-analytic-cylinder-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
 
-The selected future work unit is a bounded non-periodic circular cylinder
-sector in 3D:
+After closure integration and post-merge validation, the sole next production
+work item is the bounded non-periodic analytic cylinder sector.
 
-- existing `AxisPlacement3`;
-- radius finite and strictly positive;
-- U is angular and spans strictly less than one full revolution;
-- V is finite axial distance;
-- existing `SurfaceError` and `BoundedParametricSurface3` remain unchanged;
-- analytic value/Su/Sv/Suu/Suv/Svv;
-- no periodic seam or angle wrapping.
-
-Cone, sphere, torus, general p-curve/topological-face trimming, Surface
-Differential Geometry and downstream meshing remain unauthorized.
+No full-periodic seam, cone, sphere, torus, general p-curve/topological-face
+trimming, Surface Differential Geometry or meshing capability is authorized.
 
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
