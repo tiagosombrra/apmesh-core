@@ -1926,3 +1926,56 @@ Project relevance:
 - general face boundaries use curves on surfaces and explicit B-rep entities;
 - supports keeping general trimming/topological-face semantics separate from a
   value-oriented revolution surface.
+
+
+## Surface Differential Geometry — Second Order
+
+### Patrikalakis, Maekawa and Cho — first/second fundamental forms and curvature
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded second-order surface
+curvature decision, reviewed 2026-09-25.
+
+References:
+
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node26.html
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node28.html
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node31.html
+
+Project relevance:
+
+- orders tangent/normal, first fundamental form, second fundamental form,
+  principal curvatures and Gaussian/mean curvature as distinct local
+  differential-geometry layers;
+- supports computing Gaussian/mean curvature from first and second fundamental
+  forms before introducing principal-direction semantics;
+- provides independent analytic formulas but is not a numerical oracle.
+
+### Open CASCADE GeomLProp_SLProps — mature local surface-property partition
+
+Status: `FOUNDATIONAL / SCOPING`, reviewed 2026-09-25.
+
+Reference:
+https://dev.opencascade.org/doc/occt-6.9.1/refman/html/class_geom_l_prop___s_l_props.html
+
+Project relevance:
+
+- mature CAD-kernel local properties distinguish derivatives, normal,
+  Gaussian/mean curvature, principal curvatures and curvature directions;
+- supports separating scalar K/H from the later principal-direction work unit;
+- Open CASCADE remains design/reference evidence only, not a runtime
+  dependency, tolerance authority or test oracle.
+
+### Patrikalakis, Maekawa and Cho — surface interrogation sequencing
+
+Status: `FOUNDATIONAL / SEQUENCING`, reviewed 2026-09-25.
+
+Reference:
+https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node141.html
+
+Project relevance:
+
+- classifies curvature interrogation as second-order surface analysis;
+- supports completing local second-order geometry before global curvature
+  extrema/interrogation or curvature-driven meshing;
+- does not authorize principal-direction, extrema or meshing algorithms.
+
