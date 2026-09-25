@@ -88,8 +88,8 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  FIRST-ORDER METRIC/NORMAL IMPLEMENTED / INTEGRATED / CLOSED /
-  NOT QUALIFIED**;
+  SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
+  INTEGRATED / CLOSED / NOT QUALIFIED**;
 - entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
 - decision closure PR #195:
@@ -121,6 +121,14 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   `36127811852`: PASS, 38/38;
 - second-order II/K/H work unit:
   **IMPLEMENTED / INTEGRATED / CLOSED / NOT QUALIFIED**;
+- terminal publication PR #203 head:
+  `e949ea5a40319da2b8d1ea21938d59d9e3a404f4`;
+- terminal publication PR FAST `36128180100`: PASS;
+- terminal publication PR INTEGRATION `36128180212`: PASS;
+- terminal publication merge:
+  `db382cf6218ad4fbf18cbafb3b246be812f6b3b7`;
+- terminal publication post-merge FAST `36128406912`: PASS;
+- terminal publication post-merge INTEGRATION `36128406846`: PASS;
 - no production work item active;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face

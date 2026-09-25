@@ -1896,6 +1896,12 @@ Terminal evidence:
 - closure post-merge FAST `36127811804`: PASS, 38/38;
 - closure post-merge INTEGRATION `36127811852`: PASS, 38/38 in
   GCC/Clang.
+- terminal publication PR #203:
+  `db382cf6218ad4fbf18cbafb3b246be812f6b3b7`;
+- terminal publication PR FAST `36128180100`: PASS;
+- terminal publication PR INTEGRATION `36128180212`: PASS;
+- terminal publication post-merge FAST `36128406912`: PASS;
+- terminal publication post-merge INTEGRATION `36128406846`: PASS.
 
 Audits:
 
