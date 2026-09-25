@@ -43,6 +43,7 @@ add_library(apmesh_core STATIC
     src/geometry/extrusion_surface.cpp
     src/geometry/revolution_surface.cpp
     src/geometry/elementary_surface.cpp
+    src/geometry/surface_differential.cpp
     src/math/linear_algebra.cpp
     src/topology/topology.cpp
 )
@@ -431,6 +432,20 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.surface_cylinder
     )
 
+    add_executable(apmesh_core.surface_metric_normal
+        tests/surface_metric_normal.cpp
+    )
+    target_link_libraries(
+        apmesh_core.surface_metric_normal
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(apmesh_core.surface_metric_normal)
+
+    add_test(
+        NAME apmesh_core.surface_metric_normal
+        COMMAND apmesh_core.surface_metric_normal
+    )
+
     add_executable(apmesh_core.curve_differential
         tests/curve_differential.cpp
     )
@@ -633,6 +648,7 @@ if(BUILD_TESTING)
         apmesh_core.surface_revolution
         apmesh_core.surface_plane
         apmesh_core.surface_cylinder
+        apmesh_core.surface_metric_normal
         PROPERTIES LABELS "surface;geometry;contract;focused-contract;direct-semantic;fast;integration"
     )
 

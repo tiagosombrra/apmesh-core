@@ -1751,7 +1751,7 @@ before qualification.
 
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
-Status: `ENTRY DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED`
+Status: `FIRST-ORDER METRIC/NORMAL IMPLEMENTATION ACTIVE / NOT QUALIFIED`
 
 Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
 
@@ -1876,43 +1876,57 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Differential Geometry — Metric, Normals, and Curvatures —
-ENTRY DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED**
+**Surface Differential Geometry — First-Order Metric and Oriented Normal —
+IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
+Closed decision checkpoint:
 
-Decision evidence:
-
-- PR #194 head:
-  `e48a6040bb4ff6463b170acce0651324881967b3`;
-- PR FAST `36114864362`: PASS;
-- PR INTEGRATION `36114864400`: PASS;
-- merge:
+- decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
-- post-merge FAST `36114962084`: PASS;
-- post-merge INTEGRATION `36114962093`: PASS.
+- decision closure PR #195:
+  `10c2c7ab2231721a28858b9395aa6f0eb9b2d603`;
+- closure post-merge FAST `36115414541`: PASS;
+- closure post-merge INTEGRATION `36115414557`: PASS.
 
-After decision closure, the sole next production work item is:
+Active implementation branch:
+`surface/metric-normal`.
 
-**Pointwise Surface Regularity, First Fundamental Form, Area Density, and
-Oriented Unit Normal in 3D.**
+Authorized scope:
 
-Future implementation remains limited to first-order differential properties
-and exact singular-parameterization semantics.
+- first fundamental form E/F/G;
+- area density;
+- oriented unit normal;
+- exact singular-parameterization failure;
+- scale-aware arithmetic without universal epsilon;
+- plane/cylinder analytic evidence;
+- conformance across currently integrated surface families;
+- reversal/frame/scale covariance;
+- one focused contract, targeting 37 tests.
+
+Candidate validation history:
+
+- initial head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec` had mechanically green
+  FAST/INTEGRATION runs but only 36/36 tests because the new focused test lacked
+  ordinary-profile labels;
+- corrected head `696fd384907fbe2200d25944385bedc6ecf912da`:
+  FAST `36118467156` PASS, 37/37;
+- corrected INTEGRATION `36118467165` PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 37/37 per cell;
+- focused `apmesh_core.surface_metric_normal` executed and passed in all
+  three jobs.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. No concrete surface representation
+was modified.
 
 Not authorized:
 
-- second fundamental form;
-- Gaussian/mean/principal curvature;
-- new surface representation families;
-- topology/face orientation;
+- second fundamental form or curvatures;
+- sphere/cone/torus production;
+- general trimming/p-curves/faces;
 - boundary discretization, sizing or meshing.
 
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
-sphere, cone, torus, full-periodic cylinder and general trimming/p-curves/faces
-retained.
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
 The long-term ordering remains:
 

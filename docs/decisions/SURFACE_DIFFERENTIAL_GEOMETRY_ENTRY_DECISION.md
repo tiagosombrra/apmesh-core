@@ -574,3 +574,101 @@ work item is the first-order metric/normal capability defined by Sections
 6–23.
 
 No second-order curvature or new surface family is authorized.
+
+
+## 27. Decision closure checkpoint
+
+Decision closure PR #195 used head:
+
+`00212906a86df1e019919431ab14460becc4cc82`.
+
+Closure PR validation:
+
+- FAST `36115295284`: PASS;
+- INTEGRATION `36115295327`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #195 merged as:
+
+`10c2c7ab2231721a28858b9395aa6f0eb9b2d603`.
+
+Closure post-merge validation:
+
+- FAST `36115414541`: PASS;
+- INTEGRATION `36115414557`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / SURFACE DIFFERENTIAL GEOMETRY STAGE OPEN /
+FIRST-ORDER METRIC+NORMAL IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is
+`surface/metric-normal`.
+
+No second-order curvature or new surface representation is authorized.
+
+## 28. Active first-order implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/metric-normal`.
+
+Candidate mapping:
+
+- public differential API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_metric_normal.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+The candidate implements:
+
+- exact typed surface-error propagation;
+- exact zero-cross-product singularity semantics;
+- scale-aware E/F/G reconstruction;
+- scale-aware area density;
+- oriented unit normal;
+- no universal regularity epsilon;
+- plane and cylinder analytic oracles;
+- near-degenerate regular acceptance;
+- reversal, frame, translation and power-of-two scale covariance;
+- regular conformance across the integrated surface families.
+
+Expected ordinary semantic inventory: **37 tests**.
+
+Initial PR validation diagnosis:
+
+- head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec`;
+- FAST `36116721390`: mechanically PASS, 36/36 ordinary tests;
+- INTEGRATION `36116721741`: mechanically PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 36/36 ordinary tests per cell;
+- the focused `apmesh_core.surface_metric_normal` executable was compiled but
+  not selected by CTest because its ordinary-profile labels were missing;
+- this is a mechanical validation-registration defect, not evidence of a
+  production-semantic defect;
+- the correction adds only the missing surface test labels and requires fresh
+  37/37 validation.
+
+Corrected validation:
+
+- corrected head:
+  `696fd384907fbe2200d25944385bedc6ecf912da`;
+- FAST `36118467156`: PASS, 37/37 ordinary tests;
+- INTEGRATION `36118467165`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 37/37 tests in each cell;
+- `apmesh_core.surface_metric_normal`: executed and PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- the only correction relative to the initially green-but-incomplete runs was
+  adding the missing ordinary-profile test labels.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No second fundamental form, curvature or new surface representation is
+implied.
