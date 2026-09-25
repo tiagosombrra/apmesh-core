@@ -1905,6 +1905,18 @@ Authorized scope:
 - independent analytic reference;
 - one new focused contract, targeting 36 ordinary tests.
 
+Candidate validation on head
+`9536a0a9849021d47acdfb03b1179866e5de87a4`:
+
+- FAST `36088557775`: PASS, 36/36 tests;
+- INTEGRATION `36088557702`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 36/36 tests per cell;
+- the new analytic-cylinder contract and every prior ordinary semantic contract
+  passed.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration.
+
 Full periodic cylinder, cone, sphere, torus, general p-curves/topological
 faces, Surface Differential Geometry and downstream meshing remain blocked.
 
