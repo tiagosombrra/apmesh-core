@@ -666,6 +666,25 @@ Focused evidence includes:
 
 Expected ordinary semantic inventory: **38 tests**.
 
+Initial validation incident:
+
+- candidate head
+  `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+- FAST `36125805859`: PASS;
+- INTEGRATION `36125805817`: GCC 13 Debug PASS 38/38; Clang 18/libc++
+  Debug FAIL 37/38;
+- the only failure was the extreme non-representable-curvature fixture;
+- all production and prerequisite contracts compiled; every other ordinary
+  semantic test passed;
+- classification:
+  compiler-sensitive fixture construction, not a production semantic defect;
+- focused fixture correction commit:
+  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
+- no production/API file changed in the correction;
+- retained audit:
+  `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / CORRECTED FINAL-HEAD VALIDATION PENDING /
+NOT QUALIFIED.**
