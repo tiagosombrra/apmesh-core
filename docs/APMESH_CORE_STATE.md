@@ -99,13 +99,14 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - closure post-merge FAST `35992410876` and INTEGRATION
   `35992410395`: PASS;
 - active work item:
-  **Bounded Analytic Cylinder Sector implementation**;
+  **None; analytic cylinder implementation integrated and closure pending**;
 - active component status:
-  **ANALYTIC CYLINDER IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
+  **ANALYTIC CYLINDER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+  CLOSURE PENDING / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
-- protected-main ordinary semantic inventory: **35 tests**, all PASS after
-  bounded analytic plane integration;
+- protected-main ordinary semantic inventory: **36 tests**, all PASS after
+  bounded analytic cylinder integration;
 - most recently qualified stage: **Curve Representation — Continuous Geometry
   Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
   GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
@@ -116,54 +117,36 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Implement the bounded non-periodic analytic circular cylinder sector in 3D.**
+**Close the integrated bounded analytic cylinder-sector implementation; no
+production work item is active.**
 
-Closed decision evidence:
+Implementation evidence:
 
-- decision PR #189:
-  `9e0b5dcc7061912a2983c7c1b4a93d99839796e8`;
-- decision post-merge FAST `36085132728`: PASS;
-- decision post-merge INTEGRATION `36085132887`: PASS;
-- closure PR #190:
-  `05b1478ebdf22ca9a9ef0251ff010d9ac058474e`;
-- closure post-merge FAST `36085529751`: PASS;
-- closure post-merge INTEGRATION `36085529695`: PASS.
+- candidate head:
+  `9536a0a9849021d47acdfb03b1179866e5de87a4`;
+- candidate FAST `36088557775`: PASS, 36/36;
+- candidate INTEGRATION `36088557702`: PASS, 36/36;
+- final PR head:
+  `e06c1344570daa7ff76cda61dc8165e2fc0dc8b2`;
+- final PR FAST `36088704029`: PASS, 36/36;
+- final PR INTEGRATION `36088704205`: PASS, 36/36;
+- implementation PR #191:
+  `6edc598637ddedd54cf62732e33a62e504cb82c8`;
+- protected-main FAST `36088816019`: PASS, 36/36;
+- protected-main INTEGRATION `36088816031`: PASS, 36/36.
 
-Active branch:
-`surface/analytic-cylinder`.
+Closure branch:
+`docs/surface-analytic-cylinder-implementation-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
 
-Authorized implementation files:
+After closure integration and post-merge validation, the sole next admissible
+action is one fresh Surface Representation breadth decision comparing Surface
+Differential Geometry readiness against sphere, cone, torus and general
+trimming/p-curves/topological faces.
 
-- `include/apmesh/geometry/elementary_surface.hpp`;
-- `src/geometry/elementary_surface.cpp`;
-- `tests/surface_cylinder.cpp`;
-- `CMakeLists.txt`;
-- synchronized continuity authorities.
-
-No common `SurfaceError`, `AxisPlacement3` or
-`BoundedParametricSurface3` change is authorized.
-
-Candidate validation:
-
-- candidate head:
-  `9536a0a9849021d47acdfb03b1179866e5de87a4`;
-- FAST `36088557775`: PASS, 36/36 tests;
-- INTEGRATION `36088557702`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 36/36 tests per cell;
-- focused `apmesh_core.surface_cylinder`: PASS in all three jobs;
-- every prior ordinary semantic contract remained PASS.
-
-Current status:
-
-**ANALYTIC CYLINDER IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Full periodic cylinder, cone, sphere, torus, general trimming/topology,
-Surface Differential Geometry and meshing remain blocked.
-
+Full periodic cylinder and every broader capability remain blocked.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
