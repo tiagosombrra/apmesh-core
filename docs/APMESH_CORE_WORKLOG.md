@@ -536,9 +536,26 @@ Candidate implementation mapping:
 - `CMakeLists.txt`:
   registers the 37th ordinary semantic contract.
 
+Initial PR validation diagnosis:
+
+- head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec`;
+- FAST `36116721390`: mechanically PASS but only **36/36** tests executed;
+- INTEGRATION `36116721741`: mechanically PASS in GCC 13 Debug and Clang
+  18/libc++ Debug but only **36/36** tests executed per cell;
+- `apmesh_core.surface_metric_normal` was compiled but absent from CTest
+  execution because its `fast;integration` labels were omitted from the
+  surface `set_tests_properties` block;
+- classification: **VALIDATION INCOMPLETE / MECHANICAL TEST-REGISTRATION
+  DEFECT / NO PRODUCTION-SEMANTIC FAILURE OBSERVED**;
+- correction: add only `apmesh_core.surface_metric_normal` to the existing
+  surface ordinary-profile label block;
+- corrected validation must execute **37/37** tests in FAST and both
+  INTEGRATION compiler cells before integration.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / CORRECTED PR REVALIDATION PENDING /
+NOT QUALIFIED.**
 
 Explicit non-actions:
 
