@@ -653,10 +653,22 @@ Initial PR validation diagnosis:
 - the correction adds only the missing surface test labels and requires fresh
   37/37 validation.
 
+Corrected validation:
+
+- corrected head:
+  `696fd384907fbe2200d25944385bedc6ecf912da`;
+- FAST `36118467156`: PASS, 37/37 ordinary tests;
+- INTEGRATION `36118467165`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 37/37 tests in each cell;
+- `apmesh_core.surface_metric_normal`: executed and PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- the only correction relative to the initially green-but-incomplete runs was
+  adding the missing ordinary-profile test labels.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / CORRECTED PR REVALIDATION PENDING /
-NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No second fundamental form, curvature or new surface representation is
 implied.
