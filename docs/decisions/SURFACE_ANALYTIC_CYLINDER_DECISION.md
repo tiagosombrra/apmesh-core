@@ -625,3 +625,55 @@ work item is `BoundedCylinderSurface3` under Sections 5–27.
 
 No full-periodic seam or broader analytic/topological/differential capability
 is authorized.
+
+
+## 31. Decision closure checkpoint
+
+Decision closure PR #190 used head:
+
+`49c4dd82847adfa1944127ae84a7f3373eb4f261`.
+
+Closure PR validation:
+
+- FAST `36085415699`: PASS;
+- INTEGRATION `36085415665`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #190 merged as:
+
+`05b1478ebdf22ca9a9ef0251ff010d9ac058474e`.
+
+Closure post-merge validation:
+
+- FAST `36085529751`: PASS;
+- INTEGRATION `36085529695`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is `BoundedCylinderSurface3` under
+Sections 5–27.
+
+## 32. Active implementation validation
+
+Candidate head:
+
+`9536a0a9849021d47acdfb03b1179866e5de87a4`.
+
+Candidate validation:
+
+- FAST `36088557775`: PASS, 36/36 ordinary semantic tests;
+- INTEGRATION `36088557702`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 36/36 tests per cell;
+- `apmesh_core.surface_cylinder`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**ANALYTIC CYLINDER IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No full-periodic cylinder or broader analytic/topological/differential
+capability is authorized.
