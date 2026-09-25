@@ -1510,9 +1510,10 @@ candidates before authorizing any production implementation.
 Status: `IN INVESTIGATION / PARAMETRIC CONTRACT INTEGRATED /
 LINE SEGMENT INTEGRATED / RATIONAL QUADRATIC BÉZIER INTEGRATED /
 ORIENTED TRIM INTEGRATED / TWO-SPAN CUBIC B-SPLINE INTEGRATED /
-TWO-SPAN CUBIC NURBS IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING /
-NOT QUALIFIED / CUBIC BASELINE QUALIFICATION PRESERVED`
+FIXED + MULTI-SPAN CUBIC NURBS INTEGRATED /
+INTERIOR MULTIPLICITY 1/2 C1 SEMANTICS INTEGRATED /
+FOCUSED CONTRACTS PASS / NOT QUALIFIED /
+CUBIC BASELINE QUALIFICATION PRESERVED`
 
 The existing Curve Representation qualification remains valid only for the
 frozen polynomial cubic Bézier scope implemented by `CubicBezier2` and
@@ -1714,8 +1715,10 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `IN INVESTIGATION / BOUNDED ANALYTIC CYLINDER CLOSED /
-NOT QUALIFIED / PAUSED DURING SURFACE DIFFERENTIAL ENTRY`
+Status: `IN INVESTIGATION / BICUBIC POLYNOMIAL + RATIONAL + NURBS /
+COONS / RECTANGULAR TRIM / EXTRUSION / REVOLUTION /
+ARBITRARY-AXIS PLACEMENT / ANALYTIC PLANE + CYLINDER INTEGRATED /
+NOT QUALIFIED / PAUSED DURING SURFACE DIFFERENTIAL GEOMETRY`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1751,8 +1754,9 @@ before qualification.
 
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
-Status: `FIRST-ORDER METRIC/NORMAL IMPLEMENTED / INTEGRATED / CLOSED /
-NOT QUALIFIED`
+Status: `FIRST-ORDER METRIC/NORMAL + SECOND FUNDAMENTAL FORM +
+GAUSSIAN/MEAN CURVATURE IMPLEMENTED / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM`
 
 Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
 
