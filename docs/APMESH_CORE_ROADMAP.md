@@ -1878,44 +1878,40 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — Second Fundamental Form + Gaussian/Mean
-Curvature — DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+Curvature — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
+Closed decision lineage:
 
-Decision validation:
-
-- PR #199 head:
-  `b2608af43c6b41a3faf1332343fdc5a0bab2a593`;
-- PR FAST `36124245751`: PASS;
-- PR INTEGRATION `36124245699`: PASS;
-- merge:
+- decision PR #199:
   `f5288a3c1388ee1c0255276b770461fb9ee70fae`;
-- post-merge FAST `36124361467`: PASS;
-- post-merge INTEGRATION `36124361479`: PASS.
+- decision post-merge FAST `36124361467`: PASS;
+- decision post-merge INTEGRATION `36124361479`: PASS;
+- closure PR #200:
+  `204f0456ae12ecfd367f38cdca874fcf83f4a952`;
+- closure post-merge FAST `36124711127`: PASS;
+- closure post-merge INTEGRATION `36124711118`: PASS.
 
-Closure branch:
-`docs/surface-second-order-curvature-decision-closure`.
+Active implementation branch:
+`surface/second-order-curvature`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized scope:
 
-**Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature
-for regular C2 bounded parametric surfaces in 3D.**
-
-Authorized implementation remains restricted to II/K/H using existing
-first-order metric/normal and second partials, with exact singularity,
-insufficient-continuity and non-representable failure semantics.
+- reuse existing first-order metric/normal and second derivatives;
+- add oriented II coefficients L/M/N;
+- add Gaussian curvature K;
+- add oriented mean curvature H;
+- preserve exact singularity and insufficient-continuity semantics;
+- preserve no-epsilon regularity;
+- one focused semantic contract;
+- target ordinary inventory: 38 tests.
 
 Principal curvatures/directions, conditioning diagnostics, sphere/cone/torus,
 general trimming/p-curves/faces and all downstream discretization/meshing
 remain deferred.
 
-Ordinary semantic inventory remains 37 tests; the future focused
-implementation targets 38.
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Boundary Curve Discretization and downstream meshing remain blocked.
+Boundary Curve Discretization remains blocked.
 
 The long-term ordering remains:
 
