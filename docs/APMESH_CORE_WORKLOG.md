@@ -532,6 +532,31 @@ Implementation target:
 - no new surface representation;
 - target ordinary inventory: 38 tests.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/surface_differential.hpp`:
+  adds `SurfaceSecondFundamentalForm`,
+  `SurfaceSecondOrderGeometry3` and direct/template II/K/H queries;
+- `src/geometry/surface_differential.cpp`:
+  reuses the integrated metric/normal, projects second partials onto the
+  oriented unit normal and computes K/H with representability checks;
+- `tests/surface_second_order_curvature.cpp`:
+  non-orthogonal synthetic oracle, hyperbolic fixture, plane/cylinder
+  analytics, reversals, scale, C1 NURBS continuity, cross-family conformance,
+  near-singular/exact-singular/extreme and deterministic evidence;
+- `CMakeLists.txt`:
+  explicitly registers the new ordinary `fast;integration` contract.
+
+Regression boundary:
+
+- `include/apmesh/geometry/parametric_surface.hpp`: unchanged;
+- all concrete surface-family production sources: unchanged;
+- principal curvature/direction and conditioning APIs: absent.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ## Next admissible transition
 
 Complete only this implementation, validate 38/38 in FAST and both
