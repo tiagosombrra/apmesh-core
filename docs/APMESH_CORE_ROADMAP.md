@@ -1882,52 +1882,43 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — Ordered Principal Curvature Values +
-Exact Represented-Data Umbilic State — DECISION ACTIVE /
-DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Exact Represented-Data Umbilic State — DECISION INTEGRATED /
+CLOSURE PENDING / IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
+Decision validation:
 
-- terminal second-order state and documentation reconciliation:
-  `6a3814332ed28d88fb9949684af92a8cb3390d39`;
-- post-merge FAST `36146747809`: PASS;
-- post-merge INTEGRATION `36146747762`: PASS.
+- PR #206 head:
+  `3a5af9d27aaf9b3e563e9fd6f89b868745c7edda`;
+- PR FAST `36148367215`: PASS;
+- PR INTEGRATION `36148367239`: PASS;
+- PR #206 merged as
+  `8d42bf38871d7a79f1c01aacbad77ed5e106505f`;
+- post-merge FAST `36190790100`: PASS;
+- post-merge INTEGRATION `36190790157`: PASS.
 
-Active decision:
-`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
+Closure branch:
+`docs/surface-principal-curvature-values-decision-closure`.
 
-Selected future work unit:
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Pointwise Ordered Principal Curvature Values plus Exact Represented-Data
 Umbilic State for Regular C2 Bounded Parametric Surfaces in 3D.**
 
-The decision freezes the scope to scalar principal values:
-
-- reuse existing first/second fundamental forms and K/H evidence;
-- solve the generalized symmetric 2x2 eigenproblem with scale-aware arithmetic;
-- return ordered signed `k_max >= k_min`;
-- expose exact represented-data umbilic state only;
-- validate plane, cylinder, elliptic/hyperbolic/parabolic synthetic cases,
-  exact and near-umbilic cases, non-orthogonal metric, reversal, scaling,
-  extreme finite behavior and H/K identities;
-- target one new focused ordinary contract: 39 tests total.
+Expected ordinary inventory after one focused implementation contract:
+**39 tests**.
 
 Explicitly deferred:
 
-- principal directions / curvature-line fields;
-- conditioning and near-umbilic thresholds;
+- principal directions and curvature-line fields;
+- conditioning/near-umbilic thresholds;
 - sphere/cone/torus representation breadth;
 - general trimming/p-curves/topological faces;
 - Boundary Curve Discretization;
 - Physical Sizing implementation;
 - anisotropic/tensor metrics and meshing.
 
-No production implementation may start until this decision is integrated,
-post-merge validated and separately closed.
-
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
-
-Boundary Curve Discretization remains blocked until an explicit later decision
-changes that status.
 
 The long-term ordering remains:
 
