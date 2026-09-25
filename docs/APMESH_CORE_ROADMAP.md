@@ -1905,9 +1905,20 @@ Authorized scope:
 - one focused semantic contract;
 - target ordinary inventory: 38 tests.
 
-Candidate implementation is mapped to the authorized files only and is
-awaiting FAST/INTEGRATION validation. No common surface concept or concrete
-surface-family implementation changed.
+Candidate implementation remains mapped to the authorized files only.
+
+Initial validation history:
+
+- head `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+- FAST `36125805859`: PASS;
+- INTEGRATION `36125805817`: GCC 38/38 PASS; Clang 37/38 FAIL;
+- failure was isolated to the extreme non-representable-curvature test fixture;
+- production formulas/API were unchanged;
+- corrected fixture commit:
+  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
+- corrected final head requires fresh FAST/INTEGRATION validation.
+
+No common surface concept or concrete surface-family implementation changed.
 
 Principal curvatures/directions, conditioning diagnostics, sphere/cone/torus,
 general trimming/p-curves/faces and all downstream discretization/meshing
