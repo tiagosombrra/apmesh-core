@@ -1878,46 +1878,42 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — Second Fundamental Form + Gaussian/Mean
-Curvature — DECISION ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
+Curvature — DECISION INTEGRATED / CLOSURE PENDING /
+IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
 
-Decision-entry authority:
-
-- terminal first-order state:
-  `793fd46575e0c00d11ad2739b8e9c92227d576a1`;
-- terminal-state FAST `36120283995`: PASS;
-- terminal-state INTEGRATION `36120284007`: PASS;
-- ordinary semantic inventory: 37 tests.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #199 head:
+  `b2608af43c6b41a3faf1332343fdc5a0bab2a593`;
+- PR FAST `36124245751`: PASS;
+- PR INTEGRATION `36124245699`: PASS;
+- merge:
+  `f5288a3c1388ee1c0255276b770461fb9ee70fae`;
+- post-merge FAST `36124361467`: PASS;
+- post-merge INTEGRATION `36124361479`: PASS.
+
+Closure branch:
+`docs/surface-second-order-curvature-decision-closure`.
+
+After closure integration and post-merge validation, the sole next production
+work item is:
 
 **Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature
 for regular C2 bounded parametric surfaces in 3D.**
 
-The decision freezes:
+Authorized implementation remains restricted to II/K/H using existing
+first-order metric/normal and second partials, with exact singularity,
+insufficient-continuity and non-representable failure semantics.
 
-- II coefficients `L=S_uu·n`, `M=S_uv·n`, `N=S_vv·n`;
-- `K=(LN-M²)/(EG-F²)`;
-- `H=(EN-2FM+GL)/(2(EG-F²))`;
-- AP Mesh orientation convention through the existing `S_u×S_v` normal;
-- K orientation invariance and H orientation sign;
-- exact singularity and insufficient-continuity failures;
-- no hidden near-singular epsilon;
-- scale-aware arithmetic with explicit non-representable failure;
-- one future focused ordinary contract, targeting 38 tests.
+Principal curvatures/directions, conditioning diagnostics, sphere/cone/torus,
+general trimming/p-curves/faces and all downstream discretization/meshing
+remain deferred.
 
-Deferred:
-
-- principal curvatures/directions and umbilic semantics;
-- conditioning/near-singular diagnostic policy;
-- sphere/cone/torus and remaining Surface Representation breadth;
-- general trimming/p-curves/topological faces.
-
-No implementation may start until the decision PR is integrated, post-merge
-FAST/INTEGRATION pass and a separate decision checkpoint closes.
+Ordinary semantic inventory remains 37 tests; the future focused
+implementation targets 38.
 
 Boundary Curve Discretization and downstream meshing remain blocked.
 

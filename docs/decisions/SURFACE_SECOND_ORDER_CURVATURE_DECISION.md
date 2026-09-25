@@ -556,3 +556,33 @@ sole next production work item becomes:
 **Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature.**
 
 No production implementation begins on this decision branch.
+
+
+## 31. Decision integration checkpoint
+
+PR #199 integrated this bounded decision using head
+`b2608af43c6b41a3faf1332343fdc5a0bab2a593`.
+
+Decision-head validation:
+
+- FAST `36124245751`: PASS;
+- INTEGRATION `36124245699`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #199 merged as
+`f5288a3c1388ee1c0255276b770461fb9ee70fae`.
+
+Post-merge validation:
+
+- FAST `36124361467`: PASS;
+- INTEGRATION `36124361479`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The decision checkpoint is ready for documentation closure.
+
+After closure integration and its post-merge validation, the sole next
+production work item is the II/K/H implementation bounded by Sections 6–28.
+
+No principal curvature/direction, conditioning diagnostic, new surface
+representation, trimming/topology or downstream meshing capability is
+authorized.
