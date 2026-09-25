@@ -557,15 +557,15 @@ int main() {
     }
     const auto translated_placement = AxisPlacement3::make(
         *translated_origin, *axis, *x_reference);
-    const auto translated = translated_placement
-        ? BoundedCylinderSurface3::make(
-              *translated_placement,
-              radius,
-              *u_domain,
-              *v_domain)
-        : decltype(cylinder){std::unexpected{
-              CylinderSurfaceConstructionError::non_finite_radius}};
-    if (!translated_placement || !translated) {
+    if (!translated_placement) {
+        return 1;
+    }
+    const auto translated = BoundedCylinderSurface3::make(
+        *translated_placement,
+        radius,
+        *u_domain,
+        *v_domain);
+    if (!translated) {
         return 1;
     }
 
