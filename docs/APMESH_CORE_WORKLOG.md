@@ -456,92 +456,47 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   bounded analytic cylinder-sector breadth decision.
 - `docs/surface-analytic-cylinder-decision-closure`: **MERGED /
   HISTORICAL** via PR #190; closes the analytic cylinder decision checkpoint.
-- `surface/analytic-cylinder`: **ACTIVE**; bounded analytic cylinder-sector
-  production work item.
+- `surface/analytic-cylinder`: **MERGED / HISTORICAL** via PR #191;
+  bounded analytic cylinder-sector production work item.
+- `docs/surface-analytic-cylinder-implementation-closure`: **CLOSURE-ONLY**;
+  records PR #191 integration and protected-main validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bounded Analytic Circular Cylinder Sector in 3D — ACTIVE /
-IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None. Bounded Analytic Circular Cylinder Sector implementation is integrated
+and ready for closure.**
 
-Active branch:
-`surface/analytic-cylinder`.
+Implementation evidence:
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
+1. candidate head:
+   `9536a0a9849021d47acdfb03b1179866e5de87a4`;
+2. candidate FAST `36088557775`: PASS, 36/36;
+3. candidate INTEGRATION `36088557702`: PASS, 36/36 in GCC and Clang;
+4. final PR head:
+   `e06c1344570daa7ff76cda61dc8165e2fc0dc8b2`;
+5. final PR FAST `36088704029`: PASS, 36/36;
+6. final PR INTEGRATION `36088704205`: PASS, 36/36 in GCC and Clang;
+7. PR #191 merged as
+   `6edc598637ddedd54cf62732e33a62e504cb82c8`;
+8. protected-main FAST `36088816019`: PASS, 36/36;
+9. protected-main INTEGRATION `36088816031`: PASS, 36/36 in GCC and Clang;
+10. focused `apmesh_core.surface_cylinder`: PASS throughout;
+11. no broader analytic/topological/differential capability was introduced.
 
-Closed decision checkpoint:
+This closure branch changes documentation only.
 
-- decision PR #189:
-  `9e0b5dcc7061912a2983c7c1b4a93d99839796e8`;
-- decision post-merge FAST `36085132728`: PASS;
-- decision post-merge INTEGRATION `36085132887`: PASS;
-- decision closure PR #190 head:
-  `49c4dd82847adfa1944127ae84a7f3373eb4f261`;
-- closure PR FAST `36085415699`: PASS;
-- closure PR INTEGRATION `36085415665`: PASS;
-- closure merge:
-  `05b1478ebdf22ca9a9ef0251ff010d9ac058474e`;
-- closure post-merge FAST `36085529751`: PASS;
-- closure post-merge INTEGRATION `36085529695`: PASS.
+## Next admissible work item after closure
 
-Authorized repository mapping:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open one fresh literature-backed Surface Representation breadth decision
+comparing:
 
-1. public elementary-surface family:
-   `include/apmesh/geometry/elementary_surface.hpp`;
-2. existing elementary-surface production:
-   `src/geometry/elementary_surface.cpp`;
-3. focused contract:
-   `tests/surface_cylinder.cpp`;
-4. build/test registration:
-   `CMakeLists.txt`;
-5. synchronized STATE / ROADMAP / WORKLOG / decision.
+1. opening Surface Differential Geometry;
+2. bounded analytic sphere;
+3. bounded analytic cone;
+4. bounded analytic torus;
+5. general trimming / p-curves / topological faces.
 
-Required implementation:
-
-- `BoundedCylinderSurface3`;
-- existing `AxisPlacement3`;
-- finite strictly positive radius;
-- finite strict angular U domain with width < `2*pi`;
-- finite strict axial V domain;
-- existing `SurfaceError` and `BoundedParametricSurface3` unchanged;
-- analytic value/Su/Sv/Suu/Suv/Svv;
-- U/V reversal through existing reflected-parameter logic;
-- no angle wrapping or full-periodic seam;
-- axial edge parity with `LineSegment3`;
-- independent analytic circular oracle;
-- ordinary inventory target: 36 tests.
-
-Candidate validation:
-
-- candidate head:
-  `9536a0a9849021d47acdfb03b1179866e5de87a4`;
-- FAST `36088557775`: PASS, 36/36 tests;
-- INTEGRATION `36088557702`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 36/36 tests per cell;
-- `apmesh_core.surface_cylinder`: PASS in all three jobs;
-- every prior ordinary semantic contract remained PASS.
-
-Current implementation status:
-
-**ANALYTIC CYLINDER IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no full periodic cylinder;
-- no zero-radius degenerate cylinder;
-- no cone/sphere/torus;
-- no analytic conic curve family;
-- no p-curve/topological-face architecture;
-- no Surface Differential Geometry;
-- no Boundary Curve Discretization, sizing or meshing;
-- no common surface/placement contract change.
-
-## Next admissible transition
-
-Complete only this implementation, validate 36/36 in FAST and both INTEGRATION
-compiler cells, integrate through one PR, validate protected `main`, close the
-implementation checkpoint, then reopen the surface-breadth comparison.
+No candidate is pre-authorized.
