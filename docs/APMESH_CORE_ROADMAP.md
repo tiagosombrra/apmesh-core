@@ -1903,6 +1903,9 @@ Authorized scope:
 - reversal/frame/scale covariance;
 - one focused contract, targeting 37 tests.
 
+Candidate implementation is mapped to the authorized files and awaits
+FAST/INTEGRATION validation. No concrete surface representation was modified.
+
 Not authorized:
 
 - second fundamental form or curvatures;
