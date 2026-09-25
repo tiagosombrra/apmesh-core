@@ -458,40 +458,44 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   HISTORICAL** via PR #190; closes the analytic cylinder decision checkpoint.
 - `surface/analytic-cylinder`: **MERGED / HISTORICAL** via PR #191;
   bounded analytic cylinder-sector production work item.
-- `docs/surface-analytic-cylinder-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #191 integration and protected-main validation.
+- `docs/surface-analytic-cylinder-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #192; closes the bounded analytic cylinder work unit.
+- `docs/surface-analytic-cylinder-terminal-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; terminally reconciles the closed cylinder work unit
+  before the next Surface Representation breadth decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Analytic Circular Cylinder Sector implementation is integrated
-and ready for closure.**
+**None. Bounded Analytic Circular Cylinder Sector is terminally closed.**
 
-Implementation evidence:
+Terminal closure evidence:
 
-1. candidate head:
-   `9536a0a9849021d47acdfb03b1179866e5de87a4`;
-2. candidate FAST `36088557775`: PASS, 36/36;
-3. candidate INTEGRATION `36088557702`: PASS, 36/36 in GCC and Clang;
-4. final PR head:
-   `e06c1344570daa7ff76cda61dc8165e2fc0dc8b2`;
-5. final PR FAST `36088704029`: PASS, 36/36;
-6. final PR INTEGRATION `36088704205`: PASS, 36/36 in GCC and Clang;
-7. PR #191 merged as
+1. implementation PR #191:
    `6edc598637ddedd54cf62732e33a62e504cb82c8`;
-8. protected-main FAST `36088816019`: PASS, 36/36;
-9. protected-main INTEGRATION `36088816031`: PASS, 36/36 in GCC and Clang;
-10. focused `apmesh_core.surface_cylinder`: PASS throughout;
-11. no broader analytic/topological/differential capability was introduced.
+2. implementation post-merge FAST `36088816019`: PASS, 36/36;
+3. implementation post-merge INTEGRATION `36088816031`: PASS, 36/36;
+4. closure PR #192 head:
+   `610df134d9f68d705cb9444c2f3192df6da2a057`;
+5. closure PR FAST `36089006808`: PASS;
+6. closure PR INTEGRATION `36089006822`: PASS;
+7. closure merge:
+   `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
+8. closure post-merge FAST `36089081707`: PASS;
+9. closure post-merge INTEGRATION `36089081776`: PASS;
+10. ordinary semantic inventory: 36 tests;
+11. no production work item is active.
 
-This closure branch changes documentation only.
+Terminal result:
 
-## Next admissible work item after closure
+**ANALYTIC CYLINDER SECTOR IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open one fresh literature-backed Surface Representation breadth decision
-comparing:
+## Next admissible work item
+
+Open exactly one fresh literature-backed Surface Representation breadth
+decision comparing:
 
 1. opening Surface Differential Geometry;
 2. bounded analytic sphere;
