@@ -88,40 +88,34 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  ENTRY DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**;
-- decision PR #194 head:
-  `e48a6040bb4ff6463b170acce0651324881967b3`;
-- decision merge:
+  IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
+- entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
-- decision PR FAST `36114864362` and INTEGRATION
-  `36114864400`: PASS;
-- decision post-merge FAST `36114962084` and INTEGRATION
-  `36114962093`: PASS;
+- decision closure PR #195:
+  `10c2c7ab2231721a28858b9395aa6f0eb9b2d603`;
+- closure post-merge FAST `36115414541` and INTEGRATION
+  `36115414557`: PASS;
 - protected-main ordinary semantic inventory: **36 tests**;
 - active work item:
-  **None; entry-decision closure only**;
-- no production differential code exists yet;
+  **Pointwise Surface Regularity, First Fundamental Form, Area Density, and
+  Oriented Unit Normal in 3D**;
+- active branch:
+  `surface/metric-normal`;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
   obligations retained;
 - most recently qualified stage remains **Curve Representation — Continuous
-  Geometry Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the
-  admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope.
+  Geometry Before Discretization — QUALIFIED / CGR0–CGR7 PASS** in the
+  admitted cloud envelope.
 
 ## Current active scientific action
 
-**Close the integrated Surface Differential Geometry entry decision.**
+**Implement and validate the bounded first-order surface metric/normal work
+unit.**
 
-Decision authority:
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
-
-After this closure is integrated and post-merge validated, the sole next
-production work item is:
-
-**Pointwise Surface Regularity, First Fundamental Form, Area Density, and
-Oriented Unit Normal in 3D.**
-
-No second fundamental form or curvature is authorized.
+The implementation must remain generic over existing bounded surface first
+derivatives and must not introduce any curvature output or a universal
+geometric epsilon.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
