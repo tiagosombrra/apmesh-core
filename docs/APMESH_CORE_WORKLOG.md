@@ -482,116 +482,70 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #199; bounded second-order Surface Differential Geometry decision.
 - `docs/surface-second-order-curvature-decision-closure`: **MERGED /
   HISTORICAL** via PR #200; closes the II/K/H decision checkpoint.
-- `surface/second-order-curvature`: **ACTIVE**; bounded II/K/H production
-  work item.
+- `surface/second-order-curvature`: **MERGED / HISTORICAL** via PR #201;
+  bounded II/K/H production work item.
+- `docs/surface-second-order-curvature-implementation-closure`:
+  **CLOSURE-ONLY**; closes the integrated II/K/H implementation and publishes
+  its implementation audit.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Pointwise Surface Second Fundamental Form + Gaussian/Mean Curvature —
-ACTIVE / IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None. Surface Second Fundamental Form + Gaussian/Mean Curvature is integrated
+and ready for implementation closure.**
 
-Active branch:
-`surface/second-order-curvature`.
+Integrated implementation evidence:
 
-Closed decision checkpoint:
+1. decision authority:
+   `docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`;
+2. initial candidate head:
+   `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+3. initial FAST `36125805859`: PASS;
+4. initial INTEGRATION `36125805817`:
+   GCC 38/38 PASS; Clang 37/38 FAIL on the extreme
+   non-representable-curvature fixture;
+5. correction commit:
+   `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
+6. corrected head:
+   `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
+7. corrected FAST `36126869683`: PASS, 38/38;
+8. corrected INTEGRATION `36126869675`: PASS, 38/38 in GCC/Clang;
+9. final PR head:
+   `ffc81253bad6096741352ced28999e7626735bfc`;
+10. final PR FAST `36127069279`: PASS, 38/38;
+11. final PR INTEGRATION `36127069324`: PASS, 38/38 in GCC/Clang;
+12. implementation PR #201 merged as
+    `ed91d70d11446925148cc0ee5f0efab879022270`;
+13. implementation post-merge FAST `36127252797`: PASS, 38/38;
+14. implementation post-merge INTEGRATION `36127252837`: PASS, 38/38 in
+    GCC/Clang;
+15. focused `apmesh_core.surface_second_order_curvature`: PASS in all final
+    PR and protected-main cells;
+16. candidate incident audit:
+    `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`;
+17. implementation audit:
+    `docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
 
-- decision PR #199 merge:
-  `f5288a3c1388ee1c0255276b770461fb9ee70fae`;
-- decision post-merge FAST `36124361467`: PASS;
-- decision post-merge INTEGRATION `36124361479`: PASS;
-- closure PR #200 head:
-  `a3f15ab622b0e16cafb49e6148961d8d96bc6f36`;
-- closure PR FAST `36124601027`: PASS;
-- closure PR INTEGRATION `36124601120`: PASS;
-- closure PR #200 merge:
-  `204f0456ae12ecfd367f38cdca874fcf83f4a952`;
-- closure post-merge FAST `36124711127`: PASS;
-- closure post-merge INTEGRATION `36124711118`: PASS.
+No production work item is active in this closure branch.
 
-Decision authority:
-`docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
+Current work-unit result:
 
-Authorized mapping:
+**SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
 
-- `include/apmesh/geometry/surface_differential.hpp`;
-- `src/geometry/surface_differential.cpp`;
-- `tests/surface_second_order_curvature.cpp`;
-- `CMakeLists.txt`;
-- synchronized STATE / WORKLOG / ROADMAP / decision / audit.
+## Next admissible work item after closure
 
-Implementation target:
+Only after this closure is integrated and its own post-merge FAST/INTEGRATION
+passes may one fresh literature-backed decision be opened.
 
-- oriented second fundamental coefficients L/M/N;
-- Gaussian curvature K;
-- oriented mean curvature H;
-- existing error vocabulary only;
-- no principal curvatures/directions;
-- no conditioning threshold;
-- no new surface representation;
-- target ordinary inventory: 38 tests.
+That decision must compare:
 
-Candidate implementation mapping:
+1. principal curvatures/directions;
+2. explicit conditioning diagnostics;
+3. sphere/cone/torus Surface Representation breadth;
+4. general trimming/p-curves/topological faces;
+5. whether current pointwise differential geometry is sufficient to resume
+   Boundary Curve Discretization preparation.
 
-- `include/apmesh/geometry/surface_differential.hpp`:
-  adds `SurfaceSecondFundamentalForm`,
-  `SurfaceSecondOrderGeometry3` and direct/template II/K/H queries;
-- `src/geometry/surface_differential.cpp`:
-  reuses the integrated metric/normal, projects second partials onto the
-  oriented unit normal and computes K/H with representability checks;
-- `tests/surface_second_order_curvature.cpp`:
-  non-orthogonal synthetic oracle, hyperbolic fixture, plane/cylinder
-  analytics, reversals, scale, C1 NURBS continuity, cross-family conformance,
-  near-singular/exact-singular/extreme and deterministic evidence;
-- `CMakeLists.txt`:
-  explicitly registers the new ordinary `fast;integration` contract.
-
-Regression boundary:
-
-- `include/apmesh/geometry/parametric_surface.hpp`: unchanged;
-- all concrete surface-family production sources: unchanged;
-- principal curvature/direction and conditioning APIs: absent.
-
-Initial PR-head validation incident:
-
-- candidate head:
-  `c3cd327ebbd4add551c7d331f0149513d15324c7`;
-- FAST `36125805859`: PASS;
-- INTEGRATION `36125805817`:
-  GCC 13 Debug PASS 38/38; Clang 18/libc++ Debug FAIL 37/38;
-- sole failing contract:
-  `apmesh_core.surface_second_order_curvature`;
-- diagnostic:
-  `unrepresentable curvature did not fail explicitly`;
-- classification:
-  focused cross-compiler test-fixture portability defect, not production
-  semantic defect;
-- correction commit:
-  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
-- correction changed only the focused test fixture;
-- audit:
-  `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`.
-
-Corrected candidate validation:
-
-- corrected/documented head:
-  `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
-- FAST `36126869683`: PASS, 38/38;
-- INTEGRATION `36126869675`: PASS, 38/38 in GCC 13 Debug and
-  Clang 18/libc++ Debug;
-- focused `apmesh_core.surface_second_order_curvature`: PASS in all three
-  jobs;
-- every prior ordinary semantic contract remained PASS.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-HEAD REVALIDATION PENDING / NOT QUALIFIED.**
-
-## Next admissible transition
-
-Complete only this implementation, validate 38/38 in FAST and both
-INTEGRATION compiler cells, integrate through one PR, validate protected
-`main`, close the implementation checkpoint and publish an implementation
-audit before opening any new scientific decision.
+No option is pre-authorized.
