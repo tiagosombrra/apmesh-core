@@ -1916,7 +1916,12 @@ Initial validation history:
 - production formulas/API were unchanged;
 - corrected fixture commit:
   `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
-- corrected final head requires fresh FAST/INTEGRATION validation.
+- corrected head
+  `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
+- corrected FAST `36126869683`: PASS, 38/38;
+- corrected INTEGRATION `36126869675`: PASS, 38/38 in GCC/Clang;
+- final documentation-only head requires one last FAST/INTEGRATION
+  revalidation before integration.
 
 No common surface concept or concrete surface-family implementation changed.
 
