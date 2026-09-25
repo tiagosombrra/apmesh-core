@@ -357,6 +357,101 @@ int main() {
                  "surface differential power-of-two scale covariance differs") &&
              passed;
 
+    const auto cylinder_u = CurveParameterDomain::make(-0.5, 1.0);
+    const auto cylinder_v = CurveParameterDomain::make(-1.0, 2.0);
+    if (!cylinder_u || !cylinder_v) {
+        return 1;
+    }
+    constexpr double radius = 2.5;
+    const auto cylinder = apmesh::core::BoundedCylinderSurface3::make(
+        AxisPlacement3::identity(),
+        radius,
+        *cylinder_u,
+        *cylinder_v);
+    if (!cylinder) {
+        return 1;
+    }
+    constexpr double cylinder_parameter = 0.4;
+    const auto cylinder_metric =
+        surface_metric_normal(*cylinder, cylinder_parameter, 0.25);
+    const auto cylinder_normal = Vector3::make(
+        std::cos(cylinder_parameter),
+        std::sin(cylinder_parameter),
+        0.0);
+    if (!cylinder_normal) {
+        return 1;
+    }
+    passed = require(
+                 cylinder_metric &&
+                     close_scalar(
+                         cylinder_metric->first_fundamental_form.e,
+                         radius * radius,
+                         radius * radius) &&
+                     close_scalar(
+                         cylinder_metric->first_fundamental_form.f,
+                         0.0) &&
+                     close_scalar(
+                         cylinder_metric->first_fundamental_form.g,
+                         1.0) &&
+                     close_scalar(
+                         cylinder_metric->area_density,
+                         radius,
+                         radius) &&
+                     close_vector(
+                         cylinder_metric->unit_normal,
+                         *cylinder_normal,
+                         16.0),
+                 "cylinder analytic metric/normal differs") &&
+             passed;
+
+    const auto reflected_axis = Vector3::make(0.0, 0.0, -1.0);
+    const auto x_reference = Vector3::make(1.0, 0.0, 0.0);
+    const auto origin = apmesh::core::Point3::make(0.0, 0.0, 0.0);
+    if (!reflected_axis || !x_reference || !origin) {
+        return 1;
+    }
+    const auto reflected_placement = AxisPlacement3::make(
+        *origin, *reflected_axis, *x_reference);
+    if (!reflected_placement) {
+        return 1;
+    }
+    const BoundedPlaneSurface3 reflected_plane{
+        *reflected_placement, *unit_domain, *unit_domain};
+    const auto reflected_metric =
+        surface_metric_normal(reflected_plane, 0.25, 0.75);
+    passed = require(
+                 reflected_metric &&
+                     reflected_metric->first_fundamental_form ==
+                         plane_metric->first_fundamental_form &&
+                     reflected_metric->area_density ==
+                         plane_metric->area_density &&
+                     close_vector(
+                         reflected_metric->unit_normal,
+                         reflected_placement->z_direction()),
+                 "signed-frame metric/normal covariance differs") &&
+             passed;
+
+    const auto translated_origin =
+        apmesh::core::Point3::make(8.0, -6.0, 4.0);
+    const auto positive_axis = Vector3::make(0.0, 0.0, 1.0);
+    if (!translated_origin || !positive_axis) {
+        return 1;
+    }
+    const auto translated_placement = AxisPlacement3::make(
+        *translated_origin, *positive_axis, *x_reference);
+    if (!translated_placement) {
+        return 1;
+    }
+    const BoundedPlaneSurface3 translated_plane{
+        *translated_placement, *unit_domain, *unit_domain};
+    const auto translated_metric =
+        surface_metric_normal(translated_plane, 0.25, 0.75);
+    passed = require(
+                 translated_metric && plane_metric &&
+                     *translated_metric == *plane_metric,
+                 "translation changed surface differential properties") &&
+             passed;
+
     const double huge = std::ldexp(1.0, 600);
     const auto huge_u = Vector3::make(huge, 0.0, 0.0);
     const auto huge_v = Vector3::make(0.0, huge, 0.0);
