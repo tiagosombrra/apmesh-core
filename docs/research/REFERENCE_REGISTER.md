@@ -1151,6 +1151,51 @@ Project relevance:
 
 ## Surface Representation
 
+### Open CASCADE — analytic cylindrical surface and bounded sectors
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded analytic cylinder
+decision, reviewed 2026-09-25.
+
+References:
+
+- https://dev.opencascade.org/doc/refman/html/class_g_c___make_cylindrical_surface.html
+- https://dev.opencascade.org/doc/occt-7.8.0/refman/html/classgp__Cylinder.html
+- https://dev.opencascade.org/doc/refman/html/class_geom_bnd_lib___cylinder.html
+
+Project relevance:
+
+- a cylinder is defined by radius plus a 3D local placement;
+- the placement Z direction is the symmetry/axial direction;
+- the canonical parameterization uses angular U and axial V;
+- a bounded parameter rectangle is a standard finite cylinder patch;
+- supports introducing a strict sub-`2*pi` angular sector before any full
+  periodic-seam semantics;
+- Open CASCADE remains design/reference evidence only, not a runtime
+  dependency or numerical oracle.
+
+### Surface differential properties — future cylinder regression role
+
+Status: `FOUNDATIONAL / SEQUENCING` for Surface Differential Geometry,
+reviewed 2026-09-25.
+
+References:
+
+- https://dev.opencascade.org/doc/occt-6.9.1/refman/html/class_geom_l_prop___s_l_props.html
+- https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node26.html
+
+Project relevance:
+
+- mature surface-property layers derive normals and curvature from first/second
+  derivatives;
+- the current AP Mesh bounded surface contract already exposes those derivative
+  orders;
+- a regular circular cylinder provides a canonical later fixture with one zero
+  and one non-zero principal curvature;
+- this evidence supports adding the representation now while keeping metric,
+  normal and curvature APIs out of the representation stage.
+
+
+
 ### Open CASCADE Geom_Plane — analytic plane placement and parameterization
 
 Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded analytic plane
