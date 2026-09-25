@@ -182,3 +182,31 @@ NOT QUALIFIED.**
 
 The initial Clang failure remains part of the retained audit history and is not
 reclassified as a production defect.
+
+
+## Terminal publication evidence
+
+Terminal publication PR #203 head:
+
+`e949ea5a40319da2b8d1ea21938d59d9e3a404f4`.
+
+PR validation:
+
+- FAST `36128180100`: PASS;
+- INTEGRATION `36128180212`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #203 merged as:
+
+`db382cf6218ad4fbf18cbafb3b246be812f6b3b7`.
+
+Post-merge validation:
+
+- FAST `36128406912`: PASS;
+- INTEGRATION `36128406846`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The repository authority after publication is terminal and idle:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
