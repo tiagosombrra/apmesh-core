@@ -553,9 +553,30 @@ Regression boundary:
 - all concrete surface-family production sources: unchanged;
 - principal curvature/direction and conditioning APIs: absent.
 
+Initial PR-head validation incident:
+
+- candidate head:
+  `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+- FAST `36125805859`: PASS;
+- INTEGRATION `36125805817`:
+  GCC 13 Debug PASS 38/38; Clang 18/libc++ Debug FAIL 37/38;
+- sole failing contract:
+  `apmesh_core.surface_second_order_curvature`;
+- diagnostic:
+  `unrepresentable curvature did not fail explicitly`;
+- classification:
+  focused cross-compiler test-fixture portability defect, not production
+  semantic defect;
+- correction commit:
+  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
+- correction changed only the focused test fixture;
+- audit:
+  `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / CORRECTED FINAL-HEAD VALIDATION PENDING /
+NOT QUALIFIED.**
 
 ## Next admissible transition
 
