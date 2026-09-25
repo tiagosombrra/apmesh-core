@@ -235,17 +235,47 @@ int main() {
         surface_second_order_geometry(general_first, general_second);
     passed = require(
                  direct &&
-                     direct->metric_normal.first_fundamental_form.e == 4.0 &&
-                     direct->metric_normal.first_fundamental_form.f == 2.0 &&
-                     direct->metric_normal.first_fundamental_form.g == 10.0 &&
-                     direct->metric_normal.area_density == 6.0 &&
-                     direct->second_fundamental_form.l == 4.0 &&
-                     direct->second_fundamental_form.m == -2.0 &&
-                     direct->second_fundamental_form.n == 6.0 &&
+                     close_scalar(
+                         direct->metric_normal.first_fundamental_form.e, 4.0) &&
+                     close_scalar(
+                         direct->metric_normal.first_fundamental_form.f, 2.0) &&
+                     close_scalar(
+                         direct->metric_normal.first_fundamental_form.g, 10.0) &&
+                     close_scalar(direct->metric_normal.area_density, 6.0) &&
+                     close_scalar(
+                         direct->second_fundamental_form.l, 4.0) &&
+                     close_scalar(
+                         direct->second_fundamental_form.m, -2.0) &&
+                     close_scalar(
+                         direct->second_fundamental_form.n, 6.0) &&
                      close_scalar(
                          direct->gaussian_curvature, 5.0 / 9.0) &&
                      close_scalar(direct->mean_curvature, 1.0),
                  "general second fundamental form / K / H differs") &&
+             passed;
+
+    const SurfaceFirstDerivatives3 saddle_first{
+        .u = vector3(1.0, 0.0, 0.0),
+        .v = vector3(0.0, 1.0, 0.0),
+    };
+    const SurfaceSecondDerivatives3 saddle_second{
+        .uu = vector3(0.0, 0.0, 2.0),
+        .uv = vector3(0.0, 0.0, 0.0),
+        .vv = vector3(0.0, 0.0, -2.0),
+    };
+    const auto saddle =
+        surface_second_order_geometry(saddle_first, saddle_second);
+    passed = require(
+                 saddle &&
+                     close_scalar(
+                         saddle->second_fundamental_form.l, 2.0) &&
+                     close_scalar(
+                         saddle->second_fundamental_form.m, 0.0) &&
+                     close_scalar(
+                         saddle->second_fundamental_form.n, -2.0) &&
+                     close_scalar(saddle->gaussian_curvature, -4.0) &&
+                     close_scalar(saddle->mean_curvature, 0.0),
+                 "hyperbolic-paraboloid local curvature fixture differs") &&
              passed;
 
     const SyntheticSurface3 general_surface{
