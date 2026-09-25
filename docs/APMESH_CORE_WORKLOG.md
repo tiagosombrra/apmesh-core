@@ -471,57 +471,54 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   Geometry entry decision checkpoint.
 - `surface/metric-normal`: **MERGED / HISTORICAL** via PR #196; first
   bounded Surface Differential Geometry production work item.
-- `docs/surface-metric-normal-implementation-closure`: **CLOSURE-ONLY**;
-  records implementation integration, post-merge validation, the initial
-  validation-registration defect, and corrected 37/37 evidence.
+- `docs/surface-metric-normal-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #197; closes the first-order metric/normal
+  implementation checkpoint.
+- `docs/surface-metric-normal-terminal-sync`: **TERMINAL-STATE
+  RECONCILIATION**; publishes the final closed state after PR #197 and its
+  post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None in production. First-order Surface Differential Geometry
-metric/normal implementation is integrated; documentation closure is active.**
+**None. First-order Surface Differential Geometry metric/normal work unit is
+terminally closed.**
 
-Implementation evidence:
+Terminal closure evidence:
 
-1. initial candidate head:
-   `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec`;
-2. initial FAST `36116721390`: mechanically PASS, but only 36/36 tests;
-3. initial INTEGRATION `36116721741`: mechanically PASS in GCC/Clang, but
-   only 36/36 tests per cell;
-4. diagnosis: `apmesh_core.surface_metric_normal` was compiled and registered
-   but omitted from the `fast;integration` label block;
-5. classification:
-   **VALIDATION INCOMPLETE / MECHANICAL TEST-REGISTRATION DEFECT /
-   NO PRODUCTION-SEMANTIC FAILURE OBSERVED**;
-6. corrected candidate head:
-   `696fd384907fbe2200d25944385bedc6ecf912da`;
-7. corrected FAST `36118467156`: PASS, 37/37;
-8. corrected INTEGRATION `36118467165`: PASS, 37/37 in GCC and Clang;
-9. final PR head:
-   `38da1f9eeefdff15173f421057580db72884e64c`;
-10. final PR FAST `36118684757`: PASS, 37/37;
-11. final PR INTEGRATION `36118684741`: PASS, 37/37 in GCC and Clang;
-12. PR #196 merged as
-    `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
-13. post-merge FAST `36118945024`: PASS, 37/37;
-14. post-merge INTEGRATION `36118944987`: PASS, 37/37 in GCC and Clang;
-15. focused `apmesh_core.surface_metric_normal`: PASS on corrected candidate,
-    final PR head, and protected `main`;
-16. all prerequisite ordinary semantic contracts remained PASS.
+1. implementation PR #196:
+   `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
+2. implementation post-merge FAST `36118945024`: PASS, 37/37;
+3. implementation post-merge INTEGRATION `36118944987`: PASS, 37/37 in GCC
+   13 Debug and Clang 18/libc++ Debug;
+4. implementation closure PR #197 head:
+   `8bdab0d43da87800add044a1ff1a9a3a4cd47e99`;
+5. closure PR FAST `36119500567`: PASS, 37/37;
+6. closure PR INTEGRATION `36119500599`: PASS, 37/37 in GCC and Clang;
+7. closure PR #197 merged as:
+   `5fc561a2e0e927369c5dc5c4644ef18699602914`;
+8. closure post-merge FAST `36119643984`: PASS, 37/37;
+9. closure post-merge INTEGRATION `36119643997`: PASS, 37/37 in GCC and
+   Clang;
+10. focused `apmesh_core.surface_metric_normal`: PASS throughout all
+    corrected/final/closure validation;
+11. initial 36/36 green-but-incomplete validation remains preserved and
+    explicitly classified as a mechanical test-registration defect;
+12. no production or documentation work item remains active after terminal
+    reconciliation.
 
-Integrated work-unit result:
+Terminal work-unit result:
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
 NOT QUALIFIED.**
 
-Closure audit:
+Audit:
 `docs/audits/2026-09-25-surface-metric-normal-implementation-audit.md`.
 
-## Next admissible work item after closure
+## Next admissible work item
 
-Only after this documentation closure is integrated and post-merge validated,
-open exactly one fresh literature-backed Surface Differential Geometry
+Open exactly one fresh literature-backed Surface Differential Geometry
 decision comparing:
 
 1. second fundamental form plus Gaussian/mean curvature;
@@ -532,5 +529,5 @@ decision comparing:
 
 No candidate is pre-authorized.
 
-Boundary discretization, sizing, meshing, Quad-Dominant and parallel work
-remain blocked.
+Boundary Curve Discretization, sizing, meshing, Quad-Dominant and parallel
+work remain blocked.
