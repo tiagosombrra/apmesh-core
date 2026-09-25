@@ -1751,7 +1751,8 @@ before qualification.
 
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
-Status: `FIRST-ORDER METRIC/NORMAL IMPLEMENTATION ACTIVE / NOT QUALIFIED`
+Status: `FIRST-ORDER METRIC/NORMAL INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED`
 
 Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
 
@@ -1877,58 +1878,51 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — First-Order Metric and Oriented Normal —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED**
 
-Closed decision checkpoint:
+Implementation evidence:
 
-- decision PR #194:
-  `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
-- decision closure PR #195:
-  `10c2c7ab2231721a28858b9395aa6f0eb9b2d603`;
-- closure post-merge FAST `36115414541`: PASS;
-- closure post-merge INTEGRATION `36115414557`: PASS.
+- final PR head:
+  `38da1f9eeefdff15173f421057580db72884e64c`;
+- final PR FAST `36118684757`: PASS, 37/37;
+- final PR INTEGRATION `36118684741`: PASS, 37/37 in GCC/Clang;
+- PR #196 merge:
+  `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
+- post-merge FAST `36118945024`: PASS, 37/37;
+- post-merge INTEGRATION `36118944987`: PASS, 37/37 in GCC/Clang.
 
-Active implementation branch:
-`surface/metric-normal`.
+Validation-history note:
 
-Authorized scope:
+- initial PR runs `36116721390` / `36116721741` were mechanically green
+  but incomplete at 36/36 because the new test lacked FAST/INTEGRATION labels;
+- corrected runs `36118467156` / `36118467165` proved 37/37;
+- the defect was in test registration only; production scientific semantics
+  did not change.
 
-- first fundamental form E/F/G;
-- area density;
-- oriented unit normal;
-- exact singular-parameterization failure;
-- scale-aware arithmetic without universal epsilon;
-- plane/cylinder analytic evidence;
-- conformance across currently integrated surface families;
-- reversal/frame/scale covariance;
-- one focused contract, targeting 37 tests.
+Closure audit:
+`docs/audits/2026-09-25-surface-metric-normal-implementation-audit.md`.
 
-Candidate validation history:
+After closure integration and post-merge validation, open one fresh
+literature-backed Surface Differential Geometry decision comparing:
 
-- initial head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec` had mechanically green
-  FAST/INTEGRATION runs but only 36/36 tests because the new focused test lacked
-  ordinary-profile labels;
-- corrected head `696fd384907fbe2200d25944385bedc6ecf912da`:
-  FAST `36118467156` PASS, 37/37;
-- corrected INTEGRATION `36118467165` PASS in GCC 13 Debug and Clang
-  18/libc++ Debug, 37/37 per cell;
-- focused `apmesh_core.surface_metric_normal` executed and passed in all
-  three jobs.
+- second fundamental form plus Gaussian/mean curvature;
+- principal curvatures/directions;
+- explicit conditioning / near-singular diagnostics;
+- return to Surface Representation for sphere/cone/torus;
+- return to general trimming/p-curves/topological faces.
 
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration. No concrete surface representation
-was modified.
+No option is preselected.
 
-Not authorized:
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
+sphere, cone, torus, full-periodic cylinder and general trimming/p-curves/faces
+retained.
 
-- second fundamental form or curvatures;
-- sphere/cone/torus production;
-- general trimming/p-curves/faces;
-- boundary discretization, sizing or meshing.
-
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
+Boundary Curve Discretization and downstream meshing remain blocked.
 
 The long-term ordering remains:
 
 **Global Certification → Quad-Dominant Extension → Parallel Equivalence →
 Tensor/Anisotropic Extension.**
+
+Parallel execution must not precede serial Quad-Dominant qualification.

@@ -672,3 +672,48 @@ FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No second fundamental form, curvature or new surface representation is
 implied.
+
+
+## 29. First-order implementation integration checkpoint
+
+Implementation PR #196 used final head:
+
+`38da1f9eeefdff15173f421057580db72884e64c`.
+
+Final PR validation:
+
+- FAST `36118684757`: PASS, 37/37 ordinary semantic tests;
+- INTEGRATION `36118684741`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 37/37 tests per cell;
+- focused `apmesh_core.surface_metric_normal`: PASS in all three jobs.
+
+PR #196 merged as:
+
+`e476eaaaa56f59a5d66574f180083ecd621f8b95`.
+
+Post-merge validation:
+
+- FAST `36118945024`: PASS, 37/37;
+- INTEGRATION `36118944987`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 37/37 per cell.
+
+Retained validation incident:
+
+- initial head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec` had mechanically green
+  FAST `36116721390` and INTEGRATION `36116721741`, but only 36 tests
+  executed because the new focused test lacked ordinary-profile labels;
+- corrected head `696fd384907fbe2200d25944385bedc6ecf912da` executed 37/37 in
+  FAST `36118467156` and INTEGRATION `36118467165`;
+- classification:
+  **MECHANICAL TEST-REGISTRATION DEFECT / VALIDATION INCOMPLETE /
+  NO PRODUCTION-SEMANTIC FAILURE OBSERVED**.
+
+Integrated work-unit result:
+
+**SURFACE DIFFERENTIAL GEOMETRY STAGE OPEN /
+FIRST-ORDER METRIC+NORMAL IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+
+No second fundamental form, Gaussian/mean/principal curvature, new surface
+representation, trimming/topology, discretization, sizing or meshing
+capability is implied.
