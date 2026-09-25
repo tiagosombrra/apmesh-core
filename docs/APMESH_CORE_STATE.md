@@ -82,22 +82,22 @@ The greenfield implementation must eventually be usable as a library inside a la
 ## Current repository checkpoint
 
 Authoritative continuation snapshot after fresh remote reconciliation on
-2026-09-23:
+2026-09-24:
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
 - latest closed focused prerequisite:
-  **Bounded Cubic Bézier Surface of Revolution in 3D**;
-- implementation PR #181:
-  `44417fab90973baf9a2be4ec07f6eed8fdcc186e`;
-- implementation closure PR #182:
-  `e3fd83430ed664c9355ab4c7630316003ad6642d`;
-- closure PR FAST `35977288547` and INTEGRATION
-  `35977288546`: PASS;
-- closure post-merge FAST `35977390452` and INTEGRATION
-  `35977390603`: PASS;
+  **Bounded Analytic Plane Surface in 3D**;
+- implementation PR #186:
+  `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
+- implementation closure PR #187:
+  `57f647e488bf3498168bc9c3b8c63fc5442d034a`;
+- closure PR FAST `35992244200` and INTEGRATION
+  `35992244354`: PASS;
+- closure post-merge FAST `35992410876` and INTEGRATION
+  `35992410395`: PASS;
 - active work item:
   **None; bounded analytic plane implementation integrated and closed by this
   closure change**;
@@ -136,9 +136,21 @@ Implementation evidence:
 - implementation PR #186:
   `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
 - protected-main FAST `35991745316`: PASS, 35/35;
-- protected-main INTEGRATION `35991745435`: PASS, 35/35.
+- protected-main INTEGRATION `35991745435`: PASS, 35/35;
+- implementation closure PR #187 head:
+  `79c9028e56913799613292948d452f53e2b3ead1`;
+- closure PR FAST `35992244200`: PASS;
+- closure PR INTEGRATION `35992244354`: PASS;
+- closure merge:
+  `57f647e488bf3498168bc9c3b8c63fc5442d034a`;
+- closure post-merge FAST `35992410876`: PASS;
+- closure post-merge INTEGRATION `35992410395`: PASS.
 
-Exact next bounded scientific action:
+Terminal sync branch:
+`docs/surface-analytic-plane-terminal-sync`.
+
+Exact next bounded scientific action after this sync is integrated and
+post-merge validated:
 
 **Open one fresh literature-backed Surface Representation breadth decision.**
 
