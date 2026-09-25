@@ -108,8 +108,8 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   `5fc561a2e0e927369c5dc5c4644ef18699602914`;
 - closure post-merge FAST `36119643984` and INTEGRATION
   `36119643997`: PASS, 37/37;
-- active documentation-only work item:
-  **Surface Second Fundamental Form + Gaussian/Mean Curvature Decision**;
+- second-order curvature decision integrated; closure documentation active;
+- no production implementation active;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
   obligations retained;
@@ -119,39 +119,31 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Integrate the literature-backed Surface Second Fundamental Form +
-Gaussian/Mean Curvature decision; no production implementation is authorized
-on this branch.**
+**Close the integrated Surface Second Fundamental Form + Gaussian/Mean
+Curvature decision; no production implementation is active in this branch.**
 
-Decision-entry authority:
+Decision integration evidence:
 
-- terminal first-order state:
-  `793fd46575e0c00d11ad2739b8e9c92227d576a1`;
-- terminal-state FAST `36120283995`: PASS;
-- terminal-state INTEGRATION `36120284007`: PASS;
-- protected-main ordinary semantic inventory: 37 tests.
+- PR #199 head:
+  `b2608af43c6b41a3faf1332343fdc5a0bab2a593`;
+- PR FAST `36124245751`: PASS;
+- PR INTEGRATION `36124245699`: PASS;
+- PR #199 merge:
+  `f5288a3c1388ee1c0255276b770461fb9ee70fae`;
+- post-merge FAST `36124361467`: PASS;
+- post-merge INTEGRATION `36124361479`: PASS.
 
-Active branch:
-`surface/second-order-curvature-decision`.
+Closure branch:
+`docs/surface-second-order-curvature-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
 
-Selected future work unit:
+After closure integration/post-merge validation, the sole next production work
+item is pointwise II/K/H for regular C2 bounded parametric surfaces.
 
-**Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature
-for regular C2 bounded parametric surfaces in 3D.**
-
-The decision reuses the integrated metric/normal and second-partial contracts,
-adds no common error value, introduces no epsilon-based regularity threshold
-and explicitly defers principal curvatures/directions and conditioning policy.
-
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
-sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
-obligations retained.
-
-No production, trimming/topology, discretization, sizing or meshing work is
-authorized.
+No principal-curvature, conditioning, representation-breadth, trimming,
+topology, discretization, sizing or meshing work is authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
