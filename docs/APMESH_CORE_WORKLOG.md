@@ -464,64 +464,46 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via terminal reconciliation commit
   `93eb53c21766d9584290733ef83f838ad9652c98`; closes the cylinder
   continuity checkpoint.
-- `surface/differential-geometry-entry-decision`: **ACTIVE /
-  DOCUMENTATION-ONLY**; literature-backed Surface Differential Geometry entry
-  decision; no production differential code.
+- `surface/differential-geometry-entry-decision`: **MERGED / HISTORICAL**
+  via PR #194; literature-backed Surface Differential Geometry entry decision.
+- `docs/surface-differential-geometry-entry-decision-closure`:
+  **CLOSURE-ONLY**; records PR #194 integration and post-merge validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Differential Geometry Entry Decision — ACTIVE / DOCUMENTATION ONLY /
-IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Surface Differential Geometry entry decision is integrated and ready
+for documentation closure.**
 
-Active branch:
-`surface/differential-geometry-entry-decision`.
+Decision integration evidence:
 
-Decision-entry authority:
+1. decision PR #194 head:
+   `e48a6040bb4ff6463b170acce0651324881967b3`;
+2. PR FAST `36114864362`: PASS;
+3. PR INTEGRATION `36114864400`: PASS in GCC 13 Debug and Clang 18/libc++
+   Debug;
+4. PR #194 merged as
+   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
+5. post-merge FAST `36114962084`: PASS;
+6. post-merge INTEGRATION `36114962093`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+7. no production differential implementation exists yet;
+8. protected-main ordinary inventory remains 36 tests.
 
-- terminal cylinder sync:
-  `93eb53c21766d9584290733ef83f838ad9652c98`;
-- terminal-sync FAST `36089325503`: PASS;
-- terminal-sync INTEGRATION `36089325498`: PASS;
-- protected-main inventory: 36 tests;
-- no open PR or production work item at decision entry.
+No production work item is active on this closure branch.
 
-Decision authority:
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
+## Next admissible work item after closure
 
-Compared candidates:
-
-1. Surface Differential Geometry entry readiness;
-2. bounded analytic sphere;
-3. bounded analytic cone;
-4. bounded analytic torus;
-5. general trimming / p-curves / topological faces.
-
-Selected stage transition:
-
-**Open Surface Differential Geometry — Metric, Normals, and Curvatures.**
-
-Selected first future implementation:
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one implementation branch for:
 
 **Pointwise Surface Regularity, First Fundamental Form, Area Density, and
 Oriented Unit Normal in 3D.**
 
-No second fundamental form or curvature is authorized by this decision.
+Implementation remains bounded by
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
-sphere, cone, torus, full-periodic cylinder and general-trimming obligations
-retained.
-
-This branch may modify only documentation/research/decision authorities.
-No production differential code may begin before decision integration,
-post-merge validation and separate closure.
-
-## Next admissible transition after this decision
-
-Only after this decision is integrated, post-merge FAST/INTEGRATION pass and a
-separate decision checkpoint closes may one implementation branch open for the
-selected first-order metric/normal work unit.
-
-Any need for Gaussian/mean/principal curvature, topology-face orientation,
-adaptive precision or a new surface family requires a later decision.
+Second fundamental form, Gaussian/mean/principal curvature, sphere/cone/torus,
+full-periodic cylinder, general trimming/p-curves/topological faces, boundary
+discretization and meshing remain unauthorized.
