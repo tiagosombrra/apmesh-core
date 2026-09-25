@@ -88,19 +88,23 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
+  FIRST-ORDER METRIC/NORMAL INTEGRATED / CLOSURE PENDING /
+  NOT QUALIFIED**;
 - entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
 - decision closure PR #195:
   `10c2c7ab2231721a28858b9395aa6f0eb9b2d603`;
 - closure post-merge FAST `36115414541` and INTEGRATION
   `36115414557`: PASS;
-- protected-main ordinary semantic inventory: **36 tests**;
-- active work item:
+- protected-main ordinary semantic inventory: **37 tests**;
+- integrated first-order work item:
   **Pointwise Surface Regularity, First Fundamental Form, Area Density, and
   Oriented Unit Normal in 3D**;
-- active branch:
-  `surface/metric-normal`;
+- implementation PR #196:
+  `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
+- implementation post-merge FAST `36118945024` and INTEGRATION
+  `36118944987`: PASS, 37/37;
+- no production work item is active; implementation closure is pending;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
   obligations retained;
@@ -110,42 +114,36 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Implement and validate the bounded first-order surface metric/normal work
-unit.**
+**Close the integrated first-order surface metric/normal work unit.**
 
-The implementation remains generic over existing bounded surface first
-derivatives and introduces no curvature output or universal geometric epsilon.
+Implementation authority:
 
-Candidate repository mapping:
+- final PR head:
+  `38da1f9eeefdff15173f421057580db72884e64c`;
+- PR FAST `36118684757`: PASS, 37/37;
+- PR INTEGRATION `36118684741`: PASS, 37/37 in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- merge:
+  `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
+- post-merge FAST `36118945024`: PASS, 37/37;
+- post-merge INTEGRATION `36118944987`: PASS, 37/37 in GCC and Clang.
 
-- `include/apmesh/geometry/surface_differential.hpp`;
-- `src/geometry/surface_differential.cpp`;
-- `tests/surface_metric_normal.cpp`;
-- `CMakeLists.txt`.
+Historical validation correction retained:
 
-Initial validation diagnosis:
+- initial green runs `36116721390` / `36116721741` executed only 36 tests;
+- root cause was a missing ordinary-profile label on
+  `apmesh_core.surface_metric_normal`;
+- corrected runs `36118467156` / `36118467165` executed 37/37;
+- no production-semantic defect was found.
 
-- head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec`;
-- FAST `36116721390` and INTEGRATION `36116721741` were mechanically green
-  but executed 36 tests rather than the required 37;
-- root cause: the new focused test was registered and compiled but omitted from
-  the ordinary surface label block used by FAST/INTEGRATION presets;
-- production semantics were not changed by the correction;
-- corrected head must demonstrate 37/37 in all three ordinary jobs.
+Current status:
 
-Corrected validation:
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED.**
 
-- head `696fd384907fbe2200d25944385bedc6ecf912da`;
-- FAST `36118467156`: PASS, 37/37;
-- INTEGRATION `36118467165`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 37/37 per cell;
-- focused `apmesh_core.surface_metric_normal`: PASS in all three jobs;
-- every prerequisite ordinary test remained PASS.
-
-Candidate status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+After closure integration and post-merge validation, the sole next action is a
+fresh literature-backed Surface Differential Geometry decision. No
+second-order curvature capability is pre-authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
