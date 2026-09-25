@@ -1903,8 +1903,21 @@ Authorized scope:
 - reversal/frame/scale covariance;
 - one focused contract, targeting 37 tests.
 
-Candidate implementation is mapped to the authorized files and awaits
-FAST/INTEGRATION validation. No concrete surface representation was modified.
+Candidate validation history:
+
+- initial head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec` had mechanically green
+  FAST/INTEGRATION runs but only 36/36 tests because the new focused test lacked
+  ordinary-profile labels;
+- corrected head `696fd384907fbe2200d25944385bedc6ecf912da`:
+  FAST `36118467156` PASS, 37/37;
+- corrected INTEGRATION `36118467165` PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 37/37 per cell;
+- focused `apmesh_core.surface_metric_normal` executed and passed in all
+  three jobs.
+
+The documentation synchronization itself must receive a final green
+FAST/INTEGRATION head before integration. No concrete surface representation
+was modified.
 
 Not authorized:
 
