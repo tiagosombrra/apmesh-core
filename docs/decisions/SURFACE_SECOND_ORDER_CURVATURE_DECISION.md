@@ -586,3 +586,115 @@ production work item is the II/K/H implementation bounded by Sections 6–28.
 No principal curvature/direction, conditioning diagnostic, new surface
 representation, trimming/topology or downstream meshing capability is
 authorized.
+
+
+## 32. Decision closure checkpoint
+
+Decision closure PR #200 used head
+`a3f15ab622b0e16cafb49e6148961d8d96bc6f36`.
+
+Closure PR validation:
+
+- FAST `36124601027`: PASS;
+- INTEGRATION `36124601120`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #200 merged as
+`204f0456ae12ecfd367f38cdca874fcf83f4a952`.
+
+Closure post-merge validation:
+
+- FAST `36124711127`: PASS;
+- INTEGRATION `36124711118`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / II+K/H IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is
+`surface/second-order-curvature`.
+
+No principal curvature/direction, conditioning diagnostic, new surface
+representation, trimming/topology or downstream meshing capability is
+authorized.
+
+
+## 33. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/second-order-curvature`.
+
+Candidate mapping:
+
+- public API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_second_order_curvature.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate implementation:
+
+- reuses `SurfaceMetricNormal3`;
+- adds oriented II coefficients L/M/N;
+- adds Gaussian curvature K;
+- adds oriented mean curvature H;
+- queries first derivatives/regularity before second derivatives in the
+  generic surface API;
+- uses `long double` only as an internal bounded-range intermediate and
+  converts requested results back to representable `double` explicitly;
+- uses area-density squared for the first-form determinant rather than a
+  naïve `E*G-F*F` reconstruction;
+- adds no error enum value, no tolerance threshold and no surface family.
+
+Focused evidence includes:
+
+- general non-orthogonal first form;
+- positive and negative Gaussian-curvature synthetic references;
+- plane and outward-cylinder analytic K/H;
+- U/V/double reversal orientation covariance;
+- power-of-two scale covariance;
+- exact singular and near-singular regular semantics;
+- unrepresentable-curvature failure;
+- actual multiplicity-two NURBS insufficient-continuity propagation;
+- representative cross-family conformance;
+- deterministic success/failure.
+
+Expected ordinary semantic inventory: **38 tests**.
+
+Initial validation incident:
+
+- candidate head
+  `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+- FAST `36125805859`: PASS;
+- INTEGRATION `36125805817`: GCC 13 Debug PASS 38/38; Clang 18/libc++
+  Debug FAIL 37/38;
+- the only failure was the extreme non-representable-curvature fixture;
+- all production and prerequisite contracts compiled; every other ordinary
+  semantic test passed;
+- classification:
+  compiler-sensitive fixture construction, not a production semantic defect;
+- focused fixture correction commit:
+  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
+- no production/API file changed in the correction;
+- retained audit:
+  `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`.
+
+Corrected candidate validation:
+
+- corrected/documented head:
+  `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
+- FAST `36126869683`: PASS, 38/38;
+- INTEGRATION `36126869675`: PASS, 38/38 in GCC 13 Debug and
+  Clang 18/libc++ Debug;
+- focused second-order curvature contract PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-HEAD REVALIDATION PENDING / NOT QUALIFIED.**

@@ -1878,44 +1878,60 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — Second Fundamental Form + Gaussian/Mean
-Curvature — DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+Curvature — IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
+Closed decision lineage:
 
-Decision validation:
-
-- PR #199 head:
-  `b2608af43c6b41a3faf1332343fdc5a0bab2a593`;
-- PR FAST `36124245751`: PASS;
-- PR INTEGRATION `36124245699`: PASS;
-- merge:
+- decision PR #199:
   `f5288a3c1388ee1c0255276b770461fb9ee70fae`;
-- post-merge FAST `36124361467`: PASS;
-- post-merge INTEGRATION `36124361479`: PASS.
+- decision post-merge FAST `36124361467`: PASS;
+- decision post-merge INTEGRATION `36124361479`: PASS;
+- closure PR #200:
+  `204f0456ae12ecfd367f38cdca874fcf83f4a952`;
+- closure post-merge FAST `36124711127`: PASS;
+- closure post-merge INTEGRATION `36124711118`: PASS.
 
-Closure branch:
-`docs/surface-second-order-curvature-decision-closure`.
+Active implementation branch:
+`surface/second-order-curvature`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized scope:
 
-**Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature
-for regular C2 bounded parametric surfaces in 3D.**
+- reuse existing first-order metric/normal and second derivatives;
+- add oriented II coefficients L/M/N;
+- add Gaussian curvature K;
+- add oriented mean curvature H;
+- preserve exact singularity and insufficient-continuity semantics;
+- preserve no-epsilon regularity;
+- one focused semantic contract;
+- target ordinary inventory: 38 tests.
 
-Authorized implementation remains restricted to II/K/H using existing
-first-order metric/normal and second partials, with exact singularity,
-insufficient-continuity and non-representable failure semantics.
+Candidate implementation remains mapped to the authorized files only.
+
+Initial validation history:
+
+- head `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+- FAST `36125805859`: PASS;
+- INTEGRATION `36125805817`: GCC 38/38 PASS; Clang 37/38 FAIL;
+- failure was isolated to the extreme non-representable-curvature test fixture;
+- production formulas/API were unchanged;
+- corrected fixture commit:
+  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
+- corrected head
+  `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
+- corrected FAST `36126869683`: PASS, 38/38;
+- corrected INTEGRATION `36126869675`: PASS, 38/38 in GCC/Clang;
+- final documentation-only head requires one last FAST/INTEGRATION
+  revalidation before integration.
+
+No common surface concept or concrete surface-family implementation changed.
 
 Principal curvatures/directions, conditioning diagnostics, sphere/cone/torus,
 general trimming/p-curves/faces and all downstream discretization/meshing
 remain deferred.
 
-Ordinary semantic inventory remains 37 tests; the future focused
-implementation targets 38.
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Boundary Curve Discretization and downstream meshing remain blocked.
+Boundary Curve Discretization remains blocked.
 
 The long-term ordering remains:
 

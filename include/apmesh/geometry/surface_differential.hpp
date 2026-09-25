@@ -38,7 +38,40 @@ struct SurfaceMetricNormal3 {
 surface_metric_normal(
     const SurfaceFirstDerivatives3& derivatives) noexcept;
 
+struct SurfaceSecondFundamentalForm {
+    double l{};
+    double m{};
+    double n{};
+
+    [[nodiscard]] bool operator==(
+        const SurfaceSecondFundamentalForm&) const noexcept = default;
+};
+
+struct SurfaceSecondOrderGeometry3 {
+    SurfaceMetricNormal3 metric_normal;
+    SurfaceSecondFundamentalForm second_fundamental_form{};
+    double gaussian_curvature{};
+    double mean_curvature{};
+
+    [[nodiscard]] bool operator==(
+        const SurfaceSecondOrderGeometry3&) const noexcept = default;
+};
+
+[[nodiscard]] std::expected<
+    SurfaceSecondOrderGeometry3,
+    SurfaceDifferentialError>
+surface_second_order_geometry(
+    const SurfaceFirstDerivatives3& first_derivatives,
+    const SurfaceSecondDerivatives3& second_derivatives) noexcept;
+
 namespace detail {
+
+[[nodiscard]] std::expected<
+    SurfaceSecondOrderGeometry3,
+    SurfaceDifferentialError>
+surface_second_order_geometry(
+    const SurfaceMetricNormal3& metric_normal,
+    const SurfaceSecondDerivatives3& second_derivatives) noexcept;
 
 [[nodiscard]] constexpr SurfaceDifferentialError
 surface_differential_error(const SurfaceError error) noexcept {
@@ -73,6 +106,35 @@ surface_metric_normal(
             detail::surface_differential_error(derivatives.error())};
     }
     return surface_metric_normal(*derivatives);
+}
+
+template <BoundedParametricSurface3 Surface>
+[[nodiscard]] std::expected<
+    SurfaceSecondOrderGeometry3,
+    SurfaceDifferentialError>
+surface_second_order_geometry(
+    const Surface& surface,
+    const double u,
+    const double v) {
+    const auto first_derivatives = surface.first_derivatives(u, v);
+    if (!first_derivatives.has_value()) {
+        return std::unexpected{
+            detail::surface_differential_error(first_derivatives.error())};
+    }
+
+    const auto metric_normal = surface_metric_normal(*first_derivatives);
+    if (!metric_normal.has_value()) {
+        return std::unexpected{metric_normal.error()};
+    }
+
+    const auto second_derivatives = surface.second_derivatives(u, v);
+    if (!second_derivatives.has_value()) {
+        return std::unexpected{
+            detail::surface_differential_error(second_derivatives.error())};
+    }
+
+    return detail::surface_second_order_geometry(
+        *metric_normal, *second_derivatives);
 }
 
 } // namespace apmesh::core

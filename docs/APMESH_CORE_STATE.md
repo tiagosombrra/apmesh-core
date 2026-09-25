@@ -108,8 +108,9 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   `5fc561a2e0e927369c5dc5c4644ef18699602914`;
 - closure post-merge FAST `36119643984` and INTEGRATION
   `36119643997`: PASS, 37/37;
-- second-order curvature decision integrated; closure documentation active;
-- no production implementation active;
+- second-order curvature decision closed by PR #200;
+- active production work item:
+  **Pointwise Surface Second Fundamental Form + Gaussian/Mean Curvature**;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
   obligations retained;
@@ -119,31 +120,65 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Close the integrated Surface Second Fundamental Form + Gaussian/Mean
-Curvature decision; no production implementation is active in this branch.**
+**Implement the bounded pointwise Surface Second Fundamental Form +
+Gaussian/Mean Curvature work unit.**
 
-Decision integration evidence:
+Closed decision evidence:
 
-- PR #199 head:
-  `b2608af43c6b41a3faf1332343fdc5a0bab2a593`;
-- PR FAST `36124245751`: PASS;
-- PR INTEGRATION `36124245699`: PASS;
-- PR #199 merge:
+- decision PR #199:
   `f5288a3c1388ee1c0255276b770461fb9ee70fae`;
-- post-merge FAST `36124361467`: PASS;
-- post-merge INTEGRATION `36124361479`: PASS.
+- decision post-merge FAST `36124361467`: PASS;
+- decision post-merge INTEGRATION `36124361479`: PASS;
+- decision closure PR #200:
+  `204f0456ae12ecfd367f38cdca874fcf83f4a952`;
+- closure post-merge FAST `36124711127`: PASS;
+- closure post-merge INTEGRATION `36124711118`: PASS.
 
-Closure branch:
-`docs/surface-second-order-curvature-decision-closure`.
+Active branch:
+`surface/second-order-curvature`.
 
 Decision authority:
 `docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
 
-After closure integration/post-merge validation, the sole next production work
-item is pointwise II/K/H for regular C2 bounded parametric surfaces.
+Authorized production changes are limited to the existing surface differential
+API/source, one focused test and CMake registration.
 
-No principal-curvature, conditioning, representation-breadth, trimming,
-topology, discretization, sizing or meshing work is authorized.
+Expected ordinary semantic inventory after registration: **38 tests**.
+
+Candidate implementation is now present only in the authorized differential
+API/source, one focused test and CMake registration. The common bounded-surface
+concept and every concrete surface-family production implementation remain
+unchanged.
+
+Validation incident:
+
+- initial candidate head
+  `c3cd327ebbd4add551c7d331f0149513d15324c7`;
+- FAST `36125805859`: PASS;
+- GCC 13 INTEGRATION in `36125805817`: PASS 38/38;
+- Clang 18/libc++ INTEGRATION in `36125805817`: FAIL 37/38 on the
+  extreme non-representable-curvature fixture only;
+- production semantics were not implicated;
+- focused fixture correction:
+  `89326bb1ad70449f4ed75c7b00d45699e998ce09`;
+- incident audit:
+  `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`.
+
+Corrected candidate validation:
+
+- head `32e05ddec7b81f099f0384c95f44f0df27ed24e2`;
+- FAST `36126869683`: PASS, 38/38;
+- INTEGRATION `36126869675`: PASS, 38/38 in GCC 13 Debug and
+  Clang 18/libc++ Debug;
+- focused second-order curvature contract PASS in all three jobs.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-HEAD REVALIDATION PENDING / NOT QUALIFIED.**
+
+No principal-curvature, conditioning-policy, new surface-family,
+trimming/topology, discretization, sizing or meshing work is authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
