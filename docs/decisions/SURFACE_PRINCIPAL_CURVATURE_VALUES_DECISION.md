@@ -493,3 +493,33 @@ the sole next production work item is:
 Umbilic State.**
 
 No production implementation begins on this decision branch.
+
+
+## 29. Decision integration checkpoint
+
+Decision PR #206 used final head
+`3a5af9d27aaf9b3e563e9fd6f89b868745c7edda`.
+
+Decision PR validation:
+
+- FAST `36148367215`: PASS;
+- INTEGRATION `36148367239`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #206 merged as
+`8d42bf38871d7a79f1c01aacbad77ed5e106505f`.
+
+Post-merge validation:
+
+- FAST `36190790100`: PASS;
+- INTEGRATION `36190790157`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The bounded decision is integrated and ready for checkpoint closure.
+
+After closure integration and its post-merge validation, the sole next
+production work item is the ordered principal-curvature-values capability
+defined in Sections 6–26.
+
+No principal direction, tolerance/conditioning, representation, trimming,
+discretization, sizing, anisotropic or meshing capability is authorized.

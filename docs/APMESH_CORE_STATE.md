@@ -88,8 +88,8 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  PRINCIPAL CURVATURE VALUES DECISION ACTIVE / DOCUMENTATION ONLY /
-  IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**;
+  PRINCIPAL CURVATURE VALUES DECISION INTEGRATED / CLOSURE PENDING /
+  IMPLEMENTATION NOT STARTED / NOT QUALIFIED**;
 - entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
 - decision closure PR #195:
@@ -139,38 +139,33 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Integrate the literature-backed Surface Principal Curvature Values decision;
-no production implementation is authorized on this branch.**
+**Close the integrated Surface Principal Curvature Values decision; production
+implementation remains blocked until this closure is integrated and
+post-merge validated.**
 
-Decision-entry authority:
+Decision evidence:
 
-- `main`:
-  `6a3814332ed28d88fb9949684af92a8cb3390d39`;
-- PR #205 post-merge FAST `36146747809`: PASS;
-- PR #205 post-merge INTEGRATION `36146747762`: PASS;
-- ordinary semantic inventory: 38 tests;
-- no active production work item.
+- PR #206 head:
+  `3a5af9d27aaf9b3e563e9fd6f89b868745c7edda`;
+- PR FAST `36148367215`: PASS;
+- PR INTEGRATION `36148367239`: PASS;
+- PR #206 merge:
+  `8d42bf38871d7a79f1c01aacbad77ed5e106505f`;
+- post-merge FAST `36190790100`: PASS;
+- post-merge INTEGRATION `36190790157`: PASS.
 
-Active branch:
-`surface/principal-curvature-values-decision`.
+Closure branch:
+`docs/surface-principal-curvature-values-decision-closure`.
 
 Decision authority:
 `docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
 
-The decision selects exactly one future work unit:
+After closure, the sole authorized production work item is ordered pointwise
+principal curvature values plus exact represented-data umbilic state.
 
-**Pointwise Ordered Principal Curvature Values plus Exact Represented-Data
-Umbilic State.**
-
-Production must solve the bounded scalar generalized-eigenvalue problem without
-a universal epsilon or hidden `H^2-K` clamp.
-
-Principal directions, direction sign/line-field semantics, near-umbilic
-conditioning thresholds, new surface representations, general trimming/faces,
-Boundary Curve Discretization, sizing and meshing remain unauthorized.
-
-If the decision is integrated and separately closed, the target ordinary
-semantic inventory for the future implementation is 39 tests.
+No directions/eigenvectors, conditioning thresholds, representation breadth,
+trimming/topology, discretization/sizing, anisotropy or meshing work is
+authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
