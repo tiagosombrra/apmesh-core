@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-22
+Last updated: 2026-09-25
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Operational continuity ledger: `docs/APMESH_CORE_WORKLOG.md`
 Repository state: verify `main`, open PRs, relevant branches, ruleset, recent
@@ -82,7 +82,7 @@ The greenfield implementation must eventually be usable as a library inside a la
 ## Current repository checkpoint
 
 Authoritative continuation snapshot after fresh remote reconciliation on
-2026-09-24:
+2026-09-25:
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
