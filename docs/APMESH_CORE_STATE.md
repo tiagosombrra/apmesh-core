@@ -88,8 +88,8 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
-  INTEGRATED / CLOSED / NOT QUALIFIED**;
+  PRINCIPAL CURVATURE VALUES DECISION ACTIVE / DOCUMENTATION ONLY /
+  IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**;
 - entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
 - decision closure PR #195:
@@ -139,35 +139,38 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Open one fresh literature-backed Surface Differential Geometry /
-representation-readiness decision.**
+**Integrate the literature-backed Surface Principal Curvature Values decision;
+no production implementation is authorized on this branch.**
 
-Terminal II/K/H evidence:
+Decision-entry authority:
 
-- implementation PR #201:
-  `ed91d70d11446925148cc0ee5f0efab879022270`;
-- implementation post-merge FAST `36127252797`: PASS, 38/38;
-- implementation post-merge INTEGRATION `36127252837`: PASS, 38/38;
-- closure PR #202:
-  `2ddd991bb9246bb8e6330f0cdf9a87afde93283f`;
-- closure PR FAST `36127669983`: PASS;
-- closure PR INTEGRATION `36127670012`: PASS;
-- closure post-merge FAST `36127811804`: PASS, 38/38;
-- closure post-merge INTEGRATION `36127811852`: PASS, 38/38 in
-  GCC 13 Debug and Clang 18/libc++ Debug.
+- `main`:
+  `6a3814332ed28d88fb9949684af92a8cb3390d39`;
+- PR #205 post-merge FAST `36146747809`: PASS;
+- PR #205 post-merge INTEGRATION `36146747762`: PASS;
+- ordinary semantic inventory: 38 tests;
+- no active production work item.
 
-Terminal result:
+Active branch:
+`surface/principal-curvature-values-decision`.
 
-**SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
 
-No active production work item exists.
+The decision selects exactly one future work unit:
 
-The next decision must compare principal curvatures/directions, conditioning
-diagnostics, remaining Surface Representation breadth, general trimming /
-p-curves / topological faces, and Boundary Curve Discretization readiness.
+**Pointwise Ordered Principal Curvature Values plus Exact Represented-Data
+Umbilic State.**
 
-No next capability is pre-authorized.
+Production must solve the bounded scalar generalized-eigenvalue problem without
+a universal epsilon or hidden `H^2-K` clamp.
+
+Principal directions, direction sign/line-field semantics, near-umbilic
+conditioning thresholds, new surface representations, general trimming/faces,
+Boundary Curve Discretization, sizing and meshing remain unauthorized.
+
+If the decision is integrated and separately closed, the target ordinary
+semantic inventory for the future implementation is 39 tests.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 

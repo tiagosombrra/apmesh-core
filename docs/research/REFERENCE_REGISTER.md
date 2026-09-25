@@ -1196,6 +1196,40 @@ Project relevance:
 
 
 
+### Principal curvature values, umbilics, and downstream sizing
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the principal-curvature-values
+decision, reviewed 2026-09-25.
+
+References:
+
+- Patrikalakis, Maekawa and Cho — Gaussian/mean and principal curvature:
+  https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node31.html
+- Patrikalakis, Maekawa and Cho — curvature-line/principal-direction
+  considerations:
+  https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node186.html
+- Open CASCADE surface-local-property utilities:
+  https://dev.opencascade.org/doc/refman/html/_geom_l_prop___surface_utils_8hxx.html
+- Open CASCADE `GeomLProp_SLProps`:
+  https://dev.opencascade.org/doc/occt-6.9.0/refman/html/class_geom_l_prop___s_l_props.html
+- parametric surface meshing / curvature-based metric evidence:
+  https://www.sciencedirect.com/science/article/pii/S0168874X09000936
+
+Project relevance:
+
+- principal curvatures are the two extremal normal-curvature values/eigenvalues
+  of the shape operator and satisfy `K=k1*k2`, `H=(k1+k2)/2`;
+- mature kernels expose min/max principal values and umbilic state separately
+  from principal directions;
+- principal directions are not uniquely defined at umbilics and introduce a
+  separate eigenvector/sign/line-field/conditioning contract;
+- isotropic geometric sizing can use the strongest principal-curvature
+  magnitude, while anisotropic metrics additionally need directional data;
+- supports selecting ordered scalar principal values plus exact represented-data
+  umbilic state now, while deferring directions and near-umbilic thresholds;
+- no external library, tolerance policy, eigensolver, or CAD runtime is
+  admitted by these references.
+
 ### Open CASCADE Geom_Plane — analytic plane placement and parameterization
 
 Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded analytic plane

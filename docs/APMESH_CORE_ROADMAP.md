@@ -1755,8 +1755,8 @@ before qualification.
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
 Status: `FIRST-ORDER METRIC/NORMAL + SECOND FUNDAMENTAL FORM +
-GAUSSIAN/MEAN CURVATURE IMPLEMENTED / INTEGRATED / CLOSED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM`
+GAUSSIAN/MEAN CURVATURE INTEGRATED / PRINCIPAL CURVATURE VALUES
+DECISION ACTIVE / DOCUMENTATION ONLY / NOT QUALIFIED`
 
 Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
 
@@ -1881,51 +1881,52 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Differential Geometry — Second Fundamental Form + Gaussian/Mean
-Curvature — IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Differential Geometry — Ordered Principal Curvature Values +
+Exact Represented-Data Umbilic State — DECISION ACTIVE /
+DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED**
 
-Terminal evidence:
+Decision-entry authority:
 
-- implementation PR #201:
-  `ed91d70d11446925148cc0ee5f0efab879022270`;
-- implementation post-merge FAST `36127252797`: PASS, 38/38;
-- implementation post-merge INTEGRATION `36127252837`: PASS, 38/38;
-- closure PR #202 head:
-  `36d2d3da72e4c0da9175f2f50331df181ccec3eb`;
-- closure PR FAST `36127669983`: PASS;
-- closure PR INTEGRATION `36127670012`: PASS;
-- closure PR #202 merged as
-  `2ddd991bb9246bb8e6330f0cdf9a87afde93283f`;
-- closure post-merge FAST `36127811804`: PASS, 38/38;
-- closure post-merge INTEGRATION `36127811852`: PASS, 38/38 in
-  GCC/Clang.
-- terminal publication PR #203:
-  `db382cf6218ad4fbf18cbafb3b246be812f6b3b7`;
-- terminal publication PR FAST `36128180100`: PASS;
-- terminal publication PR INTEGRATION `36128180212`: PASS;
-- terminal publication post-merge FAST `36128406912`: PASS;
-- terminal publication post-merge INTEGRATION `36128406846`: PASS.
+- terminal second-order state and documentation reconciliation:
+  `6a3814332ed28d88fb9949684af92a8cb3390d39`;
+- post-merge FAST `36146747809`: PASS;
+- post-merge INTEGRATION `36146747762`: PASS.
 
-Audits:
+Active decision:
+`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
 
-- `docs/audits/2026-09-25-surface-second-order-curvature-candidate-validation.md`;
-- `docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
+Selected future work unit:
 
-No production work item is active.
+**Pointwise Ordered Principal Curvature Values plus Exact Represented-Data
+Umbilic State for Regular C2 Bounded Parametric Surfaces in 3D.**
 
-Next admissible action:
+The decision freezes the scope to scalar principal values:
 
-Open one fresh literature-backed decision comparing principal
-curvatures/directions, conditioning diagnostics, sphere/cone/torus
-representation breadth, general trimming/p-curves/topological faces and
-Boundary Curve Discretization readiness.
+- reuse existing first/second fundamental forms and K/H evidence;
+- solve the generalized symmetric 2x2 eigenproblem with scale-aware arithmetic;
+- return ordered signed `k_max >= k_min`;
+- expose exact represented-data umbilic state only;
+- validate plane, cylinder, elliptic/hyperbolic/parabolic synthetic cases,
+  exact and near-umbilic cases, non-orthogonal metric, reversal, scaling,
+  extreme finite behavior and H/K identities;
+- target one new focused ordinary contract: 39 tests total.
 
-No option is preselected.
+Explicitly deferred:
+
+- principal directions / curvature-line fields;
+- conditioning and near-umbilic thresholds;
+- sphere/cone/torus representation breadth;
+- general trimming/p-curves/topological faces;
+- Boundary Curve Discretization;
+- Physical Sizing implementation;
+- anisotropic/tensor metrics and meshing.
+
+No production implementation may start until this decision is integrated,
+post-merge validated and separately closed.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-Boundary Curve Discretization remains blocked until an explicit decision
+Boundary Curve Discretization remains blocked until an explicit later decision
 changes that status.
 
 The long-term ordering remains:

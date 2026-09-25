@@ -496,61 +496,64 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/current-stage-status-reconciliation`:
   **MERGED / HISTORICAL** via PR #205; reconciles stale current-stage and
   retained-breadth status markers before the next scientific decision.
+- `surface/principal-curvature-values-decision`: **ACTIVE /
+  DOCUMENTATION-ONLY**; literature-backed principal-curvature-values decision;
+  no production implementation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Surface Second Fundamental Form + Gaussian/Mean Curvature is
-terminally closed.**
+**Surface Principal Curvature Values — DECISION ACTIVE / DOCUMENTATION ONLY /
+IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal implementation/closure evidence:
+Active branch:
+`surface/principal-curvature-values-decision`.
 
-1. implementation PR #201:
-   `ed91d70d11446925148cc0ee5f0efab879022270`;
-2. implementation post-merge FAST `36127252797`: PASS, 38/38;
-3. implementation post-merge INTEGRATION `36127252837`: PASS, 38/38 in
-   GCC 13 Debug and Clang 18/libc++ Debug;
-4. implementation closure PR #202 head:
-   `36d2d3da72e4c0da9175f2f50331df181ccec3eb`;
-5. closure PR FAST `36127669983`: PASS;
-6. closure PR INTEGRATION `36127670012`: PASS in GCC 13 Debug and
-   Clang 18/libc++ Debug;
-7. closure PR #202 merged as
-   `2ddd991bb9246bb8e6330f0cdf9a87afde93283f`;
-8. closure post-merge FAST `36127811804`: PASS, 38/38;
-9. closure post-merge INTEGRATION `36127811852`: PASS, 38/38 in
-   GCC 13 Debug and Clang 18/libc++ Debug;
-10. initial Clang fixture failure and its test-only correction remain preserved
-    in the candidate-validation audit;
-11. final implementation audit remains
-    `docs/audits/2026-09-25-surface-second-order-curvature-implementation-audit.md`.
-12. terminal publication PR #203 head:
-    `e949ea5a40319da2b8d1ea21938d59d9e3a404f4`;
-13. terminal publication PR FAST `36128180100`: PASS;
-14. terminal publication PR INTEGRATION `36128180212`: PASS;
-15. terminal publication PR #203 merged as
-    `db382cf6218ad4fbf18cbafb3b246be812f6b3b7`;
-16. terminal publication post-merge FAST `36128406912`: PASS;
-17. terminal publication post-merge INTEGRATION `36128406846`: PASS.
+Entry authority:
 
-Terminal work-unit result:
+- main at decision entry:
+  `6a3814332ed28d88fb9949684af92a8cb3390d39`;
+- authority-reconciliation PR #205 post-merge FAST `36146747809`: PASS;
+- authority-reconciliation PR #205 post-merge INTEGRATION
+  `36146747762`: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- ordinary semantic inventory: **38 tests**;
+- no open PR and no active production work item at decision entry.
 
-**SECOND FUNDAMENTAL FORM + GAUSSIAN/MEAN CURVATURE IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
 
-No production work item is active.
-
-## Next admissible work item
-
-Open exactly one fresh literature-backed scientific decision comparing:
+Fresh comparison:
 
 1. principal curvatures/directions;
 2. explicit conditioning diagnostics;
 3. sphere/cone/torus Surface Representation breadth;
 4. general trimming/p-curves/topological faces;
-5. whether current pointwise differential geometry is sufficient to resume
-   Boundary Curve Discretization preparation.
+5. Boundary Curve Discretization readiness.
 
-No option is pre-authorized and no production code may begin before that
-decision is integrated, post-merge validated and closed.
+Selected future bounded work unit:
+
+**Pointwise Ordered Principal Curvature Values plus Exact Represented-Data
+Umbilic State for Regular C2 Bounded Parametric Surfaces in 3D.**
+
+The decision deliberately excludes:
+
+- principal directions/eigenvectors;
+- near-umbilic thresholds and conditioning classes;
+- new surface representations;
+- general trimming/topology;
+- Boundary Curve Discretization;
+- physical sizing implementation;
+- anisotropic/tensor metrics;
+- meshing.
+
+This branch may change only documentation/research/decision authorities.
+
+## Next admissible transition after this decision
+
+Only after the decision is integrated, post-merge FAST/INTEGRATION pass and a
+separate decision checkpoint closes may one production branch open for the
+ordered principal-curvature values work unit.
+
+The implementation target is one new focused contract, raising the ordinary
+inventory from 38 to **39 tests** if no additional contract is introduced.
