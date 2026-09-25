@@ -86,61 +86,53 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
-- current scientific stage: **Surface Representation — Continuous Patch
-  Geometry — IN INVESTIGATION / NOT QUALIFIED**;
+- current scientific stage:
+  **Surface Differential Geometry — Metric, Normals, and Curvatures —
+  ENTRY DECISION ACTIVE / NOT QUALIFIED**;
 - latest closed focused prerequisite:
   **Bounded Analytic Circular Cylinder Sector in 3D**;
-- implementation PR #191:
+- cylinder implementation PR #191:
   `6edc598637ddedd54cf62732e33a62e504cb82c8`;
-- implementation closure PR #192:
+- cylinder closure PR #192:
   `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
-- closure PR FAST `36089006808` and INTEGRATION
-  `36089006822`: PASS;
-- closure post-merge FAST `36089081707` and INTEGRATION
-  `36089081776`: PASS;
+- terminal cylinder synchronization:
+  `93eb53c21766d9584290733ef83f838ad9652c98`;
+- terminal-sync FAST `36089325503` and INTEGRATION
+  `36089325498`: PASS;
+- protected-main ordinary semantic inventory: **36 tests**;
 - active work item:
-  **None; fresh Surface Representation breadth decision required**;
-- active component status:
-  **ANALYTIC CYLINDER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-  CLOSED / NOT QUALIFIED**;
-- `CartesianFrame3` remains frozen at its qualified exact
-  signed-permutation/power-of-two contract;
-- protected-main ordinary semantic inventory: **36 tests**, all PASS after
-  bounded analytic cylinder integration;
-- most recently qualified stage: **Curve Representation — Continuous Geometry
-  Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the admitted
-  GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
-- live `main`, open PRs and Actions must always be re-audited remotely before
+  **Surface Differential Geometry entry decision only**;
+- active branch:
+  `surface/differential-geometry-entry-decision`;
+- no production differential work is authorized yet;
+- Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
+  sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
+  obligations retained;
+- most recently qualified stage remains **Curve Representation — Continuous
+  Geometry Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the
+  admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
+- live `main`, PRs, Actions and relevant branches must be re-audited before
   writing.
-
-
 
 ## Current active scientific action
 
-**Open one fresh literature-backed Surface Representation breadth decision.**
+**Integrate the literature-backed Surface Differential Geometry entry
+decision; no production implementation is authorized on this branch.**
 
-Terminal cylinder evidence:
+Decision authority:
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-- implementation PR #191:
-  `6edc598637ddedd54cf62732e33a62e504cb82c8`;
-- implementation post-merge FAST `36088816019`: PASS, 36/36;
-- implementation post-merge INTEGRATION `36088816031`: PASS, 36/36;
-- closure PR #192 head:
-  `610df134d9f68d705cb9444c2f3192df6da2a057`;
-- closure PR FAST `36089006808`: PASS;
-- closure PR INTEGRATION `36089006822`: PASS;
-- closure merge:
-  `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
-- closure post-merge FAST `36089081707`: PASS;
-- closure post-merge INTEGRATION `36089081776`: PASS.
+The decision selects:
 
-No production work item is active.
+**Pointwise Surface Regularity, First Fundamental Form, Area Density, and
+Oriented Unit Normal in 3D.**
 
-The next decision must compare Surface Differential Geometry readiness against
-bounded analytic sphere, cone, torus and general trimming/p-curves/topological
-faces. No winner is pre-authorized.
+The first work unit will be generic over the existing bounded-surface
+first-derivative contract and must use exact typed singularity semantics without
+a universal geometric epsilon.
 
-Full-periodic cylinder and downstream discretization/meshing remain blocked.
+Second fundamental form, Gaussian/mean/principal curvature, sphere/cone/torus,
+general trimming/topological faces and downstream meshing remain unauthorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
