@@ -640,9 +640,23 @@ The candidate implements:
 
 Expected ordinary semantic inventory: **37 tests**.
 
+Initial PR validation diagnosis:
+
+- head `e57e80fcb33a63518475dd9ac3a8f34873e4c0ec`;
+- FAST `36116721390`: mechanically PASS, 36/36 ordinary tests;
+- INTEGRATION `36116721741`: mechanically PASS in GCC 13 Debug and Clang
+  18/libc++ Debug, 36/36 ordinary tests per cell;
+- the focused `apmesh_core.surface_metric_normal` executable was compiled but
+  not selected by CTest because its ordinary-profile labels were missing;
+- this is a mechanical validation-registration defect, not evidence of a
+  production-semantic defect;
+- the correction adds only the missing surface test labels and requires fresh
+  37/37 validation.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / CORRECTED PR REVALIDATION PENDING /
+NOT QUALIFIED.**
 
 No second fundamental form, curvature or new surface representation is
 implied.
