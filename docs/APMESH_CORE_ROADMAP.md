@@ -1751,7 +1751,7 @@ before qualification.
 
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
-Status: `ENTRY DECISION ACTIVE / NOT QUALIFIED`
+Status: `ENTRY DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED`
 
 Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
 
@@ -1877,49 +1877,42 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — Metric, Normals, and Curvatures —
-ENTRY DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+ENTRY DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED**
 
-Entry authority:
-
-- terminal Surface Representation cylinder sync:
-  `93eb53c21766d9584290733ef83f838ad9652c98`;
-- FAST `36089325503`: PASS;
-- INTEGRATION `36089325498`: PASS;
-- ordinary semantic inventory: 36 tests.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-Selected first future work unit:
+Decision evidence:
+
+- PR #194 head:
+  `e48a6040bb4ff6463b170acce0651324881967b3`;
+- PR FAST `36114864362`: PASS;
+- PR INTEGRATION `36114864400`: PASS;
+- merge:
+  `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
+- post-merge FAST `36114962084`: PASS;
+- post-merge INTEGRATION `36114962093`: PASS.
+
+After decision closure, the sole next production work item is:
 
 **Pointwise Surface Regularity, First Fundamental Form, Area Density, and
 Oriented Unit Normal in 3D.**
 
-Authorized future scope is limited to:
-
-- generic consumption of existing `S_u,S_v` first derivatives;
-- `E,F,G` first fundamental form;
-- area density `|S_u x S_v|`;
-- oriented unit normal;
-- exact typed singular-parameterization failure;
-- scale-aware numeric behavior;
-- reversal/frame/scale covariance;
-- analytic plane and cylinder oracles;
-- conformance across already integrated surface families;
-- one new focused contract, targeting 37 ordinary tests.
+Future implementation remains limited to first-order differential properties
+and exact singular-parameterization semantics.
 
 Not authorized:
 
 - second fundamental form;
 - Gaussian/mean/principal curvature;
-- sphere/cone/torus production;
-- full-periodic cylinder;
-- general trimming/p-curves/topological faces;
+- new surface representation families;
+- topology/face orientation;
 - boundary discretization, sizing or meshing.
 
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** and
-retains all deferred family obligations.
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
+sphere, cone, torus, full-periodic cylinder and general trimming/p-curves/faces
+retained.
 
 The long-term ordering remains:
 
