@@ -618,3 +618,54 @@ The sole active production work item is
 No principal curvature/direction, conditioning diagnostic, new surface
 representation, trimming/topology or downstream meshing capability is
 authorized.
+
+
+## 33. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/second-order-curvature`.
+
+Candidate mapping:
+
+- public API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_second_order_curvature.cpp`;
+- build/test registration:
+  `CMakeLists.txt`.
+
+Candidate implementation:
+
+- reuses `SurfaceMetricNormal3`;
+- adds oriented II coefficients L/M/N;
+- adds Gaussian curvature K;
+- adds oriented mean curvature H;
+- queries first derivatives/regularity before second derivatives in the
+  generic surface API;
+- uses `long double` only as an internal bounded-range intermediate and
+  converts requested results back to representable `double` explicitly;
+- uses area-density squared for the first-form determinant rather than a
+  naïve `E*G-F*F` reconstruction;
+- adds no error enum value, no tolerance threshold and no surface family.
+
+Focused evidence includes:
+
+- general non-orthogonal first form;
+- positive and negative Gaussian-curvature synthetic references;
+- plane and outward-cylinder analytic K/H;
+- U/V/double reversal orientation covariance;
+- power-of-two scale covariance;
+- exact singular and near-singular regular semantics;
+- unrepresentable-curvature failure;
+- actual multiplicity-two NURBS insufficient-continuity propagation;
+- representative cross-family conformance;
+- deterministic success/failure.
+
+Expected ordinary semantic inventory: **38 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
