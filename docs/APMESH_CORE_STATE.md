@@ -133,10 +133,19 @@ Initial validation diagnosis:
 - production semantics were not changed by the correction;
 - corrected head must demonstrate 37/37 in all three ordinary jobs.
 
+Corrected validation:
+
+- head `696fd384907fbe2200d25944385bedc6ecf912da`;
+- FAST `36118467156`: PASS, 37/37;
+- INTEGRATION `36118467165`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 37/37 per cell;
+- focused `apmesh_core.surface_metric_normal`: PASS in all three jobs;
+- every prerequisite ordinary test remained PASS.
+
 Candidate status:
 
-**IMPLEMENTED CANDIDATE / CORRECTED PR REVALIDATION PENDING /
-NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
