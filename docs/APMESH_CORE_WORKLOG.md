@@ -490,6 +490,12 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-second-order-curvature-terminal-sync`:
   **MERGED / HISTORICAL** via PR #203; publishes the terminal closed II/K/H
   checkpoint before the next scientific decision.
+- `docs/surface-second-order-curvature-final-state`:
+  **MERGED / HISTORICAL** via PR #204; fixes terminal II/K/H authority
+  markers and publication evidence.
+- `docs/current-stage-status-reconciliation`:
+  **MERGED / HISTORICAL** via PR #205; reconciles stale current-stage and
+  retained-breadth status markers before the next scientific decision.
 
 The presence of historical branches on the remote does not make them active.
 
