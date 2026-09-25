@@ -1877,48 +1877,38 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Cylinder Sector —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED**
 
-Closed decision checkpoint:
+Implementation evidence:
 
-- decision PR #189:
-  `9e0b5dcc7061912a2983c7c1b4a93d99839796e8`;
-- decision post-merge FAST `36085132728`: PASS;
-- decision post-merge INTEGRATION `36085132887`: PASS;
-- closure PR #190:
-  `05b1478ebdf22ca9a9ef0251ff010d9ac058474e`;
-- closure post-merge FAST `36085529751`: PASS;
-- closure post-merge INTEGRATION `36085529695`: PASS.
+- candidate head:
+  `9536a0a9849021d47acdfb03b1179866e5de87a4`;
+- candidate FAST `36088557775`: PASS, 36/36;
+- candidate INTEGRATION `36088557702`: PASS, 36/36;
+- final PR head:
+  `e06c1344570daa7ff76cda61dc8165e2fc0dc8b2`;
+- final PR FAST `36088704029`: PASS, 36/36;
+- final PR INTEGRATION `36088704205`: PASS, 36/36;
+- PR #191 merge:
+  `6edc598637ddedd54cf62732e33a62e504cb82c8`;
+- post-merge FAST `36088816019`: PASS, 36/36;
+- post-merge INTEGRATION `36088816031`: PASS, 36/36.
 
-Active implementation:
-`surface/analytic-cylinder`.
+Closure branch:
+`docs/surface-analytic-cylinder-implementation-closure`.
 
-Authorized scope:
+After closure integration and protected-main validation, compare:
 
-- `BoundedCylinderSurface3`;
-- existing `AxisPlacement3`;
-- radius finite and > 0;
-- angular U domain finite with width < `2*pi`;
-- axial V domain finite;
-- analytic value and first/second partials;
-- U/V reversal without modulo/wrap;
-- independent analytic reference;
-- one new focused contract, targeting 36 ordinary tests.
+- Surface Differential Geometry entry readiness;
+- bounded analytic sphere;
+- bounded analytic cone;
+- bounded analytic torus;
+- general trimming / p-curves / topological faces.
 
-Candidate validation on head
-`9536a0a9849021d47acdfb03b1179866e5de87a4`:
+No option is preselected.
 
-- FAST `36088557775`: PASS, 36/36 tests;
-- INTEGRATION `36088557702`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 36/36 tests per cell;
-- the new analytic-cylinder contract and every prior ordinary semantic contract
-  passed.
-
-The documentation synchronization itself must receive a final green
-FAST/INTEGRATION head before integration.
-
-Full periodic cylinder, cone, sphere, torus, general p-curves/topological
-faces, Surface Differential Geometry and downstream meshing remain blocked.
+Full periodic cylinder and downstream discretization/meshing remain blocked.
 
 The long-term ordering remains:
 
