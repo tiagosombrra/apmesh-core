@@ -355,10 +355,11 @@ Regression availability, and the admitted cloud QUALIFICATION environment.
 Infrastructure status alone does not qualify a scientific stage; the formal
 Topological Model qualification decision is recorded below.
 
-Exact next bounded scientific action:
+Historical bounded-action snapshot (superseded by the authoritative checkpoint
+at the top of this file):
 
-**After this decision closure is integrated and post-merge validated, implement
-the bounded Right-Handed Arbitrary 3D Axis Placement work unit.**
+**After the arbitrary-axis placement decision closure, implement the bounded
+Right-Handed Arbitrary 3D Axis Placement work unit.**
 
 Decision evidence:
 
@@ -383,12 +384,14 @@ signed-permutation/power-of-two semantics.
 No analytic elementary, revolution, trimming, Coons, NURBS,
 surface-differential-geometry or meshing production is authorized.
 
-## Current active stage
+## Historical active-stage snapshot (superseded)
+
+The following snapshot is retained only for provenance of the earlier
+arbitrary-axis placement transition. It is not current continuation authority.
 
 **Surface Representation — Continuous Patch Geometry — ARBITRARY 3D
-PLACEMENT PREREQUISITE DECISION INTEGRATED / CLOSURE PENDING /
-IMPLEMENTATION NOT STARTED / NOT QUALIFIED /
-ALL CLOSED SURFACE REPRESENTATION WORK UNITS PRESERVED**
+PLACEMENT PREREQUISITE DECISION INTEGRATED / HISTORICAL SNAPSHOT /
+NOT QUALIFIED**
 
 Paused prerequisite investigation:
 
@@ -402,49 +405,58 @@ SEAM**
 ## Representation breadth retained limitation
 
 The original qualified Curve Representation claim remains intentionally
-narrow: CGR0–CGR7 qualifies only polynomial cubic Bézier curves. Production
-has since been extended, without widening that qualification claim, with
-`LineSegment2/3` and `RationalQuadraticBezier2/3` under separate focused
-work units.
+narrow: CGR0–CGR7 qualifies only polynomial cubic Bézier curves.
 
-The following are **not implemented and not covered by CGR qualification**:
+Production has since been extended under separate focused, unqualified work
+units with:
+
+- `LineSegment2/3`;
+- `RationalQuadraticBezier2/3`;
+- oriented static trimmed subcurves;
+- fixed two-span cubic B-spline;
+- fixed and multi-span cubic positive-weight NURBS;
+- cubic NURBS interior multiplicity one/two with parameter-local C1/D2
+  semantics.
+
+These extensions do **not** widen the frozen CGR qualification.
+
+Curve breadth still retained for later decisions includes:
 
 - dedicated analytic circular/general conic arc curve types;
-- arbitrary-degree polynomial/rational Bézier curves;
-- general/multi-span/arbitrary-degree/repeated-knot/periodic B-spline
-  semantics beyond the integrated fixed two-span cubic family;
-- general/multi-span/arbitrary-degree/repeated-knot/periodic NURBS semantics
-  beyond the integrated fixed two-span cubic family;
-- heterogeneous composite/polycurve semantics;
-- analytic elementary surface representations remain unimplemented;
-- the bounded cubic-Bézier linear-extrusion surface is integrated and closed
-  with 32/32 focused ordinary validation PASS;
-- general arbitrary-loop trimmed-surface / p-curve / topological-face
-  semantics remain unimplemented, while static oriented rectangular trimming
-  is integrated;
-- broader Coons/transfinite representations beyond the integrated oriented
-  cubic Bézier Coons patch remain unimplemented;
-- multiplicity-three/arbitrary-degree/periodic NURBS surface semantics beyond
-  the integrated multiplicity-one/two bicubic NURBS surface.
+- arbitrary-degree polynomial/rational Bézier;
+- arbitrary-degree and periodic B-spline/NURBS;
+- cubic multiplicity-three/C0 knot semantics;
+- heterogeneous composite/polycurve semantics.
 
-This limitation does not invalidate the existing cubic-Bézier qualification.
-It prevents that qualification from being generalized to those families.
+Surface Representation is also broader than the earlier snapshot. Integrated
+focused work units now include:
 
-Before Boundary Curve Discretization can claim its already-declared
-`line/arc/Bezier` regression envelope, a separate literature-backed curve
-family scope-extension decision must admit the required analytic/rational/spline
-families and define how common differential/discretization algorithms reuse
-their semantics.
+- polynomial bicubic Bézier;
+- positive-weight rational bicubic Bézier;
+- bicubic NURBS including interior multiplicity one/two;
+- oriented cubic Bézier Coons patch;
+- static oriented rectangular trimming;
+- cubic Bézier linear extrusion;
+- cubic Bézier revolution;
+- arbitrary right-handed 3D axis placement;
+- bounded analytic plane;
+- bounded analytic circular-cylinder sector.
 
-Surface Representation is open and its entry decision explicitly maps
-polynomial/rational free-form, spline/NURBS, Coons/transfinite, analytic,
-swept and trimmed families. Polynomial bicubic Bézier, positive-weight
-rational bicubic Bézier, bicubic NURBS with unique interior multiplicities
-one/two, one oriented cubic Bézier Coons patch, and static oriented rectangular
-trimming are integrated focused work units. Multiplicity-three/arbitrary-degree/
-periodic NURBS, broader Coons/transfinite, analytic, swept and general arbitrary-
-loop trimmed-surface semantics are not implicitly implemented or qualified.
+Surface breadth still retained includes at minimum sphere, cone, torus,
+full-periodic analytic semantics where admitted, broader NURBS degree/knot
+breadth, and general arbitrary-loop trimming / p-curves / topological faces.
 
+General trimming/topological identity and remaining curve breadth are separate
+prerequisites for later CAD-like boundary certification; they are not silently
+implied by the integrated focused families.
+
+The current Surface Differential Geometry layer already includes regularity,
+first fundamental form, area density, oriented normal, second fundamental form,
+Gaussian curvature and mean curvature. Principal curvatures/directions and
+conditioning policy remain unimplemented.
+
+None of these later focused integrations invalidates or silently widens the
+most recent qualified Curve Representation claim.
 
 ## Most recently qualified stage
 
