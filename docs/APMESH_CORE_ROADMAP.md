@@ -1714,8 +1714,8 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 ### Surface Representation — Continuous Patch Geometry
 
-Status: `BOUNDED ANALYTIC CYLINDER DECISION INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED`
+Status: `BOUNDED ANALYTIC CYLINDER IMPLEMENTATION ACTIVE /
+NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1877,41 +1877,36 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Cylinder Sector —
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED**
+IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
-Decision evidence:
+Closed decision checkpoint:
 
-- final decision head:
-  `f9a6811cd1ecb1abea7bbfb1cec9f095ff6208e8`;
-- PR #189 FAST `36085045566`: PASS;
-- PR #189 INTEGRATION `36085045563`: PASS;
-- merge:
+- decision PR #189:
   `9e0b5dcc7061912a2983c7c1b4a93d99839796e8`;
-- post-merge FAST `36085132728`: PASS;
-- post-merge INTEGRATION `36085132887`: PASS.
+- decision post-merge FAST `36085132728`: PASS;
+- decision post-merge INTEGRATION `36085132887`: PASS;
+- closure PR #190:
+  `05b1478ebdf22ca9a9ef0251ff010d9ac058474e`;
+- closure post-merge FAST `36085529751`: PASS;
+- closure post-merge INTEGRATION `36085529695`: PASS.
 
-Closure branch:
-`docs/surface-analytic-cylinder-decision-closure`.
+Active implementation:
+`surface/analytic-cylinder`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized scope:
 
-**Bounded Analytic Circular Cylinder Sector in 3D.**
-
-Authorized future scope remains:
-
+- `BoundedCylinderSurface3`;
 - existing `AxisPlacement3`;
-- finite radius > 0;
-- finite strict angular U interval with width < `2*pi`;
-- finite strict axial V interval;
+- radius finite and > 0;
+- angular U domain finite with width < `2*pi`;
+- axial V domain finite;
 - analytic value and first/second partials;
-- U/V reversal;
-- no periodic wrapping or full revolution;
-- one focused contract, targeting 36 ordinary tests.
+- U/V reversal without modulo/wrap;
+- independent analytic reference;
+- one new focused contract, targeting 36 ordinary tests.
 
-Cone, sphere, torus, general p-curves/topological faces, Surface Differential
-Geometry, Boundary Curve Discretization and meshing remain blocked.
+Full periodic cylinder, cone, sphere, torus, general p-curves/topological
+faces, Surface Differential Geometry and downstream meshing remain blocked.
 
 The long-term ordering remains:
 
