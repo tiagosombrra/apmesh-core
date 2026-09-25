@@ -88,51 +88,40 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  ENTRY DECISION ACTIVE / NOT QUALIFIED**;
-- latest closed focused prerequisite:
-  **Bounded Analytic Circular Cylinder Sector in 3D**;
-- cylinder implementation PR #191:
-  `6edc598637ddedd54cf62732e33a62e504cb82c8`;
-- cylinder closure PR #192:
-  `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
-- terminal cylinder synchronization:
-  `93eb53c21766d9584290733ef83f838ad9652c98`;
-- terminal-sync FAST `36089325503` and INTEGRATION
-  `36089325498`: PASS;
+  ENTRY DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**;
+- decision PR #194 head:
+  `e48a6040bb4ff6463b170acce0651324881967b3`;
+- decision merge:
+  `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
+- decision PR FAST `36114864362` and INTEGRATION
+  `36114864400`: PASS;
+- decision post-merge FAST `36114962084` and INTEGRATION
+  `36114962093`: PASS;
 - protected-main ordinary semantic inventory: **36 tests**;
 - active work item:
-  **Surface Differential Geometry entry decision only**;
-- active branch:
-  `surface/differential-geometry-entry-decision`;
-- no production differential work is authorized yet;
+  **None; entry-decision closure only**;
+- no production differential code exists yet;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
   obligations retained;
 - most recently qualified stage remains **Curve Representation — Continuous
   Geometry Before Discretization — QUALIFIED / CGR0–CGR7 PASS**, only in the
-  admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope;
-- live `main`, PRs, Actions and relevant branches must be re-audited before
-  writing.
+  admitted GitHub-hosted Ubuntu 24.04 x86_64 cloud envelope.
 
 ## Current active scientific action
 
-**Integrate the literature-backed Surface Differential Geometry entry
-decision; no production implementation is authorized on this branch.**
+**Close the integrated Surface Differential Geometry entry decision.**
 
 Decision authority:
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`.
 
-The decision selects:
+After this closure is integrated and post-merge validated, the sole next
+production work item is:
 
 **Pointwise Surface Regularity, First Fundamental Form, Area Density, and
 Oriented Unit Normal in 3D.**
 
-The first work unit will be generic over the existing bounded-surface
-first-derivative contract and must use exact typed singularity semantics without
-a universal geometric epsilon.
-
-Second fundamental form, Gaussian/mean/principal curvature, sphere/cone/torus,
-general trimming/topological faces and downstream meshing remain unauthorized.
+No second fundamental form or curvature is authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
