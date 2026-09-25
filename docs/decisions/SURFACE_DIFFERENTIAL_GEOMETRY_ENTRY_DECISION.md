@@ -540,3 +540,37 @@ Surface Representation remains IN INVESTIGATION / NOT QUALIFIED with retained
 sphere, cone, torus, full-periodic cylinder and general-trimming obligations.
 
 Boundary Curve Discretization and downstream meshing remain blocked.
+
+
+## 26. Decision integration checkpoint
+
+Decision PR #194 used final head:
+
+`e48a6040bb4ff6463b170acce0651324881967b3`.
+
+PR validation:
+
+- FAST `36114864362`: PASS;
+- INTEGRATION `36114864400`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #194 merged as:
+
+`2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`.
+
+Post-merge validation:
+
+- FAST `36114962084`: PASS;
+- INTEGRATION `36114962093`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision result:
+
+**SURFACE DIFFERENTIAL GEOMETRY ENTRY DECISION INTEGRATED /
+CLOSURE PENDING / IMPLEMENTATION NOT STARTED / NOT QUALIFIED.**
+
+After closure integration and post-merge validation, the sole next production
+work item is the first-order metric/normal capability defined by Sections
+6–23.
+
+No second-order curvature or new surface family is authorized.
