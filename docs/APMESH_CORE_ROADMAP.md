@@ -1892,12 +1892,23 @@ Implementation evidence:
 - implementation PR #186:
   `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
 - post-merge FAST `35991745316`: PASS, 35/35;
-- post-merge INTEGRATION `35991745435`: PASS, 35/35.
+- post-merge INTEGRATION `35991745435`: PASS, 35/35;
+- implementation closure PR #187 head:
+  `79c9028e56913799613292948d452f53e2b3ead1`;
+- closure PR FAST `35992244200`: PASS;
+- closure PR INTEGRATION `35992244354`: PASS;
+- closure merge:
+  `57f647e488bf3498168bc9c3b8c63fc5442d034a`;
+- closure post-merge FAST `35992410876`: PASS;
+- closure post-merge INTEGRATION `35992410395`: PASS.
 
 The plane work unit adds the first dedicated elementary analytic surface while
 preserving existing common surface and placement contracts.
 
-Next admissible action:
+Terminal documentation sync:
+`docs/surface-analytic-plane-terminal-sync`.
+
+Next admissible action after this sync is integrated and post-merge validated:
 
 Open one fresh literature-backed comparison among:
 
