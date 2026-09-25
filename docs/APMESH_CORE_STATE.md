@@ -89,20 +89,20 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - current scientific stage: **Surface Representation — Continuous Patch
   Geometry — IN INVESTIGATION / NOT QUALIFIED**;
 - latest closed focused prerequisite:
-  **Bounded Analytic Plane Surface in 3D**;
-- implementation PR #186:
-  `89ec9946b7438b30a0b3b3218c8c9c1981b31fd8`;
-- implementation closure PR #187:
-  `57f647e488bf3498168bc9c3b8c63fc5442d034a`;
-- closure PR FAST `35992244200` and INTEGRATION
-  `35992244354`: PASS;
-- closure post-merge FAST `35992410876` and INTEGRATION
-  `35992410395`: PASS;
+  **Bounded Analytic Circular Cylinder Sector in 3D**;
+- implementation PR #191:
+  `6edc598637ddedd54cf62732e33a62e504cb82c8`;
+- implementation closure PR #192:
+  `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
+- closure PR FAST `36089006808` and INTEGRATION
+  `36089006822`: PASS;
+- closure post-merge FAST `36089081707` and INTEGRATION
+  `36089081776`: PASS;
 - active work item:
-  **None; analytic cylinder implementation integrated and closure pending**;
+  **None; fresh Surface Representation breadth decision required**;
 - active component status:
   **ANALYTIC CYLINDER IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-  CLOSURE PENDING / NOT QUALIFIED**;
+  CLOSED / NOT QUALIFIED**;
 - `CartesianFrame3` remains frozen at its qualified exact
   signed-permutation/power-of-two contract;
 - protected-main ordinary semantic inventory: **36 tests**, all PASS after
@@ -117,36 +117,30 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Close the integrated bounded analytic cylinder-sector implementation; no
-production work item is active.**
+**Open one fresh literature-backed Surface Representation breadth decision.**
 
-Implementation evidence:
+Terminal cylinder evidence:
 
-- candidate head:
-  `9536a0a9849021d47acdfb03b1179866e5de87a4`;
-- candidate FAST `36088557775`: PASS, 36/36;
-- candidate INTEGRATION `36088557702`: PASS, 36/36;
-- final PR head:
-  `e06c1344570daa7ff76cda61dc8165e2fc0dc8b2`;
-- final PR FAST `36088704029`: PASS, 36/36;
-- final PR INTEGRATION `36088704205`: PASS, 36/36;
 - implementation PR #191:
   `6edc598637ddedd54cf62732e33a62e504cb82c8`;
-- protected-main FAST `36088816019`: PASS, 36/36;
-- protected-main INTEGRATION `36088816031`: PASS, 36/36.
+- implementation post-merge FAST `36088816019`: PASS, 36/36;
+- implementation post-merge INTEGRATION `36088816031`: PASS, 36/36;
+- closure PR #192 head:
+  `610df134d9f68d705cb9444c2f3192df6da2a057`;
+- closure PR FAST `36089006808`: PASS;
+- closure PR INTEGRATION `36089006822`: PASS;
+- closure merge:
+  `102be8d81164ec3a5b12162c7e8bd05a772ebaea`;
+- closure post-merge FAST `36089081707`: PASS;
+- closure post-merge INTEGRATION `36089081776`: PASS.
 
-Closure branch:
-`docs/surface-analytic-cylinder-implementation-closure`.
+No production work item is active.
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`.
+The next decision must compare Surface Differential Geometry readiness against
+bounded analytic sphere, cone, torus and general trimming/p-curves/topological
+faces. No winner is pre-authorized.
 
-After closure integration and post-merge validation, the sole next admissible
-action is one fresh Surface Representation breadth decision comparing Surface
-Differential Geometry readiness against sphere, cone, torus and general
-trimming/p-curves/topological faces.
-
-Full periodic cylinder and every broader capability remain blocked.
+Full-periodic cylinder and downstream discretization/meshing remain blocked.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
