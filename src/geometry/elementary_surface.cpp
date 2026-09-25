@@ -274,7 +274,8 @@ BoundedCylinderSurface3::make(
         static_cast<long double>(u_domain.upper()) -
         static_cast<long double>(u_domain.lower());
     const long double full_revolution =
-        2.0L * std::numbers::pi_v<long double>;
+        static_cast<long double>(
+            2.0 * std::numbers::pi_v<double>);
     if (!std::isfinite(angular_width) ||
         angular_width >= full_revolution) {
         return std::unexpected{
