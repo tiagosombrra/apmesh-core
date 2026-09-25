@@ -552,10 +552,23 @@ Initial PR validation diagnosis:
 - corrected validation must execute **37/37** tests in FAST and both
   INTEGRATION compiler cells before integration.
 
+Corrected validation:
+
+- corrected head:
+  `696fd384907fbe2200d25944385bedc6ecf912da`;
+- FAST `36118467156`: PASS, **37/37** tests;
+- INTEGRATION `36118467165`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, **37/37** tests in each cell;
+- `apmesh_core.surface_metric_normal`: executed as test 26/37 and PASS in
+  all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- correction changed only CMake test labels and continuity documentation, not
+  production scientific semantics.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / CORRECTED PR REVALIDATION PENDING /
-NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
