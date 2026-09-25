@@ -1905,6 +1905,10 @@ Authorized scope:
 - one focused semantic contract;
 - target ordinary inventory: 38 tests.
 
+Candidate implementation is mapped to the authorized files only and is
+awaiting FAST/INTEGRATION validation. No common surface concept or concrete
+surface-family implementation changed.
+
 Principal curvatures/directions, conditioning diagnostics, sphere/cone/torus,
 general trimming/p-curves/faces and all downstream discretization/meshing
 remain deferred.
