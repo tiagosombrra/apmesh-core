@@ -108,7 +108,8 @@ Authoritative continuation snapshot after fresh remote reconciliation on
   `5fc561a2e0e927369c5dc5c4644ef18699602914`;
 - closure post-merge FAST `36119643984` and INTEGRATION
   `36119643997`: PASS, 37/37;
-- no production or documentation work item is active;
+- active documentation-only work item:
+  **Surface Second Fundamental Form + Gaussian/Mean Curvature Decision**;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
   obligations retained;
@@ -118,39 +119,39 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Open one fresh literature-backed Surface Differential Geometry decision.**
+**Integrate the literature-backed Surface Second Fundamental Form +
+Gaussian/Mean Curvature decision; no production implementation is authorized
+on this branch.**
 
-Terminal first-order metric/normal evidence:
+Decision-entry authority:
 
-- implementation PR #196:
-  `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
-- implementation post-merge FAST `36118945024`: PASS, 37/37;
-- implementation post-merge INTEGRATION `36118944987`: PASS, 37/37;
-- implementation closure PR #197 head:
-  `8bdab0d43da87800add044a1ff1a9a3a4cd47e99`;
-- closure PR FAST `36119500567`: PASS, 37/37;
-- closure PR INTEGRATION `36119500599`: PASS, 37/37;
-- closure merge:
-  `5fc561a2e0e927369c5dc5c4644ef18699602914`;
-- closure post-merge FAST `36119643984`: PASS, 37/37;
-- closure post-merge INTEGRATION `36119643997`: PASS, 37/37.
+- terminal first-order state:
+  `793fd46575e0c00d11ad2739b8e9c92227d576a1`;
+- terminal-state FAST `36120283995`: PASS;
+- terminal-state INTEGRATION `36120284007`: PASS;
+- protected-main ordinary semantic inventory: 37 tests.
 
-Terminal result:
+Active branch:
+`surface/second-order-curvature-decision`.
 
-**FIRST-ORDER METRIC+NORMAL IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`.
 
-Protected-main ordinary semantic inventory: **37 tests**.
+Selected future work unit:
 
-No current work item is active.
+**Pointwise Surface Second Fundamental Form plus Gaussian and Mean Curvature
+for regular C2 bounded parametric surfaces in 3D.**
 
-The next decision must compare second-order differential geometry,
-principal-curvature work, conditioning diagnostics, and the retained
-Surface Representation gaps. No candidate is pre-authorized.
+The decision reuses the integrated metric/normal and second-partial contracts,
+adds no common error value, introduces no epsilon-based regularity threshold
+and explicitly defers principal curvatures/directions and conditioning policy.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
 sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
 obligations retained.
+
+No production, trimming/topology, discretization, sizing or meshing work is
+authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
