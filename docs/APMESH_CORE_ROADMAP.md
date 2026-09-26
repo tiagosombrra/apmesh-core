@@ -1882,31 +1882,50 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — Ordered Principal Curvature Values +
-Exact Represented-Data Umbilic State — DECISION INTEGRATED /
-CLOSURE PENDING / IMPLEMENTATION NOT STARTED / NOT QUALIFIED**
+Exact Represented-Data Umbilic State — IMPLEMENTATION ACTIVE /
+NOT QUALIFIED**
 
-Decision validation:
+Decision authority:
+`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
 
-- PR #206 head:
-  `3a5af9d27aaf9b3e563e9fd6f89b868745c7edda`;
-- PR FAST `36148367215`: PASS;
-- PR INTEGRATION `36148367239`: PASS;
-- PR #206 merged as
+Closed decision checkpoint:
+
+- decision PR #206 merge:
   `8d42bf38871d7a79f1c01aacbad77ed5e106505f`;
-- post-merge FAST `36190790100`: PASS;
-- post-merge INTEGRATION `36190790157`: PASS.
+- closure PR #207 head:
+  `937f90b8fbac129bb4e92e30db5d42dfb2dcff6c`;
+- closure PR FAST `36191030571`: PASS;
+- closure PR INTEGRATION `36191030276`: PASS;
+- closure merge:
+  `bb33396050b4ccc85ca9cc4e1683d491e89bcac0`;
+- closure post-merge FAST `36191169978`: PASS;
+- closure post-merge INTEGRATION `36191169982`: PASS.
 
-Closure branch:
-`docs/surface-principal-curvature-values-decision-closure`.
+Active implementation branch:
+`surface/principal-curvature-values`.
 
-After closure integration and post-merge validation, the sole next production
-work item is:
+Authorized scope:
 
-**Pointwise Ordered Principal Curvature Values plus Exact Represented-Data
-Umbilic State for Regular C2 Bounded Parametric Surfaces in 3D.**
+- add `SurfacePrincipalCurvatures`;
+- return ordered signed maximum/minimum curvature;
+- expose exact represented-data umbilic state;
+- solve the generalized symmetric 2x2 eigenproblem through metric whitening;
+- preserve current errors and surface representations;
+- add one focused contract, targeting **39 tests**.
 
-Expected ordinary inventory after one focused implementation contract:
-**39 tests**.
+Candidate validation on head
+`a59f52933a829410e7b24f505caa25092b0671fe`:
+
+- FAST `36209864983`: PASS, 39/39 tests;
+- INTEGRATION `36209865005`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 39/39 tests per cell;
+- focused principal-curvature contract PASS in every required cell;
+- candidate audit:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`.
+
+The documentation/audit synchronization itself must receive a fresh green
+FAST/INTEGRATION final head before integration. No concrete surface
+representation or downstream pipeline source is modified.
 
 Explicitly deferred:
 

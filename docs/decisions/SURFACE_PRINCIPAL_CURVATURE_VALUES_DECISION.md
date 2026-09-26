@@ -523,3 +523,100 @@ defined in Sections 6–26.
 
 No principal direction, tolerance/conditioning, representation, trimming,
 discretization, sizing, anisotropic or meshing capability is authorized.
+
+
+## 30. Decision closure checkpoint
+
+Decision closure PR #207 used head
+`937f90b8fbac129bb4e92e30db5d42dfb2dcff6c`.
+
+Closure PR validation:
+
+- FAST `36191030571`: PASS;
+- INTEGRATION `36191030276`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #207 merged as
+`bb33396050b4ccc85ca9cc4e1683d491e89bcac0`.
+
+Closure post-merge validation:
+
+- FAST `36191169978`: PASS;
+- INTEGRATION `36191169982`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the scalar principal-curvature-values
+capability defined in Sections 6–26.
+
+No principal direction, conditioning threshold, representation, trimming,
+discretization, sizing, anisotropic or meshing capability is authorized.
+
+
+## 31. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/principal-curvature-values`.
+
+Candidate mapping:
+
+- public API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_principal_curvatures.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+The candidate introduces:
+
+- `SurfacePrincipalCurvatures` with ordered maximum/minimum values and exact
+  represented-data umbilic state;
+- a value-level overload consuming `SurfaceSecondOrderGeometry3`;
+- a generic bounded-surface overload preserving existing differential errors;
+- metric whitening based on normalized I/II and the already validated area
+  density;
+- symmetric 2x2 eigenvalue evaluation using `hypot` and determinant-based
+  recovery of the smaller-magnitude value;
+- no `H^2-K` clamp or tolerance-based umbilic classification.
+
+Focused evidence includes:
+
+- plane and bounded cylinder production surfaces;
+- elliptic, hyperbolic, parabolic, exact-umbilic and near-umbilic synthetic
+  shape operators;
+- a non-orthogonal generalized eigenproblem;
+- H/K identities;
+- single/double reversal laws;
+- positive scaling, translation and signed Cartesian frame covariance;
+- extreme finite success and explicit non-representable failure;
+- generic error propagation and deterministic repetition.
+
+Expected ordinary semantic inventory: **39 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `a59f52933a829410e7b24f505caa25092b0671fe`;
+- FAST `36209864983`: PASS, 39/39 ordinary semantic tests;
+- INTEGRATION `36209865005`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 39/39 tests per cell;
+- `apmesh_core.surface_principal_curvatures`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- candidate audit:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No principal direction, conditioning threshold, representation breadth,
+trimming/topology, discretization/sizing, anisotropic or meshing capability is
+implied.

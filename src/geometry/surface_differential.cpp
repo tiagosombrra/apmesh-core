@@ -1,5 +1,6 @@
 #include "apmesh/geometry/surface_differential.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -119,6 +120,157 @@ project_onto_unit_normal(
                 static_cast<long double>(unit_normal.y()) +
         static_cast<long double>(vector.z()) *
                 static_cast<long double>(unit_normal.z()));
+}
+
+
+struct SymmetricPrincipalValues {
+    long double maximum{};
+    long double minimum{};
+    bool is_umbilic{};
+};
+
+[[nodiscard]] std::expected<
+    SymmetricPrincipalValues,
+    SurfaceDifferentialError>
+metric_whitened_principal_values(
+    const SurfaceFirstFundamentalForm& first,
+    const double area_density,
+    const SurfaceSecondFundamentalForm& second) noexcept {
+    const long double e0 = static_cast<long double>(first.e);
+    const long double f0 = static_cast<long double>(first.f);
+    const long double g0 = static_cast<long double>(first.g);
+    const long double l0 = static_cast<long double>(second.l);
+    const long double m0 = static_cast<long double>(second.m);
+    const long double n0 = static_cast<long double>(second.n);
+    const long double j0 = static_cast<long double>(area_density);
+
+    if (!std::isfinite(e0) || !std::isfinite(f0) || !std::isfinite(g0) ||
+        !std::isfinite(l0) || !std::isfinite(m0) || !std::isfinite(n0) ||
+        !std::isfinite(j0)) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    const long double metric_scale =
+        std::max({std::abs(e0), std::abs(f0), std::abs(g0)});
+    if (metric_scale == 0.0L || j0 <= 0.0L || e0 <= 0.0L || g0 <= 0.0L) {
+        return std::unexpected{
+            SurfaceDifferentialError::singular_parameterization};
+    }
+
+    const long double second_scale =
+        std::max({std::abs(l0), std::abs(m0), std::abs(n0)});
+    if (second_scale == 0.0L) {
+        return SymmetricPrincipalValues{
+            .maximum = 0.0L,
+            .minimum = 0.0L,
+            .is_umbilic = true,
+        };
+    }
+
+    const long double e = e0 / metric_scale;
+    const long double f = f0 / metric_scale;
+    const long double g = g0 / metric_scale;
+    const long double j = j0 / metric_scale;
+    const long double l = l0 / second_scale;
+    const long double m = m0 / second_scale;
+    const long double n = n0 / second_scale;
+
+    if (!std::isfinite(e) || !std::isfinite(f) || !std::isfinite(g) ||
+        !std::isfinite(j) || e <= 0.0L || g <= 0.0L || j <= 0.0L) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    const long double a = std::sqrt(e);
+    const long double c_cholesky = j / a;
+    if (!std::isfinite(a) || !std::isfinite(c_cholesky) ||
+        a == 0.0L || c_cholesky == 0.0L) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    const long double ratio = f / e;
+    const long double whitened_00 = l / e;
+    const long double whitened_01 =
+        (m - ratio * l) / j;
+    const long double whitened_11_numerator =
+        std::fma(ratio, std::fma(ratio, l, -2.0L * m), n);
+    const long double whitened_11 =
+        whitened_11_numerator / (c_cholesky * c_cholesky);
+
+    if (!std::isfinite(whitened_00) ||
+        !std::isfinite(whitened_01) ||
+        !std::isfinite(whitened_11)) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    const bool is_umbilic =
+        whitened_01 == 0.0L && whitened_00 == whitened_11;
+
+    const long double operator_scale =
+        std::max({
+            std::abs(whitened_00),
+            std::abs(whitened_01),
+            std::abs(whitened_11),
+        });
+    if (operator_scale == 0.0L) {
+        return SymmetricPrincipalValues{
+            .maximum = 0.0L,
+            .minimum = 0.0L,
+            .is_umbilic = true,
+        };
+    }
+
+    const long double a00 = whitened_00 / operator_scale;
+    const long double a01 = whitened_01 / operator_scale;
+    const long double a11 = whitened_11 / operator_scale;
+
+    long double lambda_max = 0.0L;
+    long double lambda_min = 0.0L;
+    if (is_umbilic) {
+        lambda_max = a00;
+        lambda_min = a00;
+    } else {
+        const long double trace = a00 + a11;
+        const long double gap = std::hypot(a00 - a11, 2.0L * a01);
+        const long double determinant =
+            std::fma(a00, a11, -(a01 * a01));
+
+        if (trace >= 0.0L) {
+            lambda_max = 0.5L * (trace + gap);
+            lambda_min =
+                lambda_max != 0.0L
+                    ? determinant / lambda_max
+                    : 0.5L * (trace - gap);
+        } else {
+            lambda_min = 0.5L * (trace - gap);
+            lambda_max =
+                lambda_min != 0.0L
+                    ? determinant / lambda_min
+                    : 0.5L * (trace + gap);
+        }
+
+        if (lambda_max < lambda_min) {
+            std::swap(lambda_max, lambda_min);
+        }
+    }
+
+    const long double curvature_scale =
+        operator_scale * second_scale / metric_scale;
+    const long double maximum = lambda_max * curvature_scale;
+    const long double minimum = lambda_min * curvature_scale;
+    if (!std::isfinite(maximum) || !std::isfinite(minimum)) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    return SymmetricPrincipalValues{
+        .maximum = maximum,
+        .minimum = minimum,
+        .is_umbilic = is_umbilic,
+    };
 }
 
 } // namespace
@@ -262,6 +414,31 @@ surface_second_order_geometry(
     }
     return detail::surface_second_order_geometry(
         *metric_normal, second_derivatives);
+}
+
+std::expected<SurfacePrincipalCurvatures, SurfaceDifferentialError>
+surface_principal_curvatures(
+    const SurfaceSecondOrderGeometry3& geometry) noexcept {
+    const auto principal = metric_whitened_principal_values(
+        geometry.metric_normal.first_fundamental_form,
+        geometry.metric_normal.area_density,
+        geometry.second_fundamental_form);
+    if (!principal.has_value()) {
+        return std::unexpected{principal.error()};
+    }
+
+    const auto maximum = representable_double(principal->maximum);
+    const auto minimum = representable_double(principal->minimum);
+    if (!maximum.has_value() || !minimum.has_value()) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    return SurfacePrincipalCurvatures{
+        .maximum_curvature = *maximum,
+        .minimum_curvature = *minimum,
+        .is_umbilic = principal->is_umbilic,
+    };
 }
 
 } // namespace apmesh::core
