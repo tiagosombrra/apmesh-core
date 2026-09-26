@@ -88,14 +88,15 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  PRINCIPAL CURVATURE VALUES IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
+  PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
+  INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**;
 - entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
 - decision closure PR #195:
   `10c2c7ab2231721a28858b9395aa6f0eb9b2d603`;
 - closure post-merge FAST `36115414541` and INTEGRATION
   `36115414557`: PASS;
-- protected-main ordinary semantic inventory: **38 tests**;
+- protected-main ordinary semantic inventory: **39 tests**;
 - integrated first-order work item:
   **Pointwise Surface Regularity, First Fundamental Form, Area Density, and
   Oriented Unit Normal in 3D**;
@@ -138,72 +139,32 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Implement Pointwise Ordered Principal Curvature Values plus Exact
-Represented-Data Umbilic State.**
+**Close the integrated Pointwise Ordered Principal Curvature Values plus Exact
+Represented-Data Umbilic State implementation.**
 
-Closed decision evidence:
+Implementation evidence:
 
-- decision PR #206:
-  `8d42bf38871d7a79f1c01aacbad77ed5e106505f`;
-- decision closure PR #207 head:
-  `937f90b8fbac129bb4e92e30db5d42dfb2dcff6c`;
-- closure PR FAST `36191030571`: PASS;
-- closure PR INTEGRATION `36191030276`: PASS;
-- closure merge:
-  `bb33396050b4ccc85ca9cc4e1683d491e89bcac0`;
-- closure post-merge FAST `36191169978`: PASS;
-- closure post-merge INTEGRATION `36191169982`: PASS.
+- final PR head:
+  `6c04e1a370f3b7a8a20e082040e46efe5aadb90e`;
+- final PR FAST `36209969064`: PASS, 39/39;
+- final PR INTEGRATION `36209969075`: PASS, 39/39 in GCC 13 Debug and
+  Clang 18/libc++ Debug;
+- PR #208 merge:
+  `3d0635d0a9420d48a1820905709bea367c96cec0`;
+- post-merge FAST `36210105115`: PASS, 39/39;
+- post-merge INTEGRATION `36210105079`: PASS, 39/39;
+- implementation audit:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-implementation-audit.md`.
 
-Active branch:
-`surface/principal-curvature-values`.
+Closure branch:
+`docs/surface-principal-curvature-values-implementation-closure`.
 
-Decision authority:
-`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
+No production work item is active during this closure.
 
-The implementation is restricted to scalar principal values and exact
-represented-data umbilic state, reusing the existing first/second fundamental
-forms and SurfaceDifferentialError vocabulary.
-
-Principal directions, tolerance/conditioning policy, representation breadth,
-trimming/topology, discretization/sizing, anisotropy and meshing remain
-unauthorized.
-
-Candidate repository mapping:
-
-- `include/apmesh/geometry/surface_differential.hpp`;
-- `src/geometry/surface_differential.cpp`;
-- `tests/surface_principal_curvatures.cpp`;
-- `CMakeLists.txt`.
-
-Candidate numerical strategy:
-
-- normalize I and II independently;
-- use the already validated area density to form a Cholesky-equivalent metric
-  whitening without evaluating `EG-F^2` by subtraction;
-- solve the whitened symmetric 2x2 problem using `hypot`;
-- recover the cancellation-prone eigenvalue through the determinant when
-  possible;
-- mark umbilic only when the represented whitened operator has exactly zero
-  off-diagonal and exactly equal diagonal entries;
-- convert final principal values only when finite double representation exists.
-
-Expected ordinary inventory after focused registration: **39 tests**.
-
-Candidate validation:
-
-- head `a59f52933a829410e7b24f505caa25092b0671fe`;
-- FAST `36209864983`: PASS, 39/39 tests;
-- INTEGRATION `36209865005`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 39/39 tests per cell;
-- focused `apmesh_core.surface_principal_curvatures`: PASS in all three
-  jobs;
-- candidate audit:
-  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`.
-
-Current status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+After closure, no next capability is pre-authorized. A fresh decision must
+recompare principal directions, conditioning diagnostics, remaining surface
+representation breadth, trimming/topology, Boundary Curve Discretization and
+possible Surface Differential Geometry qualification readiness.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
