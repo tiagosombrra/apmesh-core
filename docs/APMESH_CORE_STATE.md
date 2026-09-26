@@ -135,6 +135,21 @@ No principal directions, conditioning diagnostics, cone, torus, full-periodic
 seams, general trimming/p-curves/topological faces, Boundary Curve
 Discretization or qualification capability is authorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/elementary_surface.hpp`;
+- `src/geometry/elementary_surface.cpp`;
+- `tests/surface_sphere.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / decision.
+
+Candidate status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
+No common surface, placement or differential-production contract was modified.
+Expected ordinary semantic inventory after registration: **40 tests**.
+
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
 The material below is retained for provenance of the earlier Topological Model
