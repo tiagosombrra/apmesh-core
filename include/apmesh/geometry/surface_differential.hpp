@@ -64,6 +64,22 @@ surface_second_order_geometry(
     const SurfaceFirstDerivatives3& first_derivatives,
     const SurfaceSecondDerivatives3& second_derivatives) noexcept;
 
+
+struct SurfacePrincipalCurvatures {
+    double maximum_curvature{};
+    double minimum_curvature{};
+    bool is_umbilic{};
+
+    [[nodiscard]] bool operator==(
+        const SurfacePrincipalCurvatures&) const noexcept = default;
+};
+
+[[nodiscard]] std::expected<
+    SurfacePrincipalCurvatures,
+    SurfaceDifferentialError>
+surface_principal_curvatures(
+    const SurfaceSecondOrderGeometry3& geometry) noexcept;
+
 namespace detail {
 
 [[nodiscard]] std::expected<
@@ -135,6 +151,21 @@ surface_second_order_geometry(
 
     return detail::surface_second_order_geometry(
         *metric_normal, *second_derivatives);
+}
+
+template <BoundedParametricSurface3 Surface>
+[[nodiscard]] std::expected<
+    SurfacePrincipalCurvatures,
+    SurfaceDifferentialError>
+surface_principal_curvatures(
+    const Surface& surface,
+    const double u,
+    const double v) {
+    const auto geometry = surface_second_order_geometry(surface, u, v);
+    if (!geometry.has_value()) {
+        return std::unexpected{geometry.error()};
+    }
+    return surface_principal_curvatures(*geometry);
 }
 
 } // namespace apmesh::core
