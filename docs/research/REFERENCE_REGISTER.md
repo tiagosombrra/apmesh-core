@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific and Engineering Reference Register
 
 Status: ACTIVE
-Last updated: 2026-09-25
+Last updated: 2026-09-26
 Roadmap: `docs/APMESH_CORE_ROADMAP.md`
 
 ## Purpose
@@ -1637,6 +1637,82 @@ Project relevance:
 - supports placing arbitrary-axis semantics before a general bounded revolution
   surface;
 - does not authorize periodic/revolution production in the placement work unit.
+
+### Open CASCADE — spherical surface parameterization and polar seams
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded analytic sphere
+decision, reviewed 2026-09-26.
+
+Official reference:
+https://dev.opencascade.org/doc/occt-7.6.0/refman/html/class_geom___spherical_surface.html
+
+Project relevance:
+
+- sphere uses local 3D placement plus radius;
+- canonical parameterization is
+  `O + R sin(v) Z + R cos(v)(cos(u)X + sin(u)Y)`;
+- natural bounds are U in `[0,2*pi]` and V in
+  `[-pi/2,+pi/2]`;
+- U is periodic while V is not;
+- first and second partial derivatives are explicit;
+- the latitude endpoints collapse U tangent magnitude and expose canonical
+  polar parameterization singularities;
+- supports a strict sub-`2*pi` bounded sector before full-periodic seam
+  semantics.
+
+### Open CASCADE — cone and torus complexity retained after sphere
+
+Status: `FOUNDATIONAL / COMPARATIVE` for elementary-surface sequencing,
+reviewed 2026-09-26.
+
+Official references:
+
+- cone:
+  https://dev.opencascade.org/doc/refman/html/class_geom___conical_surface.html
+- torus:
+  https://dev.opencascade.org/doc/occt-7.9.0/refman/html/class_geom___toroidal_surface.html
+
+Project relevance:
+
+- cone additionally requires reference radius, semi-angle, natural unbounded V
+  and apex-specific singular semantics;
+- torus requires major/minor radii and two periodic angular directions;
+- supports selecting bounded sphere before either family without treating them
+  as implicitly covered.
+
+### Patrikalakis, Maekawa and Cho — principal directions and curvature lines
+
+Status: `FOUNDATIONAL / SCOPING` for deferring principal-direction API,
+reviewed 2026-09-26.
+
+Reference:
+https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node186.html
+
+Project relevance:
+
+- principal directions correspond to extremal normal-curvature directions;
+- non-umbilic principal directions are orthogonal;
+- curvature-line integration requires more than isolated pointwise
+  eigenvectors;
+- umbilic points do not provide a unique principal direction;
+- supports designing line-field/sign/umbilic semantics separately from scalar
+  principal values.
+
+### Open CASCADE face/p-curve seam — general trimming remains cross-layer
+
+Status: `FOUNDATIONAL / SCOPING` for later general trimming/topological face
+work, reviewed 2026-09-26.
+
+Reference family:
+https://dev.opencascade.org/doc/refman/html/class_b_rep_builder_a_p_i___make_face.html
+
+Project relevance:
+
+- non-planar face construction couples topological boundaries to curves in an
+  underlying surface parameter space;
+- supports retaining p-curves, loop orientation and explicit face identity as
+  a separate cross-layer decision before CAD-like general trimming or shared
+  boundary certification.
 
 ## Surface Differential Geometry
 
