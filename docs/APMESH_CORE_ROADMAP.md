@@ -1920,9 +1920,21 @@ API/source, one focused sphere contract and CMake registration. It is awaiting
 FAST/INTEGRATION validation and does not alter common surface/differential
 contracts.
 
+Candidate validation:
+
+- head `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
+- FAST `36263014748`: PASS, 40/40;
+- INTEGRATION `36263014773`: PASS, 40/40 in GCC and Clang;
+- candidate audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`.
+
+The audit/documentation synchronization itself requires a fresh green
+FAST/INTEGRATION head before integration.
+
 Current candidate status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL-HEAD REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicitly deferred:
 
