@@ -4,6 +4,30 @@ Date: 2026-09-26
 Status: SIX DEVELOPMENT CELLS PASS / VALIDATED_UNMERGED / NOT QUALIFIED
 Scope: bounded portability maintenance, not scientific qualification
 
+## Execution checkpoint and work-class accounting
+
+- protected-main baseline: `23c9a93d6b06f10a33b4ce41b8fc18f801b7752e`;
+- preset/documentation checkpoint: `a9355cd597e56e33808f8a9497d70a553006d8fd`;
+- exact production/test revision validated by the six local development cells:
+  `65ec6e8514e82e5add62f0c2fb53f049c29be215`;
+- publication checkpoint before this audit-traceability amendment:
+  `60676a6cd86ad9ca79ce7c96b6e1091f92801f9b`, which changes only the
+  operational worklog relative to the validated production/test revision;
+- PR #217 required remote checks on that publication checkpoint:
+  FAST #588 PASS and INTEGRATION #579 PASS;
+- no qualification manifest, certificate, retention package or formal campaign
+  was produced or consumed.
+
+Repository work-class accounting for this bounded maintenance execution is:
+**60% implementation, 30% tests/validation, 0% evidence/experiments, and
+10% documentation/governance**. These percentages are process accounting only;
+they are not scientific completion or qualification scores.
+
+The exact next admissible action is review and integration of PR #217 only
+after required checks are green on its current head, followed by protected-main
+FAST/INTEGRATION validation and continuity synchronization. No new scientific
+decision or capability is authorized before that closure.
+
 ## Baseline and failure
 
 The implementation baseline is protected-main revision
