@@ -716,3 +716,38 @@ The next scientific capability must be selected by a fresh literature-backed
 decision. Principal directions, conditioning diagnostics, representation
 breadth, trimming/topology, Boundary Curve Discretization and qualification
 readiness remain separate candidates; none is pre-authorized.
+
+
+## 34. Terminal publication checkpoint
+
+Terminal publication PR #210 used head:
+
+`466075be5fcdfaaf81d3855e3f1fe65e7af02b05`.
+
+PR validation:
+
+- FAST `36251427419`: PASS;
+- INTEGRATION `36251427426`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #210 merged as:
+
+`7cfd7cc34ecd813f8ec44a0356ec1ba172de26eb`.
+
+Protected-main validation:
+
+- FAST `36251514891`: PASS;
+- INTEGRATION `36251514909`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Published terminal result:
+
+**PRINCIPAL CURVATURE VALUES IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
+
+No production work item remains active.
+
+The next scientific action must be selected by a fresh literature-backed
+decision from the candidates retained by the terminal closure audit. No
+candidate is pre-authorized.
