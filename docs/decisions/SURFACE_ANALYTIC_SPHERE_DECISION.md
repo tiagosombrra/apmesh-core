@@ -905,3 +905,51 @@ Current status:
 
 **IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
 FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+
+## 39. Implementation integration checkpoint
+
+Initial validated candidate:
+
+`363ad75f50d51886dc8cc9c48647fc3cf94e57d0`.
+
+Candidate validation:
+
+- FAST `36263014748`: PASS, 40/40;
+- INTEGRATION `36263014773`: PASS, 40/40 in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+Final immutable PR head:
+
+`0fb729054b0d3fa97045c0238ed4de9ce2e94d3d`.
+
+Final PR validation:
+
+- FAST `36263188269`: PASS, 40/40;
+- INTEGRATION `36263188266`: PASS, 40/40 in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+PR #214 merged as:
+
+`461c3f04454cc4f8aa789d9baba5085362aa6254`.
+
+Protected-main validation:
+
+- FAST `36263360375`: PASS, 40/40;
+- INTEGRATION `36263360805`: PASS, 40/40 in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+Implementation audit:
+
+`docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`.
+
+Integrated implementation result:
+
+**BOUNDED ANALYTIC SPHERE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED /
+SURFACE REPRESENTATION NOT QUALIFIED /
+SURFACE DIFFERENTIAL GEOMETRY NOT QUALIFIED.**
+
+The implementation is ready for documentation/continuity closure.
+
+No next capability is selected by this checkpoint.
