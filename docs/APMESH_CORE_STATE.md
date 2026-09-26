@@ -168,6 +168,31 @@ Principal directions, tolerance/conditioning policy, representation breadth,
 trimming/topology, discretization/sizing, anisotropy and meshing remain
 unauthorized.
 
+Candidate repository mapping:
+
+- `include/apmesh/geometry/surface_differential.hpp`;
+- `src/geometry/surface_differential.cpp`;
+- `tests/surface_principal_curvatures.cpp`;
+- `CMakeLists.txt`.
+
+Candidate numerical strategy:
+
+- normalize I and II independently;
+- use the already validated area density to form a Cholesky-equivalent metric
+  whitening without evaluating `EG-F^2` by subtraction;
+- solve the whitened symmetric 2x2 problem using `hypot`;
+- recover the cancellation-prone eigenvalue through the determinant when
+  possible;
+- mark umbilic only when the represented whitened operator has exactly zero
+  off-diagonal and exactly equal diagonal entries;
+- convert final principal values only when finite double representation exists.
+
+Expected ordinary inventory after focused registration: **39 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
 The material below is retained for provenance of the earlier Topological Model
