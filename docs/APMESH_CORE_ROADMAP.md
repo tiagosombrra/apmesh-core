@@ -1883,28 +1883,31 @@ Current scientific work focus:
 
 **Surface Differential Geometry — Ordered Principal Curvature Values +
 Exact Represented-Data Umbilic State — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
-NOT QUALIFIED**
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
 
-Implementation evidence:
+Terminal work-unit evidence:
 
-- final PR head:
-  `6c04e1a370f3b7a8a20e082040e46efe5aadb90e`;
-- FAST `36209969064`: PASS, 39/39;
-- INTEGRATION `36209969075`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 39/39;
-- PR #208 merge:
+- implementation PR #208 merge:
   `3d0635d0a9420d48a1820905709bea367c96cec0`;
-- post-merge FAST `36210105115`: PASS, 39/39;
-- post-merge INTEGRATION `36210105079`: PASS, 39/39;
-- implementation audit:
-  `docs/audits/2026-09-25-surface-principal-curvature-values-implementation-audit.md`.
+- implementation post-merge FAST `36210105115`: PASS, 39/39;
+- implementation post-merge INTEGRATION `36210105079`: PASS, 39/39;
+- closure PR #209 head:
+  `e4c57e01620537b28f3adc9b28cec2c8ab633cb0`;
+- closure PR FAST `36210457108`: PASS;
+- closure PR INTEGRATION `36210457161`: PASS;
+- closure merge:
+  `9bb98935391b6d3a8f923ca3011002de4d823e0f`;
+- closure post-merge FAST `36210558469`: PASS;
+- closure post-merge INTEGRATION `36210558481`: PASS;
+- terminal closure audit:
+  `docs/audits/2026-09-26-surface-principal-curvature-values-terminal-closure.md`.
 
-Closure branch:
-`docs/surface-principal-curvature-values-implementation-closure`.
+Terminal publication branch:
+`docs/surface-principal-curvature-values-terminal-sync`.
 
-After closure integration and post-merge validation, open one fresh
-literature-backed decision comparing:
+After this terminal publication is integrated and post-merge validated, open
+one fresh literature-backed decision comparing:
 
 - principal directions / line-field semantics;
 - explicit conditioning diagnostics;

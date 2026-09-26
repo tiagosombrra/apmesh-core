@@ -82,14 +82,14 @@ The greenfield implementation must eventually be usable as a library inside a la
 ## Current repository checkpoint
 
 Authoritative continuation snapshot after fresh remote reconciliation on
-2026-09-25:
+2026-09-26:
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
   PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
-  INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**;
+  INTEGRATED / CLOSED / NOT QUALIFIED**;
 - entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
 - decision closure PR #195:
@@ -139,32 +139,42 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Close the integrated Pointwise Ordered Principal Curvature Values plus Exact
-Represented-Data Umbilic State implementation.**
+**Publish the terminal closed Principal Curvature Values checkpoint; no
+production work item is active.**
 
-Implementation evidence:
+Terminal work-unit evidence:
 
-- final PR head:
-  `6c04e1a370f3b7a8a20e082040e46efe5aadb90e`;
-- final PR FAST `36209969064`: PASS, 39/39;
-- final PR INTEGRATION `36209969075`: PASS, 39/39 in GCC 13 Debug and
-  Clang 18/libc++ Debug;
-- PR #208 merge:
+- implementation PR #208 merge:
   `3d0635d0a9420d48a1820905709bea367c96cec0`;
-- post-merge FAST `36210105115`: PASS, 39/39;
-- post-merge INTEGRATION `36210105079`: PASS, 39/39;
-- implementation audit:
-  `docs/audits/2026-09-25-surface-principal-curvature-values-implementation-audit.md`.
+- implementation post-merge FAST `36210105115`: PASS, 39/39;
+- implementation post-merge INTEGRATION `36210105079`: PASS, 39/39;
+- implementation closure PR #209 head:
+  `e4c57e01620537b28f3adc9b28cec2c8ab633cb0`;
+- closure PR FAST `36210457108`: PASS;
+- closure PR INTEGRATION `36210457161`: PASS;
+- closure merge:
+  `9bb98935391b6d3a8f923ca3011002de4d823e0f`;
+- closure post-merge FAST `36210558469`: PASS;
+- closure post-merge INTEGRATION `36210558481`: PASS;
+- terminal closure audit:
+  `docs/audits/2026-09-26-surface-principal-curvature-values-terminal-closure.md`.
 
-Closure branch:
-`docs/surface-principal-curvature-values-implementation-closure`.
+Terminal result:
 
-No production work item is active during this closure.
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED.**
 
-After closure, no next capability is pre-authorized. A fresh decision must
-recompare principal directions, conditioning diagnostics, remaining surface
-representation breadth, trimming/topology, Boundary Curve Discretization and
-possible Surface Differential Geometry qualification readiness.
+Terminal publication branch:
+`docs/surface-principal-curvature-values-terminal-sync`.
+
+After this documentation-only publication merges and passes post-merge
+FAST/INTEGRATION, the sole admissible action is one fresh literature-backed
+decision comparing principal directions, conditioning diagnostics, remaining
+surface representation breadth, trimming/topology, Boundary Curve
+Discretization readiness and bounded Surface Differential Geometry
+qualification readiness.
+
+No candidate is pre-authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
