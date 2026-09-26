@@ -1883,70 +1883,44 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Spherical Surface Sector in 3D —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
+Implementation evidence:
 
-Closed decision checkpoint:
-
-- decision merge:
-  `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
-- closure merge:
-  `95c8bce38aa5a2312e6c09eb9e31578618374cf0`;
-- closure post-merge FAST `36262353372`: PASS;
-- closure post-merge INTEGRATION `36262353395`: PASS.
-
-Active branch:
-`surface/analytic-sphere`.
-
-Authorized implementation:
-
-- `BoundedSphereSurface3`;
-- existing `AxisPlacement3`;
-- radius > 0;
-- bounded U width < represented `2*pi`;
-- latitude bounds within represented `[-pi/2,+pi/2]`;
-- exact canonical pole representation;
-- analytic value/first/second partials;
-- U/V reversal;
-- independent sphere oracle;
-- metric/normal/K/H/principal-value/umbilic conformance;
-- exact pole singularity in the generic differential layer;
-- one focused contract, targeting 40 ordinary tests.
-
-Candidate implementation is mapped only to the authorized elementary-surface
-API/source, one focused sphere contract and CMake registration. It is awaiting
-FAST/INTEGRATION validation and does not alter common surface/differential
-contracts.
-
-Candidate validation:
-
-- head `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
-- FAST `36263014748`: PASS, 40/40;
-- INTEGRATION `36263014773`: PASS, 40/40 in GCC and Clang;
+- final PR head:
+  `0fb729054b0d3fa97045c0238ed4de9ce2e94d3d`;
+- final FAST `36263188269`: PASS, 40/40;
+- final INTEGRATION `36263188266`: PASS, 40/40 in GCC and Clang;
+- PR #214 merge:
+  `461c3f04454cc4f8aa789d9baba5085362aa6254`;
+- post-merge FAST `36263360375`: PASS, 40/40;
+- post-merge INTEGRATION `36263360805`: PASS, 40/40;
 - candidate audit:
-  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`.
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`;
+- implementation audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`.
 
-The audit/documentation synchronization itself requires a fresh green
-FAST/INTEGRATION head before integration.
+Closure branch:
+`docs/surface-analytic-sphere-implementation-closure`.
 
-Current candidate status:
+No production work item is active.
 
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL-HEAD REVALIDATION PENDING / NOT QUALIFIED.**
+After this closure is integrated and protected-main validated, a fresh
+literature-backed decision must compare:
 
-Explicitly deferred:
-
+- analytic cone;
+- analytic torus;
 - principal directions/line fields;
 - conditioning diagnostics;
-- cone;
-- torus;
-- full-periodic sphere/cylinder seams;
 - general trimming/p-curves/topological faces;
-- Boundary Curve Discretization;
-- Surface Representation qualification;
-- Surface Differential Geometry qualification.
+- Surface Representation qualification readiness;
+- Surface Differential Geometry qualification readiness;
+- Boundary Curve Discretization readiness.
+
+No option is preselected.
+
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
 Surface Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
