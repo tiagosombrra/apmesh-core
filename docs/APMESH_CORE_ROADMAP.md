@@ -1915,6 +1915,15 @@ Authorized implementation:
 - exact pole singularity in the generic differential layer;
 - one focused contract, targeting 40 ordinary tests.
 
+Candidate implementation is mapped only to the authorized elementary-surface
+API/source, one focused sphere contract and CMake registration. It is awaiting
+FAST/INTEGRATION validation and does not alter common surface/differential
+contracts.
+
+Current candidate status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicitly deferred:
 
 - principal directions/line fields;
