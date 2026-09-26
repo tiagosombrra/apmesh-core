@@ -560,6 +560,27 @@ Required implementation:
 - preserve existing differential error propagation;
 - target ordinary inventory: **39 tests**.
 
+Candidate implementation mapping:
+
+- `include/apmesh/geometry/surface_differential.hpp`:
+  adds `SurfacePrincipalCurvatures` and value/surface overloads;
+- `src/geometry/surface_differential.cpp`:
+  adds metric-whitened symmetric 2x2 principal-value evaluation with
+  scale-aware normalization and stable small-eigenvalue recovery;
+- `tests/surface_principal_curvatures.cpp`:
+  covers plane/cylinder, elliptic/hyperbolic/parabolic synthetic cases,
+  exact/near umbilics, non-orthogonal metric, H/K identities, reversal,
+  scaling, translation/frame covariance, extreme finite behavior, error
+  propagation and determinism;
+- `CMakeLists.txt`:
+  registers the 39th ordinary semantic contract.
+
+No concrete surface representation source is changed.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no principal directions or line fields;
