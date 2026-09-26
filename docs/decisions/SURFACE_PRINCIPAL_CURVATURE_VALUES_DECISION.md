@@ -600,9 +600,22 @@ Focused evidence includes:
 
 Expected ordinary semantic inventory: **39 tests**.
 
+Candidate validation:
+
+- candidate head:
+  `a59f52933a829410e7b24f505caa25092b0671fe`;
+- FAST `36209864983`: PASS, 39/39 ordinary semantic tests;
+- INTEGRATION `36209865005`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 39/39 tests per cell;
+- `apmesh_core.surface_principal_curvatures`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- candidate audit:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No principal direction, conditioning threshold, representation breadth,
 trimming/topology, discretization/sizing, anisotropic or meshing capability is
