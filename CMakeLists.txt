@@ -122,6 +122,21 @@ if(BUILD_TESTING AND APMESH_ENABLE_QUALIFICATION_TESTS)
 endif()
 
 if(BUILD_TESTING)
+    add_executable(apmesh_core.scaled_spline_arithmetic
+        tests/scaled_spline_arithmetic.cpp
+    )
+    target_include_directories(apmesh_core.scaled_spline_arithmetic
+        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/geometry
+    )
+    target_link_libraries(apmesh_core.scaled_spline_arithmetic PRIVATE apmesh::core)
+    apmesh_apply_target_defaults(apmesh_core.scaled_spline_arithmetic)
+    add_test(NAME apmesh_core.scaled_spline_arithmetic
+        COMMAND apmesh_core.scaled_spline_arithmetic
+    )
+    set_tests_properties(apmesh_core.scaled_spline_arithmetic
+        PROPERTIES LABELS "geometry;numeric;contract;focused-contract;fast;integration"
+    )
+
     add_executable(apmesh_core_bootstrap_smoke
         tests/bootstrap_smoke.cpp
     )

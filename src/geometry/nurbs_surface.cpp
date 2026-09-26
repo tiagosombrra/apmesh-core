@@ -1,5 +1,7 @@
 #include "apmesh/geometry/nurbs_surface.hpp"
 
+#include "scaled_arithmetic.hpp"
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -14,11 +16,13 @@
 namespace apmesh::core {
 namespace {
 
+using detail::Scaled;
+
 struct Homogeneous4 {
-    long double x{};
-    long double y{};
-    long double z{};
-    long double w{};
+    Scaled x{};
+    Scaled y{};
+    Scaled z{};
+    Scaled w{};
 };
 
 template <std::size_t UCount, std::size_t VCount>
@@ -26,21 +30,21 @@ using HomogeneousNet =
     std::array<std::array<Homogeneous4, VCount>, UCount>;
 
 [[nodiscard]] bool finite(const Homogeneous4& value) noexcept {
-    return std::isfinite(value.x) &&
-           std::isfinite(value.y) &&
-           std::isfinite(value.z) &&
-           std::isfinite(value.w);
+    return detail::is_finite(value.x) &&
+           detail::is_finite(value.y) &&
+           detail::is_finite(value.z) &&
+           detail::is_finite(value.w);
 }
 
 [[nodiscard]] Homogeneous4 interpolate(
     const Homogeneous4& lhs,
     const Homogeneous4& rhs,
-    const long double parameter) noexcept {
+    const Scaled parameter) noexcept {
     return Homogeneous4{
-        .x = std::lerp(lhs.x, rhs.x, parameter),
-        .y = std::lerp(lhs.y, rhs.y, parameter),
-        .z = std::lerp(lhs.z, rhs.z, parameter),
-        .w = std::lerp(lhs.w, rhs.w, parameter),
+        .x = detail::lerp(lhs.x, rhs.x, parameter),
+        .y = detail::lerp(lhs.y, rhs.y, parameter),
+        .z = detail::lerp(lhs.z, rhs.z, parameter),
+        .w = detail::lerp(lhs.w, rhs.w, parameter),
     };
 }
 
@@ -48,10 +52,10 @@ using HomogeneousNet =
     const SurfaceParameterDomain& domain,
     const double u,
     const double v) noexcept {
-    if (!std::isfinite(u)) {
+    if (!detail::is_finite(u)) {
         return std::unexpected{SurfaceError::non_finite_u_parameter};
     }
-    if (!std::isfinite(v)) {
+    if (!detail::is_finite(v)) {
         return std::unexpected{SurfaceError::non_finite_v_parameter};
     }
     if (u < domain.u.lower() || u > domain.u.upper()) {
@@ -63,37 +67,19 @@ using HomogeneousNet =
     return {};
 }
 
-[[nodiscard]] std::expected<long double, SurfaceError> parameter_ratio(
+[[nodiscard]] std::expected<Scaled, SurfaceError> parameter_ratio(
     const double value,
     const double lower,
     const double upper) noexcept {
-    long double wide_value = static_cast<long double>(value);
-    long double wide_lower = static_cast<long double>(lower);
-    long double wide_upper = static_cast<long double>(upper);
-
-    long double numerator = wide_value - wide_lower;
-    long double denominator = wide_upper - wide_lower;
-
-    if (!std::isfinite(numerator) || !std::isfinite(denominator)) {
-        const long double scale = std::max(
-            {std::abs(wide_value), std::abs(wide_lower), std::abs(wide_upper)});
-        if (!std::isfinite(scale) || scale == 0.0L) {
-            return std::unexpected{SurfaceError::non_finite_result};
-        }
-        wide_value /= scale;
-        wide_lower /= scale;
-        wide_upper /= scale;
-        numerator = wide_value - wide_lower;
-        denominator = wide_upper - wide_lower;
-    }
-
-    if (!std::isfinite(numerator) || !std::isfinite(denominator) ||
+    const Scaled numerator = Scaled{value} - Scaled{lower};
+    const Scaled denominator = Scaled{upper} - Scaled{lower};
+    if (!detail::is_finite(numerator) || !detail::is_finite(denominator) ||
         denominator <= 0.0L) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
 
-    const long double ratio = numerator / denominator;
-    if (!std::isfinite(ratio) || ratio < 0.0L || ratio > 1.0L) {
+    const Scaled ratio = numerator / denominator;
+    if (!detail::is_finite(ratio) || ratio < 0.0L || ratio > 1.0L) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
     return ratio;
@@ -142,23 +128,23 @@ template <std::size_t Degree>
     return work[Degree];
 }
 
-[[nodiscard]] std::expected<long double, SurfaceError> scaled_difference(
-    const long double next,
-    const long double current,
+[[nodiscard]] std::expected<Scaled, SurfaceError> scaled_difference(
+    const Scaled next,
+    const Scaled current,
     const int degree,
     const double lower_knot,
     const double upper_knot) noexcept {
-    const long double denominator =
-        static_cast<long double>(upper_knot) -
-        static_cast<long double>(lower_knot);
-    const long double numerator =
-        static_cast<long double>(degree) * (next - current);
-    if (!std::isfinite(denominator) || denominator <= 0.0L ||
-        !std::isfinite(numerator)) {
+    const Scaled denominator =
+        static_cast<Scaled>(upper_knot) -
+        static_cast<Scaled>(lower_knot);
+    const Scaled numerator =
+        static_cast<Scaled>(degree) * (next - current);
+    if (!detail::is_finite(denominator) || denominator <= 0.0L ||
+        !detail::is_finite(numerator)) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
-    const long double result = numerator / denominator;
-    if (!std::isfinite(result)) {
+    const Scaled result = numerator / denominator;
+    if (!detail::is_finite(result)) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
     return result;
@@ -308,14 +294,14 @@ template <
         for (std::size_t v_local = 0; v_local < 4U; ++v_local) {
             const std::size_t index =
                 (u_start + u_local) * v_control_count + (v_start + v_local);
-            const long double weight =
-                static_cast<long double>(weights[index]) /
-                static_cast<long double>(maximum_weight);
+            const Scaled weight =
+                static_cast<Scaled>(weights[index]) /
+                static_cast<Scaled>(maximum_weight);
             const Point3& point = points[index];
             result[u_local][v_local] = Homogeneous4{
-                .x = static_cast<long double>(point.x()) * weight,
-                .y = static_cast<long double>(point.y()) * weight,
-                .z = static_cast<long double>(point.z()) * weight,
+                .x = static_cast<Scaled>(point.x()) * weight,
+                .y = static_cast<Scaled>(point.y()) * weight,
+                .z = static_cast<Scaled>(point.z()) * weight,
                 .w = weight,
             };
         }
@@ -478,23 +464,23 @@ struct HomogeneousJet {
 }
 
 [[nodiscard]] std::expected<double, SurfaceError> to_double(
-    const long double value) noexcept {
-    constexpr long double maximum =
-        static_cast<long double>(std::numeric_limits<double>::max());
-    if (!std::isfinite(value) || value > maximum || value < -maximum) {
+    const Scaled value) noexcept {
+    const Scaled maximum =
+        static_cast<Scaled>(std::numeric_limits<double>::max());
+    if (!detail::is_finite(value) || value > maximum || value < -maximum) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
     const double converted = static_cast<double>(value);
-    if (!std::isfinite(converted)) {
+    if (!detail::is_finite(converted)) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
     return converted;
 }
 
 struct LongVector3 {
-    long double x{};
-    long double y{};
-    long double z{};
+    Scaled x{};
+    Scaled y{};
+    Scaled z{};
 };
 
 [[nodiscard]] std::expected<LongVector3, SurfaceError> dehomogenize_value(
@@ -507,9 +493,9 @@ struct LongVector3 {
         .y = value.y / value.w,
         .z = value.z / value.w,
     };
-    if (!std::isfinite(result.x) ||
-        !std::isfinite(result.y) ||
-        !std::isfinite(result.z)) {
+    if (!detail::is_finite(result.x) ||
+        !detail::is_finite(result.y) ||
+        !detail::is_finite(result.z)) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
     return result;
@@ -527,9 +513,9 @@ struct LongVector3 {
         .y = (derivative.y - point->y * derivative.w) / value.w,
         .z = (derivative.z - point->z * derivative.w) / value.w,
     };
-    if (!std::isfinite(result.x) ||
-        !std::isfinite(result.y) ||
-        !std::isfinite(result.z)) {
+    if (!detail::is_finite(result.x) ||
+        !detail::is_finite(result.y) ||
+        !detail::is_finite(result.z)) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
     return result;
@@ -558,9 +544,9 @@ struct LongVector3 {
               point->z * second.w) /
              value.w,
     };
-    if (!std::isfinite(result.x) ||
-        !std::isfinite(result.y) ||
-        !std::isfinite(result.z)) {
+    if (!detail::is_finite(result.x) ||
+        !detail::is_finite(result.y) ||
+        !detail::is_finite(result.z)) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
     return result;
@@ -595,9 +581,9 @@ dehomogenize_mixed_second(
               point->z * mixed.w) /
              value.w,
     };
-    if (!std::isfinite(result.x) ||
-        !std::isfinite(result.y) ||
-        !std::isfinite(result.z)) {
+    if (!detail::is_finite(result.x) ||
+        !detail::is_finite(result.y) ||
+        !detail::is_finite(result.z)) {
         return std::unexpected{SurfaceError::non_finite_result};
     }
     return result;
@@ -690,7 +676,7 @@ validate_direction(
                       v_interior_knot_count_mismatch};
     }
 
-    if (!std::isfinite(lower)) {
+    if (!detail::is_finite(lower)) {
         return std::unexpected{
             u_direction
                 ? BicubicNURBSSurfaceConstructionError::
@@ -698,7 +684,7 @@ validate_direction(
                 : BicubicNURBSSurfaceConstructionError::
                       non_finite_v_lower_knot};
     }
-    if (!std::isfinite(upper)) {
+    if (!detail::is_finite(upper)) {
         return std::unexpected{
             u_direction
                 ? BicubicNURBSSurfaceConstructionError::
@@ -717,7 +703,7 @@ validate_direction(
 
     double previous = lower;
     for (const double knot : interior_knots) {
-        if (!std::isfinite(knot)) {
+        if (!detail::is_finite(knot)) {
             return std::unexpected{
                 u_direction
                     ? BicubicNURBSSurfaceConstructionError::

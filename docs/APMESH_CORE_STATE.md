@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-25
+Last updated: 2026-09-26
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Operational continuity ledger: `docs/APMESH_CORE_WORKLOG.md`
 Repository state: verify `main`, open PRs, relevant branches, ruleset, recent
@@ -112,6 +112,25 @@ Authoritative continuation snapshot after protected-main validation on
   Geometry Before Discretization — QUALIFIED / CGR0–CGR7 PASS** in the
   admitted cloud envelope.
 
+## Current portability maintenance item
+
+**SIX DEVELOPMENT CELLS PASS / VALIDATED_UNMERGED / NOT QUALIFIED**
+
+The sole current work item is portable scaled intermediate arithmetic for
+the existing two-span B-spline, two-span NURBS, multi-span NURBS and bicubic
+NURBS paths, on `build/native-windows-msvc-presets`. GCC, Clang and MSVC
+Debug/Release pass 41/41 ordinary contracts in each of six cells. A separately
+authorized comparator-equivalent two-bracket compare/swap in `curve.cpp`
+also resolves the observed GCC Release build blocker without warning
+suppression. Publication is admissible; integration/closure remain pending.
+The baseline integrated inventory above remains historical at 40 tests;
+the maintenance candidate has 41. See
+`docs/audits/2026-09-26-portable-spline-arithmetic.md` for arithmetic boundaries,
+validation and retained limitations. Native Windows is not qualified.
+
+No new scientific family, gate or formal campaign is authorized. The next
+scientific action below waits for maintenance integration and closure.
+
 ## Current active scientific action
 
 **None. The bounded analytic spherical-surface work unit is closed.**
@@ -138,7 +157,8 @@ Terminal work-unit result:
 **BOUNDED ANALYTIC SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS /
 INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-No production work item is active.
+No new scientific-capability work item is active; the bounded portability
+maintenance item above is the sole active production change.
 
 Exact next admissible scientific action:
 

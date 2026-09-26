@@ -42,11 +42,15 @@ caches.
 
 ### Native-Windows checkpoint
 
-The Windows development preset has been configured with MSVC x64 and builds
-the project successfully. It is not a native-Windows qualification claim. The
-current `windows-fast` run passes the ordinary contracts except for four
-extreme-finite B-spline/NURBS cases: `two_span_cubic_bspline`,
-`two_span_cubic_nurbs`, `multi_span_cubic_nurbs`, and
-`surface_bicubic_nurbs`. Those cases rely on the extended exponent range of
-`long double`, which MSVC exposes as `double`; a portable scaled-arithmetic
-correction remains required before the Windows FAST preset can pass fully.
+The four B-spline/NURBS evaluation paths now keep private intermediates as a
+normalized significand and a separate binary exponent. Their range no longer
+depends on `long double` having a wider exponent range than `double`. Public
+inputs, outputs, knot policies and explicit unrepresentable-result failures
+are unchanged.
+
+The GCC 13, Clang 18/libc++ and MSVC x64 Debug/Release development runs pass all 41
+ordinary contracts, including the unchanged extreme-finite regressions and a
+new scaled-arithmetic/analytic-jet contract. Native Windows remains outside
+the scientific qualification envelope. The six-cell validation, resolved
+GCC Release sorting blocker and retained numerical limitations are recorded in
+[`the portability audit`](docs/audits/2026-09-26-portable-spline-arithmetic.md).

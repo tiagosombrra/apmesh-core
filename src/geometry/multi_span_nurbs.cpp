@@ -1,5 +1,7 @@
 #include "apmesh/geometry/nurbs.hpp"
 
+#include "scaled_arithmetic.hpp"
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -14,17 +16,19 @@
 namespace apmesh::core {
 namespace {
 
+using detail::Scaled;
+
 struct Homogeneous2 {
-    long double x{};
-    long double y{};
-    long double w{};
+    Scaled x{};
+    Scaled y{};
+    Scaled w{};
 };
 
 struct Homogeneous3 {
-    long double x{};
-    long double y{};
-    long double z{};
-    long double w{};
+    Scaled x{};
+    Scaled y{};
+    Scaled z{};
+    Scaled w{};
 };
 
 [[nodiscard]] std::expected<void, CurveError> validate_parameter(
@@ -40,38 +44,19 @@ struct Homogeneous3 {
     return {};
 }
 
-[[nodiscard]] std::expected<long double, CurveError> parameter_ratio(
+[[nodiscard]] std::expected<Scaled, CurveError> parameter_ratio(
     const double value,
     const double lower,
     const double upper) noexcept {
-    long double wide_value = static_cast<long double>(value);
-    long double wide_lower = static_cast<long double>(lower);
-    long double wide_upper = static_cast<long double>(upper);
-
-    long double numerator = wide_value - wide_lower;
-    long double denominator = wide_upper - wide_lower;
-
-    if (!std::isfinite(numerator) || !std::isfinite(denominator)) {
-        const long double scale = std::max(
-            {std::abs(wide_value), std::abs(wide_lower), std::abs(wide_upper)});
-        if (!std::isfinite(scale) || scale == 0.0L) {
-            return std::unexpected{CurveError::non_finite_result};
-        }
-
-        wide_value /= scale;
-        wide_lower /= scale;
-        wide_upper /= scale;
-        numerator = wide_value - wide_lower;
-        denominator = wide_upper - wide_lower;
-    }
-
-    if (!std::isfinite(numerator) || !std::isfinite(denominator) ||
+    const Scaled numerator = Scaled{value} - Scaled{lower};
+    const Scaled denominator = Scaled{upper} - Scaled{lower};
+    if (!detail::is_finite(numerator) || !detail::is_finite(denominator) ||
         denominator <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
-    const long double ratio = numerator / denominator;
-    if (!std::isfinite(ratio) || ratio < 0.0L || ratio > 1.0L) {
+    const Scaled ratio = numerator / denominator;
+    if (!detail::is_finite(ratio) || ratio < 0.0L || ratio > 1.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
     return ratio;
@@ -91,23 +76,23 @@ struct Homogeneous3 {
 [[nodiscard]] Homogeneous2 lerp_homogeneous(
     const Homogeneous2& lhs,
     const Homogeneous2& rhs,
-    const long double parameter) noexcept {
+    const Scaled parameter) noexcept {
     return {
-        std::lerp(lhs.x, rhs.x, parameter),
-        std::lerp(lhs.y, rhs.y, parameter),
-        std::lerp(lhs.w, rhs.w, parameter),
+        detail::lerp(lhs.x, rhs.x, parameter),
+        detail::lerp(lhs.y, rhs.y, parameter),
+        detail::lerp(lhs.w, rhs.w, parameter),
     };
 }
 
 [[nodiscard]] Homogeneous3 lerp_homogeneous(
     const Homogeneous3& lhs,
     const Homogeneous3& rhs,
-    const long double parameter) noexcept {
+    const Scaled parameter) noexcept {
     return {
-        std::lerp(lhs.x, rhs.x, parameter),
-        std::lerp(lhs.y, rhs.y, parameter),
-        std::lerp(lhs.z, rhs.z, parameter),
-        std::lerp(lhs.w, rhs.w, parameter),
+        detail::lerp(lhs.x, rhs.x, parameter),
+        detail::lerp(lhs.y, rhs.y, parameter),
+        detail::lerp(lhs.z, rhs.z, parameter),
+        detail::lerp(lhs.w, rhs.w, parameter),
     };
 }
 
@@ -141,25 +126,25 @@ template <typename Homogeneous, std::size_t Degree>
     return work[Degree];
 }
 
-[[nodiscard]] std::expected<long double, CurveError> scaled_difference(
-    const long double next,
-    const long double current,
+[[nodiscard]] std::expected<Scaled, CurveError> scaled_difference(
+    const Scaled next,
+    const Scaled current,
     const int degree,
     const double lower_knot,
     const double upper_knot) noexcept {
-    const long double denominator =
-        static_cast<long double>(upper_knot) -
-        static_cast<long double>(lower_knot);
-    const long double numerator =
-        static_cast<long double>(degree) * (next - current);
+    const Scaled denominator =
+        static_cast<Scaled>(upper_knot) -
+        static_cast<Scaled>(lower_knot);
+    const Scaled numerator =
+        static_cast<Scaled>(degree) * (next - current);
 
-    if (!std::isfinite(denominator) || denominator <= 0.0L ||
-        !std::isfinite(numerator)) {
+    if (!detail::is_finite(denominator) || denominator <= 0.0L ||
+        !detail::is_finite(numerator)) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
-    const long double result = numerator / denominator;
-    if (!std::isfinite(result)) {
+    const Scaled result = numerator / denominator;
+    if (!detail::is_finite(result)) {
         return std::unexpected{CurveError::non_finite_result};
     }
     return result;
@@ -216,12 +201,12 @@ template <typename Homogeneous, std::size_t Degree>
     std::array<Homogeneous2, 4> result{};
     for (std::size_t local = 0; local < result.size(); ++local) {
         const std::size_t index = start + local;
-        const long double weight =
-            static_cast<long double>(weights[index]) /
-            static_cast<long double>(maximum_weight);
+        const Scaled weight =
+            static_cast<Scaled>(weights[index]) /
+            static_cast<Scaled>(maximum_weight);
         result[local] = {
-            static_cast<long double>(points[index].x()) * weight,
-            static_cast<long double>(points[index].y()) * weight,
+            static_cast<Scaled>(points[index].x()) * weight,
+            static_cast<Scaled>(points[index].y()) * weight,
             weight,
         };
     }
@@ -241,13 +226,13 @@ template <typename Homogeneous, std::size_t Degree>
     std::array<Homogeneous3, 4> result{};
     for (std::size_t local = 0; local < result.size(); ++local) {
         const std::size_t index = start + local;
-        const long double weight =
-            static_cast<long double>(weights[index]) /
-            static_cast<long double>(maximum_weight);
+        const Scaled weight =
+            static_cast<Scaled>(weights[index]) /
+            static_cast<Scaled>(maximum_weight);
         result[local] = {
-            static_cast<long double>(points[index].x()) * weight,
-            static_cast<long double>(points[index].y()) * weight,
-            static_cast<long double>(points[index].z()) * weight,
+            static_cast<Scaled>(points[index].x()) * weight,
+            static_cast<Scaled>(points[index].y()) * weight,
+            static_cast<Scaled>(points[index].z()) * weight,
             weight,
         };
     }
@@ -427,16 +412,16 @@ evaluate_homogeneous_jet(
 }
 
 [[nodiscard]] std::expected<double, CurveError> to_double(
-    const long double value) noexcept {
-    constexpr long double maximum =
-        static_cast<long double>(std::numeric_limits<double>::max());
+    const Scaled value) noexcept {
+    const Scaled maximum =
+        static_cast<Scaled>(std::numeric_limits<double>::max());
 
-    if (!std::isfinite(value) || value > maximum || value < -maximum) {
+    if (!detail::is_finite(value) || value > maximum || value < -maximum) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
     const double converted = static_cast<double>(value);
-    if (!std::isfinite(converted)) {
+    if (!detail::is_finite(converted)) {
         return std::unexpected{CurveError::non_finite_result};
     }
     return converted;
@@ -444,7 +429,7 @@ evaluate_homogeneous_jet(
 
 [[nodiscard]] std::expected<Point2, CurveError> dehomogenize_point(
     const Homogeneous2& value) noexcept {
-    if (!std::isfinite(value.w) || value.w <= 0.0L) {
+    if (!detail::is_finite(value.w) || value.w <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
@@ -463,7 +448,7 @@ evaluate_homogeneous_jet(
 
 [[nodiscard]] std::expected<Point3, CurveError> dehomogenize_point(
     const Homogeneous3& value) noexcept {
-    if (!std::isfinite(value.w) || value.w <= 0.0L) {
+    if (!detail::is_finite(value.w) || value.w <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
@@ -484,12 +469,12 @@ evaluate_homogeneous_jet(
 [[nodiscard]] std::expected<Vector2, CurveError> dehomogenize_first(
     const Homogeneous2& value,
     const Homogeneous2& first) noexcept {
-    if (!std::isfinite(value.w) || value.w <= 0.0L) {
+    if (!detail::is_finite(value.w) || value.w <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
-    const long double cx = value.x / value.w;
-    const long double cy = value.y / value.w;
+    const Scaled cx = value.x / value.w;
+    const Scaled cy = value.y / value.w;
     const auto x = to_double((first.x - cx * first.w) / value.w);
     const auto y = to_double((first.y - cy * first.w) / value.w);
     if (!x || !y) {
@@ -506,13 +491,13 @@ evaluate_homogeneous_jet(
 [[nodiscard]] std::expected<Vector3, CurveError> dehomogenize_first(
     const Homogeneous3& value,
     const Homogeneous3& first) noexcept {
-    if (!std::isfinite(value.w) || value.w <= 0.0L) {
+    if (!detail::is_finite(value.w) || value.w <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
-    const long double cx = value.x / value.w;
-    const long double cy = value.y / value.w;
-    const long double cz = value.z / value.w;
+    const Scaled cx = value.x / value.w;
+    const Scaled cy = value.y / value.w;
+    const Scaled cz = value.z / value.w;
     const auto x = to_double((first.x - cx * first.w) / value.w);
     const auto y = to_double((first.y - cy * first.w) / value.w);
     const auto z = to_double((first.z - cz * first.w) / value.w);
@@ -531,15 +516,15 @@ evaluate_homogeneous_jet(
     const Homogeneous2& value,
     const Homogeneous2& first,
     const Homogeneous2& second) noexcept {
-    if (!std::isfinite(value.w) || value.w <= 0.0L) {
+    if (!detail::is_finite(value.w) || value.w <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
-    const long double cx = value.x / value.w;
-    const long double cy = value.y / value.w;
-    const long double d1x = (first.x - cx * first.w) / value.w;
-    const long double d1y = (first.y - cy * first.w) / value.w;
-    if (!std::isfinite(d1x) || !std::isfinite(d1y)) {
+    const Scaled cx = value.x / value.w;
+    const Scaled cy = value.y / value.w;
+    const Scaled d1x = (first.x - cx * first.w) / value.w;
+    const Scaled d1y = (first.y - cy * first.w) / value.w;
+    if (!detail::is_finite(d1x) || !detail::is_finite(d1y)) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
@@ -562,17 +547,17 @@ evaluate_homogeneous_jet(
     const Homogeneous3& value,
     const Homogeneous3& first,
     const Homogeneous3& second) noexcept {
-    if (!std::isfinite(value.w) || value.w <= 0.0L) {
+    if (!detail::is_finite(value.w) || value.w <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
-    const long double cx = value.x / value.w;
-    const long double cy = value.y / value.w;
-    const long double cz = value.z / value.w;
-    const long double d1x = (first.x - cx * first.w) / value.w;
-    const long double d1y = (first.y - cy * first.w) / value.w;
-    const long double d1z = (first.z - cz * first.w) / value.w;
-    if (!std::isfinite(d1x) || !std::isfinite(d1y) || !std::isfinite(d1z)) {
+    const Scaled cx = value.x / value.w;
+    const Scaled cy = value.y / value.w;
+    const Scaled cz = value.z / value.w;
+    const Scaled d1x = (first.x - cx * first.w) / value.w;
+    const Scaled d1y = (first.y - cy * first.w) / value.w;
+    const Scaled d1z = (first.z - cz * first.w) / value.w;
+    if (!detail::is_finite(d1x) || !detail::is_finite(d1y) || !detail::is_finite(d1z)) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
@@ -645,11 +630,11 @@ validate_layout(
             MultiSpanNURBSConstructionError::interior_knot_count_mismatch};
     }
 
-    if (!std::isfinite(lower)) {
+    if (!detail::is_finite(lower)) {
         return std::unexpected{
             MultiSpanNURBSConstructionError::non_finite_lower_knot};
     }
-    if (!std::isfinite(upper)) {
+    if (!detail::is_finite(upper)) {
         return std::unexpected{
             MultiSpanNURBSConstructionError::non_finite_upper_knot};
     }
@@ -660,7 +645,7 @@ validate_layout(
 
     double previous = lower;
     for (const double knot : interior_knots) {
-        if (!std::isfinite(knot)) {
+        if (!detail::is_finite(knot)) {
             return std::unexpected{
                 MultiSpanNURBSConstructionError::non_finite_interior_knot};
         }
@@ -676,7 +661,7 @@ validate_layout(
 [[nodiscard]] std::expected<void, MultiSpanNURBSConstructionError>
 validate_weights(const std::span<const double> weights) noexcept {
     for (const double weight : weights) {
-        if (!std::isfinite(weight)) {
+        if (!detail::is_finite(weight)) {
             return std::unexpected{
                 MultiSpanNURBSConstructionError::non_finite_weight};
         }

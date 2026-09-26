@@ -1,5 +1,7 @@
 #include "apmesh/geometry/bspline.hpp"
 
+#include "scaled_arithmetic.hpp"
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -10,100 +12,83 @@
 namespace apmesh::core {
 namespace {
 
+using detail::Scaled;
+
 struct Wide2 {
-    long double x{};
-    long double y{};
+    Scaled x{};
+    Scaled y{};
 };
 
 struct Wide3 {
-    long double x{};
-    long double y{};
-    long double z{};
+    Scaled x{};
+    Scaled y{};
+    Scaled z{};
 };
 
 [[nodiscard]] Wide2 to_wide(const Point2& point) noexcept {
     return {
-        static_cast<long double>(point.x()),
-        static_cast<long double>(point.y()),
+        static_cast<Scaled>(point.x()),
+        static_cast<Scaled>(point.y()),
     };
 }
 
 [[nodiscard]] Wide3 to_wide(const Point3& point) noexcept {
     return {
-        static_cast<long double>(point.x()),
-        static_cast<long double>(point.y()),
-        static_cast<long double>(point.z()),
+        static_cast<Scaled>(point.x()),
+        static_cast<Scaled>(point.y()),
+        static_cast<Scaled>(point.z()),
     };
 }
 
 [[nodiscard]] Wide2 lerp_wide(
     const Wide2& lhs,
     const Wide2& rhs,
-    const long double parameter) noexcept {
+    const Scaled parameter) noexcept {
     return {
-        std::lerp(lhs.x, rhs.x, parameter),
-        std::lerp(lhs.y, rhs.y, parameter),
+        detail::lerp(lhs.x, rhs.x, parameter),
+        detail::lerp(lhs.y, rhs.y, parameter),
     };
 }
 
 [[nodiscard]] Wide3 lerp_wide(
     const Wide3& lhs,
     const Wide3& rhs,
-    const long double parameter) noexcept {
+    const Scaled parameter) noexcept {
     return {
-        std::lerp(lhs.x, rhs.x, parameter),
-        std::lerp(lhs.y, rhs.y, parameter),
-        std::lerp(lhs.z, rhs.z, parameter),
+        detail::lerp(lhs.x, rhs.x, parameter),
+        detail::lerp(lhs.y, rhs.y, parameter),
+        detail::lerp(lhs.z, rhs.z, parameter),
     };
 }
 
-[[nodiscard]] std::expected<long double, CurveError> parameter_ratio(
+[[nodiscard]] std::expected<Scaled, CurveError> parameter_ratio(
     const double value,
     const double lower,
     const double upper) noexcept {
-    long double wide_value = static_cast<long double>(value);
-    long double wide_lower = static_cast<long double>(lower);
-    long double wide_upper = static_cast<long double>(upper);
-
-    long double numerator = wide_value - wide_lower;
-    long double denominator = wide_upper - wide_lower;
-
-    if (!std::isfinite(numerator) || !std::isfinite(denominator)) {
-        const long double scale = std::max(
-            {std::abs(wide_value), std::abs(wide_lower), std::abs(wide_upper)});
-        if (!std::isfinite(scale) || scale == 0.0L) {
-            return std::unexpected{CurveError::non_finite_result};
-        }
-
-        wide_value /= scale;
-        wide_lower /= scale;
-        wide_upper /= scale;
-        numerator = wide_value - wide_lower;
-        denominator = wide_upper - wide_lower;
-    }
-
-    if (!std::isfinite(numerator) || !std::isfinite(denominator) ||
+    const Scaled numerator = Scaled{value} - Scaled{lower};
+    const Scaled denominator = Scaled{upper} - Scaled{lower};
+    if (!detail::is_finite(numerator) || !detail::is_finite(denominator) ||
         denominator <= 0.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
-    const long double ratio = numerator / denominator;
-    if (!std::isfinite(ratio) || ratio < 0.0L || ratio > 1.0L) {
+    const Scaled ratio = numerator / denominator;
+    if (!detail::is_finite(ratio) || ratio < 0.0L || ratio > 1.0L) {
         return std::unexpected{CurveError::non_finite_result};
     }
     return ratio;
 }
 
 [[nodiscard]] std::expected<double, CurveError> to_double(
-    const long double value) noexcept {
-    constexpr long double maximum =
-        static_cast<long double>(std::numeric_limits<double>::max());
-    if (!std::isfinite(value) || value > maximum || value < -maximum) {
+    const Scaled value) noexcept {
+    const Scaled maximum =
+        static_cast<Scaled>(std::numeric_limits<double>::max());
+    if (!detail::is_finite(value) || value > maximum || value < -maximum) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
     const double converted = static_cast<double>(value);
-    if (!std::isfinite(converted)) {
+    if (!detail::is_finite(converted)) {
         return std::unexpected{CurveError::non_finite_result};
     }
     return converted;
@@ -247,25 +232,25 @@ template <typename Wide, std::size_t ControlCount, std::size_t KnotCount>
     return work[static_cast<std::size_t>(degree)];
 }
 
-[[nodiscard]] std::expected<long double, CurveError> scaled_difference(
-    const long double next,
-    const long double current,
+[[nodiscard]] std::expected<Scaled, CurveError> scaled_difference(
+    const Scaled next,
+    const Scaled current,
     const int degree,
     const double lower_knot,
     const double upper_knot) noexcept {
-    const long double denominator =
-        static_cast<long double>(upper_knot) -
-        static_cast<long double>(lower_knot);
-    const long double numerator =
-        static_cast<long double>(degree) * (next - current);
+    const Scaled denominator =
+        static_cast<Scaled>(upper_knot) -
+        static_cast<Scaled>(lower_knot);
+    const Scaled numerator =
+        static_cast<Scaled>(degree) * (next - current);
 
-    if (!std::isfinite(denominator) || denominator <= 0.0L ||
-        !std::isfinite(numerator)) {
+    if (!detail::is_finite(denominator) || denominator <= 0.0L ||
+        !detail::is_finite(numerator)) {
         return std::unexpected{CurveError::non_finite_result};
     }
 
-    const long double result = numerator / denominator;
-    if (!std::isfinite(result)) {
+    const Scaled result = numerator / denominator;
+    if (!detail::is_finite(result)) {
         return std::unexpected{CurveError::non_finite_result};
     }
     return result;
