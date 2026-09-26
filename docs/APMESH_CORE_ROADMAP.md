@@ -1718,7 +1718,8 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 Status: `IN INVESTIGATION / BICUBIC POLYNOMIAL + RATIONAL + NURBS /
 COONS / RECTANGULAR TRIM / EXTRUSION / REVOLUTION /
 ARBITRARY-AXIS PLACEMENT / ANALYTIC PLANE + CYLINDER INTEGRATED /
-NOT QUALIFIED / PAUSED DURING SURFACE DIFFERENTIAL GEOMETRY`
+BOUNDED ANALYTIC SPHERE DECISION ACTIVE /
+NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
 or meshing.
@@ -1881,39 +1882,55 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Differential Geometry — Principal Curvature Values terminally
-closed / FINAL AUTHORITY RECONCILIATION / NO ACTIVE PRODUCTION WORK ITEM /
+**Surface Representation — Bounded Analytic Spherical Surface Sector in 3D —
+DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
 NOT QUALIFIED**
 
-Terminal publication evidence:
+Decision-entry authority:
 
-- terminal publication PR #210 head:
-  `466075be5fcdfaaf81d3855e3f1fe65e7af02b05`;
-- PR FAST `36251427419`: PASS;
-- PR INTEGRATION `36251427426`: PASS;
-- PR #210 merge:
-  `7cfd7cc34ecd813f8ec44a0356ec1ba172de26eb`;
-- post-merge FAST `36251514891`: PASS;
-- post-merge INTEGRATION `36251514909`: PASS.
+- final principal-curvature authority merge:
+  `049c55f3ebb81a1e1851cc6f3b147b5a8da6a176`;
+- PR #211 FAST `36252051886`: PASS;
+- PR #211 INTEGRATION `36252051820`: PASS;
+- post-merge FAST `36252124919`: PASS;
+- post-merge INTEGRATION `36252124966`: PASS.
 
-Final-state branch:
-`docs/surface-principal-curvature-values-final-state`.
+Active decision:
+`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
 
-After this documentation-only reconciliation is integrated and post-merge
-validated, open one fresh literature-backed decision comparing:
+Selected future work unit:
 
-- principal directions / line-field and umbilic semantics;
-- explicit conditioning diagnostics;
-- sphere/cone/torus Surface Representation breadth;
+**Bounded Analytic Spherical Surface Sector in 3D.**
+
+The decision isolates:
+
+- positive finite radius;
+- arbitrary right-handed placement;
+- non-periodic bounded longitude width below `2*pi`;
+- bounded latitude inside represented `[-pi/2,+pi/2]`;
+- exact canonical pole representation;
+- analytic value/D1/D2;
+- existing U/V reversal semantics;
+- direct cross-layer oracle evidence for metric, normal, K, H, ordered
+  principal values and exact umbilic state;
+- deterministic singular-parameterization evidence at poles.
+
+Explicitly deferred:
+
+- principal directions and line-field semantics;
+- conditioning diagnostics;
+- cone;
+- torus;
+- full-periodic sphere/cylinder seams;
 - general trimming/p-curves/topological faces;
-- Boundary Curve Discretization readiness;
-- bounded Surface Differential Geometry qualification readiness.
+- Boundary Curve Discretization;
+- Surface Representation qualification;
+- Surface Differential Geometry qualification.
 
-No option is preselected.
+No implementation may start until this decision integrates, protected-main
+FAST/INTEGRATION pass and a separate decision checkpoint closes.
 
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
-sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
-obligations retained.
+Surface Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
 The long-term ordering remains:
 
