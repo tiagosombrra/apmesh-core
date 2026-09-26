@@ -504,17 +504,20 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `surface/principal-curvature-values`: **MERGED / HISTORICAL** via PR #208;
   bounded scalar principal-curvature implementation work item.
 - `docs/surface-principal-curvature-values-implementation-closure`:
-  **ACTIVE / DOCUMENTATION-ONLY**; closes the integrated scalar
+  **MERGED / HISTORICAL** via PR #209; closes the integrated scalar
   principal-curvature implementation and publishes its implementation audit.
+- `docs/surface-principal-curvature-values-terminal-sync`:
+  **ACTIVE / DOCUMENTATION-ONLY**; publishes the terminal closed scalar
+  principal-curvature checkpoint before the next scientific decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Principal Curvature Values implementation is integrated and ready for
-documentation/continuity closure.**
+**None. Pointwise Ordered Principal Curvature Values plus Exact
+Represented-Data Umbilic State is terminally closed.**
 
-Implementation closure evidence:
+Terminal closure evidence:
 
 1. candidate head:
    `a59f52933a829410e7b24f505caa25092b0671fe`;
@@ -529,21 +532,32 @@ Implementation closure evidence:
 8. implementation post-merge FAST `36210105115`: PASS, 39/39;
 9. implementation post-merge INTEGRATION `36210105079`: PASS, 39/39 in GCC
    and Clang;
-10. candidate audit:
+10. implementation closure PR #209 head:
+    `e4c57e01620537b28f3adc9b28cec2c8ab633cb0`;
+11. closure PR FAST `36210457108`: PASS;
+12. closure PR INTEGRATION `36210457161`: PASS;
+13. closure PR #209 merged as
+    `9bb98935391b6d3a8f923ca3011002de4d823e0f`;
+14. closure post-merge FAST `36210558469`: PASS;
+15. closure post-merge INTEGRATION `36210558481`: PASS;
+16. candidate audit:
     `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`;
-11. implementation audit:
+17. implementation audit:
     `docs/audits/2026-09-25-surface-principal-curvature-values-implementation-audit.md`;
-12. no production work item is active in this closure branch.
+18. terminal closure audit:
+    `docs/audits/2026-09-26-surface-principal-curvature-values-terminal-closure.md`;
+19. no production work item is active.
 
-Integrated result:
+Terminal work-unit result:
 
 **PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-## Next admissible transition after closure
+## Next admissible transition after terminal sync
 
-After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
-open exactly one fresh literature-backed decision comparing:
+After this documentation-only terminal sync is integrated and its post-merge
+FAST/INTEGRATION pass, open exactly one fresh literature-backed decision
+comparing:
 
 1. principal directions and their line-field/umbilic semantics;
 2. explicit conditioning diagnostics;
