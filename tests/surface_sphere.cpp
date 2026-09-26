@@ -403,6 +403,153 @@ int main() {
                  "arbitrary-placement sphere oracle differs") &&
              passed;
 
+    const auto translated_origin = Point3::make(8.0, -6.0, 4.0);
+    const auto canonical_z = Vector3::make(0.0, 0.0, 1.0);
+    const auto canonical_x = Vector3::make(1.0, 0.0, 0.0);
+    if (!translated_origin || !canonical_z || !canonical_x) {
+        return 1;
+    }
+    const auto translated_placement = AxisPlacement3::make(
+        *translated_origin, *canonical_z, *canonical_x);
+    if (!translated_placement) {
+        return 1;
+    }
+    const auto translated_sphere = BoundedSphereSurface3::make(
+        *translated_placement, 2.5, *u_domain, *v_domain);
+    const auto scaled_sphere = BoundedSphereSurface3::make(
+        AxisPlacement3::identity(), 20.0, *u_domain, *v_domain);
+    if (!translated_sphere || !scaled_sphere) {
+        return 1;
+    }
+
+    const auto covariance_base = sphere->evaluate(0.4, 0.2);
+    const auto covariance_translated = translated_sphere->evaluate(0.4, 0.2);
+    const auto covariance_scaled = scaled_sphere->evaluate(0.4, 0.2);
+    const auto base_covariance_first = sphere->first_derivatives(0.4, 0.2);
+    const auto translated_covariance_first =
+        translated_sphere->first_derivatives(0.4, 0.2);
+    const auto scaled_covariance_first =
+        scaled_sphere->first_derivatives(0.4, 0.2);
+    const auto base_covariance_second =
+        sphere->second_derivatives(0.4, 0.2);
+    const auto translated_covariance_second =
+        translated_sphere->second_derivatives(0.4, 0.2);
+    const auto scaled_covariance_second =
+        scaled_sphere->second_derivatives(0.4, 0.2);
+
+    passed = require(
+                 covariance_base && covariance_translated && covariance_scaled &&
+                     close_scalar(
+                         covariance_translated->x() - covariance_base->x(),
+                         8.0,
+                         16.0) &&
+                     close_scalar(
+                         covariance_translated->y() - covariance_base->y(),
+                         -6.0,
+                         16.0) &&
+                     close_scalar(
+                         covariance_translated->z() - covariance_base->z(),
+                         4.0,
+                         16.0) &&
+                     close_scalar(
+                         covariance_scaled->x(),
+                         8.0 * covariance_base->x(),
+                         32.0) &&
+                     close_scalar(
+                         covariance_scaled->y(),
+                         8.0 * covariance_base->y(),
+                         32.0) &&
+                     close_scalar(
+                         covariance_scaled->z(),
+                         8.0 * covariance_base->z(),
+                         32.0) &&
+                     base_covariance_first && translated_covariance_first &&
+                     scaled_covariance_first &&
+                     close_vector(
+                         base_covariance_first->u,
+                         translated_covariance_first->u,
+                         16.0) &&
+                     close_vector(
+                         base_covariance_first->v,
+                         translated_covariance_first->v,
+                         16.0) &&
+                     close_scalar(
+                         scaled_covariance_first->u.x(),
+                         8.0 * base_covariance_first->u.x(),
+                         64.0) &&
+                     close_scalar(
+                         scaled_covariance_first->u.y(),
+                         8.0 * base_covariance_first->u.y(),
+                         64.0) &&
+                     close_scalar(
+                         scaled_covariance_first->u.z(),
+                         8.0 * base_covariance_first->u.z(),
+                         64.0) &&
+                     close_scalar(
+                         scaled_covariance_first->v.x(),
+                         8.0 * base_covariance_first->v.x(),
+                         64.0) &&
+                     close_scalar(
+                         scaled_covariance_first->v.y(),
+                         8.0 * base_covariance_first->v.y(),
+                         64.0) &&
+                     close_scalar(
+                         scaled_covariance_first->v.z(),
+                         8.0 * base_covariance_first->v.z(),
+                         64.0) &&
+                     base_covariance_second && translated_covariance_second &&
+                     scaled_covariance_second &&
+                     close_vector(
+                         base_covariance_second->uu,
+                         translated_covariance_second->uu,
+                         32.0) &&
+                     close_vector(
+                         base_covariance_second->uv,
+                         translated_covariance_second->uv,
+                         32.0) &&
+                     close_vector(
+                         base_covariance_second->vv,
+                         translated_covariance_second->vv,
+                         32.0) &&
+                     close_scalar(
+                         scaled_covariance_second->uu.x(),
+                         8.0 * base_covariance_second->uu.x(),
+                         128.0) &&
+                     close_scalar(
+                         scaled_covariance_second->uu.y(),
+                         8.0 * base_covariance_second->uu.y(),
+                         128.0) &&
+                     close_scalar(
+                         scaled_covariance_second->uu.z(),
+                         8.0 * base_covariance_second->uu.z(),
+                         128.0) &&
+                     close_scalar(
+                         scaled_covariance_second->uv.x(),
+                         8.0 * base_covariance_second->uv.x(),
+                         128.0) &&
+                     close_scalar(
+                         scaled_covariance_second->uv.y(),
+                         8.0 * base_covariance_second->uv.y(),
+                         128.0) &&
+                     close_scalar(
+                         scaled_covariance_second->uv.z(),
+                         8.0 * base_covariance_second->uv.z(),
+                         128.0) &&
+                     close_scalar(
+                         scaled_covariance_second->vv.x(),
+                         8.0 * base_covariance_second->vv.x(),
+                         128.0) &&
+                     close_scalar(
+                         scaled_covariance_second->vv.y(),
+                         8.0 * base_covariance_second->vv.y(),
+                         128.0) &&
+                     close_scalar(
+                         scaled_covariance_second->vv.z(),
+                         8.0 * base_covariance_second->vv.z(),
+                         128.0),
+                 "sphere translation/coordinate-scale covariance differs") &&
+             passed;
+
     const auto u_reversed = sphere->u_reversed();
     const auto v_reversed = sphere->v_reversed();
     const auto both_reversed = u_reversed.v_reversed();
@@ -512,6 +659,27 @@ int main() {
                      pole_principal.error() ==
                          SurfaceDifferentialError::singular_parameterization,
                  "canonical sphere pole differential singularity differs") &&
+             passed;
+
+    const auto polar_v_reversed = unit_sphere->v_reversed();
+    const auto reversed_north =
+        polar_v_reversed.evaluate(0.25, -half_pi);
+    const auto reversed_north_first =
+        polar_v_reversed.first_derivatives(0.25, -half_pi);
+    const auto reversed_north_metric =
+        surface_metric_normal(polar_v_reversed, 0.25, -half_pi);
+    passed = require(
+                 reversed_north &&
+                     *reversed_north == *north_point &&
+                     reversed_north_first &&
+                     reversed_north_first->u.x() == 0.0 &&
+                     reversed_north_first->u.y() == 0.0 &&
+                     reversed_north_first->u.z() == 0.0 &&
+                     !reversed_north_metric &&
+                     reversed_north_metric.error() ==
+                         SurfaceDifferentialError::singular_parameterization &&
+                     polar_v_reversed.v_reversed() == *unit_sphere,
+                 "sphere polar V-reversal semantics differ") &&
              passed;
 
     const auto equator_metric =
