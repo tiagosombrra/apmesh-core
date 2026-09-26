@@ -143,12 +143,23 @@ Candidate repository mapping:
 - `CMakeLists.txt`;
 - synchronized STATE / ROADMAP / WORKLOG / decision.
 
+Candidate validation:
+
+- head `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
+- FAST `36263014748`: PASS, 40/40;
+- INTEGRATION `36263014773`: PASS, 40/40 in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- focused sphere contract: PASS in all three jobs;
+- candidate audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`.
+
 Candidate status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 No common surface, placement or differential-production contract was modified.
-Expected ordinary semantic inventory after registration: **40 tests**.
+Ordinary semantic inventory is now **40 tests** on the validated candidate.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
