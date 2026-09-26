@@ -554,3 +554,56 @@ capability defined in Sections 6–26.
 
 No principal direction, conditioning threshold, representation, trimming,
 discretization, sizing, anisotropic or meshing capability is authorized.
+
+
+## 31. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/principal-curvature-values`.
+
+Candidate mapping:
+
+- public API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_principal_curvatures.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+The candidate introduces:
+
+- `SurfacePrincipalCurvatures` with ordered maximum/minimum values and exact
+  represented-data umbilic state;
+- a value-level overload consuming `SurfaceSecondOrderGeometry3`;
+- a generic bounded-surface overload preserving existing differential errors;
+- metric whitening based on normalized I/II and the already validated area
+  density;
+- symmetric 2x2 eigenvalue evaluation using `hypot` and determinant-based
+  recovery of the smaller-magnitude value;
+- no `H^2-K` clamp or tolerance-based umbilic classification.
+
+Focused evidence includes:
+
+- plane and bounded cylinder production surfaces;
+- elliptic, hyperbolic, parabolic, exact-umbilic and near-umbilic synthetic
+  shape operators;
+- a non-orthogonal generalized eigenproblem;
+- H/K identities;
+- single/double reversal laws;
+- positive scaling, translation and signed Cartesian frame covariance;
+- extreme finite success and explicit non-representable failure;
+- generic error propagation and deterministic repetition.
+
+Expected ordinary semantic inventory: **39 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
+No principal direction, conditioning threshold, representation breadth,
+trimming/topology, discretization/sizing, anisotropic or meshing capability is
+implied.
