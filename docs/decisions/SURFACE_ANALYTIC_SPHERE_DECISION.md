@@ -837,3 +837,58 @@ defined by Sections 6–33.
 
 No principal-direction, conditioning, cone, torus, full-periodic, trimming,
 discretization or qualification capability is authorized.
+
+
+## 38. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/analytic-sphere`.
+
+Candidate mapping:
+
+- public elementary surface API:
+  `include/apmesh/geometry/elementary_surface.hpp`;
+- production:
+  `src/geometry/elementary_surface.cpp`;
+- focused contract:
+  `tests/surface_sphere.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Candidate production semantics:
+
+- finite positive radius validation;
+- bounded longitude width below represented `2*pi`;
+- bounded latitude inside represented `[-pi/2,+pi/2]`;
+- exact canonical pole sine/cosine representation;
+- analytic value, Su, Sv, Suu, Suv, Svv;
+- U/V reversal through existing parameter reflection;
+- existing `AxisPlacement3` world mapping;
+- existing `SurfaceError` query contract.
+
+Candidate focused evidence includes:
+
+- independent long-double sphere oracle;
+- arbitrary right-handed placement;
+- translation and exact power-of-two radius/coordinate scaling;
+- U/V/both reversal and polar V-reversal;
+- exact north/south pole values and exact zero Su;
+- exact generic differential singularity at canonical poles;
+- exact canonical unit-equator metric, normal, K, H, ordered principal values
+  and umbilic state;
+- representable near-pole regularity;
+- radius-scale curvature covariance;
+- extreme finite success;
+- explicit non-representable world-point failure;
+- deterministic repeated successes/failures.
+
+No common `SurfaceError`, `BoundedParametricSurface3`, `AxisPlacement3`
+or Surface Differential Geometry production file is modified.
+
+Expected ordinary semantic inventory: **40 tests**.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
