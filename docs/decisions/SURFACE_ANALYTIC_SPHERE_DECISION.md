@@ -889,6 +889,19 @@ or Surface Differential Geometry production file is modified.
 
 Expected ordinary semantic inventory: **40 tests**.
 
+Candidate validation:
+
+- candidate head:
+  `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
+- FAST `36263014748`: PASS, 40/40 ordinary semantic tests;
+- INTEGRATION `36263014773`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 40/40 tests per cell;
+- `apmesh_core.surface_sphere`: PASS in all three jobs;
+- candidate audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`;
+- every prior ordinary semantic contract remained PASS.
+
 Current status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
