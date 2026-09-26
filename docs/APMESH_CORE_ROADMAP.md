@@ -1913,6 +1913,11 @@ Authorized scope:
 - preserve current errors and surface representations;
 - add one focused contract, targeting **39 tests**.
 
+Candidate implementation is now mapped only to the authorized
+Surface Differential Geometry files and is awaiting FAST/INTEGRATION
+validation. No concrete surface representation or downstream pipeline source
+is modified.
+
 Explicitly deferred:
 
 - principal directions and curvature-line fields;
