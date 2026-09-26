@@ -620,3 +620,59 @@ FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 No principal direction, conditioning threshold, representation breadth,
 trimming/topology, discretization/sizing, anisotropic or meshing capability is
 implied.
+
+
+## 32. Implementation integration checkpoint
+
+The bounded scalar principal-curvature work unit was integrated by PR #208.
+
+Candidate head:
+
+`a59f52933a829410e7b24f505caa25092b0671fe`.
+
+Candidate validation:
+
+- FAST `36209864983`: PASS, 39/39;
+- INTEGRATION `36209865005`: PASS, 39/39 in GCC 13 Debug and Clang
+  18/libc++ Debug.
+
+Final PR head:
+
+`6c04e1a370f3b7a8a20e082040e46efe5aadb90e`.
+
+Final-head validation:
+
+- FAST `36209969064`: PASS, 39/39;
+- INTEGRATION `36209969075`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 39/39;
+- `apmesh_core.surface_principal_curvatures`: PASS in all three jobs.
+
+PR #208 merged as:
+
+`3d0635d0a9420d48a1820905709bea367c96cec0`.
+
+Post-merge validation:
+
+- FAST `36210105115`: PASS, 39/39;
+- INTEGRATION `36210105079`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 39/39.
+
+Audits:
+
+- candidate:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`;
+- implementation:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-implementation-audit.md`.
+
+Integrated result:
+
+**PRINCIPAL CURVATURE VALUES IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED.**
+
+No principal direction, conditioning threshold, representation breadth,
+trimming/topology, discretization/sizing, anisotropic or meshing capability is
+implied.
+
+After implementation closure, the next scientific action must be selected by a
+fresh decision. No option is pre-authorized.

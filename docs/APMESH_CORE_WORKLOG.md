@@ -501,111 +501,56 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-principal-curvature-values-decision-closure`:
   **MERGED / HISTORICAL** via PR #207; closes the scalar principal-curvature
   decision checkpoint.
-- `surface/principal-curvature-values`: **ACTIVE**; bounded scalar principal
-  curvature implementation work item.
+- `surface/principal-curvature-values`: **MERGED / HISTORICAL** via PR #208;
+  bounded scalar principal-curvature implementation work item.
+- `docs/surface-principal-curvature-values-implementation-closure`:
+  **ACTIVE / DOCUMENTATION-ONLY**; closes the integrated scalar
+  principal-curvature implementation and publishes its implementation audit.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Pointwise Ordered Principal Curvature Values plus Exact Represented-Data
-Umbilic State — ACTIVE / IMPLEMENTATION OPEN / NOT QUALIFIED.**
+**None. Principal Curvature Values implementation is integrated and ready for
+documentation/continuity closure.**
 
-Active branch:
-`surface/principal-curvature-values`.
+Implementation closure evidence:
 
-Decision authority:
-`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
+1. candidate head:
+   `a59f52933a829410e7b24f505caa25092b0671fe`;
+2. candidate FAST `36209864983`: PASS, 39/39;
+3. candidate INTEGRATION `36209865005`: PASS, 39/39 in GCC and Clang;
+4. final PR head:
+   `6c04e1a370f3b7a8a20e082040e46efe5aadb90e`;
+5. final PR FAST `36209969064`: PASS, 39/39;
+6. final PR INTEGRATION `36209969075`: PASS, 39/39 in GCC and Clang;
+7. implementation PR #208 merged as
+   `3d0635d0a9420d48a1820905709bea367c96cec0`;
+8. implementation post-merge FAST `36210105115`: PASS, 39/39;
+9. implementation post-merge INTEGRATION `36210105079`: PASS, 39/39 in GCC
+   and Clang;
+10. candidate audit:
+    `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`;
+11. implementation audit:
+    `docs/audits/2026-09-25-surface-principal-curvature-values-implementation-audit.md`;
+12. no production work item is active in this closure branch.
 
-Closed decision checkpoint:
+Integrated result:
 
-1. decision PR #206 head:
-   `3a5af9d27aaf9b3e563e9fd6f89b868745c7edda`;
-2. decision PR FAST `36148367215`: PASS;
-3. decision PR INTEGRATION `36148367239`: PASS;
-4. decision merge:
-   `8d42bf38871d7a79f1c01aacbad77ed5e106505f`;
-5. decision post-merge FAST `36190790100`: PASS;
-6. decision post-merge INTEGRATION `36190790157`: PASS;
-7. closure PR #207 head:
-   `937f90b8fbac129bb4e92e30db5d42dfb2dcff6c`;
-8. closure PR FAST `36191030571`: PASS;
-9. closure PR INTEGRATION `36191030276`: PASS;
-10. closure merge:
-    `bb33396050b4ccc85ca9cc4e1683d491e89bcac0`;
-11. closure post-merge FAST `36191169978`: PASS;
-12. closure post-merge INTEGRATION `36191169982`: PASS;
-13. ordinary semantic inventory at implementation entry: **38 tests**.
+**PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
 
-Authorized repository mapping:
+## Next admissible transition after closure
 
-- public API:
-  `include/apmesh/geometry/surface_differential.hpp`;
-- production:
-  `src/geometry/surface_differential.cpp`;
-- focused contract:
-  `tests/surface_principal_curvatures.cpp`;
-- build registration:
-  `CMakeLists.txt`;
-- synchronized STATE / ROADMAP / WORKLOG / decision;
-- candidate/implementation audits when applicable.
+After this closure is integrated and its own post-merge FAST/INTEGRATION pass,
+open exactly one fresh literature-backed decision comparing:
 
-Required implementation:
+1. principal directions and their line-field/umbilic semantics;
+2. explicit conditioning diagnostics;
+3. sphere/cone/torus Surface Representation breadth;
+4. general trimming/p-curves/topological faces;
+5. Boundary Curve Discretization readiness;
+6. whether Surface Differential Geometry has enough evidence to prepare a
+   bounded qualification campaign.
 
-- ordered signed `maximum_curvature >= minimum_curvature`;
-- exact represented-data `is_umbilic`;
-- metric-whitened symmetric 2x2 generalized-eigenvalue computation;
-- no `H^2-K` epsilon repair;
-- no principal direction/eigenvector API;
-- preserve existing differential error propagation;
-- target ordinary inventory: **39 tests**.
-
-Candidate implementation mapping:
-
-- `include/apmesh/geometry/surface_differential.hpp`:
-  adds `SurfacePrincipalCurvatures` and value/surface overloads;
-- `src/geometry/surface_differential.cpp`:
-  adds metric-whitened symmetric 2x2 principal-value evaluation with
-  scale-aware normalization and stable small-eigenvalue recovery;
-- `tests/surface_principal_curvatures.cpp`:
-  covers plane/cylinder, elliptic/hyperbolic/parabolic synthetic cases,
-  exact/near umbilics, non-orthogonal metric, H/K identities, reversal,
-  scaling, translation/frame covariance, extreme finite behavior, error
-  propagation and determinism;
-- `CMakeLists.txt`:
-  registers the 39th ordinary semantic contract.
-
-No concrete surface representation source is changed.
-
-Candidate validation:
-
-- candidate head:
-  `a59f52933a829410e7b24f505caa25092b0671fe`;
-- FAST `36209864983`: PASS, 39/39 tests;
-- INTEGRATION `36209865005`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 39/39 tests in each cell;
-- `apmesh_core.surface_principal_curvatures`: PASS in all three jobs;
-- every prior ordinary semantic contract remained PASS;
-- candidate audit:
-  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`.
-
-Current implementation status:
-
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-Explicit non-actions:
-
-- no principal directions or line fields;
-- no near-umbilic threshold / conditioning class;
-- no new surface representation;
-- no trimming/topology;
-- no Boundary Curve Discretization or Physical Sizing implementation;
-- no anisotropic/tensor metric or meshing work.
-
-## Next admissible transition
-
-Complete only this implementation, validate 39/39 in FAST and both
-INTEGRATION compiler cells, integrate through one PR, validate protected
-`main`, close the implementation checkpoint, and only then open a fresh
-literature-backed next decision.
+No option is pre-authorized.

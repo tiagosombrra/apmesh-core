@@ -1882,60 +1882,38 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Differential Geometry — Ordered Principal Curvature Values +
-Exact Represented-Data Umbilic State — IMPLEMENTATION ACTIVE /
+Exact Represented-Data Umbilic State — IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
 NOT QUALIFIED**
 
-Decision authority:
-`docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
+Implementation evidence:
 
-Closed decision checkpoint:
+- final PR head:
+  `6c04e1a370f3b7a8a20e082040e46efe5aadb90e`;
+- FAST `36209969064`: PASS, 39/39;
+- INTEGRATION `36209969075`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 39/39;
+- PR #208 merge:
+  `3d0635d0a9420d48a1820905709bea367c96cec0`;
+- post-merge FAST `36210105115`: PASS, 39/39;
+- post-merge INTEGRATION `36210105079`: PASS, 39/39;
+- implementation audit:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-implementation-audit.md`.
 
-- decision PR #206 merge:
-  `8d42bf38871d7a79f1c01aacbad77ed5e106505f`;
-- closure PR #207 head:
-  `937f90b8fbac129bb4e92e30db5d42dfb2dcff6c`;
-- closure PR FAST `36191030571`: PASS;
-- closure PR INTEGRATION `36191030276`: PASS;
-- closure merge:
-  `bb33396050b4ccc85ca9cc4e1683d491e89bcac0`;
-- closure post-merge FAST `36191169978`: PASS;
-- closure post-merge INTEGRATION `36191169982`: PASS.
+Closure branch:
+`docs/surface-principal-curvature-values-implementation-closure`.
 
-Active implementation branch:
-`surface/principal-curvature-values`.
+After closure integration and post-merge validation, open one fresh
+literature-backed decision comparing:
 
-Authorized scope:
-
-- add `SurfacePrincipalCurvatures`;
-- return ordered signed maximum/minimum curvature;
-- expose exact represented-data umbilic state;
-- solve the generalized symmetric 2x2 eigenproblem through metric whitening;
-- preserve current errors and surface representations;
-- add one focused contract, targeting **39 tests**.
-
-Candidate validation on head
-`a59f52933a829410e7b24f505caa25092b0671fe`:
-
-- FAST `36209864983`: PASS, 39/39 tests;
-- INTEGRATION `36209865005`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug, 39/39 tests per cell;
-- focused principal-curvature contract PASS in every required cell;
-- candidate audit:
-  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`.
-
-The documentation/audit synchronization itself must receive a fresh green
-FAST/INTEGRATION final head before integration. No concrete surface
-representation or downstream pipeline source is modified.
-
-Explicitly deferred:
-
-- principal directions and curvature-line fields;
-- conditioning/near-umbilic thresholds;
+- principal directions / line-field semantics;
+- explicit conditioning diagnostics;
 - sphere/cone/torus representation breadth;
 - general trimming/p-curves/topological faces;
-- Boundary Curve Discretization;
-- Physical Sizing implementation;
-- anisotropic/tensor metrics and meshing.
+- Boundary Curve Discretization readiness;
+- bounded Surface Differential Geometry qualification readiness.
+
+No option is preselected.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
