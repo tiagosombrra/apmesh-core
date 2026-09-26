@@ -523,3 +523,34 @@ defined in Sections 6–26.
 
 No principal direction, tolerance/conditioning, representation, trimming,
 discretization, sizing, anisotropic or meshing capability is authorized.
+
+
+## 30. Decision closure checkpoint
+
+Decision closure PR #207 used head
+`937f90b8fbac129bb4e92e30db5d42dfb2dcff6c`.
+
+Closure PR validation:
+
+- FAST `36191030571`: PASS;
+- INTEGRATION `36191030276`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #207 merged as
+`bb33396050b4ccc85ca9cc4e1683d491e89bcac0`.
+
+Closure post-merge validation:
+
+- FAST `36191169978`: PASS;
+- INTEGRATION `36191169982`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the scalar principal-curvature-values
+capability defined in Sections 6–26.
+
+No principal direction, conditioning threshold, representation, trimming,
+discretization, sizing, anisotropic or meshing capability is authorized.
