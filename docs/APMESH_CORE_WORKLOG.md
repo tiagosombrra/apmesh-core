@@ -577,9 +577,22 @@ Candidate implementation mapping:
 
 No concrete surface representation source is changed.
 
+Candidate validation:
+
+- candidate head:
+  `a59f52933a829410e7b24f505caa25092b0671fe`;
+- FAST `36209864983`: PASS, 39/39 tests;
+- INTEGRATION `36209865005`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 39/39 tests in each cell;
+- `apmesh_core.surface_principal_curvatures`: PASS in all three jobs;
+- every prior ordinary semantic contract remained PASS;
+- candidate audit:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
