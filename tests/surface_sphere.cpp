@@ -6,6 +6,7 @@
 #include <array>
 #include <cmath>
 #include <cstdio>
+#include <expected>
 #include <limits>
 #include <numbers>
 #include <string_view>
