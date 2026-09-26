@@ -139,32 +139,45 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Complete final authority reconciliation after terminal Principal Curvature
-Values publication; no production work item is active.**
+**Integrate the literature-backed Bounded Analytic Spherical Surface decision;
+no production sphere implementation is authorized on this branch.**
 
-Terminal publication evidence:
+Decision-entry authority:
 
-- terminal publication PR #210 head:
-  `466075be5fcdfaaf81d3855e3f1fe65e7af02b05`;
-- PR FAST `36251427419`: PASS;
-- PR INTEGRATION `36251427426`: PASS in GCC 13 Debug and Clang 18/libc++
-  Debug;
-- PR #210 merged as:
-  `7cfd7cc34ecd813f8ec44a0356ec1ba172de26eb`;
-- post-merge FAST `36251514891`: PASS;
-- post-merge INTEGRATION `36251514909`: PASS.
+- final authority PR #211 head:
+  `621cbd0a8ec47375d21d357a2597dd9e20b4f879`;
+- PR FAST `36252051886`: PASS;
+- PR INTEGRATION `36252051820`: PASS;
+- PR #211 merge:
+  `049c55f3ebb81a1e1851cc6f3b147b5a8da6a176`;
+- post-merge FAST `36252124919`: PASS;
+- post-merge INTEGRATION `36252124966`: PASS.
 
-Final-state branch:
-`docs/surface-principal-curvature-values-final-state`.
+Active branch:
+`surface/analytic-sphere-decision`.
 
-No scientific capability is active or pre-authorized during this
-documentation-only reconciliation.
+Decision authority:
+`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
 
-After it integrates and passes protected-main validation, the next admissible
-action is exactly one fresh literature-backed decision comparing principal
-directions, conditioning diagnostics, remaining Surface Representation breadth,
-general trimming/topology, Boundary Curve Discretization readiness and bounded
-Surface Differential Geometry qualification readiness.
+The decision selects exactly one future representation work unit:
+
+**Bounded Analytic Spherical Surface Sector in 3D.**
+
+Scientific rationale:
+
+- sphere remains an explicit missing Surface Representation family;
+- the arbitrary placement prerequisite is already integrated;
+- sphere supplies the production fixture required by the differential-stage
+  regression envelope;
+- canonical poles provide exact singular-parameterization evidence;
+- a regular canonical equator provides exact K/H/principal-value/umbilic
+  evidence.
+
+Principal directions, conditioning diagnostics, cone, torus, full periodic
+seams, general trimming/topology, Boundary Curve Discretization and
+qualification remain separate later decisions.
+
+No production source or test change is authorized on this decision branch.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
