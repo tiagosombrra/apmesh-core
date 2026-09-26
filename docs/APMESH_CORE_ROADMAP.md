@@ -1883,46 +1883,60 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Spherical Surface Sector in 3D —
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
-NOT QUALIFIED**
+IMPLEMENTATION ACTIVE / NOT QUALIFIED**
 
 Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
 
-Decision validation:
+Closed decision checkpoint:
 
-- PR #212 head:
-  `71a3e973035a26a08d1c6de416dacf696ad648ee`;
-- PR FAST `36252541863`: PASS;
-- PR INTEGRATION `36252541870`: PASS;
-- merge:
+- decision merge:
   `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
-- post-merge FAST `36252620832`: PASS;
-- post-merge INTEGRATION `36252620841`: PASS.
+- closure merge:
+  `95c8bce38aa5a2312e6c09eb9e31578618374cf0`;
+- closure post-merge FAST `36262353372`: PASS;
+- closure post-merge INTEGRATION `36262353395`: PASS.
 
-Closure branch:
-`docs/surface-analytic-sphere-decision-closure`.
+Active branch:
+`surface/analytic-sphere`.
 
-After closure integration and protected-main validation, the sole next
-production work item is:
+Authorized implementation:
 
-**Bounded Analytic Spherical Surface Sector in 3D.**
-
-The future implementation remains limited to:
-
+- `BoundedSphereSurface3`;
 - existing `AxisPlacement3`;
 - radius > 0;
-- bounded non-periodic longitude width below represented `2*pi`;
-- bounded latitude inside represented `[-pi/2,+pi/2]`;
-- analytic value and first/second partials;
-- U/V reversal;
+- bounded U width < represented `2*pi`;
+- latitude bounds within represented `[-pi/2,+pi/2]`;
 - exact canonical pole representation;
+- analytic value/first/second partials;
+- U/V reversal;
 - independent sphere oracle;
-- cross-layer metric/K/H/principal-value/umbilic checks;
-- exact differential singularity at poles;
-- one new focused contract, targeting 40 tests.
+- metric/normal/K/H/principal-value/umbilic conformance;
+- exact pole singularity in the generic differential layer;
+- one focused contract, targeting 40 ordinary tests.
 
-Deferred:
+Candidate implementation is mapped only to the authorized elementary-surface
+API/source, one focused sphere contract and CMake registration. It is awaiting
+FAST/INTEGRATION validation and does not alter common surface/differential
+contracts.
+
+Candidate validation:
+
+- head `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
+- FAST `36263014748`: PASS, 40/40;
+- INTEGRATION `36263014773`: PASS, 40/40 in GCC and Clang;
+- candidate audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`.
+
+The audit/documentation synchronization itself requires a fresh green
+FAST/INTEGRATION head before integration.
+
+Current candidate status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL-HEAD REVALIDATION PENDING / NOT QUALIFIED.**
+
+Explicitly deferred:
 
 - principal directions/line fields;
 - conditioning diagnostics;

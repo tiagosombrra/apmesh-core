@@ -119,4 +119,68 @@ private:
     bool v_reversed_{};
 };
 
+
+
+enum class SphereSurfaceConstructionError {
+    non_finite_radius,
+    non_positive_radius,
+    full_or_multiple_revolution_not_admitted,
+    latitude_out_of_range,
+};
+
+class BoundedSphereSurface3 {
+public:
+    [[nodiscard]] static std::expected<
+        BoundedSphereSurface3,
+        SphereSurfaceConstructionError>
+    make(
+        const AxisPlacement3& placement,
+        double radius,
+        const CurveParameterDomain& u_domain,
+        const CurveParameterDomain& v_domain) noexcept;
+
+    [[nodiscard]] const AxisPlacement3& axis_placement() const noexcept;
+    [[nodiscard]] double radius() const noexcept;
+    [[nodiscard]] const CurveParameterDomain& u_domain() const noexcept;
+    [[nodiscard]] const CurveParameterDomain& v_domain() const noexcept;
+    [[nodiscard]] bool u_is_reversed() const noexcept;
+    [[nodiscard]] bool v_is_reversed() const noexcept;
+
+    [[nodiscard]] SurfaceParameterDomain parameter_domain() const noexcept;
+    [[nodiscard]] std::expected<Point3, SurfaceError>
+    evaluate(double u, double v) const noexcept;
+    [[nodiscard]] std::expected<SurfaceFirstDerivatives3, SurfaceError>
+    first_derivatives(double u, double v) const noexcept;
+    [[nodiscard]] std::expected<SurfaceSecondDerivatives3, SurfaceError>
+    second_derivatives(double u, double v) const noexcept;
+
+    [[nodiscard]] BoundedSphereSurface3 u_reversed() const noexcept;
+    [[nodiscard]] BoundedSphereSurface3 v_reversed() const noexcept;
+
+    [[nodiscard]] bool operator==(
+        const BoundedSphereSurface3&) const noexcept = default;
+
+private:
+    constexpr BoundedSphereSurface3(
+        const AxisPlacement3& placement,
+        const double radius,
+        const CurveParameterDomain& u_domain,
+        const CurveParameterDomain& v_domain,
+        const bool u_reversed,
+        const bool v_reversed) noexcept
+        : placement_(placement),
+          radius_(radius),
+          u_domain_(u_domain),
+          v_domain_(v_domain),
+          u_reversed_(u_reversed),
+          v_reversed_(v_reversed) {}
+
+    AxisPlacement3 placement_;
+    double radius_{};
+    CurveParameterDomain u_domain_;
+    CurveParameterDomain v_domain_;
+    bool u_reversed_{};
+    bool v_reversed_{};
+};
+
 } // namespace apmesh::core

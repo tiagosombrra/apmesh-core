@@ -88,59 +88,78 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Representation — Continuous Patch Geometry — ANALYTIC SPHERE
-  DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**;
+  IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
 - Surface Differential Geometry remains:
   **PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
   INTEGRATED / CLOSED / NOT QUALIFIED**;
-- ordinary semantic inventory: **39 tests**;
-- principal-curvature final authority PR #211 merged as
-  `049c55f3ebb81a1e1851cc6f3b147b5a8da6a176`;
-- bounded analytic sphere decision PR #212 head:
-  `71a3e973035a26a08d1c6de416dacf696ad648ee`;
-- decision PR FAST `36252541863`: PASS;
-- decision PR INTEGRATION `36252541870`: PASS;
+- protected-main ordinary semantic inventory before sphere: **39 tests**;
 - decision PR #212 merged as
   `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
-- decision post-merge FAST `36252620832`: PASS;
-- decision post-merge INTEGRATION `36252620841`: PASS;
-- no sphere production work item is active;
+- decision closure PR #213 merged as
+  `95c8bce38aa5a2312e6c09eb9e31578618374cf0`;
+- closure post-merge FAST `36262353372`: PASS;
+- closure post-merge INTEGRATION `36262353395`: PASS;
+- active production branch:
+  `surface/analytic-sphere`;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
-  sphere implementation pending and cone, torus, full-periodic seams and
-  general trimming/p-curve/face obligations retained;
+  cone, torus, full-periodic seams and general trimming/p-curve/face
+  obligations retained;
 - most recently qualified stage remains **Curve Representation — Continuous
   Geometry Before Discretization — QUALIFIED / CGR0–CGR7 PASS** in the
   admitted cloud envelope.
 
 ## Current active scientific action
 
-**Close the integrated Bounded Analytic Spherical Surface decision; no
-production sphere implementation is active yet.**
+**Implement the bounded analytic spherical surface sector in 3D; do not widen
+the common surface or differential contracts.**
+
+Active branch:
+`surface/analytic-sphere`.
 
 Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
 
-Integrated decision evidence:
+Closed decision evidence:
 
-- PR #212 head:
-  `71a3e973035a26a08d1c6de416dacf696ad648ee`;
-- PR FAST `36252541863`: PASS;
-- PR INTEGRATION `36252541870`: PASS;
-- merge:
+- PR #212 merge:
   `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
-- post-merge FAST `36252620832`: PASS;
-- post-merge INTEGRATION `36252620841`: PASS.
+- PR #213 closure merge:
+  `95c8bce38aa5a2312e6c09eb9e31578618374cf0`;
+- closure post-merge FAST `36262353372`: PASS;
+- closure post-merge INTEGRATION `36262353395`: PASS.
 
-Closure branch:
-`docs/surface-analytic-sphere-decision-closure`.
+The implementation is limited to `BoundedSphereSurface3`, its focused
+contract and build registration, plus continuity/audit documentation.
 
-After closure integration and protected-main validation, the sole authorized
-production work item is:
-
-**Bounded Analytic Spherical Surface Sector in 3D.**
-
-Principal directions, conditioning diagnostics, cone, torus, full-periodic
+No principal directions, conditioning diagnostics, cone, torus, full-periodic
 seams, general trimming/p-curves/topological faces, Boundary Curve
-Discretization and qualification remain separate later decisions.
+Discretization or qualification capability is authorized.
+
+Candidate repository mapping:
+
+- `include/apmesh/geometry/elementary_surface.hpp`;
+- `src/geometry/elementary_surface.cpp`;
+- `tests/surface_sphere.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / decision.
+
+Candidate validation:
+
+- head `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
+- FAST `36263014748`: PASS, 40/40;
+- INTEGRATION `36263014773`: PASS, 40/40 in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- focused sphere contract: PASS in all three jobs;
+- candidate audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`.
+
+Candidate status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+No common surface, placement or differential-production contract was modified.
+Ordinary semantic inventory is now **40 tests** on the validated candidate.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 

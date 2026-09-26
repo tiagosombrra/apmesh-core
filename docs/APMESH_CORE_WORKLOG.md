@@ -514,60 +514,130 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   terminal principal-curvature publication.
 - `surface/analytic-sphere-decision`: **MERGED / HISTORICAL** via PR #212;
   literature-backed bounded analytic sphere decision.
-- `docs/surface-analytic-sphere-decision-closure`: **CLOSURE-ONLY**;
-  records PR #212 integration and protected-main validation.
+- `docs/surface-analytic-sphere-decision-closure`: **MERGED / HISTORICAL**
+  via PR #213; closes the bounded analytic sphere decision checkpoint.
+- `surface/analytic-sphere`: **ACTIVE**; bounded analytic spherical-sector
+  production work item.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Analytic Spherical Surface Sector decision is integrated and
-ready for closure.**
+**Bounded Analytic Spherical Surface Sector in 3D — IMPLEMENTATION ACTIVE /
+NOT QUALIFIED.**
 
-Decision closure evidence:
+Active branch:
+`surface/analytic-sphere`.
 
-1. decision authority:
-   `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`;
-2. decision PR #212 head:
+Decision authority:
+`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
+
+Closed decision checkpoint:
+
+1. decision PR #212 head:
    `71a3e973035a26a08d1c6de416dacf696ad648ee`;
-3. decision PR FAST `36252541863`: PASS;
-4. decision PR INTEGRATION `36252541870`: PASS in GCC 13 Debug and Clang
-   18/libc++ Debug;
-5. PR #212 merged as
+2. decision PR FAST `36252541863`: PASS;
+3. decision PR INTEGRATION `36252541870`: PASS;
+4. decision merge:
    `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
-6. decision post-merge FAST `36252620832`: PASS;
-7. decision post-merge INTEGRATION `36252620841`: PASS;
-8. ordinary semantic inventory remains **39 tests**;
-9. no sphere production type or focused sphere contract exists yet;
-10. no common `SurfaceError`, `BoundedParametricSurface3`,
-    `AxisPlacement3` or Surface Differential Geometry production change was
-    made by the decision.
+5. decision post-merge FAST `36252620832`: PASS;
+6. decision post-merge INTEGRATION `36252620841`: PASS;
+7. decision closure PR #213 head:
+   `75717f6f92f660937a95e720aa39e5d701a40bed`;
+8. closure PR FAST `36262259771`: PASS;
+9. closure PR INTEGRATION `36262259772`: PASS;
+10. closure merge:
+    `95c8bce38aa5a2312e6c09eb9e31578618374cf0`;
+11. closure post-merge FAST `36262353372`: PASS;
+12. closure post-merge INTEGRATION `36262353395`: PASS;
+13. protected-main ordinary semantic inventory: **39 tests**.
 
-No production work item is active in this closure change.
+Authorized implementation mapping:
 
-## Next admissible work item after closure
+- `include/apmesh/geometry/elementary_surface.hpp`;
+- `src/geometry/elementary_surface.cpp`;
+- `tests/surface_sphere.cpp`;
+- `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / decision;
+- candidate/implementation audit when validation evidence exists.
 
-After this closure is integrated and its own protected-main FAST/INTEGRATION
-pass, open exactly one implementation branch for:
+Required scope:
 
-**Bounded Analytic Spherical Surface Sector in 3D.**
-
-Implementation remains bounded by
-`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`:
-
-- existing `AxisPlacement3`;
+- reuse existing `AxisPlacement3`;
 - finite strictly positive radius;
-- strict bounded U interval with width below represented `2*pi`;
-- V contained in represented `[-pi/2,+pi/2]`;
-- no periodic wrapping/modulo;
+- bounded non-periodic U width strictly below represented `2*pi`;
+- V inside represented `[-pi/2,+pi/2]`;
+- exact canonical-pole trigonometric state;
 - analytic value, Su, Sv, Suu, Suv, Svv;
 - existing U/V reversal semantics;
-- exact canonical pole handling;
 - independent long-double sphere oracle;
 - generic metric/normal/K/H/principal-value/umbilic cross-layer evidence;
 - exact generic differential singularity at canonical poles;
-- one focused contract, targeting **40 ordinary tests**.
+- expected ordinary inventory: **40 tests**.
 
-Principal directions, conditioning thresholds, cone, torus, full-periodic
-seams, general trimming/p-curves/topological faces, Boundary Curve
-Discretization and qualification remain unauthorized.
+Candidate implementation mapping:
+
+- public API:
+  `include/apmesh/geometry/elementary_surface.hpp`;
+- production:
+  `src/geometry/elementary_surface.cpp`;
+- focused semantic/cross-layer contract:
+  `tests/surface_sphere.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- existing `SurfaceError`, `BoundedParametricSurface3`,
+  `AxisPlacement3` and Surface Differential Geometry production remain
+  unchanged.
+
+Candidate semantics:
+
+- exact bounded non-periodic spherical-sector construction;
+- exact represented pole trigonometry at stored `+/-pi/2`;
+- analytic value and first/second partials;
+- U/V reversal covariance and involution;
+- independent long-double arbitrary-placement oracle;
+- explicit translation and power-of-two coordinate/radius scaling evidence;
+- exact pole singularity propagated through metric, II/K/H and principal
+  values;
+- exact unit-equator K/H/principal/umbilic evidence;
+- near-pole nonzero regularity evidence;
+- extreme finite success and explicit non-representable result failure;
+- deterministic repeated success/failure evidence.
+
+Candidate validation:
+
+- candidate head:
+  `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
+- FAST `36263014748`: PASS, 40/40;
+- INTEGRATION `36263014773`: PASS, 40/40 in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- `apmesh_core.surface_sphere`: PASS in all three jobs;
+- candidate audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`;
+- every prior ordinary semantic contract remained PASS.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+Explicit non-actions:
+
+- no common `SurfaceError` change;
+- no `BoundedParametricSurface3` change;
+- no `AxisPlacement3` change;
+- no Surface Differential Geometry production change;
+- no principal directions;
+- no conditioning thresholds;
+- no cone or torus;
+- no full-periodic seam/wrapping;
+- no general trimming/p-curves/topological faces;
+- no Boundary Curve Discretization, sizing or meshing;
+- no qualification campaign.
+
+## Next admissible transition
+
+Complete only this implementation, validate 40/40 in FAST and both
+INTEGRATION compiler cells, integrate through one PR, validate protected
+`main`, close the implementation checkpoint, and only then open a fresh
+literature-backed decision among the retained candidates.

@@ -806,3 +806,102 @@ production work item is the implementation bounded by Sections 7–33.
 Principal directions, conditioning thresholds, cone, torus, full-periodic
 seams, general trimming/p-curves/topological faces, Boundary Curve
 Discretization and qualification remain unauthorized.
+
+
+## 37. Decision closure checkpoint
+
+Decision closure PR #213 used head
+`75717f6f92f660937a95e720aa39e5d701a40bed`.
+
+Closure PR validation:
+
+- FAST `36262259771`: PASS;
+- INTEGRATION `36262259772`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #213 merged as
+`95c8bce38aa5a2312e6c09eb9e31578618374cf0`.
+
+Closure protected-main validation:
+
+- FAST `36262353372`: PASS;
+- INTEGRATION `36262353395`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the bounded analytic spherical sector
+defined by Sections 6–33.
+
+No principal-direction, conditioning, cone, torus, full-periodic, trimming,
+discretization or qualification capability is authorized.
+
+
+## 38. Active implementation mapping
+
+The sole authorized implementation is active on:
+
+`surface/analytic-sphere`.
+
+Candidate mapping:
+
+- public elementary surface API:
+  `include/apmesh/geometry/elementary_surface.hpp`;
+- production:
+  `src/geometry/elementary_surface.cpp`;
+- focused contract:
+  `tests/surface_sphere.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / ROADMAP / WORKLOG / this decision.
+
+Candidate production semantics:
+
+- finite positive radius validation;
+- bounded longitude width below represented `2*pi`;
+- bounded latitude inside represented `[-pi/2,+pi/2]`;
+- exact canonical pole sine/cosine representation;
+- analytic value, Su, Sv, Suu, Suv, Svv;
+- U/V reversal through existing parameter reflection;
+- existing `AxisPlacement3` world mapping;
+- existing `SurfaceError` query contract.
+
+Candidate focused evidence includes:
+
+- independent long-double sphere oracle;
+- arbitrary right-handed placement;
+- translation and exact power-of-two radius/coordinate scaling;
+- U/V/both reversal and polar V-reversal;
+- exact north/south pole values and exact zero Su;
+- exact generic differential singularity at canonical poles;
+- exact canonical unit-equator metric, normal, K, H, ordered principal values
+  and umbilic state;
+- representable near-pole regularity;
+- radius-scale curvature covariance;
+- extreme finite success;
+- explicit non-representable world-point failure;
+- deterministic repeated successes/failures.
+
+No common `SurfaceError`, `BoundedParametricSurface3`, `AxisPlacement3`
+or Surface Differential Geometry production file is modified.
+
+Expected ordinary semantic inventory: **40 tests**.
+
+Candidate validation:
+
+- candidate head:
+  `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
+- FAST `36263014748`: PASS, 40/40 ordinary semantic tests;
+- INTEGRATION `36263014773`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 40/40 tests per cell;
+- `apmesh_core.surface_sphere`: PASS in all three jobs;
+- candidate audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`;
+- every prior ordinary semantic contract remained PASS.
+
+Current status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**

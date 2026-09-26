@@ -124,6 +124,156 @@ namespace {
     return *vector;
 }
 
+struct SphereTrig {
+    long double sine{};
+    long double cosine{};
+};
+
+[[nodiscard]] SphereTrig sphere_latitude_trig(
+    const double latitude) noexcept {
+    const double half_pi = 0.5 * std::numbers::pi_v<double>;
+    if (latitude == half_pi) {
+        return SphereTrig{1.0L, 0.0L};
+    }
+    if (latitude == -half_pi) {
+        return SphereTrig{-1.0L, 0.0L};
+    }
+
+    const long double angle = static_cast<long double>(latitude);
+    return SphereTrig{
+        std::sin(angle),
+        std::cos(angle),
+    };
+}
+
+[[nodiscard]] SphereTrig sphere_longitude_trig(
+    const double longitude) noexcept {
+    const long double angle = static_cast<long double>(longitude);
+    return SphereTrig{
+        std::sin(angle),
+        std::cos(angle),
+    };
+}
+
+[[nodiscard]] std::expected<Point3, SurfaceError> sphere_local_point(
+    const double radius,
+    const double u,
+    const double v) noexcept {
+    const long double radial = static_cast<long double>(radius);
+    const SphereTrig latitude = sphere_latitude_trig(v);
+
+    if (latitude.cosine == 0.0L) {
+        const auto z = finite_double(radial * latitude.sine);
+        if (!z) {
+            return std::unexpected{SurfaceError::non_finite_result};
+        }
+        const auto point = Point3::make(0.0, 0.0, *z);
+        if (!point) {
+            return std::unexpected{SurfaceError::non_finite_result};
+        }
+        return *point;
+    }
+
+    const SphereTrig longitude = sphere_longitude_trig(u);
+    const auto x = finite_double(
+        radial * latitude.cosine * longitude.cosine);
+    const auto y = finite_double(
+        radial * latitude.cosine * longitude.sine);
+    const auto z = finite_double(radial * latitude.sine);
+    if (!x || !y || !z) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    const auto point = Point3::make(*x, *y, *z);
+    if (!point) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+    return *point;
+}
+
+[[nodiscard]] std::expected<SurfaceFirstDerivatives3, SurfaceError>
+sphere_local_first_derivatives(
+    const double radius,
+    const double u,
+    const double v,
+    const double u_sign,
+    const double v_sign) noexcept {
+    const long double radial = static_cast<long double>(radius);
+    const long double us = static_cast<long double>(u_sign);
+    const long double vs = static_cast<long double>(v_sign);
+    const SphereTrig latitude = sphere_latitude_trig(v);
+    const SphereTrig longitude = sphere_longitude_trig(u);
+
+    const auto ux = finite_double(
+        -us * radial * latitude.cosine * longitude.sine);
+    const auto uy = finite_double(
+        us * radial * latitude.cosine * longitude.cosine);
+    const auto vx = finite_double(
+        -vs * radial * latitude.sine * longitude.cosine);
+    const auto vy = finite_double(
+        -vs * radial * latitude.sine * longitude.sine);
+    const auto vz = finite_double(vs * radial * latitude.cosine);
+    if (!ux || !uy || !vx || !vy || !vz) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    const auto du = Vector3::make(*ux, *uy, 0.0);
+    const auto dv = Vector3::make(*vx, *vy, *vz);
+    if (!du || !dv) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    return SurfaceFirstDerivatives3{
+        .u = *du,
+        .v = *dv,
+    };
+}
+
+[[nodiscard]] std::expected<SurfaceSecondDerivatives3, SurfaceError>
+sphere_local_second_derivatives(
+    const double radius,
+    const double u,
+    const double v,
+    const double uv_sign) noexcept {
+    const long double radial = static_cast<long double>(radius);
+    const long double mixed_sign = static_cast<long double>(uv_sign);
+    const SphereTrig latitude = sphere_latitude_trig(v);
+    const SphereTrig longitude = sphere_longitude_trig(u);
+
+    const auto uux = finite_double(
+        -radial * latitude.cosine * longitude.cosine);
+    const auto uuy = finite_double(
+        -radial * latitude.cosine * longitude.sine);
+
+    const auto uvx = finite_double(
+        mixed_sign * radial * latitude.sine * longitude.sine);
+    const auto uvy = finite_double(
+        -mixed_sign * radial * latitude.sine * longitude.cosine);
+
+    const auto vvx = finite_double(
+        -radial * latitude.cosine * longitude.cosine);
+    const auto vvy = finite_double(
+        -radial * latitude.cosine * longitude.sine);
+    const auto vvz = finite_double(-radial * latitude.sine);
+
+    if (!uux || !uuy || !uvx || !uvy || !vvx || !vvy || !vvz) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    const auto duu = Vector3::make(*uux, *uuy, 0.0);
+    const auto duv = Vector3::make(*uvx, *uvy, 0.0);
+    const auto dvv = Vector3::make(*vvx, *vvy, *vvz);
+    if (!duu || !duv || !dvv) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    return SurfaceSecondDerivatives3{
+        .uu = *duu,
+        .uv = *duv,
+        .vv = *dvv,
+    };
+}
+
 [[nodiscard]] std::expected<Vector3, SurfaceError> world_vector(
     const AxisPlacement3& placement,
     const Vector3& local) noexcept {
@@ -444,6 +594,219 @@ BoundedCylinderSurface3::u_reversed() const noexcept {
 BoundedCylinderSurface3
 BoundedCylinderSurface3::v_reversed() const noexcept {
     return BoundedCylinderSurface3{
+        placement_,
+        radius_,
+        u_domain_,
+        v_domain_,
+        u_reversed_,
+        !v_reversed_};
+}
+
+
+std::expected<BoundedSphereSurface3, SphereSurfaceConstructionError>
+BoundedSphereSurface3::make(
+    const AxisPlacement3& placement,
+    const double radius,
+    const CurveParameterDomain& u_domain,
+    const CurveParameterDomain& v_domain) noexcept {
+    if (!std::isfinite(radius)) {
+        return std::unexpected{
+            SphereSurfaceConstructionError::non_finite_radius};
+    }
+    if (radius <= 0.0) {
+        return std::unexpected{
+            SphereSurfaceConstructionError::non_positive_radius};
+    }
+
+    const long double angular_width =
+        static_cast<long double>(u_domain.upper()) -
+        static_cast<long double>(u_domain.lower());
+    const long double full_revolution =
+        static_cast<long double>(2.0 * std::numbers::pi_v<double>);
+    if (!std::isfinite(angular_width) ||
+        angular_width >= full_revolution) {
+        return std::unexpected{
+            SphereSurfaceConstructionError::
+                full_or_multiple_revolution_not_admitted};
+    }
+
+    const double half_pi = 0.5 * std::numbers::pi_v<double>;
+    if (v_domain.lower() < -half_pi ||
+        v_domain.upper() > half_pi) {
+        return std::unexpected{
+            SphereSurfaceConstructionError::latitude_out_of_range};
+    }
+
+    return BoundedSphereSurface3{
+        placement,
+        radius,
+        u_domain,
+        v_domain,
+        false,
+        false};
+}
+
+const AxisPlacement3&
+BoundedSphereSurface3::axis_placement() const noexcept {
+    return placement_;
+}
+
+double BoundedSphereSurface3::radius() const noexcept {
+    return radius_;
+}
+
+const CurveParameterDomain&
+BoundedSphereSurface3::u_domain() const noexcept {
+    return u_domain_;
+}
+
+const CurveParameterDomain&
+BoundedSphereSurface3::v_domain() const noexcept {
+    return v_domain_;
+}
+
+bool BoundedSphereSurface3::u_is_reversed() const noexcept {
+    return u_reversed_;
+}
+
+bool BoundedSphereSurface3::v_is_reversed() const noexcept {
+    return v_reversed_;
+}
+
+SurfaceParameterDomain
+BoundedSphereSurface3::parameter_domain() const noexcept {
+    return SurfaceParameterDomain{
+        .u = u_domain_,
+        .v = v_domain_,
+    };
+}
+
+std::expected<Point3, SurfaceError>
+BoundedSphereSurface3::evaluate(
+    const double u,
+    const double v) const noexcept {
+    const auto valid =
+        validate_parameters(u_domain_, v_domain_, u, v);
+    if (!valid) {
+        return std::unexpected{valid.error()};
+    }
+
+    const auto effective_u =
+        effective_parameter(u_domain_, u, u_reversed_);
+    const auto effective_v =
+        effective_parameter(v_domain_, v, v_reversed_);
+    if (!effective_u || !effective_v) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    const auto local = sphere_local_point(
+        radius_, *effective_u, *effective_v);
+    if (!local) {
+        return std::unexpected{local.error()};
+    }
+
+    const auto world = placement_.point_to_world(*local);
+    if (!world) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+    return *world;
+}
+
+std::expected<SurfaceFirstDerivatives3, SurfaceError>
+BoundedSphereSurface3::first_derivatives(
+    const double u,
+    const double v) const noexcept {
+    const auto valid =
+        validate_parameters(u_domain_, v_domain_, u, v);
+    if (!valid) {
+        return std::unexpected{valid.error()};
+    }
+
+    const auto effective_u =
+        effective_parameter(u_domain_, u, u_reversed_);
+    const auto effective_v =
+        effective_parameter(v_domain_, v, v_reversed_);
+    if (!effective_u || !effective_v) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    const auto local = sphere_local_first_derivatives(
+        radius_,
+        *effective_u,
+        *effective_v,
+        u_reversed_ ? -1.0 : 1.0,
+        v_reversed_ ? -1.0 : 1.0);
+    if (!local) {
+        return std::unexpected{local.error()};
+    }
+
+    const auto world_u = world_vector(placement_, local->u);
+    const auto world_v = world_vector(placement_, local->v);
+    if (!world_u || !world_v) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    return SurfaceFirstDerivatives3{
+        .u = *world_u,
+        .v = *world_v,
+    };
+}
+
+std::expected<SurfaceSecondDerivatives3, SurfaceError>
+BoundedSphereSurface3::second_derivatives(
+    const double u,
+    const double v) const noexcept {
+    const auto valid =
+        validate_parameters(u_domain_, v_domain_, u, v);
+    if (!valid) {
+        return std::unexpected{valid.error()};
+    }
+
+    const auto effective_u =
+        effective_parameter(u_domain_, u, u_reversed_);
+    const auto effective_v =
+        effective_parameter(v_domain_, v, v_reversed_);
+    if (!effective_u || !effective_v) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    const auto local = sphere_local_second_derivatives(
+        radius_,
+        *effective_u,
+        *effective_v,
+        (u_reversed_ == v_reversed_) ? 1.0 : -1.0);
+    if (!local) {
+        return std::unexpected{local.error()};
+    }
+
+    const auto world_uu = world_vector(placement_, local->uu);
+    const auto world_uv = world_vector(placement_, local->uv);
+    const auto world_vv = world_vector(placement_, local->vv);
+    if (!world_uu || !world_uv || !world_vv) {
+        return std::unexpected{SurfaceError::non_finite_result};
+    }
+
+    return SurfaceSecondDerivatives3{
+        .uu = *world_uu,
+        .uv = *world_uv,
+        .vv = *world_vv,
+    };
+}
+
+BoundedSphereSurface3
+BoundedSphereSurface3::u_reversed() const noexcept {
+    return BoundedSphereSurface3{
+        placement_,
+        radius_,
+        u_domain_,
+        v_domain_,
+        !u_reversed_,
+        v_reversed_};
+}
+
+BoundedSphereSurface3
+BoundedSphereSurface3::v_reversed() const noexcept {
+    return BoundedSphereSurface3{
         placement_,
         radius_,
         u_domain_,
