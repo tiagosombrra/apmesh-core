@@ -510,57 +510,72 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   **MERGED / HISTORICAL** via PR #210; publishes the terminal closed scalar
   principal-curvature checkpoint.
 - `docs/surface-principal-curvature-values-final-state`:
-  **ACTIVE / DOCUMENTATION-ONLY**; reconciles final authority markers after
-  PR #210 before the next scientific decision.
+  **MERGED / HISTORICAL** via PR #211; reconciles final authority markers after
+  terminal principal-curvature publication.
+- `surface/analytic-sphere-decision`: **ACTIVE / DOCUMENTATION-ONLY**;
+  literature-backed bounded analytic sphere decision; no production sphere
+  code.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Principal Curvature Values is terminally closed and the repository is
-in final authority reconciliation before the next scientific decision.**
+**Bounded Analytic Spherical Surface Sector in 3D — DECISION ACTIVE /
+DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal lineage:
+Active branch:
+`surface/analytic-sphere-decision`.
 
-1. implementation PR #208 merged as
-   `3d0635d0a9420d48a1820905709bea367c96cec0`;
-2. implementation post-merge FAST `36210105115`: PASS, 39/39;
-3. implementation post-merge INTEGRATION `36210105079`: PASS, 39/39 in GCC
-   and Clang;
-4. implementation closure PR #209 merged as
-   `9bb98935391b6d3a8f923ca3011002de4d823e0f`;
-5. closure post-merge FAST `36210558469`: PASS;
-6. closure post-merge INTEGRATION `36210558481`: PASS;
-7. terminal publication PR #210 head:
-   `466075be5fcdfaaf81d3855e3f1fe65e7af02b05`;
-8. terminal publication PR FAST `36251427419`: PASS;
-9. terminal publication PR INTEGRATION `36251427426`: PASS in GCC 13 Debug
-   and Clang 18/libc++ Debug;
-10. terminal publication PR #210 merged as
-    `7cfd7cc34ecd813f8ec44a0356ec1ba172de26eb`;
-11. terminal publication post-merge FAST `36251514891`: PASS;
-12. terminal publication post-merge INTEGRATION `36251514909`: PASS;
-13. terminal closure audit:
-    `docs/audits/2026-09-26-surface-principal-curvature-values-terminal-closure.md`;
-14. ordinary semantic inventory remains **39 tests**;
-15. no production work item is active.
+Decision-entry authority:
 
-Terminal result:
+1. final principal-curvature authority PR #211 head:
+   `621cbd0a8ec47375d21d357a2597dd9e20b4f879`;
+2. PR #211 FAST `36252051886`: PASS;
+3. PR #211 INTEGRATION `36252051820`: PASS in GCC 13 Debug and Clang
+   18/libc++ Debug;
+4. PR #211 merged as
+   `049c55f3ebb81a1e1851cc6f3b147b5a8da6a176`;
+5. post-merge FAST `36252124919`: PASS;
+6. post-merge INTEGRATION `36252124966`: PASS;
+7. ordinary semantic inventory: **39 tests**;
+8. no open PR, competing sphere branch or production work item at entry.
 
-**PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+Decision authority:
+`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
+
+Fresh candidate comparison:
+
+- principal directions / line-field and umbilic semantics;
+- explicit conditioning diagnostics;
+- sphere/cone/torus Surface Representation breadth;
+- general trimming/p-curves/topological faces;
+- Boundary Curve Discretization readiness;
+- Surface Differential Geometry qualification readiness.
+
+Selected future work unit:
+
+**Bounded Analytic Spherical Surface Sector in 3D.**
+
+The decision freezes:
+
+- reuse of `AxisPlacement3`;
+- finite radius > 0;
+- strict bounded U width below represented `2*pi`;
+- V constrained to represented `[-pi/2,+pi/2]`;
+- exact canonical pole trigonometric semantics;
+- analytic value/D1/D2;
+- U/V reversal through the existing reversal primitive;
+- cross-layer metric/K/H/principal-value/umbilic evidence;
+- exact differential singularity at canonical poles;
+- no periodic wrapping.
+
+This branch changes documentation/research/decision authorities only.
 
 ## Next admissible transition
 
-After this final authority reconciliation merges and its own post-merge
-FAST/INTEGRATION pass, open exactly one fresh literature-backed decision
-comparing:
+Only after this decision is integrated, protected-main FAST/INTEGRATION pass
+and a separate decision checkpoint closes may one implementation branch open
+for the bounded sphere sector.
 
-1. principal directions and line-field/umbilic semantics;
-2. explicit conditioning diagnostics;
-3. sphere/cone/torus Surface Representation breadth;
-4. general trimming/p-curves/topological faces;
-5. Boundary Curve Discretization readiness;
-6. bounded Surface Differential Geometry qualification readiness.
-
-No candidate is pre-authorized.
+Principal directions, conditioning thresholds, cone, torus, general trimming,
+Boundary Curve Discretization and qualification remain unauthorized.
