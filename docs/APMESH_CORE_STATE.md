@@ -87,97 +87,60 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
 - current scientific stage:
-  **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
+  **Surface Representation — Continuous Patch Geometry — ANALYTIC SPHERE
+  DECISION INTEGRATED / CLOSURE PENDING / NOT QUALIFIED**;
+- Surface Differential Geometry remains:
+  **PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
   INTEGRATED / CLOSED / NOT QUALIFIED**;
-- entry decision PR #194:
-  `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
-- decision closure PR #195:
-  `10c2c7ab2231721a28858b9395aa6f0eb9b2d603`;
-- closure post-merge FAST `36115414541` and INTEGRATION
-  `36115414557`: PASS;
-- protected-main ordinary semantic inventory: **39 tests**;
-- integrated first-order work item:
-  **Pointwise Surface Regularity, First Fundamental Form, Area Density, and
-  Oriented Unit Normal in 3D**;
-- implementation PR #196:
-  `e476eaaaa56f59a5d66574f180083ecd621f8b95`;
-- implementation post-merge FAST `36118945024` and INTEGRATION
-  `36118944987`: PASS, 37/37;
-- implementation closure PR #197:
-  `5fc561a2e0e927369c5dc5c4644ef18699602914`;
-- closure post-merge FAST `36119643984` and INTEGRATION
-  `36119643997`: PASS, 37/37;
-- second-order curvature decision closed by PR #200;
-- integrated second-order work item:
-  **Pointwise Surface Second Fundamental Form + Gaussian/Mean Curvature**;
-- implementation PR #201:
-  `ed91d70d11446925148cc0ee5f0efab879022270`;
-- implementation post-merge FAST `36127252797` and INTEGRATION
-  `36127252837`: PASS, 38/38;
-- implementation closure PR #202:
-  `2ddd991bb9246bb8e6330f0cdf9a87afde93283f`;
-- closure post-merge FAST `36127811804` and INTEGRATION
-  `36127811852`: PASS, 38/38;
-- second-order II/K/H work unit:
-  **IMPLEMENTED / INTEGRATED / CLOSED / NOT QUALIFIED**;
-- terminal publication PR #203 head:
-  `e949ea5a40319da2b8d1ea21938d59d9e3a404f4`;
-- terminal publication PR FAST `36128180100`: PASS;
-- terminal publication PR INTEGRATION `36128180212`: PASS;
-- terminal publication merge:
-  `db382cf6218ad4fbf18cbafb3b246be812f6b3b7`;
-- terminal publication post-merge FAST `36128406912`: PASS;
-- terminal publication post-merge INTEGRATION `36128406846`: PASS;
-- no production work item active;
+- ordinary semantic inventory: **39 tests**;
+- principal-curvature final authority PR #211 merged as
+  `049c55f3ebb81a1e1851cc6f3b147b5a8da6a176`;
+- bounded analytic sphere decision PR #212 head:
+  `71a3e973035a26a08d1c6de416dacf696ad648ee`;
+- decision PR FAST `36252541863`: PASS;
+- decision PR INTEGRATION `36252541870`: PASS;
+- decision PR #212 merged as
+  `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
+- decision post-merge FAST `36252620832`: PASS;
+- decision post-merge INTEGRATION `36252620841`: PASS;
+- no sphere production work item is active;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
-  sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
-  obligations retained;
+  sphere implementation pending and cone, torus, full-periodic seams and
+  general trimming/p-curve/face obligations retained;
 - most recently qualified stage remains **Curve Representation — Continuous
   Geometry Before Discretization — QUALIFIED / CGR0–CGR7 PASS** in the
   admitted cloud envelope.
 
 ## Current active scientific action
 
-**Integrate the literature-backed Bounded Analytic Spherical Surface decision;
-no production sphere implementation is authorized on this branch.**
-
-Decision-entry authority:
-
-- final authority PR #211 head:
-  `621cbd0a8ec47375d21d357a2597dd9e20b4f879`;
-- PR FAST `36252051886`: PASS;
-- PR INTEGRATION `36252051820`: PASS;
-- PR #211 merge:
-  `049c55f3ebb81a1e1851cc6f3b147b5a8da6a176`;
-- post-merge FAST `36252124919`: PASS;
-- post-merge INTEGRATION `36252124966`: PASS.
-
-Active branch:
-`surface/analytic-sphere-decision`.
+**Close the integrated Bounded Analytic Spherical Surface decision; no
+production sphere implementation is active yet.**
 
 Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
 
-The decision selects exactly one future representation work unit:
+Integrated decision evidence:
+
+- PR #212 head:
+  `71a3e973035a26a08d1c6de416dacf696ad648ee`;
+- PR FAST `36252541863`: PASS;
+- PR INTEGRATION `36252541870`: PASS;
+- merge:
+  `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
+- post-merge FAST `36252620832`: PASS;
+- post-merge INTEGRATION `36252620841`: PASS.
+
+Closure branch:
+`docs/surface-analytic-sphere-decision-closure`.
+
+After closure integration and protected-main validation, the sole authorized
+production work item is:
 
 **Bounded Analytic Spherical Surface Sector in 3D.**
 
-Scientific rationale:
-
-- sphere remains an explicit missing Surface Representation family;
-- the arbitrary placement prerequisite is already integrated;
-- sphere supplies the production fixture required by the differential-stage
-  regression envelope;
-- canonical poles provide exact singular-parameterization evidence;
-- a regular canonical equator provides exact K/H/principal-value/umbilic
-  evidence.
-
-Principal directions, conditioning diagnostics, cone, torus, full periodic
-seams, general trimming/topology, Boundary Curve Discretization and
-qualification remain separate later decisions.
-
-No production source or test change is authorized on this decision branch.
+Principal directions, conditioning diagnostics, cone, torus, full-periodic
+seams, general trimming/p-curves/topological faces, Boundary Curve
+Discretization and qualification remain separate later decisions.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
@@ -331,18 +294,20 @@ Read in this order:
 1. `docs/APMESH_CORE_STATE.md`;
 2. `docs/APMESH_CORE_WORKLOG.md`;
 3. `docs/APMESH_CORE_ROADMAP.md`;
-4. `docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`;
-4. `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`;
-5. `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
-6. `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
-7. `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
-8. `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`;
-9. `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`;
-10. `docs/decisions/CURVE_CUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
-11. `docs/decisions/CURVE_MULTI_SPAN_CUBIC_NURBS_DECISION.md`;
-12. `docs/decisions/CURVE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
-13. the latest relevant audit under `docs/audits/`;
-14. verify live `main`, open PRs, ruleset `23728711`, and recent Actions before writing.
+4. `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`;
+5. `docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`;
+6. `docs/decisions/SURFACE_SECOND_ORDER_CURVATURE_DECISION.md`;
+7. `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`;
+8. `docs/decisions/SURFACE_ANALYTIC_CYLINDER_DECISION.md`;
+9. `docs/decisions/SURFACE_RECTANGULAR_TRIM_DECISION.md`;
+10. `docs/decisions/SURFACE_COONS_PATCH_DECISION.md`;
+11. `docs/decisions/SURFACE_BICUBIC_NURBS_DOUBLE_KNOT_CONTINUITY_DECISION.md`;
+12. `docs/decisions/SURFACE_BICUBIC_NURBS_DECISION.md`;
+13. `docs/decisions/SURFACE_RATIONAL_BICUBIC_BEZIER_DECISION.md`;
+14. `docs/decisions/SURFACE_REPRESENTATION_ENTRY_DECISION.md`;
+15. the latest relevant audit under `docs/audits/`;
+16. verify live `main`, open PRs, ruleset `23728711`, branches and recent
+    Actions before writing.
 
 Historical Topological Model qualification documents remain authoritative for
 their frozen claims but are no longer the active continuation documents.

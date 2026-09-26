@@ -1883,41 +1883,48 @@ Each qualified stage must have a human-readable decision document recording:
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Spherical Surface Sector in 3D —
-DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT STARTED /
 NOT QUALIFIED**
 
-Decision-entry authority:
-
-- final principal-curvature authority merge:
-  `049c55f3ebb81a1e1851cc6f3b147b5a8da6a176`;
-- PR #211 FAST `36252051886`: PASS;
-- PR #211 INTEGRATION `36252051820`: PASS;
-- post-merge FAST `36252124919`: PASS;
-- post-merge INTEGRATION `36252124966`: PASS.
-
-Active decision:
+Decision authority:
 `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
 
-Selected future work unit:
+Decision validation:
+
+- PR #212 head:
+  `71a3e973035a26a08d1c6de416dacf696ad648ee`;
+- PR FAST `36252541863`: PASS;
+- PR INTEGRATION `36252541870`: PASS;
+- merge:
+  `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
+- post-merge FAST `36252620832`: PASS;
+- post-merge INTEGRATION `36252620841`: PASS.
+
+Closure branch:
+`docs/surface-analytic-sphere-decision-closure`.
+
+After closure integration and protected-main validation, the sole next
+production work item is:
 
 **Bounded Analytic Spherical Surface Sector in 3D.**
 
-The decision isolates:
+The future implementation remains limited to:
 
-- positive finite radius;
-- arbitrary right-handed placement;
-- non-periodic bounded longitude width below `2*pi`;
+- existing `AxisPlacement3`;
+- radius > 0;
+- bounded non-periodic longitude width below represented `2*pi`;
 - bounded latitude inside represented `[-pi/2,+pi/2]`;
+- analytic value and first/second partials;
+- U/V reversal;
 - exact canonical pole representation;
-- analytic value/D1/D2;
-- existing U/V reversal semantics;
-- direct cross-layer oracle evidence for metric, normal, K, H, ordered
-  principal values and exact umbilic state;
-- deterministic singular-parameterization evidence at poles.
+- independent sphere oracle;
+- cross-layer metric/K/H/principal-value/umbilic checks;
+- exact differential singularity at poles;
+- one new focused contract, targeting 40 tests.
 
-Explicitly deferred:
+Deferred:
 
-- principal directions and line-field semantics;
+- principal directions/line fields;
 - conditioning diagnostics;
 - cone;
 - torus;
@@ -1926,9 +1933,6 @@ Explicitly deferred:
 - Boundary Curve Discretization;
 - Surface Representation qualification;
 - Surface Differential Geometry qualification.
-
-No implementation may start until this decision integrates, protected-main
-FAST/INTEGRATION pass and a separate decision checkpoint closes.
 
 Surface Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 

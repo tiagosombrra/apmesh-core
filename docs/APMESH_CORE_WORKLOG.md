@@ -512,70 +512,62 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-principal-curvature-values-final-state`:
   **MERGED / HISTORICAL** via PR #211; reconciles final authority markers after
   terminal principal-curvature publication.
-- `surface/analytic-sphere-decision`: **ACTIVE / DOCUMENTATION-ONLY**;
-  literature-backed bounded analytic sphere decision; no production sphere
-  code.
+- `surface/analytic-sphere-decision`: **MERGED / HISTORICAL** via PR #212;
+  literature-backed bounded analytic sphere decision.
+- `docs/surface-analytic-sphere-decision-closure`: **CLOSURE-ONLY**;
+  records PR #212 integration and protected-main validation.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Bounded Analytic Spherical Surface Sector in 3D — DECISION ACTIVE /
-DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**None. Bounded Analytic Spherical Surface Sector decision is integrated and
+ready for closure.**
 
-Active branch:
-`surface/analytic-sphere-decision`.
+Decision closure evidence:
 
-Decision-entry authority:
-
-1. final principal-curvature authority PR #211 head:
-   `621cbd0a8ec47375d21d357a2597dd9e20b4f879`;
-2. PR #211 FAST `36252051886`: PASS;
-3. PR #211 INTEGRATION `36252051820`: PASS in GCC 13 Debug and Clang
+1. decision authority:
+   `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`;
+2. decision PR #212 head:
+   `71a3e973035a26a08d1c6de416dacf696ad648ee`;
+3. decision PR FAST `36252541863`: PASS;
+4. decision PR INTEGRATION `36252541870`: PASS in GCC 13 Debug and Clang
    18/libc++ Debug;
-4. PR #211 merged as
-   `049c55f3ebb81a1e1851cc6f3b147b5a8da6a176`;
-5. post-merge FAST `36252124919`: PASS;
-6. post-merge INTEGRATION `36252124966`: PASS;
-7. ordinary semantic inventory: **39 tests**;
-8. no open PR, competing sphere branch or production work item at entry.
+5. PR #212 merged as
+   `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
+6. decision post-merge FAST `36252620832`: PASS;
+7. decision post-merge INTEGRATION `36252620841`: PASS;
+8. ordinary semantic inventory remains **39 tests**;
+9. no sphere production type or focused sphere contract exists yet;
+10. no common `SurfaceError`, `BoundedParametricSurface3`,
+    `AxisPlacement3` or Surface Differential Geometry production change was
+    made by the decision.
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
+No production work item is active in this closure change.
 
-Fresh candidate comparison:
+## Next admissible work item after closure
 
-- principal directions / line-field and umbilic semantics;
-- explicit conditioning diagnostics;
-- sphere/cone/torus Surface Representation breadth;
-- general trimming/p-curves/topological faces;
-- Boundary Curve Discretization readiness;
-- Surface Differential Geometry qualification readiness.
-
-Selected future work unit:
+After this closure is integrated and its own protected-main FAST/INTEGRATION
+pass, open exactly one implementation branch for:
 
 **Bounded Analytic Spherical Surface Sector in 3D.**
 
-The decision freezes:
+Implementation remains bounded by
+`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`:
 
-- reuse of `AxisPlacement3`;
-- finite radius > 0;
-- strict bounded U width below represented `2*pi`;
-- V constrained to represented `[-pi/2,+pi/2]`;
-- exact canonical pole trigonometric semantics;
-- analytic value/D1/D2;
-- U/V reversal through the existing reversal primitive;
-- cross-layer metric/K/H/principal-value/umbilic evidence;
-- exact differential singularity at canonical poles;
-- no periodic wrapping.
+- existing `AxisPlacement3`;
+- finite strictly positive radius;
+- strict bounded U interval with width below represented `2*pi`;
+- V contained in represented `[-pi/2,+pi/2]`;
+- no periodic wrapping/modulo;
+- analytic value, Su, Sv, Suu, Suv, Svv;
+- existing U/V reversal semantics;
+- exact canonical pole handling;
+- independent long-double sphere oracle;
+- generic metric/normal/K/H/principal-value/umbilic cross-layer evidence;
+- exact generic differential singularity at canonical poles;
+- one focused contract, targeting **40 ordinary tests**.
 
-This branch changes documentation/research/decision authorities only.
-
-## Next admissible transition
-
-Only after this decision is integrated, protected-main FAST/INTEGRATION pass
-and a separate decision checkpoint closes may one implementation branch open
-for the bounded sphere sector.
-
-Principal directions, conditioning thresholds, cone, torus, general trimming,
-Boundary Curve Discretization and qualification remain unauthorized.
+Principal directions, conditioning thresholds, cone, torus, full-periodic
+seams, general trimming/p-curves/topological faces, Boundary Curve
+Discretization and qualification remain unauthorized.

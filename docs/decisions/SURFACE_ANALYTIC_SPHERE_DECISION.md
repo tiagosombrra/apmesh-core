@@ -772,3 +772,37 @@ Surface Representation remains IN INVESTIGATION / NOT QUALIFIED.
 Surface Differential Geometry remains IN INVESTIGATION / NOT QUALIFIED.
 
 Boundary Curve Discretization and downstream meshing remain blocked.
+
+
+## 36. Decision integration checkpoint
+
+Decision PR #212 used final head
+`71a3e973035a26a08d1c6de416dacf696ad648ee`.
+
+Decision PR validation:
+
+- FAST `36252541863`: PASS;
+- INTEGRATION `36252541870`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #212 merged as
+`5ba610e9100ec0c68a428798bc6f853188bd7a45`.
+
+Protected-main validation:
+
+- FAST `36252620832`: PASS;
+- INTEGRATION `36252620841`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The integrated decision selects only:
+
+**Bounded Analytic Spherical Surface Sector in 3D.**
+
+The decision checkpoint is ready for documentation/continuity closure.
+
+After that closure merges and protected-main validation passes, the sole next
+production work item is the implementation bounded by Sections 7–33.
+
+Principal directions, conditioning thresholds, cone, torus, full-periodic
+seams, general trimming/p-curves/topological faces, Boundary Curve
+Discretization and qualification remain unauthorized.
