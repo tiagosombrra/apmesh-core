@@ -518,58 +518,62 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   via PR #213; closes the bounded analytic sphere decision checkpoint.
 - `surface/analytic-sphere`: **MERGED / HISTORICAL** via PR #214; bounded
   analytic spherical-sector production work item.
-- `docs/surface-analytic-sphere-implementation-closure`: **CLOSURE-ONLY**;
-  records PR #214 integration, protected-main validation and implementation
-  audit.
+- `docs/surface-analytic-sphere-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #215; closes the bounded analytic sphere implementation
+  and publishes its implementation audit.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Analytic Spherical Surface Sector implementation is integrated
-and ready for closure.**
+**None. Bounded Analytic Spherical Surface Sector in 3D is terminally closed.**
 
-Implementation closure evidence:
+Terminal closure evidence:
 
 1. decision authority:
    `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`;
 2. candidate-validation audit:
    `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`;
-3. initial validated candidate:
-   `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
-4. candidate FAST `36263014748`: PASS, 40/40;
-5. candidate INTEGRATION `36263014773`: PASS, 40/40 in GCC and Clang;
-6. final PR head:
+3. implementation audit:
+   `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`;
+4. final implementation PR head:
    `0fb729054b0d3fa97045c0238ed4de9ce2e94d3d`;
-7. final FAST `36263188269`: PASS, 40/40;
-8. final INTEGRATION `36263188266`: PASS, 40/40 in GCC and Clang;
-9. implementation PR #214 merged as
+5. final PR FAST `36263188269`: PASS, 40/40;
+6. final PR INTEGRATION `36263188266`: PASS, 40/40 in GCC and Clang;
+7. implementation PR #214 merge:
    `461c3f04454cc4f8aa789d9baba5085362aa6254`;
-10. implementation post-merge FAST `36263360375`: PASS, 40/40;
-11. implementation post-merge INTEGRATION `36263360805`: PASS, 40/40;
-12. implementation audit:
-    `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`;
-13. no common surface, placement or differential-production contract changed.
+8. implementation post-merge FAST `36263360375`: PASS, 40/40;
+9. implementation post-merge INTEGRATION `36263360805`: PASS, 40/40;
+10. closure PR #215 head:
+    `3947547b24b43a0058cd3686c8739ba6f60c626c`;
+11. closure PR FAST `36264003640`: PASS;
+12. closure PR INTEGRATION `36264003550`: PASS;
+13. closure merge:
+    `87ff882606f92259da6a6e788af8a8e6a220a3bf`;
+14. closure post-merge FAST `36264093555`: PASS;
+15. closure post-merge INTEGRATION `36264093548`: PASS;
+16. no common surface, placement or differential-production contract changed;
+17. ordinary semantic inventory remains **40 tests**.
 
-Current work-unit result:
+Terminal result:
 
 **BOUNDED ANALYTIC SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSURE PENDING / NOT QUALIFIED.**
+INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-No production work item is active in this closure change.
+## Next admissible work item
 
-## Next admissible work item after closure
-
-Only after this implementation closure is integrated and protected-main
-FAST/INTEGRATION passes may one fresh literature-backed decision recompare:
+Open exactly one fresh literature-backed scientific decision comparing:
 
 1. analytic cone;
 2. analytic torus;
 3. principal directions / line-field semantics;
 4. conditioning diagnostics;
-5. general trimming/p-curves/topological faces;
+5. general trimming / p-curves / topological faces;
 6. Surface Representation qualification readiness;
 7. Surface Differential Geometry qualification readiness;
 8. Boundary Curve Discretization readiness.
 
 No option is pre-authorized.
+
+The terminal synchronization is documentation-only and does not itself select
+or implement a next capability.

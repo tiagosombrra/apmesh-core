@@ -1,7 +1,7 @@
 # Bounded Analytic Spherical Surface — Implementation Audit
 
 Date: 2026-09-26  
-Status: PASS / IMPLEMENTED / INTEGRATED / CLOSURE PENDING / NOT QUALIFIED  
+Status: PASS / IMPLEMENTED / INTEGRATED / CLOSED / NOT QUALIFIED  
 Stage: Surface Representation — Continuous Patch Geometry
 
 ## 1. Integrated capability
@@ -147,8 +147,22 @@ Implementation result:
 **PASS / BOUNDED ANALYTIC SPHERE IMPLEMENTED /
 FOCUSED CONTRACTS PASS / INTEGRATED / NOT QUALIFIED.**
 
-The work item may be declared CLOSED only after this implementation-closure
-documentation receives its own FAST/INTEGRATION validation, merges, and the
-protected-main closure revision receives post-merge validation.
+Implementation closure evidence:
+
+- closure PR #215 head:
+  `3947547b24b43a0058cd3686c8739ba6f60c626c`;
+- closure PR FAST `36264003640`: PASS;
+- closure PR INTEGRATION `36264003550`: PASS in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- closure merge:
+  `87ff882606f92259da6a6e788af8a8e6a220a3bf`;
+- closure post-merge FAST `36264093555`: PASS;
+- closure post-merge INTEGRATION `36264093548`: PASS in GCC 13 Debug and
+  Clang 18/libc++ Debug.
+
+Terminal result:
+
+**PASS / BOUNDED ANALYTIC SPHERE IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 No next scientific capability is selected by this audit.

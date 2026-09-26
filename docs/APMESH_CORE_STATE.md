@@ -89,7 +89,7 @@ Authoritative continuation snapshot after protected-main validation on
 - current scientific stage:
   **Surface Representation — Continuous Patch Geometry — BOUNDED ANALYTIC
   SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-  CLOSURE PENDING / NOT QUALIFIED**;
+  CLOSED / NOT QUALIFIED**;
 - Surface Differential Geometry remains:
   **PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
   INTEGRATED / CLOSED / NOT QUALIFIED**;
@@ -114,27 +114,41 @@ Authoritative continuation snapshot after protected-main validation on
 
 ## Current active scientific action
 
-**Close the integrated bounded analytic spherical-surface implementation; no
-production work item is active.**
+**None. The bounded analytic spherical-surface work unit is closed.**
 
-Implementation authority:
+Terminal closure authority:
 
-- decision:
-  `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`;
-- candidate audit:
-  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`;
-- implementation audit:
-  `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`;
-- PR #214 merge:
+- implementation PR #214:
   `461c3f04454cc4f8aa789d9baba5085362aa6254`;
-- post-merge FAST `36263360375`: PASS, 40/40;
-- post-merge INTEGRATION `36263360805`: PASS, 40/40.
+- implementation post-merge FAST `36263360375`: PASS, 40/40;
+- implementation post-merge INTEGRATION `36263360805`: PASS, 40/40;
+- implementation closure PR #215 head:
+  `3947547b24b43a0058cd3686c8739ba6f60c626c`;
+- closure PR FAST `36264003640`: PASS;
+- closure PR INTEGRATION `36264003550`: PASS;
+- closure merge:
+  `87ff882606f92259da6a6e788af8a8e6a220a3bf`;
+- closure post-merge FAST `36264093555`: PASS;
+- closure post-merge INTEGRATION `36264093548`: PASS;
+- implementation audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`.
 
-Closure branch:
-`docs/surface-analytic-sphere-implementation-closure`.
+Terminal work-unit result:
 
-No next scientific capability is pre-authorized. After closure, a fresh
-literature-backed decision must recompare the retained candidates.
+**BOUNDED ANALYTIC SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS /
+INTEGRATED / CLOSED / NOT QUALIFIED.**
+
+No production work item is active.
+
+Exact next admissible scientific action:
+
+**Open one fresh literature-backed decision comparing analytic cone, analytic
+torus, principal directions/line-field semantics, conditioning diagnostics,
+general trimming/p-curves/topological faces, Surface Representation
+qualification readiness, Surface Differential Geometry qualification readiness
+and Boundary Curve Discretization readiness.**
+
+No candidate is pre-authorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
