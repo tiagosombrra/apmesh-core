@@ -11,6 +11,11 @@
       "displayName": "GCC 13 Debug",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/gcc-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "cacheVariables": {
         "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
         "APMESH_USE_LIBCXX": "OFF",
@@ -25,6 +30,11 @@
       "displayName": "GCC 13 Release",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/gcc-release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "cacheVariables": {
         "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
         "APMESH_USE_LIBCXX": "OFF",
@@ -39,6 +49,11 @@
       "displayName": "Clang 18 libc++ Debug",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/clang-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "cacheVariables": {
         "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
         "APMESH_USE_LIBCXX": "ON",
@@ -53,6 +68,11 @@
       "displayName": "Clang 18 libc++ Release",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/clang-release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "cacheVariables": {
         "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
         "APMESH_USE_LIBCXX": "ON",
@@ -70,19 +90,111 @@
       "cacheVariables": {
         "APMESH_ENABLE_QUALIFICATION_TESTS": "ON"
       }
+    },
+    {
+      "name": "windows-msvc",
+      "hidden": true,
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build/windows-msvc",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "APMESH_ENABLE_QUALIFICATION_TESTS": "OFF",
+        "APMESH_USE_LIBCXX": "OFF",
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
+      "name": "windows-msvc-debug",
+      "displayName": "MSVC x64 Debug",
+      "inherits": "windows-msvc"
+    },
+    {
+      "name": "windows-msvc-release",
+      "displayName": "MSVC x64 Release",
+      "inherits": "windows-msvc"
     }
   ],
   "buildPresets": [
-    { "name": "gcc-debug", "configurePreset": "gcc-debug" },
-    { "name": "gcc-release", "configurePreset": "gcc-release" },
-    { "name": "clang-debug", "configurePreset": "clang-debug" },
-    { "name": "clang-release", "configurePreset": "clang-release" },
-    { "name": "gcc-debug-qualification", "configurePreset": "gcc-debug-qualification" }
+    {
+      "name": "gcc-debug",
+      "configurePreset": "gcc-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "gcc-release",
+      "configurePreset": "gcc-release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "clang-debug",
+      "configurePreset": "clang-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "clang-release",
+      "configurePreset": "clang-release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "gcc-debug-qualification",
+      "configurePreset": "gcc-debug-qualification",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "windows-msvc-debug",
+      "configurePreset": "windows-msvc-debug",
+      "configuration": "Debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "windows-msvc-release",
+      "configurePreset": "windows-msvc-release",
+      "configuration": "Release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    }
   ],
   "testPresets": [
     {
       "name": "gcc-debug",
       "configurePreset": "gcc-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "output": {
         "outputOnFailure": true
       }
@@ -90,6 +202,11 @@
     {
       "name": "gcc-release",
       "configurePreset": "gcc-release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "output": {
         "outputOnFailure": true
       }
@@ -97,6 +214,11 @@
     {
       "name": "clang-debug",
       "configurePreset": "clang-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "output": {
         "outputOnFailure": true
       }
@@ -104,6 +226,11 @@
     {
       "name": "clang-release",
       "configurePreset": "clang-release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "output": {
         "outputOnFailure": true
       }
@@ -111,6 +238,11 @@
     {
       "name": "fast",
       "configurePreset": "gcc-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "filter": {
         "include": {
           "label": "fast"
@@ -123,6 +255,11 @@
     {
       "name": "integration-gcc-debug",
       "configurePreset": "gcc-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "filter": {
         "include": {
           "label": "integration"
@@ -135,6 +272,11 @@
     {
       "name": "integration-clang-debug",
       "configurePreset": "clang-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "filter": {
         "include": {
           "label": "integration"
@@ -147,9 +289,58 @@
     {
       "name": "qualification-gcc-debug",
       "configurePreset": "gcc-debug-qualification",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
       "filter": {
         "include": {
           "label": "qualification"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-debug",
+      "configurePreset": "windows-msvc-debug",
+      "configuration": "Debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-msvc-release",
+      "configurePreset": "windows-msvc-release",
+      "configuration": "Release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "windows-fast",
+      "configurePreset": "windows-msvc-debug",
+      "configuration": "Debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "filter": {
+        "include": {
+          "label": "fast"
         }
       },
       "output": {

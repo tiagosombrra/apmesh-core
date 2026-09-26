@@ -1305,15 +1305,14 @@ struct InflectionNode {
     const std::size_t root_free_leaves,
     const std::size_t isolated_root_leaves,
     const std::size_t max_depth_reached) noexcept {
-    std::sort(
-        brackets.begin(),
-        brackets.begin() + inflection_count,
-        [](const CurveInflectionBracket& lhs, const CurveInflectionBracket& rhs) {
-            if (lhs.lower_parameter != rhs.lower_parameter) {
-                return lhs.lower_parameter < rhs.lower_parameter;
-            }
-            return lhs.upper_parameter < rhs.upper_parameter;
-        });
+    // The certified quadratic has at most two brackets. One compare/swap
+    // preserves the same lexicographic ordering without a dynamic sort range.
+    if (inflection_count == brackets.size() &&
+        (brackets[1].lower_parameter < brackets[0].lower_parameter ||
+         (brackets[1].lower_parameter == brackets[0].lower_parameter &&
+          brackets[1].upper_parameter < brackets[0].upper_parameter))) {
+        std::swap(brackets[0], brackets[1]);
+    }
 
     return CurveInflectionIsolationEvidence{
         .result = result,

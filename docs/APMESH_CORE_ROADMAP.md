@@ -1880,6 +1880,18 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
+The sole **VALIDATED_UNMERGED** implementation item is portable spline
+intermediate arithmetic maintenance, on `build/native-windows-msvc-presets`. It repairs
+the existing four B-spline/NURBS paths without admitting a new family or
+changing scientific gates. GCC/Clang/MSVC Debug and Release pass 41/41 ordinary
+contracts in all six cells. The separately authorized two-bracket ordering
+correction in `curve.cpp` resolves the observed GCC Release build blocker,
+preserving the comparator and scientific isolation rules. Publication is
+admissible; integration and closure remain pending. See
+`docs/audits/2026-09-26-portable-spline-arithmetic.md` and the worklog.
+This adds no scientific qualification or completion credit. The next breadth
+comparison waits for maintenance integration and closure.
+
 Current scientific work focus:
 
 **Surface Representation — Bounded Analytic Spherical Surface Sector in 3D —

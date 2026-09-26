@@ -1,7 +1,7 @@
 # AP Mesh Core — Operational Work Ledger
 
 Status: AUTHORITATIVE FOR OPERATIONAL CONTINUITY  
-Last updated: 2026-09-22  
+Last updated: 2026-09-26
 Canonical integration branch: `main`  
 Scientific continuation authority: `docs/APMESH_CORE_STATE.md`  
 Roadmap authority: `docs/APMESH_CORE_ROADMAP.md`
@@ -526,7 +526,26 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Bounded Analytic Spherical Surface Sector in 3D is terminally closed.**
+**Portable spline intermediate arithmetic / VALIDATED_UNMERGED.**
+
+- sole current branch: `build/native-windows-msvc-presets` / **VALIDATED_UNMERGED**;
+- stable preset checkpoint: `a9355cd597e56e33808f8a9497d70a553006d8fd`;
+- implementation checkpoint: `65ec6e8514e82e5add62f0c2fb53f049c29be215`;
+- [PR #217](https://github.com/tiagosombrra/apmesh-core/pull/217): **OPEN**,
+  target `main`; query live required checks before any integration decision;
+- scope: two-span B-spline, two-span NURBS, multi-span NURBS and bicubic NURBS
+  private arithmetic; public scientific contracts unchanged;
+- GCC/Clang/MSVC Debug and Release FAST: PASS, 41/41 in all six cells;
+- initial GCC Release failure in `curve.cpp` is retained; the separately
+  authorized fixed two-bracket compare/swap removes the dynamic `std::sort`
+  range while preserving its comparator and scientific isolation rules;
+- evidence: `docs/audits/2026-09-26-portable-spline-arithmetic.md`;
+- published for review; integration and post-merge closure remain pending;
+- no warning suppression, formal campaign, qualification claim or merge.
+
+### Last closed spherical-surface work item
+
+**Bounded Analytic Spherical Surface Sector in 3D is terminally closed.**
 
 Terminal closure evidence:
 
@@ -561,6 +580,9 @@ Terminal result:
 INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
+
+First complete the maintenance validation, review and integration checkpoint
+above, including post-merge checks and continuity synchronization. Only then:
 
 Open exactly one fresh literature-backed scientific decision comparing:
 
