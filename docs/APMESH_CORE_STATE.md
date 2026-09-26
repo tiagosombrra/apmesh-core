@@ -88,8 +88,7 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 - canonical integration branch: `main`;
 - current scientific stage:
   **Surface Differential Geometry — Metric, Normals, and Curvatures —
-  PRINCIPAL CURVATURE VALUES DECISION INTEGRATED / CLOSURE PENDING /
-  IMPLEMENTATION NOT STARTED / NOT QUALIFIED**;
+  PRINCIPAL CURVATURE VALUES IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
 - entry decision PR #194:
   `2a4b1df3732eaaa1a768c1d8d0b41bdd3310ffac`;
 - decision closure PR #195:
@@ -139,33 +138,35 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Close the integrated Surface Principal Curvature Values decision; production
-implementation remains blocked until this closure is integrated and
-post-merge validated.**
+**Implement Pointwise Ordered Principal Curvature Values plus Exact
+Represented-Data Umbilic State.**
 
-Decision evidence:
+Closed decision evidence:
 
-- PR #206 head:
-  `3a5af9d27aaf9b3e563e9fd6f89b868745c7edda`;
-- PR FAST `36148367215`: PASS;
-- PR INTEGRATION `36148367239`: PASS;
-- PR #206 merge:
+- decision PR #206:
   `8d42bf38871d7a79f1c01aacbad77ed5e106505f`;
-- post-merge FAST `36190790100`: PASS;
-- post-merge INTEGRATION `36190790157`: PASS.
+- decision closure PR #207 head:
+  `937f90b8fbac129bb4e92e30db5d42dfb2dcff6c`;
+- closure PR FAST `36191030571`: PASS;
+- closure PR INTEGRATION `36191030276`: PASS;
+- closure merge:
+  `bb33396050b4ccc85ca9cc4e1683d491e89bcac0`;
+- closure post-merge FAST `36191169978`: PASS;
+- closure post-merge INTEGRATION `36191169982`: PASS.
 
-Closure branch:
-`docs/surface-principal-curvature-values-decision-closure`.
+Active branch:
+`surface/principal-curvature-values`.
 
 Decision authority:
 `docs/decisions/SURFACE_PRINCIPAL_CURVATURE_VALUES_DECISION.md`.
 
-After closure, the sole authorized production work item is ordered pointwise
-principal curvature values plus exact represented-data umbilic state.
+The implementation is restricted to scalar principal values and exact
+represented-data umbilic state, reusing the existing first/second fundamental
+forms and SurfaceDifferentialError vocabulary.
 
-No directions/eigenvectors, conditioning thresholds, representation breadth,
-trimming/topology, discretization/sizing, anisotropy or meshing work is
-authorized.
+Principal directions, tolerance/conditioning policy, representation breadth,
+trimming/topology, discretization/sizing, anisotropy and meshing remain
+unauthorized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
