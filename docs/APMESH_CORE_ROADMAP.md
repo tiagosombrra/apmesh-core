@@ -1755,8 +1755,8 @@ before qualification.
 ### Surface Differential Geometry — Metric, Normals, and Curvatures
 
 Status: `FIRST-ORDER METRIC/NORMAL + SECOND FUNDAMENTAL FORM +
-GAUSSIAN/MEAN CURVATURE INTEGRATED / PRINCIPAL CURVATURE VALUES
-DECISION ACTIVE / DOCUMENTATION ONLY / NOT QUALIFIED`
+GAUSSIAN/MEAN CURVATURE + PRINCIPAL CURVATURE VALUES INTEGRATED /
+FOCUSED CONTRACTS PASS / NOT QUALIFIED`
 
 Goal: independently verify first/second fundamental forms, normals, principal curvatures, Gaussian/mean curvature, regularity, and conditioning.
 
@@ -1881,44 +1881,39 @@ Each qualified stage must have a human-readable decision document recording:
 
 Current scientific work focus:
 
-**Surface Differential Geometry — Ordered Principal Curvature Values +
-Exact Represented-Data Umbilic State — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM**
+**Surface Differential Geometry — Principal Curvature Values terminally
+closed / FINAL AUTHORITY RECONCILIATION / NO ACTIVE PRODUCTION WORK ITEM /
+NOT QUALIFIED**
 
-Terminal work-unit evidence:
+Terminal publication evidence:
 
-- implementation PR #208 merge:
-  `3d0635d0a9420d48a1820905709bea367c96cec0`;
-- implementation post-merge FAST `36210105115`: PASS, 39/39;
-- implementation post-merge INTEGRATION `36210105079`: PASS, 39/39;
-- closure PR #209 head:
-  `e4c57e01620537b28f3adc9b28cec2c8ab633cb0`;
-- closure PR FAST `36210457108`: PASS;
-- closure PR INTEGRATION `36210457161`: PASS;
-- closure merge:
-  `9bb98935391b6d3a8f923ca3011002de4d823e0f`;
-- closure post-merge FAST `36210558469`: PASS;
-- closure post-merge INTEGRATION `36210558481`: PASS;
-- terminal closure audit:
-  `docs/audits/2026-09-26-surface-principal-curvature-values-terminal-closure.md`.
+- terminal publication PR #210 head:
+  `466075be5fcdfaaf81d3855e3f1fe65e7af02b05`;
+- PR FAST `36251427419`: PASS;
+- PR INTEGRATION `36251427426`: PASS;
+- PR #210 merge:
+  `7cfd7cc34ecd813f8ec44a0356ec1ba172de26eb`;
+- post-merge FAST `36251514891`: PASS;
+- post-merge INTEGRATION `36251514909`: PASS.
 
-Terminal publication branch:
-`docs/surface-principal-curvature-values-terminal-sync`.
+Final-state branch:
+`docs/surface-principal-curvature-values-final-state`.
 
-After this terminal publication is integrated and post-merge validated, open
-one fresh literature-backed decision comparing:
+After this documentation-only reconciliation is integrated and post-merge
+validated, open one fresh literature-backed decision comparing:
 
-- principal directions / line-field semantics;
+- principal directions / line-field and umbilic semantics;
 - explicit conditioning diagnostics;
-- sphere/cone/torus representation breadth;
+- sphere/cone/torus Surface Representation breadth;
 - general trimming/p-curves/topological faces;
 - Boundary Curve Discretization readiness;
 - bounded Surface Differential Geometry qualification readiness.
 
 No option is preselected.
 
-Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
+sphere, cone, torus, full-periodic cylinder and general trimming/p-curve/face
+obligations retained.
 
 The long-term ordering remains:
 

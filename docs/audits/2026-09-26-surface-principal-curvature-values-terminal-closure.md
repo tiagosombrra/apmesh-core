@@ -110,3 +110,32 @@ No option is pre-authorized by this audit.
 This audit records the closure evidence without replacing the earlier candidate
 or implementation audits. Those historical files remain authoritative for the
 states they recorded at the time.
+
+
+## 6. Terminal publication
+
+Terminal publication PR #210 used head:
+
+`466075be5fcdfaaf81d3855e3f1fe65e7af02b05`.
+
+PR validation:
+
+- FAST `36251427419`: PASS;
+- INTEGRATION `36251427426`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #210 merged as:
+
+`7cfd7cc34ecd813f8ec44a0356ec1ba172de26eb`.
+
+Protected-main publication validation:
+
+- FAST `36251514891`: PASS;
+- INTEGRATION `36251514909`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+The publication changed only documentation/audit authority. It did not modify
+production code, tests or scientific acceptance criteria.
+
+After publication the repository has no active production work item. A fresh
+decision is required before any new scientific capability is authorized.

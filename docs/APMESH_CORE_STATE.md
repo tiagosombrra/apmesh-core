@@ -139,42 +139,32 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Publish the terminal closed Principal Curvature Values checkpoint; no
-production work item is active.**
+**Complete final authority reconciliation after terminal Principal Curvature
+Values publication; no production work item is active.**
 
-Terminal work-unit evidence:
+Terminal publication evidence:
 
-- implementation PR #208 merge:
-  `3d0635d0a9420d48a1820905709bea367c96cec0`;
-- implementation post-merge FAST `36210105115`: PASS, 39/39;
-- implementation post-merge INTEGRATION `36210105079`: PASS, 39/39;
-- implementation closure PR #209 head:
-  `e4c57e01620537b28f3adc9b28cec2c8ab633cb0`;
-- closure PR FAST `36210457108`: PASS;
-- closure PR INTEGRATION `36210457161`: PASS;
-- closure merge:
-  `9bb98935391b6d3a8f923ca3011002de4d823e0f`;
-- closure post-merge FAST `36210558469`: PASS;
-- closure post-merge INTEGRATION `36210558481`: PASS;
-- terminal closure audit:
-  `docs/audits/2026-09-26-surface-principal-curvature-values-terminal-closure.md`.
+- terminal publication PR #210 head:
+  `466075be5fcdfaaf81d3855e3f1fe65e7af02b05`;
+- PR FAST `36251427419`: PASS;
+- PR INTEGRATION `36251427426`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug;
+- PR #210 merged as:
+  `7cfd7cc34ecd813f8ec44a0356ec1ba172de26eb`;
+- post-merge FAST `36251514891`: PASS;
+- post-merge INTEGRATION `36251514909`: PASS.
 
-Terminal result:
+Final-state branch:
+`docs/surface-principal-curvature-values-final-state`.
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED.**
+No scientific capability is active or pre-authorized during this
+documentation-only reconciliation.
 
-Terminal publication branch:
-`docs/surface-principal-curvature-values-terminal-sync`.
-
-After this documentation-only publication merges and passes post-merge
-FAST/INTEGRATION, the sole admissible action is one fresh literature-backed
-decision comparing principal directions, conditioning diagnostics, remaining
-surface representation breadth, trimming/topology, Boundary Curve
-Discretization readiness and bounded Surface Differential Geometry
-qualification readiness.
-
-No candidate is pre-authorized.
+After it integrates and passes protected-main validation, the next admissible
+action is exactly one fresh literature-backed decision comparing principal
+directions, conditioning diagnostics, remaining Surface Representation breadth,
+general trimming/topology, Boundary Curve Discretization readiness and bounded
+Surface Differential Geometry qualification readiness.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
