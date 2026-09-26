@@ -806,3 +806,34 @@ production work item is the implementation bounded by Sections 7–33.
 Principal directions, conditioning thresholds, cone, torus, full-periodic
 seams, general trimming/p-curves/topological faces, Boundary Curve
 Discretization and qualification remain unauthorized.
+
+
+## 37. Decision closure checkpoint
+
+Decision closure PR #213 used head
+`75717f6f92f660937a95e720aa39e5d701a40bed`.
+
+Closure PR validation:
+
+- FAST `36262259771`: PASS;
+- INTEGRATION `36262259772`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+PR #213 merged as
+`95c8bce38aa5a2312e6c09eb9e31578618374cf0`.
+
+Closure protected-main validation:
+
+- FAST `36262353372`: PASS;
+- INTEGRATION `36262353395`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole active production work item is the bounded analytic spherical sector
+defined by Sections 6–33.
+
+No principal-direction, conditioning, cone, torus, full-periodic, trimming,
+discretization or qualification capability is authorized.
