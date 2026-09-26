@@ -575,6 +575,39 @@ Required scope:
 - exact generic differential singularity at canonical poles;
 - expected ordinary inventory: **40 tests**.
 
+Candidate implementation mapping:
+
+- public API:
+  `include/apmesh/geometry/elementary_surface.hpp`;
+- production:
+  `src/geometry/elementary_surface.cpp`;
+- focused semantic/cross-layer contract:
+  `tests/surface_sphere.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- existing `SurfaceError`, `BoundedParametricSurface3`,
+  `AxisPlacement3` and Surface Differential Geometry production remain
+  unchanged.
+
+Candidate semantics:
+
+- exact bounded non-periodic spherical-sector construction;
+- exact represented pole trigonometry at stored `+/-pi/2`;
+- analytic value and first/second partials;
+- U/V reversal covariance and involution;
+- independent long-double arbitrary-placement oracle;
+- explicit translation and power-of-two coordinate/radius scaling evidence;
+- exact pole singularity propagated through metric, II/K/H and principal
+  values;
+- exact unit-equator K/H/principal/umbilic evidence;
+- near-pole nonzero regularity evidence;
+- extreme finite success and explicit non-representable result failure;
+- deterministic repeated success/failure evidence.
+
+Current implementation status:
+
+**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+
 Explicit non-actions:
 
 - no common `SurfaceError` change;
