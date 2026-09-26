@@ -518,6 +518,39 @@ int main() {
                  "translation changed principal curvatures") &&
              passed;
 
+    const auto rotated_origin = Point3::make(0.0, 0.0, 0.0);
+    const auto rotated_z = Vector3::make(0.0, 1.0, 0.0);
+    const auto rotated_x = Vector3::make(0.0, 0.0, 1.0);
+    if (!rotated_origin || !rotated_z || !rotated_x) {
+        return 1;
+    }
+    const auto rotated_placement =
+        AxisPlacement3::make(*rotated_origin, *rotated_z, *rotated_x);
+    if (!rotated_placement) {
+        return 1;
+    }
+    const auto rotated_cylinder = BoundedCylinderSurface3::make(
+        *rotated_placement, radius, *cylinder_u, *cylinder_v);
+    if (!rotated_cylinder) {
+        return 1;
+    }
+    const auto rotated_values =
+        surface_principal_curvatures(*rotated_cylinder, u, v);
+    passed = require(
+                 rotated_values && cylinder_values &&
+                     close_scalar(
+                         rotated_values->maximum_curvature,
+                         cylinder_values->maximum_curvature,
+                         1.0 / radius) &&
+                     close_scalar(
+                         rotated_values->minimum_curvature,
+                         cylinder_values->minimum_curvature,
+                         1.0 / radius) &&
+                     rotated_values->is_umbilic ==
+                         cylinder_values->is_umbilic,
+                 "signed Cartesian frame transform changed principal curvatures") &&
+             passed;
+
     const SurfaceFirstDerivatives3 synthetic_first{
         .u = vector3(1.0, 0.0, 0.0),
         .v = vector3(0.0, 1.0, 0.0),
