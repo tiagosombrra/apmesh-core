@@ -604,9 +604,22 @@ Candidate semantics:
 - extreme finite success and explicit non-representable result failure;
 - deterministic repeated success/failure evidence.
 
+Candidate validation:
+
+- candidate head:
+  `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
+- FAST `36263014748`: PASS, 40/40;
+- INTEGRATION `36263014773`: PASS, 40/40 in GCC 13 Debug and Clang
+  18/libc++ Debug;
+- `apmesh_core.surface_sphere`: PASS in all three jobs;
+- candidate audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`;
+- every prior ordinary semantic contract remained PASS.
+
 Current implementation status:
 
-**IMPLEMENTED CANDIDATE / PRE-PR VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Explicit non-actions:
 
