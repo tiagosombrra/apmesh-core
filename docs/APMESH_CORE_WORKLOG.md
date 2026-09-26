@@ -507,64 +507,60 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   **MERGED / HISTORICAL** via PR #209; closes the integrated scalar
   principal-curvature implementation and publishes its implementation audit.
 - `docs/surface-principal-curvature-values-terminal-sync`:
-  **ACTIVE / DOCUMENTATION-ONLY**; publishes the terminal closed scalar
-  principal-curvature checkpoint before the next scientific decision.
+  **MERGED / HISTORICAL** via PR #210; publishes the terminal closed scalar
+  principal-curvature checkpoint.
+- `docs/surface-principal-curvature-values-final-state`:
+  **ACTIVE / DOCUMENTATION-ONLY**; reconciles final authority markers after
+  PR #210 before the next scientific decision.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Pointwise Ordered Principal Curvature Values plus Exact
-Represented-Data Umbilic State is terminally closed.**
+**None. Principal Curvature Values is terminally closed and the repository is
+in final authority reconciliation before the next scientific decision.**
 
-Terminal closure evidence:
+Terminal lineage:
 
-1. candidate head:
-   `a59f52933a829410e7b24f505caa25092b0671fe`;
-2. candidate FAST `36209864983`: PASS, 39/39;
-3. candidate INTEGRATION `36209865005`: PASS, 39/39 in GCC and Clang;
-4. final PR head:
-   `6c04e1a370f3b7a8a20e082040e46efe5aadb90e`;
-5. final PR FAST `36209969064`: PASS, 39/39;
-6. final PR INTEGRATION `36209969075`: PASS, 39/39 in GCC and Clang;
-7. implementation PR #208 merged as
+1. implementation PR #208 merged as
    `3d0635d0a9420d48a1820905709bea367c96cec0`;
-8. implementation post-merge FAST `36210105115`: PASS, 39/39;
-9. implementation post-merge INTEGRATION `36210105079`: PASS, 39/39 in GCC
+2. implementation post-merge FAST `36210105115`: PASS, 39/39;
+3. implementation post-merge INTEGRATION `36210105079`: PASS, 39/39 in GCC
    and Clang;
-10. implementation closure PR #209 head:
-    `e4c57e01620537b28f3adc9b28cec2c8ab633cb0`;
-11. closure PR FAST `36210457108`: PASS;
-12. closure PR INTEGRATION `36210457161`: PASS;
-13. closure PR #209 merged as
-    `9bb98935391b6d3a8f923ca3011002de4d823e0f`;
-14. closure post-merge FAST `36210558469`: PASS;
-15. closure post-merge INTEGRATION `36210558481`: PASS;
-16. candidate audit:
-    `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`;
-17. implementation audit:
-    `docs/audits/2026-09-25-surface-principal-curvature-values-implementation-audit.md`;
-18. terminal closure audit:
+4. implementation closure PR #209 merged as
+   `9bb98935391b6d3a8f923ca3011002de4d823e0f`;
+5. closure post-merge FAST `36210558469`: PASS;
+6. closure post-merge INTEGRATION `36210558481`: PASS;
+7. terminal publication PR #210 head:
+   `466075be5fcdfaaf81d3855e3f1fe65e7af02b05`;
+8. terminal publication PR FAST `36251427419`: PASS;
+9. terminal publication PR INTEGRATION `36251427426`: PASS in GCC 13 Debug
+   and Clang 18/libc++ Debug;
+10. terminal publication PR #210 merged as
+    `7cfd7cc34ecd813f8ec44a0356ec1ba172de26eb`;
+11. terminal publication post-merge FAST `36251514891`: PASS;
+12. terminal publication post-merge INTEGRATION `36251514909`: PASS;
+13. terminal closure audit:
     `docs/audits/2026-09-26-surface-principal-curvature-values-terminal-closure.md`;
-19. no production work item is active.
+14. ordinary semantic inventory remains **39 tests**;
+15. no production work item is active.
 
-Terminal work-unit result:
+Terminal result:
 
 **PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
 INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-## Next admissible transition after terminal sync
+## Next admissible transition
 
-After this documentation-only terminal sync is integrated and its post-merge
+After this final authority reconciliation merges and its own post-merge
 FAST/INTEGRATION pass, open exactly one fresh literature-backed decision
 comparing:
 
-1. principal directions and their line-field/umbilic semantics;
+1. principal directions and line-field/umbilic semantics;
 2. explicit conditioning diagnostics;
 3. sphere/cone/torus Surface Representation breadth;
 4. general trimming/p-curves/topological faces;
 5. Boundary Curve Discretization readiness;
-6. whether Surface Differential Geometry has enough evidence to prepare a
-   bounded qualification campaign.
+6. bounded Surface Differential Geometry qualification readiness.
 
-No option is pre-authorized.
+No candidate is pre-authorized.
