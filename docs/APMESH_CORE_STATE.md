@@ -81,26 +81,30 @@ The greenfield implementation must eventually be usable as a library inside a la
 
 ## Current repository checkpoint
 
-Authoritative continuation snapshot after fresh remote reconciliation on
+Authoritative continuation snapshot after protected-main validation on
 2026-09-26:
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
 - current scientific stage:
-  **Surface Representation — Continuous Patch Geometry — ANALYTIC SPHERE
-  IMPLEMENTATION ACTIVE / NOT QUALIFIED**;
+  **Surface Representation — Continuous Patch Geometry — BOUNDED ANALYTIC
+  SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+  CLOSURE PENDING / NOT QUALIFIED**;
 - Surface Differential Geometry remains:
   **PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
   INTEGRATED / CLOSED / NOT QUALIFIED**;
-- protected-main ordinary semantic inventory before sphere: **39 tests**;
-- decision PR #212 merged as
-  `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
-- decision closure PR #213 merged as
-  `95c8bce38aa5a2312e6c09eb9e31578618374cf0`;
-- closure post-merge FAST `36262353372`: PASS;
-- closure post-merge INTEGRATION `36262353395`: PASS;
-- active production branch:
-  `surface/analytic-sphere`;
+- ordinary semantic inventory: **40 tests**;
+- sphere final PR head:
+  `0fb729054b0d3fa97045c0238ed4de9ce2e94d3d`;
+- final PR FAST `36263188269`: PASS, 40/40;
+- final PR INTEGRATION `36263188266`: PASS, 40/40;
+- implementation PR #214 merged as
+  `461c3f04454cc4f8aa789d9baba5085362aa6254`;
+- implementation post-merge FAST `36263360375`: PASS, 40/40;
+- implementation post-merge INTEGRATION `36263360805`: PASS, 40/40;
+- implementation audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`;
+- no sphere production work item is active during closure;
 - Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED** with
   cone, torus, full-periodic seams and general trimming/p-curve/face
   obligations retained;
@@ -110,56 +114,27 @@ Authoritative continuation snapshot after fresh remote reconciliation on
 
 ## Current active scientific action
 
-**Implement the bounded analytic spherical surface sector in 3D; do not widen
-the common surface or differential contracts.**
+**Close the integrated bounded analytic spherical-surface implementation; no
+production work item is active.**
 
-Active branch:
-`surface/analytic-sphere`.
+Implementation authority:
 
-Decision authority:
-`docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`.
-
-Closed decision evidence:
-
-- PR #212 merge:
-  `5ba610e9100ec0c68a428798bc6f853188bd7a45`;
-- PR #213 closure merge:
-  `95c8bce38aa5a2312e6c09eb9e31578618374cf0`;
-- closure post-merge FAST `36262353372`: PASS;
-- closure post-merge INTEGRATION `36262353395`: PASS.
-
-The implementation is limited to `BoundedSphereSurface3`, its focused
-contract and build registration, plus continuity/audit documentation.
-
-No principal directions, conditioning diagnostics, cone, torus, full-periodic
-seams, general trimming/p-curves/topological faces, Boundary Curve
-Discretization or qualification capability is authorized.
-
-Candidate repository mapping:
-
-- `include/apmesh/geometry/elementary_surface.hpp`;
-- `src/geometry/elementary_surface.cpp`;
-- `tests/surface_sphere.cpp`;
-- `CMakeLists.txt`;
-- synchronized STATE / ROADMAP / WORKLOG / decision.
-
-Candidate validation:
-
-- head `363ad75f50d51886dc8cc9c48647fc3cf94e57d0`;
-- FAST `36263014748`: PASS, 40/40;
-- INTEGRATION `36263014773`: PASS, 40/40 in GCC 13 Debug and Clang
-  18/libc++ Debug;
-- focused sphere contract: PASS in all three jobs;
+- decision:
+  `docs/decisions/SURFACE_ANALYTIC_SPHERE_DECISION.md`;
 - candidate audit:
-  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`.
+  `docs/audits/2026-09-26-surface-analytic-sphere-candidate-validation.md`;
+- implementation audit:
+  `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`;
+- PR #214 merge:
+  `461c3f04454cc4f8aa789d9baba5085362aa6254`;
+- post-merge FAST `36263360375`: PASS, 40/40;
+- post-merge INTEGRATION `36263360805`: PASS, 40/40.
 
-Candidate status:
+Closure branch:
+`docs/surface-analytic-sphere-implementation-closure`.
 
-**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
-
-No common surface, placement or differential-production contract was modified.
-Ordinary semantic inventory is now **40 tests** on the validated candidate.
+No next scientific capability is pre-authorized. After closure, a fresh
+literature-backed decision must recompare the retained candidates.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 
