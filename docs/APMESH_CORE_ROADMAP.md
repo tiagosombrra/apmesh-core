@@ -1913,10 +1913,19 @@ Authorized scope:
 - preserve current errors and surface representations;
 - add one focused contract, targeting **39 tests**.
 
-Candidate implementation is now mapped only to the authorized
-Surface Differential Geometry files and is awaiting FAST/INTEGRATION
-validation. No concrete surface representation or downstream pipeline source
-is modified.
+Candidate validation on head
+`a59f52933a829410e7b24f505caa25092b0671fe`:
+
+- FAST `36209864983`: PASS, 39/39 tests;
+- INTEGRATION `36209865005`: PASS in GCC 13 Debug and Clang 18/libc++
+  Debug, 39/39 tests per cell;
+- focused principal-curvature contract PASS in every required cell;
+- candidate audit:
+  `docs/audits/2026-09-25-surface-principal-curvature-values-candidate-validation.md`.
+
+The documentation/audit synchronization itself must receive a fresh green
+FAST/INTEGRATION final head before integration. No concrete surface
+representation or downstream pipeline source is modified.
 
 Explicitly deferred:
 
