@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-22
+Last updated: 2026-09-27
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -1891,6 +1891,13 @@ INTEGRATION #581 passed. Documentation closure PR #218 head
 INTEGRATION #582, squash-merged as
 `8d4a6e2d46c942966ceeb5e3fa735c983ef80909`, and protected-main FAST #592
 plus INTEGRATION #583 passed.
+
+Terminal continuity publication PR #219 head
+`c3677b6063c2976ee04dae00a18fde47956fcff9` passed FAST #593 and
+INTEGRATION #584, squash-merged as
+`fbe611296bcf4869b642de5f8352845510e7d643`, and protected-main FAST #594
+plus INTEGRATION #585 passed. This final receipt records those already-complete
+closure facts only and does not authorize a scientific candidate.
 
 The six local GCC/Clang/MSVC Debug/Release development cells remain 41/41 PASS
 on exact production/test revision

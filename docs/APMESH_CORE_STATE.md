@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-26
+Last updated: 2026-09-27
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Operational continuity ledger: `docs/APMESH_CORE_WORKLOG.md`
 Repository state: verify `main`, open PRs, relevant branches, ruleset, recent
@@ -126,6 +126,15 @@ Documentation closure PR #218 used head
 INTEGRATION #582, and squash-merged as
 `8d4a6e2d46c942966ceeb5e3fa735c983ef80909`. Closure protected-main FAST
 #592 and INTEGRATION #583 both passed.
+
+Terminal continuity publication PR #219 used head
+`c3677b6063c2976ee04dae00a18fde47956fcff9`, passed FAST #593 and
+INTEGRATION #584, and squash-merged as
+`fbe611296bcf4869b642de5f8352845510e7d643`. Protected-main FAST #594 and
+INTEGRATION #585 both passed on that terminal publication revision.
+
+This final receipt records the already-complete terminal publication only. It
+does not reopen the maintenance item or authorize the next scientific decision.
 
 The exact production/test revision validated by the six local
 GCC/Clang/MSVC Debug/Release development cells remains

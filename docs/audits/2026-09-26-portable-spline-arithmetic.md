@@ -216,3 +216,36 @@ NOT QUALIFIED.**
 The historical implementation and closure branches are retained only as
 provenance. No production or closure work item remains active.
 
+
+
+## Terminal continuity publication receipt
+
+Terminal continuity PR #219 head:
+
+`c3677b6063c2976ee04dae00a18fde47956fcff9`.
+
+Required PR validation on that exact documentation-only head:
+
+- FAST #593: PASS;
+- INTEGRATION #584: PASS in both required GCC and Clang cells.
+
+PR #219 squash-merged as:
+
+`fbe611296bcf4869b642de5f8352845510e7d643`.
+
+Protected-main validation on that exact terminal publication revision:
+
+- FAST #594: PASS;
+- INTEGRATION #585: PASS in both required GCC and Clang cells.
+
+The final-receipt execution is documentation/governance only: **0%
+implementation, 20% tests/validation reconciliation, 0% evidence/experiments,
+80% documentation/governance**. These are process-accounting percentages, not
+scientific progress.
+
+Scientific impact remains **none**. The portability maintenance result stays
+**INTEGRATED / CLOSED / NOT QUALIFIED**; the integrated ordinary inventory
+stays at 41 tests; native Windows remains development-only. No formal campaign,
+qualification authority, acceptance criterion or new scientific capability is
+created by this receipt. The next literature-backed comparison remains
+unselected and requires separate scientific-decision authority.
