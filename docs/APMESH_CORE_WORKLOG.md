@@ -575,43 +575,78 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   INTEGRATION #605 PASS; squash merge
   `07ae15c8570ac9a0d37906d189a18dfcf95146c5`, followed by protected-main
   FAST #615 and INTEGRATION #606 PASS.
+- `docs/surface-metric-conditioning-terminal-receipt`: **MERGED /
+  HISTORICAL** via PR #228; final head
+  `e870696a1bbe00906ddac4ee6ae61dec77ba1632`, FAST #616 and
+  INTEGRATION #607 PASS; squash merge
+  `49f465e942b032f2a19592b6f2c5737b08d698cd`, followed by protected-main
+  FAST #617 and INTEGRATION #608 PASS.
+- `surface/differential-geometry-qualification-readiness-decision`:
+  **ACTIVE / DECISION-ONLY**; compares retained candidates and currently
+  selects cumulative Surface Differential Geometry qualification-protocol
+  pre-registration for review. No implementation or formal campaign is
+  authorized.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**No production or scientific work item is active.**
+**Surface Differential Geometry — Qualification Readiness Decision —
+DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-The just-completed work unit is:
+Entry authority:
 
-**Surface Metric Conditioning Diagnostics — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
+1. protected `main`:
+   `49f465e942b032f2a19592b6f2c5737b08d698cd`;
+2. receipt PR #228 head:
+   `e870696a1bbe00906ddac4ee6ae61dec77ba1632`;
+3. PR FAST #616 / INTEGRATION #607: PASS;
+4. receipt squash merge:
+   `49f465e942b032f2a19592b6f2c5737b08d698cd`;
+5. protected-main FAST #617 / INTEGRATION #608: PASS;
+6. ordinary semantic registration inventory: **42 tests**;
+7. open PRs at entry: none;
+8. production/scientific work item at entry: none.
 
-Terminal evidence:
+Decision document:
 
-1. final immutable implementation head:
-   `c9176da223e6568861803743d992b91371aa50fb`;
-2. implementation PR #225 FAST #610: PASS;
-3. implementation PR #225 INTEGRATION #601: PASS in GCC and Clang;
-4. implementation squash merge:
-   `7b3c833273dba042b7f6c055dd736510573664a6`;
-5. implementation post-merge FAST #611 / INTEGRATION #602: PASS;
-6. closure PR #226 final head:
-   `2955e80bf0f61afe971ab0eaa40661b1b0923cdf`;
-7. closure PR FAST #612 / INTEGRATION #603: PASS;
-8. closure squash merge:
-   `0c1c4c2365257549122fa4bb9b8720c4e83bddc9`;
-9. closure post-merge FAST #613 / INTEGRATION #604: PASS;
-10. ordinary semantic registration inventory: **42 tests**;
-11. implementation audit:
-    `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
 
-PR #224 remains preserved as an unmerged validation-infrastructure incident;
-it introduced no alternate repository content.
+Reference review:
 
-No repository transition, production work item or scientific work item is
-currently active. The remote continuity state is synchronized through PR #227
-and protected-main FAST #615 / INTEGRATION #606.
+`docs/research/REFERENCE_REGISTER.md`.
+
+The decision compares:
+
+- principal directions / curvature lines;
+- bounded analytic cone;
+- bounded analytic torus;
+- general trimming / p-curves / topological faces;
+- Surface Representation qualification readiness;
+- Surface Differential Geometry qualification readiness;
+- Boundary Curve Discretization readiness.
+
+Current decision candidate:
+
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration.**
+
+Rationale under review:
+
+- metric conditioning, previously the explicit differential-qualification
+  blocker, is now terminally closed;
+- ordinary evidence already spans plane, cylinder, sphere, elliptic/hyperbolic
+  second-order fixtures, umbilic and near-singular cases;
+- isotropic sizing can use strongest principal curvature without principal
+  directions;
+- principal directions remain a future line-field/anisotropy seam;
+- cone/torus/general trimming widen representation/topology instead;
+- Boundary Curve Discretization still needs separate trace/error/sizing/face
+  contracts.
+
+No protocol work, qualification tooling, preparation or formal execution may
+start on this branch.
 
 ### Last closed portability maintenance item
 
@@ -660,20 +695,20 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-The metric-conditioning work unit is terminally closed and no work item is
-active.
+Complete only the active qualification-readiness decision:
 
-The next admissible transition is a **new literature-backed scientific
-decision** comparing the retained candidates:
+1. audit the branch against the protected entry baseline;
+2. validate decision PR FAST;
+3. validate decision PR INTEGRATION in GCC and Clang;
+4. preserve literature/reference evidence and competing-candidate rationale;
+5. merge only with required checks green;
+6. validate protected `main`;
+7. publish a separate decision-closure checkpoint.
 
-- principal directions / curvature line fields;
-- bounded analytic cone / torus breadth;
-- general trimming / p-curves / topological faces;
-- Surface Representation qualification readiness;
-- Surface Differential Geometry qualification readiness;
-- Boundary Curve Discretization readiness.
+Only after that separate closure may the selected
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration** work item begin.
 
-That decision must begin from the current protected `main`, preserve the
-42-test ordinary inventory, and select at most one bounded work item before any
-new production branch is created. No candidate is pre-authorized.
+No qualification tooling, formal preparation/execution or production feature is
+pre-authorized.
 
