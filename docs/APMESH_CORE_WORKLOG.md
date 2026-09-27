@@ -563,7 +563,8 @@ The presence of historical branches on the remote does not make them active.
 ## Current active work item
 
 **Surface Metric Conditioning Diagnostics — IMPLEMENTED CANDIDATE /
-VALIDATION PENDING / NOT QUALIFIED.**
+FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC REVALIDATION PENDING /
+NOT QUALIFIED.**
 
 Current production candidate:
 
@@ -589,12 +590,21 @@ Scientific boundary preserved:
 - no discretization/sizing/meshing;
 - no formal qualification campaign.
 
-Validation note:
+Initial remote validation:
+
+- documented head:
+  `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- CMake ordinary registration count: **42**;
+- focused target registration and `fast;integration` labels: CONFIRMED.
 
 The current execution environment could not resolve `github.com` for a
 throwaway local clone. This is an environment/network limitation, not a project
-failure, and no local-build claim is made. The exact remote PR
-FAST/INTEGRATION checks are the required candidate validation authority.
+failure, and no local-build claim is made.
+
+Because this documentation synchronization changes the PR head, required
+FAST/INTEGRATION must run again before merge.
 
 Candidate audit:
 
@@ -647,16 +657,16 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Open one PR for the active candidate and require:
+Revalidate the documentation-synchronized PR head and require:
 
-1. FAST PASS on the exact head;
+1. FAST PASS;
 2. INTEGRATION PASS in GCC 13 Debug;
 3. INTEGRATION PASS in Clang 18/libc++ Debug;
-4. focused `apmesh_core.surface_metric_conditioning` execution;
-5. ordinary inventory **42/42**;
-6. no regression in prior contracts.
+4. unchanged 42-test ordinary registration;
+5. focused target still included in both profile labels;
+6. no review/thread conflict and no concurrent incompatible work.
 
-If any failure appears, preserve it in the audit, correct only within the
-authorized work item, and revalidate. No merge occurs before a final immutable
-head is green.
+Only that final immutable green head may be squash-merged. After merge,
+protected-main FAST/INTEGRATION and a separate implementation-closure checkpoint
+remain mandatory.
 
