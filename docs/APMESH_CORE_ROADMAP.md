@@ -1881,12 +1881,12 @@ Each qualified stage must have a human-readable decision document recording:
 ## 8. Current action
 
 The Surface Differential Geometry qualification-readiness decision is
-terminally closed:
+terminally closed and remote continuity is synchronized:
 
 **DECISION CLOSED / CUMULATIVE QUALIFICATION PROTOCOL PRE-REGISTRATION
-AUTHORIZED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
+AUTHORIZED / NOT QUALIFIED / NO ACTIVE PRODUCTION OR SCIENTIFIC WORK ITEM.**
 
-Terminal decision evidence:
+Terminal evidence:
 
 - decision PR #229 head
   `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
@@ -1900,13 +1900,23 @@ Terminal decision evidence:
 - closure squash merge
   `f8d12c2e0e39611758af1b10d01311913603622f`;
 - closure post-merge FAST #621 / INTEGRATION #612: PASS;
+- terminal-sync PR #231 head
+  `9d2876876cb4ea5bffe3e3d88507c7be814e4139`;
+- terminal-sync FAST #622 / INTEGRATION #613: PASS;
+- terminal-sync squash merge
+  `ce73cf28c7359f1bac8986c4b7ea57180dc7d109`;
+- terminal-sync post-merge FAST #623 / INTEGRATION #614: PASS;
 - ordinary semantic registration inventory: **42 tests**.
 
-Current terminal-sync branch:
+No repository transition is active.
 
-`docs/surface-differential-geometry-qualification-readiness-decision-terminal-sync`.
+The sole next scientific work item is:
 
-The selected protocol work item has not started.
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration.**
+
+That work item is documentation/governance only and must begin with a fresh
+entry audit of protected `main`.
 
 Current scientific work focus:
 
@@ -1937,20 +1947,17 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate, integrate and post-merge validate the terminal decision sync.
+Start **Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration** after auditing the current protected `main`.
 
-After that, start exactly one scientific work item:
+The protocol must pre-register the bounded claim, independent fixture matrix,
+SDG0–SDG7 gates, invariance/scale/orientation laws, compiler/build-cell and
+repetition policy, reproducible figures, evidence retention, prerequisite
+preservation and failure policy.
 
-**Surface Differential Geometry — Cumulative Qualification Protocol
-Pre-registration.**
-
-The protocol must freeze the bounded qualification claim, independent analytic
-and adversarial fixtures, SDG0–SDG7 gates, invariance/scale/orientation laws,
-cross-cell/repetition policy, reproducible scientific figures, retained evidence
-and failure policy.
-
-The protocol cannot authorize qualification tooling, formal preparation or
-execution, and cannot change the stage status to `QUALIFIED`.
+The protocol cannot authorize qualification tooling, manifest preparation,
+formal workflow execution or a `QUALIFIED` status, and cannot change
+production semantics.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
