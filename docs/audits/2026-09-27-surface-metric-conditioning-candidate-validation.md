@@ -1,7 +1,7 @@
 # Surface Metric Conditioning — Candidate Validation Audit
 
 Date: 2026-09-27  
-Status: INITIAL CANDIDATE VALIDATED / FINAL HEAD REVALIDATION PENDING / NOT QUALIFIED
+Status: FINAL CANDIDATE VALIDATED / INTEGRATED / IMPLEMENTATION CLOSURE PENDING / NOT QUALIFIED
 
 ## Authority
 
@@ -126,3 +126,44 @@ head must again show:
 
 Any failure must be preserved here with its diagnosis and correction before a
 fresh final-head validation.
+
+
+## Final candidate and integration
+
+Final immutable head:
+
+`c9176da223e6568861803743d992b91371aa50fb`.
+
+PR #224 validation history is retained as a mechanical infrastructure incident:
+INTEGRATION #599 passed on the final head, while a stale intermediate FAST run
+remained orphaned and blocked final FAST scheduling. PR #224 was closed
+unmerged with no content change.
+
+Replacement PR #225 used the identical final head and passed:
+
+- FAST #610;
+- INTEGRATION #601 / GCC 13 Debug;
+- INTEGRATION #601 / Clang 18/libc++ Debug.
+
+The final static registration audit remained:
+
+- ordinary `add_test` count: **42**;
+- focused target registered;
+- focused target labeled for FAST and INTEGRATION.
+
+PR #225 squash-merged as:
+
+`7b3c833273dba042b7f6c055dd736510573664a6`.
+
+Protected-main validation on that exact revision:
+
+- FAST #611: PASS;
+- INTEGRATION #602 / GCC 13 Debug: PASS;
+- INTEGRATION #602 / Clang 18/libc++ Debug: PASS.
+
+Candidate result:
+
+**VALIDATED / INTEGRATED / IMPLEMENTATION CLOSURE PENDING / NOT QUALIFIED.**
+
+Detailed integration and incident history is preserved in
+`docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
