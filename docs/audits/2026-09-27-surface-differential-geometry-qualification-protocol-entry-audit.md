@@ -112,8 +112,10 @@ The completed protocol branch was mechanically reconciled against protected
 
 Result:
 
-- branch relation at final pre-PR audit: ahead=8, behind=0;
-- diff: six documentation/audit/reference files only;
+- branch relation at final pre-PR audit: **behind=0**; the exact ahead count is
+  intentionally left to the immutable PR compare because updating this audit
+  changes the branch head itself;
+- diff: documentation/audit/reference files only;
 - ordinary `CMakeLists.txt` test inventory: **42**;
 - protocol Section 6 allowlist: **42**;
 - allowlist name/order equality with current ordinary `add_test()`
