@@ -152,42 +152,46 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-IMPLEMENTATION CLOSURE PENDING / NOT QUALIFIED.**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
 
-Integration authority:
+Terminal authority:
 
 - technical candidate:
   `ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`;
-- final immutable head:
+- final immutable implementation head:
   `c9176da223e6568861803743d992b91371aa50fb`;
-- initial FAST #603 / INTEGRATION #594: PASS;
-- PR #224: closed unmerged after a mechanical Actions concurrency incident;
-- replacement implementation PR #225 FAST #610: PASS;
-- PR #225 INTEGRATION #601: PASS in GCC and Clang;
+- implementation PR #225 FAST #610: PASS;
+- implementation PR #225 INTEGRATION #601: PASS in GCC and Clang;
 - implementation squash merge:
   `7b3c833273dba042b7f6c055dd736510573664a6`;
-- protected-main FAST #611: PASS;
-- protected-main INTEGRATION #602: PASS in GCC and Clang;
+- implementation post-merge FAST #611: PASS;
+- implementation post-merge INTEGRATION #602: PASS in GCC and Clang;
+- closure PR #226 final head:
+  `2955e80bf0f61afe971ab0eaa40661b1b0923cdf`;
+- closure PR FAST #612: PASS;
+- closure PR INTEGRATION #603: PASS in GCC and Clang;
+- closure squash merge:
+  `0c1c4c2365257549122fa4bb9b8720c4e83bddc9`;
+- closure post-merge FAST #613: PASS;
+- closure post-merge INTEGRATION #604: PASS in GCC and Clang;
 - ordinary semantic registration inventory: **42 tests**;
-- candidate audit:
-  `docs/audits/2026-09-27-surface-metric-conditioning-candidate-validation.md`;
 - implementation audit:
   `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`;
-- active closure branch:
-  `docs/surface-metric-conditioning-implementation-closure`.
+- terminal-sync branch:
+  `docs/surface-metric-conditioning-implementation-terminal-sync`.
 
-Integrated semantics remain bounded to a threshold-free pointwise Jacobian
-2-norm condition number using the existing first fundamental form and area
-density.
+PR #224 remains historical provenance only: it was closed unmerged after a
+mechanical GitHub Actions concurrency incident. No alternate implementation was
+introduced.
 
-The exact next admissible transition is:
+The integrated semantics remain bounded to the threshold-free pointwise
+Jacobian 2-norm condition number using the existing first fundamental form and
+area density.
 
-**Validate, review and integrate the implementation closure only; then validate
-protected `main` again.**
-
-Until closure completes, no fresh scientific decision or production work item
-may start.
+No production or scientific work item is currently active. The terminal-sync
+branch is documentation-only and must itself be validated, merged and
+post-merge validated before the repository is considered fully synchronized.
 
 Deferred and unauthorized:
 
