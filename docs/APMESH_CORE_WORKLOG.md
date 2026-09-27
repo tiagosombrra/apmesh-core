@@ -543,43 +543,48 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   INTEGRATION #588 PASS; squash merge
   `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`, followed by protected-main
   FAST #598 and INTEGRATION #589 PASS.
-- `docs/surface-metric-conditioning-decision-closure`: **ACTIVE /
-  CLOSURE-ONLY**; records the integrated decision receipt. It authorizes no
-  production code while this closure remains pending.
+- `docs/surface-metric-conditioning-decision-closure`: **MERGED /
+  HISTORICAL** via PR #222; final head
+  `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`, FAST #599 and
+  INTEGRATION #590 PASS; squash merge
+  `b4df654794bea9cc88e33d0c048fdc298179a4a8`, followed by protected-main
+  FAST #600 and INTEGRATION #591 PASS.
+- `docs/surface-metric-conditioning-decision-terminal-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; publishes the closed decision state before production
+  implementation starts.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Metric Conditioning Diagnostics — DECISION INTEGRATED / CLOSURE
-PENDING / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**Surface Metric Conditioning Diagnostics — DECISION CLOSED /
+IMPLEMENTATION AUTHORIZED / TERMINAL SYNCHRONIZATION ACTIVE /
+NOT QUALIFIED.**
 
-Operational authority:
+Decision closure evidence:
 
-1. decision-entry `main`:
-   `fa04f8bdd7d1359bafd62a02999e0921a835c0ef`;
-2. entry FAST #596 / INTEGRATION #587: PASS;
-3. decision PR #221 final head:
+1. decision PR #221 head:
    `30359e7f392f40db9074b68762f6d659a0ef3661`;
-4. decision PR FAST #597: PASS;
-5. decision PR INTEGRATION #588: PASS in GCC and Clang;
-6. decision squash merge:
+2. PR FAST #597 / INTEGRATION #588: PASS;
+3. decision merge:
    `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
-7. decision protected-main FAST #598: PASS;
-8. decision protected-main INTEGRATION #589: PASS in GCC and Clang;
-9. decision document:
-   `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`;
-10. active closure branch:
-    `docs/surface-metric-conditioning-decision-closure`;
-11. ordinary semantic inventory remains **41 tests**.
+4. decision protected-main FAST #598 / INTEGRATION #589: PASS;
+5. closure PR #222 head:
+   `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`;
+6. closure FAST #599 / INTEGRATION #590: PASS;
+7. closure merge:
+   `b4df654794bea9cc88e33d0c048fdc298179a4a8`;
+8. closure protected-main FAST #600 / INTEGRATION #591: PASS;
+9. ordinary semantic inventory remains **41 tests**;
+10. decision:
+    `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
 
-The sole next transition is validation/review/integration of the
-documentation-only decision closure. Implementation remains prohibited until
-that closure merges and its exact protected-main revision passes required
-FAST/INTEGRATION.
+The sole selected production work item is **Pointwise Surface Metric
+Conditioning Diagnostics in 3D**, but no production code is changed by the
+current terminal-sync branch.
 
-No qualification campaign, conditioning threshold, alternate candidate or
-production code is authorized in the closure step.
+The sole next transition is to validate, merge and post-merge validate this
+documentation synchronization. Only then create the implementation branch.
 
 ### Last closed portability maintenance item
 
@@ -628,17 +633,13 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-The current work item is the documentation-only decision closure.
+Complete the current terminal documentation synchronization with required
+FAST/INTEGRATION, squash merge and protected-main validation.
 
-Exact next sequence:
+After that checkpoint closes, create exactly one bounded production work item:
 
-1. validate the closure branch with required FAST/INTEGRATION;
-2. review the closure diff for scientific-boundary preservation;
-3. squash-merge only with all required checks green and no incompatible
-   concurrent work;
-4. validate protected `main`;
-5. only then create the bounded implementation work item for
-   **Pointwise Surface Metric Conditioning Diagnostics in 3D**.
+**Pointwise Surface Metric Conditioning Diagnostics in 3D.**
 
-No other candidate, qualification action or formal campaign is authorized.
+No other candidate, threshold, qualification action or formal campaign is
+authorized.
 
