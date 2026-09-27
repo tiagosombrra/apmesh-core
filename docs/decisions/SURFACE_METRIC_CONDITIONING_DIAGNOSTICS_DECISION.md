@@ -1,6 +1,6 @@
 # Surface Metric Conditioning Diagnostics — Scientific Decision
 
-Status: DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED  
+Status: DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED  
 Date: 2026-09-27  
 Parent stage: Surface Differential Geometry — Metric, Normals, and Curvatures
 
@@ -377,3 +377,38 @@ fresh decision must recompare principal directions, cone/torus breadth, general
 trimming/p-curves/topological faces, Surface Representation qualification
 readiness, Surface Differential Geometry qualification readiness and Boundary
 Curve Discretization readiness. No later candidate is pre-authorized.
+
+
+## 14. Decision integration checkpoint
+
+Decision PR #221 used final head:
+
+`30359e7f392f40db9074b68762f6d659a0ef3661`.
+
+Required PR validation on that exact head:
+
+- FAST #597: PASS;
+- INTEGRATION #588: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+PR #221 squash-merged as:
+
+`a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`.
+
+Protected-main validation on that exact decision revision:
+
+- FAST #598: PASS;
+- INTEGRATION #589: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+Decision integration result:
+
+**POINTWISE SURFACE METRIC CONDITIONING DIAGNOSTICS SELECTED /
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
+
+This documentation-only closure checkpoint must itself receive required PR
+checks, merge and pass protected-main validation before the selected
+implementation becomes authorized.
+
+No threshold, new error class, principal-direction semantics, new surface
+family, topology, boundary discretization, formal campaign or qualification
+authority is introduced by this checkpoint.

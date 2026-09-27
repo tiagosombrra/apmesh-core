@@ -152,39 +152,36 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT AUTHORIZED /
 NOT QUALIFIED.**
 
-Fresh decision-entry authority:
+Decision integration authority:
 
-- protected `main`:
-  `fa04f8bdd7d1359bafd62a02999e0921a835c0ef`;
-- protected-main FAST #596: PASS;
-- protected-main INTEGRATION #587: PASS in GCC and Clang;
-- ordinary semantic inventory: **41 tests**;
-- open PRs at decision entry: none;
-- active branch:
-  `surface/metric-conditioning-decision`;
-- decision authority:
-  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
+- decision PR #221 final head:
+  `30359e7f392f40db9074b68762f6d659a0ef3661`;
+- PR FAST #597: PASS;
+- PR INTEGRATION #588: PASS in GCC and Clang;
+- decision squash merge:
+  `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
+- protected-main FAST #598: PASS;
+- protected-main INTEGRATION #589: PASS in GCC and Clang;
+- decision:
+  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`;
+- active closure branch:
+  `docs/surface-metric-conditioning-decision-closure`.
 
-The fresh literature/repository comparison selects **Pointwise Surface Metric
-Conditioning Diagnostics in 3D** as the next bounded work unit because it closes
-an explicit Surface Differential Geometry prerequisite using already-integrated
-first-fundamental-form data without opening line-field, topology, periodicity,
-meshing or qualification semantics.
+Selected future bounded work unit:
 
-No production implementation is authorized on this decision branch.
+**Pointwise Surface Metric Conditioning Diagnostics in 3D.**
 
-The current exact next admissible transition is:
+Implementation remains blocked while the decision closure is pending. The
+current exact next transition is documentation-only validation, integration and
+protected-main validation of this closure checkpoint.
 
-**Validate, review and integrate this decision document only; then perform
-protected-main validation and a separate decision-closure checkpoint.**
-
-Only after that separate decision closure may the selected conditioning
+Only after this closure is integrated and post-merge validated may the selected
 implementation begin.
 
-Deferred and still unauthorized:
+Deferred and unauthorized:
 
 - principal directions / curvature line fields;
 - bounded analytic cone;
@@ -198,8 +195,8 @@ Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
 Surface Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
-No formal campaign, execution-once authorization, qualification scope or
-acceptance threshold is created by this decision.
+No formal campaign, execution-once authorization, qualification scope,
+conditioning threshold or changed acceptance criterion is introduced.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 

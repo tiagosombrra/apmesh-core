@@ -1880,41 +1880,33 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The fresh post-maintenance scientific comparison is now active as a
-documentation-only decision:
+The fresh Surface Differential Geometry decision is integrated and awaiting its
+separate documentation closure:
 
-**Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-DECISION ACTIVE / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**Pointwise Surface Metric Conditioning Diagnostics in 3D —
+DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Decision-entry authority:
+Decision evidence:
 
-- protected `main`
-  `fa04f8bdd7d1359bafd62a02999e0921a835c0ef`;
-- FAST #596: PASS;
-- INTEGRATION #587: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- ordinary semantic inventory: **41 tests**;
-- branch:
-  `surface/metric-conditioning-decision`;
-- decision:
-  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
+- final PR #221 head:
+  `30359e7f392f40db9074b68762f6d659a0ef3661`;
+- PR FAST #597: PASS;
+- PR INTEGRATION #588: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- squash merge:
+  `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
+- protected-main FAST #598: PASS;
+- protected-main INTEGRATION #589: PASS in GCC and Clang;
+- active closure branch:
+  `docs/surface-metric-conditioning-decision-closure`.
 
-The comparison evaluates analytic cone, analytic torus, principal
-directions/line fields, conditioning diagnostics, general trimming/p-curves/
-topological faces, Surface Representation qualification readiness, Surface
-Differential Geometry qualification readiness and Boundary Curve Discretization
-readiness.
+The decision remains bounded to a threshold-free pointwise condition-number
+diagnostic derived from the already-integrated first fundamental form. It
+introduces no implementation, qualification, topology, new surface family,
+principal-direction line field or discretization behavior.
 
-It selects **Pointwise Surface Metric Conditioning Diagnostics in 3D** because
-the first fundamental form is already integrated, conditioning is an explicit
-unclosed Surface Differential Geometry stage concern, and the work can remain
-pointwise and threshold-free. Principal directions require a larger line-field
-contract; cone/torus add representation/periodicity seams; general trimming adds
-p-curve/topology binding; both qualification paths remain premature; Boundary
-Curve Discretization still depends on the face/boundary seam.
-
-This decision branch changes no production code, tests, contracts or
-qualification envelope. Implementation remains blocked until the decision is
-integrated, protected-main validated and separately closed.
+Implementation remains blocked until the decision closure itself is merged and
+post-merge validated.
 
 Current scientific work focus:
 
@@ -1945,21 +1937,12 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate, review and integrate the metric-conditioning decision only. After
-protected-main validation, publish a separate decision-closure checkpoint.
-Only then may the selected pointwise metric-conditioning implementation begin.
+Validate, review and integrate only the documentation closure for the
+metric-conditioning decision. After protected-main validation of that closure,
+the sole authorized production work item becomes **Pointwise Surface Metric
+Conditioning Diagnostics in 3D**.
 
-Deferred and unauthorized until a later fresh decision:
-
-- principal directions / line fields;
-- analytic cone;
-- analytic torus;
-- general trimming / p-curves / topological faces;
-- Surface Representation qualification;
-- Surface Differential Geometry qualification;
-- Boundary Curve Discretization.
-
-No later option is pre-authorized.
+All other retained candidates remain deferred and unauthorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 

@@ -538,51 +538,48 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   branch used solely to persist the PR #219 terminal publication evidence. It
   carries no production/scientific change and is historical/inert once this
   receipt content is present on `main`.
-- `surface/metric-conditioning-decision`: **ACTIVE / DECISION-ONLY**;
-  fresh literature-backed comparison selecting pointwise metric conditioning
-  diagnostics as the next bounded Surface Differential Geometry work unit.
-  No production implementation is authorized on this branch.
+- `surface/metric-conditioning-decision`: **MERGED / HISTORICAL** via PR #221;
+  final head `30359e7f392f40db9074b68762f6d659a0ef3661`, FAST #597 and
+  INTEGRATION #588 PASS; squash merge
+  `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`, followed by protected-main
+  FAST #598 and INTEGRATION #589 PASS.
+- `docs/surface-metric-conditioning-decision-closure`: **ACTIVE /
+  CLOSURE-ONLY**; records the integrated decision receipt. It authorizes no
+  production code while this closure remains pending.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Metric Conditioning Diagnostics — DECISION ACTIVE / DOCUMENTATION
-ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
+**Surface Metric Conditioning Diagnostics — DECISION INTEGRATED / CLOSURE
+PENDING / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
 Operational authority:
 
-- baseline `main`:
-  `fa04f8bdd7d1359bafd62a02999e0921a835c0ef`;
-- entry FAST #596: PASS;
-- entry INTEGRATION #587: PASS in GCC and Clang;
-- branch:
-  `surface/metric-conditioning-decision`;
-- decision document:
-  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`;
-- ordinary semantic inventory remains **41 tests**;
-- no local checkout is mounted in the current execution environment, so no
-  duplicate local regression is claimed; exact protected-main entry checks and
-  fresh PR checks are the validation authority for this documentation-only
-  decision;
-- production/test code changed by this work item: none;
-- qualification tooling/campaign: not authorized.
+1. decision-entry `main`:
+   `fa04f8bdd7d1359bafd62a02999e0921a835c0ef`;
+2. entry FAST #596 / INTEGRATION #587: PASS;
+3. decision PR #221 final head:
+   `30359e7f392f40db9074b68762f6d659a0ef3661`;
+4. decision PR FAST #597: PASS;
+5. decision PR INTEGRATION #588: PASS in GCC and Clang;
+6. decision squash merge:
+   `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
+7. decision protected-main FAST #598: PASS;
+8. decision protected-main INTEGRATION #589: PASS in GCC and Clang;
+9. decision document:
+   `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`;
+10. active closure branch:
+    `docs/surface-metric-conditioning-decision-closure`;
+11. ordinary semantic inventory remains **41 tests**.
 
-Decision result under review:
+The sole next transition is validation/review/integration of the
+documentation-only decision closure. Implementation remains prohibited until
+that closure merges and its exact protected-main revision passes required
+FAST/INTEGRATION.
 
-**SELECT POINTWISE SURFACE METRIC CONDITIONING DIAGNOSTICS IN 3D AS THE NEXT
-BOUNDED WORK UNIT.**
-
-Rationale: the existing differential layer already computes the first
-fundamental form, while the roadmap explicitly retains conditioning as an
-unclosed Surface Differential Geometry concern. The selected work unit can be
-defined by the Jacobian singular-value/metric-eigenvalue condition number
-without adding thresholds, new surface families, topology or line-field
-semantics.
-
-The sole next transition is decision PR validation/review/integration. After
-protected-main validation, a separate decision-closure checkpoint is required
-before implementation is authorized.
+No qualification campaign, conditioning threshold, alternate candidate or
+production code is authorized in the closure step.
 
 ### Last closed portability maintenance item
 
@@ -631,17 +628,17 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-The current work item is decision-only. The exact next admissible action is:
+The current work item is the documentation-only decision closure.
 
-1. validate the current decision branch with required FAST/INTEGRATION checks;
-2. review the diff and scientific boundaries;
-3. squash-merge only if all required checks are green and no concurrent work
-   appears;
+Exact next sequence:
+
+1. validate the closure branch with required FAST/INTEGRATION;
+2. review the closure diff for scientific-boundary preservation;
+3. squash-merge only with all required checks green and no incompatible
+   concurrent work;
 4. validate protected `main`;
-5. publish a separate decision-closure checkpoint;
-6. only after that closure, begin the selected pointwise metric-conditioning
-   implementation.
+5. only then create the bounded implementation work item for
+   **Pointwise Surface Metric Conditioning Diagnostics in 3D**.
 
-No implementation, qualification campaign or alternate scientific candidate is
-authorized before that sequence completes.
+No other candidate, qualification action or formal campaign is authorized.
 
