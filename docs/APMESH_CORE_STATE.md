@@ -93,7 +93,7 @@ Authoritative continuation snapshot after protected-main validation on
 - Surface Differential Geometry remains:
   **PRINCIPAL CURVATURE VALUES IMPLEMENTED / FOCUSED CONTRACTS PASS /
   INTEGRATED / CLOSED / NOT QUALIFIED**;
-- ordinary semantic inventory: **40 tests**;
+- ordinary semantic inventory: **41 tests**;
 - sphere final PR head:
   `0fb729054b0d3fa97045c0238ed4de9ce2e94d3d`;
 - final PR FAST `36263188269`: PASS, 40/40;
@@ -114,22 +114,27 @@ Authoritative continuation snapshot after protected-main validation on
 
 ## Current portability maintenance item
 
-**SIX DEVELOPMENT CELLS PASS / VALIDATED_UNMERGED / NOT QUALIFIED**
+**PASS / INTEGRATED / PROTECTED-MAIN VALIDATED / CLOSURE PENDING / NOT QUALIFIED**
 
-The sole current work item is portable scaled intermediate arithmetic for
-the existing two-span B-spline, two-span NURBS, multi-span NURBS and bicubic
-NURBS paths, on `build/native-windows-msvc-presets`. GCC, Clang and MSVC
-Debug/Release pass 41/41 ordinary contracts in each of six cells. A separately
-authorized comparator-equivalent two-bracket compare/swap in `curve.cpp`
-also resolves the observed GCC Release build blocker without warning
-suppression. Publication is admissible; integration/closure remain pending.
-The baseline integrated inventory above remains historical at 40 tests;
-the maintenance candidate has 41. See
-`docs/audits/2026-09-26-portable-spline-arithmetic.md` for arithmetic boundaries,
-validation and retained limitations. Native Windows is not qualified.
+The bounded portability maintenance item is integrated by PR #217. Its exact
+production/test revision is
+`65ec6e8514e82e5add62f0c2fb53f049c29be215`; the final reviewed PR head is
+`51d62b4297d82286e2f027c10fde9193af47bb1a`. Final PR FAST #589 and
+INTEGRATION #580 passed all required GCC/Clang checks. PR #217 squash-merged as
+`79057c03e432fa9116ced829f9a2c246e9d13ee9`; protected-main FAST #590 and
+INTEGRATION #581 both passed.
 
-No new scientific family, gate or formal campaign is authorized. The next
-scientific action below waits for maintenance integration and closure.
+The integrated ordinary semantic inventory is now **41 tests**. The six local
+GCC/Clang/MSVC Debug/Release development cells remain 41/41 PASS on the exact
+production/test revision above. Native Windows remains development-only and
+does not widen any qualified scientific envelope.
+
+The implementation branch `build/native-windows-msvc-presets` is retained as
+**MERGED / HISTORICAL** provenance. The sole active continuation item is the
+documentation-only closure branch
+`docs/portable-spline-maintenance-closure`. No production code, scientific
+decision, formal campaign or qualification action is authorized in this
+closure step.
 
 ## Current active scientific action
 
@@ -157,8 +162,8 @@ Terminal work-unit result:
 **BOUNDED ANALYTIC SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS /
 INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-No new scientific-capability work item is active; the bounded portability
-maintenance item above is the sole active production change.
+No scientific-capability production item is active. The portability implementation
+is integrated; only its documentation/continuity closure remains active.
 
 Exact next admissible scientific action:
 
@@ -168,7 +173,8 @@ general trimming/p-curves/topological faces, Surface Representation
 qualification readiness, Surface Differential Geometry qualification readiness
 and Boundary Curve Discretization readiness.**
 
-No candidate is pre-authorized.
+No candidate is pre-authorized. This scientific comparison remains blocked until
+the portability closure is merged, post-merge validated, and terminally synchronized.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 

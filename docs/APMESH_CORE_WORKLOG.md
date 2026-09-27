@@ -521,27 +521,46 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/surface-analytic-sphere-implementation-closure`: **MERGED /
   HISTORICAL** via PR #215; closes the bounded analytic sphere implementation
   and publishes its implementation audit.
+- `build/native-windows-msvc-presets`: **MERGED / HISTORICAL** via PR #217;
+  carries the native-Windows presets, portable scaled spline intermediates,
+  focused regression and GCC Release compare/swap correction. Final reviewed
+  head `51d62b4297d82286e2f027c10fde9193af47bb1a`; squash merge
+  `79057c03e432fa9116ced829f9a2c246e9d13ee9`.
+- `docs/portable-spline-maintenance-closure`: **ACTIVE / CLOSURE-ONLY**;
+  synchronizes integration and protected-main validation evidence. It carries
+  no production or scientific-semantic change.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Portable spline intermediate arithmetic / VALIDATED_UNMERGED.**
+**Portable spline intermediate arithmetic / INTEGRATED / CLOSURE PENDING.**
 
-- sole current branch: `build/native-windows-msvc-presets` / **VALIDATED_UNMERGED**;
-- stable preset checkpoint: `a9355cd597e56e33808f8a9497d70a553006d8fd`;
-- implementation checkpoint: `65ec6e8514e82e5add62f0c2fb53f049c29be215`;
-- [PR #217](https://github.com/tiagosombrra/apmesh-core/pull/217): **OPEN**,
-  target `main`; query live required checks before any integration decision;
-- scope: two-span B-spline, two-span NURBS, multi-span NURBS and bicubic NURBS
-  private arithmetic; public scientific contracts unchanged;
-- GCC/Clang/MSVC Debug and Release FAST: PASS, 41/41 in all six cells;
-- initial GCC Release failure in `curve.cpp` is retained; the separately
-  authorized fixed two-bracket compare/swap removes the dynamic `std::sort`
-  range while preserving its comparator and scientific isolation rules;
+- sole active branch: `docs/portable-spline-maintenance-closure` /
+  **ACTIVE / CLOSURE-ONLY**;
+- implementation branch `build/native-windows-msvc-presets`:
+  **MERGED / HISTORICAL**;
+- preset checkpoint: `a9355cd597e56e33808f8a9497d70a553006d8fd`;
+- exact production/test revision validated locally:
+  `65ec6e8514e82e5add62f0c2fb53f049c29be215`;
+- final PR #217 head:
+  `51d62b4297d82286e2f027c10fde9193af47bb1a`;
+- final PR FAST #589: PASS;
+- final PR INTEGRATION #580: PASS in required GCC and Clang cells;
+- PR #217 squash merge:
+  `79057c03e432fa9116ced829f9a2c246e9d13ee9`;
+- protected-main FAST #590: PASS;
+- protected-main INTEGRATION #581: PASS in required GCC and Clang cells;
+- six local GCC/Clang/MSVC Debug/Release development cells: PASS, 41/41;
+- integrated ordinary semantic inventory: **41 tests**;
+- initial GCC Release `std::sort` failure remains preserved in the audit;
 - evidence: `docs/audits/2026-09-26-portable-spline-arithmetic.md`;
-- published for review; integration and post-merge closure remain pending;
-- no warning suppression, formal campaign, qualification claim or merge.
+- no warning suppression, formal campaign, qualification claim or scientific
+  capability expansion.
+
+The implementation is integrated and protected-main validated. Formal closure
+still requires this documentation-only checkpoint to pass required PR checks,
+merge, and pass protected-main validation before terminal synchronization.
 
 ### Last closed spherical-surface work item
 
@@ -581,8 +600,9 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-First complete the maintenance validation, review and integration checkpoint
-above, including post-merge checks and continuity synchronization. Only then:
+First complete the documentation-only portability closure checkpoint above,
+including its PR checks, merge, protected-main validation and terminal
+synchronization. Only then:
 
 Open exactly one fresh literature-backed scientific decision comparing:
 
