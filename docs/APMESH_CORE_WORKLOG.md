@@ -555,60 +555,55 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   INTEGRATION #592 PASS; squash merge
   `49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`, followed by protected-main
   FAST #602 and INTEGRATION #593 PASS.
-- `surface/metric-conditioning`: **ACTIVE / IMPLEMENTATION**; sole authorized
-  production work item for pointwise Surface Metric Conditioning Diagnostics.
+- `surface/metric-conditioning`: **MERGED / HISTORICAL** via replacement
+  implementation PR #225; final immutable head
+  `c9176da223e6568861803743d992b91371aa50fb`, FAST #610 and
+  INTEGRATION #601 PASS; squash merge
+  `7b3c833273dba042b7f6c055dd736510573664a6`, followed by protected-main
+  FAST #611 and INTEGRATION #602 PASS. PR #224 was closed unmerged after a
+  mechanical Actions concurrency incident and is retained as validation
+  provenance only.
+- `docs/surface-metric-conditioning-implementation-closure`: **ACTIVE /
+  CLOSURE-ONLY**; records the integrated implementation and post-merge
+  validation. It carries no production change.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Metric Conditioning Diagnostics — IMPLEMENTED CANDIDATE /
-FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC REVALIDATION PENDING /
+**Surface Metric Conditioning Diagnostics — IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / IMPLEMENTATION CLOSURE PENDING /
 NOT QUALIFIED.**
 
-Current production candidate:
+Implementation authority:
 
-`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
+1. technical candidate:
+   `ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`;
+2. initial documented head:
+   `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
+3. initial FAST #603 / INTEGRATION #594: PASS;
+4. final immutable head:
+   `c9176da223e6568861803743d992b91371aa50fb`;
+5. PR #224: final-head INTEGRATION #599 PASS, then closed unmerged after a
+   mechanical FAST concurrency/scheduling incident;
+6. replacement PR #225 FAST #610: PASS;
+7. replacement PR #225 INTEGRATION #601: PASS in GCC and Clang;
+8. squash merge:
+   `7b3c833273dba042b7f6c055dd736510573664a6`;
+9. protected-main FAST #611: PASS;
+10. protected-main INTEGRATION #602: PASS in GCC and Clang;
+11. ordinary semantic registration inventory: **42 tests**;
+12. implementation audit:
+    `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
 
-Candidate changes:
+Integrated work-unit result:
 
-1. public `SurfaceMetricConditioning` result;
-2. query over `SurfaceMetricNormal3`;
-3. bounded-surface convenience overload;
-4. scale-aware condition-number implementation;
-5. focused ordinary semantic target
-   `apmesh_core.surface_metric_conditioning`;
-6. ordinary profile registration, expected inventory **42 tests**.
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+CLOSURE PENDING / NOT QUALIFIED.**
 
-Scientific boundary preserved:
-
-- no threshold that classifies conditioning quality;
-- no new error class;
-- no principal directions or line-field continuity;
-- no cone/torus or other representation breadth;
-- no p-curve/topology work;
-- no discretization/sizing/meshing;
-- no formal qualification campaign.
-
-Initial remote validation:
-
-- documented head:
-  `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
-- FAST #603: PASS;
-- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- CMake ordinary registration count: **42**;
-- focused target registration and `fast;integration` labels: CONFIRMED.
-
-The current execution environment could not resolve `github.com` for a
-throwaway local clone. This is an environment/network limitation, not a project
-failure, and no local-build claim is made.
-
-Because this documentation synchronization changes the PR head, required
-FAST/INTEGRATION must run again before merge.
-
-Candidate audit:
-
-`docs/audits/2026-09-27-surface-metric-conditioning-candidate-validation.md`.
+The only active transition is the documentation-only implementation closure.
+No production code, threshold, qualification action or alternate candidate is
+authorized by the closure.
 
 ### Last closed portability maintenance item
 
@@ -657,16 +652,16 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Revalidate the documentation-synchronized PR head and require:
+Complete the documentation-only implementation closure:
 
-1. FAST PASS;
-2. INTEGRATION PASS in GCC 13 Debug;
-3. INTEGRATION PASS in Clang 18/libc++ Debug;
-4. unchanged 42-test ordinary registration;
-5. focused target still included in both profile labels;
-6. no review/thread conflict and no concurrent incompatible work.
+1. validate closure PR FAST;
+2. validate closure PR INTEGRATION in GCC and Clang;
+3. audit diff/reviews/concurrency;
+4. squash-merge only with required checks green;
+5. validate protected `main`;
+6. publish terminal continuity state if needed so the remote explicitly shows
+   no active production work item.
 
-Only that final immutable green head may be squash-merged. After merge,
-protected-main FAST/INTEGRATION and a separate implementation-closure checkpoint
-remain mandatory.
+Only after terminal closure may a fresh literature-backed scientific decision
+compare the retained candidates. No candidate is pre-authorized.
 
