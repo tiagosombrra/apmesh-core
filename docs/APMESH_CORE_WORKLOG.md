@@ -1,7 +1,7 @@
 # AP Mesh Core — Operational Work Ledger
 
 Status: AUTHORITATIVE FOR OPERATIONAL CONTINUITY  
-Last updated: 2026-09-26
+Last updated: 2026-09-27
 Canonical integration branch: `main`  
 Scientific continuation authority: `docs/APMESH_CORE_STATE.md`  
 Roadmap authority: `docs/APMESH_CORE_ROADMAP.md`
@@ -529,9 +529,15 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 - `docs/portable-spline-maintenance-closure`: **MERGED / HISTORICAL** via PR #218;
   records PR #217 integration and protected-main validation without production
   or scientific-semantic change.
-- `docs/portable-spline-maintenance-terminal-sync`: **MERGED / HISTORICAL once
-  this terminal synchronization is present on `main`**; documentation-only
-  publication of the closed maintenance state.
+- `docs/portable-spline-maintenance-terminal-sync`: **MERGED / HISTORICAL**
+  via PR #219; final head `c3677b6063c2976ee04dae00a18fde47956fcff9`,
+  FAST #593 and INTEGRATION #584 PASS; squash merge
+  `fbe611296bcf4869b642de5f8352845510e7d643`, followed by protected-main
+  FAST #594 and INTEGRATION #585 PASS.
+- `docs/portable-spline-maintenance-final-receipt`: documentation-only receipt
+  branch used solely to persist the PR #219 terminal publication evidence. It
+  carries no production/scientific change and is historical/inert once this
+  receipt content is present on `main`.
 
 The presence of historical branches on the remote does not make them active.
 
@@ -565,6 +571,14 @@ Terminal maintenance evidence:
 16. integrated ordinary semantic inventory: **41 tests**;
 17. audit:
     `docs/audits/2026-09-26-portable-spline-arithmetic.md`.
+18. terminal continuity PR #219 head:
+    `c3677b6063c2976ee04dae00a18fde47956fcff9`;
+19. terminal PR FAST #593: PASS;
+20. terminal PR INTEGRATION #584: PASS in required GCC and Clang cells;
+21. terminal continuity squash merge:
+    `fbe611296bcf4869b642de5f8352845510e7d643`;
+22. terminal publication protected-main FAST #594: PASS;
+23. terminal publication protected-main INTEGRATION #585: PASS.
 
 Terminal result:
 
