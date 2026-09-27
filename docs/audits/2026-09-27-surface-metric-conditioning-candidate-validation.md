@@ -1,7 +1,7 @@
 # Surface Metric Conditioning — Candidate Validation Audit
 
 Date: 2026-09-27  
-Status: FINAL CANDIDATE VALIDATED / INTEGRATED / IMPLEMENTATION CLOSURE PENDING / NOT QUALIFIED
+Status: FINAL CANDIDATE VALIDATED / INTEGRATED / CLOSED / NOT QUALIFIED
 
 ## Authority
 
@@ -167,3 +167,30 @@ Candidate result:
 
 Detailed integration and incident history is preserved in
 `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
+
+
+## Terminal closure receipt
+
+The implementation closure PR #226 used final head:
+
+`2955e80bf0f61afe971ab0eaa40661b1b0923cdf`.
+
+Closure validation:
+
+- FAST #612: PASS;
+- INTEGRATION #603 / GCC 13 Debug: PASS;
+- INTEGRATION #603 / Clang 18/libc++ Debug: PASS.
+
+PR #226 squash-merged as:
+
+`0c1c4c2365257549122fa4bb9b8720c4e83bddc9`.
+
+Protected-main closure validation:
+
+- FAST #613: PASS;
+- INTEGRATION #604 / GCC 13 Debug: PASS;
+- INTEGRATION #604 / Clang 18/libc++ Debug: PASS.
+
+The candidate is therefore terminally integrated and closed as an ordinary
+validated work item, while Surface Differential Geometry remains
+**NOT QUALIFIED**.
