@@ -563,47 +563,51 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   FAST #611 and INTEGRATION #602 PASS. PR #224 was closed unmerged after a
   mechanical Actions concurrency incident and is retained as validation
   provenance only.
-- `docs/surface-metric-conditioning-implementation-closure`: **ACTIVE /
-  CLOSURE-ONLY**; records the integrated implementation and post-merge
-  validation. It carries no production change.
+- `docs/surface-metric-conditioning-implementation-closure`: **MERGED /
+  HISTORICAL** via PR #226; final head
+  `2955e80bf0f61afe971ab0eaa40661b1b0923cdf`, FAST #612 and
+  INTEGRATION #603 PASS; squash merge
+  `0c1c4c2365257549122fa4bb9b8720c4e83bddc9`, followed by protected-main
+  FAST #613 and INTEGRATION #604 PASS.
+- `docs/surface-metric-conditioning-implementation-terminal-sync`: **ACTIVE /
+  DOCUMENTATION-ONLY**; publishes the terminal closed state. No production or
+  scientific work item is active.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
+**No production or scientific work item is active.**
+
+The just-completed work unit is:
+
 **Surface Metric Conditioning Diagnostics — IMPLEMENTED /
-FOCUSED CONTRACTS PASS / INTEGRATED / IMPLEMENTATION CLOSURE PENDING /
-NOT QUALIFIED.**
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-Implementation authority:
+Terminal evidence:
 
-1. technical candidate:
-   `ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`;
-2. initial documented head:
-   `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
-3. initial FAST #603 / INTEGRATION #594: PASS;
-4. final immutable head:
+1. final immutable implementation head:
    `c9176da223e6568861803743d992b91371aa50fb`;
-5. PR #224: final-head INTEGRATION #599 PASS, then closed unmerged after a
-   mechanical FAST concurrency/scheduling incident;
-6. replacement PR #225 FAST #610: PASS;
-7. replacement PR #225 INTEGRATION #601: PASS in GCC and Clang;
-8. squash merge:
+2. implementation PR #225 FAST #610: PASS;
+3. implementation PR #225 INTEGRATION #601: PASS in GCC and Clang;
+4. implementation squash merge:
    `7b3c833273dba042b7f6c055dd736510573664a6`;
-9. protected-main FAST #611: PASS;
-10. protected-main INTEGRATION #602: PASS in GCC and Clang;
-11. ordinary semantic registration inventory: **42 tests**;
-12. implementation audit:
+5. implementation post-merge FAST #611 / INTEGRATION #602: PASS;
+6. closure PR #226 final head:
+   `2955e80bf0f61afe971ab0eaa40661b1b0923cdf`;
+7. closure PR FAST #612 / INTEGRATION #603: PASS;
+8. closure squash merge:
+   `0c1c4c2365257549122fa4bb9b8720c4e83bddc9`;
+9. closure post-merge FAST #613 / INTEGRATION #604: PASS;
+10. ordinary semantic registration inventory: **42 tests**;
+11. implementation audit:
     `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
 
-Integrated work-unit result:
+PR #224 remains preserved as an unmerged validation-infrastructure incident;
+it introduced no alternate repository content.
 
-**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-CLOSURE PENDING / NOT QUALIFIED.**
-
-The only active transition is the documentation-only implementation closure.
-No production code, threshold, qualification action or alternate candidate is
-authorized by the closure.
+The only active repository transition is the documentation-only terminal sync
+on `docs/surface-metric-conditioning-implementation-terminal-sync`.
 
 ### Last closed portability maintenance item
 
@@ -652,16 +656,17 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete the documentation-only implementation closure:
+Complete the terminal documentation synchronization:
 
-1. validate closure PR FAST;
-2. validate closure PR INTEGRATION in GCC and Clang;
-3. audit diff/reviews/concurrency;
+1. validate FAST on the exact terminal-sync head;
+2. validate INTEGRATION in GCC and Clang;
+3. audit diff, reviews and concurrency;
 4. squash-merge only with required checks green;
 5. validate protected `main`;
-6. publish terminal continuity state if needed so the remote explicitly shows
-   no active production work item.
+6. confirm STATE / WORKLOG / ROADMAP / decision / audits all agree that no
+   production work item remains active.
 
-Only after terminal closure may a fresh literature-backed scientific decision
-compare the retained candidates. No candidate is pre-authorized.
+After that terminal checkpoint, a **new literature-backed scientific decision**
+may compare the retained candidates. No candidate is selected or pre-authorized
+by the current work item.
 
