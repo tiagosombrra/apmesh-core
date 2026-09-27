@@ -1,7 +1,7 @@
 # Surface Metric Conditioning — Candidate Validation Audit
 
 Date: 2026-09-27  
-Status: CANDIDATE CREATED / REMOTE VALIDATION PENDING / NOT QUALIFIED
+Status: INITIAL CANDIDATE VALIDATED / FINAL HEAD REVALIDATION PENDING / NOT QUALIFIED
 
 ## Authority
 
@@ -83,16 +83,46 @@ resolution for `github.com` was unavailable. No local compile/test evidence is
 therefore claimed. This is recorded as an execution-environment limitation, not
 as a repository failure.
 
-## Required remote validation
+## Initial remote validation
 
-Before integration, the exact final PR head must show:
+Documented PR head:
+
+`3302a6209b54d63ddde6ecbd8ba05ead9aef1284`.
+
+Results:
+
+- FAST #603: PASS;
+- INTEGRATION #594 / GCC 13 Debug: PASS;
+- INTEGRATION #594 / Clang 18/libc++ Debug: PASS;
+- no check annotations;
+- no review threads or conflicting reviews at validation time.
+
+Registration audit on this exact head:
+
+- ordinary `add_test` count before qualification-only tests: **42**;
+- `apmesh_core.surface_metric_conditioning`: registered by `add_test`;
+- focused target labels include `fast` and `integration`;
+- FAST workflow executes `ctest --preset fast`;
+- INTEGRATION workflows execute
+  `ctest --preset integration-gcc-debug` and
+  `ctest --preset integration-clang-debug`;
+- those presets select the corresponding `fast` / `integration` labels.
+
+Therefore the new focused target is part of the green ordinary profile rather
+than merely compiled.
+
+No prerequisite test registration was removed.
+
+## Final-head requirement
+
+This audit update changes the PR head. Before integration, the new exact final
+head must again show:
 
 - FAST: PASS;
 - INTEGRATION GCC 13 Debug: PASS;
 - INTEGRATION Clang 18/libc++ Debug: PASS;
-- focused `apmesh_core.surface_metric_conditioning`: PASS;
-- ordinary semantic inventory: **42/42**;
-- no prerequisite regression.
+- unchanged **42-test** ordinary registration;
+- no prerequisite regression or review/concurrency conflict.
 
 Any failure must be preserved here with its diagnosis and correction before a
 fresh final-head validation.
