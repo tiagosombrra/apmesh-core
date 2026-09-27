@@ -152,50 +152,45 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Qualification Readiness Decision —
-DECISION INTEGRATED / CLOSURE ACTIVE / PROTOCOL NOT AUTHORIZED /
-NOT QUALIFIED.**
+DECISION CLOSED / QUALIFICATION PROTOCOL PRE-REGISTRATION AUTHORIZED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
 
-Decision integration authority:
+Terminal decision authority:
 
-- decision-entry protected `main`:
-  `49f465e942b032f2a19592b6f2c5737b08d698cd`;
 - decision PR #229 final head:
   `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
-- PR FAST #618: PASS;
-- PR INTEGRATION #609: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- decision PR FAST #618 / INTEGRATION #609: PASS;
 - decision squash merge:
   `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`;
-- protected-main FAST #619: PASS;
-- protected-main INTEGRATION #610: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- decision post-merge FAST #619 / INTEGRATION #610: PASS;
+- decision closure PR #230 final head:
+  `6e2e57ffad3f7a208b5398b39c084dad3f92c9de`;
+- closure PR FAST #620 / INTEGRATION #611: PASS;
+- closure squash merge:
+  `f8d12c2e0e39611758af1b10d01311913603622f`;
+- closure post-merge FAST #621 / INTEGRATION #612: PASS;
 - ordinary semantic registration inventory: **42 tests**;
 - decision:
-  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
+  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`;
+- terminal-sync branch:
+  `docs/surface-differential-geometry-qualification-readiness-decision-terminal-sync`.
 
-Selected future work item:
+Sole next authorized scientific work item:
 
 **Surface Differential Geometry — Cumulative Qualification Protocol
 Pre-registration.**
 
-Active repository transition:
+The terminal-sync branch is documentation-only and must itself be validated,
+merged and post-merge validated before the protocol branch starts.
 
-`docs/surface-differential-geometry-qualification-readiness-decision-closure`.
+Still unauthorized:
 
-The closure is documentation-only. Until it is integrated and protected-main
-validated:
-
-- protocol work is not authorized;
-- qualification tooling is not authorized;
-- no prepared manifest or formal execution is authorized;
-- no production/scientific implementation branch may start;
-- Surface Differential Geometry remains NOT QUALIFIED.
-
-Deferred and unauthorized remain:
-
+- qualification tooling;
+- prepared manifests or formal workflow execution;
+- `QUALIFIED` status;
 - principal directions / curvature-line fields;
-- bounded analytic cone;
-- bounded analytic torus;
-- general trimming / p-curves / topological faces;
-- Surface Representation qualification;
+- cone/torus or other representation breadth;
+- general p-curves/topological faces;
 - Boundary Curve Discretization;
 - sizing or meshing.
 

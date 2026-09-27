@@ -588,38 +588,50 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`, followed by protected-main
   FAST #619 and INTEGRATION #610 PASS.
 - `docs/surface-differential-geometry-qualification-readiness-decision-closure`:
-  **ACTIVE / CLOSURE-ONLY**; records the integrated decision before protocol
-  pre-registration becomes authorized.
+  **MERGED / HISTORICAL** via PR #230; final head
+  `6e2e57ffad3f7a208b5398b39c084dad3f92c9de`, FAST #620 and
+  INTEGRATION #611 PASS; squash merge
+  `f8d12c2e0e39611758af1b10d01311913603622f`, followed by protected-main
+  FAST #621 and INTEGRATION #612 PASS.
+- `docs/surface-differential-geometry-qualification-readiness-decision-terminal-sync`:
+  **ACTIVE / DOCUMENTATION-ONLY**; publishes the closed decision state before
+  protocol pre-registration begins.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Differential Geometry — Qualification Readiness Decision Closure —
-ACTIVE / DOCUMENTATION ONLY / PROTOCOL NOT AUTHORIZED / NOT QUALIFIED.**
+**No production work item is active.**
 
-Integrated decision evidence:
+The Surface Differential Geometry qualification-readiness decision is now:
 
-1. decision PR #229 final head:
+**DECISION CLOSED / CUMULATIVE QUALIFICATION PROTOCOL PRE-REGISTRATION
+AUTHORIZED / NOT QUALIFIED.**
+
+Terminal decision evidence:
+
+1. decision PR #229 head:
    `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
 2. PR FAST #618 / INTEGRATION #609: PASS;
-3. squash merge:
+3. decision merge:
    `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`;
-4. protected-main FAST #619 / INTEGRATION #610: PASS;
-5. ordinary semantic registration inventory: **42 tests**;
-6. decision:
-   `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
+4. decision post-merge FAST #619 / INTEGRATION #610: PASS;
+5. closure PR #230 head:
+   `6e2e57ffad3f7a208b5398b39c084dad3f92c9de`;
+6. closure FAST #620 / INTEGRATION #611: PASS;
+7. closure merge:
+   `f8d12c2e0e39611758af1b10d01311913603622f`;
+8. closure post-merge FAST #621 / INTEGRATION #612: PASS;
+9. ordinary semantic registration inventory: **42 tests**.
 
-Selected future work item:
+The sole active repository transition is the documentation-only terminal sync:
+
+`docs/surface-differential-geometry-qualification-readiness-decision-terminal-sync`.
+
+Selected next scientific work item, not yet started:
 
 **Surface Differential Geometry — Cumulative Qualification Protocol
 Pre-registration.**
-
-The selection is integrated but not yet authorized for execution because the
-separate decision closure is the sole active repository transition.
-
-No C++, CMake, tests, qualification tooling, manifest preparation, workflow
-dispatch or formal execution may change on this branch.
 
 ### Last closed portability maintenance item
 
@@ -668,18 +680,18 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete only the decision closure:
+Complete the terminal decision synchronization:
 
-1. validate closure PR FAST;
-2. validate closure PR INTEGRATION in GCC and Clang;
-3. audit diff/reviews/concurrency;
-4. merge only with required checks green;
-5. validate protected `main`;
-6. publish the terminal decision state so another conversation can discover
-   that protocol pre-registration is the sole next authorized work item.
+1. validate terminal-sync FAST;
+2. validate terminal-sync INTEGRATION in GCC and Clang;
+3. merge only with required checks green;
+4. validate protected `main`;
+5. confirm STATE / WORKLOG / ROADMAP / decision all expose the same closed
+   decision and sole next work item.
 
-Only after that terminal decision closure may the protocol pre-registration
-branch be created.
+Only then create the protocol-pre-registration branch.
 
-No qualification tooling, preparation or formal execution is pre-authorized.
+The protocol work item is documentation/governance only. Qualification tooling,
+manifest preparation, formal execution and any `QUALIFIED` status remain
+unauthorized.
 

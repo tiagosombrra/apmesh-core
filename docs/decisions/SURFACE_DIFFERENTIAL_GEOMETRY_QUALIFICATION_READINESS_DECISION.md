@@ -1,6 +1,6 @@
 # Surface Differential Geometry Qualification Readiness — Scientific Decision
 
-Status: DECISION INTEGRATED / CLOSURE ACTIVE / PROTOCOL NOT AUTHORIZED /
+Status: DECISION CLOSED / QUALIFICATION PROTOCOL PRE-REGISTRATION AUTHORIZED /
 NOT QUALIFIED  
 Date: 2026-09-27  
 Stage: Surface Differential Geometry — Metric, Normals, and Curvatures
@@ -519,3 +519,57 @@ protected-main validation.
 
 No qualification tooling, preparation, formal execution, production capability
 or `QUALIFIED` claim is authorized by this integration checkpoint.
+
+
+## 19. Decision closure checkpoint
+
+Decision closure PR #230 used final head:
+
+`6e2e57ffad3f7a208b5398b39c084dad3f92c9de`.
+
+Required closure validation:
+
+- FAST #620: PASS;
+- INTEGRATION #611 / GCC 13 Debug: PASS;
+- INTEGRATION #611 / Clang 18/libc++ Debug: PASS;
+- no reviews or unresolved review threads;
+- branch relation at merge gate: ahead=4, behind=0;
+- diff restricted to documentation.
+
+PR #230 squash-merged as:
+
+`f8d12c2e0e39611758af1b10d01311913603622f`.
+
+Protected-main validation on that exact closure revision:
+
+- FAST #621: PASS;
+- INTEGRATION #612 / GCC 13 Debug: PASS;
+- INTEGRATION #612 / Clang 18/libc++ Debug: PASS.
+
+Ordinary semantic registration inventory remains **42 tests**.
+
+Decision checkpoint result:
+
+**DECISION CLOSED / SURFACE DIFFERENTIAL GEOMETRY CUMULATIVE
+QUALIFICATION PROTOCOL PRE-REGISTRATION AUTHORIZED / NOT QUALIFIED.**
+
+The sole next scientific work item is:
+
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration.**
+
+This authorization is limited to protocol documentation/governance. It does not
+authorize:
+
+- qualification tooling implementation;
+- prepared manifests;
+- one-time formal execution;
+- workflow dispatch;
+- a `QUALIFIED` status;
+- principal directions or curvature-line fields;
+- new surface representations;
+- p-curves/topological faces;
+- boundary discretization, sizing or meshing.
+
+The current terminal-sync branch publishes this closed decision state before
+protocol work begins.
