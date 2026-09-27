@@ -1909,9 +1909,17 @@ Terminal evidence:
 PR #224 remains historical provenance of a mechanical Actions concurrency
 incident only and was closed unmerged.
 
-The current
-`docs/surface-metric-conditioning-implementation-terminal-sync` branch is
-documentation-only. No scientific or production capability is active.
+Terminal synchronization evidence:
+
+- terminal-sync PR #227 final head
+  `e5ffd4eb0ec6310d367abd3ce517ab5931dc7ee7`;
+- terminal-sync FAST #614: PASS;
+- terminal-sync INTEGRATION #605: PASS in GCC and Clang;
+- terminal-sync squash merge
+  `07ae15c8570ac9a0d37906d189a18dfcf95146c5`;
+- protected-main FAST #615 / INTEGRATION #606: PASS.
+
+No scientific, production or repository transition is active.
 
 Current scientific work focus:
 
@@ -1942,11 +1950,8 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate, integrate and post-merge validate the terminal documentation sync.
-Then confirm that the authoritative remote state exposes no active production
-work item.
-
-Only after that may a new literature-backed scientific decision compare:
+Begin a **new literature-backed scientific decision** from the current protected
+`main` and compare:
 
 - principal directions / curvature line fields;
 - bounded analytic cone / torus breadth;
@@ -1955,7 +1960,9 @@ Only after that may a new literature-backed scientific decision compare:
 - Surface Differential Geometry qualification readiness;
 - Boundary Curve Discretization readiness.
 
-No option is selected or pre-authorized by this roadmap state.
+The decision may select at most one bounded work item. No production branch may
+start until that decision is documented, validated, integrated and
+post-merge validated. No option is pre-authorized by this roadmap state.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
