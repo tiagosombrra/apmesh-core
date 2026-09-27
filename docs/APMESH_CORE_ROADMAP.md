@@ -1880,34 +1880,41 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The bounded portable-spline maintenance item is **INTEGRATED / CLOSED /
-NOT QUALIFIED**.
+The fresh post-maintenance scientific comparison is now active as a
+documentation-only decision:
 
-PR #217 final head `51d62b4297d82286e2f027c10fde9193af47bb1a` passed FAST #589 and
-INTEGRATION #580, then squash-merged as
-`79057c03e432fa9116ced829f9a2c246e9d13ee9`; protected-main FAST #590 and
-INTEGRATION #581 passed. Documentation closure PR #218 head
-`c465a305fa28b05b5973c610fe6911c777c9357d` passed FAST #591 and
-INTEGRATION #582, squash-merged as
-`8d4a6e2d46c942966ceeb5e3fa735c983ef80909`, and protected-main FAST #592
-plus INTEGRATION #583 passed.
+**Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
+DECISION ACTIVE / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal continuity publication PR #219 head
-`c3677b6063c2976ee04dae00a18fde47956fcff9` passed FAST #593 and
-INTEGRATION #584, squash-merged as
-`fbe611296bcf4869b642de5f8352845510e7d643`, and protected-main FAST #594
-plus INTEGRATION #585 passed. This final receipt records those already-complete
-closure facts only and does not authorize a scientific candidate.
+Decision-entry authority:
 
-The six local GCC/Clang/MSVC Debug/Release development cells remain 41/41 PASS
-on exact production/test revision
-`65ec6e8514e82e5add62f0c2fb53f049c29be215`. The integrated ordinary
-semantic inventory is **41 tests**. Native Windows remains development-only;
-no stage or qualification envelope is advanced.
+- protected `main`
+  `fa04f8bdd7d1359bafd62a02999e0921a835c0ef`;
+- FAST #596: PASS;
+- INTEGRATION #587: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- ordinary semantic inventory: **41 tests**;
+- branch:
+  `surface/metric-conditioning-decision`;
+- decision:
+  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
 
-No maintenance or scientific production work item is active. The next
-scientific capability must be selected, if separately authorized, by the
-fresh literature-backed comparison below; no candidate is preselected.
+The comparison evaluates analytic cone, analytic torus, principal
+directions/line fields, conditioning diagnostics, general trimming/p-curves/
+topological faces, Surface Representation qualification readiness, Surface
+Differential Geometry qualification readiness and Boundary Curve Discretization
+readiness.
+
+It selects **Pointwise Surface Metric Conditioning Diagnostics in 3D** because
+the first fundamental form is already integrated, conditioning is an explicit
+unclosed Surface Differential Geometry stage concern, and the work can remain
+pointwise and threshold-free. Principal directions require a larger line-field
+contract; cone/torus add representation/periodicity seams; general trimming adds
+p-curve/topology binding; both qualification paths remain premature; Boundary
+Curve Discretization still depends on the face/boundary seam.
+
+This decision branch changes no production code, tests, contracts or
+qualification envelope. Implementation remains blocked until the decision is
+integrated, protected-main validated and separately closed.
 
 Current scientific work focus:
 
@@ -1938,18 +1945,21 @@ Terminal evidence:
 
 Next admissible action:
 
-Open one fresh literature-backed comparison among:
+Validate, review and integrate the metric-conditioning decision only. After
+protected-main validation, publish a separate decision-closure checkpoint.
+Only then may the selected pointwise metric-conditioning implementation begin.
 
+Deferred and unauthorized until a later fresh decision:
+
+- principal directions / line fields;
 - analytic cone;
 - analytic torus;
-- principal directions / line fields;
-- conditioning diagnostics;
 - general trimming / p-curves / topological faces;
-- Surface Representation qualification readiness;
-- Surface Differential Geometry qualification readiness;
-- Boundary Curve Discretization readiness.
+- Surface Representation qualification;
+- Surface Differential Geometry qualification;
+- Boundary Curve Discretization.
 
-No option is preselected.
+No later option is pre-authorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
