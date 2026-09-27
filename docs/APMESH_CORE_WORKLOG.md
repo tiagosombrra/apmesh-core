@@ -562,36 +562,43 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Metric Conditioning Diagnostics — IMPLEMENTATION ACTIVE /
-NOT QUALIFIED.**
+**Surface Metric Conditioning Diagnostics — IMPLEMENTED CANDIDATE /
+VALIDATION PENDING / NOT QUALIFIED.**
 
-Activation authority:
+Current production candidate:
 
-1. decision PR #221: integrated and protected-main validated;
-2. decision-closure PR #222: integrated and protected-main validated;
-3. terminal-sync PR #223 head:
-   `94b5f00c5636497206b1fae7d86d04d4cae6e7ec`;
-4. terminal-sync FAST #601 / INTEGRATION #592: PASS;
-5. terminal-sync merge:
-   `49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`;
-6. terminal-sync protected-main FAST #602 / INTEGRATION #593: PASS;
-7. active branch:
-   `surface/metric-conditioning`;
-8. ordinary semantic inventory at activation: **41 tests**.
+`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
 
-Authorized implementation scope:
+Candidate changes:
 
-- one dimensionless pointwise metric-conditioning value/query;
-- reuse `SurfaceMetricNormal3` / first fundamental form + area density;
-- scale-aware computation of the Jacobian 2-norm condition number;
-- exact singular-parameterization propagation;
-- no conditioning threshold or new error class;
-- one focused ordinary semantic test target;
-- full prerequisite regression.
+1. public `SurfaceMetricConditioning` result;
+2. query over `SurfaceMetricNormal3`;
+3. bounded-surface convenience overload;
+4. scale-aware condition-number implementation;
+5. focused ordinary semantic target
+   `apmesh_core.surface_metric_conditioning`;
+6. ordinary profile registration, expected inventory **42 tests**.
 
-Expected ordinary semantic inventory after registration: **42 tests**.
+Scientific boundary preserved:
 
-No other scientific candidate or qualification action is active.
+- no threshold that classifies conditioning quality;
+- no new error class;
+- no principal directions or line-field continuity;
+- no cone/torus or other representation breadth;
+- no p-curve/topology work;
+- no discretization/sizing/meshing;
+- no formal qualification campaign.
+
+Validation note:
+
+The current execution environment could not resolve `github.com` for a
+throwaway local clone. This is an environment/network limitation, not a project
+failure, and no local-build claim is made. The exact remote PR
+FAST/INTEGRATION checks are the required candidate validation authority.
+
+Candidate audit:
+
+`docs/audits/2026-09-27-surface-metric-conditioning-candidate-validation.md`.
 
 ### Last closed portability maintenance item
 
@@ -640,17 +647,16 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete the active bounded implementation on
-`surface/metric-conditioning`:
+Open one PR for the active candidate and require:
 
-1. add the public pointwise conditioning result/query;
-2. implement scale-aware threshold-free condition-number evaluation;
-3. add the focused semantic contract and ordinary-profile registration;
-4. run required FAST/INTEGRATION on the exact candidate;
-5. audit all prior contracts and synchronize documentation;
-6. merge only with required checks green;
-7. validate protected `main`;
-8. close the implementation separately before selecting any next capability.
+1. FAST PASS on the exact head;
+2. INTEGRATION PASS in GCC 13 Debug;
+3. INTEGRATION PASS in Clang 18/libc++ Debug;
+4. focused `apmesh_core.surface_metric_conditioning` execution;
+5. ordinary inventory **42/42**;
+6. no regression in prior contracts.
 
-No alternate candidate, qualification action or formal campaign is authorized.
+If any failure appears, preserve it in the audit, correct only within the
+authorized work item, and revalidate. No merge occurs before a final immutable
+head is green.
 

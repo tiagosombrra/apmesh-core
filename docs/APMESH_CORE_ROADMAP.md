@@ -1880,31 +1880,25 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The selected Surface Differential Geometry work unit is now active:
+The selected Surface Differential Geometry work unit has an implementation
+candidate:
 
 **Pointwise Surface Metric Conditioning Diagnostics in 3D —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED.**
+IMPLEMENTED CANDIDATE / VALIDATION PENDING / NOT QUALIFIED.**
 
-Activation evidence:
+Candidate head:
 
-- terminal decision-state PR #223 head
-  `94b5f00c5636497206b1fae7d86d04d4cae6e7ec`;
-- PR FAST #601 / INTEGRATION #592: PASS;
-- squash merge
-  `49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`;
-- protected-main FAST #602 / INTEGRATION #593: PASS;
-- implementation branch:
-  `surface/metric-conditioning`.
+`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
 
-The implementation is bounded to a threshold-free dimensionless
-parameterization condition number derived from the already-integrated first
-fundamental form and area density. It must preserve existing exact singular
-semantics and remain invariant under uniform spatial scale, translation,
-rigid/signed frame changes, U/V reversals and parameter-axis swap.
+The candidate adds only the threshold-free pointwise condition-number query
+authorized by the closed decision. Its focused contract exercises analytic,
+near-singular, extreme-scale, invariance, error-propagation and integrated
+surface-family conformance cases.
 
-No principal-direction line field, new surface family, topology, boundary
-discretization, qualification protocol or conditioning acceptance threshold is
-authorized.
+Expected ordinary semantic inventory: **42 tests**.
+
+No stage qualification, conditioning threshold, principal-direction line
+field, representation breadth, topology or boundary discretization is implied.
 
 Current scientific work focus:
 
@@ -1935,12 +1929,12 @@ Terminal evidence:
 
 Next admissible action:
 
-Implement and validate only the bounded pointwise metric-conditioning work
-unit on `surface/metric-conditioning`. After integration and protected-main
-validation, publish a separate implementation-closure checkpoint before any
-fresh scientific decision.
+Validate the exact candidate through one PR. If FAST/INTEGRATION are green and
+the focused target executes with a 42/42 ordinary inventory, synchronize the
+candidate audit/documentation on a final immutable head and revalidate before
+merge.
 
-All other retained candidates remain deferred and unauthorized.
+No other capability is authorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 

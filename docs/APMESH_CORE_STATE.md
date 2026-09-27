@@ -152,49 +152,50 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-IMPLEMENTATION ACTIVE / NOT QUALIFIED.**
+IMPLEMENTED CANDIDATE / VALIDATION PENDING / NOT QUALIFIED.**
 
-Authoritative activation evidence:
+Active branch:
 
-- decision PR #221 and protected-main validation: PASS;
-- decision closure PR #222 and protected-main validation: PASS;
-- terminal synchronization PR #223 final head:
-  `94b5f00c5636497206b1fae7d86d04d4cae6e7ec`;
-- terminal-sync FAST #601 / INTEGRATION #592: PASS;
-- terminal-sync squash merge:
-  `49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`;
-- terminal-sync protected-main FAST #602 / INTEGRATION #593: PASS;
-- active implementation branch:
-  `surface/metric-conditioning`;
-- decision authority:
-  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
+`surface/metric-conditioning`.
 
-Sole authorized production scope:
+Activation authority remains terminal-sync PR #223 and protected-main FAST
+#602 / INTEGRATION #593 on
+`49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`.
 
-**Pointwise Surface Metric Conditioning Diagnostics in 3D.**
+Technical candidate:
 
-Planned files:
+`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
 
-- `include/apmesh/geometry/surface_differential.hpp`;
-- `src/geometry/surface_differential.cpp`;
-- `tests/surface_metric_conditioning.cpp`;
-- `CMakeLists.txt`;
-- implementation audit plus continuity documents.
+Candidate mapping:
 
-The implementation must remain threshold-free, preserve exact singular
-classification, reuse already-computed first-order metric data, and expose only
-a dimensionless pointwise condition-number diagnostic.
+- API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_metric_conditioning.cpp`;
+- test registration:
+  `CMakeLists.txt`;
+- candidate audit:
+  `docs/audits/2026-09-27-surface-metric-conditioning-candidate-validation.md`.
 
-Deferred and unauthorized:
+Candidate semantics:
 
-- principal directions / curvature line fields;
-- bounded analytic cone;
-- bounded analytic torus;
-- general trimming / p-curves / topological faces;
-- Surface Representation qualification;
-- Surface Differential Geometry qualification;
-- Boundary Curve Discretization;
-- any formal qualification campaign or one-time execution authorization.
+- dimensionless Jacobian 2-norm condition number;
+- existing first fundamental form + area density reused;
+- scale-aware `lambda_max / area_density` computation;
+- exact singular-parameterization propagation;
+- no conditioning acceptance threshold;
+- no new differential error category.
+
+Expected ordinary semantic inventory: **42 tests**.
+
+Current validation state:
+
+**PR FAST/INTEGRATION NOT YET RUN ON THE DOCUMENTED CANDIDATE HEAD.**
+
+No qualification, principal direction, new surface family, topology, boundary
+discretization or formal campaign is authorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
