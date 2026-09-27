@@ -1,7 +1,7 @@
 # Surface Metric Conditioning — Implementation Audit
 
 Date: 2026-09-27  
-Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING / NOT QUALIFIED
+Status: IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED
 
 ## 1. Authority
 
@@ -217,3 +217,41 @@ SURFACE DIFFERENTIAL GEOMETRY NOT QUALIFIED.**
 
 The current work item is documentation-only implementation closure. No next
 scientific capability is selected by this audit.
+
+
+## 9. Implementation closure
+
+Documentation-only implementation closure used PR #226 with final head:
+
+`2955e80bf0f61afe971ab0eaa40661b1b0923cdf`.
+
+Closure PR validation:
+
+- FAST #612: PASS;
+- INTEGRATION #603 / GCC 13 Debug: PASS;
+- INTEGRATION #603 / Clang 18/libc++ Debug: PASS;
+- no reviews or unresolved review threads;
+- branch relation at merge gate: ahead=6, behind=0;
+- diff restricted to documentation/audit files.
+
+PR #226 squash-merged as:
+
+`0c1c4c2365257549122fa4bb9b8720c4e83bddc9`.
+
+Protected-main validation on that exact closure revision:
+
+- FAST #613: PASS;
+- INTEGRATION #604 / GCC 13 Debug: PASS;
+- INTEGRATION #604 / Clang 18/libc++ Debug: PASS.
+
+Ordinary semantic registration inventory remains **42 tests**.
+
+Closure result:
+
+**POINTWISE SURFACE METRIC CONDITIONING DIAGNOSTICS IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED.**
+
+The implementation work item is terminally closed. The current
+`docs/surface-metric-conditioning-implementation-terminal-sync` branch only
+publishes this terminal continuity state so another conversation can recover
+the authoritative status directly from the remote repository.
