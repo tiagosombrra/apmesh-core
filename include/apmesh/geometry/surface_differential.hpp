@@ -38,6 +38,19 @@ struct SurfaceMetricNormal3 {
 surface_metric_normal(
     const SurfaceFirstDerivatives3& derivatives) noexcept;
 
+struct SurfaceMetricConditioning {
+    double condition_number{};
+
+    [[nodiscard]] bool operator==(
+        const SurfaceMetricConditioning&) const noexcept = default;
+};
+
+[[nodiscard]] std::expected<
+    SurfaceMetricConditioning,
+    SurfaceDifferentialError>
+surface_metric_conditioning(
+    const SurfaceMetricNormal3& metric_normal) noexcept;
+
 struct SurfaceSecondFundamentalForm {
     double l{};
     double m{};
@@ -122,6 +135,21 @@ surface_metric_normal(
             detail::surface_differential_error(derivatives.error())};
     }
     return surface_metric_normal(*derivatives);
+}
+
+template <BoundedParametricSurface3 Surface>
+[[nodiscard]] std::expected<
+    SurfaceMetricConditioning,
+    SurfaceDifferentialError>
+surface_metric_conditioning(
+    const Surface& surface,
+    const double u,
+    const double v) {
+    const auto metric_normal = surface_metric_normal(surface, u, v);
+    if (!metric_normal.has_value()) {
+        return std::unexpected{metric_normal.error()};
+    }
+    return surface_metric_conditioning(*metric_normal);
 }
 
 template <BoundedParametricSurface3 Surface>

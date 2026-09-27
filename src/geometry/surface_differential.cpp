@@ -342,6 +342,79 @@ surface_metric_normal(
     };
 }
 
+std::expected<SurfaceMetricConditioning, SurfaceDifferentialError>
+surface_metric_conditioning(
+    const SurfaceMetricNormal3& metric_normal) noexcept {
+    const long double e = static_cast<long double>(
+        metric_normal.first_fundamental_form.e);
+    const long double f = static_cast<long double>(
+        metric_normal.first_fundamental_form.f);
+    const long double g = static_cast<long double>(
+        metric_normal.first_fundamental_form.g);
+    const long double area =
+        static_cast<long double>(metric_normal.area_density);
+
+    if (!std::isfinite(e) || !std::isfinite(f) ||
+        !std::isfinite(g) || !std::isfinite(area)) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    const long double metric_scale =
+        std::max({std::abs(e), std::abs(f), std::abs(g)});
+    if (metric_scale == 0.0L || e <= 0.0L || g <= 0.0L || area <= 0.0L) {
+        return std::unexpected{
+            SurfaceDifferentialError::singular_parameterization};
+    }
+
+    const long double scaled_e = e / metric_scale;
+    const long double scaled_f = f / metric_scale;
+    const long double scaled_g = g / metric_scale;
+    const long double scaled_area = area / metric_scale;
+
+    if (!std::isfinite(scaled_e) || !std::isfinite(scaled_f) ||
+        !std::isfinite(scaled_g) || !std::isfinite(scaled_area) ||
+        scaled_e <= 0.0L || scaled_g <= 0.0L) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+    if (scaled_area == 0.0L) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    const long double trace = scaled_e + scaled_g;
+    const long double gap =
+        std::hypot(scaled_e - scaled_g, 2.0L * scaled_f);
+    const long double maximum_metric_eigenvalue =
+        0.5L * (trace + gap);
+    if (!std::isfinite(maximum_metric_eigenvalue) ||
+        maximum_metric_eigenvalue <= 0.0L) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    // For J=[Su Sv], the metric is J^T J and area_density is
+    // sigma_max*sigma_min. Therefore lambda_max/area_density is
+    // sigma_max/sigma_min, the 2-norm condition number of J.
+    const long double raw_condition =
+        maximum_metric_eigenvalue / scaled_area;
+    if (!std::isfinite(raw_condition)) {
+        return std::unexpected{
+            SurfaceDifferentialError::non_representable_result};
+    }
+
+    const long double condition = std::max(1.0L, raw_condition);
+    const auto converted = representable_double(condition);
+    if (!converted.has_value()) {
+        return std::unexpected{converted.error()};
+    }
+
+    return SurfaceMetricConditioning{
+        .condition_number = *converted,
+    };
+}
+
 namespace detail {
 
 std::expected<SurfaceSecondOrderGeometry3, SurfaceDifferentialError>
