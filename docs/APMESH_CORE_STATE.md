@@ -153,7 +153,7 @@ No portability production or closure work item remains active.
 
 **Surface Differential Geometry — Qualification Readiness Decision —
 DECISION CLOSED / QUALIFICATION PROTOCOL PRE-REGISTRATION AUTHORIZED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
+NOT QUALIFIED / NO ACTIVE PRODUCTION OR SCIENTIFIC WORK ITEM.**
 
 Terminal decision authority:
 
@@ -169,19 +169,29 @@ Terminal decision authority:
 - closure squash merge:
   `f8d12c2e0e39611758af1b10d01311913603622f`;
 - closure post-merge FAST #621 / INTEGRATION #612: PASS;
+- terminal-sync PR #231 final head:
+  `9d2876876cb4ea5bffe3e3d88507c7be814e4139`;
+- terminal-sync PR FAST #622 / INTEGRATION #613: PASS;
+- terminal-sync squash merge:
+  `ce73cf28c7359f1bac8986c4b7ea57180dc7d109`;
+- terminal-sync post-merge FAST #623 / INTEGRATION #614: PASS;
 - ordinary semantic registration inventory: **42 tests**;
 - decision:
-  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`;
-- terminal-sync branch:
-  `docs/surface-differential-geometry-qualification-readiness-decision-terminal-sync`.
+  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
+
+Remote continuity is synchronized through PR #231 and protected-main validation.
+No repository transition, production work item or scientific work item is
+currently active.
 
 Sole next authorized scientific work item:
 
 **Surface Differential Geometry — Cumulative Qualification Protocol
 Pre-registration.**
 
-The terminal-sync branch is documentation-only and must itself be validated,
-merged and post-merge validated before the protocol branch starts.
+That work item is documentation/governance only. It may begin from the current
+protected `main` after an entry audit. It does not authorize qualification
+tooling, manifest preparation, workflow dispatch, formal execution or a
+`QUALIFIED` status.
 
 Still unauthorized:
 
