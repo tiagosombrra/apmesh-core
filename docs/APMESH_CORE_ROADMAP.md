@@ -1880,17 +1880,24 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The sole **VALIDATED_UNMERGED** implementation item is portable spline
-intermediate arithmetic maintenance, on `build/native-windows-msvc-presets`. It repairs
-the existing four B-spline/NURBS paths without admitting a new family or
-changing scientific gates. GCC/Clang/MSVC Debug and Release pass 41/41 ordinary
-contracts in all six cells. The separately authorized two-bracket ordering
-correction in `curve.cpp` resolves the observed GCC Release build blocker,
-preserving the comparator and scientific isolation rules. Publication is
-admissible; integration and closure remain pending. See
-`docs/audits/2026-09-26-portable-spline-arithmetic.md` and the worklog.
-This adds no scientific qualification or completion credit. The next breadth
-comparison waits for maintenance integration and closure.
+The bounded portable-spline maintenance item is now **INTEGRATED /
+PROTECTED-MAIN VALIDATED / CLOSURE PENDING / NOT QUALIFIED**. Final PR #217
+head `51d62b4297d82286e2f027c10fde9193af47bb1a` passed FAST #589 and
+INTEGRATION #580; it squash-merged as
+`79057c03e432fa9116ced829f9a2c246e9d13ee9`. Protected-main FAST #590 and
+INTEGRATION #581 both passed, and the integrated ordinary inventory is
+**41 tests**.
+
+The six local GCC/Clang/MSVC Debug/Release development cells remain 41/41 PASS
+on exact production/test revision
+`65ec6e8514e82e5add62f0c2fb53f049c29be215`. Native Windows remains
+development-only; no scientific stage, contract, qualification envelope or
+formal campaign is advanced.
+
+The sole active continuation item is the documentation-only branch
+`docs/portable-spline-maintenance-closure`. The next scientific breadth
+comparison remains blocked until this closure is merged, protected-main
+validated and terminally synchronized.
 
 Current scientific work focus:
 

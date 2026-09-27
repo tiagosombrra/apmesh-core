@@ -1,7 +1,7 @@
 # Portable spline intermediate arithmetic
 
 Date: 2026-09-26
-Status: SIX DEVELOPMENT CELLS PASS / VALIDATED_UNMERGED / NOT QUALIFIED
+Status: PASS / INTEGRATED / PROTECTED-MAIN VALIDATED / CLOSURE PENDING / NOT QUALIFIED
 Scope: bounded portability maintenance, not scientific qualification
 
 ## Execution checkpoint and work-class accounting
@@ -23,10 +23,10 @@ Repository work-class accounting for this bounded maintenance execution is:
 10% documentation/governance**. These percentages are process accounting only;
 they are not scientific completion or qualification scores.
 
-The exact next admissible action is review and integration of PR #217 only
-after required checks are green on its current head, followed by protected-main
-FAST/INTEGRATION validation and continuity synchronization. No new scientific
-decision or capability is authorized before that closure.
+The exact next admissible action is documentation-only closure of the integrated
+maintenance item, followed by required PR and protected-main validation and one
+terminal continuity synchronization. No new scientific decision or capability
+is authorized before that terminal closure.
 
 ## Baseline and failure
 
@@ -157,3 +157,34 @@ round-to-nearest and explicit-failure policies remain unchanged.
 No stage is advanced or requalified. Native Windows remains development-only.
 The next scientific breadth comparison remains deferred until this maintenance
 item is integrated and its post-merge checks and continuity records are closed.
+
+## Integration and protected-main receipt
+
+Final reviewed PR #217 head:
+
+`51d62b4297d82286e2f027c10fde9193af47bb1a`.
+
+Required PR validation on that exact head:
+
+- FAST #589: PASS (`GCC 13 Debug / FAST`);
+- INTEGRATION #580: PASS (`GCC 13 Debug / INTEGRATION`);
+- INTEGRATION #580: PASS (`Clang 18 libc++ Debug / INTEGRATION`).
+
+PR #217 squash-merged as:
+
+`79057c03e432fa9116ced829f9a2c246e9d13ee9`.
+
+Protected-main validation on that exact merge revision:
+
+- FAST #590: PASS;
+- INTEGRATION #581: PASS in both required GCC and Clang cells.
+
+The integrated ordinary semantic inventory is **41 tests**. The historical
+implementation branch remains retained for provenance; the current
+documentation-only closure branch is
+`docs/portable-spline-maintenance-closure`.
+
+Scientific impact remains **none**: no stage is advanced or requalified, no
+formal evidence campaign is created or consumed, and native Windows remains
+ordinary development evidence only. This audit remains `CLOSURE PENDING` until
+the closure documentation itself is merged and protected-main validated.
