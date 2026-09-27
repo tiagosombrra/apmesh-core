@@ -194,3 +194,27 @@ Protected-main closure validation:
 The candidate is therefore terminally integrated and closed as an ordinary
 validated work item, while Surface Differential Geometry remains
 **NOT QUALIFIED**.
+
+
+## Remote terminal synchronization
+
+Terminal synchronization PR #227 used final head:
+
+`e5ffd4eb0ec6310d367abd3ce517ab5931dc7ee7`.
+
+Validation:
+
+- FAST #614: PASS;
+- INTEGRATION #605 / GCC 13 Debug: PASS;
+- INTEGRATION #605 / Clang 18/libc++ Debug: PASS.
+
+PR #227 squash-merged as:
+
+`07ae15c8570ac9a0d37906d189a18dfcf95146c5`.
+
+Protected-main FAST #615 and INTEGRATION #606 passed on that exact revision.
+
+Candidate lifecycle result:
+
+**VALIDATED / INTEGRATED / CLOSED / REMOTE CONTINUITY SYNCHRONIZED /
+NOT QUALIFIED.**
