@@ -1880,36 +1880,33 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The Surface Differential Geometry qualification-readiness decision is integrated
-and awaiting its separate closure:
+The Surface Differential Geometry qualification-readiness decision is
+terminally closed:
 
-**Surface Differential Geometry — Qualification Readiness Decision —
-DECISION INTEGRATED / CLOSURE ACTIVE / PROTOCOL NOT AUTHORIZED /
-NOT QUALIFIED.**
+**DECISION CLOSED / CUMULATIVE QUALIFICATION PROTOCOL PRE-REGISTRATION
+AUTHORIZED / NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
 
-Decision evidence:
+Terminal decision evidence:
 
-- final decision head
+- decision PR #229 head
   `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
-- decision PR #229 FAST #618: PASS;
-- decision PR #229 INTEGRATION #609: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- squash merge
+- decision FAST #618 / INTEGRATION #609: PASS;
+- decision squash merge
   `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`;
-- protected-main FAST #619 / INTEGRATION #610: PASS;
+- decision post-merge FAST #619 / INTEGRATION #610: PASS;
+- closure PR #230 head
+  `6e2e57ffad3f7a208b5398b39c084dad3f92c9de`;
+- closure FAST #620 / INTEGRATION #611: PASS;
+- closure squash merge
+  `f8d12c2e0e39611758af1b10d01311913603622f`;
+- closure post-merge FAST #621 / INTEGRATION #612: PASS;
 - ordinary semantic registration inventory: **42 tests**.
 
-Selected future work item:
+Current terminal-sync branch:
 
-**Surface Differential Geometry — Cumulative Qualification Protocol
-Pre-registration.**
+`docs/surface-differential-geometry-qualification-readiness-decision-terminal-sync`.
 
-The active closure branch is:
-
-`docs/surface-differential-geometry-qualification-readiness-decision-closure`.
-
-No protocol work, qualification tooling, preparation, formal execution,
-production feature or `QUALIFIED` claim is authorized until this closure is
-integrated and protected-main validated.
+The selected protocol work item has not started.
 
 Current scientific work focus:
 
@@ -1940,20 +1937,20 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate, integrate and post-merge validate only the qualification-readiness
-decision closure.
+Validate, integrate and post-merge validate the terminal decision sync.
 
-After terminal closure, the sole next work item becomes:
+After that, start exactly one scientific work item:
 
 **Surface Differential Geometry — Cumulative Qualification Protocol
 Pre-registration.**
 
-That future work is documentation/governance only and must freeze the bounded
-claim, independent fixture matrix, SDG0–SDG7 gate semantics, cross-cell and
-repetition policy, scientific figures, retained evidence and failure policy
-before qualification tooling is admitted.
+The protocol must freeze the bounded qualification claim, independent analytic
+and adversarial fixtures, SDG0–SDG7 gates, invariance/scale/orientation laws,
+cross-cell/repetition policy, reproducible scientific figures, retained evidence
+and failure policy.
 
-No formal qualification execution or production feature is pre-authorized.
+The protocol cannot authorize qualification tooling, formal preparation or
+execution, and cannot change the stage status to `QUALIFIED`.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
