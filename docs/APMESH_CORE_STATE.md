@@ -151,53 +151,57 @@ No portability production or closure work item remains active.
 
 ## Current active scientific action
 
-**Surface Differential Geometry — Qualification Readiness Decision —
-DECISION CLOSED / QUALIFICATION PROTOCOL PRE-REGISTRATION AUTHORIZED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION OR SCIENTIFIC WORK ITEM.**
-
-Terminal decision authority:
-
-- decision PR #229 final head:
-  `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
-- decision PR FAST #618 / INTEGRATION #609: PASS;
-- decision squash merge:
-  `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`;
-- decision post-merge FAST #619 / INTEGRATION #610: PASS;
-- decision closure PR #230 final head:
-  `6e2e57ffad3f7a208b5398b39c084dad3f92c9de`;
-- closure PR FAST #620 / INTEGRATION #611: PASS;
-- closure squash merge:
-  `f8d12c2e0e39611758af1b10d01311913603622f`;
-- closure post-merge FAST #621 / INTEGRATION #612: PASS;
-- terminal-sync PR #231 final head:
-  `9d2876876cb4ea5bffe3e3d88507c7be814e4139`;
-- terminal-sync PR FAST #622 / INTEGRATION #613: PASS;
-- terminal-sync squash merge:
-  `ce73cf28c7359f1bac8986c4b7ea57180dc7d109`;
-- terminal-sync post-merge FAST #623 / INTEGRATION #614: PASS;
-- ordinary semantic registration inventory: **42 tests**;
-- decision:
-  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
-
-Remote continuity is synchronized through PR #231 and protected-main validation.
-No repository transition, production work item or scientific work item is
-currently active.
-
-Sole next authorized scientific work item:
-
 **Surface Differential Geometry — Cumulative Qualification Protocol
-Pre-registration.**
+Pre-registration — PROTOCOL ACTIVE / DOCUMENTATION ONLY /
+TOOLING NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
 
-That work item is documentation/governance only. It may begin from the current
-protected `main` after an entry audit. It does not authorize qualification
-tooling, manifest preparation, workflow dispatch, formal execution or a
-`QUALIFIED` status.
+Fresh protocol-entry authority:
 
-Still unauthorized:
+- protected `main`:
+  `744dbce1553a537dc22a0830d6ea878c0efb0fe7`;
+- terminal receipt PR #232 squash merge:
+  `744dbce1553a537dc22a0830d6ea878c0efb0fe7`;
+- protected-main FAST #625: PASS;
+- protected-main INTEGRATION #616: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- ordinary semantic registration inventory: **42 tests**;
+- open PRs at entry: none;
+- protocol-named concurrent branches at entry: none;
+- entry audit:
+  `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-entry-audit.md`.
 
-- qualification tooling;
-- prepared manifests or formal workflow execution;
+Active branch:
+
+`docs/surface-differential-geometry-qualification-protocol`.
+
+Protocol authority under review:
+
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`.
+
+The active protocol freezes:
+
+- bounded local Surface Differential Geometry qualification claim/nonclaims;
+- semantic baseline files;
+- exact 42-test ordinary regression allowlist;
+- GCC 13 / Clang 18 Debug+Release four-cell cloud matrix;
+- two repetitions per cell;
+- eight scientific certificates;
+- independent analytic/adversarial fixtures;
+- orientation/invariance/scale laws;
+- SDG0-SDG7 gates;
+- deterministic scientific figures;
+- fail-fast/no-retry evidence and retention rules.
+
+This work item is documentation/governance only.
+
+Explicitly unauthorized:
+
+- qualification tooling implementation;
+- preparation/launch infrastructure;
+- prepared manifests;
+- workflow dispatch or formal execution;
 - `QUALIFIED` status;
+- production C++ changes;
+- ordinary test semantic changes;
 - principal directions / curvature-line fields;
 - cone/torus or other representation breadth;
 - general p-curves/topological faces;

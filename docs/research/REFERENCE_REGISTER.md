@@ -1230,10 +1230,10 @@ Project relevance:
 - no external library, tolerance policy, eigensolver, or CAD runtime is
   admitted by these references.
 
-### Surface Differential Geometry qualification-readiness evidence
+### Surface Differential Geometry qualification-readiness and protocol evidence
 
-Status: `ACTIVE REVIEW / QUALIFICATION SCOPING` for the cumulative Surface
-Differential Geometry qualification-readiness decision, reviewed 2026-09-27.
+Status: `ACTIVE PROTOCOL / QUALIFICATION SCOPING` for the cumulative Surface
+Differential Geometry qualification protocol, reviewed 2026-09-27.
 
 References:
 
@@ -1273,10 +1273,15 @@ Project relevance:
 - general CAD trimming requires a 2D p-curve bound to a supporting surface plus
   face/wire/edge orientation semantics, which is materially broader than the
   existing rectangular-trim wrapper;
-- these references support evaluating cumulative Surface Differential Geometry
-  qualification readiness now, but do not themselves define AP Mesh
-  qualification gates, prove current implementation correctness, authorize a
-  formal campaign, or qualify Surface Representation.
+- these references support the cumulative Surface Differential Geometry
+  qualification claim boundary and fixture/gate design, but do not themselves
+  prove current implementation correctness, authorize a formal campaign, or
+  qualify Surface Representation;
+- the protocol-specific authority is
+  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
+- the protocol freezes independent analytic/adversarial evidence,
+  transformation laws, SDG0-SDG7 gates, four GCC/Clang Debug/Release cells and
+  two repetitions per cell before any report-only tooling may be implemented.
 
 ### Open CASCADE Geom_Plane — analytic plane placement and parameterization
 
