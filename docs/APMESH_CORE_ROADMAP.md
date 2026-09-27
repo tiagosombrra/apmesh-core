@@ -1881,35 +1881,37 @@ Each qualified stage must have a human-readable decision document recording:
 ## 8. Current action
 
 The bounded Surface Differential Geometry metric-conditioning implementation is
-integrated and awaiting its separate closure:
+terminally closed:
 
 **Pointwise Surface Metric Conditioning Diagnostics in 3D —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
-IMPLEMENTATION CLOSURE PENDING / NOT QUALIFIED.**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
 
-Implementation evidence:
+Terminal evidence:
 
-- technical candidate
-  `ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`;
-- final immutable head
+- final immutable implementation head
   `c9176da223e6568861803743d992b91371aa50fb`;
-- replacement implementation PR #225 FAST #610: PASS;
-- PR #225 INTEGRATION #601: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- squash merge
+- implementation PR #225 FAST #610: PASS;
+- implementation PR #225 INTEGRATION #601: PASS in GCC and Clang;
+- implementation squash merge
   `7b3c833273dba042b7f6c055dd736510573664a6`;
-- protected-main FAST #611: PASS;
-- protected-main INTEGRATION #602: PASS in GCC and Clang;
+- implementation post-merge FAST #611 / INTEGRATION #602: PASS;
+- closure PR #226 final head
+  `2955e80bf0f61afe971ab0eaa40661b1b0923cdf`;
+- closure PR FAST #612 / INTEGRATION #603: PASS;
+- closure squash merge
+  `0c1c4c2365257549122fa4bb9b8720c4e83bddc9`;
+- closure post-merge FAST #613 / INTEGRATION #604: PASS;
 - ordinary semantic registration inventory: **42 tests**;
 - implementation audit:
   `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
 
-PR #224 is retained only as provenance of a mechanical GitHub Actions
-concurrency incident; it was closed unmerged and introduced no alternate
-content.
+PR #224 remains historical provenance of a mechanical Actions concurrency
+incident only and was closed unmerged.
 
-The implementation remains threshold-free and pointwise. No stage
-qualification, principal-direction line field, new surface representation,
-topology, boundary discretization or formal campaign is implied.
+The current
+`docs/surface-metric-conditioning-implementation-terminal-sync` branch is
+documentation-only. No scientific or production capability is active.
 
 Current scientific work focus:
 
@@ -1940,15 +1942,20 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate and integrate only the documentation closure for the metric-conditioning
-implementation. After protected-main validation of that closure, publish a
-terminal continuity state if needed.
+Validate, integrate and post-merge validate the terminal documentation sync.
+Then confirm that the authoritative remote state exposes no active production
+work item.
 
-Only then may a fresh literature-backed decision recompare principal directions,
-analytic cone/torus breadth, general trimming/p-curves/topological faces,
-Surface Representation qualification readiness, Surface Differential Geometry
-qualification readiness and Boundary Curve Discretization readiness. No option
-is pre-authorized.
+Only after that may a new literature-backed scientific decision compare:
+
+- principal directions / curvature line fields;
+- bounded analytic cone / torus breadth;
+- general trimming / p-curves / topological faces;
+- Surface Representation qualification readiness;
+- Surface Differential Geometry qualification readiness;
+- Boundary Curve Discretization readiness.
+
+No option is selected or pre-authorized by this roadmap state.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
