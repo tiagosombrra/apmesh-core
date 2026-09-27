@@ -1880,24 +1880,27 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The bounded portable-spline maintenance item is now **INTEGRATED /
-PROTECTED-MAIN VALIDATED / CLOSURE PENDING / NOT QUALIFIED**. Final PR #217
-head `51d62b4297d82286e2f027c10fde9193af47bb1a` passed FAST #589 and
-INTEGRATION #580; it squash-merged as
-`79057c03e432fa9116ced829f9a2c246e9d13ee9`. Protected-main FAST #590 and
-INTEGRATION #581 both passed, and the integrated ordinary inventory is
-**41 tests**.
+The bounded portable-spline maintenance item is **INTEGRATED / CLOSED /
+NOT QUALIFIED**.
+
+PR #217 final head `51d62b4297d82286e2f027c10fde9193af47bb1a` passed FAST #589 and
+INTEGRATION #580, then squash-merged as
+`79057c03e432fa9116ced829f9a2c246e9d13ee9`; protected-main FAST #590 and
+INTEGRATION #581 passed. Documentation closure PR #218 head
+`c465a305fa28b05b5973c610fe6911c777c9357d` passed FAST #591 and
+INTEGRATION #582, squash-merged as
+`8d4a6e2d46c942966ceeb5e3fa735c983ef80909`, and protected-main FAST #592
+plus INTEGRATION #583 passed.
 
 The six local GCC/Clang/MSVC Debug/Release development cells remain 41/41 PASS
 on exact production/test revision
-`65ec6e8514e82e5add62f0c2fb53f049c29be215`. Native Windows remains
-development-only; no scientific stage, contract, qualification envelope or
-formal campaign is advanced.
+`65ec6e8514e82e5add62f0c2fb53f049c29be215`. The integrated ordinary
+semantic inventory is **41 tests**. Native Windows remains development-only;
+no stage or qualification envelope is advanced.
 
-The sole active continuation item is the documentation-only branch
-`docs/portable-spline-maintenance-closure`. The next scientific breadth
-comparison remains blocked until this closure is merged, protected-main
-validated and terminally synchronized.
+No maintenance or scientific production work item is active. The next
+scientific capability must be selected, if separately authorized, by the
+fresh literature-backed comparison below; no candidate is preselected.
 
 Current scientific work focus:
 

@@ -1,7 +1,7 @@
 # Portable spline intermediate arithmetic
 
 Date: 2026-09-26
-Status: PASS / INTEGRATED / PROTECTED-MAIN VALIDATED / CLOSURE PENDING / NOT QUALIFIED
+Status: PASS / INTEGRATED / CLOSED / NOT QUALIFIED
 Scope: bounded portability maintenance, not scientific qualification
 
 ## Execution checkpoint and work-class accounting
@@ -23,10 +23,10 @@ Repository work-class accounting for this bounded maintenance execution is:
 10% documentation/governance**. These percentages are process accounting only;
 they are not scientific completion or qualification scores.
 
-The exact next admissible action is documentation-only closure of the integrated
-maintenance item, followed by required PR and protected-main validation and one
-terminal continuity synchronization. No new scientific decision or capability
-is authorized before that terminal closure.
+The portability maintenance item is terminally closed. The next admissible
+scientific action, subject to separate scientific-decision authority, is one
+fresh literature-backed comparison of the candidates retained in STATE and
+ROADMAP. No candidate is selected by this audit.
 
 ## Baseline and failure
 
@@ -186,5 +186,33 @@ documentation-only closure branch is
 
 Scientific impact remains **none**: no stage is advanced or requalified, no
 formal evidence campaign is created or consumed, and native Windows remains
-ordinary development evidence only. This audit remains `CLOSURE PENDING` until
-the closure documentation itself is merged and protected-main validated.
+ordinary development evidence only.
+
+## Documentation closure receipt
+
+Documentation closure PR #218 head:
+
+`c465a305fa28b05b5973c610fe6911c777c9357d`.
+
+Required PR validation:
+
+- FAST #591: PASS;
+- INTEGRATION #582: PASS in both required GCC and Clang cells.
+
+PR #218 squash-merged as:
+
+`8d4a6e2d46c942966ceeb5e3fa735c983ef80909`.
+
+Protected-main validation on that exact closure revision:
+
+- FAST #592: PASS;
+- INTEGRATION #583: PASS in both required GCC and Clang cells.
+
+Terminal maintenance result:
+
+**PASS / PORTABLE SPLINE INTERMEDIATE ARITHMETIC INTEGRATED / CLOSED /
+NOT QUALIFIED.**
+
+The historical implementation and closure branches are retained only as
+provenance. No production or closure work item remains active.
+

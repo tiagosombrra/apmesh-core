@@ -526,41 +526,53 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   focused regression and GCC Release compare/swap correction. Final reviewed
   head `51d62b4297d82286e2f027c10fde9193af47bb1a`; squash merge
   `79057c03e432fa9116ced829f9a2c246e9d13ee9`.
-- `docs/portable-spline-maintenance-closure`: **ACTIVE / CLOSURE-ONLY**;
-  synchronizes integration and protected-main validation evidence. It carries
-  no production or scientific-semantic change.
+- `docs/portable-spline-maintenance-closure`: **MERGED / HISTORICAL** via PR #218;
+  records PR #217 integration and protected-main validation without production
+  or scientific-semantic change.
+- `docs/portable-spline-maintenance-terminal-sync`: **MERGED / HISTORICAL once
+  this terminal synchronization is present on `main`**; documentation-only
+  publication of the closed maintenance state.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Portable spline intermediate arithmetic / INTEGRATED / CLOSURE PENDING.**
+**None. Portable spline intermediate arithmetic maintenance is terminally closed.**
 
-- sole active branch: `docs/portable-spline-maintenance-closure` /
-  **ACTIVE / CLOSURE-ONLY**;
-- implementation branch `build/native-windows-msvc-presets`:
-  **MERGED / HISTORICAL**;
-- preset checkpoint: `a9355cd597e56e33808f8a9497d70a553006d8fd`;
-- exact production/test revision validated locally:
-  `65ec6e8514e82e5add62f0c2fb53f049c29be215`;
-- final PR #217 head:
-  `51d62b4297d82286e2f027c10fde9193af47bb1a`;
-- final PR FAST #589: PASS;
-- final PR INTEGRATION #580: PASS in required GCC and Clang cells;
-- PR #217 squash merge:
-  `79057c03e432fa9116ced829f9a2c246e9d13ee9`;
-- protected-main FAST #590: PASS;
-- protected-main INTEGRATION #581: PASS in required GCC and Clang cells;
-- six local GCC/Clang/MSVC Debug/Release development cells: PASS, 41/41;
-- integrated ordinary semantic inventory: **41 tests**;
-- initial GCC Release `std::sort` failure remains preserved in the audit;
-- evidence: `docs/audits/2026-09-26-portable-spline-arithmetic.md`;
-- no warning suppression, formal campaign, qualification claim or scientific
-  capability expansion.
+Terminal maintenance evidence:
 
-The implementation is integrated and protected-main validated. Formal closure
-still requires this documentation-only checkpoint to pass required PR checks,
-merge, and pass protected-main validation before terminal synchronization.
+1. preset checkpoint:
+   `a9355cd597e56e33808f8a9497d70a553006d8fd`;
+2. exact production/test revision validated in six local development cells:
+   `65ec6e8514e82e5add62f0c2fb53f049c29be215`;
+3. final implementation PR #217 head:
+   `51d62b4297d82286e2f027c10fde9193af47bb1a`;
+4. PR #217 FAST #589: PASS;
+5. PR #217 INTEGRATION #580: PASS in required GCC and Clang cells;
+6. PR #217 squash merge:
+   `79057c03e432fa9116ced829f9a2c246e9d13ee9`;
+7. implementation protected-main FAST #590: PASS;
+8. implementation protected-main INTEGRATION #581: PASS;
+9. documentation closure PR #218 head:
+   `c465a305fa28b05b5973c610fe6911c777c9357d`;
+10. closure PR FAST #591: PASS;
+11. closure PR INTEGRATION #582: PASS in required GCC and Clang cells;
+12. closure squash merge:
+    `8d4a6e2d46c942966ceeb5e3fa735c983ef80909`;
+13. closure protected-main FAST #592: PASS;
+14. closure protected-main INTEGRATION #583: PASS;
+15. six local GCC/Clang/MSVC Debug/Release cells: PASS, 41/41;
+16. integrated ordinary semantic inventory: **41 tests**;
+17. audit:
+    `docs/audits/2026-09-26-portable-spline-arithmetic.md`.
+
+Terminal result:
+
+**PORTABLE SPLINE INTERMEDIATE ARITHMETIC MAINTENANCE / INTEGRATED /
+CLOSED / NOT QUALIFIED.**
+
+No warning suppression, acceptance relaxation, formal campaign, qualification
+claim or new scientific capability was introduced.
 
 ### Last closed spherical-surface work item
 
@@ -600,9 +612,8 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-First complete the documentation-only portability closure checkpoint above,
-including its PR checks, merge, protected-main validation and terminal
-synchronization. Only then:
+The portability maintenance item is closed. The next admissible scientific
+action is therefore:
 
 Open exactly one fresh literature-backed scientific decision comparing:
 
