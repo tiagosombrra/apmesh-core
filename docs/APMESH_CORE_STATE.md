@@ -152,60 +152,53 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+IMPLEMENTATION CLOSURE PENDING / NOT QUALIFIED.**
 
-Active branch:
+Integration authority:
 
-`surface/metric-conditioning`.
-
-Activation authority remains terminal-sync PR #223 and protected-main FAST
-#602 / INTEGRATION #593 on
-`49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`.
-
-Technical candidate:
-
-`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
-
-Candidate mapping:
-
-- API:
-  `include/apmesh/geometry/surface_differential.hpp`;
-- production:
-  `src/geometry/surface_differential.cpp`;
-- focused contract:
-  `tests/surface_metric_conditioning.cpp`;
-- test registration:
-  `CMakeLists.txt`;
+- technical candidate:
+  `ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`;
+- final immutable head:
+  `c9176da223e6568861803743d992b91371aa50fb`;
+- initial FAST #603 / INTEGRATION #594: PASS;
+- PR #224: closed unmerged after a mechanical Actions concurrency incident;
+- replacement implementation PR #225 FAST #610: PASS;
+- PR #225 INTEGRATION #601: PASS in GCC and Clang;
+- implementation squash merge:
+  `7b3c833273dba042b7f6c055dd736510573664a6`;
+- protected-main FAST #611: PASS;
+- protected-main INTEGRATION #602: PASS in GCC and Clang;
+- ordinary semantic registration inventory: **42 tests**;
 - candidate audit:
-  `docs/audits/2026-09-27-surface-metric-conditioning-candidate-validation.md`.
+  `docs/audits/2026-09-27-surface-metric-conditioning-candidate-validation.md`;
+- implementation audit:
+  `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`;
+- active closure branch:
+  `docs/surface-metric-conditioning-implementation-closure`.
 
-Candidate semantics:
+Integrated semantics remain bounded to a threshold-free pointwise Jacobian
+2-norm condition number using the existing first fundamental form and area
+density.
 
-- dimensionless Jacobian 2-norm condition number;
-- existing first fundamental form + area density reused;
-- scale-aware `lambda_max / area_density` computation;
-- exact singular-parameterization propagation;
-- no conditioning acceptance threshold;
-- no new differential error category.
+The exact next admissible transition is:
 
-Expected ordinary semantic inventory: **42 tests**.
+**Validate, review and integrate the implementation closure only; then validate
+protected `main` again.**
 
-Initial candidate validation:
+Until closure completes, no fresh scientific decision or production work item
+may start.
 
-- PR head:
-  `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
-- FAST #603: PASS;
-- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- static ordinary registration inventory: **42 tests**;
-- focused target registered with both `fast` and `integration` labels.
+Deferred and unauthorized:
 
-Current validation state:
-
-**INITIAL CANDIDATE GREEN / FINAL DOCUMENTATION-SYNC HEAD REVALIDATION PENDING.**
-
-No qualification, principal direction, new surface family, topology, boundary
-discretization or formal campaign is authorized.
+- principal directions / curvature line fields;
+- bounded analytic cone;
+- bounded analytic torus;
+- general trimming / p-curves / topological faces;
+- Surface Representation qualification;
+- Surface Differential Geometry qualification;
+- Boundary Curve Discretization;
+- any formal qualification campaign or one-time execution authorization.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 

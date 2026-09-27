@@ -550,3 +550,51 @@ Validation on that exact head:
 The current execution environment cannot resolve the public GitHub host for a
 throwaway local clone, so no local-build evidence is claimed. Required remote
 PR validation is authoritative.
+
+
+## 18. Implementation integration checkpoint
+
+Technical implementation candidate:
+
+`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
+
+Final immutable implementation head:
+
+`c9176da223e6568861803743d992b91371aa50fb`.
+
+Initial candidate validation:
+
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+Final validation history:
+
+- PR #224: final-head INTEGRATION #599 PASS; closed unmerged after a
+  mechanical GitHub Actions concurrency incident blocked final FAST scheduling;
+- replacement PR #225 used the exact same immutable head;
+- PR #225 FAST #610: PASS;
+- PR #225 INTEGRATION #601: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+PR #225 squash-merged as:
+
+`7b3c833273dba042b7f6c055dd736510573664a6`.
+
+Protected-main validation on that exact revision:
+
+- FAST #611: PASS;
+- INTEGRATION #602: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+Integrated ordinary semantic registration inventory: **42 tests**.
+
+Implementation audit:
+
+`docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
+
+Integrated result:
+
+**POINTWISE SURFACE METRIC CONDITIONING DIAGNOSTICS IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSURE PENDING /
+NOT QUALIFIED.**
+
+The sole active work item is now documentation-only implementation closure.
+No next scientific capability is selected or authorized by this checkpoint.

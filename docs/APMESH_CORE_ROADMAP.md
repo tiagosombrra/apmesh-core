@@ -1880,32 +1880,36 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The selected Surface Differential Geometry work unit has an implementation
-candidate:
+The bounded Surface Differential Geometry metric-conditioning implementation is
+integrated and awaiting its separate closure:
 
 **Pointwise Surface Metric Conditioning Diagnostics in 3D —
-IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
-FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED /
+IMPLEMENTATION CLOSURE PENDING / NOT QUALIFIED.**
 
-Candidate head:
+Implementation evidence:
 
-`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
+- technical candidate
+  `ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`;
+- final immutable head
+  `c9176da223e6568861803743d992b91371aa50fb`;
+- replacement implementation PR #225 FAST #610: PASS;
+- PR #225 INTEGRATION #601: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- squash merge
+  `7b3c833273dba042b7f6c055dd736510573664a6`;
+- protected-main FAST #611: PASS;
+- protected-main INTEGRATION #602: PASS in GCC and Clang;
+- ordinary semantic registration inventory: **42 tests**;
+- implementation audit:
+  `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
 
-The candidate adds only the threshold-free pointwise condition-number query
-authorized by the closed decision. Its focused contract exercises analytic,
-near-singular, extreme-scale, invariance, error-propagation and integrated
-surface-family conformance cases.
+PR #224 is retained only as provenance of a mechanical GitHub Actions
+concurrency incident; it was closed unmerged and introduced no alternate
+content.
 
-Initial candidate validation:
-
-- head `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
-- FAST #603: PASS;
-- INTEGRATION #594: PASS in GCC and Clang;
-- ordinary static registration inventory: **42 tests**;
-- focused target participates in both FAST and INTEGRATION profiles.
-
-No stage qualification, conditioning threshold, principal-direction line
-field, representation breadth, topology or boundary discretization is implied.
+The implementation remains threshold-free and pointwise. No stage
+qualification, principal-direction line field, new surface representation,
+topology, boundary discretization or formal campaign is implied.
 
 Current scientific work focus:
 
@@ -1936,12 +1940,15 @@ Terminal evidence:
 
 Next admissible action:
 
-Revalidate the documentation-synchronized PR head. Merge only if the final
-head remains green in FAST and both INTEGRATION cells, retains the 42-test
-ordinary registration and has no review/concurrency conflict. Then validate
-protected `main` and close the implementation separately.
+Validate and integrate only the documentation closure for the metric-conditioning
+implementation. After protected-main validation of that closure, publish a
+terminal continuity state if needed.
 
-No other capability is authorized.
+Only then may a fresh literature-backed decision recompare principal directions,
+analytic cone/torus breadth, general trimming/p-curves/topological faces,
+Surface Representation qualification readiness, Surface Differential Geometry
+qualification readiness and Boundary Curve Discretization readiness. No option
+is pre-authorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
