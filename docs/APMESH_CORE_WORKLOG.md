@@ -549,42 +549,49 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   INTEGRATION #590 PASS; squash merge
   `b4df654794bea9cc88e33d0c048fdc298179a4a8`, followed by protected-main
   FAST #600 and INTEGRATION #591 PASS.
-- `docs/surface-metric-conditioning-decision-terminal-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; publishes the closed decision state before production
-  implementation starts.
+- `docs/surface-metric-conditioning-decision-terminal-sync`: **MERGED /
+  HISTORICAL** via PR #223; final head
+  `94b5f00c5636497206b1fae7d86d04d4cae6e7ec`, FAST #601 and
+  INTEGRATION #592 PASS; squash merge
+  `49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`, followed by protected-main
+  FAST #602 and INTEGRATION #593 PASS.
+- `surface/metric-conditioning`: **ACTIVE / IMPLEMENTATION**; sole authorized
+  production work item for pointwise Surface Metric Conditioning Diagnostics.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Metric Conditioning Diagnostics — DECISION CLOSED /
-IMPLEMENTATION AUTHORIZED / TERMINAL SYNCHRONIZATION ACTIVE /
+**Surface Metric Conditioning Diagnostics — IMPLEMENTATION ACTIVE /
 NOT QUALIFIED.**
 
-Decision closure evidence:
+Activation authority:
 
-1. decision PR #221 head:
-   `30359e7f392f40db9074b68762f6d659a0ef3661`;
-2. PR FAST #597 / INTEGRATION #588: PASS;
-3. decision merge:
-   `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
-4. decision protected-main FAST #598 / INTEGRATION #589: PASS;
-5. closure PR #222 head:
-   `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`;
-6. closure FAST #599 / INTEGRATION #590: PASS;
-7. closure merge:
-   `b4df654794bea9cc88e33d0c048fdc298179a4a8`;
-8. closure protected-main FAST #600 / INTEGRATION #591: PASS;
-9. ordinary semantic inventory remains **41 tests**;
-10. decision:
-    `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
+1. decision PR #221: integrated and protected-main validated;
+2. decision-closure PR #222: integrated and protected-main validated;
+3. terminal-sync PR #223 head:
+   `94b5f00c5636497206b1fae7d86d04d4cae6e7ec`;
+4. terminal-sync FAST #601 / INTEGRATION #592: PASS;
+5. terminal-sync merge:
+   `49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`;
+6. terminal-sync protected-main FAST #602 / INTEGRATION #593: PASS;
+7. active branch:
+   `surface/metric-conditioning`;
+8. ordinary semantic inventory at activation: **41 tests**.
 
-The sole selected production work item is **Pointwise Surface Metric
-Conditioning Diagnostics in 3D**, but no production code is changed by the
-current terminal-sync branch.
+Authorized implementation scope:
 
-The sole next transition is to validate, merge and post-merge validate this
-documentation synchronization. Only then create the implementation branch.
+- one dimensionless pointwise metric-conditioning value/query;
+- reuse `SurfaceMetricNormal3` / first fundamental form + area density;
+- scale-aware computation of the Jacobian 2-norm condition number;
+- exact singular-parameterization propagation;
+- no conditioning threshold or new error class;
+- one focused ordinary semantic test target;
+- full prerequisite regression.
+
+Expected ordinary semantic inventory after registration: **42 tests**.
+
+No other scientific candidate or qualification action is active.
 
 ### Last closed portability maintenance item
 
@@ -633,13 +640,17 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete the current terminal documentation synchronization with required
-FAST/INTEGRATION, squash merge and protected-main validation.
+Complete the active bounded implementation on
+`surface/metric-conditioning`:
 
-After that checkpoint closes, create exactly one bounded production work item:
+1. add the public pointwise conditioning result/query;
+2. implement scale-aware threshold-free condition-number evaluation;
+3. add the focused semantic contract and ordinary-profile registration;
+4. run required FAST/INTEGRATION on the exact candidate;
+5. audit all prior contracts and synchronize documentation;
+6. merge only with required checks green;
+7. validate protected `main`;
+8. close the implementation separately before selecting any next capability.
 
-**Pointwise Surface Metric Conditioning Diagnostics in 3D.**
-
-No other candidate, threshold, qualification action or formal campaign is
-authorized.
+No alternate candidate, qualification action or formal campaign is authorized.
 

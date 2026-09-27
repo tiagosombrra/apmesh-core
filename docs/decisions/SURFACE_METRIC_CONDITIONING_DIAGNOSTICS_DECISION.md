@@ -443,3 +443,45 @@ The sole authorized production work item is now the bounded implementation
 defined by Sections 7--11. No principal directions, conditioning threshold,
 cone, torus, general trimming/topology, Boundary Curve Discretization,
 qualification preparation/execution or other scientific candidate is authorized.
+
+
+## 16. Implementation activation checkpoint
+
+Terminal decision-state synchronization PR #223 used final head:
+
+`94b5f00c5636497206b1fae7d86d04d4cae6e7ec`.
+
+PR validation:
+
+- FAST #601: PASS;
+- INTEGRATION #592: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+PR #223 squash-merged as:
+
+`49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`.
+
+Protected-main validation:
+
+- FAST #602: PASS;
+- INTEGRATION #593: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+The bounded production work item is active on:
+
+`surface/metric-conditioning`.
+
+Authorized implementation mapping:
+
+- public differential API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_metric_conditioning.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / WORKLOG / ROADMAP / this decision.
+
+No code has yet been integrated. The implementation remains bounded by
+Sections 7--11 and does not authorize conditioning thresholds, principal
+directions, new surface representations, topology, discretization or a formal
+qualification campaign.

@@ -152,34 +152,38 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+IMPLEMENTATION ACTIVE / NOT QUALIFIED.**
 
-Decision closure authority:
+Authoritative activation evidence:
 
-- decision PR #221 final head:
-  `30359e7f392f40db9074b68762f6d659a0ef3661`;
-- decision merge:
-  `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
-- decision protected-main FAST #598 / INTEGRATION #589: PASS;
-- closure PR #222 final head:
-  `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`;
-- closure FAST #599 / INTEGRATION #590: PASS;
-- closure squash merge:
-  `b4df654794bea9cc88e33d0c048fdc298179a4a8`;
-- closure protected-main FAST #600 / INTEGRATION #591: PASS;
+- decision PR #221 and protected-main validation: PASS;
+- decision closure PR #222 and protected-main validation: PASS;
+- terminal synchronization PR #223 final head:
+  `94b5f00c5636497206b1fae7d86d04d4cae6e7ec`;
+- terminal-sync FAST #601 / INTEGRATION #592: PASS;
+- terminal-sync squash merge:
+  `49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`;
+- terminal-sync protected-main FAST #602 / INTEGRATION #593: PASS;
+- active implementation branch:
+  `surface/metric-conditioning`;
 - decision authority:
-  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`;
-- current terminal-sync branch:
-  `docs/surface-metric-conditioning-decision-terminal-sync`.
+  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
 
-Selected and now authorized sole production work item:
+Sole authorized production scope:
 
 **Pointwise Surface Metric Conditioning Diagnostics in 3D.**
 
-No production implementation has started in this terminal-sync change. The
-exact next admissible transition, after this documentation-only synchronization
-itself is integrated and protected-main validated, is creation of one bounded
-implementation branch for that selected work unit.
+Planned files:
+
+- `include/apmesh/geometry/surface_differential.hpp`;
+- `src/geometry/surface_differential.cpp`;
+- `tests/surface_metric_conditioning.cpp`;
+- `CMakeLists.txt`;
+- implementation audit plus continuity documents.
+
+The implementation must remain threshold-free, preserve exact singular
+classification, reuse already-computed first-order metric data, and expose only
+a dimensionless pointwise condition-number diagnostic.
 
 Deferred and unauthorized:
 
