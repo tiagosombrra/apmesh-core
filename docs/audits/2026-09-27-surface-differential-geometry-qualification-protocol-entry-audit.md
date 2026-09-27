@@ -103,3 +103,27 @@ Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 Surface Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
 
 No formal campaign is authorized.
+
+
+## 6. Structural protocol regression
+
+The completed protocol branch was mechanically reconciled against protected
+`main` before PR creation.
+
+Result:
+
+- branch relation: ahead=6, behind=0;
+- diff: documentation/audit/reference files only;
+- ordinary `CMakeLists.txt` test inventory: **42**;
+- protocol Section 6 allowlist: **42**;
+- allowlist name/order equality with current ordinary `add_test()`
+  registrations: **exact match**;
+- missing protocol tests: none;
+- extra protocol tests: none;
+- frozen semantic files declared by the protocol: **32**;
+- frozen paths missing from baseline: none;
+- open PRs during structural audit: none.
+
+Structural regression result:
+
+**PASS — PROTOCOL IS INTERNALLY CONSISTENT WITH THE ENTRY BASELINE.**
