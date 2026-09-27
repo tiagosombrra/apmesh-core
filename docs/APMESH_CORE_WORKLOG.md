@@ -549,42 +549,66 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   INTEGRATION #590 PASS; squash merge
   `b4df654794bea9cc88e33d0c048fdc298179a4a8`, followed by protected-main
   FAST #600 and INTEGRATION #591 PASS.
-- `docs/surface-metric-conditioning-decision-terminal-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; publishes the closed decision state before production
-  implementation starts.
+- `docs/surface-metric-conditioning-decision-terminal-sync`: **MERGED /
+  HISTORICAL** via PR #223; final head
+  `94b5f00c5636497206b1fae7d86d04d4cae6e7ec`, FAST #601 and
+  INTEGRATION #592 PASS; squash merge
+  `49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`, followed by protected-main
+  FAST #602 and INTEGRATION #593 PASS.
+- `surface/metric-conditioning`: **ACTIVE / IMPLEMENTATION**; sole authorized
+  production work item for pointwise Surface Metric Conditioning Diagnostics.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Metric Conditioning Diagnostics — DECISION CLOSED /
-IMPLEMENTATION AUTHORIZED / TERMINAL SYNCHRONIZATION ACTIVE /
+**Surface Metric Conditioning Diagnostics — IMPLEMENTED CANDIDATE /
+FOCUSED CONTRACTS PASS / FINAL DOCUMENTATION-SYNC REVALIDATION PENDING /
 NOT QUALIFIED.**
 
-Decision closure evidence:
+Current production candidate:
 
-1. decision PR #221 head:
-   `30359e7f392f40db9074b68762f6d659a0ef3661`;
-2. PR FAST #597 / INTEGRATION #588: PASS;
-3. decision merge:
-   `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
-4. decision protected-main FAST #598 / INTEGRATION #589: PASS;
-5. closure PR #222 head:
-   `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`;
-6. closure FAST #599 / INTEGRATION #590: PASS;
-7. closure merge:
-   `b4df654794bea9cc88e33d0c048fdc298179a4a8`;
-8. closure protected-main FAST #600 / INTEGRATION #591: PASS;
-9. ordinary semantic inventory remains **41 tests**;
-10. decision:
-    `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
+`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
 
-The sole selected production work item is **Pointwise Surface Metric
-Conditioning Diagnostics in 3D**, but no production code is changed by the
-current terminal-sync branch.
+Candidate changes:
 
-The sole next transition is to validate, merge and post-merge validate this
-documentation synchronization. Only then create the implementation branch.
+1. public `SurfaceMetricConditioning` result;
+2. query over `SurfaceMetricNormal3`;
+3. bounded-surface convenience overload;
+4. scale-aware condition-number implementation;
+5. focused ordinary semantic target
+   `apmesh_core.surface_metric_conditioning`;
+6. ordinary profile registration, expected inventory **42 tests**.
+
+Scientific boundary preserved:
+
+- no threshold that classifies conditioning quality;
+- no new error class;
+- no principal directions or line-field continuity;
+- no cone/torus or other representation breadth;
+- no p-curve/topology work;
+- no discretization/sizing/meshing;
+- no formal qualification campaign.
+
+Initial remote validation:
+
+- documented head:
+  `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- CMake ordinary registration count: **42**;
+- focused target registration and `fast;integration` labels: CONFIRMED.
+
+The current execution environment could not resolve `github.com` for a
+throwaway local clone. This is an environment/network limitation, not a project
+failure, and no local-build claim is made.
+
+Because this documentation synchronization changes the PR head, required
+FAST/INTEGRATION must run again before merge.
+
+Candidate audit:
+
+`docs/audits/2026-09-27-surface-metric-conditioning-candidate-validation.md`.
 
 ### Last closed portability maintenance item
 
@@ -633,13 +657,16 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete the current terminal documentation synchronization with required
-FAST/INTEGRATION, squash merge and protected-main validation.
+Revalidate the documentation-synchronized PR head and require:
 
-After that checkpoint closes, create exactly one bounded production work item:
+1. FAST PASS;
+2. INTEGRATION PASS in GCC 13 Debug;
+3. INTEGRATION PASS in Clang 18/libc++ Debug;
+4. unchanged 42-test ordinary registration;
+5. focused target still included in both profile labels;
+6. no review/thread conflict and no concurrent incompatible work.
 
-**Pointwise Surface Metric Conditioning Diagnostics in 3D.**
-
-No other candidate, threshold, qualification action or formal campaign is
-authorized.
+Only that final immutable green head may be squash-merged. After merge,
+protected-main FAST/INTEGRATION and a separate implementation-closure checkpoint
+remain mandatory.
 

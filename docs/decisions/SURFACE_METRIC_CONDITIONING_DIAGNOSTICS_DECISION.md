@@ -443,3 +443,110 @@ The sole authorized production work item is now the bounded implementation
 defined by Sections 7--11. No principal directions, conditioning threshold,
 cone, torus, general trimming/topology, Boundary Curve Discretization,
 qualification preparation/execution or other scientific candidate is authorized.
+
+
+## 16. Implementation activation checkpoint
+
+Terminal decision-state synchronization PR #223 used final head:
+
+`94b5f00c5636497206b1fae7d86d04d4cae6e7ec`.
+
+PR validation:
+
+- FAST #601: PASS;
+- INTEGRATION #592: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+PR #223 squash-merged as:
+
+`49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`.
+
+Protected-main validation:
+
+- FAST #602: PASS;
+- INTEGRATION #593: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+The bounded production work item is active on:
+
+`surface/metric-conditioning`.
+
+Authorized implementation mapping:
+
+- public differential API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_metric_conditioning.cpp`;
+- build/test registration:
+  `CMakeLists.txt`;
+- synchronized STATE / WORKLOG / ROADMAP / this decision.
+
+No code has yet been integrated. The implementation remains bounded by
+Sections 7--11 and does not authorize conditioning thresholds, principal
+directions, new surface representations, topology, discretization or a formal
+qualification campaign.
+
+
+## 17. Active implementation candidate
+
+The first bounded implementation candidate is:
+
+`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
+
+Candidate scope:
+
+- `SurfaceMetricConditioning` with one dimensionless
+  `condition_number`;
+- `surface_metric_conditioning(const SurfaceMetricNormal3&)`;
+- bounded-surface convenience overload using existing
+  `surface_metric_normal` and exact error propagation;
+- scale-aware metric eigenvalue evaluation with
+  `lambda_max / area_density = sigma_max / sigma_min`;
+- exact singular semantics inherited from the existing metric/normal query;
+- no user threshold and no new error class;
+- focused contract in
+  `tests/surface_metric_conditioning.cpp`;
+- ordinary-profile registration in `CMakeLists.txt`.
+
+Focused evidence in the candidate covers:
+
+- exact isotropic `kappa=1`;
+- diagonal and non-orthogonal analytic references;
+- parameter-axis swap;
+- U/V/both reversal;
+- uniform spatial-scale invariance;
+- deliberate non-uniform reparameterization sensitivity;
+- exact singularity;
+- representable near-singular conditioning;
+- extreme finite scale separation;
+- explicit unrepresentable result;
+- translation and signed-frame invariance;
+- cylinder and sphere analytic fixtures;
+- exact sphere-pole singularity;
+- conformance across every currently admitted bounded surface family;
+- deterministic repeated success/failure behavior.
+
+Expected ordinary semantic inventory: **42 tests**.
+
+Validation status:
+
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+Initial documented PR head:
+
+`3302a6209b54d63ddde6ecbd8ba05ead9aef1284`.
+
+Validation on that exact head:
+
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- ordinary static registration inventory: **42 tests**;
+- `apmesh_core.surface_metric_conditioning` is registered by `add_test`,
+  carries both `fast` and `integration` labels, and belongs to both green
+  CTest preset selections;
+- no prior ordinary test registration was removed.
+
+The current execution environment cannot resolve the public GitHub host for a
+throwaway local clone, so no local-build evidence is claimed. Required remote
+PR validation is authoritative.

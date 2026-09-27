@@ -1880,31 +1880,32 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The Surface Differential Geometry metric-conditioning decision is now
-**CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED**.
+The selected Surface Differential Geometry work unit has an implementation
+candidate:
 
-Decision/closure evidence:
+**Pointwise Surface Metric Conditioning Diagnostics in 3D —
+IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
-- decision PR #221 head
-  `30359e7f392f40db9074b68762f6d659a0ef3661`;
-- decision FAST #597 / INTEGRATION #588: PASS;
-- decision merge
-  `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
-- decision protected-main FAST #598 / INTEGRATION #589: PASS;
-- closure PR #222 head
-  `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`;
-- closure FAST #599 / INTEGRATION #590: PASS;
-- closure merge
-  `b4df654794bea9cc88e33d0c048fdc298179a4a8`;
-- closure protected-main FAST #600 / INTEGRATION #591: PASS.
+Candidate head:
 
-The sole selected production work unit is **Pointwise Surface Metric
-Conditioning Diagnostics in 3D**, bounded by
-`docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
+`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
 
-The current branch only publishes this terminal decision state. Production
-implementation begins only after this synchronization itself is merged and
-protected-main validated.
+The candidate adds only the threshold-free pointwise condition-number query
+authorized by the closed decision. Its focused contract exercises analytic,
+near-singular, extreme-scale, invariance, error-propagation and integrated
+surface-family conformance cases.
+
+Initial candidate validation:
+
+- head `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC and Clang;
+- ordinary static registration inventory: **42 tests**;
+- focused target participates in both FAST and INTEGRATION profiles.
+
+No stage qualification, conditioning threshold, principal-direction line
+field, representation breadth, topology or boundary discretization is implied.
 
 Current scientific work focus:
 
@@ -1935,11 +1936,12 @@ Terminal evidence:
 
 Next admissible action:
 
-Complete the terminal decision synchronization and its protected-main
-validation. Then begin exactly one bounded implementation work item:
-**Pointwise Surface Metric Conditioning Diagnostics in 3D**.
+Revalidate the documentation-synchronized PR head. Merge only if the final
+head remains green in FAST and both INTEGRATION cells, retains the 42-test
+ordinary registration and has no review/concurrency conflict. Then validate
+protected `main` and close the implementation separately.
 
-All other retained candidates remain deferred and unauthorized.
+No other capability is authorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 

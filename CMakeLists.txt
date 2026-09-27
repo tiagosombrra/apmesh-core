@@ -475,6 +475,22 @@ if(BUILD_TESTING)
         COMMAND apmesh_core.surface_metric_normal
     )
 
+    add_executable(apmesh_core.surface_metric_conditioning
+        tests/surface_metric_conditioning.cpp
+    )
+    target_link_libraries(
+        apmesh_core.surface_metric_conditioning
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(
+        apmesh_core.surface_metric_conditioning
+    )
+
+    add_test(
+        NAME apmesh_core.surface_metric_conditioning
+        COMMAND apmesh_core.surface_metric_conditioning
+    )
+
     add_executable(apmesh_core.surface_second_order_curvature
         tests/surface_second_order_curvature.cpp
     )
@@ -711,6 +727,7 @@ if(BUILD_TESTING)
         apmesh_core.surface_cylinder
         apmesh_core.surface_sphere
         apmesh_core.surface_metric_normal
+        apmesh_core.surface_metric_conditioning
         apmesh_core.surface_second_order_curvature
         apmesh_core.surface_principal_curvatures
         PROPERTIES LABELS "surface;geometry;contract;focused-contract;direct-semantic;fast;integration"

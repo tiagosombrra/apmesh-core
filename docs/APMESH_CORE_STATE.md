@@ -152,45 +152,60 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
+IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
-Decision closure authority:
+Active branch:
 
-- decision PR #221 final head:
-  `30359e7f392f40db9074b68762f6d659a0ef3661`;
-- decision merge:
-  `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
-- decision protected-main FAST #598 / INTEGRATION #589: PASS;
-- closure PR #222 final head:
-  `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`;
-- closure FAST #599 / INTEGRATION #590: PASS;
-- closure squash merge:
-  `b4df654794bea9cc88e33d0c048fdc298179a4a8`;
-- closure protected-main FAST #600 / INTEGRATION #591: PASS;
-- decision authority:
-  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`;
-- current terminal-sync branch:
-  `docs/surface-metric-conditioning-decision-terminal-sync`.
+`surface/metric-conditioning`.
 
-Selected and now authorized sole production work item:
+Activation authority remains terminal-sync PR #223 and protected-main FAST
+#602 / INTEGRATION #593 on
+`49efeaca5ac4fee5ec8fcda9859caa646fbce1a4`.
 
-**Pointwise Surface Metric Conditioning Diagnostics in 3D.**
+Technical candidate:
 
-No production implementation has started in this terminal-sync change. The
-exact next admissible transition, after this documentation-only synchronization
-itself is integrated and protected-main validated, is creation of one bounded
-implementation branch for that selected work unit.
+`ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`.
 
-Deferred and unauthorized:
+Candidate mapping:
 
-- principal directions / curvature line fields;
-- bounded analytic cone;
-- bounded analytic torus;
-- general trimming / p-curves / topological faces;
-- Surface Representation qualification;
-- Surface Differential Geometry qualification;
-- Boundary Curve Discretization;
-- any formal qualification campaign or one-time execution authorization.
+- API:
+  `include/apmesh/geometry/surface_differential.hpp`;
+- production:
+  `src/geometry/surface_differential.cpp`;
+- focused contract:
+  `tests/surface_metric_conditioning.cpp`;
+- test registration:
+  `CMakeLists.txt`;
+- candidate audit:
+  `docs/audits/2026-09-27-surface-metric-conditioning-candidate-validation.md`.
+
+Candidate semantics:
+
+- dimensionless Jacobian 2-norm condition number;
+- existing first fundamental form + area density reused;
+- scale-aware `lambda_max / area_density` computation;
+- exact singular-parameterization propagation;
+- no conditioning acceptance threshold;
+- no new differential error category.
+
+Expected ordinary semantic inventory: **42 tests**.
+
+Initial candidate validation:
+
+- PR head:
+  `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- static ordinary registration inventory: **42 tests**;
+- focused target registered with both `fast` and `integration` labels.
+
+Current validation state:
+
+**INITIAL CANDIDATE GREEN / FINAL DOCUMENTATION-SYNC HEAD REVALIDATION PENDING.**
+
+No qualification, principal direction, new surface family, topology, boundary
+discretization or formal campaign is authorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
