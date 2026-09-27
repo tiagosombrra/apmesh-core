@@ -1880,46 +1880,55 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The bounded Surface Differential Geometry metric-conditioning implementation is
-terminally closed:
+A new literature-backed Surface Differential Geometry decision is active:
 
-**Pointwise Surface Metric Conditioning Diagnostics in 3D —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
+**Surface Differential Geometry — Qualification Readiness Decision —
+DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Terminal evidence:
+Decision-entry protected `main`:
 
-- final immutable implementation head
-  `c9176da223e6568861803743d992b91371aa50fb`;
-- implementation PR #225 FAST #610: PASS;
-- implementation PR #225 INTEGRATION #601: PASS in GCC and Clang;
-- implementation squash merge
-  `7b3c833273dba042b7f6c055dd736510573664a6`;
-- implementation post-merge FAST #611 / INTEGRATION #602: PASS;
-- closure PR #226 final head
-  `2955e80bf0f61afe971ab0eaa40661b1b0923cdf`;
-- closure PR FAST #612 / INTEGRATION #603: PASS;
-- closure squash merge
-  `0c1c4c2365257549122fa4bb9b8720c4e83bddc9`;
-- closure post-merge FAST #613 / INTEGRATION #604: PASS;
+`49f465e942b032f2a19592b6f2c5737b08d698cd`.
+
+Entry validation:
+
+- FAST #617: PASS;
+- INTEGRATION #608: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
 - ordinary semantic registration inventory: **42 tests**;
-- implementation audit:
-  `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`.
+- no open PR or active production/scientific work item at entry.
 
-PR #224 remains historical provenance of a mechanical Actions concurrency
-incident only and was closed unmerged.
+Active branch:
 
-Terminal synchronization evidence:
+`surface/differential-geometry-qualification-readiness-decision`.
 
-- terminal-sync PR #227 final head
-  `e5ffd4eb0ec6310d367abd3ce517ab5931dc7ee7`;
-- terminal-sync FAST #614: PASS;
-- terminal-sync INTEGRATION #605: PASS in GCC and Clang;
-- terminal-sync squash merge
-  `07ae15c8570ac9a0d37906d189a18dfcf95146c5`;
-- protected-main FAST #615 / INTEGRATION #606: PASS.
+Decision document:
 
-No scientific, production or repository transition is active.
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
+
+The comparison re-evaluates principal directions, cone/torus breadth, general
+trimming/p-curves/topological faces, Surface Representation qualification
+readiness, Surface Differential Geometry qualification readiness and Boundary
+Curve Discretization readiness.
+
+Current selected candidate for decision review:
+
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration.**
+
+Why this candidate is currently selected:
+
+- the missing pointwise metric-conditioning prerequisite is now integrated and
+  terminally closed;
+- current ordinary tests already span the scalar/local differential classes
+  required for the isotropic baseline;
+- principal directions add a distinct line-field/anisotropy contract;
+- cone/torus/general trimming are representation/topology breadth;
+- Surface Representation still has intentionally open breadth policy;
+- Boundary Curve Discretization still needs physical trace/error/sizing and
+  face-ownership decisions.
+
+This decision cannot qualify the stage and cannot authorize a formal
+qualification campaign.
 
 Current scientific work focus:
 
@@ -1950,19 +1959,19 @@ Terminal evidence:
 
 Next admissible action:
 
-Begin a **new literature-backed scientific decision** from the current protected
-`main` and compare:
+Validate and integrate only the active qualification-readiness decision, then
+validate protected `main` and publish a separate decision-closure checkpoint.
 
-- principal directions / curvature line fields;
-- bounded analytic cone / torus breadth;
-- general trimming / p-curves / topological faces;
-- Surface Representation qualification readiness;
-- Surface Differential Geometry qualification readiness;
-- Boundary Curve Discretization readiness.
+If that closure confirms the current selection, the sole next work item becomes
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration**.
 
-The decision may select at most one bounded work item. No production branch may
-start until that decision is documented, validated, integrated and
-post-merge validated. No option is pre-authorized by this roadmap state.
+That future work item must pre-register the claim, independent fixture matrix,
+gates, figures, cross-cell/repetition policy, evidence retention and failure
+policy. It does not itself authorize formal execution or `QUALIFIED` status.
+
+No principal-direction, representation-breadth, trimming/topology,
+discretization, sizing or meshing work is pre-authorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
