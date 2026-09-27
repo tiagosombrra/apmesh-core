@@ -594,16 +594,20 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   `f8d12c2e0e39611758af1b10d01311913603622f`, followed by protected-main
   FAST #621 and INTEGRATION #612 PASS.
 - `docs/surface-differential-geometry-qualification-readiness-decision-terminal-sync`:
-  **ACTIVE / DOCUMENTATION-ONLY**; publishes the closed decision state before
-  protocol pre-registration begins.
+  **MERGED / HISTORICAL** via PR #231; final head
+  `9d2876876cb4ea5bffe3e3d88507c7be814e4139`, FAST #622 and
+  INTEGRATION #613 PASS; squash merge
+  `ce73cf28c7359f1bac8986c4b7ea57180dc7d109`, followed by protected-main
+  FAST #623 and INTEGRATION #614 PASS.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**No production work item is active.**
+**No production, scientific or repository-transition work item is active.**
 
-The Surface Differential Geometry qualification-readiness decision is now:
+The Surface Differential Geometry qualification-readiness decision is
+terminally closed:
 
 **DECISION CLOSED / CUMULATIVE QUALIFICATION PROTOCOL PRE-REGISTRATION
 AUTHORIZED / NOT QUALIFIED.**
@@ -612,7 +616,7 @@ Terminal decision evidence:
 
 1. decision PR #229 head:
    `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
-2. PR FAST #618 / INTEGRATION #609: PASS;
+2. decision PR FAST #618 / INTEGRATION #609: PASS;
 3. decision merge:
    `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`;
 4. decision post-merge FAST #619 / INTEGRATION #610: PASS;
@@ -622,16 +626,23 @@ Terminal decision evidence:
 7. closure merge:
    `f8d12c2e0e39611758af1b10d01311913603622f`;
 8. closure post-merge FAST #621 / INTEGRATION #612: PASS;
-9. ordinary semantic registration inventory: **42 tests**.
+9. terminal-sync PR #231 head:
+   `9d2876876cb4ea5bffe3e3d88507c7be814e4139`;
+10. terminal-sync FAST #622 / INTEGRATION #613: PASS;
+11. terminal-sync merge:
+    `ce73cf28c7359f1bac8986c4b7ea57180dc7d109`;
+12. terminal-sync post-merge FAST #623 / INTEGRATION #614: PASS;
+13. ordinary semantic registration inventory: **42 tests**.
 
-The sole active repository transition is the documentation-only terminal sync:
+Remote continuity is synchronized through this terminal chain.
 
-`docs/surface-differential-geometry-qualification-readiness-decision-terminal-sync`.
-
-Selected next scientific work item, not yet started:
+Sole next authorized scientific work item, not yet started:
 
 **Surface Differential Geometry — Cumulative Qualification Protocol
 Pre-registration.**
+
+No qualification tooling, manifest preparation, workflow dispatch, formal
+execution or `QUALIFIED` status is authorized.
 
 ### Last closed portability maintenance item
 
@@ -680,18 +691,26 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete the terminal decision synchronization:
+Start exactly one work item from the current protected `main` after a fresh
+entry audit:
 
-1. validate terminal-sync FAST;
-2. validate terminal-sync INTEGRATION in GCC and Clang;
-3. merge only with required checks green;
-4. validate protected `main`;
-5. confirm STATE / WORKLOG / ROADMAP / decision all expose the same closed
-   decision and sole next work item.
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration.**
 
-Only then create the protocol-pre-registration branch.
+The protocol work item must freeze:
 
-The protocol work item is documentation/governance only. Qualification tooling,
-manifest preparation, formal execution and any `QUALIFIED` status remain
-unauthorized.
+- the bounded qualification claim;
+- independent analytic/adversarial fixture matrix;
+- SDG0–SDG7 gate semantics;
+- invariance, orientation and scale laws;
+- compiler/build-cell and repetition policy;
+- reproducible scientific figures;
+- prerequisite-preservation rules;
+- evidence schema/retention requirements;
+- failure/stop conditions.
+
+The protocol remains documentation/governance only. It cannot implement
+qualification tooling, prepare a manifest, authorize/dispatch formal execution,
+change production C++ semantics or set Surface Differential Geometry to
+`QUALIFIED`.
 
