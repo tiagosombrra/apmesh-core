@@ -152,34 +152,34 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT AUTHORIZED /
-NOT QUALIFIED.**
+DECISION CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED.**
 
-Decision integration authority:
+Decision closure authority:
 
 - decision PR #221 final head:
   `30359e7f392f40db9074b68762f6d659a0ef3661`;
-- PR FAST #597: PASS;
-- PR INTEGRATION #588: PASS in GCC and Clang;
-- decision squash merge:
+- decision merge:
   `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
-- protected-main FAST #598: PASS;
-- protected-main INTEGRATION #589: PASS in GCC and Clang;
-- decision:
+- decision protected-main FAST #598 / INTEGRATION #589: PASS;
+- closure PR #222 final head:
+  `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`;
+- closure FAST #599 / INTEGRATION #590: PASS;
+- closure squash merge:
+  `b4df654794bea9cc88e33d0c048fdc298179a4a8`;
+- closure protected-main FAST #600 / INTEGRATION #591: PASS;
+- decision authority:
   `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`;
-- active closure branch:
-  `docs/surface-metric-conditioning-decision-closure`.
+- current terminal-sync branch:
+  `docs/surface-metric-conditioning-decision-terminal-sync`.
 
-Selected future bounded work unit:
+Selected and now authorized sole production work item:
 
 **Pointwise Surface Metric Conditioning Diagnostics in 3D.**
 
-Implementation remains blocked while the decision closure is pending. The
-current exact next transition is documentation-only validation, integration and
-protected-main validation of this closure checkpoint.
-
-Only after this closure is integrated and post-merge validated may the selected
-implementation begin.
+No production implementation has started in this terminal-sync change. The
+exact next admissible transition, after this documentation-only synchronization
+itself is integrated and protected-main validated, is creation of one bounded
+implementation branch for that selected work unit.
 
 Deferred and unauthorized:
 
@@ -189,14 +189,12 @@ Deferred and unauthorized:
 - general trimming / p-curves / topological faces;
 - Surface Representation qualification;
 - Surface Differential Geometry qualification;
-- Boundary Curve Discretization.
+- Boundary Curve Discretization;
+- any formal qualification campaign or one-time execution authorization.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
 Surface Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
-
-No formal campaign, execution-once authorization, qualification scope,
-conditioning threshold or changed acceptance criterion is introduced.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 

@@ -1880,33 +1880,31 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The fresh Surface Differential Geometry decision is integrated and awaiting its
-separate documentation closure:
+The Surface Differential Geometry metric-conditioning decision is now
+**CLOSED / IMPLEMENTATION AUTHORIZED / NOT QUALIFIED**.
 
-**Pointwise Surface Metric Conditioning Diagnostics in 3D —
-DECISION INTEGRATED / CLOSURE PENDING / IMPLEMENTATION NOT AUTHORIZED /
-NOT QUALIFIED.**
+Decision/closure evidence:
 
-Decision evidence:
-
-- final PR #221 head:
+- decision PR #221 head
   `30359e7f392f40db9074b68762f6d659a0ef3661`;
-- PR FAST #597: PASS;
-- PR INTEGRATION #588: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- squash merge:
+- decision FAST #597 / INTEGRATION #588: PASS;
+- decision merge
   `a9cdfb57dd263d6ed3ca1f85ad1285811bb20c41`;
-- protected-main FAST #598: PASS;
-- protected-main INTEGRATION #589: PASS in GCC and Clang;
-- active closure branch:
-  `docs/surface-metric-conditioning-decision-closure`.
+- decision protected-main FAST #598 / INTEGRATION #589: PASS;
+- closure PR #222 head
+  `4e0f33a0a8cb8795a8a088840a2e6ca008abd93f`;
+- closure FAST #599 / INTEGRATION #590: PASS;
+- closure merge
+  `b4df654794bea9cc88e33d0c048fdc298179a4a8`;
+- closure protected-main FAST #600 / INTEGRATION #591: PASS.
 
-The decision remains bounded to a threshold-free pointwise condition-number
-diagnostic derived from the already-integrated first fundamental form. It
-introduces no implementation, qualification, topology, new surface family,
-principal-direction line field or discretization behavior.
+The sole selected production work unit is **Pointwise Surface Metric
+Conditioning Diagnostics in 3D**, bounded by
+`docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
 
-Implementation remains blocked until the decision closure itself is merged and
-post-merge validated.
+The current branch only publishes this terminal decision state. Production
+implementation begins only after this synchronization itself is merged and
+protected-main validated.
 
 Current scientific work focus:
 
@@ -1937,10 +1935,9 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate, review and integrate only the documentation closure for the
-metric-conditioning decision. After protected-main validation of that closure,
-the sole authorized production work item becomes **Pointwise Surface Metric
-Conditioning Diagnostics in 3D**.
+Complete the terminal decision synchronization and its protected-main
+validation. Then begin exactly one bounded implementation work item:
+**Pointwise Surface Metric Conditioning Diagnostics in 3D**.
 
 All other retained candidates remain deferred and unauthorized.
 
