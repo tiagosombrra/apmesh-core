@@ -45,7 +45,9 @@ Entry validation:
 - INTEGRATION #616 / Clang 18/libc++ Debug: PASS;
 - ordinary semantic registration inventory: **42 tests**;
 - open PRs at entry: none;
-- active production/scientific/repository-transition work item at entry: none.
+- active production/scientific/repository-transition work item at entry: none;
+- entry/structural audit:
+  `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-entry-audit.md`.
 
 Formal preparation is forbidden until all of the following are true:
 
