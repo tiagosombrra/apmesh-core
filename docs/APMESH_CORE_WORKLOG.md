@@ -599,56 +599,46 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   INTEGRATION #613 PASS; squash merge
   `ce73cf28c7359f1bac8986c4b7ea57180dc7d109`, followed by protected-main
   FAST #623 and INTEGRATION #614 PASS.
+- `docs/surface-differential-geometry-qualification-protocol`:
+  **MERGED / HISTORICAL** via PR #233; final head
+  `9bd09926734d0f2fce2abdd096380e4478c8c38d`, FAST #626 and
+  INTEGRATION #617 PASS; squash merge
+  `d34b8d5620f6166b6e8570225bbf243fef3c90f7`, followed by protected-main
+  FAST #627 and INTEGRATION #618 PASS.
+- `docs/surface-differential-geometry-qualification-protocol-closure`:
+  **ACTIVE / CLOSURE-ONLY**; records terminal protocol closure before any
+  report-only tooling decision/work item may start.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Differential Geometry — Cumulative Qualification Protocol
-Pre-registration — ACTIVE / DOCUMENTATION ONLY / TOOLING NOT AUTHORIZED /
+**Surface Differential Geometry — Cumulative Qualification Protocol Closure —
+ACTIVE / DOCUMENTATION ONLY / TOOLING NOT AUTHORIZED /
 FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Entry authority:
+Integrated protocol evidence:
 
-1. protected `main`:
-   `744dbce1553a537dc22a0830d6ea878c0efb0fe7`;
-2. receipt PR #232 merge:
-   `744dbce1553a537dc22a0830d6ea878c0efb0fe7`;
-3. protected-main FAST #625 / INTEGRATION #616: PASS;
-4. ordinary semantic registration inventory: **42 tests**;
-5. open PRs and protocol-named concurrent branches at entry: none;
-6. entry audit:
-   `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-entry-audit.md`.
+1. protocol PR #233 final head:
+   `9bd09926734d0f2fce2abdd096380e4478c8c38d`;
+2. PR FAST #626 / INTEGRATION #617: PASS;
+3. protocol squash merge:
+   `d34b8d5620f6166b6e8570225bbf243fef3c90f7`;
+4. protected-main FAST #627 / INTEGRATION #618: PASS;
+5. ordinary semantic registration inventory: **42 tests**;
+6. protocol:
+   `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
+7. entry audit:
+   `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-entry-audit.md`;
+8. closure audit:
+   `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
 
-Active branch:
+The protocol is integrated and its scientific scope is frozen, but report-only
+qualification tooling remains unauthorized until this separate closure is
+integrated and protected-main validated.
 
-`docs/surface-differential-geometry-qualification-protocol`.
-
-Protocol document:
-
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`.
-
-The protocol pre-registers:
-
-- a bounded pointwise local differential claim;
-- exact nonclaims;
-- frozen surface/differential semantic files;
-- exact 42-test ordinary allowlist;
-- four formal compiler/build cells;
-- two repetitions per cell;
-- 56 core command records and 336 ordinary semantic test executions;
-- eight machine-readable scientific certificates;
-- explicit signed-zero semantics;
-- analytic/synthetic/production-conformance fixture families;
-- orientation/scale/invariance laws;
-- all current typed differential errors;
-- reproducible scientific figures;
-- SDG0-SDG7 gates;
-- immutable failure/retention rules;
-- separation among protocol, tooling, preparation, execution and terminal audit.
-
-No C++, ordinary tests, qualification tooling, manifest preparation, workflow
-dispatch or formal execution may change on this branch.
+No C++, ordinary test semantics, tooling, preparation infrastructure, manifest,
+workflow dispatch or formal execution may change on this branch.
 
 ### Last closed portability maintenance item
 
@@ -697,20 +687,20 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete only the active protocol pre-registration:
+Complete only the active protocol closure:
 
-1. audit the branch against protected entry baseline
-   `744dbce1553a537dc22a0830d6ea878c0efb0fe7`;
-2. validate PR FAST;
-3. validate PR INTEGRATION in GCC and Clang;
-4. confirm the diff remains documentation/reference/audit only;
-5. integrate only with required checks green;
+1. verify the closure diff remains documentation-only;
+2. validate closure PR FAST;
+3. validate closure PR INTEGRATION in GCC and Clang;
+4. audit reviews, branch relation and concurrent work;
+5. merge only with all required checks green;
 6. validate protected `main`;
-7. publish a separate protocol-closure checkpoint.
+7. publish terminal protocol state in the authoritative continuity documents.
 
-Only after protocol closure may one new bounded work item consider
-**report-only Surface Differential Geometry qualification tooling**.
+Only after terminal protocol closure may a fresh bounded
+**report-only Surface Differential Geometry qualification tooling**
+decision/work item be started.
 
-Protocol closure must not authorize preparation, formal execution or a
-`QUALIFIED` status.
+That later tooling still may not prepare a manifest, dispatch formal execution
+or set the stage to `QUALIFIED`.
 
