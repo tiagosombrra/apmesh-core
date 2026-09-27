@@ -1230,6 +1230,54 @@ Project relevance:
 - no external library, tolerance policy, eigensolver, or CAD runtime is
   admitted by these references.
 
+### Surface Differential Geometry qualification-readiness evidence
+
+Status: `ACTIVE REVIEW / QUALIFICATION SCOPING` for the cumulative Surface
+Differential Geometry qualification-readiness decision, reviewed 2026-09-27.
+
+References:
+
+- Patrikalakis, Maekawa and Cho — Gaussian/mean/principal curvature:
+  https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node31.html
+- Patrikalakis, Maekawa and Cho — lines of curvature and principal-direction
+  sign/integration concerns:
+  https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node186.html
+- Open CASCADE `GeomLProp_SLProps`:
+  https://dev.opencascade.org/doc/refman/html/class_geom_l_prop___s_l_props.html
+- Patrick Laug, *Some aspects of parametric surface meshing*,
+  Finite Elements in Analysis and Design 46 (2010), 216–226,
+  doi:10.1016/j.finel.2009.06.015:
+  https://www.sciencedirect.com/science/article/pii/S0168874X09000936
+- Open CASCADE conical surface:
+  https://dev.opencascade.org/doc/refman/html/class_geom___conical_surface.html
+- Open CASCADE toroidal surface:
+  https://dev.opencascade.org/doc/refman/html/class_geom___toroidal_surface.html
+- Open CASCADE curve-on-surface persistence model:
+  https://dev.opencascade.org/doc/refman/html/class_shape_persistent___b_rep_1_1_curve_on_surface.html
+- Open CASCADE face-aware wire exploration:
+  https://dev.opencascade.org/doc/occt-7.6.0/refman/html/class_b_rep_tools___wire_explorer.html
+
+Project relevance:
+
+- the already-integrated local differential stack contains the scalar
+  first/second-order quantities needed by the serial isotropic baseline;
+- isotropic surface sizing can be based on the strongest principal-curvature
+  magnitude, whereas anisotropic sizing additionally needs principal
+  directions;
+- principal directions introduce sign/orientation continuity and umbilic
+  non-uniqueness, so they remain a separate future line-field/anisotropy
+  contract;
+- cone and torus introduce representation-specific apex/periodicity/radius
+  semantics and are not prerequisites for validating generic local
+  differential operators;
+- general CAD trimming requires a 2D p-curve bound to a supporting surface plus
+  face/wire/edge orientation semantics, which is materially broader than the
+  existing rectangular-trim wrapper;
+- these references support evaluating cumulative Surface Differential Geometry
+  qualification readiness now, but do not themselves define AP Mesh
+  qualification gates, prove current implementation correctness, authorize a
+  formal campaign, or qualify Surface Representation.
+
 ### Open CASCADE Geom_Plane — analytic plane placement and parameterization
 
 Status: `FOUNDATIONAL / ACTIVE REVIEW` for the bounded analytic plane
