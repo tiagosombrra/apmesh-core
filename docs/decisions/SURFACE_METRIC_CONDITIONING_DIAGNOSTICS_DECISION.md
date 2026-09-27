@@ -530,8 +530,23 @@ Expected ordinary semantic inventory: **42 tests**.
 
 Validation status:
 
-**IMPLEMENTED CANDIDATE / VALIDATION PENDING / NOT QUALIFIED.**
+**IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
+
+Initial documented PR head:
+
+`3302a6209b54d63ddde6ecbd8ba05ead9aef1284`.
+
+Validation on that exact head:
+
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- ordinary static registration inventory: **42 tests**;
+- `apmesh_core.surface_metric_conditioning` is registered by `add_test`,
+  carries both `fast` and `integration` labels, and belongs to both green
+  CTest preset selections;
+- no prior ordinary test registration was removed.
 
 The current execution environment cannot resolve the public GitHub host for a
-throwaway local clone, so no local-build evidence is claimed. Required PR
-FAST/INTEGRATION on the exact remote head are the validation authority.
+throwaway local clone, so no local-build evidence is claimed. Required remote
+PR validation is authoritative.
