@@ -152,7 +152,8 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-IMPLEMENTED CANDIDATE / VALIDATION PENDING / NOT QUALIFIED.**
+IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Active branch:
 
@@ -190,9 +191,18 @@ Candidate semantics:
 
 Expected ordinary semantic inventory: **42 tests**.
 
+Initial candidate validation:
+
+- PR head:
+  `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- static ordinary registration inventory: **42 tests**;
+- focused target registered with both `fast` and `integration` labels.
+
 Current validation state:
 
-**PR FAST/INTEGRATION NOT YET RUN ON THE DOCUMENTED CANDIDATE HEAD.**
+**INITIAL CANDIDATE GREEN / FINAL DOCUMENTATION-SYNC HEAD REVALIDATION PENDING.**
 
 No qualification, principal direction, new surface family, topology, boundary
 discretization or formal campaign is authorized.
