@@ -1884,7 +1884,8 @@ The selected Surface Differential Geometry work unit has an implementation
 candidate:
 
 **Pointwise Surface Metric Conditioning Diagnostics in 3D —
-IMPLEMENTED CANDIDATE / VALIDATION PENDING / NOT QUALIFIED.**
+IMPLEMENTED CANDIDATE / FOCUSED CONTRACTS PASS /
+FINAL DOCUMENTATION-SYNC REVALIDATION PENDING / NOT QUALIFIED.**
 
 Candidate head:
 
@@ -1895,7 +1896,13 @@ authorized by the closed decision. Its focused contract exercises analytic,
 near-singular, extreme-scale, invariance, error-propagation and integrated
 surface-family conformance cases.
 
-Expected ordinary semantic inventory: **42 tests**.
+Initial candidate validation:
+
+- head `3302a6209b54d63ddde6ecbd8ba05ead9aef1284`;
+- FAST #603: PASS;
+- INTEGRATION #594: PASS in GCC and Clang;
+- ordinary static registration inventory: **42 tests**;
+- focused target participates in both FAST and INTEGRATION profiles.
 
 No stage qualification, conditioning threshold, principal-direction line
 field, representation breadth, topology or boundary discretization is implied.
@@ -1929,10 +1936,10 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate the exact candidate through one PR. If FAST/INTEGRATION are green and
-the focused target executes with a 42/42 ordinary inventory, synchronize the
-candidate audit/documentation on a final immutable head and revalidate before
-merge.
+Revalidate the documentation-synchronized PR head. Merge only if the final
+head remains green in FAST and both INTEGRATION cells, retains the 42-test
+ordinary registration and has no review/concurrency conflict. Then validate
+protected `main` and close the implementation separately.
 
 No other capability is authorized.
 
