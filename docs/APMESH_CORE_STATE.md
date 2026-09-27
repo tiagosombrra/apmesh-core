@@ -151,64 +151,59 @@ No portability production or closure work item remains active.
 
 ## Current active scientific action
 
-**Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
-IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
-NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
+**Surface Differential Geometry — Qualification Readiness Decision —
+DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Terminal authority:
+Fresh decision-entry authority:
 
-- technical candidate:
-  `ae1d4e0f59ae1e5eb017a58030c69f5bea7e8bc6`;
-- final immutable implementation head:
-  `c9176da223e6568861803743d992b91371aa50fb`;
-- implementation PR #225 FAST #610: PASS;
-- implementation PR #225 INTEGRATION #601: PASS in GCC and Clang;
-- implementation squash merge:
-  `7b3c833273dba042b7f6c055dd736510573664a6`;
-- implementation post-merge FAST #611: PASS;
-- implementation post-merge INTEGRATION #602: PASS in GCC and Clang;
-- closure PR #226 final head:
-  `2955e80bf0f61afe971ab0eaa40661b1b0923cdf`;
-- closure PR FAST #612: PASS;
-- closure PR INTEGRATION #603: PASS in GCC and Clang;
-- closure squash merge:
-  `0c1c4c2365257549122fa4bb9b8720c4e83bddc9`;
-- closure post-merge FAST #613: PASS;
-- closure post-merge INTEGRATION #604: PASS in GCC and Clang;
+- protected `main`:
+  `49f465e942b032f2a19592b6f2c5737b08d698cd`;
+- terminal receipt PR #228 final head:
+  `e870696a1bbe00906ddac4ee6ae61dec77ba1632`;
+- receipt PR FAST #616: PASS;
+- receipt PR INTEGRATION #607: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- receipt squash merge:
+  `49f465e942b032f2a19592b6f2c5737b08d698cd`;
+- protected-main FAST #617: PASS;
+- protected-main INTEGRATION #608: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
 - ordinary semantic registration inventory: **42 tests**;
-- implementation audit:
-  `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`;
-- terminal-sync PR #227 final head:
-  `e5ffd4eb0ec6310d367abd3ce517ab5931dc7ee7`;
-- terminal-sync PR FAST #614: PASS;
-- terminal-sync PR INTEGRATION #605: PASS in GCC and Clang;
-- terminal-sync squash merge:
-  `07ae15c8570ac9a0d37906d189a18dfcf95146c5`;
-- terminal-sync post-merge FAST #615: PASS;
-- terminal-sync post-merge INTEGRATION #606: PASS in GCC and Clang.
+- open PRs at entry: none;
+- active production/scientific work item at entry: none.
 
-PR #224 remains historical provenance only: it was closed unmerged after a
-mechanical GitHub Actions concurrency incident. No alternate implementation was
-introduced.
+Active decision branch:
 
-The integrated semantics remain bounded to the threshold-free pointwise
-Jacobian 2-norm condition number using the existing first fundamental form and
-area density.
+`surface/differential-geometry-qualification-readiness-decision`.
 
-No production or scientific work item is currently active. The authoritative
-remote continuity state is fully synchronized through the terminal-sync merge
-and protected-main validation above.
+Decision authority under review:
 
-Deferred and unauthorized:
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
 
-- principal directions / curvature line fields;
-- bounded analytic cone;
-- bounded analytic torus;
-- general trimming / p-curves / topological faces;
+Current candidate selection inside that decision:
+
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration.**
+
+The candidate is selected for decision review because the previously explicit
+conditioning blocker is now closed, the scalar/local differential stack has
+analytic/synthetic fixture coverage for the isotropic baseline, and principal
+directions remain primarily an anisotropic/line-field concern.
+
+No protocol implementation begins until this decision itself is validated,
+integrated, protected-main validated and separately closed.
+
+Explicitly unauthorized during this decision:
+
+- qualification tooling;
+- prepared manifests;
+- formal qualification execution or workflow dispatch;
+- `QUALIFIED` status;
+- principal directions / curvature-line fields;
+- cone or torus production;
+- general p-curves/topological faces;
 - Surface Representation qualification;
-- Surface Differential Geometry qualification;
 - Boundary Curve Discretization;
-- any formal qualification campaign or one-time execution authorization.
+- sizing or meshing.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
