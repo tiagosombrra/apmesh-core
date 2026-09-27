@@ -635,3 +635,34 @@ This checkpoint does not select or authorize principal directions, analytic
 cone/torus breadth, general trimming/p-curves/topological faces, Surface
 Representation qualification, Surface Differential Geometry qualification,
 Boundary Curve Discretization, or any formal campaign.
+
+
+## 20. Terminal synchronization receipt
+
+Terminal synchronization PR #227 used final head:
+
+`e5ffd4eb0ec6310d367abd3ce517ab5931dc7ee7`.
+
+PR validation:
+
+- FAST #614: PASS;
+- INTEGRATION #605: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+PR #227 squash-merged as:
+
+`07ae15c8570ac9a0d37906d189a18dfcf95146c5`.
+
+Protected-main validation on that exact terminal synchronization revision:
+
+- FAST #615: PASS;
+- INTEGRATION #606: PASS in GCC 13 Debug and Clang 18/libc++ Debug.
+
+The authoritative remote continuity state is now synchronized and the
+metric-conditioning work item remains:
+
+**IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
+NOT QUALIFIED / NO ACTIVE PRODUCTION WORK ITEM.**
+
+No repository transition or scientific work item is active. The next
+admissible step is a new literature-backed scientific decision; no candidate is
+selected by this receipt.

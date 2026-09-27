@@ -178,8 +178,14 @@ Terminal authority:
 - ordinary semantic registration inventory: **42 tests**;
 - implementation audit:
   `docs/audits/2026-09-27-surface-metric-conditioning-implementation-audit.md`;
-- terminal-sync branch:
-  `docs/surface-metric-conditioning-implementation-terminal-sync`.
+- terminal-sync PR #227 final head:
+  `e5ffd4eb0ec6310d367abd3ce517ab5931dc7ee7`;
+- terminal-sync PR FAST #614: PASS;
+- terminal-sync PR INTEGRATION #605: PASS in GCC and Clang;
+- terminal-sync squash merge:
+  `07ae15c8570ac9a0d37906d189a18dfcf95146c5`;
+- terminal-sync post-merge FAST #615: PASS;
+- terminal-sync post-merge INTEGRATION #606: PASS in GCC and Clang.
 
 PR #224 remains historical provenance only: it was closed unmerged after a
 mechanical GitHub Actions concurrency incident. No alternate implementation was
@@ -189,9 +195,9 @@ The integrated semantics remain bounded to the threshold-free pointwise
 Jacobian 2-norm condition number using the existing first fundamental form and
 area density.
 
-No production or scientific work item is currently active. The terminal-sync
-branch is documentation-only and must itself be validated, merged and
-post-merge validated before the repository is considered fully synchronized.
+No production or scientific work item is currently active. The authoritative
+remote continuity state is fully synchronized through the terminal-sync merge
+and protected-main validation above.
 
 Deferred and unauthorized:
 

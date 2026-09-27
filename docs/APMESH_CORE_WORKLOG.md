@@ -569,9 +569,12 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   INTEGRATION #603 PASS; squash merge
   `0c1c4c2365257549122fa4bb9b8720c4e83bddc9`, followed by protected-main
   FAST #613 and INTEGRATION #604 PASS.
-- `docs/surface-metric-conditioning-implementation-terminal-sync`: **ACTIVE /
-  DOCUMENTATION-ONLY**; publishes the terminal closed state. No production or
-  scientific work item is active.
+- `docs/surface-metric-conditioning-implementation-terminal-sync`: **MERGED /
+  HISTORICAL** via PR #227; final head
+  `e5ffd4eb0ec6310d367abd3ce517ab5931dc7ee7`, FAST #614 and
+  INTEGRATION #605 PASS; squash merge
+  `07ae15c8570ac9a0d37906d189a18dfcf95146c5`, followed by protected-main
+  FAST #615 and INTEGRATION #606 PASS.
 
 The presence of historical branches on the remote does not make them active.
 
@@ -606,8 +609,9 @@ Terminal evidence:
 PR #224 remains preserved as an unmerged validation-infrastructure incident;
 it introduced no alternate repository content.
 
-The only active repository transition is the documentation-only terminal sync
-on `docs/surface-metric-conditioning-implementation-terminal-sync`.
+No repository transition, production work item or scientific work item is
+currently active. The remote continuity state is synchronized through PR #227
+and protected-main FAST #615 / INTEGRATION #606.
 
 ### Last closed portability maintenance item
 
@@ -656,17 +660,20 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete the terminal documentation synchronization:
+The metric-conditioning work unit is terminally closed and no work item is
+active.
 
-1. validate FAST on the exact terminal-sync head;
-2. validate INTEGRATION in GCC and Clang;
-3. audit diff, reviews and concurrency;
-4. squash-merge only with required checks green;
-5. validate protected `main`;
-6. confirm STATE / WORKLOG / ROADMAP / decision / audits all agree that no
-   production work item remains active.
+The next admissible transition is a **new literature-backed scientific
+decision** comparing the retained candidates:
 
-After that terminal checkpoint, a **new literature-backed scientific decision**
-may compare the retained candidates. No candidate is selected or pre-authorized
-by the current work item.
+- principal directions / curvature line fields;
+- bounded analytic cone / torus breadth;
+- general trimming / p-curves / topological faces;
+- Surface Representation qualification readiness;
+- Surface Differential Geometry qualification readiness;
+- Boundary Curve Discretization readiness.
+
+That decision must begin from the current protected `main`, preserve the
+42-test ordinary inventory, and select at most one bounded work item before any
+new production branch is created. No candidate is pre-authorized.
 

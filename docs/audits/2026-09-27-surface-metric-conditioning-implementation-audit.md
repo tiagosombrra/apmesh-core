@@ -255,3 +255,34 @@ The implementation work item is terminally closed. The current
 `docs/surface-metric-conditioning-implementation-terminal-sync` branch only
 publishes this terminal continuity state so another conversation can recover
 the authoritative status directly from the remote repository.
+
+
+## 10. Terminal synchronization
+
+The terminal continuity publication used PR #227 with final head:
+
+`e5ffd4eb0ec6310d367abd3ce517ab5931dc7ee7`.
+
+Validation:
+
+- FAST #614: PASS;
+- INTEGRATION #605 / GCC 13 Debug: PASS;
+- INTEGRATION #605 / Clang 18/libc++ Debug: PASS.
+
+PR #227 squash-merged as:
+
+`07ae15c8570ac9a0d37906d189a18dfcf95146c5`.
+
+Protected-main validation on that exact revision:
+
+- FAST #615: PASS;
+- INTEGRATION #606 / GCC 13 Debug: PASS;
+- INTEGRATION #606 / Clang 18/libc++ Debug: PASS.
+
+The ordinary semantic registration inventory remains **42 tests**.
+
+Terminal repository result:
+
+**POINTWISE SURFACE METRIC CONDITIONING DIAGNOSTICS IMPLEMENTED /
+FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED / NOT QUALIFIED /
+REMOTE CONTINUITY SYNCHRONIZED / NO ACTIVE PRODUCTION WORK ITEM.**
