@@ -1,6 +1,6 @@
 # Surface Differential Geometry Qualification Readiness — Scientific Decision
 
-Status: DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+Status: DECISION INTEGRATED / CLOSURE ACTIVE / PROTOCOL NOT AUTHORIZED /
 NOT QUALIFIED  
 Date: 2026-09-27  
 Stage: Surface Differential Geometry — Metric, Normals, and Curvatures
@@ -474,3 +474,48 @@ Until that closure:
 
 No later qualification tooling, preparation, formal execution, principal
 direction, representation breadth or discretization work is pre-authorized.
+
+
+## 18. Decision integration checkpoint
+
+Decision PR #229 used final head:
+
+`d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`.
+
+Required PR validation:
+
+- FAST #618: PASS;
+- INTEGRATION #609 / GCC 13 Debug: PASS;
+- INTEGRATION #609 / Clang 18/libc++ Debug: PASS;
+- no reviews or unresolved review threads;
+- branch relation at merge gate: ahead=5, behind=0;
+- diff restricted to decision/continuity/reference documentation.
+
+PR #229 squash-merged as:
+
+`46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`.
+
+Protected-main validation on that exact revision:
+
+- FAST #619: PASS;
+- INTEGRATION #610 / GCC 13 Debug: PASS;
+- INTEGRATION #610 / Clang 18/libc++ Debug: PASS.
+
+Ordinary semantic registration inventory remains **42 tests**.
+
+Decision integration result:
+
+**SURFACE DIFFERENTIAL GEOMETRY QUALIFICATION READINESS SELECTED /
+DECISION INTEGRATED / CLOSURE PENDING /
+QUALIFICATION PROTOCOL NOT YET AUTHORIZED / NOT QUALIFIED.**
+
+The active closure branch is:
+
+`docs/surface-differential-geometry-qualification-readiness-decision-closure`.
+
+The selected protocol work item becomes authorized only after this separate
+decision closure itself receives required checks, merges and passes
+protected-main validation.
+
+No qualification tooling, preparation, formal execution, production capability
+or `QUALIFIED` claim is authorized by this integration checkpoint.

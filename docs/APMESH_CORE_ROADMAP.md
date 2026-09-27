@@ -1880,55 +1880,36 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-A new literature-backed Surface Differential Geometry decision is active:
+The Surface Differential Geometry qualification-readiness decision is integrated
+and awaiting its separate closure:
 
 **Surface Differential Geometry — Qualification Readiness Decision —
-DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+DECISION INTEGRATED / CLOSURE ACTIVE / PROTOCOL NOT AUTHORIZED /
 NOT QUALIFIED.**
 
-Decision-entry protected `main`:
+Decision evidence:
 
-`49f465e942b032f2a19592b6f2c5737b08d698cd`.
+- final decision head
+  `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
+- decision PR #229 FAST #618: PASS;
+- decision PR #229 INTEGRATION #609: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- squash merge
+  `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`;
+- protected-main FAST #619 / INTEGRATION #610: PASS;
+- ordinary semantic registration inventory: **42 tests**.
 
-Entry validation:
-
-- FAST #617: PASS;
-- INTEGRATION #608: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- ordinary semantic registration inventory: **42 tests**;
-- no open PR or active production/scientific work item at entry.
-
-Active branch:
-
-`surface/differential-geometry-qualification-readiness-decision`.
-
-Decision document:
-
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
-
-The comparison re-evaluates principal directions, cone/torus breadth, general
-trimming/p-curves/topological faces, Surface Representation qualification
-readiness, Surface Differential Geometry qualification readiness and Boundary
-Curve Discretization readiness.
-
-Current selected candidate for decision review:
+Selected future work item:
 
 **Surface Differential Geometry — Cumulative Qualification Protocol
 Pre-registration.**
 
-Why this candidate is currently selected:
+The active closure branch is:
 
-- the missing pointwise metric-conditioning prerequisite is now integrated and
-  terminally closed;
-- current ordinary tests already span the scalar/local differential classes
-  required for the isotropic baseline;
-- principal directions add a distinct line-field/anisotropy contract;
-- cone/torus/general trimming are representation/topology breadth;
-- Surface Representation still has intentionally open breadth policy;
-- Boundary Curve Discretization still needs physical trace/error/sizing and
-  face-ownership decisions.
+`docs/surface-differential-geometry-qualification-readiness-decision-closure`.
 
-This decision cannot qualify the stage and cannot authorize a formal
-qualification campaign.
+No protocol work, qualification tooling, preparation, formal execution,
+production feature or `QUALIFIED` claim is authorized until this closure is
+integrated and protected-main validated.
 
 Current scientific work focus:
 
@@ -1959,19 +1940,20 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate and integrate only the active qualification-readiness decision, then
-validate protected `main` and publish a separate decision-closure checkpoint.
+Validate, integrate and post-merge validate only the qualification-readiness
+decision closure.
 
-If that closure confirms the current selection, the sole next work item becomes
+After terminal closure, the sole next work item becomes:
+
 **Surface Differential Geometry — Cumulative Qualification Protocol
-Pre-registration**.
+Pre-registration.**
 
-That future work item must pre-register the claim, independent fixture matrix,
-gates, figures, cross-cell/repetition policy, evidence retention and failure
-policy. It does not itself authorize formal execution or `QUALIFIED` status.
+That future work is documentation/governance only and must freeze the bounded
+claim, independent fixture matrix, SDG0–SDG7 gate semantics, cross-cell and
+repetition policy, scientific figures, retained evidence and failure policy
+before qualification tooling is admitted.
 
-No principal-direction, representation-breadth, trimming/topology,
-discretization, sizing or meshing work is pre-authorized.
+No formal qualification execution or production feature is pre-authorized.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 

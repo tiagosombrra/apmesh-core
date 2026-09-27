@@ -582,71 +582,44 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   `49f465e942b032f2a19592b6f2c5737b08d698cd`, followed by protected-main
   FAST #617 and INTEGRATION #608 PASS.
 - `surface/differential-geometry-qualification-readiness-decision`:
-  **ACTIVE / DECISION-ONLY**; compares retained candidates and currently
-  selects cumulative Surface Differential Geometry qualification-protocol
-  pre-registration for review. No implementation or formal campaign is
-  authorized.
+  **MERGED / HISTORICAL** via PR #229; final head
+  `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`, FAST #618 and
+  INTEGRATION #609 PASS; squash merge
+  `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`, followed by protected-main
+  FAST #619 and INTEGRATION #610 PASS.
+- `docs/surface-differential-geometry-qualification-readiness-decision-closure`:
+  **ACTIVE / CLOSURE-ONLY**; records the integrated decision before protocol
+  pre-registration becomes authorized.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Differential Geometry — Qualification Readiness Decision —
-DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
-NOT QUALIFIED.**
+**Surface Differential Geometry — Qualification Readiness Decision Closure —
+ACTIVE / DOCUMENTATION ONLY / PROTOCOL NOT AUTHORIZED / NOT QUALIFIED.**
 
-Entry authority:
+Integrated decision evidence:
 
-1. protected `main`:
-   `49f465e942b032f2a19592b6f2c5737b08d698cd`;
-2. receipt PR #228 head:
-   `e870696a1bbe00906ddac4ee6ae61dec77ba1632`;
-3. PR FAST #616 / INTEGRATION #607: PASS;
-4. receipt squash merge:
-   `49f465e942b032f2a19592b6f2c5737b08d698cd`;
-5. protected-main FAST #617 / INTEGRATION #608: PASS;
-6. ordinary semantic registration inventory: **42 tests**;
-7. open PRs at entry: none;
-8. production/scientific work item at entry: none.
+1. decision PR #229 final head:
+   `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
+2. PR FAST #618 / INTEGRATION #609: PASS;
+3. squash merge:
+   `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`;
+4. protected-main FAST #619 / INTEGRATION #610: PASS;
+5. ordinary semantic registration inventory: **42 tests**;
+6. decision:
+   `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
 
-Decision document:
-
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
-
-Reference review:
-
-`docs/research/REFERENCE_REGISTER.md`.
-
-The decision compares:
-
-- principal directions / curvature lines;
-- bounded analytic cone;
-- bounded analytic torus;
-- general trimming / p-curves / topological faces;
-- Surface Representation qualification readiness;
-- Surface Differential Geometry qualification readiness;
-- Boundary Curve Discretization readiness.
-
-Current decision candidate:
+Selected future work item:
 
 **Surface Differential Geometry — Cumulative Qualification Protocol
 Pre-registration.**
 
-Rationale under review:
+The selection is integrated but not yet authorized for execution because the
+separate decision closure is the sole active repository transition.
 
-- metric conditioning, previously the explicit differential-qualification
-  blocker, is now terminally closed;
-- ordinary evidence already spans plane, cylinder, sphere, elliptic/hyperbolic
-  second-order fixtures, umbilic and near-singular cases;
-- isotropic sizing can use strongest principal curvature without principal
-  directions;
-- principal directions remain a future line-field/anisotropy seam;
-- cone/torus/general trimming widen representation/topology instead;
-- Boundary Curve Discretization still needs separate trace/error/sizing/face
-  contracts.
-
-No protocol work, qualification tooling, preparation or formal execution may
-start on this branch.
+No C++, CMake, tests, qualification tooling, manifest preparation, workflow
+dispatch or formal execution may change on this branch.
 
 ### Last closed portability maintenance item
 
@@ -695,20 +668,18 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete only the active qualification-readiness decision:
+Complete only the decision closure:
 
-1. audit the branch against the protected entry baseline;
-2. validate decision PR FAST;
-3. validate decision PR INTEGRATION in GCC and Clang;
-4. preserve literature/reference evidence and competing-candidate rationale;
-5. merge only with required checks green;
-6. validate protected `main`;
-7. publish a separate decision-closure checkpoint.
+1. validate closure PR FAST;
+2. validate closure PR INTEGRATION in GCC and Clang;
+3. audit diff/reviews/concurrency;
+4. merge only with required checks green;
+5. validate protected `main`;
+6. publish the terminal decision state so another conversation can discover
+   that protocol pre-registration is the sole next authorized work item.
 
-Only after that separate closure may the selected
-**Surface Differential Geometry — Cumulative Qualification Protocol
-Pre-registration** work item begin.
+Only after that terminal decision closure may the protocol pre-registration
+branch be created.
 
-No qualification tooling, formal preparation/execution or production feature is
-pre-authorized.
+No qualification tooling, preparation or formal execution is pre-authorized.
 
