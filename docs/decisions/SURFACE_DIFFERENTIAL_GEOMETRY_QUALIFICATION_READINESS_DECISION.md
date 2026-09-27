@@ -573,3 +573,48 @@ authorize:
 
 The current terminal-sync branch publishes this closed decision state before
 protocol work begins.
+
+
+## 20. Terminal synchronization checkpoint
+
+Terminal synchronization PR #231 used final head:
+
+`9d2876876cb4ea5bffe3e3d88507c7be814e4139`.
+
+Required terminal-sync validation:
+
+- FAST #622: PASS;
+- INTEGRATION #613 / GCC 13 Debug: PASS;
+- INTEGRATION #613 / Clang 18/libc++ Debug: PASS;
+- no reviews or unresolved review threads;
+- branch relation at merge gate: ahead=4, behind=0;
+- diff restricted to continuity/decision documentation.
+
+PR #231 squash-merged as:
+
+`ce73cf28c7359f1bac8986c4b7ea57180dc7d109`.
+
+Protected-main validation on that exact revision:
+
+- FAST #623: PASS;
+- INTEGRATION #614 / GCC 13 Debug: PASS;
+- INTEGRATION #614 / Clang 18/libc++ Debug: PASS.
+
+Ordinary semantic registration inventory remains **42 tests**.
+
+Terminal decision result:
+
+**DECISION CLOSED / SURFACE DIFFERENTIAL GEOMETRY CUMULATIVE
+QUALIFICATION PROTOCOL PRE-REGISTRATION AUTHORIZED / NOT QUALIFIED /
+REMOTE CONTINUITY SYNCHRONIZED.**
+
+No production, scientific or repository-transition work item remains active.
+
+The sole next scientific work item is:
+
+**Surface Differential Geometry — Cumulative Qualification Protocol
+Pre-registration.**
+
+That authorization remains limited to protocol documentation/governance. It
+does not authorize qualification tooling, manifest preparation, formal
+execution, workflow dispatch or a `QUALIFIED` status.
