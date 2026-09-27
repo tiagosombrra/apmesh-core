@@ -151,41 +151,55 @@ No portability production or closure work item remains active.
 
 ## Current active scientific action
 
-**None. The bounded analytic spherical-surface work unit is closed.**
+**Surface Differential Geometry — Pointwise Metric Conditioning Diagnostics —
+DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Terminal closure authority:
+Fresh decision-entry authority:
 
-- implementation PR #214:
-  `461c3f04454cc4f8aa789d9baba5085362aa6254`;
-- implementation post-merge FAST `36263360375`: PASS, 40/40;
-- implementation post-merge INTEGRATION `36263360805`: PASS, 40/40;
-- implementation closure PR #215 head:
-  `3947547b24b43a0058cd3686c8739ba6f60c626c`;
-- closure PR FAST `36264003640`: PASS;
-- closure PR INTEGRATION `36264003550`: PASS;
-- closure merge:
-  `87ff882606f92259da6a6e788af8a8e6a220a3bf`;
-- closure post-merge FAST `36264093555`: PASS;
-- closure post-merge INTEGRATION `36264093548`: PASS;
-- implementation audit:
-  `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`.
+- protected `main`:
+  `fa04f8bdd7d1359bafd62a02999e0921a835c0ef`;
+- protected-main FAST #596: PASS;
+- protected-main INTEGRATION #587: PASS in GCC and Clang;
+- ordinary semantic inventory: **41 tests**;
+- open PRs at decision entry: none;
+- active branch:
+  `surface/metric-conditioning-decision`;
+- decision authority:
+  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`.
 
-Terminal work-unit result:
+The fresh literature/repository comparison selects **Pointwise Surface Metric
+Conditioning Diagnostics in 3D** as the next bounded work unit because it closes
+an explicit Surface Differential Geometry prerequisite using already-integrated
+first-fundamental-form data without opening line-field, topology, periodicity,
+meshing or qualification semantics.
 
-**BOUNDED ANALYTIC SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS /
-INTEGRATED / CLOSED / NOT QUALIFIED.**
+No production implementation is authorized on this decision branch.
 
-No production or maintenance work item is active.
+The current exact next admissible transition is:
 
-Exact next admissible scientific action:
+**Validate, review and integrate this decision document only; then perform
+protected-main validation and a separate decision-closure checkpoint.**
 
-**Open one fresh literature-backed decision comparing analytic cone, analytic
-torus, principal directions/line-field semantics, conditioning diagnostics,
-general trimming/p-curves/topological faces, Surface Representation
-qualification readiness, Surface Differential Geometry qualification readiness
-and Boundary Curve Discretization readiness.**
+Only after that separate decision closure may the selected conditioning
+implementation begin.
 
-No candidate is pre-authorized.
+Deferred and still unauthorized:
+
+- principal directions / curvature line fields;
+- bounded analytic cone;
+- bounded analytic torus;
+- general trimming / p-curves / topological faces;
+- Surface Representation qualification;
+- Surface Differential Geometry qualification;
+- Boundary Curve Discretization.
+
+Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
+
+Surface Differential Geometry remains **IN INVESTIGATION / NOT QUALIFIED**.
+
+No formal campaign, execution-once authorization, qualification scope or
+acceptance threshold is created by this decision.
 
 ### Retained historical Topological Model / cloud-infrastructure checkpoint
 

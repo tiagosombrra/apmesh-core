@@ -538,55 +538,60 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   branch used solely to persist the PR #219 terminal publication evidence. It
   carries no production/scientific change and is historical/inert once this
   receipt content is present on `main`.
+- `surface/metric-conditioning-decision`: **ACTIVE / DECISION-ONLY**;
+  fresh literature-backed comparison selecting pointwise metric conditioning
+  diagnostics as the next bounded Surface Differential Geometry work unit.
+  No production implementation is authorized on this branch.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**None. Portable spline intermediate arithmetic maintenance is terminally closed.**
+**Surface Metric Conditioning Diagnostics — DECISION ACTIVE / DOCUMENTATION
+ONLY / IMPLEMENTATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal maintenance evidence:
+Operational authority:
 
-1. preset checkpoint:
-   `a9355cd597e56e33808f8a9497d70a553006d8fd`;
-2. exact production/test revision validated in six local development cells:
-   `65ec6e8514e82e5add62f0c2fb53f049c29be215`;
-3. final implementation PR #217 head:
-   `51d62b4297d82286e2f027c10fde9193af47bb1a`;
-4. PR #217 FAST #589: PASS;
-5. PR #217 INTEGRATION #580: PASS in required GCC and Clang cells;
-6. PR #217 squash merge:
-   `79057c03e432fa9116ced829f9a2c246e9d13ee9`;
-7. implementation protected-main FAST #590: PASS;
-8. implementation protected-main INTEGRATION #581: PASS;
-9. documentation closure PR #218 head:
-   `c465a305fa28b05b5973c610fe6911c777c9357d`;
-10. closure PR FAST #591: PASS;
-11. closure PR INTEGRATION #582: PASS in required GCC and Clang cells;
-12. closure squash merge:
-    `8d4a6e2d46c942966ceeb5e3fa735c983ef80909`;
-13. closure protected-main FAST #592: PASS;
-14. closure protected-main INTEGRATION #583: PASS;
-15. six local GCC/Clang/MSVC Debug/Release cells: PASS, 41/41;
-16. integrated ordinary semantic inventory: **41 tests**;
-17. audit:
-    `docs/audits/2026-09-26-portable-spline-arithmetic.md`.
-18. terminal continuity PR #219 head:
-    `c3677b6063c2976ee04dae00a18fde47956fcff9`;
-19. terminal PR FAST #593: PASS;
-20. terminal PR INTEGRATION #584: PASS in required GCC and Clang cells;
-21. terminal continuity squash merge:
-    `fbe611296bcf4869b642de5f8352845510e7d643`;
-22. terminal publication protected-main FAST #594: PASS;
-23. terminal publication protected-main INTEGRATION #585: PASS.
+- baseline `main`:
+  `fa04f8bdd7d1359bafd62a02999e0921a835c0ef`;
+- entry FAST #596: PASS;
+- entry INTEGRATION #587: PASS in GCC and Clang;
+- branch:
+  `surface/metric-conditioning-decision`;
+- decision document:
+  `docs/decisions/SURFACE_METRIC_CONDITIONING_DIAGNOSTICS_DECISION.md`;
+- ordinary semantic inventory remains **41 tests**;
+- no local checkout is mounted in the current execution environment, so no
+  duplicate local regression is claimed; exact protected-main entry checks and
+  fresh PR checks are the validation authority for this documentation-only
+  decision;
+- production/test code changed by this work item: none;
+- qualification tooling/campaign: not authorized.
 
-Terminal result:
+Decision result under review:
 
-**PORTABLE SPLINE INTERMEDIATE ARITHMETIC MAINTENANCE / INTEGRATED /
-CLOSED / NOT QUALIFIED.**
+**SELECT POINTWISE SURFACE METRIC CONDITIONING DIAGNOSTICS IN 3D AS THE NEXT
+BOUNDED WORK UNIT.**
 
-No warning suppression, acceptance relaxation, formal campaign, qualification
-claim or new scientific capability was introduced.
+Rationale: the existing differential layer already computes the first
+fundamental form, while the roadmap explicitly retains conditioning as an
+unclosed Surface Differential Geometry concern. The selected work unit can be
+defined by the Jacobian singular-value/metric-eigenvalue condition number
+without adding thresholds, new surface families, topology or line-field
+semantics.
+
+The sole next transition is decision PR validation/review/integration. After
+protected-main validation, a separate decision-closure checkpoint is required
+before implementation is authorized.
+
+### Last closed portability maintenance item
+
+**Portable spline intermediate arithmetic maintenance is terminally closed.**
+
+Terminal maintenance authority remains PRs #217--#220 and
+`docs/audits/2026-09-26-portable-spline-arithmetic.md`. The integrated
+ordinary inventory remains **41 tests** and native Windows remains
+development-only.
 
 ### Last closed spherical-surface work item
 
@@ -626,21 +631,17 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-The portability maintenance item is closed. The next admissible scientific
-action is therefore:
+The current work item is decision-only. The exact next admissible action is:
 
-Open exactly one fresh literature-backed scientific decision comparing:
+1. validate the current decision branch with required FAST/INTEGRATION checks;
+2. review the diff and scientific boundaries;
+3. squash-merge only if all required checks are green and no concurrent work
+   appears;
+4. validate protected `main`;
+5. publish a separate decision-closure checkpoint;
+6. only after that closure, begin the selected pointwise metric-conditioning
+   implementation.
 
-1. analytic cone;
-2. analytic torus;
-3. principal directions / line-field semantics;
-4. conditioning diagnostics;
-5. general trimming / p-curves / topological faces;
-6. Surface Representation qualification readiness;
-7. Surface Differential Geometry qualification readiness;
-8. Boundary Curve Discretization readiness.
+No implementation, qualification campaign or alternate scientific candidate is
+authorized before that sequence completes.
 
-No option is pre-authorized.
-
-The terminal synchronization is documentation-only and does not itself select
-or implement a next capability.
