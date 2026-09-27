@@ -152,55 +152,49 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Qualification Readiness Decision —
-DECISION ACTIVE / DOCUMENTATION ONLY / IMPLEMENTATION NOT AUTHORIZED /
+DECISION INTEGRATED / CLOSURE ACTIVE / PROTOCOL NOT AUTHORIZED /
 NOT QUALIFIED.**
 
-Fresh decision-entry authority:
+Decision integration authority:
 
-- protected `main`:
+- decision-entry protected `main`:
   `49f465e942b032f2a19592b6f2c5737b08d698cd`;
-- terminal receipt PR #228 final head:
-  `e870696a1bbe00906ddac4ee6ae61dec77ba1632`;
-- receipt PR FAST #616: PASS;
-- receipt PR INTEGRATION #607: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- receipt squash merge:
-  `49f465e942b032f2a19592b6f2c5737b08d698cd`;
-- protected-main FAST #617: PASS;
-- protected-main INTEGRATION #608: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- decision PR #229 final head:
+  `d45674b13bd91ffd4ffa790e1b91eac1cb77a8ef`;
+- PR FAST #618: PASS;
+- PR INTEGRATION #609: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- decision squash merge:
+  `46f67121a81b8d4f448411d7ebb2ef5bcd1aa02f`;
+- protected-main FAST #619: PASS;
+- protected-main INTEGRATION #610: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
 - ordinary semantic registration inventory: **42 tests**;
-- open PRs at entry: none;
-- active production/scientific work item at entry: none.
+- decision:
+  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
 
-Active decision branch:
-
-`surface/differential-geometry-qualification-readiness-decision`.
-
-Decision authority under review:
-
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`.
-
-Current candidate selection inside that decision:
+Selected future work item:
 
 **Surface Differential Geometry — Cumulative Qualification Protocol
 Pre-registration.**
 
-The candidate is selected for decision review because the previously explicit
-conditioning blocker is now closed, the scalar/local differential stack has
-analytic/synthetic fixture coverage for the isotropic baseline, and principal
-directions remain primarily an anisotropic/line-field concern.
+Active repository transition:
 
-No protocol implementation begins until this decision itself is validated,
-integrated, protected-main validated and separately closed.
+`docs/surface-differential-geometry-qualification-readiness-decision-closure`.
 
-Explicitly unauthorized during this decision:
+The closure is documentation-only. Until it is integrated and protected-main
+validated:
 
-- qualification tooling;
-- prepared manifests;
-- formal qualification execution or workflow dispatch;
-- `QUALIFIED` status;
+- protocol work is not authorized;
+- qualification tooling is not authorized;
+- no prepared manifest or formal execution is authorized;
+- no production/scientific implementation branch may start;
+- Surface Differential Geometry remains NOT QUALIFIED.
+
+Deferred and unauthorized remain:
+
 - principal directions / curvature-line fields;
-- cone or torus production;
-- general p-curves/topological faces;
+- bounded analytic cone;
+- bounded analytic torus;
+- general trimming / p-curves / topological faces;
 - Surface Representation qualification;
 - Boundary Curve Discretization;
 - sizing or meshing.
