@@ -1,6 +1,6 @@
 # Surface Differential Geometry — Cumulative Qualification Protocol
 
-Status: **PROTOCOL ACTIVE / DOCUMENTATION ONLY / TOOLING NOT AUTHORIZED /
+Status: **PROTOCOL INTEGRATED / CLOSURE ACTIVE / TOOLING NOT AUTHORIZED /
 FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED**  
 Date: 2026-09-27  
 Stage: **Surface Differential Geometry — Metric, Normals, and Curvatures**  
@@ -733,3 +733,51 @@ qualification tooling** that conforms exactly to this protocol.
 
 No preparation, formal execution, workflow dispatch or qualification status is
 authorized by protocol closure.
+
+
+## 22. Protocol integration checkpoint
+
+Protocol PR #233 used final head:
+
+`9bd09926734d0f2fce2abdd096380e4478c8c38d`.
+
+Required PR validation:
+
+- FAST #626: PASS;
+- INTEGRATION #617 / GCC 13 Debug: PASS;
+- INTEGRATION #617 / Clang 18/libc++ Debug: PASS;
+- no reviews or unresolved review threads;
+- branch relation at merge gate: ahead=10, behind=0;
+- diff restricted to six documentation/audit/reference files;
+- exact 42-test protocol allowlist matched the ordinary CMake registration
+  exactly and all 32 frozen semantic paths existed.
+
+PR #233 squash-merged as:
+
+`d34b8d5620f6166b6e8570225bbf243fef3c90f7`.
+
+Protected-main validation on that exact protocol revision:
+
+- FAST #627: PASS;
+- INTEGRATION #618 / GCC 13 Debug: PASS;
+- INTEGRATION #618 / Clang 18/libc++ Debug: PASS.
+
+Ordinary semantic registration inventory remains **42 tests**.
+
+Protocol integration result:
+
+**SURFACE DIFFERENTIAL GEOMETRY QUALIFICATION PROTOCOL PRE-REGISTERED /
+INTEGRATED / CLOSURE PENDING / TOOLING NOT YET AUTHORIZED /
+FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
+
+The active closure branch is:
+
+`docs/surface-differential-geometry-qualification-protocol-closure`.
+
+This closure is documentation-only. It cannot implement report-only tooling,
+prepare a manifest, dispatch a workflow, authorize a formal attempt or set the
+stage to `QUALIFIED`.
+
+Only after this separate closure itself receives required checks, merges and
+passes protected-main validation may a fresh bounded decision/work item consider
+report-only qualification tooling.
