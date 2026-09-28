@@ -372,9 +372,11 @@ surface_metric_conditioning(
     const long double scaled_g = g / metric_scale;
     const long double scaled_area = area / metric_scale;
 
+    // Positive metric coefficients can underflow to zero after scaling.
+    // Their original values were checked above; only area is needed below
+    // as a nonzero divisor.
     if (!std::isfinite(scaled_e) || !std::isfinite(scaled_f) ||
-        !std::isfinite(scaled_g) || !std::isfinite(scaled_area) ||
-        scaled_e <= 0.0L || scaled_g <= 0.0L) {
+        !std::isfinite(scaled_g) || !std::isfinite(scaled_area)) {
         return std::unexpected{
             SurfaceDifferentialError::non_representable_result};
     }

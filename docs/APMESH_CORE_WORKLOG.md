@@ -1,7 +1,7 @@
 # AP Mesh Core — Operational Work Ledger
 
 Status: AUTHORITATIVE FOR OPERATIONAL CONTINUITY  
-Last updated: 2026-09-27
+Last updated: 2026-09-28
 Canonical integration branch: `main`  
 Scientific continuation authority: `docs/APMESH_CORE_STATE.md`  
 Roadmap authority: `docs/APMESH_CORE_ROADMAP.md`
@@ -616,82 +616,37 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Differential Geometry — Report-Only Qualification Tooling —
-IMPLEMENTED CANDIDATE / INITIAL ORDINARY VALIDATION PASS /
-FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
-FOCUSED QUALIFICATION CTEST PENDING /
-PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
-NOT QUALIFIED.**
+**Surface Differential Geometry metric-conditioning normalization portability
+maintenance: LOCAL CANDIDATE / PRIOR-BASE DEVELOPMENT VALIDATION PASS /
+UPDATED-BASE DEVELOPMENT VALIDATION PASS / NOT QUALIFIED.**
 
-Current protected baseline after maintenance PRs #236 and #237:
-
-`d5c6d37b56d5434e7c907ec248eb1f6b5bc24136`.
-
-Baseline checks:
-
-- FAST #635: PASS;
-- INTEGRATION #626 / GCC 13 Debug: PASS;
-- INTEGRATION #626 / Clang 18 libc++ Debug: PASS.
-
-Active branch:
-
-`qualification/surface-differential-geometry-report-tooling`.
-
-The branch incorporated PRs #236 and #237 through non-destructive merge commits;
-no history was rewritten.
-
-Technical candidate before documentation synchronization:
-
-`7cd9ca1d221577b1730a7d05aa4a4584b4cc270d`.
-
-Implemented files:
-
-- `experiments/profiles/surface_differential_geometry_qualification.json`;
-- `experiments/surface_differential_geometry_qualification_export.cpp`;
-- `tools/surface_differential_geometry_qualification_evidence.py`;
-- `tests/surface_differential_geometry_qualification_evidence_test.py`;
-- qualification-only `CMakeLists.txt` registration;
-- candidate validation audit and continuity documents.
-
-Validation audit:
-
+Current protected `main` is
+`6fb3296096111915a812e1420de62d09edbd392a`, the squash merge of report-only
+Surface Differential Geometry qualification tooling PR #238. Its final head
+`1e54a127e1e06cb399e96eb5b9fbf6673d30e4ce` passed FAST `36424140384`
+and both INTEGRATION jobs in `36424140173`. The focused qualification-only
+CTest passed locally, 1/1. The ordinary inventory stayed at 42 and all 32
+preregistered semantic blobs matched. No formal campaign or qualification
+status transition occurred. The validation audit is
 `docs/audits/2026-09-28-surface-differential-geometry-report-tooling-validation.md`.
 
-Scientific/frozen-boundary audit:
+The separate maintenance branch is
+`fix/metric-conditioning-normalization-portability`, based on that merge. Its
+bounded change in `src/geometry/surface_differential.cpp` permits a positive
+original metric coefficient to underflow during normalization while preserving
+the nonzero scaled-area divisor check and final representability check. The
+`2^900` oracle, error vocabulary and tolerances are unchanged.
 
-- 32/32 preregistered semantic blobs unchanged;
-- ordinary semantic allowlist remains 42 tests;
-- no production differential path changed;
-- no ordinary surface semantic test changed;
-- no workflow/runner/preparation/authorization mechanism added.
-
-Implementation audit finding:
-
-- two new `mixed` profile cases initially had no numeric policy;
-- the protocol requires an explicit policy for every rounded comparison;
-- both were bound to the already preregistered `binary_strict` policy;
-- no new tolerance or scientific acceptance criterion was introduced.
-
-Initial PR validation on
-`59bc9cbfb9550a82464b24dd53168347e12ffae6`:
-
-- FAST #636: PASS, 42/42;
-- INTEGRATION #627 / GCC: PASS, 42/42;
-- INTEGRATION #627 / Clang: PASS, 42/42.
-
-Current merge gates after documentation synchronization:
-
-1. final-head ordinary FAST revalidation: PENDING;
-2. final-head ordinary INTEGRATION / GCC revalidation: PENDING;
-3. final-head ordinary INTEGRATION / Clang revalidation: PENDING;
-4. focused qualification CTest with qualification tests enabled: PENDING.
-
-The assistant execution environment cannot currently materialize the public
-repository through its local shell/network and the available GitHub connector
-cannot dispatch Actions. No focused PASS is claimed.
-
-**Merge remains blocked until the focused CTest passes on the exact final
-revision or a demonstrated tree-equivalent revision.**
+On 2026-09-28, MSVC Debug and Ubuntu 24.04/GCC 13 Debug both passed
+configure/build, focused `apmesh_core.surface_metric_conditioning` (1/1), and
+all 42 ordinary tests on the candidate based on `6fb3296`. The focused test
+includes the exact `2^900` assertion. Compact external summaries and full logs
+were retained under the user Temp directory for this run. A separate PR with
+head `c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970`
+and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. PR #239 is open and
+unmerged. This documentation synchronization changes its head, so FAST and
+INTEGRATION must pass again before integration. Native Windows results remain
+development evidence only.
 
 ### Last closed portability maintenance item
 

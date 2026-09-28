@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-27
+Last updated: 2026-09-28
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Operational continuity ledger: `docs/APMESH_CORE_WORKLOG.md`
 Repository state: verify `main`, open PRs, relevant branches, ruleset, recent
@@ -147,33 +147,35 @@ qualification envelope was advanced. The initial GCC Release build failure
 and its comparator-equivalent correction remain preserved in
 `docs/audits/2026-09-26-portable-spline-arithmetic.md`.
 
-No portability production or closure work item remains active.
+No portable spline arithmetic production or closure work item remains active.
 
-## Current active scientific action
+## Current repository action
 
-**Surface Differential Geometry — Report-Only Qualification Tooling —
-IMPLEMENTED CANDIDATE / INITIAL ORDINARY VALIDATION PASS /
-FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
-FOCUSED QUALIFICATION CTEST PENDING /
-PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
+**Surface Differential Geometry report-only qualification tooling:
+INTEGRATED / CLOSED / NOT QUALIFIED.**
+
+**Metric-conditioning normalization portability maintenance:
+LOCAL CANDIDATE / DEVELOPMENT VALIDATION ON PRIOR AND UPDATED MAIN PASS /
 NOT QUALIFIED.**
 
 Current protected `main`:
 
-`d5c6d37b56d5434e7c907ec248eb1f6b5bc24136`.
+`6fb3296096111915a812e1420de62d09edbd392a` (PR #238 squash merge).
 
-Current-main validation:
+Final PR #238 validation on head
+`1e54a127e1e06cb399e96eb5b9fbf6673d30e4ce`:
 
-- FAST #635: PASS;
-- INTEGRATION #626 / GCC 13 Debug: PASS;
-- INTEGRATION #626 / Clang 18/libc++ Debug: PASS;
+- FAST `36424140384`: PASS;
+- INTEGRATION `36424140173` / GCC 13 Debug: PASS;
+- INTEGRATION `36424140173` / Clang 18/libc++ Debug: PASS;
+- focused qualification-only CTest: 1/1 PASS locally on Ubuntu 24.04/GCC 13;
 - ordinary semantic registration inventory: **42 tests**.
 
-Active branch:
+Integrated tooling branch:
 
 `qualification/surface-differential-geometry-report-tooling`.
 
-Technical candidate before continuity/audit synchronization:
+Initial technical candidate before continuity/audit synchronization:
 
 `7cd9ca1d221577b1730a7d05aa4a4584b4cc270d`.
 
@@ -212,22 +214,28 @@ Initial PR validation on head
 - INTEGRATION #627 / GCC 13 Debug: PASS, 42/42;
 - INTEGRATION #627 / Clang 18/libc++ Debug: PASS, 42/42.
 
-Required validation still pending after this documentation synchronization:
+The final tooling head passed FAST and both INTEGRATION jobs. The focused
+qualification-only CTest passed locally with the same exporter, validator,
+profile and production inputs; subsequent audit wording did not affect the
+test. PR #238 was integrated by squash as
+`6fb3296096111915a812e1420de62d09edbd392a` without a formal qualification
+campaign.
 
-1. ordinary FAST revalidation on the new exact head;
-2. ordinary INTEGRATION / GCC 13 Debug revalidation;
-3. ordinary INTEGRATION / Clang 18 libc++ Debug revalidation;
-4. focused
-   `apmesh_core.surface_differential_geometry_qualification_evidence`
-   CTest with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`.
-
-The current assistant shell cannot materialize the repository because its local
-network cannot resolve/download GitHub, and the connected GitHub API exposes no
-workflow-dispatch action. This is an execution-environment limitation, not a
-repository failure.
-
-**Merge remains prohibited until the focused qualification-tooling CTest has a
-PASS on the exact final revision or a demonstrated tree-equivalent revision.**
+The active repository work item is the separate bounded metric-conditioning
+portability correction on branch
+`fix/metric-conditioning-normalization-portability`. Its source change allows a
+positive original metric coefficient to underflow during normalization while
+retaining finite-result and nonzero-area checks. The `2^900` oracle, error
+vocabulary and tolerances are unchanged. On 2026-09-28, MSVC Debug and Ubuntu
+24.04/GCC 13 Debug both passed configure, build, the focused
+`apmesh_core.surface_metric_conditioning` CTest (1/1), and all 42 ordinary
+tests on this candidate based on `6fb3296`. The focused test includes the exact
+`2^900` assertion. This is development evidence, not a scientific
+qualification claim. PR #239 head
+`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` then passed FAST run `36436600970`
+and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. PR #239 remains
+open and unmerged. The documentation synchronization changes the PR head, so
+the exact-head checks must pass again before integration.
 
 Explicitly unauthorized:
 
@@ -238,7 +246,8 @@ Explicitly unauthorized:
 - one-time execution authorization;
 - formal qualification execution;
 - evidence retention/sealing for a formal candidate;
-- production Surface Differential Geometry changes;
+- production Surface Differential Geometry changes beyond this bounded
+  portability correction;
 - `QUALIFIED` or `BLOCKED` stage status.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.

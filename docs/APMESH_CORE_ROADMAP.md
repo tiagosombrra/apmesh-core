@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-27
+Last updated: 2026-09-28
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -1880,13 +1880,13 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The active work item is:
+The active repository work item is:
 
-**Surface Differential Geometry — Report-Only Qualification Tooling —
-ACTIVE / PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
-NOT QUALIFIED.**
+**Surface Differential Geometry metric-conditioning normalization portability
+maintenance — LOCAL CANDIDATE / PRIOR-BASE AND UPDATED-BASE DEVELOPMENT
+VALIDATION PASS / NOT QUALIFIED.**
 
-Entry protected `main`:
+Report-only tooling entry protected `main`:
 
 `03c24b409e126f65687df68aa11ccdc50d009abc`.
 
@@ -1897,14 +1897,18 @@ Entry validation:
 - ordinary semantic registration inventory: **42 tests**;
 - no open PR at entry.
 
-Active branch:
+Integrated tooling branch:
 
 `qualification/surface-differential-geometry-report-tooling`.
 
-The tooling must conform exactly to the frozen cumulative qualification
-protocol and remains behind `APMESH_ENABLE_QUALIFICATION_TESTS=ON`.
+PR #238 integrated the report-only tooling into `main` as
+`6fb3296096111915a812e1420de62d09edbd392a`. Its final head
+`1e54a127e1e06cb399e96eb5b9fbf6673d30e4ce` passed FAST `36424140384`
+and both INTEGRATION jobs in `36424140173`; the focused qualification-only
+CTest passed locally, 1/1. The tooling remains behind
+`APMESH_ENABLE_QUALIFICATION_TESTS=ON`.
 
-Authorized scope:
+Integrated tooling scope:
 
 - evidence exporter/profile;
 - independent validation/comparison;
@@ -1912,7 +1916,7 @@ Authorized scope:
 - deterministic figure/report generation;
 - focused qualification-tooling tests.
 
-Excluded scope:
+Tooling excluded scope:
 
 - runner/preparation/launch infrastructure;
 - formal workflow dispatch or execution;
@@ -1920,7 +1924,23 @@ Excluded scope:
 - ordinary-test changes;
 - any qualification-status decision.
 
-Current scientific work focus:
+The current maintenance branch
+`fix/metric-conditioning-normalization-portability` starts from the PR #238
+merge. The bounded source correction retains the original metric positivity
+checks, permits underflow only in a normalized coefficient, and preserves the
+nonzero scaled-area and final representability checks. The existing `2^900`
+oracle, error semantics and numeric tolerances remain unchanged. On 2026-09-28,
+MSVC Debug and Ubuntu 24.04/GCC 13 Debug both passed configure, build, the
+focused `apmesh_core.surface_metric_conditioning` CTest (1/1), and all 42
+ordinary tests on this candidate based on `6fb3296`. The focused test includes
+the exact `2^900` assertion. This is development validation; no formal Surface
+Differential Geometry qualification has started. PR #239 head
+`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970`
+and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. The PR remains open
+and unmerged; this documentation synchronization creates a new head that must
+pass those exact-head checks before integration.
+
+Most recently closed scientific production work item:
 
 **Surface Representation — Bounded Analytic Spherical Surface Sector in 3D —
 IMPLEMENTED / FOCUSED CONTRACTS PASS / INTEGRATED / CLOSED /
@@ -1949,38 +1969,10 @@ Terminal evidence:
 
 Next admissible action:
 
-Validate and integrate only the implemented report-only Surface Differential
-Geometry qualification-tooling candidate.
-
-Current candidate state:
-
-**IMPLEMENTED / INITIAL ORDINARY VALIDATION PASS /
-FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
-FOCUSED QUALIFICATION CTEST PENDING /
-PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
-NOT QUALIFIED.**
-
-Initial PR head
-`59bc9cbfb9550a82464b24dd53168347e12ffae6` passed FAST #636 and
-INTEGRATION #627 in GCC/Clang with 42/42 ordinary tests.
-
-Required before merge after this documentation synchronization:
-
-- ordinary FAST PASS on the new exact final head;
-- ordinary INTEGRATION PASS in GCC 13 Debug on the new exact head;
-- ordinary INTEGRATION PASS in Clang 18/libc++ Debug on the new exact head;
-- focused
-  `apmesh_core.surface_differential_geometry_qualification_evidence`
-  PASS with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
-- ordinary inventory remains exactly 42 tests;
-- all 32 frozen semantic blobs remain unchanged;
-- no preparation/runner/workflow/authorization mechanism is introduced.
-
-The currently available assistant shell cannot execute the focused CTest because
-its local environment cannot materialize the GitHub checkout and the connected
-GitHub API exposes no workflow-dispatch action. This does not relax the gate.
-
-If focused execution remains unavailable, the PR must stay open and blocked.
+Rerun FAST and INTEGRATION on the documentation-synchronized PR #239 head. If
+all exact-head checks pass, integrate the bounded correction separately. The
+report-only tooling integration is closed; its 32 frozen semantic blobs were
+unchanged at integration.
 
 Preparation, formal execution and `QUALIFIED` status remain later,
 separately authorized transitions.
