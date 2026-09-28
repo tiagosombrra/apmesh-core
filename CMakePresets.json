@@ -202,6 +202,15 @@
       }
     },
     {
+      "name": "dev-linux",
+      "configurePreset": "dev-linux",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
       "name": "gcc-release",
       "configurePreset": "gcc-release",
       "condition": {
@@ -240,6 +249,16 @@
     {
       "name": "windows-msvc-debug",
       "configurePreset": "windows-msvc-debug",
+      "configuration": "Debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "dev-windows",
+      "configurePreset": "dev-windows",
       "configuration": "Debug",
       "condition": {
         "type": "equals",
@@ -310,6 +329,23 @@
     {
       "name": "fast",
       "configurePreset": "gcc-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "filter": {
+        "include": {
+          "label": "fast"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-linux",
+      "configurePreset": "dev-linux",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -404,6 +440,24 @@
     {
       "name": "windows-fast",
       "configurePreset": "windows-msvc-debug",
+      "configuration": "Debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "filter": {
+        "include": {
+          "label": "fast"
+        }
+      },
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-windows",
+      "configurePreset": "dev-windows",
       "configuration": "Debug",
       "condition": {
         "type": "equals",
