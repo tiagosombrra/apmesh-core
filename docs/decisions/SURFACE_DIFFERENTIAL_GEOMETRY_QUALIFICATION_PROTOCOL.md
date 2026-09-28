@@ -781,3 +781,43 @@ stage to `QUALIFIED`.
 Only after this separate closure itself receives required checks, merges and
 passes protected-main validation may a fresh bounded decision/work item consider
 report-only qualification tooling.
+
+
+## 23. Protocol closure checkpoint
+
+Protocol closure PR #234 used final head:
+
+`b675f820d55d89cf677a3b16b9fbd80024977151`.
+
+Closure validation:
+
+- FAST #628: PASS;
+- INTEGRATION #619 / GCC 13 Debug: PASS;
+- INTEGRATION #619 / Clang 18/libc++ Debug: PASS.
+
+PR #234 squash-merged as:
+
+`66541bd7bc4661ba9038cd7f8eabdd0bf796de59`.
+
+Protected-main validation on that exact closure revision:
+
+- FAST #629: PASS;
+- INTEGRATION #620 / GCC 13 Debug: PASS;
+- INTEGRATION #620 / Clang 18/libc++ Debug: PASS.
+
+Ordinary semantic registration inventory remains **42 tests**.
+
+Protocol lifecycle result:
+
+**SURFACE DIFFERENTIAL GEOMETRY QUALIFICATION PROTOCOL PRE-REGISTERED /
+INTEGRATED / CLOSED / REPORT-ONLY TOOLING MAY BE CONSIDERED /
+FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
+
+The protocol itself is now frozen authority for any later tooling work.
+A later tooling work item may implement only report/evidence mechanisms that
+conform to this protocol and still may not prepare, dispatch or execute a formal
+qualification campaign.
+
+No production Surface Differential Geometry semantics, Surface Representation
+status, preparation infrastructure, one-time authorization or `QUALIFIED`
+status is changed by this closure.
