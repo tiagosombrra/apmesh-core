@@ -984,17 +984,23 @@ The completed Topological Model campaign is `QUALIFIED` only in its declared
 hosted Ubuntu 24.04 envelope. Surface Representation and Surface Differential
 Geometry remain **IN INVESTIGATION / NOT QUALIFIED**.
 
-The active work item is the documentation-only post-tooling continuation
-decision in
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`.
-It reconciles the historical Section 24 candidates against integrated work and
-selects **Fail-Closed Surface Differential Geometry Qualification Preparation
-Infrastructure** as the sole future bounded work item. Principal directions,
-cone, torus and general trimming remain deferred.
+The Surface Differential Geometry post-tooling continuation decision is
+integrated as PR #243, merge commit
+`e53a9797e1603d451819c814c32baeba1794efc8`. Its head
+`c080b789241a86f3d5c4efc05f4d6e5f1ba50c6f` passed PR FAST run `36469493920`
+and INTEGRATION run `36469493886` (GCC 13 Debug and Clang 18/libc++ Debug).
+Post-merge FAST `36471479311` and INTEGRATION `36471479336` passed on the merge
+commit.
+
+The active work item is the separate documentation-only closure of that
+decision. Until the closure itself is integrated and its post-merge checks pass,
+do not begin the selected **Fail-Closed Surface Differential Geometry
+Qualification Preparation Infrastructure**. The scientific decision defers
+principal directions, cone, torus and general trimming.
 
 No implementation, real PREPARED package, formal execution, protocol amendment
-or qualification status is authorized by this active decision. The
-metric-conditioning maintenance and report-only tooling integration remain
+or qualification status has been authorized by the current closure work item.
+The metric-conditioning maintenance and report-only tooling integration remain
 closed, with the 32 frozen semantic blobs unchanged at integration.
 
 ## Stage closure protocol

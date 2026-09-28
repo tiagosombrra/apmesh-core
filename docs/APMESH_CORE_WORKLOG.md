@@ -699,28 +699,30 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 ## Active work item
 
 **Surface Differential Geometry Post-Tooling Continuation — documentation-only
-scientific decision.**
+integration closure.**
 
 Branch:
 
-`decision/surface-differential-post-tooling-next-step`.
+`docs/close-surface-differential-post-tooling-decision`.
 
 Decision authority:
 
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`.
 
-The decision reconciles the historical Section 24 candidates with the now
-integrated second-order curvature, principal values, metric conditioning,
-bounded sphere, qualification protocol and report-only tooling. It selects one
-future bounded work item:
+The decision was integrated through PR #243. Its head
+`c080b789241a86f3d5c4efc05f4d6e5f1ba50c6f` passed PR FAST `36469493920` and
+INTEGRATION `36469493886` (GCC 13 Debug and Clang 18/libc++ Debug). It was
+squash-merged as:
 
-**Fail-Closed Surface Differential Geometry Qualification Preparation
-Infrastructure.**
+`e53a9797e1603d451819c814c32baeba1794efc8`.
 
-This branch changes documentation only. No implementation, protocol amendment,
-real PREPARED package, execution authorization, formal campaign or
-qualification result is authorized. The selected infrastructure becomes
-eligible for implementation only after this decision is integrated,
-post-merge validated, separately closed and the closure is post-merge
-validated.
+Post-merge FAST `36471479311` and INTEGRATION `36471479336` both passed on that
+merge commit. The current branch synchronizes STATE, ROADMAP and this ledger to
+record the integration and terminal checks. It changes documentation only.
+
+After this closure is integrated and its post-merge checks pass, the selected
+next eligible work item is **Fail-Closed Surface Differential Geometry
+Qualification Preparation Infrastructure**. This closure starts no
+implementation, protocol amendment, real PREPARED package, execution
+authorization, formal campaign or qualification result.
 
