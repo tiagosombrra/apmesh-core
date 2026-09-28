@@ -671,7 +671,7 @@ CaseRecord mixed_case(
         .id = std::move(id),
         .category = std::move(category),
         .comparison_rule = "mixed",
-        .policy = std::nullopt,
+        .policy = "binary_strict",
         .reference = std::move(reference),
         .observed = std::move(observed),
         .observations = std::move(observations),
