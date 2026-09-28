@@ -114,6 +114,17 @@ if(BUILD_TESTING AND APMESH_ENABLE_QUALIFICATION_TESTS)
         apmesh_core_continuous_curve_geometry_regression_export
     )
 
+    add_executable(apmesh_core_surface_differential_geometry_qualification_export
+        experiments/surface_differential_geometry_qualification_export.cpp
+    )
+    target_link_libraries(
+        apmesh_core_surface_differential_geometry_qualification_export
+        PRIVATE apmesh::core
+    )
+    apmesh_apply_target_defaults(
+        apmesh_core_surface_differential_geometry_qualification_export
+    )
+
     add_executable(apmesh_core_minimal_small_linear_algebra_export
         experiments/minimal_small_linear_algebra_export.cpp
     )
@@ -737,6 +748,17 @@ if(BUILD_TESTING)
         find_package(Python3 3.10 COMPONENTS Interpreter REQUIRED)
 
     add_test(
+        NAME apmesh_core.surface_differential_geometry_qualification_evidence
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/surface_differential_geometry_qualification_evidence_test.py
+            --exporter $<TARGET_FILE:apmesh_core_surface_differential_geometry_qualification_export>
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/surface_differential_geometry_qualification_evidence.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/surface_differential_geometry_qualification.json
+            --source-root ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+    add_test(
         NAME apmesh_core.geometry_primitives_cumulative_evidence
         COMMAND
             ${Python3_EXECUTABLE}
@@ -1087,6 +1109,10 @@ if(BUILD_TESTING)
         apmesh_core.numeric_contract_evidence
         apmesh_core.numeric_contract_runner
         PROPERTIES LABELS "numeric;contract;foundation-preservation;qualification;tooling"
+    )
+    set_tests_properties(
+        apmesh_core.surface_differential_geometry_qualification_evidence
+        PROPERTIES LABELS "surface;geometry;contract;qualification;tooling;report-only"
     )
     set_tests_properties(
         apmesh_core.geometry_primitives_cumulative_evidence
