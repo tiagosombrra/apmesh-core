@@ -205,7 +205,7 @@ def oracle(case_id: str) -> dict[str, Any]:
         latitude = 0.5 if case_id == "sphere_latitude" else 0.5 * math.pi - math.ldexp(1.0, -20)
         cosine = math.cos(latitude)
         sine = math.sin(latitude)
-        return value_result(e=4.0 * cosine * cosine, f=0.0, g=4.0, area_density=4.0 * cosine, normal=[cosine, 0.0, sine], condition_number=1.0 / cosine, l=-2.0 * cosine * cosine, m=0.0, n=-2.0, gaussian_curvature=0.25, mean_curvature=-0.5, maximum_curvature=-0.5, minimum_curvature=-0.5, is_umbilic=True)
+        return value_result(e=4.0 * cosine * cosine, f=0.0, g=4.0, area_density=4.0 * cosine, normal=[cosine, 0.0, sine], condition_number=1.0 / cosine, l=-2.0 * cosine * cosine, m=0.0, n=-2.0, gaussian_curvature=0.25, mean_curvature=-0.5, maximum_curvature=-0.5, minimum_curvature=-0.5)
     if case_id == "family_conformance":
         return value_result()
     fail(f"no independent oracle for {case_id}")
@@ -314,12 +314,23 @@ def policy_limit(profile: dict[str, Any], policy_name: str, expected: float) -> 
     return scale, absolute + relative * scale
 
 
-def compare_result(profile: dict[str, Any], meta: dict[str, Any], actual: dict[str, Any], expected: dict[str, Any], context: str) -> None:
+def compare_result(
+    profile: dict[str, Any],
+    meta: dict[str, Any],
+    actual: dict[str, Any],
+    expected: dict[str, Any],
+    context: str,
+    require_observed_umbilic_state: bool = False,
+) -> None:
     if actual["outcome"] != expected["outcome"] or actual["error"] != expected["error"]:
         fail(f"{context} classification differs")
     if expected["outcome"] == "error":
         return
-    if actual["fields"]["is_umbilic"] != expected["fields"]["is_umbilic"]:
+    if require_observed_umbilic_state:
+        if (expected["fields"]["is_umbilic"] is not None or
+                not isinstance(actual["fields"]["is_umbilic"], bool)):
+            fail(f"{context} represented umbilic state missing")
+    elif actual["fields"]["is_umbilic"] != expected["fields"]["is_umbilic"]:
         fail(f"{context} umbilic state differs")
     wanted = numeric_map(expected["fields"])
     got = numeric_map(actual["fields"])
@@ -429,7 +440,10 @@ def validate_certificate_data(profile: dict[str, Any], certificate: Any) -> dict
         reference = decode_result(entry["reference"], f"{case_id}.reference")
         observed = decode_result(entry["observed"], f"{case_id}.observed")
         compare_result(profile, meta, reference, expected, f"{case_id}.reference")
-        compare_result(profile, meta, observed, expected, f"{case_id}.observed")
+        compare_result(
+            profile, meta, observed, expected, f"{case_id}.observed",
+            require_observed_umbilic_state=case_id in {"sphere_latitude", "sphere_near_pole"},
+        )
         validate_comparison_records(profile, meta, entry, expected, observed)
         validate_observations(case_id, entry["observations"], profile)
         if observed["error"] is not None:

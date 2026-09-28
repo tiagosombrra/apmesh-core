@@ -135,14 +135,6 @@ ResultRecord error_result(const SurfaceDifferentialError error) {
     };
 }
 
-ResultRecord error_result(const std::string_view error) {
-    return ResultRecord{
-        .outcome = "error",
-        .error = std::string{error},
-        .fields = {},
-    };
-}
-
 Fields metric_fields(
     const SurfaceMetricNormal3& metric,
     const std::optional<double> condition = std::nullopt) {
@@ -155,6 +147,14 @@ Fields metric_fields(
         .ny = metric.unit_normal.y(),
         .nz = metric.unit_normal.z(),
         .condition_number = condition,
+        .l = std::nullopt,
+        .m = std::nullopt,
+        .n = std::nullopt,
+        .gaussian_curvature = std::nullopt,
+        .mean_curvature = std::nullopt,
+        .maximum_curvature = std::nullopt,
+        .minimum_curvature = std::nullopt,
+        .is_umbilic = std::nullopt,
     };
 }
 
@@ -328,6 +328,14 @@ ResultRecord expected_metric(
             .ny = normal.y(),
             .nz = normal.z(),
             .condition_number = condition,
+            .l = std::nullopt,
+            .m = std::nullopt,
+            .n = std::nullopt,
+            .gaussian_curvature = std::nullopt,
+            .mean_curvature = std::nullopt,
+            .maximum_curvature = std::nullopt,
+            .minimum_curvature = std::nullopt,
+            .is_umbilic = std::nullopt,
         },
     };
 }
@@ -1243,9 +1251,6 @@ std::vector<CaseRecord> build_cases() {
         2.0,
         sphere_domain_u,
         sphere_domain_v);
-    const double sphere_radius = 2.0;
-    const double sphere_inverse = 0.5;
-
     cases.push_back(proximity_case(
         "sphere_equator",
         "analytic_surface",
@@ -1291,8 +1296,7 @@ std::vector<CaseRecord> build_cases() {
             0.25,
             -0.5,
             -0.5,
-            -0.5,
-            true),
+            -0.5),
         sphere_latitude_observed,
         std::string{"{\"u_reversal_gaussian_invariant\":"} +
             (sphere_gaussian_same ? "true" : "false") +
@@ -1325,8 +1329,7 @@ std::vector<CaseRecord> build_cases() {
             0.25,
             -0.5,
             -0.5,
-            -0.5,
-            true),
+            -0.5),
         surface_result(sphere, 0.0, near_pole)));
 
     const ResultRecord family_reference{
