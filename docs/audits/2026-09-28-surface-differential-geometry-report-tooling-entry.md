@@ -143,3 +143,64 @@ scientific implementation.
 Implement the smallest coherent report-only tooling package conforming to the
 frozen protocol, validate it without formal execution, then update this audit
 with exact candidate evidence.
+
+
+## 10. Candidate implementation checkpoint
+
+The report-only tooling candidate was implemented after the entry audit.
+
+Current protected `main` after independent maintenance PRs #236 and #237:
+
+`d5c6d37b56d5434e7c907ec248eb1f6b5bc24136`.
+
+Current-main validation:
+
+- FAST #635: PASS;
+- INTEGRATION #626 / GCC 13 Debug: PASS;
+- INTEGRATION #626 / Clang 18/libc++ Debug: PASS.
+
+The active tooling branch incorporated those maintenance changes through
+non-destructive merge commits. No rebase or force push was used.
+
+Technical candidate before continuity synchronization:
+
+`7cd9ca1d221577b1730a7d05aa4a4584b4cc270d`.
+
+Implemented package:
+
+- qualification profile;
+- scientific certificate exporter;
+- independent validator/comparer;
+- negative-evidence self-checks;
+- deterministic figure/report generation;
+- focused qualification CTest;
+- qualification-only CMake registration.
+
+Frozen-boundary audit:
+
+- 32/32 semantic blob SHAs match the preregistered profile;
+- ordinary semantic allowlist remains 42 tests;
+- no production Surface Differential Geometry file changed;
+- no ordinary surface semantic test changed;
+- no runner/workflow/preparation/authorization mechanism was added.
+
+A profile inconsistency was found before validation: the two new `mixed`
+cases lacked explicit numeric policies even though the protocol requires one
+for every rounded comparison. Both cases were bound to the already
+preregistered `binary_strict` policy. No tolerance was added or changed.
+
+Detailed candidate audit:
+
+`docs/audits/2026-09-28-surface-differential-geometry-report-tooling-validation.md`.
+
+Current validation state:
+
+**ORDINARY PR VALIDATION PENDING /
+FOCUSED QUALIFICATION CTEST PENDING.**
+
+The current assistant shell cannot materialize the repository through its local
+network, and the connected GitHub API exposes no workflow-dispatch action.
+Because Section 7 requires a focused CTest PASS and Section 3 forbids adding a
+validation-only workflow/runner, no focused PASS is claimed.
+
+The merge gate remains fail-closed.
