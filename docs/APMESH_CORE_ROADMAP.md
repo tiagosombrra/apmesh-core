@@ -1883,8 +1883,8 @@ Each qualified stage must have a human-readable decision document recording:
 The active repository work item is:
 
 **Surface Differential Geometry metric-conditioning normalization portability
-maintenance — LOCAL CANDIDATE / PRIOR-BASE AND UPDATED-BASE DEVELOPMENT
-VALIDATION PASS / NOT QUALIFIED.**
+maintenance — INTEGRATED / CLOSED / DEVELOPMENT VALIDATION PASS /
+NOT QUALIFIED.**
 
 Report-only tooling entry protected `main`:
 
@@ -1935,10 +1935,14 @@ focused `apmesh_core.surface_metric_conditioning` CTest (1/1), and all 42
 ordinary tests on this candidate based on `6fb3296`. The focused test includes
 the exact `2^900` assertion. This is development validation; no formal Surface
 Differential Geometry qualification has started. PR #239 head
-`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970`
-and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. The PR remains open
-and unmerged; this documentation synchronization creates a new head that must
-pass those exact-head checks before integration.
+`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970` and
+GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. Final PR #239 head
+`14189c0e5bfa2581e6fd86e4de85efa194de7743` passed FAST run `36446587893` and
+GCC 13 / Clang 18 libc++ INTEGRATION run `36446588003`. PR #239 was squash
+merged as `a03cbd4090339cf2b26dd43016492830a3fc177e`; protected-main FAST
+`36447759953` and INTEGRATION `36447759920` both passed. This is development
+validation only; no scientific qualification has started. No metric
+conditioning work item remains active.
 
 Most recently closed scientific production work item:
 
@@ -1969,10 +1973,10 @@ Terminal evidence:
 
 Next admissible action:
 
-Rerun FAST and INTEGRATION on the documentation-synchronized PR #239 head. If
-all exact-head checks pass, integrate the bounded correction separately. The
-report-only tooling integration is closed; its 32 frozen semantic blobs were
-unchanged at integration.
+No further metric-conditioning action remains. Select the next bounded
+scientific work item through the roadmap's decision process before beginning
+new implementation. The report-only tooling integration is closed; its 32
+frozen semantic blobs were unchanged at integration.
 
 Preparation, formal execution and `QUALIFIED` status remain later,
 separately authorized transitions.

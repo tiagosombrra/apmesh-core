@@ -155,12 +155,11 @@ No portable spline arithmetic production or closure work item remains active.
 INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 **Metric-conditioning normalization portability maintenance:
-LOCAL CANDIDATE / DEVELOPMENT VALIDATION ON PRIOR AND UPDATED MAIN PASS /
-NOT QUALIFIED.**
+INTEGRATED / CLOSED / DEVELOPMENT VALIDATION PASS / NOT QUALIFIED.**
 
 Current protected `main`:
 
-`6fb3296096111915a812e1420de62d09edbd392a` (PR #238 squash merge).
+`a03cbd4090339cf2b26dd43016492830a3fc177e` (PR #239 squash merge).
 
 Final PR #238 validation on head
 `1e54a127e1e06cb399e96eb5b9fbf6673d30e4ce`:
@@ -232,10 +231,14 @@ vocabulary and tolerances are unchanged. On 2026-09-28, MSVC Debug and Ubuntu
 tests on this candidate based on `6fb3296`. The focused test includes the exact
 `2^900` assertion. This is development evidence, not a scientific
 qualification claim. PR #239 head
-`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` then passed FAST run `36436600970`
-and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. PR #239 remains
-open and unmerged. The documentation synchronization changes the PR head, so
-the exact-head checks must pass again before integration.
+`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970` and
+GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. The final PR head
+`14189c0e5bfa2581e6fd86e4de85efa194de7743` passed FAST run `36446587893` and
+GCC 13 / Clang 18 libc++ INTEGRATION run `36446588003`. PR #239 was squash
+merged as `a03cbd4090339cf2b26dd43016492830a3fc177e`; protected-main FAST
+`36447759953` and INTEGRATION `36447759920` both passed. The correction remains
+development evidence, not a scientific qualification claim. No metric
+conditioning work item remains active.
 
 Explicitly unauthorized:
 
