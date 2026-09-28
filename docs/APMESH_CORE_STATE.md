@@ -152,7 +152,8 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Report-Only Qualification Tooling —
-IMPLEMENTED CANDIDATE / ORDINARY PR VALIDATION PENDING /
+IMPLEMENTED CANDIDATE / INITIAL ORDINARY VALIDATION PASS /
+FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
 FOCUSED QUALIFICATION CTEST PENDING /
 PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
 NOT QUALIFIED.**
@@ -204,11 +205,18 @@ Frozen boundary audit:
 - no ordinary surface semantic test changed;
 - no runner/workflow/preparation/authorization mechanism was added.
 
-Required validation still pending:
+Initial PR validation on head
+`59bc9cbfb9550a82464b24dd53168347e12ffae6`:
 
-1. ordinary PR FAST;
-2. ordinary PR INTEGRATION / GCC 13 Debug;
-3. ordinary PR INTEGRATION / Clang 18 libc++ Debug;
+- FAST #636: PASS, 42/42;
+- INTEGRATION #627 / GCC 13 Debug: PASS, 42/42;
+- INTEGRATION #627 / Clang 18/libc++ Debug: PASS, 42/42.
+
+Required validation still pending after this documentation synchronization:
+
+1. ordinary FAST revalidation on the new exact head;
+2. ordinary INTEGRATION / GCC 13 Debug revalidation;
+3. ordinary INTEGRATION / Clang 18 libc++ Debug revalidation;
 4. focused
    `apmesh_core.surface_differential_geometry_qualification_evidence`
    CTest with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`.

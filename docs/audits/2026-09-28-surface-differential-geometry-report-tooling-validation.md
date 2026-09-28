@@ -1,7 +1,8 @@
 # Surface Differential Geometry Report-Only Tooling — Candidate Validation Audit
 
 Date: 2026-09-28  
-Status: IMPLEMENTED CANDIDATE / ORDINARY PR VALIDATION PENDING /
+Status: IMPLEMENTED CANDIDATE / INITIAL ORDINARY VALIDATION PASS /
+FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
 FOCUSED QUALIFICATION CTEST PENDING / NOT QUALIFIED
 
 ## 1. Authority and current remote state
@@ -239,3 +240,31 @@ FORMAL EXECUTION NOT AUTHORIZED /
 NOT QUALIFIED.**
 
 No SDG0–SDG7 formal gate has been executed.
+
+
+## 11. Initial ordinary PR validation
+
+PR #238 initial documented head:
+
+`59bc9cbfb9550a82464b24dd53168347e12ffae6`.
+
+Required ordinary validation on that exact revision:
+
+- FAST #636 / GCC 13 Debug: PASS;
+- INTEGRATION #627 / GCC 13 Debug: PASS;
+- INTEGRATION #627 / Clang 18/libc++ Debug: PASS.
+
+The retained job logs show:
+
+**100% tests passed, 0 tests failed out of 42**
+
+in FAST, GCC INTEGRATION and Clang INTEGRATION.
+
+This confirms that the ordinary semantic inventory remained exactly 42 and no
+ordinary regression was introduced.
+
+This documentation synchronization changes the PR head. The new exact head must
+therefore receive ordinary FAST/INTEGRATION again before any merge decision.
+
+The focused qualification-tooling CTest is still **PENDING**. Green ordinary
+checks do not satisfy that gate and do not make PR #238 eligible for merge.

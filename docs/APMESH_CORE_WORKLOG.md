@@ -617,7 +617,8 @@ The presence of historical branches on the remote does not make them active.
 ## Current active work item
 
 **Surface Differential Geometry — Report-Only Qualification Tooling —
-IMPLEMENTED CANDIDATE / ORDINARY PR VALIDATION PENDING /
+IMPLEMENTED CANDIDATE / INITIAL ORDINARY VALIDATION PASS /
+FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
 FOCUSED QUALIFICATION CTEST PENDING /
 PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
 NOT QUALIFIED.**
@@ -671,11 +672,18 @@ Implementation audit finding:
 - both were bound to the already preregistered `binary_strict` policy;
 - no new tolerance or scientific acceptance criterion was introduced.
 
-Current merge gates:
+Initial PR validation on
+`59bc9cbfb9550a82464b24dd53168347e12ffae6`:
 
-1. ordinary PR FAST: PENDING;
-2. ordinary PR INTEGRATION / GCC: PENDING;
-3. ordinary PR INTEGRATION / Clang: PENDING;
+- FAST #636: PASS, 42/42;
+- INTEGRATION #627 / GCC: PASS, 42/42;
+- INTEGRATION #627 / Clang: PASS, 42/42.
+
+Current merge gates after documentation synchronization:
+
+1. final-head ordinary FAST revalidation: PENDING;
+2. final-head ordinary INTEGRATION / GCC revalidation: PENDING;
+3. final-head ordinary INTEGRATION / Clang revalidation: PENDING;
 4. focused qualification CTest with qualification tests enabled: PENDING.
 
 The assistant execution environment cannot currently materialize the public

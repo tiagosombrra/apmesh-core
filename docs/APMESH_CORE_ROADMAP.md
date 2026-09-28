@@ -1954,16 +1954,21 @@ Geometry qualification-tooling candidate.
 
 Current candidate state:
 
-**IMPLEMENTED / ORDINARY PR VALIDATION PENDING /
+**IMPLEMENTED / INITIAL ORDINARY VALIDATION PASS /
+FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
 FOCUSED QUALIFICATION CTEST PENDING /
 PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
 NOT QUALIFIED.**
 
-Required before merge:
+Initial PR head
+`59bc9cbfb9550a82464b24dd53168347e12ffae6` passed FAST #636 and
+INTEGRATION #627 in GCC/Clang with 42/42 ordinary tests.
 
-- ordinary FAST PASS on the exact final head;
-- ordinary INTEGRATION PASS in GCC 13 Debug;
-- ordinary INTEGRATION PASS in Clang 18/libc++ Debug;
+Required before merge after this documentation synchronization:
+
+- ordinary FAST PASS on the new exact final head;
+- ordinary INTEGRATION PASS in GCC 13 Debug on the new exact head;
+- ordinary INTEGRATION PASS in Clang 18/libc++ Debug on the new exact head;
 - focused
   `apmesh_core.surface_differential_geometry_qualification_evidence`
   PASS with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
