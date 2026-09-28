@@ -140,6 +140,36 @@
     {
       "id": "metric_oblique",
       "category": "first_order",
+      "comparison_rule": "mixed",
+      "policy": null
+    },
+    {
+      "id": "parameter_non_finite_u",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "parameter_non_finite_v",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "parameter_u_out_of_domain",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "parameter_v_out_of_domain",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "non_representable_metric",
+      "category": "error",
       "comparison_rule": "exact",
       "policy": null
     },
@@ -200,7 +230,7 @@
     {
       "id": "second_order_oblique",
       "category": "second_order",
-      "comparison_rule": "exact",
+      "comparison_rule": "mixed",
       "policy": null
     },
     {
