@@ -43,6 +43,7 @@ using apmesh::core::SurfaceDifferentialError;
 using apmesh::core::SurfaceError;
 using apmesh::core::SurfaceFirstDerivatives3;
 using apmesh::core::SurfaceMetricNormal3;
+using apmesh::core::SurfaceParameterDomain;
 using apmesh::core::SurfaceSecondDerivatives3;
 using apmesh::core::Vector3;
 
@@ -993,8 +994,8 @@ std::vector<CaseRecord> build_cases() {
         "\"transformed_condition_number\":\"0x1p+2\","
         "\"law_satisfied\":true}"));
 
-    const auto scaled_u = *oblique_u * 8.0;
-    const auto scaled_v = *condition_v * 8.0;
+    const auto scaled_u = oblique_u * 8.0;
+    const auto scaled_v = condition_v * 8.0;
     cases.push_back(proximity_case(
         "conditioning_spatial_scale",
         "invariance",
