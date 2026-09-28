@@ -25,21 +25,21 @@ never share a build directory or cache. Scientific qualification remains scoped
 to its declared WSL/cloud environments; a successful native-Windows build is
 ordinary development evidence only.
 
-On WSL Ubuntu 24.04, use the qualified GCC 13 development preset:
+On WSL Ubuntu 24.04, use the GCC 13 development preset:
 
 ```sh
-cmake --preset gcc-debug
-cmake --build --preset gcc-debug
-ctest --preset fast
+cmake --preset dev-linux
+cmake --build --preset dev-linux
+ctest --preset dev-linux
 ```
 
 On native Windows, install Visual Studio 2022 Build Tools with the C++ desktop
 workload, then use the MSVC x64 preset:
 
 ```powershell
-cmake --preset windows-msvc-debug
-cmake --build --preset windows-msvc-debug
-ctest --preset windows-fast
+cmake --preset dev-windows
+cmake --build --preset dev-windows
+ctest --preset dev-windows
 ```
 
 Linux presets are unavailable on Windows and Windows presets are unavailable

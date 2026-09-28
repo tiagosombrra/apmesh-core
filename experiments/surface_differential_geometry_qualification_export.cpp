@@ -828,7 +828,7 @@ std::string family_conformance_json() {
     std::ostringstream output;
     output << "{\"families\":[";
     bool first_family = true;
-    const auto append = [&](const std::string_view id, const bool ok) mutable {
+    auto append = [&](const std::string_view id, const bool ok) {
         if (!first_family) {
             output << ",";
         }
