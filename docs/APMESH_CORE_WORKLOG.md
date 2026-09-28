@@ -617,34 +617,73 @@ The presence of historical branches on the remote does not make them active.
 ## Current active work item
 
 **Surface Differential Geometry — Report-Only Qualification Tooling —
-ACTIVE / TOOLING ONLY / PREPARATION NOT AUTHORIZED /
-FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
+IMPLEMENTED CANDIDATE / ORDINARY PR VALIDATION PENDING /
+FOCUSED QUALIFICATION CTEST PENDING /
+PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Entry baseline:
+Current protected baseline after maintenance PRs #236 and #237:
 
-1. protected `main`:
-   `03c24b409e126f65687df68aa11ccdc50d009abc`;
-2. FAST #631 / INTEGRATION #622: PASS;
-3. ordinary semantic registration inventory: **42 tests**;
-4. open PRs at entry: none;
-5. tooling branch initially identical to `main`;
-6. entry audit:
-   `docs/audits/2026-09-28-surface-differential-geometry-report-tooling-entry.md`.
+`d5c6d37b56d5434e7c907ec248eb1f6b5bc24136`.
+
+Baseline checks:
+
+- FAST #635: PASS;
+- INTEGRATION #626 / GCC 13 Debug: PASS;
+- INTEGRATION #626 / Clang 18 libc++ Debug: PASS.
 
 Active branch:
 
 `qualification/surface-differential-geometry-report-tooling`.
 
-Protocol authority:
+The branch incorporated PRs #236 and #237 through non-destructive merge commits;
+no history was rewritten.
 
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`.
+Technical candidate before documentation synchronization:
 
-The work item is limited to evidence/report mechanisms behind
-`APMESH_ENABLE_QUALIFICATION_TESTS=ON`. It must preserve the exact ordinary
-42-test inventory and all frozen semantic files.
+`7cd9ca1d221577b1730a7d05aa4a4584b4cc270d`.
 
-No runner, preparation workflow, authorization mechanism, formal execution or
-stage-status change is part of this work item.
+Implemented files:
+
+- `experiments/profiles/surface_differential_geometry_qualification.json`;
+- `experiments/surface_differential_geometry_qualification_export.cpp`;
+- `tools/surface_differential_geometry_qualification_evidence.py`;
+- `tests/surface_differential_geometry_qualification_evidence_test.py`;
+- qualification-only `CMakeLists.txt` registration;
+- candidate validation audit and continuity documents.
+
+Validation audit:
+
+`docs/audits/2026-09-28-surface-differential-geometry-report-tooling-validation.md`.
+
+Scientific/frozen-boundary audit:
+
+- 32/32 preregistered semantic blobs unchanged;
+- ordinary semantic allowlist remains 42 tests;
+- no production differential path changed;
+- no ordinary surface semantic test changed;
+- no workflow/runner/preparation/authorization mechanism added.
+
+Implementation audit finding:
+
+- two new `mixed` profile cases initially had no numeric policy;
+- the protocol requires an explicit policy for every rounded comparison;
+- both were bound to the already preregistered `binary_strict` policy;
+- no new tolerance or scientific acceptance criterion was introduced.
+
+Current merge gates:
+
+1. ordinary PR FAST: PENDING;
+2. ordinary PR INTEGRATION / GCC: PENDING;
+3. ordinary PR INTEGRATION / Clang: PENDING;
+4. focused qualification CTest with qualification tests enabled: PENDING.
+
+The assistant execution environment cannot currently materialize the public
+repository through its local shell/network and the available GitHub connector
+cannot dispatch Actions. No focused PASS is claimed.
+
+**Merge remains blocked until the focused CTest passes on the exact final
+revision or a demonstrated tree-equivalent revision.**
 
 ### Last closed portability maintenance item
 
@@ -693,18 +732,25 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete only the active report-only qualification-tooling work item:
+Complete only the active tooling validation/integration sequence:
 
-1. implement the smallest coherent evidence/export/validation/figure package;
-2. keep all new CTest registration qualification-only;
-3. validate the focused tooling contract;
-4. verify ordinary FAST and INTEGRATION remain green;
-5. verify the ordinary inventory remains exactly 42 tests;
-6. verify no frozen semantic path changed;
-7. integrate only on an exact green PR head;
-8. validate protected `main`;
-9. close the tooling lifecycle separately before any preparation work.
+1. open one PR from the exact final tooling head;
+2. obtain ordinary FAST PASS;
+3. obtain ordinary INTEGRATION PASS in GCC 13 Debug;
+4. obtain ordinary INTEGRATION PASS in Clang 18/libc++ Debug;
+5. obtain PASS for
+   `apmesh_core.surface_differential_geometry_qualification_evidence`
+   with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
+6. re-audit 42 ordinary tests and 32 frozen semantic blobs;
+7. audit reviews/concurrency/diff;
+8. merge only if every required gate is satisfied;
+9. validate protected `main`;
+10. close the tooling lifecycle separately.
 
-Preparation infrastructure, workflow dispatch, formal execution and
-`QUALIFIED` status remain unauthorized.
+If focused tooling execution remains unavailable, leave the PR open and blocked;
+do not weaken the gate, add a validation-only workflow, or claim equivalence
+without evidence.
+
+Preparation, authorization, formal execution and `QUALIFIED` status remain
+unauthorized.
 
