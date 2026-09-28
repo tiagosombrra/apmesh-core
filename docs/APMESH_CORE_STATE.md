@@ -151,59 +151,56 @@ No portability production or closure work item remains active.
 
 ## Current active scientific action
 
-**Surface Differential Geometry — Cumulative Qualification Protocol —
-PRE-REGISTERED / INTEGRATED / CLOSED / NOT QUALIFIED /
-NO ACTIVE PRODUCTION OR SCIENTIFIC WORK ITEM.**
+**Surface Differential Geometry — Report-Only Qualification Tooling —
+ACTIVE / TOOLING ONLY / PREPARATION NOT AUTHORIZED /
+FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Terminal protocol authority:
+Entry authority:
 
-- protocol entry protected `main`:
-  `744dbce1553a537dc22a0830d6ea878c0efb0fe7`;
-- protocol PR #233 final head:
-  `9bd09926734d0f2fce2abdd096380e4478c8c38d`;
-- protocol PR FAST #626 / INTEGRATION #617: PASS;
-- protocol squash merge:
-  `d34b8d5620f6166b6e8570225bbf243fef3c90f7`;
-- protocol post-merge FAST #627 / INTEGRATION #618: PASS;
-- protocol closure PR #234 final head:
-  `b675f820d55d89cf677a3b16b9fbd80024977151`;
-- closure PR FAST #628 / INTEGRATION #619: PASS;
-- closure squash merge:
-  `66541bd7bc4661ba9038cd7f8eabdd0bf796de59`;
-- closure post-merge FAST #629 / INTEGRATION #620: PASS;
+- protected `main`:
+  `03c24b409e126f65687df68aa11ccdc50d009abc`;
+- FAST #631: PASS;
+- INTEGRATION #622: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
 - ordinary semantic registration inventory: **42 tests**;
-- protocol:
-  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
+- open PRs at entry: none;
+- tooling branch relation at entry: identical to `main`;
 - entry audit:
-  `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-entry-audit.md`;
-- closure audit:
-  `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
+  `docs/audits/2026-09-28-surface-differential-geometry-report-tooling-entry.md`.
 
-No repository transition, production work item or scientific work item is
-currently active.
+Active branch:
 
-Sole next admissible scientific transition:
+`qualification/surface-differential-geometry-report-tooling`.
 
-**a fresh bounded report-only Surface Differential Geometry qualification
-tooling work item conforming exactly to the preregistered protocol.**
+Frozen authority:
 
-Such tooling may produce report/evidence artifacts and validators only. It may
-not prepare a PREPARED manifest, dispatch a workflow, consume a one-time formal
-authorization, execute a qualification campaign or set the stage to
-`QUALIFIED`.
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`.
 
-Still unauthorized:
+Authorized mechanisms are limited to report-only qualification evidence:
 
+- immutable profile;
+- certificate exporter;
+- independent certificate/profile validation;
+- same-cell/cross-cell comparison;
+- negative-evidence checks;
+- deterministic figures;
+- gate-summary/report generation;
+- focused qualification-tooling contracts;
+- qualification-only CMake registration.
+
+The 32 frozen semantic paths and exact 42-test ordinary allowlist remain
+unchanged.
+
+Explicitly unauthorized:
+
+- campaign runner;
 - preparation/launch infrastructure;
-- prepared manifests;
-- formal workflow dispatch or execution;
-- `QUALIFIED` status;
+- PREPARED manifest;
+- workflow dispatch;
+- one-time execution authorization;
+- formal qualification execution;
 - production Surface Differential Geometry changes;
-- principal directions / curvature-line fields;
-- cone/torus or other representation breadth;
-- general p-curves/topological faces;
-- Boundary Curve Discretization;
-- sizing or meshing.
+- ordinary semantic-test changes;
+- `QUALIFIED` or `BLOCKED` stage status.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
