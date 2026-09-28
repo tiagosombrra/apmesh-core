@@ -983,24 +983,19 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 
 ## Next admissible actions
 
-Geometry Primitives is QUALIFIED on candidate `2f22ffd` after the audited
-GPR0-GPR7 campaign. Preserve the immutable historical blocked attempts and the
-fifth manifest/retention package as the stage evidence. Foundation and Geometry
-Primitives remain qualified only in their declared WSL envelope.
+The completed Topological Model campaign is `QUALIFIED` only in its declared
+hosted Ubuntu 24.04 envelope. Surface Representation and Surface Differential
+Geometry remain **IN INVESTIGATION / NOT QUALIFIED**.
 
-The bounded Identity and Oriented Edge Incidence Kernel, Face Identity and
-Ordered Boundary Cycles, and Deterministic Edge-Use Incidence Enumeration are
-implemented. Their focused GCC 13 Debug and Clang 18/libc++ Debug FAST contract
-passes, but Topological Model remains unqualified. The fourth bounded work unit
-implemented deterministic edge-incidence structural classification and the
-fifth completed immutable consistency validation plus forward-only canonical
-snapshot emission, as defined by
-`docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`. The cumulative
-TMR0–TMR7 protocol is now pre-registered. The next action is to implement its
-smallest reusable report-only workflow; no further production topology concept
-is authorized.
-Do not implement curves, NURBS, surfaces, meshing, or a formal qualification
-campaign.
+No production or documentation work item is active. Per the terminal status in
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`, the next
+admissible action is one fresh literature-backed Surface Differential Geometry
+decision comparing the candidates retained in Section 24 of that record. No
+candidate is pre-authorized. Do not begin implementation or formal qualification
+execution from this status; those require their own bounded decision and
+authorization. The metric-conditioning maintenance and report-only tooling
+integration are closed, with the 32 frozen semantic blobs unchanged at
+integration.
 
 ## Stage closure protocol
 
