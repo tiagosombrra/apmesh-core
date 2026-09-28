@@ -152,43 +152,74 @@ No portability production or closure work item remains active.
 ## Current active scientific action
 
 **Surface Differential Geometry — Report-Only Qualification Tooling —
-ACTIVE / TOOLING ONLY / PREPARATION NOT AUTHORIZED /
-FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
+IMPLEMENTED CANDIDATE / ORDINARY PR VALIDATION PENDING /
+FOCUSED QUALIFICATION CTEST PENDING /
+PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Entry authority:
+Current protected `main`:
 
-- protected `main`:
-  `03c24b409e126f65687df68aa11ccdc50d009abc`;
-- FAST #631: PASS;
-- INTEGRATION #622: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
-- ordinary semantic registration inventory: **42 tests**;
-- open PRs at entry: none;
-- tooling branch relation at entry: identical to `main`;
-- entry audit:
-  `docs/audits/2026-09-28-surface-differential-geometry-report-tooling-entry.md`.
+`d5c6d37b56d5434e7c907ec248eb1f6b5bc24136`.
+
+Current-main validation:
+
+- FAST #635: PASS;
+- INTEGRATION #626 / GCC 13 Debug: PASS;
+- INTEGRATION #626 / Clang 18/libc++ Debug: PASS;
+- ordinary semantic registration inventory: **42 tests**.
 
 Active branch:
 
 `qualification/surface-differential-geometry-report-tooling`.
 
-Frozen authority:
+Technical candidate before continuity/audit synchronization:
+
+`7cd9ca1d221577b1730a7d05aa4a4584b4cc270d`.
+
+Protocol authority:
 
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`.
 
-Authorized mechanisms are limited to report-only qualification evidence:
+Validation audit:
 
-- immutable profile;
-- certificate exporter;
-- independent certificate/profile validation;
+`docs/audits/2026-09-28-surface-differential-geometry-report-tooling-validation.md`.
+
+Implemented report-only package:
+
+- immutable qualification profile;
+- scientific certificate exporter;
+- independent certificate/profile validator;
 - same-cell/cross-cell comparison;
-- negative-evidence checks;
-- deterministic figures;
-- gate-summary/report generation;
-- focused qualification-tooling contracts;
+- 17 negative-evidence self-checks;
+- four deterministic figures;
+- non-terminal gate-summary/report generation;
+- focused qualification-tooling contract;
 - qualification-only CMake registration.
 
-The 32 frozen semantic paths and exact 42-test ordinary allowlist remain
-unchanged.
+Frozen boundary audit:
+
+- **32 / 32** semantic Git blobs match the preregistered SHAs;
+- ordinary semantic allowlist remains exactly **42 tests**;
+- no production Surface Differential Geometry file changed;
+- no ordinary surface semantic test changed;
+- no runner/workflow/preparation/authorization mechanism was added.
+
+Required validation still pending:
+
+1. ordinary PR FAST;
+2. ordinary PR INTEGRATION / GCC 13 Debug;
+3. ordinary PR INTEGRATION / Clang 18 libc++ Debug;
+4. focused
+   `apmesh_core.surface_differential_geometry_qualification_evidence`
+   CTest with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`.
+
+The current assistant shell cannot materialize the repository because its local
+network cannot resolve/download GitHub, and the connected GitHub API exposes no
+workflow-dispatch action. This is an execution-environment limitation, not a
+repository failure.
+
+**Merge remains prohibited until the focused qualification-tooling CTest has a
+PASS on the exact final revision or a demonstrated tree-equivalent revision.**
 
 Explicitly unauthorized:
 
@@ -198,8 +229,8 @@ Explicitly unauthorized:
 - workflow dispatch;
 - one-time execution authorization;
 - formal qualification execution;
+- evidence retention/sealing for a formal candidate;
 - production Surface Differential Geometry changes;
-- ordinary semantic-test changes;
 - `QUALIFIED` or `BLOCKED` stage status.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
