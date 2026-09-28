@@ -606,39 +606,45 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
   `d34b8d5620f6166b6e8570225bbf243fef3c90f7`, followed by protected-main
   FAST #627 and INTEGRATION #618 PASS.
 - `docs/surface-differential-geometry-qualification-protocol-closure`:
-  **ACTIVE / CLOSURE-ONLY**; records terminal protocol closure before any
-  report-only tooling decision/work item may start.
+  **MERGED / HISTORICAL** via PR #234; final head
+  `b675f820d55d89cf677a3b16b9fbd80024977151`, FAST #628 and
+  INTEGRATION #619 PASS; squash merge
+  `66541bd7bc4661ba9038cd7f8eabdd0bf796de59`, followed by protected-main
+  FAST #629 and INTEGRATION #620 PASS.
 
 The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**Surface Differential Geometry — Cumulative Qualification Protocol Closure —
-ACTIVE / DOCUMENTATION ONLY / TOOLING NOT AUTHORIZED /
-FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
+**No production, scientific or repository-transition work item is active.**
 
-Integrated protocol evidence:
+The Surface Differential Geometry cumulative qualification protocol is
+terminally closed:
+
+**PROTOCOL PRE-REGISTERED / INTEGRATED / CLOSED /
+REPORT-ONLY TOOLING MAY BE CONSIDERED / NOT QUALIFIED.**
+
+Terminal evidence:
 
 1. protocol PR #233 final head:
    `9bd09926734d0f2fce2abdd096380e4478c8c38d`;
 2. PR FAST #626 / INTEGRATION #617: PASS;
 3. protocol squash merge:
    `d34b8d5620f6166b6e8570225bbf243fef3c90f7`;
-4. protected-main FAST #627 / INTEGRATION #618: PASS;
-5. ordinary semantic registration inventory: **42 tests**;
-6. protocol:
-   `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
-7. entry audit:
-   `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-entry-audit.md`;
-8. closure audit:
-   `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
+4. protocol post-merge FAST #627 / INTEGRATION #618: PASS;
+5. closure PR #234 final head:
+   `b675f820d55d89cf677a3b16b9fbd80024977151`;
+6. closure FAST #628 / INTEGRATION #619: PASS;
+7. closure squash merge:
+   `66541bd7bc4661ba9038cd7f8eabdd0bf796de59`;
+8. closure post-merge FAST #629 / INTEGRATION #620: PASS;
+9. ordinary semantic registration inventory: **42 tests**;
+10. protocol:
+    `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
+11. closure audit:
+    `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
 
-The protocol is integrated and its scientific scope is frozen, but report-only
-qualification tooling remains unauthorized until this separate closure is
-integrated and protected-main validated.
-
-No C++, ordinary test semantics, tooling, preparation infrastructure, manifest,
-workflow dispatch or formal execution may change on this branch.
+No report-only tooling work has started.
 
 ### Last closed portability maintenance item
 
@@ -687,20 +693,32 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete only the active protocol closure:
+After a fresh audit of the then-current protected `main`, start at most one
+bounded work item for:
 
-1. verify the closure diff remains documentation-only;
-2. validate closure PR FAST;
-3. validate closure PR INTEGRATION in GCC and Clang;
-4. audit reviews, branch relation and concurrent work;
-5. merge only with all required checks green;
-6. validate protected `main`;
-7. publish terminal protocol state in the authoritative continuity documents.
+**report-only Surface Differential Geometry qualification tooling conforming
+exactly to the preregistered protocol.**
 
-Only after terminal protocol closure may a fresh bounded
-**report-only Surface Differential Geometry qualification tooling**
-decision/work item be started.
+That work item may implement:
 
-That later tooling still may not prepare a manifest, dispatch formal execution
-or set the stage to `QUALIFIED`.
+- deterministic evidence exporters;
+- independent certificate validators;
+- same-cell/cross-cell comparison tooling;
+- negative-evidence validators;
+- deterministic figure generation from retained machine-readable data;
+- gate-summary/report generation;
+- focused tooling contracts.
+
+It must remain report-only and fail closed. It may not:
+
+- prepare or seal a PREPARED manifest;
+- dispatch a workflow;
+- consume a formal execution authorization;
+- run a formal qualification campaign;
+- alter production differential/surface semantics;
+- alter the frozen 42-test ordinary allowlist;
+- change Surface Differential Geometry to `QUALIFIED`.
+
+Any need to violate the preregistered protocol or its stop conditions requires a
+new scientific decision instead of an implicit adjustment.
 
