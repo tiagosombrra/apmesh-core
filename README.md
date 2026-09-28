@@ -14,6 +14,12 @@ Start with `docs/APMESH_CORE_STATE.md`, then read
 
 ## Local build environments
 
+The project requires CMake 3.25 or newer. In VS Code, CMake Tools uses the
+repository's presets and exposes the active Configure Preset in the status bar.
+The available presets are filtered for the current host: select `dev-windows`
+for native Windows or `dev-linux` for WSL/Linux. Presets such as `clang-debug`
+remain available for the declared Linux compiler matrix.
+
 The Linux and native-Windows development builds use separate CMake presets and
 never share a build directory or cache. Scientific qualification remains scoped
 to its declared WSL/cloud environments; a successful native-Windows build is

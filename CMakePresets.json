@@ -10,7 +10,12 @@
       "name": "gcc-debug",
       "displayName": "GCC 13 Debug",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/gcc-debug",
+      "binaryDir": "${sourceDir}/build/linux-gcc-debug",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Linux"]
+        }
+      },
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -29,7 +34,12 @@
       "name": "gcc-release",
       "displayName": "GCC 13 Release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/gcc-release",
+      "binaryDir": "${sourceDir}/build/linux-gcc-release",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Linux"]
+        }
+      },
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -48,7 +58,12 @@
       "name": "clang-debug",
       "displayName": "Clang 18 libc++ Debug",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/clang-debug",
+      "binaryDir": "${sourceDir}/build/linux-clang-debug",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Linux"]
+        }
+      },
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -67,7 +82,12 @@
       "name": "clang-release",
       "displayName": "Clang 18 libc++ Release",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/clang-release",
+      "binaryDir": "${sourceDir}/build/linux-clang-release",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Linux"]
+        }
+      },
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -86,7 +106,12 @@
       "name": "gcc-debug-qualification",
       "displayName": "GCC 13 Debug with qualification tests",
       "inherits": "gcc-debug",
-      "binaryDir": "${sourceDir}/build/gcc-debug-qualification",
+      "binaryDir": "${sourceDir}/build/linux-gcc-debug-qualification",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Linux"]
+        }
+      },
       "cacheVariables": {
         "APMESH_ENABLE_QUALIFICATION_TESTS": "ON"
       }
@@ -97,6 +122,11 @@
       "generator": "Visual Studio 17 2022",
       "architecture": "x64",
       "binaryDir": "${sourceDir}/build/windows-msvc",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Windows"]
+        }
+      },
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -111,12 +141,54 @@
     {
       "name": "windows-msvc-debug",
       "displayName": "MSVC x64 Debug",
-      "inherits": "windows-msvc"
+      "inherits": "windows-msvc",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Windows"]
+        }
+      }
     },
     {
       "name": "windows-msvc-release",
       "displayName": "MSVC x64 Release",
-      "inherits": "windows-msvc"
+      "inherits": "windows-msvc",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Windows"]
+        }
+      }
+    },
+    {
+      "name": "dev-linux",
+      "displayName": "Linux development build",
+      "inherits": "gcc-debug",
+      "binaryDir": "${sourceDir}/build/linux-gcc-debug",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Linux"]
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "dev-windows",
+      "displayName": "Windows development build",
+      "inherits": "windows-msvc-debug",
+      "binaryDir": "${sourceDir}/build/windows-msvc-debug",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": ["Windows"]
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
     }
   ],
   "buildPresets": [
