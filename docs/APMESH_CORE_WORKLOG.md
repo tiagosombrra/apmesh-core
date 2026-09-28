@@ -616,35 +616,35 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**No production, scientific or repository-transition work item is active.**
+**Surface Differential Geometry — Report-Only Qualification Tooling —
+ACTIVE / TOOLING ONLY / PREPARATION NOT AUTHORIZED /
+FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
 
-The Surface Differential Geometry cumulative qualification protocol is
-terminally closed:
+Entry baseline:
 
-**PROTOCOL PRE-REGISTERED / INTEGRATED / CLOSED /
-REPORT-ONLY TOOLING MAY BE CONSIDERED / NOT QUALIFIED.**
+1. protected `main`:
+   `03c24b409e126f65687df68aa11ccdc50d009abc`;
+2. FAST #631 / INTEGRATION #622: PASS;
+3. ordinary semantic registration inventory: **42 tests**;
+4. open PRs at entry: none;
+5. tooling branch initially identical to `main`;
+6. entry audit:
+   `docs/audits/2026-09-28-surface-differential-geometry-report-tooling-entry.md`.
 
-Terminal evidence:
+Active branch:
 
-1. protocol PR #233 final head:
-   `9bd09926734d0f2fce2abdd096380e4478c8c38d`;
-2. PR FAST #626 / INTEGRATION #617: PASS;
-3. protocol squash merge:
-   `d34b8d5620f6166b6e8570225bbf243fef3c90f7`;
-4. protocol post-merge FAST #627 / INTEGRATION #618: PASS;
-5. closure PR #234 final head:
-   `b675f820d55d89cf677a3b16b9fbd80024977151`;
-6. closure FAST #628 / INTEGRATION #619: PASS;
-7. closure squash merge:
-   `66541bd7bc4661ba9038cd7f8eabdd0bf796de59`;
-8. closure post-merge FAST #629 / INTEGRATION #620: PASS;
-9. ordinary semantic registration inventory: **42 tests**;
-10. protocol:
-    `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
-11. closure audit:
-    `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
+`qualification/surface-differential-geometry-report-tooling`.
 
-No report-only tooling work has started.
+Protocol authority:
+
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`.
+
+The work item is limited to evidence/report mechanisms behind
+`APMESH_ENABLE_QUALIFICATION_TESTS=ON`. It must preserve the exact ordinary
+42-test inventory and all frozen semantic files.
+
+No runner, preparation workflow, authorization mechanism, formal execution or
+stage-status change is part of this work item.
 
 ### Last closed portability maintenance item
 
@@ -693,32 +693,18 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-After a fresh audit of the then-current protected `main`, start at most one
-bounded work item for:
+Complete only the active report-only qualification-tooling work item:
 
-**report-only Surface Differential Geometry qualification tooling conforming
-exactly to the preregistered protocol.**
+1. implement the smallest coherent evidence/export/validation/figure package;
+2. keep all new CTest registration qualification-only;
+3. validate the focused tooling contract;
+4. verify ordinary FAST and INTEGRATION remain green;
+5. verify the ordinary inventory remains exactly 42 tests;
+6. verify no frozen semantic path changed;
+7. integrate only on an exact green PR head;
+8. validate protected `main`;
+9. close the tooling lifecycle separately before any preparation work.
 
-That work item may implement:
-
-- deterministic evidence exporters;
-- independent certificate validators;
-- same-cell/cross-cell comparison tooling;
-- negative-evidence validators;
-- deterministic figure generation from retained machine-readable data;
-- gate-summary/report generation;
-- focused tooling contracts.
-
-It must remain report-only and fail closed. It may not:
-
-- prepare or seal a PREPARED manifest;
-- dispatch a workflow;
-- consume a formal execution authorization;
-- run a formal qualification campaign;
-- alter production differential/surface semantics;
-- alter the frozen 42-test ordinary allowlist;
-- change Surface Differential Geometry to `QUALIFIED`.
-
-Any need to violate the preregistered protocol or its stop conditions requires a
-new scientific decision instead of an implicit adjustment.
+Preparation infrastructure, workflow dispatch, formal execution and
+`QUALIFIED` status remain unauthorized.
 
