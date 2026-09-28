@@ -698,25 +698,15 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-Complete only the active tooling validation/integration sequence:
+No production or documentation work item is active. The tooling validation
+sequence described above is complete and integrated; PR #238 is closed, and the
+report-only tooling lifecycle is closed with the 32 frozen semantic blobs
+unchanged at integration.
 
-1. open one PR from the exact final tooling head;
-2. obtain ordinary FAST PASS;
-3. obtain ordinary INTEGRATION PASS in GCC 13 Debug;
-4. obtain ordinary INTEGRATION PASS in Clang 18/libc++ Debug;
-5. obtain PASS for
-   `apmesh_core.surface_differential_geometry_qualification_evidence`
-   with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
-6. re-audit 42 ordinary tests and 32 frozen semantic blobs;
-7. audit reviews/concurrency/diff;
-8. merge only if every required gate is satisfied;
-9. validate protected `main`;
-10. close the tooling lifecycle separately.
-
-If focused tooling execution remains unavailable, leave the PR open and blocked;
-do not weaken the gate, add a validation-only workflow, or claim equivalence
-without evidence.
-
-Preparation, authorization, formal execution and `QUALIFIED` status remain
-unauthorized.
+The next admissible action is one fresh literature-backed Surface Differential
+Geometry decision comparing the candidates retained in Section 24 of
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`. No candidate
+or implementation is pre-authorized. Preparation, formal qualification
+execution, and `QUALIFIED` status remain separate, later transitions requiring
+their own authorization.
 
