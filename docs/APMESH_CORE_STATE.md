@@ -968,22 +968,15 @@ Core algorithms must not perform file I/O, logging, plotting, or environment-dep
 ## Required reading order for continuation
 
 1. `docs/APMESH_CORE_STATE.md`
-2. `docs/APMESH_CORE_ROADMAP.md`
-3. `docs/contracts/APMESH_CORE_MINIMAL_SMALL_LINEAR_ALGEBRA_CONTRACT.md`
-4. `docs/decisions/GEOMETRY_PRIMITIVES_ENTRY_DECISION.md`
-5. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION.md`
-6. `docs/decisions/GEOMETRY_POINT_VECTOR_QUALIFICATION_PROTOCOL.md`
-7. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_QUALIFICATION_PROTOCOL.md`
-8. `docs/decisions/GEOMETRY_MINIMAL_SMALL_LINEAR_ALGEBRA_SIGNED_ZERO_DECISION.md`
-9. `docs/decisions/GEOMETRY_TRANSFORMATIONS_COORDINATE_FRAMES_ENTRY_DECISION.md`
-10. `docs/decisions/GEOMETRY_CARTESIAN_FRAMES_QUALIFICATION_PROTOCOL.md`
-11. `docs/decisions/GEOMETRY_PRIMITIVES_CUMULATIVE_REGRESSION_PROTOCOL.md`
-12. `docs/decisions/TOPOLOGICAL_MODEL_ENTRY_DECISION.md`
-13. `docs/decisions/TOPOLOGICAL_MODEL_CUMULATIVE_REGRESSION_PROTOCOL.md`
-14. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
-15. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
-16. `docs/decisions/FOUNDATION_END_TO_END_REGRESSION.md`
-17. `docs/research/REFERENCE_REGISTER.md`.
+2. `docs/APMESH_CORE_WORKLOG.md`
+3. `docs/APMESH_CORE_ROADMAP.md`
+4. `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`
+5. `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`
+6. `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`
+7. `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`
+8. `docs/contracts/APMESH_CORE_NUMERIC_CONTRACT.md`
+9. `docs/contracts/APMESH_CORE_ARCHITECTURE_CONTRACT.md`
+10. `docs/research/REFERENCE_REGISTER.md`.
 
 ## Next admissible actions
 
@@ -991,15 +984,18 @@ The completed Topological Model campaign is `QUALIFIED` only in its declared
 hosted Ubuntu 24.04 envelope. Surface Representation and Surface Differential
 Geometry remain **IN INVESTIGATION / NOT QUALIFIED**.
 
-No production or documentation work item is active. Per the terminal status in
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`, the next
-admissible action is one fresh literature-backed Surface Differential Geometry
-decision comparing the candidates retained in Section 24 of that record. No
-candidate is pre-authorized. Do not begin implementation or formal qualification
-execution from this status; those require their own bounded decision and
-authorization. The metric-conditioning maintenance and report-only tooling
-integration are closed, with the 32 frozen semantic blobs unchanged at
-integration.
+The active work item is the documentation-only post-tooling continuation
+decision in
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`.
+It reconciles the historical Section 24 candidates against integrated work and
+selects **Fail-Closed Surface Differential Geometry Qualification Preparation
+Infrastructure** as the sole future bounded work item. Principal directions,
+cone, torus and general trimming remain deferred.
+
+No implementation, real PREPARED package, formal execution, protocol amendment
+or qualification status is authorized by this active decision. The
+metric-conditioning maintenance and report-only tooling integration remain
+closed, with the 32 frozen semantic blobs unchanged at integration.
 
 ## Stage closure protocol
 

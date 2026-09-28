@@ -1769,6 +1769,49 @@ Project relevance:
 
 ## Surface Differential Geometry
 
+### Post-tooling candidate reconciliation and preparation sequencing
+
+Status: `FOUNDATIONAL / ACTIVE REVIEW` for the post-tooling continuation
+decision, reviewed 2026-09-28.
+
+References:
+
+- Patrikalakis, Maekawa and Cho — principal directions, umbilics and curvature
+  lines:
+  - https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node30.html
+  - https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node183.html
+  - https://web.mit.edu/hyperbook/Patrikalakis-Maekawa-Cho/node186.html
+- Patrick Laug, *Some aspects of parametric surface meshing*,
+  doi:10.1016/j.finel.2009.06.015:
+  https://www.sciencedirect.com/science/article/pii/S0168874X09000936
+- Frey and Borouchaki, *Surface meshing using a geometric error estimate*,
+  doi:10.1002/nme.766:
+  https://onlinelibrary.wiley.com/doi/10.1002/nme.766
+- Open CASCADE conical surface:
+  https://dev.opencascade.org/doc/refman/html/class_geom___conical_surface.html
+- Open CASCADE toroidal surface:
+  https://dev.opencascade.org/doc/occt-7.9.0/refman/html/class_geom___toroidal_surface.html
+- Open CASCADE curve-on-surface representation and oriented wire traversal:
+  - https://dev.opencascade.org/doc/refman/html/class_shape_persistent___b_rep_1_1_curve_on_surface.html
+  - https://dev.opencascade.org/doc/occt-7.6.0/refman/html/class_b_rep_tools___wire_explorer.html
+
+Project relevance:
+
+- principal directions require non-unique umbilic semantics and line-field
+  sign/continuity treatment and are mainly needed by later directional or
+  anisotropic behavior;
+- the serial isotropic sizing baseline can proceed from scalar curvature
+  magnitude without introducing the principal-direction field now;
+- cone and torus add new Surface Representation semantics rather than closing
+  a missing generic differential operator;
+- p-curves and general trimming bind geometry to explicit topology and belong
+  to a separate cross-layer decision;
+- the integrated qualification protocol already freezes the current local
+  differential claim and orders fail-closed preparation infrastructure after
+  report-only tooling;
+- these sources support sequencing only and do not qualify an implementation,
+  authorize formal preparation, or define AP Mesh tolerances.
+
 ### Patrikalakis, Maekawa and Cho — differential geometry of surfaces
 
 Status: `FOUNDATIONAL / ACTIVE REVIEW` for Surface Differential Geometry

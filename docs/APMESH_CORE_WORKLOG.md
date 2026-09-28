@@ -696,17 +696,31 @@ Terminal result:
 **BOUNDED ANALYTIC SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS /
 INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-## Next admissible work item
+## Active work item
 
-No production or documentation work item is active. The tooling validation
-sequence described above is complete and integrated; PR #238 is closed, and the
-report-only tooling lifecycle is closed with the 32 frozen semantic blobs
-unchanged at integration.
+**Surface Differential Geometry Post-Tooling Continuation — documentation-only
+scientific decision.**
 
-The next admissible action is one fresh literature-backed Surface Differential
-Geometry decision comparing the candidates retained in Section 24 of
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`. No candidate
-or implementation is pre-authorized. Preparation, formal qualification
-execution, and `QUALIFIED` status remain separate, later transitions requiring
-their own authorization.
+Branch:
+
+`decision/surface-differential-post-tooling-next-step`.
+
+Decision authority:
+
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`.
+
+The decision reconciles the historical Section 24 candidates with the now
+integrated second-order curvature, principal values, metric conditioning,
+bounded sphere, qualification protocol and report-only tooling. It selects one
+future bounded work item:
+
+**Fail-Closed Surface Differential Geometry Qualification Preparation
+Infrastructure.**
+
+This branch changes documentation only. No implementation, protocol amendment,
+real PREPARED package, execution authorization, formal campaign or
+qualification result is authorized. The selected infrastructure becomes
+eligible for implementation only after this decision is integrated,
+post-merge validated, separately closed and the closure is post-merge
+validated.
 
