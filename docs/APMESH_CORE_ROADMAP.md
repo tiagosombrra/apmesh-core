@@ -1880,8 +1880,18 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-No production or documentation work item is active. The latest closed
-implementation maintenance is:
+The active repository work item is the documentation-only post-tooling
+continuation decision:
+
+**Surface Differential Geometry Post-Tooling Continuation — DECISION ACTIVE /
+PREPARATION INFRASTRUCTURE SELECTED / IMPLEMENTATION NOT AUTHORIZED / FORMAL
+PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
+
+Decision authority:
+
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`.
+
+The latest closed implementation maintenance is:
 
 **Surface Differential Geometry metric-conditioning normalization portability
 maintenance — INTEGRATED / CLOSED / DEVELOPMENT VALIDATION PASS /
@@ -1973,13 +1983,16 @@ Terminal evidence:
 
 Next admissible action:
 
-No further metric-conditioning action remains, and no production or
-documentation work item is active. The report-only tooling integration is
-closed; its 32 frozen semantic blobs were unchanged at integration. The next
-admissible action is one fresh literature-backed Surface Differential Geometry
-decision comparing the candidates retained in Section 24 of
-`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`. No candidate
-is pre-authorized.
+Complete only the active documentation decision. It reconciles the historical
+Section 24 candidates with the integrated second-order curvature, principal
+values, metric conditioning, bounded sphere, qualification protocol and
+report-only tooling. It selects **Fail-Closed Surface Differential Geometry
+Qualification Preparation Infrastructure** as the sole future bounded work
+item while deferring principal directions, cone, torus and general trimming.
+
+Implementation remains unauthorized until this decision is integrated,
+post-merge validated, separately closed and that closure is also post-merge
+validated. No real PREPARED package or formal execution is authorized.
 
 Preparation, formal execution and `QUALIFIED` status remain later,
 separately authorized transitions.
