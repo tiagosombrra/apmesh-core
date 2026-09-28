@@ -614,15 +614,15 @@ scope decisions. This does not weaken the frozen cubic-Bézier qualification.
 
 The presence of historical branches on the remote does not make them active.
 
-## Current active work item
+## Latest completed work item
 
 **Surface Differential Geometry metric-conditioning normalization portability
-maintenance: LOCAL CANDIDATE / PRIOR-BASE DEVELOPMENT VALIDATION PASS /
-UPDATED-BASE DEVELOPMENT VALIDATION PASS / NOT QUALIFIED.**
+maintenance: INTEGRATED / CLOSED / DEVELOPMENT VALIDATION PASS /
+NOT QUALIFIED.**
 
-Current protected `main` is
-`6fb3296096111915a812e1420de62d09edbd392a`, the squash merge of report-only
-Surface Differential Geometry qualification tooling PR #238. Its final head
+PR #239 was based on the squash merge of report-only Surface Differential
+Geometry qualification tooling PR #238, `6fb3296096111915a812e1420de62d09edbd392a`.
+Its final head
 `1e54a127e1e06cb399e96eb5b9fbf6673d30e4ce` passed FAST `36424140384`
 and both INTEGRATION jobs in `36424140173`. The focused qualification-only
 CTest passed locally, 1/1. The ordinary inventory stayed at 42 and all 32
@@ -641,12 +641,15 @@ On 2026-09-28, MSVC Debug and Ubuntu 24.04/GCC 13 Debug both passed
 configure/build, focused `apmesh_core.surface_metric_conditioning` (1/1), and
 all 42 ordinary tests on the candidate based on `6fb3296`. The focused test
 includes the exact `2^900` assertion. Compact external summaries and full logs
-were retained under the user Temp directory for this run. A separate PR with
-head `c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970`
-and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. PR #239 is open and
-unmerged. This documentation synchronization changes its head, so FAST and
-INTEGRATION must pass again before integration. Native Windows results remain
-development evidence only.
+were retained under the user Temp directory for this run. PR #239 head
+`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970` and
+GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. Final PR head
+`14189c0e5bfa2581e6fd86e4de85efa194de7743` passed FAST `36446587893` and
+GCC 13 / Clang 18 libc++ INTEGRATION `36446588003`. PR #239 was squash merged as
+`a03cbd4090339cf2b26dd43016492830a3fc177e`. Protected-main FAST
+`36447759953` and INTEGRATION `36447759920` both passed. Native Windows results
+remain development evidence only. This maintenance change adds no scientific
+qualification claim; no metric-conditioning work item remains active.
 
 ### Last closed portability maintenance item
 
