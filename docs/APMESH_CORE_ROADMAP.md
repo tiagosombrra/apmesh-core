@@ -1880,16 +1880,20 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The active repository work item is the documentation-only post-tooling
-continuation decision:
+The post-tooling continuation decision is integrated as PR #243:
 
-**Surface Differential Geometry Post-Tooling Continuation — DECISION ACTIVE /
-PREPARATION INFRASTRUCTURE SELECTED / IMPLEMENTATION NOT AUTHORIZED / FORMAL
-PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
+**Surface Differential Geometry Post-Tooling Continuation — DECISION
+INTEGRATED / PR #243 CHECKS PASS / POST-MERGE CHECKS PASS / NOT QUALIFIED.**
 
 Decision authority:
 
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`.
+
+The decision head `c080b789241a86f3d5c4efc05f4d6e5f1ba50c6f` passed PR FAST
+`36469493920` and INTEGRATION `36469493886` (GCC 13 Debug and Clang 18/libc++
+Debug). It was squash-merged as `e53a9797e1603d451819c814c32baeba1794efc8`;
+post-merge FAST `36471479311` and INTEGRATION `36471479336` passed on that
+commit.
 
 The latest closed implementation maintenance is:
 
@@ -1983,16 +1987,12 @@ Terminal evidence:
 
 Next admissible action:
 
-Complete only the active documentation decision. It reconciles the historical
-Section 24 candidates with the integrated second-order curvature, principal
-values, metric conditioning, bounded sphere, qualification protocol and
-report-only tooling. It selects **Fail-Closed Surface Differential Geometry
-Qualification Preparation Infrastructure** as the sole future bounded work
-item while deferring principal directions, cone, torus and general trimming.
-
-Implementation remains unauthorized until this decision is integrated,
-post-merge validated, separately closed and that closure is also post-merge
-validated. No real PREPARED package or formal execution is authorized.
+Complete the separate documentation-only closure of the integrated decision.
+After that closure is merged and its post-merge checks pass, the sole next
+eligible work item is **Fail-Closed Surface Differential Geometry
+Qualification Preparation Infrastructure**, bounded by the decision and still
+separate from creating a real PREPARED package or executing qualification.
+Principal directions, cone, torus and general trimming remain deferred.
 
 Preparation, formal execution and `QUALIFIED` status remain later,
 separately authorized transitions.
