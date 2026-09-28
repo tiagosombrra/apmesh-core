@@ -141,7 +141,7 @@
       "id": "metric_oblique",
       "category": "first_order",
       "comparison_rule": "mixed",
-      "policy": null
+      "policy": "binary_strict"
     },
     {
       "id": "parameter_non_finite_u",
@@ -231,7 +231,7 @@
       "id": "second_order_oblique",
       "category": "second_order",
       "comparison_rule": "mixed",
-      "policy": null
+      "policy": "binary_strict"
     },
     {
       "id": "second_order_hyperbolic",
