@@ -79,10 +79,11 @@ The greenfield implementation must eventually be usable as a library inside a la
     state. Live `main` identity is always re-audited remotely; documentation
     records stable closed-work-item anchors instead.
 
-## Current repository checkpoint
+## Historical repository checkpoint
 
-Authoritative continuation snapshot after protected-main validation on
-2026-09-26:
+Snapshot after protected-main validation on 2026-09-26. Its detailed evidence
+is retained below; its operational status is superseded by the latest closed
+repository actions and next admissible actions below.
 
 - repository: `tiagosombrra/apmesh-core`;
 - canonical integration branch: `main`;
@@ -149,7 +150,7 @@ and its comparator-equivalent correction remain preserved in
 
 No portable spline arithmetic production or closure work item remains active.
 
-## Current repository action
+## Latest closed repository actions
 
 **Surface Differential Geometry report-only qualification tooling:
 INTEGRATED / CLOSED / NOT QUALIFIED.**
@@ -157,9 +158,8 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 **Metric-conditioning normalization portability maintenance:
 INTEGRATED / CLOSED / DEVELOPMENT VALIDATION PASS / NOT QUALIFIED.**
 
-Current protected `main`:
-
-`a03cbd4090339cf2b26dd43016492830a3fc177e` (PR #239 squash merge).
+PR #239 is the closed maintenance anchor. Obtain the current `main` revision
+from Git rather than storing a self-referential current-main SHA here.
 
 Final PR #238 validation on head
 `1e54a127e1e06cb399e96eb5b9fbf6673d30e4ce`:
@@ -220,13 +220,11 @@ test. PR #238 was integrated by squash as
 `6fb3296096111915a812e1420de62d09edbd392a` without a formal qualification
 campaign.
 
-The active repository work item is the separate bounded metric-conditioning
-portability correction on branch
-`fix/metric-conditioning-normalization-portability`. Its source change allows a
-positive original metric coefficient to underflow during normalization while
-retaining finite-result and nonzero-area checks. The `2^900` oracle, error
-vocabulary and tolerances are unchanged. On 2026-09-28, MSVC Debug and Ubuntu
-24.04/GCC 13 Debug both passed configure, build, the focused
+The completed metric-conditioning portability correction allows a positive
+original metric coefficient to underflow during normalization while retaining
+finite-result and nonzero-area checks. The `2^900` oracle, error vocabulary and
+tolerances are unchanged. On 2026-09-28, MSVC Debug and Ubuntu 24.04/GCC 13
+Debug both passed configure, build, the focused
 `apmesh_core.surface_metric_conditioning` CTest (1/1), and all 42 ordinary
 tests on this candidate based on `6fb3296`. The focused test includes the exact
 `2^900` assertion. This is development evidence, not a scientific
@@ -239,6 +237,12 @@ merged as `a03cbd4090339cf2b26dd43016492830a3fc177e`; protected-main FAST
 `36447759953` and INTEGRATION `36447759920` both passed. The correction remains
 development evidence, not a scientific qualification claim. No metric
 conditioning work item remains active.
+
+PR #240 synchronized the integration record after PR #239. The ordinary
+semantic inventory is 42 tests. No production or documentation work item is
+currently active. The next admissible action is the fresh literature-backed
+Surface Differential Geometry decision recorded below; no candidate is
+pre-authorized.
 
 Explicitly unauthorized:
 
