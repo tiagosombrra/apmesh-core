@@ -151,50 +151,59 @@ No portability production or closure work item remains active.
 
 ## Current active scientific action
 
-**Surface Differential Geometry — Cumulative Qualification Protocol Closure —
-CLOSURE ACTIVE / DOCUMENTATION ONLY / TOOLING NOT AUTHORIZED /
-FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
+**Surface Differential Geometry — Cumulative Qualification Protocol —
+PRE-REGISTERED / INTEGRATED / CLOSED / NOT QUALIFIED /
+NO ACTIVE PRODUCTION OR SCIENTIFIC WORK ITEM.**
 
-Integrated protocol authority:
+Terminal protocol authority:
 
 - protocol entry protected `main`:
   `744dbce1553a537dc22a0830d6ea878c0efb0fe7`;
 - protocol PR #233 final head:
   `9bd09926734d0f2fce2abdd096380e4478c8c38d`;
-- protocol PR FAST #626: PASS;
-- protocol PR INTEGRATION #617: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- protocol PR FAST #626 / INTEGRATION #617: PASS;
 - protocol squash merge:
   `d34b8d5620f6166b6e8570225bbf243fef3c90f7`;
-- protocol post-merge FAST #627: PASS;
-- protocol post-merge INTEGRATION #618: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
+- protocol post-merge FAST #627 / INTEGRATION #618: PASS;
+- protocol closure PR #234 final head:
+  `b675f820d55d89cf677a3b16b9fbd80024977151`;
+- closure PR FAST #628 / INTEGRATION #619: PASS;
+- closure squash merge:
+  `66541bd7bc4661ba9038cd7f8eabdd0bf796de59`;
+- closure post-merge FAST #629 / INTEGRATION #620: PASS;
 - ordinary semantic registration inventory: **42 tests**;
 - protocol:
   `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
-- protocol entry audit:
+- entry audit:
   `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-entry-audit.md`;
 - closure audit:
   `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
 
-Active closure branch:
+No repository transition, production work item or scientific work item is
+currently active.
 
-`docs/surface-differential-geometry-qualification-protocol-closure`.
+Sole next admissible scientific transition:
 
-The protocol is integrated, but the closure must itself receive required
-FAST/INTEGRATION checks, merge and pass protected-main validation before the
-protocol lifecycle is terminally closed.
+**a fresh bounded report-only Surface Differential Geometry qualification
+tooling work item conforming exactly to the preregistered protocol.**
 
-Until then:
+Such tooling may produce report/evidence artifacts and validators only. It may
+not prepare a PREPARED manifest, dispatch a workflow, consume a one-time formal
+authorization, execute a qualification campaign or set the stage to
+`QUALIFIED`.
 
-- report-only qualification tooling is not authorized;
-- preparation/launch infrastructure is not authorized;
-- prepared manifests are not authorized;
-- workflow dispatch or formal execution is not authorized;
-- `QUALIFIED` status is not authorized;
-- no production or ordinary-test semantic work is active.
+Still unauthorized:
 
-If closure succeeds, the sole next scientific transition may be a fresh bounded
-decision/work item for **report-only Surface Differential Geometry
-qualification tooling** conforming exactly to the pre-registered protocol.
+- preparation/launch infrastructure;
+- prepared manifests;
+- formal workflow dispatch or execution;
+- `QUALIFIED` status;
+- production Surface Differential Geometry changes;
+- principal directions / curvature-line fields;
+- cone/torus or other representation breadth;
+- general p-curves/topological faces;
+- Boundary Curve Discretization;
+- sizing or meshing.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 

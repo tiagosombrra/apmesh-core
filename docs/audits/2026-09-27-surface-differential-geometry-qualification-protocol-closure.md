@@ -1,6 +1,6 @@
 # Surface Differential Geometry Qualification Protocol — Closure Audit
 
-Status: CLOSURE ACTIVE / DOCUMENTATION ONLY / TOOLING NOT AUTHORIZED /
+Status: CLOSED / PROTOCOL PRE-REGISTERED / TOOLING MAY BE CONSIDERED /
 FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED  
 Date: 2026-09-27
 
@@ -96,3 +96,42 @@ TOOLING NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
 
 The closure remains pending its own immutable PR-head checks and protected-main
 post-merge validation.
+
+
+## 6. Closure integration receipt
+
+Closure PR #234 used final head:
+
+`b675f820d55d89cf677a3b16b9fbd80024977151`.
+
+Required closure validation:
+
+- FAST #628: PASS;
+- INTEGRATION #619 / GCC 13 Debug: PASS;
+- INTEGRATION #619 / Clang 18/libc++ Debug: PASS;
+- no reviews or unresolved review threads;
+- branch relation at merge gate: ahead=5, behind=0;
+- diff restricted to protocol/closure continuity documentation.
+
+PR #234 squash-merged as:
+
+`66541bd7bc4661ba9038cd7f8eabdd0bf796de59`.
+
+Protected-main validation on that exact closure revision:
+
+- FAST #629: PASS;
+- INTEGRATION #620 / GCC 13 Debug: PASS;
+- INTEGRATION #620 / Clang 18/libc++ Debug: PASS.
+
+Ordinary semantic registration inventory remains **42 tests**.
+
+Terminal protocol result:
+
+**SURFACE DIFFERENTIAL GEOMETRY QUALIFICATION PROTOCOL PRE-REGISTERED /
+INTEGRATED / CLOSED / REPORT-ONLY TOOLING MAY BE CONSIDERED /
+FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED.**
+
+No production, scientific or repository-transition work item is active at this
+checkpoint. A fresh bounded report-only qualification-tooling work item may be
+started only from the validated protected-main baseline and must conform
+exactly to the preregistered protocol.
