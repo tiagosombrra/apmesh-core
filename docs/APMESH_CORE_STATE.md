@@ -151,59 +151,95 @@ No portability production or closure work item remains active.
 
 ## Current active scientific action
 
-**Surface Differential Geometry — Cumulative Qualification Protocol —
-PRE-REGISTERED / INTEGRATED / CLOSED / NOT QUALIFIED /
-NO ACTIVE PRODUCTION OR SCIENTIFIC WORK ITEM.**
+**Surface Differential Geometry — Report-Only Qualification Tooling —
+IMPLEMENTED CANDIDATE / INITIAL ORDINARY VALIDATION PASS /
+FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
+FOCUSED QUALIFICATION CTEST PENDING /
+PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Terminal protocol authority:
+Current protected `main`:
 
-- protocol entry protected `main`:
-  `744dbce1553a537dc22a0830d6ea878c0efb0fe7`;
-- protocol PR #233 final head:
-  `9bd09926734d0f2fce2abdd096380e4478c8c38d`;
-- protocol PR FAST #626 / INTEGRATION #617: PASS;
-- protocol squash merge:
-  `d34b8d5620f6166b6e8570225bbf243fef3c90f7`;
-- protocol post-merge FAST #627 / INTEGRATION #618: PASS;
-- protocol closure PR #234 final head:
-  `b675f820d55d89cf677a3b16b9fbd80024977151`;
-- closure PR FAST #628 / INTEGRATION #619: PASS;
-- closure squash merge:
-  `66541bd7bc4661ba9038cd7f8eabdd0bf796de59`;
-- closure post-merge FAST #629 / INTEGRATION #620: PASS;
-- ordinary semantic registration inventory: **42 tests**;
-- protocol:
-  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
-- entry audit:
-  `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-entry-audit.md`;
-- closure audit:
-  `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
+`d5c6d37b56d5434e7c907ec248eb1f6b5bc24136`.
 
-No repository transition, production work item or scientific work item is
-currently active.
+Current-main validation:
 
-Sole next admissible scientific transition:
+- FAST #635: PASS;
+- INTEGRATION #626 / GCC 13 Debug: PASS;
+- INTEGRATION #626 / Clang 18/libc++ Debug: PASS;
+- ordinary semantic registration inventory: **42 tests**.
 
-**a fresh bounded report-only Surface Differential Geometry qualification
-tooling work item conforming exactly to the preregistered protocol.**
+Active branch:
 
-Such tooling may produce report/evidence artifacts and validators only. It may
-not prepare a PREPARED manifest, dispatch a workflow, consume a one-time formal
-authorization, execute a qualification campaign or set the stage to
-`QUALIFIED`.
+`qualification/surface-differential-geometry-report-tooling`.
 
-Still unauthorized:
+Technical candidate before continuity/audit synchronization:
 
+`7cd9ca1d221577b1730a7d05aa4a4584b4cc270d`.
+
+Protocol authority:
+
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`.
+
+Validation audit:
+
+`docs/audits/2026-09-28-surface-differential-geometry-report-tooling-validation.md`.
+
+Implemented report-only package:
+
+- immutable qualification profile;
+- scientific certificate exporter;
+- independent certificate/profile validator;
+- same-cell/cross-cell comparison;
+- 17 negative-evidence self-checks;
+- four deterministic figures;
+- non-terminal gate-summary/report generation;
+- focused qualification-tooling contract;
+- qualification-only CMake registration.
+
+Frozen boundary audit:
+
+- **32 / 32** semantic Git blobs match the preregistered SHAs;
+- ordinary semantic allowlist remains exactly **42 tests**;
+- no production Surface Differential Geometry file changed;
+- no ordinary surface semantic test changed;
+- no runner/workflow/preparation/authorization mechanism was added.
+
+Initial PR validation on head
+`59bc9cbfb9550a82464b24dd53168347e12ffae6`:
+
+- FAST #636: PASS, 42/42;
+- INTEGRATION #627 / GCC 13 Debug: PASS, 42/42;
+- INTEGRATION #627 / Clang 18/libc++ Debug: PASS, 42/42.
+
+Required validation still pending after this documentation synchronization:
+
+1. ordinary FAST revalidation on the new exact head;
+2. ordinary INTEGRATION / GCC 13 Debug revalidation;
+3. ordinary INTEGRATION / Clang 18 libc++ Debug revalidation;
+4. focused
+   `apmesh_core.surface_differential_geometry_qualification_evidence`
+   CTest with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`.
+
+The current assistant shell cannot materialize the repository because its local
+network cannot resolve/download GitHub, and the connected GitHub API exposes no
+workflow-dispatch action. This is an execution-environment limitation, not a
+repository failure.
+
+**Merge remains prohibited until the focused qualification-tooling CTest has a
+PASS on the exact final revision or a demonstrated tree-equivalent revision.**
+
+Explicitly unauthorized:
+
+- campaign runner;
 - preparation/launch infrastructure;
-- prepared manifests;
-- formal workflow dispatch or execution;
-- `QUALIFIED` status;
+- PREPARED manifest;
+- workflow dispatch;
+- one-time execution authorization;
+- formal qualification execution;
+- evidence retention/sealing for a formal candidate;
 - production Surface Differential Geometry changes;
-- principal directions / curvature-line fields;
-- cone/torus or other representation breadth;
-- general p-curves/topological faces;
-- Boundary Curve Discretization;
-- sizing or meshing.
+- `QUALIFIED` or `BLOCKED` stage status.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 

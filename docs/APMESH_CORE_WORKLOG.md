@@ -616,35 +616,82 @@ The presence of historical branches on the remote does not make them active.
 
 ## Current active work item
 
-**No production, scientific or repository-transition work item is active.**
+**Surface Differential Geometry — Report-Only Qualification Tooling —
+IMPLEMENTED CANDIDATE / INITIAL ORDINARY VALIDATION PASS /
+FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
+FOCUSED QUALIFICATION CTEST PENDING /
+PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-The Surface Differential Geometry cumulative qualification protocol is
-terminally closed:
+Current protected baseline after maintenance PRs #236 and #237:
 
-**PROTOCOL PRE-REGISTERED / INTEGRATED / CLOSED /
-REPORT-ONLY TOOLING MAY BE CONSIDERED / NOT QUALIFIED.**
+`d5c6d37b56d5434e7c907ec248eb1f6b5bc24136`.
 
-Terminal evidence:
+Baseline checks:
 
-1. protocol PR #233 final head:
-   `9bd09926734d0f2fce2abdd096380e4478c8c38d`;
-2. PR FAST #626 / INTEGRATION #617: PASS;
-3. protocol squash merge:
-   `d34b8d5620f6166b6e8570225bbf243fef3c90f7`;
-4. protocol post-merge FAST #627 / INTEGRATION #618: PASS;
-5. closure PR #234 final head:
-   `b675f820d55d89cf677a3b16b9fbd80024977151`;
-6. closure FAST #628 / INTEGRATION #619: PASS;
-7. closure squash merge:
-   `66541bd7bc4661ba9038cd7f8eabdd0bf796de59`;
-8. closure post-merge FAST #629 / INTEGRATION #620: PASS;
-9. ordinary semantic registration inventory: **42 tests**;
-10. protocol:
-    `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
-11. closure audit:
-    `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
+- FAST #635: PASS;
+- INTEGRATION #626 / GCC 13 Debug: PASS;
+- INTEGRATION #626 / Clang 18 libc++ Debug: PASS.
 
-No report-only tooling work has started.
+Active branch:
+
+`qualification/surface-differential-geometry-report-tooling`.
+
+The branch incorporated PRs #236 and #237 through non-destructive merge commits;
+no history was rewritten.
+
+Technical candidate before documentation synchronization:
+
+`7cd9ca1d221577b1730a7d05aa4a4584b4cc270d`.
+
+Implemented files:
+
+- `experiments/profiles/surface_differential_geometry_qualification.json`;
+- `experiments/surface_differential_geometry_qualification_export.cpp`;
+- `tools/surface_differential_geometry_qualification_evidence.py`;
+- `tests/surface_differential_geometry_qualification_evidence_test.py`;
+- qualification-only `CMakeLists.txt` registration;
+- candidate validation audit and continuity documents.
+
+Validation audit:
+
+`docs/audits/2026-09-28-surface-differential-geometry-report-tooling-validation.md`.
+
+Scientific/frozen-boundary audit:
+
+- 32/32 preregistered semantic blobs unchanged;
+- ordinary semantic allowlist remains 42 tests;
+- no production differential path changed;
+- no ordinary surface semantic test changed;
+- no workflow/runner/preparation/authorization mechanism added.
+
+Implementation audit finding:
+
+- two new `mixed` profile cases initially had no numeric policy;
+- the protocol requires an explicit policy for every rounded comparison;
+- both were bound to the already preregistered `binary_strict` policy;
+- no new tolerance or scientific acceptance criterion was introduced.
+
+Initial PR validation on
+`59bc9cbfb9550a82464b24dd53168347e12ffae6`:
+
+- FAST #636: PASS, 42/42;
+- INTEGRATION #627 / GCC: PASS, 42/42;
+- INTEGRATION #627 / Clang: PASS, 42/42.
+
+Current merge gates after documentation synchronization:
+
+1. final-head ordinary FAST revalidation: PENDING;
+2. final-head ordinary INTEGRATION / GCC revalidation: PENDING;
+3. final-head ordinary INTEGRATION / Clang revalidation: PENDING;
+4. focused qualification CTest with qualification tests enabled: PENDING.
+
+The assistant execution environment cannot currently materialize the public
+repository through its local shell/network and the available GitHub connector
+cannot dispatch Actions. No focused PASS is claimed.
+
+**Merge remains blocked until the focused CTest passes on the exact final
+revision or a demonstrated tree-equivalent revision.**
 
 ### Last closed portability maintenance item
 
@@ -693,32 +740,25 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Next admissible work item
 
-After a fresh audit of the then-current protected `main`, start at most one
-bounded work item for:
+Complete only the active tooling validation/integration sequence:
 
-**report-only Surface Differential Geometry qualification tooling conforming
-exactly to the preregistered protocol.**
+1. open one PR from the exact final tooling head;
+2. obtain ordinary FAST PASS;
+3. obtain ordinary INTEGRATION PASS in GCC 13 Debug;
+4. obtain ordinary INTEGRATION PASS in Clang 18/libc++ Debug;
+5. obtain PASS for
+   `apmesh_core.surface_differential_geometry_qualification_evidence`
+   with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
+6. re-audit 42 ordinary tests and 32 frozen semantic blobs;
+7. audit reviews/concurrency/diff;
+8. merge only if every required gate is satisfied;
+9. validate protected `main`;
+10. close the tooling lifecycle separately.
 
-That work item may implement:
+If focused tooling execution remains unavailable, leave the PR open and blocked;
+do not weaken the gate, add a validation-only workflow, or claim equivalence
+without evidence.
 
-- deterministic evidence exporters;
-- independent certificate validators;
-- same-cell/cross-cell comparison tooling;
-- negative-evidence validators;
-- deterministic figure generation from retained machine-readable data;
-- gate-summary/report generation;
-- focused tooling contracts.
-
-It must remain report-only and fail closed. It may not:
-
-- prepare or seal a PREPARED manifest;
-- dispatch a workflow;
-- consume a formal execution authorization;
-- run a formal qualification campaign;
-- alter production differential/surface semantics;
-- alter the frozen 42-test ordinary allowlist;
-- change Surface Differential Geometry to `QUALIFIED`.
-
-Any need to violate the preregistered protocol or its stop conditions requires a
-new scientific decision instead of an implicit adjustment.
+Preparation, authorization, formal execution and `QUALIFIED` status remain
+unauthorized.
 

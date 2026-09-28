@@ -1880,41 +1880,45 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The Surface Differential Geometry cumulative qualification protocol is
-terminally closed:
+The active work item is:
 
-**PROTOCOL PRE-REGISTERED / INTEGRATED / CLOSED /
-REPORT-ONLY TOOLING MAY BE CONSIDERED / NOT QUALIFIED /
-NO ACTIVE PRODUCTION OR SCIENTIFIC WORK ITEM.**
+**Surface Differential Geometry — Report-Only Qualification Tooling —
+ACTIVE / PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-Terminal evidence:
+Entry protected `main`:
 
-- protocol PR #233 final head
-  `9bd09926734d0f2fce2abdd096380e4478c8c38d`;
-- protocol FAST #626 / INTEGRATION #617: PASS;
-- protocol squash merge
-  `d34b8d5620f6166b6e8570225bbf243fef3c90f7`;
-- protocol post-merge FAST #627 / INTEGRATION #618: PASS;
-- closure PR #234 final head
-  `b675f820d55d89cf677a3b16b9fbd80024977151`;
-- closure FAST #628 / INTEGRATION #619: PASS;
-- closure squash merge
-  `66541bd7bc4661ba9038cd7f8eabdd0bf796de59`;
-- closure post-merge FAST #629 / INTEGRATION #620: PASS;
+`03c24b409e126f65687df68aa11ccdc50d009abc`.
+
+Entry validation:
+
+- FAST #631: PASS;
+- INTEGRATION #622: PASS in GCC 13 Debug and Clang 18/libc++ Debug;
 - ordinary semantic registration inventory: **42 tests**;
-- protocol:
-  `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
-- closure audit:
-  `docs/audits/2026-09-27-surface-differential-geometry-qualification-protocol-closure.md`.
+- no open PR at entry.
 
-No repository transition is active.
+Active branch:
 
-The sole next admissible scientific transition is a fresh bounded
-**report-only Surface Differential Geometry qualification tooling** work item
-that conforms exactly to the preregistered protocol.
+`qualification/surface-differential-geometry-report-tooling`.
 
-Tooling may generate/validate/report evidence only. Preparation, formal
-execution and qualification status remain separate later transitions.
+The tooling must conform exactly to the frozen cumulative qualification
+protocol and remains behind `APMESH_ENABLE_QUALIFICATION_TESTS=ON`.
+
+Authorized scope:
+
+- evidence exporter/profile;
+- independent validation/comparison;
+- negative-evidence checks;
+- deterministic figure/report generation;
+- focused qualification-tooling tests.
+
+Excluded scope:
+
+- runner/preparation/launch infrastructure;
+- formal workflow dispatch or execution;
+- production semantic changes;
+- ordinary-test changes;
+- any qualification-status decision.
 
 Current scientific work focus:
 
@@ -1945,23 +1949,41 @@ Terminal evidence:
 
 Next admissible action:
 
-After auditing the current protected `main`, start exactly one bounded
-**report-only Surface Differential Geometry qualification tooling** work item.
+Validate and integrate only the implemented report-only Surface Differential
+Geometry qualification-tooling candidate.
 
-The tooling must conform to the frozen protocol and may implement evidence
-export, independent validation, comparisons, negative-evidence checks,
-deterministic figures and gate-summary reporting.
+Current candidate state:
 
-It cannot:
+**IMPLEMENTED / INITIAL ORDINARY VALIDATION PASS /
+FINAL DOCUMENTATION-SYNC ORDINARY REVALIDATION PENDING /
+FOCUSED QUALIFICATION CTEST PENDING /
+PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
+NOT QUALIFIED.**
 
-- prepare/seal a PREPARED candidate;
-- dispatch or execute a formal campaign;
-- consume one-time authorization;
-- change production semantics or the frozen 42-test ordinary allowlist;
-- change the stage to `QUALIFIED`.
+Initial PR head
+`59bc9cbfb9550a82464b24dd53168347e12ffae6` passed FAST #636 and
+INTEGRATION #627 in GCC/Clang with 42/42 ordinary tests.
 
-Any protocol contradiction or need for a different execution matrix requires a
-new decision or protocol amendment.
+Required before merge after this documentation synchronization:
+
+- ordinary FAST PASS on the new exact final head;
+- ordinary INTEGRATION PASS in GCC 13 Debug on the new exact head;
+- ordinary INTEGRATION PASS in Clang 18/libc++ Debug on the new exact head;
+- focused
+  `apmesh_core.surface_differential_geometry_qualification_evidence`
+  PASS with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
+- ordinary inventory remains exactly 42 tests;
+- all 32 frozen semantic blobs remain unchanged;
+- no preparation/runner/workflow/authorization mechanism is introduced.
+
+The currently available assistant shell cannot execute the focused CTest because
+its local environment cannot materialize the GitHub checkout and the connected
+GitHub API exposes no workflow-dispatch action. This does not relax the gate.
+
+If focused execution remains unavailable, the PR must stay open and blocked.
+
+Preparation, formal execution and `QUALIFIED` status remain later,
+separately authorized transitions.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 

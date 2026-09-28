@@ -1,0 +1,479 @@
+{
+  "schema_version": 1,
+  "kind": "surface-differential-geometry-qualification-profile",
+  "protocol": "docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md",
+  "semantic_baseline": "744dbce1553a537dc22a0830d6ea878c0efb0fe7",
+  "repetitions_per_cell": 2,
+  "cells": [
+    {
+      "id": "gcc-debug",
+      "compiler": "GCC 13.3.0",
+      "library": "libstdc++",
+      "build_type": "Debug"
+    },
+    {
+      "id": "gcc-release",
+      "compiler": "GCC 13.3.0",
+      "library": "libstdc++",
+      "build_type": "Release"
+    },
+    {
+      "id": "clang-debug",
+      "compiler": "Clang 18.1.3",
+      "library": "libc++ 18.1.3",
+      "build_type": "Debug"
+    },
+    {
+      "id": "clang-release",
+      "compiler": "Clang 18.1.3",
+      "library": "libc++ 18.1.3",
+      "build_type": "Release"
+    }
+  ],
+  "gates": [
+    "SDG0",
+    "SDG1",
+    "SDG2",
+    "SDG3",
+    "SDG4",
+    "SDG5",
+    "SDG6",
+    "SDG7"
+  ],
+  "semantic_ctest_allowlist": [
+    "apmesh_core.scaled_spline_arithmetic",
+    "apmesh_core.bootstrap_smoke",
+    "apmesh_core.numeric_contract",
+    "apmesh_core.geometry_primitives",
+    "apmesh_core.cartesian_frames",
+    "apmesh_core.arbitrary_axis_placement",
+    "apmesh_core.topological_model",
+    "apmesh_core.curve_representation",
+    "apmesh_core.parametric_curve_contract",
+    "apmesh_core.line_segment",
+    "apmesh_core.rational_quadratic_bezier",
+    "apmesh_core.trimmed_curve",
+    "apmesh_core.two_span_cubic_bspline",
+    "apmesh_core.two_span_cubic_nurbs",
+    "apmesh_core.multi_span_cubic_nurbs",
+    "apmesh_core.cubic_nurbs_double_knot_continuity",
+    "apmesh_core.surface_bicubic_bezier",
+    "apmesh_core.surface_rational_bicubic_bezier",
+    "apmesh_core.surface_bicubic_nurbs",
+    "apmesh_core.surface_bicubic_nurbs_double_knot_continuity",
+    "apmesh_core.surface_coons_patch",
+    "apmesh_core.surface_rectangular_trim",
+    "apmesh_core.surface_linear_extrusion",
+    "apmesh_core.surface_revolution",
+    "apmesh_core.surface_plane",
+    "apmesh_core.surface_cylinder",
+    "apmesh_core.surface_sphere",
+    "apmesh_core.surface_metric_normal",
+    "apmesh_core.surface_metric_conditioning",
+    "apmesh_core.surface_second_order_curvature",
+    "apmesh_core.surface_principal_curvatures",
+    "apmesh_core.curve_differential",
+    "apmesh_core.curve_curvature",
+    "apmesh_core.curve_signed_curvature",
+    "apmesh_core.curve_inflection_isolation",
+    "apmesh_core.curve_arc_length",
+    "apmesh_core.curve_cumulative_arc_length",
+    "apmesh_core.curve_inverse_arc_length",
+    "apmesh_core.curve_regularity",
+    "apmesh_core.curve_header_isolation",
+    "apmesh_core.minimal_small_linear_algebra",
+    "apmesh_core.math_header_isolation"
+  ],
+  "frozen_semantic_files": [
+    "include/apmesh/geometry/parametric_surface.hpp",
+    "include/apmesh/geometry/surface.hpp",
+    "include/apmesh/geometry/surface_differential.hpp",
+    "src/geometry/surface.cpp",
+    "src/geometry/surface_differential.cpp",
+    "include/apmesh/geometry/elementary_surface.hpp",
+    "include/apmesh/geometry/trimmed_surface.hpp",
+    "include/apmesh/geometry/extrusion_surface.hpp",
+    "include/apmesh/geometry/revolution_surface.hpp",
+    "include/apmesh/geometry/coons_surface.hpp",
+    "include/apmesh/geometry/nurbs_surface.hpp",
+    "src/geometry/elementary_surface.cpp",
+    "src/geometry/extrusion_surface.cpp",
+    "src/geometry/revolution_surface.cpp",
+    "src/geometry/coons_surface.cpp",
+    "src/geometry/nurbs_surface.cpp",
+    "src/geometry/rational_surface.cpp",
+    "tests/surface_bicubic_bezier.cpp",
+    "tests/surface_rational_bicubic_bezier.cpp",
+    "tests/surface_bicubic_nurbs.cpp",
+    "tests/surface_bicubic_nurbs_double_knot_continuity.cpp",
+    "tests/surface_coons_patch.cpp",
+    "tests/surface_rectangular_trim.cpp",
+    "tests/surface_linear_extrusion.cpp",
+    "tests/surface_revolution.cpp",
+    "tests/surface_plane.cpp",
+    "tests/surface_cylinder.cpp",
+    "tests/surface_sphere.cpp",
+    "tests/surface_metric_normal.cpp",
+    "tests/surface_metric_conditioning.cpp",
+    "tests/surface_second_order_curvature.cpp",
+    "tests/surface_principal_curvatures.cpp"
+  ],
+  "numeric_policies": {
+    "binary_strict": {
+      "absolute_tolerance": "0x1p-42",
+      "relative_tolerance": "0x1p-42",
+      "reference_scale_rule": "max_one_expected_magnitude"
+    },
+    "surface_strict": {
+      "absolute_tolerance": "0x1p-38",
+      "relative_tolerance": "0x1p-38",
+      "reference_scale_rule": "max_one_expected_magnitude"
+    }
+  },
+  "certificate_cases": [
+    {
+      "id": "metric_plane_identity",
+      "category": "first_order",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "metric_oblique",
+      "category": "first_order",
+      "comparison_rule": "mixed",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "parameter_non_finite_u",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "parameter_non_finite_v",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "parameter_u_out_of_domain",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "parameter_v_out_of_domain",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "non_representable_metric",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "metric_exact_singular",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "metric_near_singular",
+      "category": "first_order",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "metric_extreme_finite",
+      "category": "first_order",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "conditioning_nonorthogonal",
+      "category": "conditioning",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "conditioning_parameter_scale",
+      "category": "invariance",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "conditioning_spatial_scale",
+      "category": "invariance",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "conditioning_axis_swap",
+      "category": "invariance",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "conditioning_u_reversal",
+      "category": "invariance",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "conditioning_v_reversal",
+      "category": "invariance",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "second_order_oblique",
+      "category": "second_order",
+      "comparison_rule": "mixed",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "second_order_hyperbolic",
+      "category": "second_order",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "principal_elliptic",
+      "category": "principal",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "principal_hyperbolic",
+      "category": "principal",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "principal_parabolic",
+      "category": "principal",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "principal_umbilic",
+      "category": "principal",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "principal_near_umbilic",
+      "category": "principal",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "principal_nonorthogonal",
+      "category": "principal",
+      "comparison_rule": "proximity",
+      "policy": "binary_strict"
+    },
+    {
+      "id": "second_order_singular",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "second_order_insufficient_continuity",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "plane_surface",
+      "category": "analytic_surface",
+      "comparison_rule": "proximity",
+      "policy": "surface_strict"
+    },
+    {
+      "id": "cylinder_radius_1",
+      "category": "analytic_surface",
+      "comparison_rule": "proximity",
+      "policy": "surface_strict"
+    },
+    {
+      "id": "cylinder_radius_2",
+      "category": "analytic_surface",
+      "comparison_rule": "proximity",
+      "policy": "surface_strict"
+    },
+    {
+      "id": "cylinder_radius_4",
+      "category": "analytic_surface",
+      "comparison_rule": "proximity",
+      "policy": "surface_strict"
+    },
+    {
+      "id": "sphere_equator",
+      "category": "analytic_surface",
+      "comparison_rule": "proximity",
+      "policy": "surface_strict"
+    },
+    {
+      "id": "sphere_latitude",
+      "category": "analytic_surface",
+      "comparison_rule": "proximity",
+      "policy": "surface_strict"
+    },
+    {
+      "id": "sphere_pole",
+      "category": "error",
+      "comparison_rule": "exact",
+      "policy": null
+    },
+    {
+      "id": "sphere_near_pole",
+      "category": "analytic_surface",
+      "comparison_rule": "proximity",
+      "policy": "surface_strict"
+    },
+    {
+      "id": "family_conformance",
+      "category": "conformance",
+      "comparison_rule": "exact",
+      "policy": null
+    }
+  ],
+  "required_errors": [
+    "non_finite_u_parameter",
+    "non_finite_v_parameter",
+    "u_parameter_out_of_domain",
+    "v_parameter_out_of_domain",
+    "insufficient_continuity",
+    "singular_parameterization",
+    "non_representable_result"
+  ],
+  "required_surface_families": [
+    "bicubic_bezier",
+    "rational_bicubic_bezier",
+    "bicubic_nurbs",
+    "bicubic_nurbs_double_knot",
+    "coons_patch",
+    "rectangular_trim",
+    "linear_extrusion",
+    "revolution",
+    "plane",
+    "cylinder",
+    "sphere"
+  ],
+  "certificate_negative_cases": [
+    "missing_case",
+    "duplicate_case",
+    "extra_case",
+    "forged_candidate",
+    "forged_typed_error",
+    "forged_umbilic",
+    "principal_order_violation",
+    "principal_identity_violation",
+    "metric_area_identity_violation",
+    "condition_below_one",
+    "forged_orientation_covariance",
+    "forged_scale_covariance",
+    "undeclared_policy",
+    "non_finite_success",
+    "malformed_signed_zero_policy",
+    "undeclared_claim",
+    "incomplete_figure_source_binding"
+  ],
+  "figure_specs": [
+    {
+      "id": "sphere_latitude_profile",
+      "source": "sphere-equator-latitude-pole",
+      "format": "svg"
+    },
+    {
+      "id": "cylinder_radius_scale",
+      "source": "cylinder-radius-1-2-4",
+      "format": "svg"
+    },
+    {
+      "id": "near_singular_conditioning",
+      "source": "metric-near-singular-series",
+      "format": "svg"
+    },
+    {
+      "id": "principal_curvature_classes",
+      "source": "elliptic-hyperbolic-parabolic",
+      "format": "svg"
+    }
+  ],
+  "non_claims": [
+    "surface_representation_qualification",
+    "principal_directions",
+    "curvature_line_continuity",
+    "near_umbilic_threshold",
+    "meshing_conditioning_threshold",
+    "cone",
+    "torus",
+    "periodic_seam_topology",
+    "general_pcurves",
+    "topological_face_binding",
+    "boundary_curve_discretization",
+    "physical_sizing",
+    "shared_boundary_certification",
+    "triangular_meshing",
+    "quadrilateral_meshing",
+    "adaptive_meshing",
+    "anisotropic_tensor_metrics",
+    "quad_dominant",
+    "parallel_gpu_simd_equivalence",
+    "native_windows_qualification",
+    "arbitrary_precision",
+    "third_party_runtime_numerics"
+  ],
+  "signed_zero_policy": {
+    "raw_hex_retained": true,
+    "semantic_projection": "canonicalize_positive_and_negative_zero",
+    "signed_zero_scientific_claim": false
+  },
+  "tooling_status": "EVIDENCE_COLLECTED_PENDING_AUDIT",
+  "tooling_gate_state": "NOT_EXECUTED",
+  "limitations": [
+    "Report-only tooling does not prepare, authorize, dispatch, execute, or qualify Surface Differential Geometry",
+    "Formal execution remains restricted to the separately authorized GitHub-hosted Ubuntu 24.04 x86_64 envelope",
+    "Surface-family conformance evidence does not qualify Surface Representation",
+    "No preparation manifest, runner, workflow dispatch, retry, fallback, hidden tolerance, or stage-status transition is part of this tooling"
+  ],
+  "frozen_semantic_git_blobs": {
+    "include/apmesh/geometry/parametric_surface.hpp": "41dde84472c20ce5743ecb8316fa12d6a8dab320",
+    "include/apmesh/geometry/surface.hpp": "660b8615b8fea195ae195e710d1159e7ff37b4d8",
+    "include/apmesh/geometry/surface_differential.hpp": "52ec88536016ef24c2a68cdb246be810e6d28f63",
+    "src/geometry/surface.cpp": "5b710fc7d38711ce014f7d301ff6b81b2b9f3c1a",
+    "src/geometry/surface_differential.cpp": "72de10f728237134d7f668883dd316ed4d971da9",
+    "include/apmesh/geometry/elementary_surface.hpp": "067c8f768118752b038baf77c2ff2c94672d80e5",
+    "include/apmesh/geometry/trimmed_surface.hpp": "4045d42bfb5295998dacaae1e170d891d02f7f48",
+    "include/apmesh/geometry/extrusion_surface.hpp": "dbf49865d438e1a89a248898a984041932d6c568",
+    "include/apmesh/geometry/revolution_surface.hpp": "9d60ed2e682754aedccc4aa4ecc84fc4b316c47f",
+    "include/apmesh/geometry/coons_surface.hpp": "5de2a8da82502bacf78b00798905c3caf74f196b",
+    "include/apmesh/geometry/nurbs_surface.hpp": "8264ff0dcc2c609c83c00d39e2927dc587e22b55",
+    "src/geometry/elementary_surface.cpp": "dd5502ffa707245bf04147ee29ce17f67124d360",
+    "src/geometry/extrusion_surface.cpp": "5058858bf9b9cc84aefdca1079112231bf9b3af6",
+    "src/geometry/revolution_surface.cpp": "9d8b05a2ae649c552c3973143f80ca58dd832952",
+    "src/geometry/coons_surface.cpp": "83c3e65fc97fbf87055acc7ba279160106523426",
+    "src/geometry/nurbs_surface.cpp": "a5a07004549ff450b6b6f722e726e7588eb207fe",
+    "src/geometry/rational_surface.cpp": "df71af9a52cc82811c47bcf64d99a09e655bcb10",
+    "tests/surface_bicubic_bezier.cpp": "e451b52ab0143927da0dbe19591d3c70a01a9fab",
+    "tests/surface_rational_bicubic_bezier.cpp": "2d42537698519d51ee20e316973d40b8a962bf9c",
+    "tests/surface_bicubic_nurbs.cpp": "7fa87ffc8ed221f20e2f65fd644b6c3fdd2be28b",
+    "tests/surface_bicubic_nurbs_double_knot_continuity.cpp": "4b3656aff3002566d67551743e8b32a684b2199c",
+    "tests/surface_coons_patch.cpp": "e774f10e17cbea3a2d017dbcc3a2d9afc198c55b",
+    "tests/surface_rectangular_trim.cpp": "eae480a112a46c2cd26257181cd01f8111c2023b",
+    "tests/surface_linear_extrusion.cpp": "8a071fbc5a0177b2d8b1045ad378e8879bfeaf7d",
+    "tests/surface_revolution.cpp": "7aa7ceb42330fedd9d454bc48895b4e1a59ee527",
+    "tests/surface_plane.cpp": "d754eef0de4d27b3aeacfd79e6c60754fe90c8fd",
+    "tests/surface_cylinder.cpp": "c19fb6163f415ac7d217df08ebec1edc17d20466",
+    "tests/surface_sphere.cpp": "89120071d419524cba899d7ab617321d2c01449f",
+    "tests/surface_metric_normal.cpp": "26c6026e4770a7ecbae1c466b79cde6743501934",
+    "tests/surface_metric_conditioning.cpp": "f8e9e0228d00085f4d5632858b7940afca65a48f",
+    "tests/surface_second_order_curvature.cpp": "ed889300329abc9db188c11d4258c38934065195",
+    "tests/surface_principal_curvatures.cpp": "2ffc29b9bc52c515f388f30402c6aeb150544a9d"
+  }
+}
