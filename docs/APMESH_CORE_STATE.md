@@ -231,7 +231,11 @@ vocabulary and tolerances are unchanged. On 2026-09-28, MSVC Debug and Ubuntu
 `apmesh_core.surface_metric_conditioning` CTest (1/1), and all 42 ordinary
 tests on this candidate based on `6fb3296`. The focused test includes the exact
 `2^900` assertion. This is development evidence, not a scientific
-qualification claim.
+qualification claim. PR #239 head
+`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` then passed FAST run `36436600970`
+and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. PR #239 remains
+open and unmerged. The documentation synchronization changes the PR head, so
+the exact-head checks must pass again before integration.
 
 Explicitly unauthorized:
 

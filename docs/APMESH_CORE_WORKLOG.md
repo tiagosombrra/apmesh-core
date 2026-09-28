@@ -642,8 +642,11 @@ configure/build, focused `apmesh_core.surface_metric_conditioning` (1/1), and
 all 42 ordinary tests on the candidate based on `6fb3296`. The focused test
 includes the exact `2^900` assertion. Compact external summaries and full logs
 were retained under the user Temp directory for this run. A separate PR with
-exact-head FAST/INTEGRATION checks remains before integration. Native Windows
-results remain development evidence only.
+head `c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970`
+and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. PR #239 is open and
+unmerged. This documentation synchronization changes its head, so FAST and
+INTEGRATION must pass again before integration. Native Windows results remain
+development evidence only.
 
 ### Last closed portability maintenance item
 

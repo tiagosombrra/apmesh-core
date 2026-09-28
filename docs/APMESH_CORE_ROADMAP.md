@@ -1934,7 +1934,11 @@ MSVC Debug and Ubuntu 24.04/GCC 13 Debug both passed configure, build, the
 focused `apmesh_core.surface_metric_conditioning` CTest (1/1), and all 42
 ordinary tests on this candidate based on `6fb3296`. The focused test includes
 the exact `2^900` assertion. This is development validation; no formal Surface
-Differential Geometry qualification has started.
+Differential Geometry qualification has started. PR #239 head
+`c6c27cb863db7f5a572405d00bbcbb3af1e4401a` passed FAST run `36436600970`
+and GCC 13 / Clang 18 libc++ INTEGRATION run `36436600851`. The PR remains open
+and unmerged; this documentation synchronization creates a new head that must
+pass those exact-head checks before integration.
 
 Most recently closed scientific production work item:
 
@@ -1965,11 +1969,10 @@ Terminal evidence:
 
 Next admissible action:
 
-Review the validated metric-conditioning portability diff, then prepare its
-separate PR with the `2^900` oracle and 42 ordinary tests preserved. Require
-exact-head FAST and INTEGRATION checks before integration. The report-only
-tooling integration is closed; its 32 frozen semantic blobs were unchanged at
-integration.
+Rerun FAST and INTEGRATION on the documentation-synchronized PR #239 head. If
+all exact-head checks pass, integrate the bounded correction separately. The
+report-only tooling integration is closed; its 32 frozen semantic blobs were
+unchanged at integration.
 
 Preparation, formal execution and `QUALIFIED` status remain later,
 separately authorized transitions.
