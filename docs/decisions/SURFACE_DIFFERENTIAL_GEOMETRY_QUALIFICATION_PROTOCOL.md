@@ -1,11 +1,18 @@
 # Surface Differential Geometry — Cumulative Qualification Protocol
 
-Status: **PROTOCOL INTEGRATED / CLOSURE ACTIVE / TOOLING NOT AUTHORIZED /
-FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED**  
-Date: 2026-09-27  
+Status: **PROTOCOL INTEGRATED / CLOSED / REPORT-ONLY TOOLING INTEGRATED /
+FORMAL EXECUTION NOT AUTHORIZED / NOT QUALIFIED**
+Protocol date: 2026-09-27
+Status updated: 2026-09-28
+
 Stage: **Surface Differential Geometry — Metric, Normals, and Curvatures**  
 Entry authority:
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_READINESS_DECISION.md`
+
+Current status note: Sections 21–23 preserve the protocol's original
+integration and closure checkpoints. Report-only qualification tooling was
+subsequently integrated under PR #238, as recorded in the current
+continuation documents. Formal qualification execution remains unauthorized.
 
 ## 1. Scientific question
 

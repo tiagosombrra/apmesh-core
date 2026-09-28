@@ -1717,8 +1717,8 @@ Mandatory stage regression: rerun line/arc/Bezier/adversarial parameterization c
 
 Status: `IN INVESTIGATION / BICUBIC POLYNOMIAL + RATIONAL + NURBS /
 COONS / RECTANGULAR TRIM / EXTRUSION / REVOLUTION /
-ARBITRARY-AXIS PLACEMENT / ANALYTIC PLANE + CYLINDER INTEGRATED /
-BOUNDED ANALYTIC SPHERE DECISION ACTIVE /
+ARBITRARY-AXIS PLACEMENT / ANALYTIC PLANE + CYLINDER + BOUNDED SPHERE
+INTEGRATED / FOCUSED CONTRACTS PASS / CLOSED /
 NOT QUALIFIED`
 
 Goal: certify continuous patch/surface evaluation before differential geometry
@@ -1880,7 +1880,8 @@ Each qualified stage must have a human-readable decision document recording:
 
 ## 8. Current action
 
-The active repository work item is:
+No production or documentation work item is active. The latest closed
+implementation maintenance is:
 
 **Surface Differential Geometry metric-conditioning normalization portability
 maintenance — INTEGRATED / CLOSED / DEVELOPMENT VALIDATION PASS /
@@ -1924,12 +1925,11 @@ Tooling excluded scope:
 - ordinary-test changes;
 - any qualification-status decision.
 
-The current maintenance branch
-`fix/metric-conditioning-normalization-portability` starts from the PR #238
-merge. The bounded source correction retains the original metric positivity
-checks, permits underflow only in a normalized coefficient, and preserves the
-nonzero scaled-area and final representability checks. The existing `2^900`
-oracle, error semantics and numeric tolerances remain unchanged. On 2026-09-28,
+The bounded source correction, based on the PR #238 merge, retains the original
+metric positivity checks, permits underflow only in a normalized coefficient,
+and preserves the nonzero scaled-area and final representability checks. The
+existing `2^900` oracle, error semantics and numeric tolerances remain
+unchanged. On 2026-09-28,
 MSVC Debug and Ubuntu 24.04/GCC 13 Debug both passed configure, build, the
 focused `apmesh_core.surface_metric_conditioning` CTest (1/1), and all 42
 ordinary tests on this candidate based on `6fb3296`. The focused test includes
@@ -1973,10 +1973,13 @@ Terminal evidence:
 
 Next admissible action:
 
-No further metric-conditioning action remains. Select the next bounded
-scientific work item through the roadmap's decision process before beginning
-new implementation. The report-only tooling integration is closed; its 32
-frozen semantic blobs were unchanged at integration.
+No further metric-conditioning action remains, and no production or
+documentation work item is active. The report-only tooling integration is
+closed; its 32 frozen semantic blobs were unchanged at integration. The next
+admissible action is one fresh literature-backed Surface Differential Geometry
+decision comparing the candidates retained in Section 24 of
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_ENTRY_DECISION.md`. No candidate
+is pre-authorized.
 
 Preparation, formal execution and `QUALIFIED` status remain later,
 separately authorized transitions.
