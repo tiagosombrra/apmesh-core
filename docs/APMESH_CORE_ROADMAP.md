@@ -1949,12 +1949,33 @@ Terminal evidence:
 
 Next admissible action:
 
-Implement, validate, integrate and separately close only the active report-only
-Surface Differential Geometry qualification tooling.
+Validate and integrate only the implemented report-only Surface Differential
+Geometry qualification-tooling candidate.
 
-The tooling may report `EVIDENCE_COLLECTED_PENDING_AUDIT` and validate
-evidence mechanics, but SDG0-SDG7 remain formal-campaign gates and must not be
-claimed as executed by tooling tests.
+Current candidate state:
+
+**IMPLEMENTED / ORDINARY PR VALIDATION PENDING /
+FOCUSED QUALIFICATION CTEST PENDING /
+PREPARATION NOT AUTHORIZED / FORMAL EXECUTION NOT AUTHORIZED /
+NOT QUALIFIED.**
+
+Required before merge:
+
+- ordinary FAST PASS on the exact final head;
+- ordinary INTEGRATION PASS in GCC 13 Debug;
+- ordinary INTEGRATION PASS in Clang 18/libc++ Debug;
+- focused
+  `apmesh_core.surface_differential_geometry_qualification_evidence`
+  PASS with `APMESH_ENABLE_QUALIFICATION_TESTS=ON`;
+- ordinary inventory remains exactly 42 tests;
+- all 32 frozen semantic blobs remain unchanged;
+- no preparation/runner/workflow/authorization mechanism is introduced.
+
+The currently available assistant shell cannot execute the focused CTest because
+its local environment cannot materialize the GitHub checkout and the connected
+GitHub API exposes no workflow-dispatch action. This does not relax the gate.
+
+If focused execution remains unavailable, the PR must stay open and blocked.
 
 Preparation, formal execution and `QUALIFIED` status remain later,
 separately authorized transitions.
