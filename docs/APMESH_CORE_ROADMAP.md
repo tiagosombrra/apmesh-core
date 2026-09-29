@@ -1985,28 +1985,25 @@ Terminal evidence:
 - implementation audit:
   `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`.
 
-Next admissible action:
-
-After a fresh audit of the current protected `main`, start exactly one bounded
-work item:
+Current active action:
 
 **Fail-Closed Surface Differential Geometry Qualification Preparation
-Infrastructure.**
+Infrastructure — IMPLEMENTATION ACTIVE / SYNTHETIC VALIDATION ONLY /
+FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-The post-tooling decision is terminally closed through PR #244 and protected-main
-FAST #652 / INTEGRATION #643. The infrastructure work item may implement only
-reusable fail-closed preparation mechanisms plus synthetic positive/negative
-validation.
+Entry baseline:
+`bf30ef8e38a1a7de64b12a514176f226e7bda610`.
 
-It cannot:
+The work item implements only reusable preparation validation primitives and
+synthetic positive/negative evidence. It must preserve the frozen scientific
+protocol, the exact 42-test ordinary allowlist and all production semantics.
 
-- create a real PREPARED qualification package;
-- choose a formal candidate;
-- issue or consume execution authorization;
-- dispatch or execute a formal campaign;
-- amend the frozen 42-test allowlist or SDG0–SDG7 acceptance conditions;
-- change production Surface Differential Geometry semantics;
-- change the stage to `QUALIFIED`.
+The current main branch has one expected frozen-blob drift from PR #239. The
+infrastructure must detect/reject it rather than silently changing the
+protocol.
+
+No subsequent action is admissible until this work item is integrated,
+post-merge validated and separately closed.
 
 Principal directions, cone, torus and general trimming remain deferred.
 
