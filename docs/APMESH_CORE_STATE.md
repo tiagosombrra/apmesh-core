@@ -150,6 +150,56 @@ and its comparator-equivalent correction remain preserved in
 
 No portable spline arithmetic production or closure work item remains active.
 
+## Current active repository action
+
+**Surface Differential Geometry — Fail-Closed Qualification Preparation
+Infrastructure — IMPLEMENTATION ACTIVE / SYNTHETIC VALIDATION ONLY /
+FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
+
+Active branch:
+
+`qualification/surface-differential-geometry-preparation-infrastructure`.
+
+Entry protected `main`:
+
+`bf30ef8e38a1a7de64b12a514176f226e7bda610`.
+
+Entry checks:
+
+- FAST #654: PASS;
+- INTEGRATION #645 / GCC 13 Debug: PASS;
+- INTEGRATION #645 / Clang 18/libc++ Debug: PASS;
+- ordinary semantic inventory: **42 tests**;
+- open PRs at entry: none.
+
+Entry audit:
+
+`docs/audits/2026-09-29-surface-differential-geometry-preparation-infrastructure-entry.md`.
+
+Important frozen-boundary observation:
+
+- **31 / 32** frozen semantic Git blobs match the preregistered profile;
+- `src/geometry/surface_differential.cpp` differs because of the separately
+  integrated metric-conditioning portability fix #239;
+- this is an expected current blocker for any later real formal preparation;
+- the infrastructure must reject that drift and must not mutate the frozen
+  protocol/profile to accommodate it.
+
+Authorized scope is limited to reusable fail-closed validation primitives and
+synthetic preparation-state evidence.
+
+Explicitly not authorized:
+
+- a real PREPARED package;
+- a preparation workflow;
+- real candidate selection;
+- execution authorization;
+- workflow dispatch;
+- formal qualification execution;
+- production Surface Differential Geometry changes;
+- protocol/profile acceptance changes;
+- `QUALIFIED` or `BLOCKED` stage status.
+
 ## Latest closed repository actions
 
 **Surface Differential Geometry Post-Tooling Continuation Decision:
