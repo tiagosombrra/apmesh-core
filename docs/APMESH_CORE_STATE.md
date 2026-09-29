@@ -152,6 +152,48 @@ No portable spline arithmetic production or closure work item remains active.
 
 ## Latest closed repository actions
 
+**Surface Differential Geometry Post-Tooling Continuation Decision:
+INTEGRATED / CLOSED / PREPARATION-INFRASTRUCTURE IMPLEMENTATION AUTHORIZED /
+NOT QUALIFIED.**
+
+Decision PR #243 final head
+`c080b789241a86f3d5c4efc05f4d6e5f1ba50c6f` passed FAST
+`36469493920` and INTEGRATION `36469493886` in GCC 13 Debug and
+Clang 18/libc++ Debug, then squash-merged as
+`e53a9797e1603d451819c814c32baeba1794efc8`.
+
+Protected-main validation on that decision merge passed FAST #650 and
+INTEGRATION #641.
+
+Decision closure PR #244 final head
+`b25cb1d11b36855aea1fb5f5078fbc2f2e74cbe1` passed:
+
+- FAST #651: PASS;
+- INTEGRATION #642 / GCC 13 Debug: PASS;
+- INTEGRATION #642 / Clang 18/libc++ Debug: PASS.
+
+PR #244 squash-merged as
+`77079f570ddfb9fce74db41fb38114a000a94c51`.
+
+Protected-main validation on that exact closure revision passed:
+
+- FAST #652: PASS;
+- INTEGRATION #643 / GCC 13 Debug: PASS;
+- INTEGRATION #643 / Clang 18/libc++ Debug: PASS.
+
+No production, scientific or repository-transition work item is active after
+this closure.
+
+Sole next authorized implementation work item:
+
+**Fail-Closed Surface Differential Geometry Qualification Preparation
+Infrastructure.**
+
+That authorization remains limited to reusable preparation mechanisms and
+synthetic validation. It does not authorize selection/preparation of a real
+formal candidate, workflow dispatch, execution authorization, formal campaign
+execution, or a `QUALIFIED` status.
+
 **Surface Differential Geometry report-only qualification tooling:
 INTEGRATED / CLOSED / NOT QUALIFIED.**
 
