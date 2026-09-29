@@ -66,6 +66,12 @@ def sha256_file(path: pathlib.Path) -> str:
     return digest.hexdigest()
 
 
+def git_blob_sha1(path: pathlib.Path) -> str:
+    content = path.read_bytes()
+    header = f"blob {len(content)}\0".encode("ascii")
+    return hashlib.sha1(header + content).hexdigest()
+
+
 def write_json(path: pathlib.Path, value: Any) -> None:
     path.write_text(
         json.dumps(value, sort_keys=True, indent=2, ensure_ascii=False) + "\n",
@@ -116,10 +122,22 @@ def fixture_value(
             "remote_repository": REMOTE_REPOSITORY,
         },
         "inputs": {
-            "profile": sha256_file(profile_path),
-            "protocol": sha256_file(protocol),
-            "exporter": sha256_file(exporter),
-            "validator": sha256_file(validator),
+            "profile": {
+                "git_blob": git_blob_sha1(profile_path),
+                "sha256": sha256_file(profile_path),
+            },
+            "protocol": {
+                "git_blob": git_blob_sha1(protocol),
+                "sha256": sha256_file(protocol),
+            },
+            "exporter": {
+                "git_blob": git_blob_sha1(exporter),
+                "sha256": sha256_file(exporter),
+            },
+            "validator": {
+                "git_blob": git_blob_sha1(validator),
+                "sha256": sha256_file(validator),
+            },
         },
         "frozen_semantic_git_blobs": copy.deepcopy(
             profile["frozen_semantic_git_blobs"]
@@ -309,7 +327,32 @@ def main() -> int:
         )
         rejected(
             "input-identity",
-            lambda value: value["inputs"].__setitem__("profile", "0" * 64),
+            lambda value: value["inputs"]["profile"].__setitem__(
+                "sha256", "0" * 64
+            ),
+        )
+
+        altered_profile_path = root / "altered-profile.json"
+        altered_profile = copy.deepcopy(profile)
+        altered_profile["tooling_status"] = "ALTERED_SYNTHETIC_PROFILE"
+        write_json(altered_profile_path, altered_profile)
+        run(
+            [
+                sys.executable,
+                str(tool),
+                "--profile",
+                str(altered_profile_path),
+                "--protocol",
+                str(protocol),
+                "--exporter",
+                str(exporter),
+                "--validator",
+                str(validator),
+                "validate-fixture",
+                "--fixture",
+                str(fixture_path),
+            ],
+            expect_success=False,
         )
 
         frozen_path = next(iter(fixture["frozen_semantic_git_blobs"]))
