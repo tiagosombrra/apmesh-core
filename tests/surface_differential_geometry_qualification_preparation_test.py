@@ -120,6 +120,7 @@ def fixture_value(
             "divergent": False,
             "moving": False,
             "remote_repository": REMOTE_REPOSITORY,
+            "tracked_source_paths": [item["path"] for item in inventory],
         },
         "inputs": {
             "profile": {
@@ -386,6 +387,15 @@ def main() -> int:
             ),
         )
 
+        def incomplete_inventory(value: dict[str, Any]) -> None:
+            value["tracked_source_inventory"].pop()
+            value["tracked_source_count"] = len(value["tracked_source_inventory"])
+            value["tracked_source_inventory_sha256"] = hashlib.sha256(
+                canonical_json(value["tracked_source_inventory"])
+            ).hexdigest()
+
+        rejected("inventory-incomplete", incomplete_inventory)
+
         def duplicate_inventory(value: dict[str, Any]) -> None:
             value["tracked_source_inventory"][1]["path"] = value[
                 "tracked_source_inventory"
@@ -561,6 +571,21 @@ def main() -> int:
                 str(fixture_path),
                 "--output-root",
                 str(extra_history),
+            ],
+            expect_success=False,
+        )
+
+        extra_directory = root / "extra-directory"
+        shutil.copytree(output_a, extra_directory)
+        (extra_directory / "unexpected-directory").mkdir()
+        run(
+            base
+            + [
+                "validate-simulated",
+                "--fixture",
+                str(fixture_path),
+                "--output-root",
+                str(extra_directory),
             ],
             expect_success=False,
         )
