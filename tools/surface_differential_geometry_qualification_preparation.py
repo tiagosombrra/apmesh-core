@@ -254,6 +254,7 @@ def validate_fixture(
             "divergent",
             "moving",
             "remote_repository",
+            "tracked_source_paths",
         },
         "candidate",
     )
@@ -267,6 +268,22 @@ def validate_fixture(
     require_bool(candidate["moving"], False, "candidate moving state")
     if candidate["remote_repository"] != REMOTE_REPOSITORY:
         raise fail("candidate remote repository identity differs")
+
+    tracked_source_paths = candidate["tracked_source_paths"]
+    if (
+        not isinstance(tracked_source_paths, list)
+        or not tracked_source_paths
+        or tracked_source_paths != sorted(tracked_source_paths)
+        or len(tracked_source_paths) != len(set(tracked_source_paths))
+        or any(
+            not isinstance(path, str)
+            or not path
+            or pathlib.PurePosixPath(path).is_absolute()
+            or ".." in pathlib.PurePosixPath(path).parts
+            for path in tracked_source_paths
+        )
+    ):
+        raise fail("candidate tracked-source path inventory differs")
 
     inputs = fixture["inputs"]
     if not isinstance(inputs, dict) or inputs != expected_inputs:
@@ -287,6 +304,11 @@ def validate_fixture(
         fixture["tracked_source_count"],
         fixture["tracked_source_inventory_sha256"],
     )
+    observed_inventory_paths = [
+        entry["path"] for entry in fixture["tracked_source_inventory"]
+    ]
+    if observed_inventory_paths != tracked_source_paths:
+        raise fail("tracked-source inventory is incomplete or contains extra paths")
 
     environment = fixture["environment"]
     if not isinstance(environment, dict):
@@ -465,8 +487,9 @@ def validate_simulated(output_root: pathlib.Path, fixture: dict[str, Any]) -> No
     if not output_root.is_dir():
         raise fail("synthetic output root is absent")
 
-    names = {path.name for path in output_root.iterdir() if path.is_file()}
-    if names != OUTPUT_FILES:
+    entries = list(output_root.iterdir())
+    names = {path.name for path in entries}
+    if names != OUTPUT_FILES or any(not path.is_file() for path in entries):
         raise fail("synthetic output inventory differs")
     if names & FORBIDDEN_ARTIFACTS:
         raise fail("formal execution/preparation artifact appeared")
