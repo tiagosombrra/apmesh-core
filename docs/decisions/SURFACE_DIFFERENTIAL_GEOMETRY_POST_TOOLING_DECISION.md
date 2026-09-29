@@ -339,3 +339,49 @@ later, separate decision bound to the exact audited package.
 - `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`;
 - `docs/audits/2026-09-28-surface-differential-geometry-report-tooling-validation.md`;
 - `docs/research/REFERENCE_REGISTER.md`.
+
+
+## 15. Decision closure checkpoint
+
+Decision closure PR #244 used final head:
+
+`b25cb1d11b36855aea1fb5f5078fbc2f2e74cbe1`.
+
+Required closure validation:
+
+- FAST #651: PASS;
+- INTEGRATION #642 / GCC 13 Debug: PASS;
+- INTEGRATION #642 / Clang 18/libc++ Debug: PASS;
+- no production/tool/test changes;
+- no qualification execution or status claim.
+
+PR #244 squash-merged as:
+
+`77079f570ddfb9fce74db41fb38114a000a94c51`.
+
+Protected-main validation on that exact revision:
+
+- FAST #652: PASS;
+- INTEGRATION #643 / GCC 13 Debug: PASS;
+- INTEGRATION #643 / Clang 18/libc++ Debug: PASS.
+
+Ordinary semantic inventory remains **42 tests**.
+
+Terminal decision result:
+
+**POST-TOOLING CONTINUATION DECISION CLOSED /
+FAIL-CLOSED QUALIFICATION PREPARATION INFRASTRUCTURE AUTHORIZED /
+FORMAL PREPARATION NOT STARTED / FORMAL EXECUTION NOT AUTHORIZED /
+NOT QUALIFIED.**
+
+No production, scientific or repository-transition work item remains active.
+
+The sole next implementation work item is:
+
+**Fail-Closed Surface Differential Geometry Qualification Preparation
+Infrastructure.**
+
+This authorization is limited to reusable preparation mechanisms and synthetic
+validation. It does not authorize selection of a real formal candidate,
+creation/dispatch of a real PREPARED package, execution authorization, formal
+campaign execution, or a `QUALIFIED` status.

@@ -698,31 +698,53 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Active work item
 
-**Surface Differential Geometry Post-Tooling Continuation — documentation-only
-integration closure.**
+**No production, scientific or repository-transition work item is active.**
 
-Branch:
+The Surface Differential Geometry Post-Tooling Continuation decision is
+terminally closed.
 
-`docs/close-surface-differential-post-tooling-decision`.
+Terminal evidence:
+
+1. decision PR #243 head
+   `c080b789241a86f3d5c4efc05f4d6e5f1ba50c6f`;
+2. decision FAST `36469493920` and INTEGRATION `36469493886`: PASS;
+3. decision squash merge
+   `e53a9797e1603d451819c814c32baeba1794efc8`;
+4. protected-main FAST #650 / INTEGRATION #641: PASS;
+5. closure PR #244 head
+   `b25cb1d11b36855aea1fb5f5078fbc2f2e74cbe1`;
+6. closure FAST #651 / INTEGRATION #642: PASS;
+7. closure squash merge
+   `77079f570ddfb9fce74db41fb38114a000a94c51`;
+8. closure protected-main FAST #652 / INTEGRATION #643: PASS;
+9. ordinary semantic inventory remains **42 tests**.
 
 Decision authority:
 
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`.
 
-The decision was integrated through PR #243. Its head
-`c080b789241a86f3d5c4efc05f4d6e5f1ba50c6f` passed PR FAST `36469493920` and
-INTEGRATION `36469493886` (GCC 13 Debug and Clang 18/libc++ Debug). It was
-squash-merged as:
+## Next admissible work item
 
-`e53a9797e1603d451819c814c32baeba1794efc8`.
+After a fresh audit of protected `main`, start exactly one bounded work item:
 
-Post-merge FAST `36471479311` and INTEGRATION `36471479336` both passed on that
-merge commit. The current branch synchronizes STATE, ROADMAP and this ledger to
-record the integration and terminal checks. It changes documentation only.
+**Fail-Closed Surface Differential Geometry Qualification Preparation
+Infrastructure.**
 
-After this closure is integrated and its post-merge checks pass, the selected
-next eligible work item is **Fail-Closed Surface Differential Geometry
-Qualification Preparation Infrastructure**. This closure starts no
-implementation, protocol amendment, real PREPARED package, execution
-authorization, formal campaign or qualification result.
+The work item may implement reusable preparation mechanisms and synthetic
+positive/negative validation only. It must enforce the decision and frozen
+qualification protocol while remaining incapable of creating or dispatching a
+real formal qualification candidate during implementation validation.
 
+It may not:
+
+- create a real PREPARED qualification package;
+- choose a formal qualification candidate;
+- issue or consume execution authorization;
+- dispatch a workflow or execute a formal campaign;
+- change frozen Surface Differential Geometry semantics;
+- change the exact 42-test ordinary allowlist;
+- amend SDG0–SDG7 scientific acceptance conditions;
+- set Surface Differential Geometry to `QUALIFIED`.
+
+Any need to cross one of those boundaries requires a new explicit decision or
+protocol amendment instead of an implicit implementation change.

@@ -1987,15 +1987,28 @@ Terminal evidence:
 
 Next admissible action:
 
-Complete the separate documentation-only closure of the integrated decision.
-After that closure is merged and its post-merge checks pass, the sole next
-eligible work item is **Fail-Closed Surface Differential Geometry
-Qualification Preparation Infrastructure**, bounded by the decision and still
-separate from creating a real PREPARED package or executing qualification.
-Principal directions, cone, torus and general trimming remain deferred.
+After a fresh audit of the current protected `main`, start exactly one bounded
+work item:
 
-Preparation, formal execution and `QUALIFIED` status remain later,
-separately authorized transitions.
+**Fail-Closed Surface Differential Geometry Qualification Preparation
+Infrastructure.**
+
+The post-tooling decision is terminally closed through PR #244 and protected-main
+FAST #652 / INTEGRATION #643. The infrastructure work item may implement only
+reusable fail-closed preparation mechanisms plus synthetic positive/negative
+validation.
+
+It cannot:
+
+- create a real PREPARED qualification package;
+- choose a formal candidate;
+- issue or consume execution authorization;
+- dispatch or execute a formal campaign;
+- amend the frozen 42-test allowlist or SDG0–SDG7 acceptance conditions;
+- change production Surface Differential Geometry semantics;
+- change the stage to `QUALIFIED`.
+
+Principal directions, cone, torus and general trimming remain deferred.
 
 Surface Representation remains **IN INVESTIGATION / NOT QUALIFIED**.
 
