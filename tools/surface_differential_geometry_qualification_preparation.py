@@ -20,6 +20,12 @@ STATUS = "SYNTHETIC_PREPARATION_VALIDATED"
 REMOTE_REPOSITORY = "https://github.com/tiagosombrra/apmesh-core.git"
 RUNNER_IMAGE = "ubuntu-24.04"
 ARCHITECTURE = "x86_64"
+EXPECTED_INPUT_GIT_BLOBS = {
+    "profile": "982d1d13aaeebf2c7e36ae41a0b925db3a060470",
+    "protocol": "793314048c2f480b56facac58a7edd3edc55f6ac",
+    "exporter": "69b273d05646e8a43458739c5da966f37f70b899",
+    "validator": "9606b82da134be2987112244a852e6a502e97fec",
+}
 EXPECTED_REPETITIONS = 2
 EXPECTED_CORE_COMMAND_RECORDS = 56
 EXPECTED_ORDINARY_TEST_EXECUTIONS = 336
@@ -83,6 +89,15 @@ def sha256_file(path: pathlib.Path) -> str:
     return digest.hexdigest()
 
 
+def git_blob_sha1(path: pathlib.Path) -> str:
+    try:
+        content = path.read_bytes()
+    except OSError as error:
+        raise fail(f"required input could not be read: {path}") from error
+    header = f"blob {len(content)}\0".encode("ascii")
+    return hashlib.sha1(header + content).hexdigest()
+
+
 def require_exact_keys(value: dict[str, Any], expected: set[str], label: str) -> None:
     if set(value) != expected:
         raise fail(f"{label} keys differ")
@@ -144,17 +159,25 @@ def input_identities(
     protocol_path: pathlib.Path,
     exporter_path: pathlib.Path,
     validator_path: pathlib.Path,
-) -> dict[str, str]:
+) -> dict[str, dict[str, str]]:
     paths = {
         "profile": profile_path,
         "protocol": protocol_path,
         "exporter": exporter_path,
         "validator": validator_path,
     }
-    for path in paths.values():
+    result: dict[str, dict[str, str]] = {}
+    for name, path in paths.items():
         if not path.is_file():
             raise fail(f"required preparation input is absent: {path}")
-    return {name: sha256_file(path) for name, path in paths.items()}
+        observed_blob = git_blob_sha1(path)
+        if observed_blob != EXPECTED_INPUT_GIT_BLOBS[name]:
+            raise fail(f"frozen preparation input Git blob differs: {name}")
+        result[name] = {
+            "git_blob": observed_blob,
+            "sha256": sha256_file(path),
+        }
+    return result
 
 
 def validate_inventory(entries: Any, count: Any, digest: Any) -> None:
@@ -191,7 +214,7 @@ def validate_inventory(entries: Any, count: Any, digest: Any) -> None:
 def validate_fixture(
     fixture: dict[str, Any],
     profile: dict[str, Any],
-    expected_inputs: dict[str, str],
+    expected_inputs: dict[str, dict[str, str]],
 ) -> None:
     require_exact_keys(
         fixture,
@@ -463,7 +486,9 @@ def validate_simulated(output_root: pathlib.Path, fixture: dict[str, Any]) -> No
         raise fail("synthetic state history differs")
 
 
-def load_context(arguments: argparse.Namespace) -> tuple[dict[str, Any], dict[str, str]]:
+def load_context(
+    arguments: argparse.Namespace,
+) -> tuple[dict[str, Any], dict[str, dict[str, str]]]:
     profile_path = pathlib.Path(arguments.profile)
     protocol_path = pathlib.Path(arguments.protocol)
     exporter_path = pathlib.Path(arguments.exporter)
