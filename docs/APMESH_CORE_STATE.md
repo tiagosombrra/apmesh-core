@@ -153,7 +153,8 @@ No portable spline arithmetic production or closure work item remains active.
 ## Current active repository action
 
 **Surface Differential Geometry — Fail-Closed Qualification Preparation
-Infrastructure — IMPLEMENTATION ACTIVE / SYNTHETIC VALIDATION ONLY /
+Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
+FOCUSED QUALIFICATION GATE PENDING / MERGE BLOCKED /
 FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
 
 Active branch:
@@ -175,6 +176,28 @@ Entry checks:
 Entry audit:
 
 `docs/audits/2026-09-29-surface-differential-geometry-preparation-infrastructure-entry.md`.
+
+Validation audit:
+
+`docs/audits/2026-09-30-surface-differential-geometry-preparation-infrastructure-validation.md`.
+
+PR #246 initial validation on head
+`14bde9e3d651da85f0764ba52dd52de65e0f6673`:
+
+- FAST #655: PASS, **42/42**;
+- INTEGRATION #646 / GCC 13 Debug: PASS, **42/42**;
+- INTEGRATION #646 / Clang 18/libc++ Debug: PASS, **42/42**;
+- no production/frozen semantic file changed;
+- no ordinary semantic test changed;
+- no workflow/authorization file added.
+
+The focused qualification-only CTest and Python syntax gate remain **PENDING**.
+The assistant execution environment cannot resolve GitHub DNS for an isolated
+checkout, and the repository has no already-authorized workflow that enables
+this exact focused CTest. Green ordinary checks do not waive that gate.
+
+PR #246 is therefore **MERGE BLOCKED** until the focused gate passes on the
+exact final head.
 
 Important frozen-boundary observation:
 
