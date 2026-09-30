@@ -699,8 +699,8 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 ## Active work item
 
 **Surface Differential Geometry — Fail-Closed Qualification Preparation
-Infrastructure — IMPLEMENTATION ACTIVE / SYNTHETIC VALIDATION ONLY /
-NOT QUALIFIED.**
+Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
+FOCUSED QUALIFICATION GATE PENDING / MERGE BLOCKED / NOT QUALIFIED.**
 
 Branch:
 
@@ -728,6 +728,21 @@ Protocol authority:
 Entry audit:
 
 `docs/audits/2026-09-29-surface-differential-geometry-preparation-infrastructure-entry.md`.
+
+Validation audit:
+
+`docs/audits/2026-09-30-surface-differential-geometry-preparation-infrastructure-validation.md`.
+
+PR #246 initial head
+`14bde9e3d651da85f0764ba52dd52de65e0f6673` passed FAST #655 and both
+INTEGRATION #646 jobs with exactly **42/42** ordinary tests.
+
+The focused qualification-only preparation CTest and Python syntax gate remain
+pending because the assistant execution environment cannot materialize an exact
+checkout and no existing authorized workflow enables that test. This is a
+validation-infrastructure limitation, not a scientific PASS or FAIL.
+
+Merge remains blocked; no next work item is admissible.
 
 Current frozen-boundary audit is 31/32 matching blobs. The one drifted path is
 the known PR #239 metric-conditioning portability correction and must be
