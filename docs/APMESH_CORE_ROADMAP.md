@@ -1988,7 +1988,8 @@ Terminal evidence:
 Current active action:
 
 **Fail-Closed Surface Differential Geometry Qualification Preparation
-Infrastructure — IMPLEMENTATION ACTIVE / SYNTHETIC VALIDATION ONLY /
+Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
+FOCUSED QUALIFICATION GATE PENDING / MERGE BLOCKED /
 FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
 
 Entry baseline:
@@ -2002,8 +2003,16 @@ The current main branch has one expected frozen-blob drift from PR #239. The
 infrastructure must detect/reject it rather than silently changing the
 protocol.
 
-No subsequent action is admissible until this work item is integrated,
-post-merge validated and separately closed.
+PR #246 initial head
+`14bde9e3d651da85f0764ba52dd52de65e0f6673` passed FAST #655 and
+INTEGRATION #646 in GCC/Clang with exactly **42/42** ordinary tests.
+
+The focused qualification-only preparation CTest and Python syntax gate remain
+**PENDING**. No merge is admissible until those gates pass on the exact final
+head. Green ordinary CI does not substitute for focused synthetic validation.
+
+No subsequent action is admissible until this work item is focused-validated,
+integrated, post-merge validated and separately closed.
 
 Principal directions, cone, torus and general trimming remain deferred.
 
