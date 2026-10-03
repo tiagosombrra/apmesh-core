@@ -696,11 +696,10 @@ Terminal result:
 **BOUNDED ANALYTIC SPHERE IMPLEMENTED / FOCUSED CONTRACTS PASS /
 INTEGRATED / CLOSED / NOT QUALIFIED.**
 
-## Active work item
+## Latest closed implementation work item
 
 **Surface Differential Geometry — Fail-Closed Qualification Preparation
-Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
-FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED /
+Infrastructure — INTEGRATED / POST-MERGE VALIDATION PASS / CLOSED /
 NOT QUALIFIED.**
 
 Branch:
@@ -747,8 +746,17 @@ CTest took 16.78 seconds and included deterministic synthetic outputs and
 negative-mutation rejection. No C++ build or formal campaign ran.
 
 FAST `36724652232` and both INTEGRATION jobs `36724652282` passed on that
-head. Final-head publication checks and separate integration review remain;
-no next scientific work item is admissible yet.
+head. Final head `d7afcfcc483f665bd5c87dfe40ac73a25fd5f8fa` subsequently
+passed Python syntax, focused preparation CTest (1/1, 10.11 seconds), FAST
+`37124975688` and GCC/Clang INTEGRATION `37124975692`.
+
+PR #246 squash-merged on 2026-10-03 at 10:19:48 BRT as
+`95f76a236e3e35fabb37bebe7fc942d277a349df`. Verified parent:
+`bf30ef8e38a1a7de64b12a514176f226e7bda610`; verified tree, identical to the
+reviewed head: `861f2f7dc4e73ecf3aeddbc91082157b39a5bd3a`. Post-merge FAST
+`37125802266` and both GCC/Clang INTEGRATION jobs `37125802229` passed.
+Local main was fast-forwarded and clean; the implementation branch remains
+preserved locally and remotely. No formal campaign ran.
 
 The superseded seven-file local preparation package was archived externally
 as a binary/full-index patch plus byte-identical file copies, then removed
@@ -774,5 +782,8 @@ of this work item.
 
 ## Next admissible work item
 
-None until this infrastructure is implemented, focused-validated, integrated,
-post-merge validated and separately closed.
+The current repository action publishes this documentation-only integration
+closure receipt. No production or formal-execution work item is active.
+After publication, a separate scientific decision must resolve the retained
+31/32 frozen-blob condition before any real formal preparation. This record
+does not amend the protocol, choose a candidate or authorize execution.

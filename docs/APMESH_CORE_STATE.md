@@ -150,14 +150,13 @@ and its comparator-equivalent correction remain preserved in
 
 No portable spline arithmetic production or closure work item remains active.
 
-## Current active repository action
+## Latest closed implementation action
 
 **Surface Differential Geometry — Fail-Closed Qualification Preparation
-Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
-FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED /
+Infrastructure — INTEGRATED / POST-MERGE VALIDATION PASS / CLOSED /
 FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-Active branch:
+Preserved implementation branch:
 
 `qualification/surface-differential-geometry-preparation-infrastructure`.
 
@@ -198,9 +197,15 @@ Ubuntu 24.04/GCC 13. The test includes deterministic dual synthetic outputs
 and rejection of the declared negative mutations. FAST run `36724652232` and
 both INTEGRATION jobs in run `36724652282` also passed on that head.
 
-The focused execution blocker is resolved. This documentation synchronization
-still requires final-head publication checks and a separate integration
-decision; no merge is performed by this work item.
+Final PR head `d7afcfcc483f665bd5c87dfe40ac73a25fd5f8fa` also passed Python
+syntax and the focused preparation contract (1/1). FAST `37124975688` and
+GCC/Clang INTEGRATION `37124975692` passed on that exact head.
+
+PR #246 squash-merged as `95f76a236e3e35fabb37bebe7fc942d277a349df` on
+2026-10-03. Its parent is the admitted base and its tree is identical to the
+reviewed head. Post-merge FAST `37125802266` and GCC/Clang INTEGRATION
+`37125802229` passed. The implementation integration is closed; the current
+repository action publishes this documentation-only receipt.
 
 Important frozen-boundary observation:
 
@@ -1110,16 +1115,16 @@ and INTEGRATION run `36469493886` (GCC 13 Debug and Clang 18/libc++ Debug).
 Post-merge FAST `36471479311` and INTEGRATION `36471479336` passed on the merge
 commit.
 
-The active work item is the separate documentation-only closure of that
-decision. Until the closure itself is integrated and its post-merge checks pass,
-do not begin the selected **Fail-Closed Surface Differential Geometry
-Qualification Preparation Infrastructure**. The scientific decision defers
-principal directions, cone, torus and general trimming.
+That decision and its closure are historical completed prerequisites. The
+selected preparation infrastructure is now integrated through PR #246 and
+post-merge validated, as recorded above. Publish this closure receipt before
+starting another work item.
 
-No implementation, real PREPARED package, formal execution, protocol amendment
-or qualification status has been authorized by the current closure work item.
-The metric-conditioning maintenance and report-only tooling integration remain
-closed, with the 32 frozen semantic blobs unchanged at integration.
+A separate scientific decision must resolve the retained 31/32 frozen-blob
+condition before any real formal preparation. This receipt does not amend the
+protocol or authorize a real PREPARED package, candidate selection, execution
+or qualification. Principal directions, cone, torus and general trimming remain
+deferred. No production work item is active.
 
 ## Stage closure protocol
 

@@ -1985,11 +1985,10 @@ Terminal evidence:
 - implementation audit:
   `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`.
 
-Current active action:
+Latest closed infrastructure action:
 
 **Fail-Closed Surface Differential Geometry Qualification Preparation
-Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
-FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED /
+Infrastructure — INTEGRATED / POST-MERGE VALIDATION PASS / CLOSED /
 FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
 
 Entry baseline:
@@ -2011,11 +2010,18 @@ Exact PR head `c007a0cc536c9ba12b445b207ef2e0c9a591e439` passed Python syntax
 validation and the focused preparation CTest (1/1) on 2026-10-03 in a clean
 detached WSL Ubuntu 24.04/GCC 13 checkout. Deterministic synthetic outputs and
 declared negative mutations passed. FAST `36724652232` and GCC/Clang
-INTEGRATION `36724652282` passed on the same head. Final-head publication
-checks and a separate integration decision remain required after this record.
+INTEGRATION `36724652282` passed on the same head. Subsequent final-head and
+post-merge evidence is recorded below.
 
-No subsequent action is admissible until this work item is focused-validated,
-integrated, post-merge validated and separately closed.
+Final head `d7afcfcc483f665bd5c87dfe40ac73a25fd5f8fa` passed the focused
+preparation contract (1/1), Python syntax, FAST `37124975688` and GCC/Clang
+INTEGRATION `37124975692`. PR #246 merged as
+`95f76a236e3e35fabb37bebe7fc942d277a349df` with identical tree; post-merge
+FAST `37125802266` and GCC/Clang INTEGRATION `37125802229` passed.
+
+Publish this documentation-only closure receipt before another work item.
+A separate scientific decision must resolve the retained frozen-blob drift
+before real preparation. No formal preparation or execution is authorized.
 
 Principal directions, cone, torus and general trimming remain deferred.
 
