@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-28
+Last updated: 2026-10-03
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -1989,7 +1989,7 @@ Current active action:
 
 **Fail-Closed Surface Differential Geometry Qualification Preparation
 Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
-FOCUSED QUALIFICATION GATE PENDING / MERGE BLOCKED /
+FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED /
 FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
 
 Entry baseline:
@@ -2007,9 +2007,12 @@ PR #246 initial head
 `14bde9e3d651da85f0764ba52dd52de65e0f6673` passed FAST #655 and
 INTEGRATION #646 in GCC/Clang with exactly **42/42** ordinary tests.
 
-The focused qualification-only preparation CTest and Python syntax gate remain
-**PENDING**. No merge is admissible until those gates pass on the exact final
-head. Green ordinary CI does not substitute for focused synthetic validation.
+Exact PR head `c007a0cc536c9ba12b445b207ef2e0c9a591e439` passed Python syntax
+validation and the focused preparation CTest (1/1) on 2026-10-03 in a clean
+detached WSL Ubuntu 24.04/GCC 13 checkout. Deterministic synthetic outputs and
+declared negative mutations passed. FAST `36724652232` and GCC/Clang
+INTEGRATION `36724652282` passed on the same head. Final-head publication
+checks and a separate integration decision remain required after this record.
 
 No subsequent action is admissible until this work item is focused-validated,
 integrated, post-merge validated and separately closed.

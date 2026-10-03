@@ -1,7 +1,7 @@
 # AP Mesh Core — Operational Work Ledger
 
 Status: AUTHORITATIVE FOR OPERATIONAL CONTINUITY  
-Last updated: 2026-09-28
+Last updated: 2026-10-03
 Canonical integration branch: `main`  
 Scientific continuation authority: `docs/APMESH_CORE_STATE.md`  
 Roadmap authority: `docs/APMESH_CORE_ROADMAP.md`
@@ -700,7 +700,8 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 **Surface Differential Geometry — Fail-Closed Qualification Preparation
 Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
-FOCUSED QUALIFICATION GATE PENDING / MERGE BLOCKED / NOT QUALIFIED.**
+FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED /
+NOT QUALIFIED.**
 
 Branch:
 
@@ -737,12 +738,22 @@ PR #246 initial head
 `14bde9e3d651da85f0764ba52dd52de65e0f6673` passed FAST #655 and both
 INTEGRATION #646 jobs with exactly **42/42** ordinary tests.
 
-The focused qualification-only preparation CTest and Python syntax gate remain
-pending because the assistant execution environment cannot materialize an exact
-checkout and no existing authorized workflow enables that test. This is a
-validation-infrastructure limitation, not a scientific PASS or FAIL.
+On 2026-10-03, exact PR head
+`c007a0cc536c9ba12b445b207ef2e0c9a591e439` passed Python syntax validation and
+focused preparation CTest (1/1) in a clean detached WSL Ubuntu 24.04 checkout
+with GCC 13.3.0, CMake 3.28.3, Ninja 1.11.1 and Python 3.12.3. Validation ran
+09:41:37--09:42:02 BRT; all four command exit codes were zero. The focused
+CTest took 16.78 seconds and included deterministic synthetic outputs and
+negative-mutation rejection. No C++ build or formal campaign ran.
 
-Merge remains blocked; no next work item is admissible.
+FAST `36724652232` and both INTEGRATION jobs `36724652282` passed on that
+head. Final-head publication checks and separate integration review remain;
+no next scientific work item is admissible yet.
+
+The superseded seven-file local preparation package was archived externally
+as a binary/full-index patch plus byte-identical file copies, then removed
+only from the affected paths. The local branch was fast-forwarded to the
+published PR head. No unrelated work was discarded.
 
 Current frozen-boundary audit is 31/32 matching blobs. The one drifted path is
 the known PR #239 metric-conditioning portability correction and must be
@@ -765,4 +776,3 @@ of this work item.
 
 None until this infrastructure is implemented, focused-validated, integrated,
 post-merge validated and separately closed.
-

@@ -1,7 +1,7 @@
 # Surface Differential Geometry — Preparation Infrastructure Validation Audit
 
-Date: 2026-09-30  
-Status: ORDINARY VALIDATION PASS / FOCUSED QUALIFICATION GATE PENDING / MERGE BLOCKED / NOT QUALIFIED
+Date: 2026-09-30; updated 2026-10-03
+Status: ORDINARY VALIDATION PASS / FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED / NOT QUALIFIED
 
 ## Authority
 
@@ -15,15 +15,15 @@ Active PR:
 
 Validated PR head before this audit synchronization:
 
-`14bde9e3d651da85f0764ba52dd52de65e0f6673`.
+`c007a0cc536c9ba12b445b207ef2e0c9a591e439`.
 
 ## Ordinary remote validation
 
 On that exact head:
 
-- FAST #655 / GCC 13 Debug: PASS;
-- INTEGRATION #646 / GCC 13 Debug: PASS;
-- INTEGRATION #646 / Clang 18/libc++ Debug: PASS.
+- FAST run `36724652232` / GCC 13 Debug: PASS;
+- INTEGRATION run `36724652282` / GCC 13 Debug: PASS;
+- INTEGRATION run `36724652282` / Clang 18/libc++ Debug: PASS.
 
 GitHub Actions logs explicitly report:
 
@@ -114,21 +114,38 @@ registered only when:
 The ordinary FAST/INTEGRATION workflows configure qualification tests OFF, so
 their green status does not satisfy this focused gate.
 
-A detached local checkout was attempted from the assistant execution
-environment on 2026-09-30, but DNS resolution for GitHub was unavailable. The
-repository exposes no already-authorized workflow that enables this exact
-focused CTest, and adding or modifying a workflow is outside the work-item
-boundary.
+A 2026-09-30 checkout attempt failed because DNS resolution for GitHub was
+unavailable. That historical validation blocker was resolved by an executed
+check on 2026-10-03 at the exact head above.
 
-Therefore:
+Environment: WSL Ubuntu 24.04, GCC 13.3.0, CMake 3.28.3, Ninja 1.11.1,
+Python 3.12.3. Source was a clean detached checkout with LF files. The initial
+Windows checkout failed on a long path; a separate checkout succeeded with
+Git long-path support enabled. No tracked configuration changed for that fix.
 
-**FOCUSED QUALIFICATION-ONLY CTEST: PENDING.**
+Executed checks, 09:41:37--09:42:02 BRT:
 
-No PASS is inferred from static review.
+- `python3 -m py_compile` on the preparation tool and test: exit 0;
+- CMake configure with GCC 13, testing ON and qualification tests ON: exit 0;
+- CTest JSON discovery selected exactly the preparation test: exit 0;
+- CTest with the anchored selector and `--no-tests=error`: **1/1 PASS**, exit 0.
+
+The focused contract executed deterministic dual synthetic outputs and all
+declared negative mutations. No C++ build, real PREPARED package or campaign
+was executed. The isolated checkout remained clean afterward.
+
+Command, duration and exit-code records plus JUnit/log evidence are retained
+externally. SHA-256 bindings:
+
+- `summary.json`: `badb2fb5590106ef25eb0fcf41510cd36d10082f09c530a76a834c186eca0472`;
+- `focused-ctest.xml`: `e302ad0f9c870dce6e6448115558fb4252b4ba15f9f0295857982c99fc704a80`;
+- `focused-ctest.log`: `07979387f16f372a7e7851425aea64e1d986ec9db46ce48d62c8c9376a668fb3`.
+
+**FOCUSED PREPARATION CONTRACT: PASS on c007a0c.**
 
 ## Merge status
 
-**MERGE BLOCKED.**
+**FOCUSED EXECUTION BLOCKER RESOLVED / FINAL PUBLICATION CHECKS REQUIRED.**
 
 PR #246 must not merge until the exact final PR head has:
 
@@ -140,8 +157,10 @@ PR #246 must not merge until the exact final PR head has:
 - GCC INTEGRATION PASS;
 - Clang INTEGRATION PASS.
 
-This audit synchronization changes the PR head, so ordinary FAST/INTEGRATION
-must rerun on the new head as well.
+This audit synchronization changes documentation only. Final-head checks must
+be recorded before a separate integration decision. The validated tool, test,
+profile, protocol, exporter, validator and CMake inputs remain unchanged.
+No merge is performed by this record.
 
 No formal PREPARED package, candidate selection, execution authorization,
 workflow dispatch, formal campaign or qualification-status transition is
