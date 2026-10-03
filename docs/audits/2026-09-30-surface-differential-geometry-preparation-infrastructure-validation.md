@@ -1,7 +1,7 @@
 # Surface Differential Geometry — Preparation Infrastructure Validation Audit
 
 Date: 2026-09-30; updated 2026-10-03
-Status: ORDINARY VALIDATION PASS / FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED / NOT QUALIFIED
+Status: INTEGRATED / FOCUSED AND POST-MERGE VALIDATION PASS / CLOSED / NOT QUALIFIED
 
 ## Authority
 
@@ -9,7 +9,7 @@ Protected-base `main`:
 
 `bf30ef8e38a1a7de64b12a514176f226e7bda610`.
 
-Active PR:
+Integrated PR:
 
 #246 — `feat: add fail-closed SDG qualification preparation infrastructure`.
 
@@ -143,24 +143,27 @@ externally. SHA-256 bindings:
 
 **FOCUSED PREPARATION CONTRACT: PASS on c007a0c.**
 
-## Merge status
+## Integration closure
 
-**FOCUSED EXECUTION BLOCKER RESOLVED / FINAL PUBLICATION CHECKS REQUIRED.**
+**INTEGRATED / POST-MERGE VALIDATION PASS / CLOSED.**
 
-PR #246 must not merge until the exact final PR head has:
+Final head `d7afcfcc483f665bd5c87dfe40ac73a25fd5f8fa` passed Python syntax
+and the focused preparation CTest (1/1, exit 0, 10.11 seconds). Its technical
+inputs match c007a0c. JUnit and logs are retained with the external receipt.
+Final-head FAST `37124975688` and GCC/Clang INTEGRATION `37124975692` passed.
 
-- focused qualification-only CTest PASS;
-- Python syntax validation PASS;
-- deterministic positive synthetic evidence PASS;
-- declared negative evidence PASS;
-- FAST PASS;
-- GCC INTEGRATION PASS;
-- Clang INTEGRATION PASS.
+PR #246 squash-merged as `95f76a236e3e35fabb37bebe7fc942d277a349df` on
+2026-10-03 at 10:19:48 BRT. Its sole parent is
+`bf30ef8e38a1a7de64b12a514176f226e7bda610`; its tree
+`861f2f7dc4e73ecf3aeddbc91082157b39a5bd3a` exactly matches the reviewed head.
 
-This audit synchronization changes documentation only. Final-head checks must
-be recorded before a separate integration decision. The validated tool, test,
-profile, protocol, exporter, validator and CMake inputs remain unchanged.
-No merge is performed by this record.
+Post-merge FAST `37125802266` and INTEGRATION `37125802229` completed
+successfully for GCC 13 Debug and Clang 18/libc++ Debug. Local main was
+synchronized and clean; the implementation branch was preserved.
+
+This closes infrastructure integration only. The 31/32 frozen-boundary
+condition remains an explicit blocker for real preparation and requires a
+separate scientific decision. Surface Differential Geometry is not qualified.
 
 No formal PREPARED package, candidate selection, execution authorization,
 workflow dispatch, formal campaign or qualification-status transition is
