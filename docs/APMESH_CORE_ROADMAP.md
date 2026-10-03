@@ -1,7 +1,7 @@
 # AP Mesh Core — Scientific Implementation Roadmap
 
 Status: ACTIVE / AUTHORITATIVE
-Last updated: 2026-09-28
+Last updated: 2026-10-03
 Scope: greenfield scientific core that will replace, module by module, the legacy implementation as the doctoral reference implementation.
 
 > This file is the single authoritative roadmap for the greenfield AP Mesh Core effort. Every implementation, experiment, correction, stage closure, regression, or scope change MUST update this document in the same change set.
@@ -1985,28 +1985,37 @@ Terminal evidence:
 - implementation audit:
   `docs/audits/2026-09-26-surface-analytic-sphere-implementation-audit.md`.
 
-Next admissible action:
-
-After a fresh audit of the current protected `main`, start exactly one bounded
-work item:
+Current active action:
 
 **Fail-Closed Surface Differential Geometry Qualification Preparation
-Infrastructure.**
+Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
+FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED /
+FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
 
-The post-tooling decision is terminally closed through PR #244 and protected-main
-FAST #652 / INTEGRATION #643. The infrastructure work item may implement only
-reusable fail-closed preparation mechanisms plus synthetic positive/negative
-validation.
+Entry baseline:
+`bf30ef8e38a1a7de64b12a514176f226e7bda610`.
 
-It cannot:
+The work item implements only reusable preparation validation primitives and
+synthetic positive/negative evidence. It must preserve the frozen scientific
+protocol, the exact 42-test ordinary allowlist and all production semantics.
 
-- create a real PREPARED qualification package;
-- choose a formal candidate;
-- issue or consume execution authorization;
-- dispatch or execute a formal campaign;
-- amend the frozen 42-test allowlist or SDG0–SDG7 acceptance conditions;
-- change production Surface Differential Geometry semantics;
-- change the stage to `QUALIFIED`.
+The current main branch has one expected frozen-blob drift from PR #239. The
+infrastructure must detect/reject it rather than silently changing the
+protocol.
+
+PR #246 initial head
+`14bde9e3d651da85f0764ba52dd52de65e0f6673` passed FAST #655 and
+INTEGRATION #646 in GCC/Clang with exactly **42/42** ordinary tests.
+
+Exact PR head `c007a0cc536c9ba12b445b207ef2e0c9a591e439` passed Python syntax
+validation and the focused preparation CTest (1/1) on 2026-10-03 in a clean
+detached WSL Ubuntu 24.04/GCC 13 checkout. Deterministic synthetic outputs and
+declared negative mutations passed. FAST `36724652232` and GCC/Clang
+INTEGRATION `36724652282` passed on the same head. Final-head publication
+checks and a separate integration decision remain required after this record.
+
+No subsequent action is admissible until this work item is focused-validated,
+integrated, post-merge validated and separately closed.
 
 Principal directions, cone, torus and general trimming remain deferred.
 

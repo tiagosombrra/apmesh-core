@@ -1,7 +1,7 @@
 # AP Mesh Core — Operational Work Ledger
 
 Status: AUTHORITATIVE FOR OPERATIONAL CONTINUITY  
-Last updated: 2026-09-28
+Last updated: 2026-10-03
 Canonical integration branch: `main`  
 Scientific continuation authority: `docs/APMESH_CORE_STATE.md`  
 Roadmap authority: `docs/APMESH_CORE_ROADMAP.md`
@@ -698,53 +698,81 @@ INTEGRATED / CLOSED / NOT QUALIFIED.**
 
 ## Active work item
 
-**No production, scientific or repository-transition work item is active.**
+**Surface Differential Geometry — Fail-Closed Qualification Preparation
+Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
+FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED /
+NOT QUALIFIED.**
 
-The Surface Differential Geometry Post-Tooling Continuation decision is
-terminally closed.
+Branch:
 
-Terminal evidence:
+`qualification/surface-differential-geometry-preparation-infrastructure`.
 
-1. decision PR #243 head
-   `c080b789241a86f3d5c4efc05f4d6e5f1ba50c6f`;
-2. decision FAST `36469493920` and INTEGRATION `36469493886`: PASS;
-3. decision squash merge
-   `e53a9797e1603d451819c814c32baeba1794efc8`;
-4. protected-main FAST #650 / INTEGRATION #641: PASS;
-5. closure PR #244 head
-   `b25cb1d11b36855aea1fb5f5078fbc2f2e74cbe1`;
-6. closure FAST #651 / INTEGRATION #642: PASS;
-7. closure squash merge
-   `77079f570ddfb9fce74db41fb38114a000a94c51`;
-8. closure protected-main FAST #652 / INTEGRATION #643: PASS;
-9. ordinary semantic inventory remains **42 tests**.
+Entry baseline:
+
+`bf30ef8e38a1a7de64b12a514176f226e7bda610`.
+
+Entry validation:
+
+- FAST #654: PASS;
+- INTEGRATION #645: PASS in GCC and Clang;
+- ordinary semantic inventory: **42 tests**;
+- no open PR at entry.
 
 Decision authority:
 
 `docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_POST_TOOLING_DECISION.md`.
 
+Protocol authority:
+
+`docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md`.
+
+Entry audit:
+
+`docs/audits/2026-09-29-surface-differential-geometry-preparation-infrastructure-entry.md`.
+
+Validation audit:
+
+`docs/audits/2026-09-30-surface-differential-geometry-preparation-infrastructure-validation.md`.
+
+PR #246 initial head
+`14bde9e3d651da85f0764ba52dd52de65e0f6673` passed FAST #655 and both
+INTEGRATION #646 jobs with exactly **42/42** ordinary tests.
+
+On 2026-10-03, exact PR head
+`c007a0cc536c9ba12b445b207ef2e0c9a591e439` passed Python syntax validation and
+focused preparation CTest (1/1) in a clean detached WSL Ubuntu 24.04 checkout
+with GCC 13.3.0, CMake 3.28.3, Ninja 1.11.1 and Python 3.12.3. Validation ran
+09:41:37--09:42:02 BRT; all four command exit codes were zero. The focused
+CTest took 16.78 seconds and included deterministic synthetic outputs and
+negative-mutation rejection. No C++ build or formal campaign ran.
+
+FAST `36724652232` and both INTEGRATION jobs `36724652282` passed on that
+head. Final-head publication checks and separate integration review remain;
+no next scientific work item is admissible yet.
+
+The superseded seven-file local preparation package was archived externally
+as a binary/full-index patch plus byte-identical file copies, then removed
+only from the affected paths. The local branch was fast-forwarded to the
+published PR head. No unrelated work was discarded.
+
+Current frozen-boundary audit is 31/32 matching blobs. The one drifted path is
+the known PR #239 metric-conditioning portability correction and must be
+rejected by any later real-preparation path unless a separate protocol
+resolution is integrated.
+
+Implementation scope:
+
+- synthetic candidate/upstream/state validation;
+- frozen-blob and exact allowlist validation;
+- tracked-source inventory binding;
+- environment/cardinality validation;
+- deterministic synthetic manifest/state-history generation;
+- fail-closed negative evidence.
+
+No workflow, authorization, formal PREPARED package or formal execution is part
+of this work item.
+
 ## Next admissible work item
 
-After a fresh audit of protected `main`, start exactly one bounded work item:
-
-**Fail-Closed Surface Differential Geometry Qualification Preparation
-Infrastructure.**
-
-The work item may implement reusable preparation mechanisms and synthetic
-positive/negative validation only. It must enforce the decision and frozen
-qualification protocol while remaining incapable of creating or dispatching a
-real formal qualification candidate during implementation validation.
-
-It may not:
-
-- create a real PREPARED qualification package;
-- choose a formal qualification candidate;
-- issue or consume execution authorization;
-- dispatch a workflow or execute a formal campaign;
-- change frozen Surface Differential Geometry semantics;
-- change the exact 42-test ordinary allowlist;
-- amend SDG0–SDG7 scientific acceptance conditions;
-- set Surface Differential Geometry to `QUALIFIED`.
-
-Any need to cross one of those boundaries requires a new explicit decision or
-protocol amendment instead of an implicit implementation change.
+None until this infrastructure is implemented, focused-validated, integrated,
+post-merge validated and separately closed.

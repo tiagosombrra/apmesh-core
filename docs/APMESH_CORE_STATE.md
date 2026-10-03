@@ -1,7 +1,7 @@
 # AP Mesh Core — Continuation State
 
 Status: ACTIVE
-Last updated: 2026-09-28
+Last updated: 2026-10-03
 Authoritative roadmap: `docs/APMESH_CORE_ROADMAP.md`
 Operational continuity ledger: `docs/APMESH_CORE_WORKLOG.md`
 Repository state: verify `main`, open PRs, relevant branches, ruleset, recent
@@ -149,6 +149,82 @@ and its comparator-equivalent correction remain preserved in
 `docs/audits/2026-09-26-portable-spline-arithmetic.md`.
 
 No portable spline arithmetic production or closure work item remains active.
+
+## Current active repository action
+
+**Surface Differential Geometry — Fail-Closed Qualification Preparation
+Infrastructure — IMPLEMENTED CANDIDATE / ORDINARY VALIDATION PASS /
+FOCUSED PREPARATION CONTRACT PASS / FINAL PUBLICATION CHECKS REQUIRED /
+FORMAL PREPARATION NOT AUTHORIZED / NOT QUALIFIED.**
+
+Active branch:
+
+`qualification/surface-differential-geometry-preparation-infrastructure`.
+
+Entry protected `main`:
+
+`bf30ef8e38a1a7de64b12a514176f226e7bda610`.
+
+Entry checks:
+
+- FAST #654: PASS;
+- INTEGRATION #645 / GCC 13 Debug: PASS;
+- INTEGRATION #645 / Clang 18/libc++ Debug: PASS;
+- ordinary semantic inventory: **42 tests**;
+- open PRs at entry: none.
+
+Entry audit:
+
+`docs/audits/2026-09-29-surface-differential-geometry-preparation-infrastructure-entry.md`.
+
+Validation audit:
+
+`docs/audits/2026-09-30-surface-differential-geometry-preparation-infrastructure-validation.md`.
+
+PR #246 initial validation on head
+`14bde9e3d651da85f0764ba52dd52de65e0f6673`:
+
+- FAST #655: PASS, **42/42**;
+- INTEGRATION #646 / GCC 13 Debug: PASS, **42/42**;
+- INTEGRATION #646 / Clang 18/libc++ Debug: PASS, **42/42**;
+- no production/frozen semantic file changed;
+- no ordinary semantic test changed;
+- no workflow/authorization file added.
+
+On 2026-10-03, exact PR head
+`c007a0cc536c9ba12b445b207ef2e0c9a591e439` passed Python syntax validation and
+the focused preparation CTest (1/1) in a clean detached checkout on WSL
+Ubuntu 24.04/GCC 13. The test includes deterministic dual synthetic outputs
+and rejection of the declared negative mutations. FAST run `36724652232` and
+both INTEGRATION jobs in run `36724652282` also passed on that head.
+
+The focused execution blocker is resolved. This documentation synchronization
+still requires final-head publication checks and a separate integration
+decision; no merge is performed by this work item.
+
+Important frozen-boundary observation:
+
+- **31 / 32** frozen semantic Git blobs match the preregistered profile;
+- `src/geometry/surface_differential.cpp` differs because of the separately
+  integrated metric-conditioning portability fix #239;
+- this is an expected current blocker for any later real formal preparation;
+- the infrastructure must reject that drift and must not mutate the frozen
+  protocol/profile to accommodate it.
+
+Authorized scope is limited to reusable fail-closed validation primitives and
+synthetic preparation-state evidence.
+
+Explicitly not authorized:
+
+- a real PREPARED package;
+- a preparation workflow;
+- real candidate selection;
+- execution authorization;
+- workflow dispatch;
+- formal qualification execution;
+- production Surface Differential Geometry changes;
+- protocol/profile acceptance changes;
+- `QUALIFIED` or `BLOCKED` stage status.
 
 ## Latest closed repository actions
 

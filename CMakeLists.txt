@@ -759,6 +759,18 @@ if(BUILD_TESTING)
     )
 
     add_test(
+        NAME apmesh_core.surface_differential_geometry_qualification_preparation
+        COMMAND
+            ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/tests/surface_differential_geometry_qualification_preparation_test.py
+            --tool ${CMAKE_CURRENT_SOURCE_DIR}/tools/surface_differential_geometry_qualification_preparation.py
+            --profile ${CMAKE_CURRENT_SOURCE_DIR}/experiments/profiles/surface_differential_geometry_qualification.json
+            --protocol ${CMAKE_CURRENT_SOURCE_DIR}/docs/decisions/SURFACE_DIFFERENTIAL_GEOMETRY_QUALIFICATION_PROTOCOL.md
+            --exporter ${CMAKE_CURRENT_SOURCE_DIR}/experiments/surface_differential_geometry_qualification_export.cpp
+            --validator ${CMAKE_CURRENT_SOURCE_DIR}/tools/surface_differential_geometry_qualification_evidence.py
+    )
+
+    add_test(
         NAME apmesh_core.geometry_primitives_cumulative_evidence
         COMMAND
             ${Python3_EXECUTABLE}
@@ -1113,6 +1125,10 @@ if(BUILD_TESTING)
     set_tests_properties(
         apmesh_core.surface_differential_geometry_qualification_evidence
         PROPERTIES LABELS "surface;geometry;contract;qualification;tooling;report-only"
+    )
+    set_tests_properties(
+        apmesh_core.surface_differential_geometry_qualification_preparation
+        PROPERTIES LABELS "surface;geometry;contract;qualification;tooling;preparation;synthetic"
     )
     set_tests_properties(
         apmesh_core.geometry_primitives_cumulative_evidence
